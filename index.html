@@ -28,13 +28,13 @@
       --g-readonly:#f8f9fa;
       --g-danger:#d93025;
       --g-ok:#188038;
-      --field-h:38px;
+      --field-h:34px;
       --button-h:34px;
       --header-h:64px;
       --tabbar-h:72px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Arial,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg);overscroll-behavior:none;font-size:15px}
+    html,body{height:100%;margin:0;font-family:Arial,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg);overscroll-behavior:none;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     body{touch-action:manipulation}
     button,input,select,textarea{font:inherit}
     button{border:0;cursor:pointer}
@@ -48,11 +48,11 @@
     }
     .brand{display:flex;align-items:center;gap:10px;min-width:0}
     .brand-icon{width:40px;height:40px;border-radius:14px;background:#fff1f6;color:var(--wine);display:grid;place-items:center;font-size:22px;font-weight:700}
-    .brand-title{font-weight:700;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .brand-sub{font-size:12px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .userbox{display:flex;align-items:center;gap:8px;justify-content:flex-end;text-align:right;line-height:1.25;max-width:46vw}
-    .userbox strong{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .logout-icon{width:34px;height:34px;min-width:34px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.12);color:#fff;font-size:18px;line-height:1;cursor:pointer}.logout-icon:hover{background:rgba(255,255,255,.22)}
+    .brand-title{font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .brand-sub{font-size:12.5px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .userbox{display:flex;align-items:center;gap:6px;justify-content:flex-end;text-align:right;line-height:1.15;max-width:46vw;align-self:flex-start;margin-top:0}
+    .userbox strong{display:block;font-size:12.5px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .logout-icon{width:30px;height:30px;min-width:30px;border-radius:50%;display:grid;place-items:center;border:0;background:transparent;color:#fff;cursor:pointer;padding:0}.logout-icon:hover{background:rgba(255,255,255,.14)}.logout-icon svg{width:20px;height:20px;stroke:currentColor}
     .main{
       position:fixed;top:var(--header-h);bottom:var(--tabbar-h);left:0;right:0;overflow:auto;
       padding:14px 14px 24px;
@@ -68,18 +68,18 @@
     .tab-btn .ico{font-size:21px;line-height:1}
     .tab-btn.active{background:#fff0f5;color:var(--wine);font-weight:700}
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:12px}
-    .section-title{font-size:19px;font-weight:700;color:var(--wine-dark);margin:0 0 10px}
-    .sub-title{font-size:17px;font-weight:700;color:var(--wine);margin:12px 0 8px}
+    .section-title{font-size:20px;font-weight:700;color:var(--wine-dark);margin:0 0 10px}
+    .sub-title{font-size:18px;font-weight:700;color:var(--wine);margin:12px 0 8px}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}
     .col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}
-    label{display:block;font-weight:500;font-size:14px;line-height:18px;margin:0 0 5px;color:var(--g-muted)}
+    label{display:block;font-weight:500;font-size:14.5px;line-height:18px;margin:0 0 5px;color:var(--g-muted)}
     input,select,textarea{
       width:100%;border:1px solid var(--g-line);background:var(--g-field-bg);color:var(--g-text);border-radius:4px;
-      min-height:var(--field-h);padding:7px 10px;outline:none;font-size:15px;line-height:20px;letter-spacing:.1px;
+      min-height:var(--field-h);padding:5px 9px;outline:none;font-size:15.5px;line-height:20px;letter-spacing:.1px;
       box-shadow:none;transition:border-color .12s ease,box-shadow .12s ease,background .12s ease;
     }
     select{appearance:auto;background-color:#fff}
-    textarea{resize:none;overflow:hidden;line-height:20px;min-height:var(--field-h);padding-top:8px;padding-bottom:8px}
+    textarea{resize:none;overflow:hidden;line-height:20px;min-height:var(--field-h);padding-top:6px;padding-bottom:6px}
     input:hover,select:hover,textarea:hover{border-color:#bdc1c6}
     input:focus,select:focus,textarea:focus{border-color:var(--g-blue);box-shadow:0 0 0 1px var(--g-blue)}
     input[readonly],textarea[readonly]{background:var(--g-readonly);color:var(--g-muted)}
@@ -98,10 +98,10 @@
     .btn.ok{background:var(--g-ok);color:#fff}
     .btn.warn{background:#f9ab00;color:#202124}
     .btn.danger{background:var(--g-danger);color:#fff}
-    .btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+    .btn:disabled{opacity:.62;cursor:not-allowed;box-shadow:none}.loading-dot{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.55);border-top-color:#fff;border-radius:50%;animation:spin .75s linear infinite}.btn.secondary .loading-dot,.btn.ghost .loading-dot{border-color:#d2e3fc;border-top-color:var(--g-blue)}
     .pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:600}
     .pill.ok{background:#e8f7ef;color:var(--ok)}.pill.warn{background:#fff5e5;color:var(--warn)}.pill.danger{background:#feeceb;color:var(--danger)}.pill.muted{background:#f2e7ec;color:#6e5360}
-    .list-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;margin:10px 0}.data-card{border-left:4px solid var(--wine);background:#fffafb}.data-card strong{font-weight:600;color:var(--wine-dark)}
+    .list-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;margin:10px 0}.data-card{border-left:4px solid var(--wine);background:#fffafb;line-height:1.55}.data-card .field-row{padding:5px 0;border-bottom:1px solid rgba(234,215,223,.65)}.data-card .field-row:last-child{border-bottom:0}.data-card .field-name{font-weight:600;color:var(--wine-dark);display:block;margin-bottom:2px}.data-card .field-value{color:var(--g-text);white-space:pre-wrap}.data-card strong{font-weight:600;color:var(--wine-dark)}.phieu-inline{margin-top:10px;border:1px solid var(--line);border-left:4px solid var(--wine);border-radius:12px;background:#fffafb;padding:10px;line-height:1.55}.phieu-inline .field-name{font-weight:600;color:var(--wine-dark)}
     .list-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
     .list-title{font-weight:700;color:var(--wine-dark);font-size:17px}
     .meta{font-size:14px;color:var(--muted);line-height:1.45}
@@ -142,13 +142,21 @@
     .modal-card .btn-row{justify-content:flex-end}
     .card .btn-row{justify-content:flex-start}
     .filter-grid + .btn-row{justify-content:flex-end}
+
+    #tab-list .filter-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
+    #tab-list .filter-grid > div{grid-column:auto!important;min-width:0;}
+    #tab-meeting .filter-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
+    #tab-meeting .filter-grid > div{grid-column:auto!important;min-width:0;}
+    input[type="date"],input[type="datetime-local"],select{min-width:0;}
     @media (max-width:760px){
       :root{--header-h:66px;--tabbar-h:76px}
       .brand-title{font-size:15px}.brand-sub{font-size:11px}
       .main{padding:10px}
       .card{padding:12px;border-radius:16px}
       .col-8,.col-6,.col-4,.col-3{grid-column:span 12}
-      .date-pair{grid-column:span 6!important}
+      #tab-list .filter-grid,#tab-meeting .filter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+      #tab-list .filter-grid > div,#tab-meeting .filter-grid > div{grid-column:auto!important;min-width:0}
+      .date-pair{grid-column:auto!important}
       .btn{width:100%;min-height:38px}
       .list-head{flex-direction:column}
       .userbox{max-width:38vw}
@@ -174,8 +182,10 @@
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
       <div class="login-logo">🩸</div>
-      <h1 style="margin:0;color:var(--wine-dark);font-size:24px">Sổ trực điện tử</h1>
-      <p style="margin:4px 0 18px;color:var(--muted)">Phòng Truyền máu - Bàn giao - Giao ban</p>
+      <p style="margin:0 0 4px;color:var(--muted);font-size:14px">Bệnh viện Bạch Mai</p>
+      <p style="margin:0 0 4px;color:var(--wine-dark);font-size:17px;font-weight:700">Trung tâm Huyết học và Truyền máu</p>
+      <h1 style="margin:0;color:var(--wine-dark);font-size:25px">Sổ Trực - Giao ban</h1>
+      <p style="margin:6px 0 18px;color:var(--muted);font-size:13px">Version: 03.200526</p>
       <div class="grid">
         <div class="col-12">
           <label>Mã nhân viên</label>
@@ -196,13 +206,13 @@
       <div class="brand">
         <div class="brand-icon">🩸</div>
         <div>
-          <div class="brand-title">Sổ trực - Giao ban</div>
-          <div class="brand-sub">Phòng Truyền máu</div><div class="version-badge">Version: 02.200526</div>
+          <div id="brandTitle" class="brand-title">Trung tâm Huyết học và Truyền máu</div>
+          <div id="brandSub" class="brand-sub">Khoa</div><div class="version-badge">Version: 03.200526</div>
         </div>
       </div>
       <div class="userbox">
         <strong id="userName">...</strong>
-        <button id="logoutBtn" class="logout-icon" title="Đăng xuất" aria-label="Đăng xuất">⎋</button>
+        <button id="logoutBtn" class="logout-icon" title="Đăng xuất" aria-label="Đăng xuất"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></button>
       </div>
     </header>
 
@@ -230,7 +240,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = '02.200526';
+const APP_VERSION = '03.200526';
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
@@ -371,7 +381,6 @@ function showLogin(){
   $('#bootScreen').classList.add('hidden');
   $('#loginScreen').classList.remove('hidden');
   $('#app').classList.add('hidden');
-  $('#updateRibbon').classList.add('hidden');
 }
 
 function showApp(){
@@ -379,6 +388,8 @@ function showApp(){
   $('#loginScreen').classList.add('hidden');
   $('#app').classList.remove('hidden');
   $('#userName').textContent = state.user?.tenNhanVien || 'Đang khôi phục phiên';
+  $('#brandTitle').textContent = 'Trung tâm Huyết học và Truyền máu';
+  $('#brandSub').textContent = 'Khoa ' + (state.user?.khoaPhong || '');
   $('#settingsTabBtn').classList.toggle('hidden', !state.user?.isAdmin);
   renderCreateTab();
   renderSettingsTab();
@@ -538,22 +549,22 @@ function renderCreateTab(){
     </div>
 
     <div class="card">
-      <h3 class="section-title">III. Bàn giao thường trực</h3>
+      <h3 id="handoverTitle" class="section-title">II. Bàn giao thường trực</h3>
       <div class="grid">
         <div class="col-12">
-          <label>3.1 Tài sản, dụng cụ, thiết bị y tế</label>
+          <label id="handoverLabel1">2.1 Tài sản, dụng cụ, thiết bị y tế</label>
           <textarea id="banGiaoTaiSan">Bình thường</textarea>
         </div>
         <div class="col-12">
-          <label>3.2 Chuyên môn</label>
+          <label id="handoverLabel2">2.2 Chuyên môn</label>
           <textarea id="banGiaoChuyenMon">Không có gì đặc biệt</textarea>
         </div>
         <div class="col-12">
-          <label>3.3 Vấn đề khác</label>
+          <label id="handoverLabel3">2.3 Vấn đề khác</label>
           <textarea id="banGiaoVanDeKhac">Không có gì đặc biệt</textarea>
         </div>
         <div class="col-6">
-          <label>3.4 Thời gian bàn giao</label>
+          <label id="handoverLabel4">2.4 Thời gian bàn giao</label>
           <input id="thoiGianBanGiao" type="datetime-local" value="${now}">
         </div>
       </div>
@@ -565,13 +576,23 @@ function renderCreateTab(){
   `;
 
   state.selectedStaff = [];
-  $('#createLoai').addEventListener('change', () => {
-    $('#reportBlock').classList.toggle('hidden', $('#createLoai').value !== LOAI_BAO_CAO);
-  });
+  $('#createLoai').addEventListener('change', updateCreateFormNumbering);
   $('#addStaffBtn').addEventListener('click', addSelectedStaff);
   $('#createBtn').addEventListener('click', submitCreatePhieu);
+  updateCreateFormNumbering();
   refreshStaffList();
   setTimeout(() => $$('textarea').forEach(autoGrow), 0);
+}
+
+function updateCreateFormNumbering(){
+  const isReport = $('#createLoai')?.value === LOAI_BAO_CAO;
+  $('#reportBlock')?.classList.toggle('hidden', !isReport);
+  const n = isReport ? '3' : '2';
+  if($('#handoverTitle')) $('#handoverTitle').textContent = `${isReport ? 'III' : 'II'}. Bàn giao thường trực`;
+  if($('#handoverLabel1')) $('#handoverLabel1').textContent = `${n}.1 Tài sản, dụng cụ, thiết bị y tế`;
+  if($('#handoverLabel2')) $('#handoverLabel2').textContent = `${n}.2 Chuyên môn`;
+  if($('#handoverLabel3')) $('#handoverLabel3').textContent = `${n}.3 Vấn đề khác`;
+  if($('#handoverLabel4')) $('#handoverLabel4').textContent = `${n}.4 Thời gian bàn giao`;
 }
 
 function addSelectedStaff(){
@@ -657,7 +678,7 @@ function renderListTab(){
     </div>
     <div id="phieuListBox"></div>
   `;
-  $('#loadPhieuBtn').addEventListener('click', () => loadPhieuList(true));
+  $('#loadPhieuBtn').addEventListener('click', () => withButton($('#loadPhieuBtn'), 'Đang tải...', () => loadPhieuList(true)));
   setDefaultDateRange('filterFrom','filterTo',1);
 }
 
@@ -703,43 +724,56 @@ function renderPhieuList(items, note=''){
     return;
   }
   const noteHtml = note ? `<div class="empty" style="text-align:left;margin-bottom:10px">${esc(note)}</div>` : '';
-  box.innerHTML = noteHtml + items.map(p => `
-    <div class="list-card">
-      <div class="list-head">
-        <div>
-          <div class="list-title">${esc(p.loaiPhieu)} - ${dateVi(p.ngayTruc)}</div>
-          <div class="meta">Mã: ${esc(p.phieuID)} · ${esc(p.khoaPhong)} · Người tạo: ${esc(p.nguoiThucHienTen || '')}</div>
+  box.innerHTML = noteHtml + items.map(p => {
+    const isDone = p.trangThaiBanGiao === STATUS_DA;
+    const title = `Bàn giao thường trực Khoa ${p.khoaPhong || ''} ${dateTimeVi(p.thoiGianBanGiao)}`;
+    const detailHtml = !isDone ? `
+      <div class="phieu-inline">
+        <div class="field-row"><span class="field-name">2.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value">${esc(p.banGiaoTaiSan || '')}</div></div>
+        <div class="field-row"><span class="field-name">2.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
+        <div class="field-row"><span class="field-name">2.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
+        <div class="field-row"><span class="field-name">2.4 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
+      </div>` : '';
+    return `
+      <div class="list-card">
+        <div class="list-head">
+          <div>
+            <div class="list-title">${esc(title)}</div>
+            <div class="meta">Mã: ${esc(p.phieuID)} · Người tạo: ${esc(p.nguoiThucHienTen || '')}</div>
+          </div>
+          ${statusPill(p.trangThaiBanGiao)}
         </div>
-        ${statusPill(p.trangThaiBanGiao)}
-      </div>
-      <div class="meta" style="margin-top:8px">Bàn giao: ${shortText(p.banGiaoChuyenMon || p.banGiaoTaiSan, 120)}</div>
-      <div class="btn-row">
-        <button class="btn secondary" onclick="openPhieu('${escAttr(p.phieuID)}')">${p.canSignBanGiao ? 'Xem / Ký nhận' : 'Xem chi tiết'}</button>
-        ${p.canEdit ? `<button class="btn ghost" onclick="editPhieu('${escAttr(p.phieuID)}')">Sửa</button>` : ''}
-        ${p.canDelete ? `<button class="btn danger" onclick="deletePhieu('${escAttr(p.phieuID)}')">Xóa</button>` : ''}
-        ${p.pdfBanGiaoUrl ? `<a class="btn ok" target="_blank" href="${escAttr(p.pdfBanGiaoUrl)}">PDF bàn giao</a>` : ''}
-      </div>
-    </div>
-  `).join('');
+        ${detailHtml}
+        <div class="btn-row">
+          <button class="btn secondary" onclick="openPhieu('${escAttr(p.phieuID)}', this)">${p.canSignBanGiao ? 'Xem / Ký nhận' : 'Xem nội dung'}</button>
+          ${p.canEdit ? `<button class="btn secondary" onclick="editPhieu('${escAttr(p.phieuID)}', this)">Sửa</button>` : ''}
+          ${p.canDelete ? `<button class="btn danger" onclick="deletePhieu('${escAttr(p.phieuID)}', this)">Xóa</button>` : ''}
+          ${p.pdfBanGiaoUrl ? `<a class="btn ok" target="_blank" href="${escAttr(p.pdfBanGiaoUrl)}">PDF bàn giao</a>` : ''}
+        </div>
+      </div>`;
+  }).join('');
 }
 
-window.openPhieu = async function(phieuID){
-  try{
+window.openPhieu = async function(phieuID, btn){
+  const task = async () => {
     const res = await api('getPhieuDetail', {phieuID});
     showPhieuModal(res.data.phieu);
-  }catch(err){ toast(err.message); }
+  };
+  if(btn) return withButton(btn, 'Đang mở...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
 function showPhieuModal(p, opts={}){
-  const reportHtml = p.canSeeFull && p.loaiPhieuGoc === LOAI_BAO_CAO ? `
+  const isReport = p.canSeeFull && p.loaiPhieuGoc === LOAI_BAO_CAO;
+  const handoverNo = isReport ? '3' : '2';
+  const handoverRoman = isReport ? 'III' : 'II';
+  const reportHtml = isReport ? `
     <h3 class="sub-title">II. Báo cáo thường trực</h3>
     <div class="list-card data-card">
-      <div><strong>2.1 Nhân viên thường trực</strong></div>
-      <div class="two-col-text">${esc((p.nhanVienThuongTruc||[]).map(n => `${n.tenNhanVien}${n.chucDanh ? ' - ' + n.chucDanh : ''}`).join('\n') || 'Chưa nhập')}</div>
-      <hr style="border:0;border-top:1px solid var(--line)">
-      <div><strong>2.2 Tình hình chung / số liệu trực</strong></div><div class="two-col-text">${esc(p.soLieuTruc||'')}</div>
-      <div><strong>2.3 Chuyên môn</strong></div><div class="two-col-text">${esc(p.baoCaoChuyenMon||'')}</div>
-      <div><strong>2.4 Vấn đề khác</strong></div><div class="two-col-text">${esc(p.baoCaoVanDeKhac||'')}</div>
+      <div class="field-row"><span class="field-name">2.1 Nhân viên thường trực</span><div class="field-value">${esc((p.nhanVienThuongTruc||[]).map(n => `${n.tenNhanVien}${n.chucDanh ? ' - ' + n.chucDanh : ''}`).join('\n') || 'Chưa nhập')}</div></div>
+      <div class="field-row"><span class="field-name">2.2 Tình hình chung / số liệu trực</span><div class="field-value">${esc(p.soLieuTruc || '')}</div></div>
+      <div class="field-row"><span class="field-name">2.3 Chuyên môn</span><div class="field-value">${esc(p.baoCaoChuyenMon || '')}</div></div>
+      <div class="field-row"><span class="field-name">2.4 Vấn đề khác</span><div class="field-value">${esc(p.baoCaoVanDeKhac || '')}</div></div>
     </div>
   ` : '';
 
@@ -751,28 +785,27 @@ function showPhieuModal(p, opts={}){
       </div>
       <h3 class="sub-title">I. Thông tin phiếu</h3>
       <div class="list-card data-card">
-        <div><strong>${esc(p.loaiPhieu)}</strong> ${statusPill(p.trangThaiBanGiao)}</div>
-        <div class="meta">Mã phiếu: ${esc(p.phieuID)}</div>
-        <div class="meta">Ngày trực: ${dateVi(p.ngayTruc)} · Khoa/phòng: ${esc(p.khoaPhong)}</div>
-        <div class="meta">Người thực hiện: ${esc(p.nguoiThucHienTen || '')}${p.nguoiThucHienChucDanh ? ' - ' + esc(p.nguoiThucHienChucDanh) : ''}</div>
+        <div class="field-row"><span class="field-name">Mã phiếu</span><div class="field-value">${esc(p.phieuID)}</div></div>
+        <div class="field-row"><span class="field-name">Ngày trực</span><div class="field-value">${dateVi(p.ngayTruc)}</div></div>
+        <div class="field-row"><span class="field-name">Khoa/phòng</span><div class="field-value">${esc(p.khoaPhong)}</div></div>
+        <div class="field-row"><span class="field-name">Người thực hiện</span><div class="field-value">${esc(p.nguoiThucHienTen || '')}${p.nguoiThucHienChucDanh ? ' - ' + esc(p.nguoiThucHienChucDanh) : ''}</div></div>
       </div>
       ${reportHtml}
-      <h3 class="sub-title">III. Bàn giao thường trực</h3>
+      <h3 class="sub-title">${handoverRoman}. Bàn giao thường trực</h3>
       <div class="list-card data-card">
-        <div><strong>3.1 Tài sản, dụng cụ, thiết bị y tế</strong></div><div class="two-col-text">${esc(p.banGiaoTaiSan||'')}</div>
-        <div><strong>3.2 Chuyên môn</strong></div><div class="two-col-text">${esc(p.banGiaoChuyenMon||'')}</div>
-        <div><strong>3.3 Vấn đề khác</strong></div><div class="two-col-text">${esc(p.banGiaoVanDeKhac||'')}</div>
-        <div class="meta">3.4 Thời gian bàn giao: ${dateTimeVi(p.thoiGianBanGiao)}</div>
+        <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value">${esc(p.banGiaoTaiSan || '')}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.4 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
       </div>
       ${p.trangThaiBanGiao === STATUS_DA ? `
-        <div class="list-card">
-          <strong>Đã ký nhận bàn giao</strong>
-          <div class="meta">Người nhận: ${esc(p.nguoiNhanTen || '')}${p.nguoiNhanChucDanh ? ' - ' + esc(p.nguoiNhanChucDanh) : ''}</div>
-          <div class="meta">Thời điểm ký: ${dateTimeVi(p.thoiDiemNhanKy)}</div>
+        <div class="list-card data-card">
+          <div class="field-row"><span class="field-name">Người nhận bàn giao</span><div class="field-value">${esc(p.nguoiNhanTen || '')}${p.nguoiNhanChucDanh ? ' - ' + esc(p.nguoiNhanChucDanh) : ''}</div></div>
+          <div class="field-row"><span class="field-name">Thời điểm ký nhận</span><div class="field-value">${dateTimeVi(p.thoiDiemNhanKy)}</div></div>
         </div>
       ` : ''}
       <div class="btn-row">
-        ${!opts.created && p.canSignBanGiao ? `<button class="btn ok" onclick="signBanGiao('${escAttr(p.phieuID)}')">Ký nhận bàn giao</button>` : ''}
+        ${!opts.created && p.canSignBanGiao ? `<button class="btn ok" onclick="signBanGiao('${escAttr(p.phieuID)}', this)">Ký nhận bàn giao</button>` : ''}
         ${!opts.created && p.pdfBanGiaoUrl ? `<a class="btn secondary" target="_blank" href="${escAttr(p.pdfBanGiaoUrl)}">Mở PDF bàn giao</a>` : ''}
         <button class="btn secondary" onclick="closeModal()">Đóng</button>
       </div>
@@ -780,29 +813,31 @@ function showPhieuModal(p, opts={}){
   `);
 }
 
-window.signBanGiao = async function(phieuID){
-  const ok = confirm('Sau khi ký nhận, phần bàn giao sẽ bị khóa và hệ thống sẽ xuất PDF bàn giao. Bạn xác nhận ký nhận bàn giao?');
-  if(!ok) return;
-  try{
+window.signBanGiao = async function(phieuID, btn){
+  const task = async () => {
     const res = await api('signBanGiao', {phieuID});
     clearListCaches();
     toast('Đã ký nhận bàn giao');
     showPhieuModal(res.data.phieu);
-  }catch(err){ toast(err.message); }
+  };
+  if(btn) return withButton(btn, 'Đang ký...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
-window.deletePhieu = async function(phieuID){
+window.deletePhieu = async function(phieuID, btn){
   if(!confirm('Bạn chắc chắn muốn xóa phiếu này?')) return;
-  try{
+  const task = async () => {
     await api('deletePhieu', {phieuID});
     clearListCaches();
     toast('Đã xóa phiếu');
     loadPhieuList(true);
-  }catch(err){ toast(err.message); }
+  };
+  if(btn) return withButton(btn, 'Đang xóa...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
-window.editPhieu = async function(phieuID){
-  try{
+window.editPhieu = async function(phieuID, btn){
+  const task = async () => {
     const res = await api('getPhieuDetail', {phieuID});
     const p = res.data.phieu;
     state.selectedStaff = p.nhanVienThuongTruc || [];
@@ -831,14 +866,16 @@ window.editPhieu = async function(phieuID){
           ` : `<div class="col-12"><div class="empty">Phần bàn giao đã ký nhận nên không được sửa.</div></div>`}
         </div>
         <div class="btn-row">
-          <button class="btn primary" onclick="saveEditPhieu('${escAttr(p.phieuID)}','${escAttr(p.loaiPhieuGoc)}','${escAttr(p.trangThaiBanGiao)}')">Lưu cập nhật</button>
-          <button class="btn ghost" onclick="closeModal()">Đóng</button>
+          <button class="btn primary" onclick="saveEditPhieu('${escAttr(p.phieuID)}','${escAttr(p.loaiPhieuGoc)}','${escAttr(p.trangThaiBanGiao)}', this)">Lưu cập nhật</button>
+          <button class="btn secondary" onclick="closeModal()">Đóng</button>
         </div>
       </div>
     `);
     refreshEditStaffList();
     setTimeout(() => $$('textarea').forEach(autoGrow), 0);
-  }catch(err){ toast(err.message); }
+  };
+  if(btn) return withButton(btn, 'Đang mở...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
 window.addEditStaff = function(){
@@ -867,7 +904,7 @@ window.removeEditStaff = function(ma){
   refreshEditStaffList();
 }
 
-window.saveEditPhieu = async function(phieuID, loai, trangThaiBanGiao){
+window.saveEditPhieu = async function(phieuID, loai, trangThaiBanGiao, btn){
   const payload = {
     phieuID,
     ngayTruc: $('#editDate').value,
@@ -881,12 +918,14 @@ window.saveEditPhieu = async function(phieuID, loai, trangThaiBanGiao){
     banGiaoVanDeKhac: $('#editBGKhac')?.value || '',
     thoiGianBanGiao: $('#editTGBG') ? fromDatetimeLocal($('#editTGBG').value) : ''
   };
-  try{
+  const task = async () => {
     const res = await api('updatePhieu', payload);
     clearListCaches();
     toast('Đã cập nhật phiếu');
     showPhieuModal(res.data.phieu);
-  }catch(err){ toast(err.message); }
+  };
+  if(btn) return withButton(btn, 'Đang lưu...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
 /* ================= GIAO BAN ================= */
@@ -907,7 +946,7 @@ function renderMeetingTab(){
     </div>
     <div id="giaoBanListBox"></div>
   `;
-  $('#loadGbBtn').addEventListener('click', () => loadGiaoBanList(true));
+  $('#loadGbBtn').addEventListener('click', () => withButton($('#loadGbBtn'), 'Đang tải...', () => loadGiaoBanList(true)));
   setDefaultDateRange('gbFrom','gbTo',14);
 }
 
@@ -963,20 +1002,22 @@ function renderGiaoBanList(items, note=''){
         ${statusPill(g.trangThai)}
       </div>
       <div class="btn-row">
-        <button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}')">Mở giao ban</button>
+        <button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}', this)">Mở giao ban</button>
         ${g.pdfGiaoBanUrl ? `<a class="btn ok" target="_blank" href="${escAttr(g.pdfGiaoBanUrl)}">PDF giao ban</a>` : ''}
       </div>
     </div>
   `).join('');
 }
 
-window.openGiaoBan = async function(giaoBanID, khoaPhong){
-  try{
+window.openGiaoBan = async function(giaoBanID, khoaPhong, btn){
+  const task = async () => {
     const res = await api('openGiaoBan', {giaoBanID, khoaPhong});
     state.currentGiaoBan = res.data.giaoBan;
     state.currentReports = res.data.reports || [];
     renderGiaoBanModal();
-  }catch(err){ toast(err.message); }
+  };
+  if(btn) return withButton(btn, 'Đang mở...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
 function renderGiaoBanModal(){
@@ -1054,9 +1095,9 @@ function renderGiaoBanModal(){
           </div>
         ` : `
           <div class="btn-row" style="padding-bottom:18px">
-            <button class="btn secondary" onclick="saveGiaoBanDraft()">Lưu nháp</button>
-            <button class="btn ok" onclick="finishGiaoBan()">Chủ trì ký xác nhận kết thúc giao ban</button>
-            <button class="btn ghost" onclick="closeModal()">Đóng</button>
+            <button class="btn secondary" onclick="saveGiaoBanDraft(this)">Lưu nháp</button>
+            <button class="btn ok" onclick="finishGiaoBan(this)">Chủ trì ký xác nhận kết thúc giao ban</button>
+            <button class="btn secondary" onclick="closeModal()">Đóng</button>
           </div>
         `}
       </div>
@@ -1082,26 +1123,30 @@ function collectGiaoBanPayload(){
   };
 }
 
-window.saveGiaoBanDraft = async function(){
-  try{
+window.saveGiaoBanDraft = async function(btn){
+  const task = async () => {
     const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
     state.currentGiaoBan = res.data.giaoBan;
     clearListCaches();
     toast('Đã lưu nháp giao ban');
     renderGiaoBanModal();
-  }catch(err){ toast(err.message); }
+  };
+  if(btn) return withButton(btn, 'Đang lưu...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
-window.finishGiaoBan = async function(){
+window.finishGiaoBan = async function(btn){
   const ok = confirm('Sau khi xác nhận, phiên giao ban sẽ hoàn thành, các báo cáo được gộp sẽ bị khóa, người tạo phiếu không thể sửa/xóa báo cáo và hệ thống sẽ xuất PDF giao ban. Bạn xác nhận ký kết thúc giao ban?');
   if(!ok) return;
-  try{
+  const task = async () => {
     const res = await api('finishGiaoBan', collectGiaoBanPayload());
     state.currentGiaoBan = res.data.giaoBan;
     clearListCaches();
     toast('Đã ký kết thúc giao ban');
     renderGiaoBanModal();
-  }catch(err){ toast(err.message); }
+  };
+  if(btn) return withButton(btn, 'Đang ký...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
 /* ================= PDF ================= */
@@ -1124,7 +1169,7 @@ function renderPdfTab(){
     </div>
     <div id="pdfListBox"></div>
   `;
-  $('#loadPdfBtn').addEventListener('click', loadPdfList);
+  $('#loadPdfBtn').addEventListener('click', () => withButton($('#loadPdfBtn'), 'Đang tra cứu...', loadPdfList));
   setDefaultDateRange('pdfFrom','pdfTo',30);
 }
 
@@ -1217,7 +1262,7 @@ function clearListCaches(){
 
 function autoGrow(el){
   el.style.height = 'auto';
-  el.style.height = Math.max(42, el.scrollHeight + 2) + 'px';
+  el.style.height = Math.max(34, el.scrollHeight + 2) + 'px';
 }
 
 function setDefaultDateRange(fromId,toId,daysBack){
