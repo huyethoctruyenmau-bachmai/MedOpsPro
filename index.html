@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="./ICON_SO_TRUC_GIAO%20BAN.png?v=08.200526">
-  <link rel="shortcut icon" type="image/png" href="./ICON_SO_TRUC_GIAO%20BAN.png?v=08.200526">
-  <link rel="apple-touch-icon" sizes="180x180" href="./ICON_SO_TRUC_GIAO%20BAN.png?v=08.200526">
-  <link rel="manifest" href="./manifest.json?v=08.200526">
-  <meta name="msapplication-TileImage" content="./ICON_SO_TRUC_GIAO%20BAN.png?v=08.200526">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=09.200526">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=09.200526">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=09.200526">
+  <link rel="manifest" href="./manifest.json?v=09.200526">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=09.200526">
   <meta name="theme-color" content="#7b113a">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Sổ trực">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <style>
     :root{
       --wine:#7b113a;
@@ -40,8 +40,12 @@
       --g-ok:#188038;
       --field-h:34px;
       --button-h:34px;
-      --header-h:64px;
-      --tabbar-h:72px;
+      --safe-top:env(safe-area-inset-top,0px);
+      --safe-bottom:env(safe-area-inset-bottom,0px);
+      --header-content-h:58px;
+      --tabbar-content-h:56px;
+      --header-h:calc(var(--header-content-h) + var(--safe-top));
+      --tabbar-h:calc(var(--tabbar-content-h) + var(--safe-bottom));
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;color:var(--text);background:var(--bg);overscroll-behavior:none;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -54,7 +58,8 @@
     .topbar{
       height:var(--header-h);min-height:var(--header-h);position:fixed;left:0;right:0;top:0;z-index:20;
       background:linear-gradient(135deg,var(--wine-dark),var(--wine));color:white;box-shadow:0 4px 18px rgba(0,0,0,.16);
-      display:flex;align-items:center;justify-content:space-between;padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));
+      display:flex;align-items:center;justify-content:space-between;
+      padding:var(--safe-top) 12px 0 12px;
     }
     .brand{display:flex;align-items:center;gap:10px;min-width:0;overflow:visible}
     .brand-icon{width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.12);flex:0 0 auto;position:relative}
@@ -71,17 +76,18 @@
     .logout-icon{width:30px;height:30px;min-width:30px;border-radius:50%;display:grid;place-items:center;border:0;background:transparent;color:#fff;cursor:pointer;padding:0}.logout-icon:hover{background:rgba(255,255,255,.14)}.logout-icon svg{width:20px;height:20px;stroke:currentColor}
     .main{
       position:fixed;top:var(--header-h);bottom:var(--tabbar-h);left:0;right:0;overflow:auto;
-      padding:14px 14px 24px;
+      padding:12px 14px 14px;
       -webkit-overflow-scrolling:touch;
     }
     .content-wide{width:100%;max-width:none;margin:0 auto}
     .tabbar{
       height:var(--tabbar-h);position:fixed;left:0;right:0;bottom:0;z-index:20;
-      background:rgba(255,255,255,.96);border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(74,7,31,.10);
-      display:grid;grid-template-columns:repeat(5,1fr);padding:5px 5px max(5px,env(safe-area-inset-bottom));
+      background:rgba(255,255,255,.98);border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(74,7,31,.10);
+      display:grid;grid-template-columns:repeat(5,1fr);
+      padding:3px 5px var(--safe-bottom) 5px;
     }
-    .tab-btn{background:transparent;color:var(--muted);border-radius:14px;padding:6px 2px;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;font-size:12.5px}
-    .tab-btn .ico{font-size:22px;line-height:1}
+    .tab-btn{background:transparent;color:var(--muted);border-radius:12px;padding:2px 2px;display:flex;flex-direction:column;gap:1px;align-items:center;justify-content:center;font-size:12.5px;min-height:0}
+    .tab-btn .ico{font-size:20px;line-height:1}
     .tab-btn.active{background:#fff0f5;color:var(--wine);font-weight:700}
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:12px}
     .section-title{font-size:20px;font-weight:700;color:var(--wine-dark);margin:0 0 10px}
@@ -169,9 +175,9 @@
     #tab-meeting .filter-grid > div{grid-column:auto!important;min-width:0;}
     input[type="date"],input[type="datetime-local"],select{min-width:0;}
     @media (max-width:760px){
-      :root{--header-h:66px;--tabbar-h:76px}
+      :root{--header-content-h:58px;--tabbar-content-h:54px}
       .brand-title{font-size:15px}.brand-sub{font-size:11px}
-      .main{padding:10px}
+      .main{padding:8px 10px 10px}
       .card{padding:12px;border-radius:16px}
       .col-8,.col-6,.col-4,.col-3{grid-column:span 12}
       #tab-list .filter-grid,#tab-meeting .filter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -180,7 +186,7 @@
       .btn{width:100%;min-height:38px}
       .list-head{flex-direction:column}
       .userbox{max-width:38vw}
-      .tab-btn{font-size:12px}
+      .tab-btn{font-size:12px}.tab-btn .ico{font-size:20px}
     }
     @media (min-width:900px){
       .main{padding:18px 22px 28px}
@@ -201,7 +207,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=08.200526" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=09.200526" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -216,14 +222,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 08.200526</p>
+      <p class="login-version">Version: 09.200526</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=08.200526" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=09.200526" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -252,7 +258,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 08.200526</div>
+    <div class="app-version">Version: 09.200526</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
