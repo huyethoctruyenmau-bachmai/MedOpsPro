@@ -280,7 +280,7 @@ function showApp(){
   $('#loginScreen').classList.add('hidden');
   $('#app').classList.remove('hidden');
   $('#userName').textContent = state.user?.tenNhanVien || '';
-  $('#userDept').textContent = [titleForPerson(state.user), state.user?.khoaPhong].filter(Boolean).join(' - ');
+  $('#userDept').textContent = [state.user?.chucDanh, state.user?.khoaPhong].filter(Boolean).join(' - ');
   $('#settingsTabBtn').classList.toggle('hidden', !state.user?.isAdmin);
   renderCreateTab();
   renderSettingsTab();
@@ -305,7 +305,7 @@ async function loadInitData(){
 function refreshDatalists(){
   $('#deptList').innerHTML = state.khoaPhong.map(x => `<option value="${esc(x)}"></option>`).join('');
   $('#staffDatalist').innerHTML = state.personnel.map(p => {
-    const label = `${p.maNhanVien} - ${p.tenNhanVien}${titleForPerson(p) ? ' - ' + titleForPerson(p) : ''}`;
+    const label = `${p.maNhanVien} - ${p.tenNhanVien}${p.chucDanh ? ' - ' + p.chucDanh : ''}`;
     return `<option value="${esc(label)}"></option>`;
   }).join('');
 }
@@ -486,7 +486,7 @@ function refreshStaffList(){
   const box = $('#staffList');
   if(!box) return;
   box.innerHTML = state.selectedStaff.length ? state.selectedStaff.map(p => `
-    <span class="staff-chip">${esc(p.tenNhanVien)}${titleForPerson(p) ? ' - ' + esc(titleForPerson(p)) : ''}
+    <span class="staff-chip">${esc(p.tenNhanVien)}${p.chucDanh ? ' - ' + esc(p.chucDanh) : ''}
       <button type="button" onclick="removeStaff('${escAttr(p.maNhanVien)}')">×</button>
     </span>
   `).join('') : `<span class="meta">Chưa thêm nhân viên thường trực.</span>`;
@@ -623,7 +623,7 @@ function showPhieuModal(p, opts={}){
     <h3 class="sub-title">II. Báo cáo thường trực</h3>
     <div class="list-card">
       <div><strong>Nhân viên thường trực</strong></div>
-      <div class="two-col-text">${esc((p.nhanVienThuongTruc||[]).map(n => `${n.tenNhanVien}${titleForPerson(n) ? ' - ' + titleForPerson(n) : ''}`).join('\n') || 'Chưa nhập')}</div>
+      <div class="two-col-text">${esc((p.nhanVienThuongTruc||[]).map(n => `${n.tenNhanVien}${n.chucDanh ? ' - ' + n.chucDanh : ''}`).join('\n') || 'Chưa nhập')}</div>
       <hr style="border:0;border-top:1px solid var(--line)">
       <div><strong>Số liệu trực</strong></div><div class="two-col-text">${esc(p.soLieuTruc||'')}</div>
       <div><strong>Chuyên môn</strong></div><div class="two-col-text">${esc(p.baoCaoChuyenMon||'')}</div>
@@ -744,7 +744,7 @@ function refreshEditStaffList(){
   const box = $('#editStaffList');
   if(!box) return;
   box.innerHTML = state.selectedStaff.map(p => `
-    <span class="staff-chip">${esc(p.tenNhanVien)}${titleForPerson(p) ? ' - ' + esc(titleForPerson(p)) : ''}
+    <span class="staff-chip">${esc(p.tenNhanVien)}${p.chucDanh ? ' - ' + esc(p.chucDanh) : ''}
       <button onclick="removeEditStaff('${escAttr(p.maNhanVien)}')">×</button>
     </span>
   `).join('') || '<span class="meta">Chưa có nhân viên.</span>';
@@ -867,7 +867,7 @@ function renderGiaoBanModal(){
     <div class="report-day">
       <strong>Ngày ${dateVi(r.ngayTruc)} - ${esc(r.nguoiThucHienTen || '')}</strong>
       <div class="meta">Nhân viên trực:</div>
-      <div class="two-col-text">${esc((r.nhanVienThuongTruc||[]).map(n => `${n.tenNhanVien}${titleForPerson(n) ? ' - ' + titleForPerson(n) : ''}`).join('\n') || 'Chưa nhập')}</div>
+      <div class="two-col-text">${esc((r.nhanVienThuongTruc||[]).map(n => `${n.tenNhanVien}${n.chucDanh ? ' - ' + n.chucDanh : ''}`).join('\n') || 'Chưa nhập')}</div>
       <div class="meta">Số liệu trực:</div><div class="two-col-text">${esc(r.soLieuTruc||'')}</div>
       <div class="meta">Chuyên môn:</div><div class="two-col-text">${esc(r.baoCaoChuyenMon||'')}</div>
       <div class="meta">Vấn đề khác:</div><div class="two-col-text">${esc(r.baoCaoVanDeKhac||'')}</div>
@@ -1085,14 +1085,9 @@ function statusPill(status){
   return `<span class="pill muted">${esc(s)}</span>`;
 }
 
-function titleForPerson(u){
-  if(!u) return '';
-  return u.chucDanhHienThi || u.chucVu || u.chucDanh || '';
-}
-
 function displayUser(u){
   if(!u) return '';
-  return [u.tenNhanVien, titleForPerson(u), u.khoaPhong].filter(Boolean).join(' - ');
+  return [u.tenNhanVien, u.chucDanh, u.khoaPhong].filter(Boolean).join(' - ');
 }
 
 function clearListCaches(){
@@ -1118,7 +1113,7 @@ function summarizeReportsStaff(reports){
     const day = dateVi(r.ngayTruc);
     groups[day] = groups[day] || [];
     (r.nhanVienThuongTruc||[]).forEach(n => {
-      const t = `${n.tenNhanVien}${titleForPerson(n) ? ' - ' + titleForPerson(n) : ''}`;
+      const t = `${n.tenNhanVien}${n.chucDanh ? ' - ' + n.chucDanh : ''}`;
       if(!groups[day].includes(t)) groups[day].push(t);
     });
   });
