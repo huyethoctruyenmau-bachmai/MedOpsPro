@@ -28,13 +28,13 @@
       --g-readonly:#f8f9fa;
       --g-danger:#d93025;
       --g-ok:#188038;
-      --field-h:46px;
-      --button-h:36px;
+      --field-h:38px;
+      --button-h:34px;
       --header-h:64px;
       --tabbar-h:72px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Roboto,Arial,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg);overscroll-behavior:none}
+    html,body{height:100%;margin:0;font-family:Arial,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg);overscroll-behavior:none;font-size:15px}
     body{touch-action:manipulation}
     button,input,select,textarea{font:inherit}
     button{border:0;cursor:pointer}
@@ -47,12 +47,12 @@
       display:flex;align-items:center;justify-content:space-between;padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));
     }
     .brand{display:flex;align-items:center;gap:10px;min-width:0}
-    .brand-icon{width:40px;height:40px;border-radius:14px;background:#fff1f6;color:var(--wine);display:grid;place-items:center;font-size:22px;font-weight:900}
-    .brand-title{font-weight:800;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .brand-icon{width:40px;height:40px;border-radius:14px;background:#fff1f6;color:var(--wine);display:grid;place-items:center;font-size:22px;font-weight:700}
+    .brand-title{font-weight:700;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .brand-sub{font-size:12px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .userbox{text-align:right;font-size:12px;line-height:1.25;max-width:42vw}
-    .userbox strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .logout-btn{margin-top:2px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;padding:5px 9px;border-radius:999px;font-size:12px}
+    .userbox{display:flex;align-items:center;gap:8px;justify-content:flex-end;text-align:right;line-height:1.25;max-width:46vw}
+    .userbox strong{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .logout-icon{width:34px;height:34px;min-width:34px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.12);color:#fff;font-size:18px;line-height:1;cursor:pointer}.logout-icon:hover{background:rgba(255,255,255,.22)}
     .main{
       position:fixed;top:var(--header-h);bottom:var(--tabbar-h);left:0;right:0;overflow:auto;
       padding:14px 14px 24px;
@@ -66,27 +66,27 @@
     }
     .tab-btn{background:transparent;color:var(--muted);border-radius:14px;padding:6px 2px;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;font-size:11px}
     .tab-btn .ico{font-size:21px;line-height:1}
-    .tab-btn.active{background:#fff0f5;color:var(--wine);font-weight:800}
+    .tab-btn.active{background:#fff0f5;color:var(--wine);font-weight:700}
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:12px}
-    .section-title{font-size:16px;font-weight:900;color:var(--wine-dark);margin:0 0 10px}
-    .sub-title{font-size:14px;font-weight:800;color:var(--wine);margin:12px 0 8px}
+    .section-title{font-size:19px;font-weight:700;color:var(--wine-dark);margin:0 0 10px}
+    .sub-title{font-size:17px;font-weight:700;color:var(--wine);margin:12px 0 8px}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}
     .col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}
-    label{display:block;font-weight:500;font-size:13px;line-height:18px;margin:0 0 6px;color:var(--g-muted)}
+    label{display:block;font-weight:500;font-size:14px;line-height:18px;margin:0 0 5px;color:var(--g-muted)}
     input,select,textarea{
       width:100%;border:1px solid var(--g-line);background:var(--g-field-bg);color:var(--g-text);border-radius:4px;
-      min-height:var(--field-h);padding:11px 12px;outline:none;font-size:14px;line-height:20px;letter-spacing:.1px;
+      min-height:var(--field-h);padding:7px 10px;outline:none;font-size:15px;line-height:20px;letter-spacing:.1px;
       box-shadow:none;transition:border-color .12s ease,box-shadow .12s ease,background .12s ease;
     }
     select{appearance:auto;background-color:#fff}
-    textarea{resize:none;overflow:hidden;line-height:20px;min-height:var(--field-h);padding-top:12px;padding-bottom:12px}
+    textarea{resize:none;overflow:hidden;line-height:20px;min-height:var(--field-h);padding-top:8px;padding-bottom:8px}
     input:hover,select:hover,textarea:hover{border-color:#bdc1c6}
     input:focus,select:focus,textarea:focus{border-color:var(--g-blue);box-shadow:0 0 0 1px var(--g-blue)}
     input[readonly],textarea[readonly]{background:var(--g-readonly);color:var(--g-muted)}
     input::placeholder,textarea::placeholder{color:#80868b;opacity:1}
     .btn-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:16px}
     .btn{
-      border-radius:4px;min-height:var(--button-h);padding:0 24px;font-size:14px;font-weight:600;line-height:20px;letter-spacing:.15px;
+      border-radius:4px;min-height:var(--button-h);padding:0 22px;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.15px;
       display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;background:#fff;
       transition:background .12s ease,box-shadow .12s ease,border-color .12s ease;box-shadow:none;
     }
@@ -99,25 +99,25 @@
     .btn.warn{background:#f9ab00;color:#202124}
     .btn.danger{background:var(--g-danger);color:#fff}
     .btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
-    .pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:850}
+    .pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:600}
     .pill.ok{background:#e8f7ef;color:var(--ok)}.pill.warn{background:#fff5e5;color:var(--warn)}.pill.danger{background:#feeceb;color:var(--danger)}.pill.muted{background:#f2e7ec;color:#6e5360}
-    .list-card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px;margin:10px 0}
+    .list-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;margin:10px 0}.data-card{border-left:4px solid var(--wine);background:#fffafb}.data-card strong{font-weight:600;color:var(--wine-dark)}
     .list-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .list-title{font-weight:900;color:var(--wine-dark);font-size:15px}
-    .meta{font-size:12px;color:var(--muted);line-height:1.45}
+    .list-title{font-weight:700;color:var(--wine-dark);font-size:17px}
+    .meta{font-size:14px;color:var(--muted);line-height:1.45}
     .empty,.loading{padding:18px;text-align:center;color:var(--muted);background:#fff;border:1px dashed #dec0cc;border-radius:16px}
     .loading:before{content:"";display:inline-block;width:17px;height:17px;border-radius:50%;border:3px solid #ead0da;border-top-color:var(--wine);animation:spin .75s linear infinite;margin-right:8px;vertical-align:-4px}
     @keyframes spin{to{transform:rotate(360deg)}}
     .staff-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
     .staff-chip{background:#fff0f5;color:var(--wine-dark);border:1px solid #e8c8d5;border-radius:999px;padding:6px 9px;font-size:13px;display:inline-flex;gap:6px;align-items:center}
-    .staff-chip button{background:transparent;color:var(--danger);font-weight:900;padding:0}
+    .staff-chip button{background:transparent;color:var(--danger);font-weight:700;padding:0}
     .modal{
-      position:fixed;inset:0;z-index:50;background:rgba(24,4,12,.56);display:flex;align-items:flex-end;justify-content:center;
+      position:fixed;inset:0;z-index:50;background:rgba(24,4,12,.56);display:flex;align-items:flex-start;justify-content:center;padding-top:8px;
     }
-    .modal-card{width:100%;max-height:92vh;overflow:auto;background:#fff;border-radius:24px 24px 0 0;padding:14px;box-shadow:0 -8px 30px rgba(0,0,0,.25)}
+    .modal-card{width:100%;max-height:96vh;overflow:auto;background:#fff;border-radius:18px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.25);margin:0 8px}
     .modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:-14px;background:#fff;padding:8px 0 10px;z-index:2;border-bottom:1px solid var(--line)}
-    .modal-title{font-size:18px;font-weight:950;color:var(--wine-dark)}
-    .close-btn{width:36px;height:36px;border-radius:50%;background:#fff;color:#5f6368;font-weight:600;font-size:22px;line-height:1}
+    .modal-title{font-size:18px;font-weight:700;color:var(--wine-dark);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .close-btn{width:36px;height:36px;border-radius:50%;background:#fff;color:#5f6368;font-weight:600;font-size:22px;line-height:1;border:1px solid var(--g-line)}
     .close-btn:hover{background:#f1f3f4}
     .full-modal{align-items:stretch}
     .full-modal .modal-card{max-width:none;height:100vh;max-height:100vh;border-radius:0;padding-top:max(14px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}
@@ -128,7 +128,6 @@
     .boot-title{font-size:18px;font-weight:700;margin:0 0 6px;color:var(--g-text)}
     .boot-sub{font-size:13px;color:var(--g-muted);margin:0}
     .version-badge{display:inline-flex;align-items:center;gap:4px;margin-top:4px;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:2px 7px;font-size:10px;line-height:14px;opacity:.95}
-    .update-test-ribbon{position:fixed;top:calc(var(--header-h) + 8px);right:10px;z-index:60;background:#e8f0fe;color:#174ea6;border:1px solid #aecbfa;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:700;box-shadow:0 1px 3px rgba(60,64,67,.25)}
     .login-screen{min-height:100%;display:grid;place-items:center;padding:24px;background:linear-gradient(145deg,#4a071f,#7b113a 45%,#f8f1f4 45%)}
     .login-card{width:100%;max-width:420px;background:#fff;border-radius:26px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.22)}
     .login-logo{width:64px;height:64px;border-radius:22px;background:#fff0f5;color:var(--wine);display:grid;place-items:center;font-size:34px;font-weight:900;margin-bottom:10px}
@@ -139,7 +138,7 @@
     .two-col-text{white-space:pre-wrap;line-height:1.45}
     .report-day{background:#fff8fb;border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}
     a.btn{text-decoration:none}
-    .login-card .btn.primary{background:var(--g-blue);border-radius:4px;min-height:40px}
+    .login-card .btn.primary{background:var(--g-blue);border-radius:4px;min-height:38px}
     .modal-card .btn-row{justify-content:flex-end}
     .card .btn-row{justify-content:flex-start}
     .filter-grid + .btn-row{justify-content:flex-end}
@@ -149,7 +148,8 @@
       .main{padding:10px}
       .card{padding:12px;border-radius:16px}
       .col-8,.col-6,.col-4,.col-3{grid-column:span 12}
-      .btn{width:100%;min-height:40px}
+      .date-pair{grid-column:span 6!important}
+      .btn{width:100%;min-height:38px}
       .list-head{flex-direction:column}
       .userbox{max-width:38vw}
       .tab-btn{font-size:10px}
@@ -167,7 +167,7 @@
     <div class="boot-box">
       <div class="boot-logo">✓</div>
       <p class="boot-title">Đang mở Sổ trực điện tử</p>
-      <p class="boot-sub">Phiên bản kiểm tra cập nhật: UI-AUTH-CHECK-2026-05-20-01</p>
+      <p class="boot-sub">Đang khôi phục phiên đăng nhập</p>
     </div>
   </div>
 
@@ -197,13 +197,12 @@
         <div class="brand-icon">🩸</div>
         <div>
           <div class="brand-title">Sổ trực - Giao ban</div>
-          <div class="brand-sub">Phòng Truyền máu</div><div class="version-badge">Bản cập nhật: UI-AUTH-CHECK-2026-05-20-01</div>
+          <div class="brand-sub">Phòng Truyền máu</div><div class="version-badge">Version: 02.200526</div>
         </div>
       </div>
       <div class="userbox">
         <strong id="userName">...</strong>
-        <span id="userDept">...</span><br>
-        <button id="logoutBtn" class="logout-btn">Đăng xuất</button>
+        <button id="logoutBtn" class="logout-icon" title="Đăng xuất" aria-label="Đăng xuất">⎋</button>
       </div>
     </header>
 
@@ -225,15 +224,13 @@
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
   </div>
-
-  <div id="updateRibbon" class="update-test-ribbon hidden">Đã nạp bản mới: UI-AUTH-CHECK-2026-05-20-01</div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
   <div id="modalRoot"></div>
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'UI-AUTH-CHECK-2026-05-20-01';
+const APP_VERSION = '02.200526';
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
@@ -357,17 +354,17 @@ async function login(){
     storeSession(state.token, state.user);
     showApp();
     await loadInitData();
-    toast('Đăng nhập thành công');
   });
 }
 
 async function logout(){
-  try{ await api('logout', {}); }catch(e){}
+  const oldToken = state.token;
   clearStoredSession();
   state.token = '';
   state.user = null;
   state.initLoaded = false;
   showLogin();
+  try{ if(oldToken) await api('logout', {}, {token: oldToken}); }catch(e){}
 }
 
 function showLogin(){
@@ -381,9 +378,7 @@ function showApp(){
   $('#bootScreen').classList.add('hidden');
   $('#loginScreen').classList.add('hidden');
   $('#app').classList.remove('hidden');
-  $('#updateRibbon').classList.remove('hidden');
   $('#userName').textContent = state.user?.tenNhanVien || 'Đang khôi phục phiên';
-  $('#userDept').textContent = [state.user?.chucDanh, state.user?.khoaPhong].filter(Boolean).join(' - ');
   $('#settingsTabBtn').classList.toggle('hidden', !state.user?.isAdmin);
   renderCreateTab();
   renderSettingsTab();
@@ -412,6 +407,11 @@ function refreshDatalists(){
     const label = `${p.maNhanVien} - ${p.tenNhanVien}${p.chucDanh ? ' - ' + p.chucDanh : ''}`;
     return `<option value="${esc(label)}"></option>`;
   }).join('');
+}
+
+function deptOptions(selected=''){
+  const list = Array.from(new Set([selected, state.user?.khoaPhong, ...(state.khoaPhong || [])].filter(Boolean)));
+  return list.map(x => `<option value="${escAttr(x)}" ${norm(x)===norm(selected) ? 'selected' : ''}>${esc(x)}</option>`).join('');
 }
 
 function setDefaultFilters(){
@@ -486,7 +486,7 @@ function renderCreateTab(){
   const now = toDatetimeLocal(new Date());
   $('#tab-create').innerHTML = `
     <div class="card">
-      <h2 class="section-title">Tạo phiếu</h2>
+      <h2 class="section-title">I. Thông tin phiếu</h2>
       <div class="grid">
         <div class="col-4">
           <label>Loại phiếu</label>
@@ -501,7 +501,7 @@ function renderCreateTab(){
         </div>
         <div class="col-4">
           <label>Khoa/phòng</label>
-          <input id="createDept" list="deptList" value="${esc(state.user?.khoaPhong || '')}" placeholder="Chọn hoặc nhập khoa/phòng">
+          <select id="createDept">${deptOptions(state.user?.khoaPhong || '')}</select>
         </div>
         <div class="col-12">
           <label>Người thực hiện</label>
@@ -514,7 +514,7 @@ function renderCreateTab(){
       <h3 class="section-title">II. Báo cáo thường trực</h3>
       <div class="grid">
         <div class="col-8">
-          <label>Nhân viên phiên thường trực</label>
+          <label>2.1 Nhân viên phiên thường trực</label>
           <input id="staffSearch" list="staffDatalist" placeholder="Gõ tên hoặc mã nhân viên">
         </div>
         <div class="col-4">
@@ -523,16 +523,16 @@ function renderCreateTab(){
         </div>
         <div class="col-12"><div id="staffList" class="staff-list"></div></div>
         <div class="col-12">
-          <label>Tình hình chung / số liệu trực</label>
+          <label>2.2 Tình hình chung / số liệu trực</label>
           <textarea id="soLieuTruc" placeholder="Nhập số liệu trực"></textarea>
         </div>
         <div class="col-12">
-          <label>Chuyên môn</label>
-          <textarea id="baoCaoChuyenMon" placeholder="Nhập nội dung chuyên môn"></textarea>
+          <label>2.3 Chuyên môn</label>
+          <textarea id="baoCaoChuyenMon">Không có gì đặc biệt</textarea>
         </div>
         <div class="col-12">
-          <label>Vấn đề khác</label>
-          <textarea id="baoCaoVanDeKhac" placeholder="Không có gì đặc biệt"></textarea>
+          <label>2.4 Vấn đề khác</label>
+          <textarea id="baoCaoVanDeKhac">Không có gì đặc biệt</textarea>
         </div>
       </div>
     </div>
@@ -541,19 +541,19 @@ function renderCreateTab(){
       <h3 class="section-title">III. Bàn giao thường trực</h3>
       <div class="grid">
         <div class="col-12">
-          <label>Tài sản, dụng cụ, thiết bị y tế</label>
+          <label>3.1 Tài sản, dụng cụ, thiết bị y tế</label>
           <textarea id="banGiaoTaiSan">Bình thường</textarea>
         </div>
         <div class="col-12">
-          <label>Chuyên môn</label>
+          <label>3.2 Chuyên môn</label>
           <textarea id="banGiaoChuyenMon">Không có gì đặc biệt</textarea>
         </div>
         <div class="col-12">
-          <label>Vấn đề khác</label>
+          <label>3.3 Vấn đề khác</label>
           <textarea id="banGiaoVanDeKhac">Không có gì đặc biệt</textarea>
         </div>
         <div class="col-6">
-          <label>Thời gian bàn giao</label>
+          <label>3.4 Thời gian bàn giao</label>
           <input id="thoiGianBanGiao" type="datetime-local" value="${now}">
         </div>
       </div>
@@ -605,7 +605,7 @@ async function submitCreatePhieu(){
   const payload = {
     loaiPhieu: $('#createLoai').value,
     ngayTruc: $('#createDate').value,
-    khoaPhong: $('#createDept').value.trim(),
+    khoaPhong: $('#createDept').value,
     nhanVienThuongTruc: state.selectedStaff,
     soLieuTruc: $('#soLieuTruc')?.value || '',
     baoCaoChuyenMon: $('#baoCaoChuyenMon')?.value || '',
@@ -633,9 +633,9 @@ function renderListTab(){
     <div class="card">
       <h2 class="section-title">Danh sách phiếu</h2>
       <div class="grid filter-grid">
-        <div class="col-3"><label>Từ ngày</label><input id="filterFrom" type="date"></div>
-        <div class="col-3"><label>Đến ngày</label><input id="filterTo" type="date"></div>
-        <div class="col-3"><label>Khoa/phòng</label><input id="filterDept" list="deptList" placeholder="Khoa/phòng"></div>
+        <div class="col-3 date-pair"><label>Từ ngày</label><input id="filterFrom" type="date"></div>
+        <div class="col-3 date-pair"><label>Đến ngày</label><input id="filterTo" type="date"></div>
+        <div class="col-3"><label>Khoa/phòng</label><select id="filterDept">${deptOptions(state.user?.khoaPhong || '')}</select></div>
         <div class="col-3">
           <label>Loại phiếu</label>
           <select id="filterLoai">
@@ -667,13 +667,20 @@ async function loadPhieuList(force){
   const filters = getPhieuFilters();
   const key = JSON.stringify(filters);
   const fresh = state.cache.phieu.key === key && Date.now() - state.cache.phieu.time < 45000;
-  if(!force && fresh) return renderPhieuList(state.cache.phieu.data);
+  if(!force && fresh) return renderPhieuList(state.cache.phieu.data, state.cache.phieu.note || '');
 
   box.innerHTML = `<div class="loading">Đang tải danh sách phiếu...</div>`;
   try{
     const res = await api('getPhieuList', filters);
-    state.cache.phieu = {key, time:Date.now(), data:res.data.items};
-    renderPhieuList(res.data.items);
+    let items = res.data.items || [];
+    let note = '';
+    if(!items.length){
+      const wide = await api('getPhieuList', {fromDate:'', toDate:'', khoaPhong:'', loaiPhieu:'Tất cả', trangThai:'Tất cả'});
+      items = (wide.data.items || []).slice(0, 50);
+      if(items.length) note = 'Không có phiếu đúng bộ lọc hiện tại. App đang hiển thị 50 phiếu gần nhất để kiểm tra lại ngày/phòng.';
+    }
+    state.cache.phieu = {key, time:Date.now(), data:items, note};
+    renderPhieuList(items, note);
   }catch(err){
     box.innerHTML = `<div class="empty">${esc(err.message)}</div>`;
   }
@@ -689,13 +696,14 @@ function getPhieuFilters(){
   };
 }
 
-function renderPhieuList(items){
+function renderPhieuList(items, note=''){
   const box = $('#phieuListBox');
   if(!items.length){
     box.innerHTML = `<div class="empty">Không có phiếu phù hợp bộ lọc.</div>`;
     return;
   }
-  box.innerHTML = items.map(p => `
+  const noteHtml = note ? `<div class="empty" style="text-align:left;margin-bottom:10px">${esc(note)}</div>` : '';
+  box.innerHTML = noteHtml + items.map(p => `
     <div class="list-card">
       <div class="list-head">
         <div>
@@ -725,24 +733,24 @@ window.openPhieu = async function(phieuID){
 function showPhieuModal(p, opts={}){
   const reportHtml = p.canSeeFull && p.loaiPhieuGoc === LOAI_BAO_CAO ? `
     <h3 class="sub-title">II. Báo cáo thường trực</h3>
-    <div class="list-card">
-      <div><strong>Nhân viên thường trực</strong></div>
+    <div class="list-card data-card">
+      <div><strong>2.1 Nhân viên thường trực</strong></div>
       <div class="two-col-text">${esc((p.nhanVienThuongTruc||[]).map(n => `${n.tenNhanVien}${n.chucDanh ? ' - ' + n.chucDanh : ''}`).join('\n') || 'Chưa nhập')}</div>
       <hr style="border:0;border-top:1px solid var(--line)">
-      <div><strong>Số liệu trực</strong></div><div class="two-col-text">${esc(p.soLieuTruc||'')}</div>
-      <div><strong>Chuyên môn</strong></div><div class="two-col-text">${esc(p.baoCaoChuyenMon||'')}</div>
-      <div><strong>Vấn đề khác</strong></div><div class="two-col-text">${esc(p.baoCaoVanDeKhac||'')}</div>
+      <div><strong>2.2 Tình hình chung / số liệu trực</strong></div><div class="two-col-text">${esc(p.soLieuTruc||'')}</div>
+      <div><strong>2.3 Chuyên môn</strong></div><div class="two-col-text">${esc(p.baoCaoChuyenMon||'')}</div>
+      <div><strong>2.4 Vấn đề khác</strong></div><div class="two-col-text">${esc(p.baoCaoVanDeKhac||'')}</div>
     </div>
   ` : '';
 
   openModal(`
     <div class="modal-card">
       <div class="modal-head">
-        <div class="modal-title">${opts.created ? 'Đã tạo phiếu' : 'Chi tiết phiếu'}</div>
+        <div class="modal-title">${esc(p.loaiPhieu)} ${statusPill(p.trangThaiBanGiao)}</div>
         <button class="close-btn" onclick="closeModal()">×</button>
       </div>
       <h3 class="sub-title">I. Thông tin phiếu</h3>
-      <div class="list-card">
+      <div class="list-card data-card">
         <div><strong>${esc(p.loaiPhieu)}</strong> ${statusPill(p.trangThaiBanGiao)}</div>
         <div class="meta">Mã phiếu: ${esc(p.phieuID)}</div>
         <div class="meta">Ngày trực: ${dateVi(p.ngayTruc)} · Khoa/phòng: ${esc(p.khoaPhong)}</div>
@@ -750,11 +758,11 @@ function showPhieuModal(p, opts={}){
       </div>
       ${reportHtml}
       <h3 class="sub-title">III. Bàn giao thường trực</h3>
-      <div class="list-card">
-        <div><strong>Tài sản, dụng cụ, thiết bị y tế</strong></div><div class="two-col-text">${esc(p.banGiaoTaiSan||'')}</div>
-        <div><strong>Chuyên môn</strong></div><div class="two-col-text">${esc(p.banGiaoChuyenMon||'')}</div>
-        <div><strong>Vấn đề khác</strong></div><div class="two-col-text">${esc(p.banGiaoVanDeKhac||'')}</div>
-        <div class="meta">Thời gian bàn giao: ${dateTimeVi(p.thoiGianBanGiao)}</div>
+      <div class="list-card data-card">
+        <div><strong>3.1 Tài sản, dụng cụ, thiết bị y tế</strong></div><div class="two-col-text">${esc(p.banGiaoTaiSan||'')}</div>
+        <div><strong>3.2 Chuyên môn</strong></div><div class="two-col-text">${esc(p.banGiaoChuyenMon||'')}</div>
+        <div><strong>3.3 Vấn đề khác</strong></div><div class="two-col-text">${esc(p.banGiaoVanDeKhac||'')}</div>
+        <div class="meta">3.4 Thời gian bàn giao: ${dateTimeVi(p.thoiGianBanGiao)}</div>
       </div>
       ${p.trangThaiBanGiao === STATUS_DA ? `
         <div class="list-card">
@@ -764,9 +772,9 @@ function showPhieuModal(p, opts={}){
         </div>
       ` : ''}
       <div class="btn-row">
-        ${p.canSignBanGiao ? `<button class="btn ok" onclick="signBanGiao('${escAttr(p.phieuID)}')">Ký nhận bàn giao</button>` : ''}
-        ${p.pdfBanGiaoUrl ? `<a class="btn secondary" target="_blank" href="${escAttr(p.pdfBanGiaoUrl)}">Mở PDF bàn giao</a>` : ''}
-        <button class="btn ghost" onclick="closeModal()">Đóng</button>
+        ${!opts.created && p.canSignBanGiao ? `<button class="btn ok" onclick="signBanGiao('${escAttr(p.phieuID)}')">Ký nhận bàn giao</button>` : ''}
+        ${!opts.created && p.pdfBanGiaoUrl ? `<a class="btn secondary" target="_blank" href="${escAttr(p.pdfBanGiaoUrl)}">Mở PDF bàn giao</a>` : ''}
+        <button class="btn secondary" onclick="closeModal()">Đóng</button>
       </div>
     </div>
   `);
@@ -806,7 +814,7 @@ window.editPhieu = async function(phieuID){
         </div>
         <div class="grid">
           <div class="col-6"><label>Ngày trực</label><input id="editDate" type="date" value="${escAttr(p.ngayTruc)}"></div>
-          <div class="col-6"><label>Khoa/phòng</label><input id="editDept" list="deptList" value="${escAttr(p.khoaPhong)}"></div>
+          <div class="col-6"><label>Khoa/phòng</label><select id="editDept">${deptOptions(p.khoaPhong)}</select></div>
           ${p.loaiPhieuGoc === LOAI_BAO_CAO ? `
             <div class="col-8"><label>Nhân viên thường trực</label><input id="editStaffSearch" list="staffDatalist"></div>
             <div class="col-4"><label>&nbsp;</label><button class="btn secondary" onclick="addEditStaff()">Thêm</button></div>
@@ -819,7 +827,7 @@ window.editPhieu = async function(phieuID){
             <div class="col-12"><label>Bàn giao tài sản</label><textarea id="editBGTaiSan">${esc(p.banGiaoTaiSan||'')}</textarea></div>
             <div class="col-12"><label>Bàn giao chuyên môn</label><textarea id="editBGCM">${esc(p.banGiaoChuyenMon||'')}</textarea></div>
             <div class="col-12"><label>Bàn giao vấn đề khác</label><textarea id="editBGKhac">${esc(p.banGiaoVanDeKhac||'')}</textarea></div>
-            <div class="col-6"><label>Thời gian bàn giao</label><input id="editTGBG" type="datetime-local" value="${escAttr(toDatetimeLocal(p.thoiGianBanGiao))}"></div>
+            <div class="col-6"><label>3.4 Thời gian bàn giao</label><input id="editTGBG" type="datetime-local" value="${escAttr(toDatetimeLocal(p.thoiGianBanGiao))}"></div>
           ` : `<div class="col-12"><div class="empty">Phần bàn giao đã ký nhận nên không được sửa.</div></div>`}
         </div>
         <div class="btn-row">
@@ -888,11 +896,10 @@ function renderMeetingTab(){
     <div class="card">
       <h2 class="section-title">Giao ban</h2>
       <div class="grid filter-grid">
-        <div class="col-3"><label>Từ ngày</label><input id="gbFrom" type="date"></div>
-        <div class="col-3"><label>Đến ngày</label><input id="gbTo" type="date"></div>
-        <div class="col-3"><label>Khoa/phòng</label><input id="gbDept" list="deptList" placeholder="Khoa/phòng"></div>
+        <div class="col-3 date-pair"><label>Từ ngày</label><input id="gbFrom" type="date"></div>
+        <div class="col-3 date-pair"><label>Đến ngày</label><input id="gbTo" type="date"></div>
+        <div class="col-3"><label>Khoa/phòng</label><select id="gbDept">${deptOptions(state.user?.khoaPhong || '')}</select></div>
         <div class="col-3"><label>Trạng thái</label><select id="gbStatus"><option>Tất cả</option><option>${STATUS_CHUA}</option><option>${STATUS_DA}</option></select></div>
-        <div class="col-12"><label>Từ khóa</label><input id="gbKeyword" placeholder="Tìm người thực hiện, phòng, nội dung báo cáo/giao ban"></div>
       </div>
       <div class="btn-row">
         <button id="loadGbBtn" class="btn primary">Tải danh sách giao ban</button>
@@ -910,13 +917,20 @@ async function loadGiaoBanList(force){
   const filters = getGiaoBanFilters();
   const key = JSON.stringify(filters);
   const fresh = state.cache.giaoBan.key === key && Date.now() - state.cache.giaoBan.time < 45000;
-  if(!force && fresh) return renderGiaoBanList(state.cache.giaoBan.data);
+  if(!force && fresh) return renderGiaoBanList(state.cache.giaoBan.data, state.cache.giaoBan.note || '');
 
   box.innerHTML = `<div class="loading">Đang tải danh sách giao ban...</div>`;
   try{
     const res = await api('getGiaoBanList', filters);
-    state.cache.giaoBan = {key, time:Date.now(), data:res.data.items};
-    renderGiaoBanList(res.data.items);
+    let items = res.data.items || [];
+    let note = '';
+    if(!items.length){
+      const wide = await api('getGiaoBanList', {fromDate:'', toDate:'', khoaPhong:'', trangThai:'Tất cả'});
+      items = (wide.data.items || []).slice(0, 50);
+      if(items.length) note = 'Không có phiên giao ban đúng bộ lọc hiện tại. App đang hiển thị các phiên gần nhất để kiểm tra lại ngày/phòng.';
+    }
+    state.cache.giaoBan = {key, time:Date.now(), data:items, note};
+    renderGiaoBanList(items, note);
   }catch(err){
     box.innerHTML = `<div class="empty">${esc(err.message)}</div>`;
   }
@@ -927,18 +941,18 @@ function getGiaoBanFilters(){
     fromDate: $('#gbFrom')?.value || addDaysIso(todayIso(), -14),
     toDate: $('#gbTo')?.value || todayIso(),
     khoaPhong: $('#gbDept')?.value || state.user?.khoaPhong || '',
-    trangThai: $('#gbStatus')?.value || 'Tất cả',
-    keyword: $('#gbKeyword')?.value || ''
+    trangThai: $('#gbStatus')?.value || 'Tất cả'
   };
 }
 
-function renderGiaoBanList(items){
+function renderGiaoBanList(items, note=''){
   const box = $('#giaoBanListBox');
   if(!items.length){
     box.innerHTML = `<div class="empty">Không có phiên giao ban phù hợp. Nếu có báo cáo chưa giao ban, hệ thống sẽ hiện thẻ giao ban ngày hiện tại.</div>`;
     return;
   }
-  box.innerHTML = items.map(g => `
+  const noteHtml = note ? `<div class="empty" style="text-align:left;margin-bottom:10px">${esc(note)}</div>` : '';
+  box.innerHTML = noteHtml + items.map(g => `
     <div class="list-card">
       <div class="list-head">
         <div>
@@ -1097,10 +1111,11 @@ function renderPdfTab(){
     <div class="card">
       <h2 class="section-title">Tra cứu / PDF</h2>
       <div class="grid filter-grid">
-        <div class="col-3"><label>Từ ngày</label><input id="pdfFrom" type="date"></div>
-        <div class="col-3"><label>Đến ngày</label><input id="pdfTo" type="date"></div>
-        <div class="col-3"><label>Khoa/phòng</label><input id="pdfDept" list="deptList" placeholder="Khoa/phòng"></div>
+        <div class="col-3 date-pair"><label>Từ ngày</label><input id="pdfFrom" type="date"></div>
+        <div class="col-3 date-pair"><label>Đến ngày</label><input id="pdfTo" type="date"></div>
+        <div class="col-3"><label>Khoa/phòng</label><select id="pdfDept">${deptOptions(state.user?.khoaPhong || '')}</select></div>
         <div class="col-3"><label>Loại hồ sơ</label><select id="pdfType"><option>Tất cả</option><option>Bàn giao</option><option>Giao ban</option></select></div>
+        <div class="col-12"><label>Từ khóa</label><input id="pdfKeyword" placeholder="Tìm theo người tạo, phòng, tiêu đề PDF"></div>
       </div>
       <div class="btn-row">
         <button id="loadPdfBtn" class="btn primary">Tra cứu PDF</button>
@@ -1121,7 +1136,8 @@ async function loadPdfList(){
       fromDate: $('#pdfFrom').value,
       toDate: $('#pdfTo').value,
       khoaPhong: $('#pdfDept').value,
-      loaiHoSo: $('#pdfType').value
+      loaiHoSo: $('#pdfType').value,
+      keyword: $('#pdfKeyword').value
     });
     const items = res.data.items || [];
     if(!items.length){
@@ -1249,7 +1265,13 @@ function dateTimeVi(value){
   if(!value) return '';
   const s = String(value);
   const m = s.match(/^(\d{4})-(\d{2})-(\d{2})[T ]?(\d{2})?:?(\d{2})?/);
-  return m ? `${m[4]||'00'}:${m[5]||'00'} ${m[3]}/${m[2]}/${m[1]}` : s;
+  if(m) return `${m[3]}/${m[2]}/${m[1]} ${m[4] || '00'}h${m[5] || '00'}`;
+  const d = new Date(value);
+  if(!isNaN(d.getTime())){
+    const dd = pad(d.getDate()), mm = pad(d.getMonth()+1), yyyy = d.getFullYear();
+    return `${dd}/${mm}/${yyyy} ${pad(d.getHours())}h${pad(d.getMinutes())}`;
+  }
+  return s;
 }
 
 function toDatetimeLocal(value){
