@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=13.220526-TM-UI-TABLE">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=13.220526-TM-UI-TABLE">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=13.220526-TM-UI-TABLE">
-  <link rel="manifest" href="./manifest.json?v=13.220526-TM-UI-TABLE">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=13.220526-TM-UI-TABLE">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=14.220526-TM-MOBILE-FILTER">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=14.220526-TM-MOBILE-FILTER">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=14.220526-TM-MOBILE-FILTER">
+  <link rel="manifest" href="./manifest.json?v=14.220526-TM-MOBILE-FILTER">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=14.220526-TM-MOBILE-FILTER">
   <meta name="theme-color" content="#7b113a">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -133,7 +133,7 @@
     .staff-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
     .staff-chip{background:#fff0f5;color:var(--wine-dark);border:1px solid #e8c8d5;border-radius:999px;padding:6px 9px;font-size:13px;display:inline-flex;gap:6px;align-items:center}
     .staff-chip button{background:transparent;color:var(--danger);font-weight:700;padding:0}
-    .equal-control{height:38px;min-height:38px}
+    .equal-control{height:38px;min-height:38px;width:100%;display:block}
     .staff-picker{position:relative}
     .staff-input-row{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px;align-items:stretch}
     .staff-add-btn{width:42px!important;min-width:42px;min-height:38px!important;padding:0!important;border-radius:8px;font-size:24px;line-height:1}
@@ -208,12 +208,17 @@
     .modal-card .btn-row{justify-content:flex-end}
     .card .btn-row{justify-content:flex-start}
     .filter-grid + .btn-row{justify-content:flex-end}
+    .filter-action{display:flex;align-items:flex-end;min-width:0}
+    .filter-action .btn{width:100%;height:38px;min-height:38px;padding:0 10px}
 
-    #tab-list .filter-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
+    #tab-list .filter-grid{grid-template-columns:repeat(6,minmax(0,1fr));}
     #tab-list .filter-grid > div{grid-column:auto!important;min-width:0;}
     #tab-meeting .filter-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
     #tab-meeting .filter-grid > div{grid-column:auto!important;min-width:0;}
-    input[type="date"],input[type="datetime-local"],select{min-width:0;}
+    input[type="date"],input[type="datetime-local"],select{min-width:0}
+    input[type="date"],input[type="datetime-local"]{width:100%;max-width:100%;height:38px;min-height:38px;display:block;-webkit-appearance:none;appearance:none}
+    input[type="date"]::-webkit-date-and-time-value,input[type="datetime-local"]::-webkit-date-and-time-value{text-align:left;width:100%}
+    input[type="date"]::-webkit-calendar-picker-indicator,input[type="datetime-local"]::-webkit-calendar-picker-indicator{margin-left:0}
     @media (max-width:760px){
       :root{--header-content-h:58px;--tabbar-content-h:54px}
       .brand-title{font-size:15px}.brand-sub{font-size:11px}
@@ -222,7 +227,9 @@
       .col-8,.col-6,.col-4,.col-3{grid-column:span 12}
       #tab-list .filter-grid,#tab-meeting .filter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
       #tab-list .filter-grid > div,#tab-meeting .filter-grid > div{grid-column:auto!important;min-width:0}
+      #tab-list .filter-action{grid-column:auto!important}
       .date-pair{grid-column:auto!important}
+      .equal-control,input[type="date"],input[type="datetime-local"],select{width:100%!important;max-width:100%!important}
       .btn{width:100%;min-height:38px}
       .staff-add-btn{width:42px!important;min-width:42px!important}
       .list-head{flex-direction:column}
@@ -252,7 +259,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=13.220526-TM-UI-TABLE" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=14.220526-TM-MOBILE-FILTER" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -267,14 +274,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 13.220526-TM-UI-TABLE</p>
+      <p class="login-version">Version: 14.220526-TM-MOBILE-FILTER</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=13.220526-TM-UI-TABLE" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=14.220526-TM-MOBILE-FILTER" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -303,7 +310,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 13.220526-TM-UI-TABLE</div>
+    <div class="app-version">Version: 14.220526-TM-MOBILE-FILTER</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -311,7 +318,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = '13.220526-TM-UI-TABLE';
+const APP_VERSION = '14.220526-TM-MOBILE-FILTER';
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
@@ -1010,26 +1017,24 @@ function renderListTab(){
     <div class="card">
       <h2 class="section-title">Danh sách phiếu</h2>
       <div class="grid filter-grid">
-        <div class="col-3 date-pair"><label>Từ ngày</label><input id="filterFrom" type="date"></div>
-        <div class="col-3 date-pair"><label>Đến ngày</label><input id="filterTo" type="date"></div>
-        <div class="col-3"><label>Khoa/phòng</label><select id="filterDept">${deptOptions(state.user?.khoaPhong || '')}</select></div>
-        <div class="col-3">
+        <div class="date-pair"><label>Từ ngày</label><input id="filterFrom" class="equal-control" type="date"></div>
+        <div class="date-pair"><label>Đến ngày</label><input id="filterTo" class="equal-control" type="date"></div>
+        <div><label>Khoa/phòng</label><select id="filterDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
+        <div>
           <label>Loại phiếu</label>
-          <select id="filterLoai">
+          <select id="filterLoai" class="equal-control">
             <option>Tất cả</option>
             <option>${LOAI_BAN_GIAO}</option>
             <option>${LOAI_BAO_CAO}</option>
           </select>
         </div>
-        <div class="col-3">
+        <div>
           <label>Trạng thái</label>
-          <select id="filterStatus">
+          <select id="filterStatus" class="equal-control">
             <option>Tất cả</option><option>${STATUS_CHUA}</option><option>${STATUS_DA}</option>
           </select>
         </div>
-      </div>
-      <div class="btn-row">
-        <button id="loadPhieuBtn" class="btn primary">Tải danh sách</button>
+        <div class="filter-action"><button id="loadPhieuBtn" class="btn primary equal-control">Tải danh sách</button></div>
       </div>
     </div>
     <div id="phieuListBox"></div>
