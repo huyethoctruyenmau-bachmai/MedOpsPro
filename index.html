@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=10.220526-TM">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=10.220526-TM">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=10.220526-TM">
-  <link rel="manifest" href="./manifest.json?v=10.220526-TM">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=10.220526-TM">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=12.220526-TM-EQ-QTY">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=12.220526-TM-EQ-QTY">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=12.220526-TM-EQ-QTY">
+  <link rel="manifest" href="./manifest.json?v=12.220526-TM-EQ-QTY">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=12.220526-TM-EQ-QTY">
   <meta name="theme-color" content="#7b113a">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -150,7 +150,11 @@
     .tm-equip-table .unit{width:82px;text-align:center}
     .tm-equip-table .status{text-align:center;width:82px}
     .tm-equip-table input[type="number"]{min-height:30px;text-align:center;padding:3px 6px}
+    .tm-equip-table input[type="text"],.tm-equip-table select{min-height:30px;padding:3px 6px}
     .tm-equip-table input[type="radio"]{width:18px;min-height:18px;box-shadow:none}
+    .tm-equip-table .action{width:72px;text-align:center}
+    .tm-equip-table .eq-name-input{min-width:220px}
+    .tm-equip-table .unit-input{min-width:72px;text-align:center}
     .tm-view-table{min-width:680px}
     .locked-chip{padding-right:10px}
     .modal{
@@ -229,7 +233,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=10.220526-TM" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=12.220526-TM-EQ-QTY" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -244,14 +248,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 10.220526-TM</p>
+      <p class="login-version">Version: 12.220526-TM-EQ-QTY</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=10.220526-TM" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=12.220526-TM-EQ-QTY" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -280,7 +284,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 10.220526-TM</div>
+    <div class="app-version">Version: 12.220526-TM-EQ-QTY</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -288,7 +292,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = '10.220526-TM';
+const APP_VERSION = '12.220526-TM-EQ-QTY';
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
@@ -298,19 +302,19 @@ const STATUS_DA = 'Đã hoàn thành';
 
 
 const TM_EQUIPMENT_DEFAULTS = [
-  {id:'tu_lanh_khc', name:'Tủ lạnh bảo quản KHC', unit:'Cái'},
-  {id:'tu_lanh_htt_tua', name:'Tủ lạnh bảo quản HTT và Tủa VIII', unit:'Cái'},
-  {id:'may_lac_tieu_cau', name:'Máy lắc tiểu cầu', unit:'Cái'},
-  {id:'may_ly_tam', name:'Máy ly tâm', unit:'Cái'},
-  {id:'kinh_hien_vi', name:'Kính hiển vi', unit:'Cái'},
-  {id:'binh_cach_thuy_37', name:'Bình cách thủy 37°C', unit:'Cái'},
-  {id:'tu_mat_sinh_pham', name:'Tủ mát bảo quản sinh phẩm hóa chất', unit:'Cái'},
-  {id:'tu_mat_benh_pham_luu', name:'Tủ mát bảo quản bệnh phẩm lưu', unit:'Cái'},
-  {id:'may_tinh', name:'Máy tính', unit:'Cái'},
-  {id:'may_in', name:'Máy in', unit:'Cái'},
-  {id:'automax_800', name:'Hệ thống máy tự động AutoMax 800', unit:'HT'},
-  {id:'matrix', name:'Hệ thống máy bán tự động Matrix', unit:'HT'},
-  {id:'may_tan_dong_tu_dong', name:'Máy tan đông tự động', unit:'Cái'}
+  {id:'tu_lanh_khc', name:'Tủ lạnh bảo quản KHC', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'tu_lanh_htt_tua', name:'Tủ lạnh bảo quản HTT và Tủa VIII', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'may_lac_tieu_cau', name:'Máy lắc tiểu cầu', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'may_ly_tam', name:'Máy ly tâm', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'kinh_hien_vi', name:'Kính hiển vi', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'binh_cach_thuy_37', name:'Bình cách thủy 37°C', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'tu_mat_sinh_pham', name:'Tủ mát bảo quản sinh phẩm hóa chất', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'tu_mat_benh_pham_luu', name:'Tủ mát bảo quản bệnh phẩm lưu', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'may_tinh', name:'Máy tính', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'may_in', name:'Máy in', unit:'Cái', okQty:'', brokenQty:''},
+  {id:'automax_800', name:'Hệ thống máy tự động AutoMax 800', unit:'HT', okQty:'', brokenQty:''},
+  {id:'matrix', name:'Hệ thống máy bán tự động Matrix', unit:'HT', okQty:'', brokenQty:''},
+  {id:'may_tan_dong_tu_dong', name:'Máy tan đông tự động', unit:'Cái', okQty:'', brokenQty:''}
 ];
 
 const state = {
@@ -763,28 +767,81 @@ function renderBanGiaoTaiSanInput(isTM){
     if(!$('#banGiaoTaiSan')) box.innerHTML = `<textarea id="banGiaoTaiSan">Bình thường</textarea>`;
     return;
   }
-  const rows = getTmEquipmentConfig().map((it, idx) => `
-    <tr>
-      <td class="stt">${idx + 1}</td>
-      <td>${esc(it.name)}</td>
-      <td class="qty"><input id="tmEqQty_${escAttr(it.id)}" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(it.quantity || '')}"></td>
-      <td class="unit">${esc(it.unit || '')}</td>
-      <td class="status"><input type="radio" name="tmEqStatus_${escAttr(it.id)}" value="HĐ BT" checked aria-label="${escAttr(it.name)} hoạt động bình thường"></td>
-      <td class="status"><input type="radio" name="tmEqStatus_${escAttr(it.id)}" value="Hỏng" aria-label="${escAttr(it.name)} hỏng"></td>
-    </tr>
-  `).join('');
+  const rows = getTmEquipmentConfig().map((it, idx) => renderTmCreateEquipmentRow(it, idx, false)).join('');
   box.innerHTML = `
     <div class="tm-equip-wrap">
       <table class="tm-equip-table">
         <thead>
-          <tr><th>Stt</th><th>Trang thiết bị, dụng cụ, hóa chất</th><th>Số lượng</th><th>Đơn vị</th><th>HĐ BT</th><th>Hỏng</th></tr>
+          <tr>
+            <th rowspan="2">Stt</th>
+            <th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th>
+            <th rowspan="2">Đơn vị</th>
+            <th colspan="2">Số lượng</th>
+            <th rowspan="2"></th>
+          </tr>
+          <tr><th>HĐ BT</th><th>Hỏng</th></tr>
         </thead>
-        <tbody>${rows}</tbody>
+        <tbody id="tmCreateEquipmentBody">${rows}</tbody>
       </table>
     </div>
-    <p class="meta">Số lượng lấy mặc định từ Cài đặt, người bàn giao có thể sửa theo thực tế. Tình trạng mặc định là HĐ BT.</p>
+    <div class="btn-row">
+      <button class="btn secondary" type="button" onclick="addManualTmEquipmentRow()">Thêm thiết bị phát sinh</button>
+    </div>
+    <p class="meta">Thiết bị phát sinh chỉ lưu trong phiếu này, không tự thêm vào Cài đặt. Số lượng HĐ BT/Hỏng có thể sửa thủ công theo thực tế khi bàn giao.</p>
   `;
+  bindCreateEquipmentEvents();
+}
+
+function renderTmCreateEquipmentRow(it, idx, manual){
+  const id = it.id || makeLocalId('manual_eq');
+  const name = it.name || '';
+  const unit = it.unit || '';
+  const nameCell = manual
+    ? `<input class="tm-eq-name-input" type="text" placeholder="Nhập tên thiết bị" value="${escAttr(name)}">`
+    : `<span class="tm-eq-name-text">${esc(name)}</span>`;
+  const unitCell = manual
+    ? `<input class="tm-eq-unit-input unit-input" type="text" placeholder="Đơn vị" value="${escAttr(unit || 'Cái')}">`
+    : `<span class="tm-eq-unit-text">${esc(unit)}</span>`;
+  return `
+    <tr class="tm-eq-row" data-id="${escAttr(id)}" data-manual="${manual ? '1' : '0'}">
+      <td class="stt">${idx + 1}</td>
+      <td>${nameCell}</td>
+      <td class="unit">${unitCell}</td>
+      <td class="qty"><input class="tm-eq-ok-qty" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(it.okQty ?? '')}"></td>
+      <td class="qty"><input class="tm-eq-broken-qty" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(it.brokenQty ?? '')}"></td>
+      <td class="action">${manual ? `<button type="button" class="btn danger" style="min-height:30px;padding:0 10px" onclick="removeTmEquipmentRow(this)">Xóa</button>` : ''}</td>
+    </tr>
+  `;
+}
+
+function bindCreateEquipmentEvents(){
   $$(`#banGiaoTaiSanBox input[type="number"]`).forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
+  refreshTmCreateEquipmentStt();
+}
+
+window.addManualTmEquipmentRow = function(){
+  const body = $('#tmCreateEquipmentBody');
+  if(!body) return;
+  const item = {id: makeLocalId('manual_eq'), name:'', unit:'Cái', okQty:'', brokenQty:''};
+  body.insertAdjacentHTML('beforeend', renderTmCreateEquipmentRow(item, body.children.length, true));
+  const newRow = body.querySelector('tr:last-child');
+  newRow?.querySelectorAll('input[type="number"]').forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
+  refreshTmCreateEquipmentStt();
+  const last = body.querySelector('tr:last-child .tm-eq-name-input');
+  if(last) last.focus();
+}
+
+window.removeTmEquipmentRow = function(btn){
+  const row = btn.closest('tr');
+  if(row) row.remove();
+  refreshTmCreateEquipmentStt();
+}
+
+function refreshTmCreateEquipmentStt(){
+  $$('#tmCreateEquipmentBody .tm-eq-row').forEach((row, idx) => {
+    const stt = row.querySelector('.stt');
+    if(stt) stt.textContent = idx + 1;
+  });
 }
 
 function collectSoLieuTruc(){
@@ -814,18 +871,21 @@ function collectSoLieuTruc(){
 function collectBanGiaoTaiSan(){
   const isTM = isTruyenMauDept($('#createDept')?.value || '');
   if(!isTM) return $('#banGiaoTaiSan')?.value || 'Bình thường';
-  const items = getTmEquipmentConfig().map((it, idx) => {
-    const checked = document.querySelector(`input[name="tmEqStatus_${cssEscape(it.id)}"]:checked`);
+  const items = $$('#tmCreateEquipmentBody .tm-eq-row').map((row, idx) => {
+    const id = row.dataset.id || makeLocalId('eq');
+    const name = row.querySelector('.tm-eq-name-input')?.value?.trim() || row.querySelector('.tm-eq-name-text')?.textContent?.trim() || '';
+    const unit = row.querySelector('.tm-eq-unit-input')?.value?.trim() || row.querySelector('.tm-eq-unit-text')?.textContent?.trim() || '';
     return {
       stt: idx + 1,
-      id: it.id,
-      name: it.name,
-      quantity: getIntValue(`tmEqQty_${it.id}`),
-      unit: it.unit,
-      status: checked?.value || 'HĐ BT'
+      id,
+      name,
+      unit,
+      okQty: getInputInt(row.querySelector('.tm-eq-ok-qty')),
+      brokenQty: getInputInt(row.querySelector('.tm-eq-broken-qty')),
+      manual: row.dataset.manual === '1'
     };
-  });
-  return JSON.stringify({type:'TM_EQUIPMENT_HANDOVER_V1', items});
+  }).filter(it => it.name);
+  return JSON.stringify({type:'TM_EQUIPMENT_HANDOVER_V2', items});
 }
 
 async function submitCreatePhieu(){
@@ -1420,14 +1480,7 @@ async function loadPdfList(){
 
 function renderSettingsTab(){
   const items = getTmEquipmentConfig();
-  const rows = items.map((it, idx) => `
-    <tr>
-      <td class="stt">${idx + 1}</td>
-      <td>${esc(it.name)}</td>
-      <td class="qty"><input id="settingEq_${escAttr(it.id)}" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(it.quantity || '')}"></td>
-      <td class="unit">${esc(it.unit || '')}</td>
-    </tr>
-  `).join('');
+  const rows = items.map((it, idx) => renderSettingEquipmentRow(it, idx)).join('');
   $('#tab-settings').innerHTML = `
     <div class="card">
       <h2 class="section-title">Cài đặt</h2>
@@ -1443,32 +1496,93 @@ function renderSettingsTab(){
     </div>
 
     <div class="card">
-      <h2 class="section-title">Cấu hình số lượng trang thiết bị Truyền máu</h2>
-      <p class="meta">Số lượng này sẽ tự điền mặc định vào mục bàn giao tài sản khi ô Khoa/phòng đang chọn có chứa chữ “Truyền máu”. Người bàn giao vẫn có thể sửa theo thực tế từng ca trực.</p>
+      <h2 class="section-title">Cấu hình trang thiết bị Truyền máu</h2>
+      <p class="meta">Admin có thể thêm thiết bị mới, sửa tên, đơn vị, số lượng HĐ BT mặc định và số lượng Hỏng mặc định. Cấu hình này sẽ tự điền vào mục bàn giao tài sản khi ô Khoa/phòng đang chọn có chứa chữ “Truyền máu”.</p>
       <div class="tm-equip-wrap">
         <table class="tm-equip-table">
-          <thead><tr><th>Stt</th><th>Trang thiết bị, dụng cụ, hóa chất</th><th>Số lượng mặc định</th><th>Đơn vị</th></tr></thead>
-          <tbody>${rows}</tbody>
+          <thead><tr><th rowspan="2">Stt</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng mặc định</th><th rowspan="2"></th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead>
+          <tbody id="tmEquipmentSettingsBody">${rows}</tbody>
         </table>
       </div>
       <div class="btn-row">
+        <button id="addTmEquipmentBtn" class="btn secondary" type="button">Thêm thiết bị</button>
+        <button id="resetTmEquipmentBtn" class="btn secondary" type="button">Khôi phục danh mục mặc định</button>
         <button id="saveTmEquipmentBtn" class="btn primary">Lưu cấu hình thiết bị</button>
       </div>
     </div>
   `;
-  setTimeout(() => {
-    $$(`#tab-settings input[type="number"]`).forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
-    $('#saveTmEquipmentBtn')?.addEventListener('click', () => saveTmEquipmentConfig($('#saveTmEquipmentBtn')));
-  }, 0);
+  bindSettingsEquipmentEvents();
+}
+
+function renderSettingEquipmentRow(it, idx){
+  const id = it.id || makeLocalId('setting_eq');
+  return `
+    <tr class="setting-eq-row" data-id="${escAttr(id)}">
+      <td class="stt">${idx + 1}</td>
+      <td><input class="setting-eq-name eq-name-input" type="text" value="${escAttr(it.name || '')}" placeholder="Tên thiết bị"></td>
+      <td class="unit"><input class="setting-eq-unit unit-input" type="text" value="${escAttr(it.unit || '')}" placeholder="Đơn vị"></td>
+      <td class="qty"><input class="setting-eq-ok-qty" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(it.okQty ?? '')}"></td>
+      <td class="qty"><input class="setting-eq-broken-qty" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(it.brokenQty ?? '')}"></td>
+      <td class="action"><button type="button" class="btn danger" style="min-height:30px;padding:0 10px" onclick="removeSettingTmEquipmentRow(this)">Xóa</button></td>
+    </tr>
+  `;
+}
+
+function bindSettingsEquipmentEvents(){
+  $$(`#tab-settings input[type="number"]`).forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
+  $('#addTmEquipmentBtn')?.addEventListener('click', addSettingTmEquipmentRow);
+  $('#resetTmEquipmentBtn')?.addEventListener('click', resetDefaultTmEquipmentConfig);
+  $('#saveTmEquipmentBtn')?.addEventListener('click', () => saveTmEquipmentConfig($('#saveTmEquipmentBtn')));
+  refreshSettingEquipmentStt();
+}
+
+function addSettingTmEquipmentRow(){
+  const body = $('#tmEquipmentSettingsBody');
+  if(!body) return;
+  const item = {id: makeLocalId('setting_eq'), name:'', unit:'Cái', okQty:'', brokenQty:''};
+  body.insertAdjacentHTML('beforeend', renderSettingEquipmentRow(item, body.children.length));
+  const newRow = body.querySelector('tr:last-child');
+  newRow?.querySelectorAll('input[type="number"]').forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
+  refreshSettingEquipmentStt();
+  const last = body.querySelector('tr:last-child .setting-eq-name');
+  if(last) last.focus();
+}
+
+window.removeSettingTmEquipmentRow = function(btn){
+  const row = btn.closest('tr');
+  if(row) row.remove();
+  refreshSettingEquipmentStt();
+}
+
+function resetDefaultTmEquipmentConfig(){
+  if(!confirm('Khôi phục danh mục thiết bị mặc định? Các dòng đang sửa trên màn hình sẽ được thay bằng danh mục mặc định.')) return;
+  state.tmEquipmentConfig = defaultTmEquipmentConfig();
+  renderSettingsTab();
+}
+
+function refreshSettingEquipmentStt(){
+  $$('#tmEquipmentSettingsBody .setting-eq-row').forEach((row, idx) => {
+    const stt = row.querySelector('.stt');
+    if(stt) stt.textContent = idx + 1;
+  });
+}
+
+function collectSettingsTmEquipmentConfig(){
+  return $$('#tmEquipmentSettingsBody .setting-eq-row').map(row => {
+    const id = row.dataset.id || makeLocalId('setting_eq');
+    return {
+      id,
+      name: row.querySelector('.setting-eq-name')?.value?.trim() || '',
+      unit: row.querySelector('.setting-eq-unit')?.value?.trim() || '',
+      okQty: getInputInt(row.querySelector('.setting-eq-ok-qty')),
+      brokenQty: getInputInt(row.querySelector('.setting-eq-broken-qty'))
+    };
+  }).filter(it => it.name);
 }
 
 async function saveTmEquipmentConfig(btn){
-  const items = getTmEquipmentConfig().map(it => ({
-    id: it.id,
-    name: it.name,
-    unit: it.unit,
-    quantity: getIntValue(`settingEq_${it.id}`)
-  }));
+  const items = collectSettingsTmEquipmentConfig();
+  if(!items.length) return toast('Vui lòng nhập ít nhất một thiết bị.');
   await withButton(btn, 'Đang lưu...', async () => {
     const res = await api('saveTmEquipmentConfig', {items});
     state.tmEquipmentConfig = normalizeTmEquipmentConfig(res.data.items || items);
@@ -1486,18 +1600,28 @@ function isTruyenMauDept(value){
 }
 
 function defaultTmEquipmentConfig(){
-  return TM_EQUIPMENT_DEFAULTS.map(x => ({...x, quantity:''}));
+  return TM_EQUIPMENT_DEFAULTS.map(x => ({...x, okQty:x.okQty ?? '', brokenQty:x.brokenQty ?? ''}));
 }
 
 function normalizeTmEquipmentConfig(items){
-  const map = {};
-  (items || []).forEach(it => { if(it && it.id) map[it.id] = it; });
-  return TM_EQUIPMENT_DEFAULTS.map(def => ({
-    id: def.id,
-    name: map[def.id]?.name || def.name,
-    unit: map[def.id]?.unit || def.unit,
-    quantity: map[def.id]?.quantity ?? map[def.id]?.soLuong ?? ''
-  }));
+  const source = Array.isArray(items) && items.length ? items : defaultTmEquipmentConfig();
+  const seen = {};
+  return source.map((it, idx) => {
+    const baseId = String(it.id || makeSlugId(it.name || ('eq_' + (idx + 1))));
+    let id = baseId;
+    let n = 2;
+    while(seen[id]) id = `${baseId}_${n++}`;
+    seen[id] = true;
+    const migratedOk = it.okQty ?? it.soLuongBinhThuong ?? (it.defaultStatus === 'Hỏng' || it.status === 'Hỏng' ? '' : (it.quantity ?? it.soLuong ?? ''));
+    const migratedBroken = it.brokenQty ?? it.soLuongHong ?? (it.defaultStatus === 'Hỏng' || it.status === 'Hỏng' ? (it.quantity ?? it.soLuong ?? '') : '');
+    return {
+      id,
+      name: String(it.name || '').trim(),
+      unit: String(it.unit || '').trim() || 'Cái',
+      okQty: sanitizeIntText(migratedOk),
+      brokenQty: sanitizeIntText(migratedBroken)
+    };
+  }).filter(it => it.name);
 }
 
 function getTmEquipmentConfig(){
@@ -1505,7 +1629,15 @@ function getTmEquipmentConfig(){
 }
 
 function getIntValue(id){
-  const el = document.getElementById(id);
+  return getInputInt(document.getElementById(id));
+}
+
+function sanitizeIntText(value){
+  const s = String(value ?? '').replace(/\D+/g,'');
+  return s ? String(parseInt(s, 10)) : '';
+}
+
+function getInputInt(el){
   if(!el) return 0;
   const n = parseInt(String(el.value || '').replace(/\D+/g,''), 10);
   return Number.isFinite(n) ? n : 0;
@@ -1515,6 +1647,15 @@ function cleanIntegerInput(el){
   const old = el.value;
   el.value = String(old || '').replace(/\D+/g,'');
   if(el.id === 'tmPhatKHC' || el.id === 'tmPhatCP') updateTmPhatTong();
+}
+
+function makeLocalId(prefix){
+  return `${prefix}_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+}
+
+function makeSlugId(text){
+  const s = norm(text).replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
+  return s || makeLocalId('eq');
 }
 
 function cssEscape(value){
@@ -1529,9 +1670,22 @@ function renderStaffNameList(list){
 function parseTmHandover(value){
   try{
     const obj = JSON.parse(String(value || ''));
-    if(obj && obj.type === 'TM_EQUIPMENT_HANDOVER_V1' && Array.isArray(obj.items)) return obj.items;
+    if(obj && (obj.type === 'TM_EQUIPMENT_HANDOVER_V2' || obj.type === 'TM_EQUIPMENT_HANDOVER_V1') && Array.isArray(obj.items)){
+      return obj.items.map(it => normalizeTmHandoverItem(it)).filter(it => it.name);
+    }
   }catch(e){}
   return null;
+}
+
+function normalizeTmHandoverItem(it){
+  it = it || {};
+  const status = it.status === 'Hỏng' ? 'Hỏng' : 'HĐ BT';
+  return {
+    name: String(it.name || '').trim(),
+    unit: String(it.unit || '').trim(),
+    okQty: sanitizeIntText(it.okQty ?? it.soLuongBinhThuong ?? (status === 'Hỏng' ? '' : (it.quantity ?? it.soLuong ?? ''))),
+    brokenQty: sanitizeIntText(it.brokenQty ?? it.soLuongHong ?? (status === 'Hỏng' ? (it.quantity ?? it.soLuong ?? '') : ''))
+  };
 }
 
 function renderBanGiaoTaiSanValue(value){
@@ -1541,21 +1695,21 @@ function renderBanGiaoTaiSanValue(value){
     <tr>
       <td class="stt">${idx + 1}</td>
       <td>${esc(it.name || '')}</td>
-      <td class="qty">${esc(it.quantity ?? '')}</td>
       <td class="unit">${esc(it.unit || '')}</td>
-      <td class="status">${it.status === 'Hỏng' ? '' : '✓'}</td>
-      <td class="status">${it.status === 'Hỏng' ? '✓' : ''}</td>
+      <td class="qty">${esc(it.okQty ?? '')}</td>
+      <td class="qty">${esc(it.brokenQty ?? '')}</td>
     </tr>
   `).join('');
   return `
     <div class="tm-equip-wrap">
       <table class="tm-equip-table tm-view-table">
-        <thead><tr><th>Stt</th><th>Trang thiết bị, dụng cụ, hóa chất</th><th>Số lượng</th><th>Đơn vị</th><th>HĐ BT</th><th>Hỏng</th></tr></thead>
+        <thead><tr><th rowspan="2">Stt</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng</th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
   `;
 }
+
 
 function openModal(inner, alreadyWrapped){
   $('#modalRoot').innerHTML = alreadyWrapped ? inner : `<div class="modal">${inner}</div>`;
