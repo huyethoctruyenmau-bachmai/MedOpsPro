@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=15.220526-TM-NO-BG-PDF">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=15.220526-TM-NO-BG-PDF">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=15.220526-TM-NO-BG-PDF">
-  <link rel="manifest" href="./manifest.json?v=15.220526-TM-NO-BG-PDF">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=15.220526-TM-NO-BG-PDF">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=16.220526-TM-BTN-DEPT">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=16.220526-TM-BTN-DEPT">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=16.220526-TM-BTN-DEPT">
+  <link rel="manifest" href="./manifest.json?v=16.220526-TM-BTN-DEPT">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=16.220526-TM-BTN-DEPT">
   <meta name="theme-color" content="#7b113a">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -217,8 +217,10 @@
     .icon-btn{width:32px;height:32px;min-width:32px;border:0;background:transparent;color:var(--g-muted);border-radius:50%;display:grid;place-items:center;padding:0;font-size:18px;line-height:1;box-shadow:none}
     .icon-btn:hover{background:#f8f1f4;color:var(--wine)}
     .icon-btn.delete:hover{background:#feeceb;color:var(--g-danger)}
-    .phieu-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
-    .phieu-actions.single{grid-template-columns:minmax(0,1fr)}
+    .phieu-actions{display:flex;gap:8px;margin-top:12px;align-items:center;justify-content:flex-start;flex-wrap:wrap}
+    .phieu-actions.single{display:flex}
+    .phieu-actions .btn{width:auto!important;min-width:0;min-height:32px;height:32px;padding:0 13px;font-size:13.5px;border-radius:4px;flex:0 0 auto}
+    .modal-card .btn-row .btn{width:auto!important;min-width:0;min-height:32px;height:32px;padding:0 14px;font-size:13.5px;border-radius:4px;flex:0 0 auto}
 
     #tab-list .filter-grid{grid-template-columns:repeat(6,minmax(0,1fr));}
     #tab-list .filter-grid > div{grid-column:auto!important;min-width:0;}
@@ -240,6 +242,7 @@
       .date-pair{grid-column:auto!important}
       .equal-control,input[type="date"],input[type="datetime-local"],select{width:100%!important;max-width:100%!important}
       .btn{width:100%;min-height:38px}
+      .phieu-actions .btn,.modal-card .btn-row .btn{width:auto!important;min-height:32px;height:32px;padding:0 13px}
       .staff-add-btn{width:42px!important;min-width:42px!important}
       .list-head{flex-direction:column}
       .phieu-card .list-head{flex-direction:row}
@@ -270,7 +273,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=15.220526-TM-NO-BG-PDF" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=16.220526-TM-BTN-DEPT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -285,14 +288,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 15.220526-TM-NO-BG-PDF</p>
+      <p class="login-version">Version: 16.220526-TM-BTN-DEPT</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=15.220526-TM-NO-BG-PDF" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=16.220526-TM-BTN-DEPT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -321,7 +324,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 15.220526-TM-NO-BG-PDF</div>
+    <div class="app-version">Version: 16.220526-TM-BTN-DEPT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -329,7 +332,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = '15.220526-TM-NO-BG-PDF';
+const APP_VERSION = '16.220526-TM-BTN-DEPT';
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
@@ -515,6 +518,9 @@ async function loadInitData(){
     state.initLoaded = true;
     refreshDatalists();
     renderCreateTab();
+    renderListTab();
+    renderMeetingTab();
+    renderPdfTab();
     renderSettingsTab();
     setDefaultFilters();
   }catch(err){
@@ -528,11 +534,22 @@ function refreshDatalists(){
     const label = `${p.maNhanVien} - ${p.tenNhanVien}${p.chucDanh ? ' - ' + p.chucDanh : ''}`;
     return `<option value="${esc(label)}"></option>`;
   }).join('');
+  refreshDeptSelectOptions();
 }
 
 function deptOptions(selected=''){
   const list = Array.from(new Set([selected, state.user?.khoaPhong, ...(state.khoaPhong || [])].filter(Boolean)));
   return list.map(x => `<option value="${escAttr(x)}" ${norm(x)===norm(selected) ? 'selected' : ''}>${esc(x)}</option>`).join('');
+}
+
+function refreshDeptSelectOptions(){
+  ['createDept','filterDept','gbDept','pdfDept'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const current = el.value || state.user?.khoaPhong || '';
+    el.innerHTML = deptOptions(current);
+    if(current && Array.from(el.options).some(o => norm(o.value) === norm(current))) el.value = current;
+  });
 }
 
 function setDefaultFilters(){
