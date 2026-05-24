@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=52.220526-TM-TABBAR-TO-HOME-LINE">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=52.220526-TM-TABBAR-TO-HOME-LINE">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=52.220526-TM-TABBAR-TO-HOME-LINE">
-  <link rel="manifest" href="./manifest.json?v=52.220526-TM-TABBAR-TO-HOME-LINE">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=52.220526-TM-TABBAR-TO-HOME-LINE">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=21.220526-TM-UNIFIED-HEADER">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=21.220526-TM-UNIFIED-HEADER">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=21.220526-TM-UNIFIED-HEADER">
+  <link rel="manifest" href="./manifest.json?v=21.220526-TM-UNIFIED-HEADER">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=21.220526-TM-UNIFIED-HEADER">
   <meta name="theme-color" content="#7b113a">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -44,20 +44,20 @@
       --safe-top:env(safe-area-inset-top,0px);
       --safe-bottom:env(safe-area-inset-bottom,0px);
       --header-content-h:58px;
-      --tabbar-content-h:52px;
+      --tabbar-content-h:56px;
       --header-h:calc(var(--header-content-h) + var(--safe-top));
       --tabbar-h:calc(var(--tabbar-content-h) + var(--safe-bottom));
     }
     *{box-sizing:border-box}
-    html{height:100%;margin:0;background:var(--bg)}
-    body{height:100%;margin:0;font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;color:var(--text);background:var(--bg);overscroll-behavior:none;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    html{height:100%;margin:0;background:var(--header-solid)}
+    body{height:100%;margin:0;font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;color:var(--text);background:linear-gradient(to bottom,var(--header-solid) 0,var(--header-solid) var(--header-h),var(--bg) var(--header-h),var(--bg) 100%);overscroll-behavior:none;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     body{touch-action:manipulation}
     button,input,select,textarea{font:inherit}
     button{border:0;cursor:pointer}
     button,input,select,textarea{-webkit-tap-highlight-color:transparent}
     .hidden{display:none!important}
     .app-shell{height:100%;display:flex;flex-direction:column}
-    body::before{content:"";position:fixed;left:0;right:0;top:0;height:max(var(--safe-top),1px);z-index:21;background:var(--header-solid);pointer-events:none}body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:max(var(--safe-bottom),1px);z-index:0;background:rgba(255,255,255,.98);pointer-events:none}
+    body::before{content:"";position:fixed;left:0;right:0;top:0;height:max(var(--safe-top),1px);z-index:21;background:var(--header-solid);pointer-events:none}
     .topbar{
       height:var(--header-h);min-height:var(--header-h);position:fixed;left:0;right:0;top:0;z-index:20;
       background:var(--header-solid);color:white;box-shadow:0 4px 18px rgba(0,0,0,.16);
@@ -89,7 +89,7 @@
       display:grid;grid-template-columns:repeat(5,1fr);
       padding:3px 5px var(--safe-bottom) 5px;
     }
-    .tab-btn{background:transparent;color:var(--muted);border-radius:12px;padding:1px 2px;display:flex;flex-direction:column;gap:0;align-items:center;justify-content:center;font-size:12.5px;min-height:0}
+    .tab-btn{background:transparent;color:var(--muted);border-radius:12px;padding:2px 2px;display:flex;flex-direction:column;gap:1px;align-items:center;justify-content:center;font-size:12.5px;min-height:0}
     .tab-btn .ico{font-size:20px;line-height:1}
     .tab-btn.active{background:#fff0f5;color:var(--wine);font-weight:700}
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:12px}
@@ -126,7 +126,7 @@
     .btn:disabled{opacity:.62;cursor:not-allowed;box-shadow:none}.loading-dot{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.55);border-top-color:#fff;border-radius:50%;animation:spin .75s linear infinite}.btn.secondary .loading-dot,.btn.ghost .loading-dot{border-color:#d2e3fc;border-top-color:var(--g-blue)}
     .pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:600}
     .pill.ok{background:#e8f7ef;color:var(--ok)}.pill.warn{background:#fff5e5;color:var(--warn)}.pill.danger{background:#feeceb;color:var(--danger)}.pill.muted{background:#f2e7ec;color:#6e5360}
-    .list-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;margin:10px 0}.data-card{border-left:4px solid var(--wine);background:#fffafb;line-height:1.55}.data-card .field-row{padding:5px 0;border-bottom:1px solid rgba(234,215,223,.65)}.data-card .field-row:last-child{border-bottom:0}.data-card .field-name{font-weight:600;color:var(--wine-dark);display:block;margin-bottom:2px}.data-card .field-value{color:var(--text);font-size:14px;line-height:1.45;white-space:pre-wrap}.data-card strong{font-weight:600;color:var(--wine-dark)}.phieu-inline{margin-top:8px;border:1px solid var(--line);border-left:4px solid var(--wine);border-radius:12px;background:#fff;padding:10px 12px;line-height:1.5}.phieu-inline .field-row{color:var(--text);font-size:14.5px;line-height:1.45;margin:0 0 8px;padding:0;border:0}.phieu-inline .field-row:last-child{margin-bottom:0}.phieu-inline .field-name{font-weight:700;color:var(--muted);display:block;margin:0 0 2px;font-size:14.5px;line-height:1.35}.phieu-inline .field-value{color:var(--text);font-size:14.5px;line-height:1.45;font-weight:400;white-space:pre-wrap}
+    .list-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;margin:10px 0}.data-card{border-left:4px solid var(--wine);background:#fffafb;line-height:1.55}.data-card .field-row{padding:5px 0;border-bottom:1px solid rgba(234,215,223,.65)}.data-card .field-row:last-child{border-bottom:0}.data-card .field-name{font-weight:600;color:var(--wine-dark);display:block;margin-bottom:2px}.data-card .field-value{color:var(--g-text);white-space:pre-wrap}.data-card strong{font-weight:600;color:var(--wine-dark)}.phieu-inline{margin-top:10px;border:1px solid var(--line);border-left:4px solid var(--wine);border-radius:12px;background:#fffafb;padding:10px;line-height:1.55}.phieu-inline .field-name{font-weight:600;color:var(--wine-dark)}
     .list-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
     .list-title{font-weight:700;color:var(--wine-dark);font-size:17px}
     .meta{font-size:14px;color:var(--muted);line-height:1.45}
@@ -155,26 +155,26 @@
     .tm-inline-grid.phat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     .tm-total{background:var(--g-readonly);font-weight:700;color:var(--wine-dark)}
     .tm-equip-wrap{overflow:auto;border:1px solid var(--g-line);border-radius:12px;background:#fff}
-    .tm-equip-table{width:100%;border-collapse:collapse;min-width:540px;font-size:13.5px}
-    .tm-create-equipment-table{min-width:520px}
-    .tm-equip-table th,.tm-equip-table td{border-bottom:1px solid var(--g-line);border-right:1px solid var(--g-line);padding:5px 7px;vertical-align:middle;text-align:left}
+    .tm-equip-table{width:100%;border-collapse:collapse;min-width:760px;font-size:14px}
+    .tm-create-equipment-table{min-width:640px}
+    .tm-equip-table th,.tm-equip-table td{border-bottom:1px solid var(--g-line);border-right:1px solid var(--g-line);padding:7px 8px;vertical-align:middle;text-align:left}
     .tm-equip-table th:last-child,.tm-equip-table td:last-child{border-right:0}
     .tm-equip-table tr:last-child td{border-bottom:0}
-    .tm-equip-table th{background:#fff4f8;color:var(--wine-dark);font-weight:700;text-align:center}.tm-create-equipment-table th:nth-child(2),.tm-create-equipment-table td:nth-child(2),.tm-view-table th:nth-child(2),.tm-view-table td:nth-child(2){width:34%;max-width:240px}
-    .tm-equip-table .stt{width:42px;text-align:center}
-    .tm-equip-table .qty{width:74px}
-    .tm-equip-table .unit{width:64px;text-align:center}
-    .tm-equip-table .status{text-align:center;width:70px}
+    .tm-equip-table th{background:#fff4f8;color:var(--wine-dark);font-weight:700;text-align:center}
+    .tm-equip-table .stt{width:48px;text-align:center}
+    .tm-equip-table .qty{width:92px}
+    .tm-equip-table .unit{width:82px;text-align:center}
+    .tm-equip-table .status{text-align:center;width:82px}
     .tm-equip-table input[type="number"]{min-height:30px;text-align:center;padding:3px 6px}
     .tm-equip-table input[type="text"],.tm-equip-table select{min-height:30px;padding:3px 6px}
     .tm-equip-table input[type="radio"]{width:18px;min-height:18px;box-shadow:none}
     .tm-equip-table .action{width:72px;text-align:center}
-    .tm-equip-table .eq-name-cell{min-width:135px}
-    .tm-equip-table .eq-name-input{min-width:130px}
+    .tm-equip-table .eq-name-cell{min-width:220px}
+    .tm-equip-table .eq-name-input{min-width:180px}
     .tm-equip-table .unit-input{min-width:72px;text-align:center}
     .manual-eq-inline{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center}
     .manual-eq-inline .btn{min-height:30px;padding:0 10px}
-    .tm-view-table{min-width:420px;table-layout:fixed;font-size:13.5px}.tm-view-table th:nth-child(1),.tm-view-table td:nth-child(1){width:40px}.tm-view-table th:nth-child(2),.tm-view-table td:nth-child(2){width:170px;max-width:170px}.tm-view-table th:nth-child(3),.tm-view-table td:nth-child(3),.tm-view-table th:nth-child(4),.tm-view-table td:nth-child(4),.tm-view-table th:nth-child(5),.tm-view-table td:nth-child(5){width:70px;text-align:center}.phieu-inline .field-value.has-table{white-space:normal}.phieu-inline .field-value.has-table .tm-equip-wrap{margin:0}
+    .tm-view-table{min-width:680px}
     .locked-chip{padding-right:10px}
     .modal{
       position:fixed;inset:0;z-index:50;background:rgba(24,4,12,.56);display:flex;align-items:flex-start;justify-content:center;padding-top:8px;
@@ -185,7 +185,7 @@
     .close-btn{width:36px;height:36px;border-radius:50%;background:#fff;color:#5f6368;font-weight:600;font-size:22px;line-height:1;border:1px solid var(--g-line)}
     .close-btn:hover{background:#f1f3f4}
     .full-modal{align-items:stretch}
-    .full-modal .modal-card{max-width:none;height:100vh;max-height:100vh;border-radius:0;padding-top:max(14px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}@supports (height: 100dvh){.full-modal .modal-card{height:100dvh;max-height:100dvh}}
+    .full-modal .modal-card{max-width:none;height:100vh;max-height:100vh;border-radius:0;padding-top:max(14px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}
 
     .boot-screen{min-height:100%;display:grid;place-items:center;padding:24px;background:#f8f1f4;color:var(--g-text)}
     .boot-box{width:min(420px,92vw);background:#fff;border:1px solid var(--g-line);border-radius:8px;box-shadow:0 1px 2px rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);padding:22px;text-align:center}
@@ -205,10 +205,10 @@
       background:#2a111a;color:white;border-radius:999px;padding:10px 14px;box-shadow:0 8px 25px rgba(0,0,0,.2);max-width:92vw;font-size:13px
     }
     .two-col-text{white-space:pre-wrap;line-height:1.45}
-    .report-day{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}.report-day-title{font-weight:700;color:var(--wine-dark);font-size:17px;line-height:1.35;margin-bottom:8px}.report-item{margin:7px 0}.report-label{font-size:14px;color:var(--muted);line-height:1.45;margin-bottom:2px;font-weight:700}.gb-sub-label{display:block;font-size:15px;font-weight:700;color:var(--muted);line-height:1.45;margin:8px 0 5px}.report-value{font-size:14px;color:var(--text);line-height:1.45;white-space:pre-wrap}.report-compact-value{font-size:14px;color:var(--text);line-height:1.55;white-space:pre-wrap}.report-compact-value div{margin:2px 0}.report-compact-value strong{color:var(--text);font-weight:400}.kho-compact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.kho-compact-grid input{height:38px;min-height:38px}.kho-compact-grid textarea{min-height:38px;line-height:20px;resize:none;overflow:hidden}.kho-compact-grid .kho-other{grid-column:1 / -1}.kho-auto-note{font-size:12.5px;color:var(--muted);margin:-2px 0 8px;line-height:1.35}
+    .report-day{background:#fff8fb;border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}
     a.btn{text-decoration:none}
     .login-card .btn.primary{background:var(--g-blue);border-radius:4px;min-height:38px}
-    .modal-card .btn-row{justify-content:flex-end}.sign-bottom-small{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 88px)!important}
+    .modal-card .btn-row{justify-content:flex-end}
     .card .btn-row{justify-content:flex-start}
     .filter-grid + .btn-row{justify-content:flex-end}
     .filter-action{display:flex;align-items:flex-end;min-width:0}
@@ -234,31 +234,21 @@
 
     #tab-list .filter-grid{grid-template-columns:repeat(6,minmax(0,1fr));}
     #tab-list .filter-grid > div{grid-column:auto!important;min-width:0;}
-    #tab-meeting .filter-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
+    #tab-meeting .filter-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
     #tab-meeting .filter-grid > div{grid-column:auto!important;min-width:0;}
-    #tab-pdf .filter-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
-    #tab-pdf .filter-grid > div{grid-column:auto!important;min-width:0;}
     input[type="date"],input[type="datetime-local"],select{min-width:0}
     input[type="date"],input[type="datetime-local"]{width:100%;max-width:100%;height:38px;min-height:38px;display:block;-webkit-appearance:none;appearance:none}
     input[type="date"]::-webkit-date-and-time-value,input[type="datetime-local"]::-webkit-date-and-time-value{text-align:left;width:100%}
     input[type="date"]::-webkit-calendar-picker-indicator,input[type="datetime-local"]::-webkit-calendar-picker-indicator{margin-left:0}
     @media (max-width:760px){
-      .tm-view-table{min-width:400px;font-size:13.5px}
-      .tm-view-table th:nth-child(1),.tm-view-table td:nth-child(1){width:38px}
-      .tm-view-table th:nth-child(2),.tm-view-table td:nth-child(2){width:155px;max-width:155px}
-      .tm-view-table th:nth-child(3),.tm-view-table td:nth-child(3),.tm-view-table th:nth-child(4),.tm-view-table td:nth-child(4),.tm-view-table th:nth-child(5),.tm-view-table td:nth-child(5){width:69px;text-align:center}
-      .kho-compact-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-      .kho-compact-grid .kho-other{grid-column:1 / -1}
       :root{--header-content-h:58px;--tabbar-content-h:54px}
       .brand-title{font-size:15px}.brand-sub{font-size:11px}
       .main{padding:8px 10px 10px}
       .card{padding:12px;border-radius:16px}
       .col-8,.col-6,.col-4,.col-3{grid-column:span 12}
-      #tab-list .filter-grid,#tab-meeting .filter-grid,#tab-pdf .filter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-      #tab-list .filter-grid > div,#tab-meeting .filter-grid > div,#tab-pdf .filter-grid > div{grid-column:auto!important;min-width:0}
-      #tab-list .filter-action,#tab-meeting .filter-action{grid-column:auto!important}
-      #tab-pdf .filter-keyword{grid-column:span 2!important}
-      #tab-pdf .filter-action{grid-column:span 2!important}
+      #tab-list .filter-grid,#tab-meeting .filter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+      #tab-list .filter-grid > div,#tab-meeting .filter-grid > div{grid-column:auto!important;min-width:0}
+      #tab-list .filter-action{grid-column:auto!important}
       .date-pair{grid-column:auto!important}
       .equal-control,input[type="date"],input[type="datetime-local"],select{width:100%!important;max-width:100%!important}
       .btn{width:100%;min-height:38px}
@@ -280,117 +270,6 @@
       .modal-card{max-width:920px;border-radius:24px;margin-bottom:18px}
       .full-modal .modal-card{max-width:none;margin:0;border-radius:0}
     }
-  
-    @media (max-width:760px){
-      .tm-create-equipment-table,
-      .tm-view-table{
-        width:max-content!important;
-        min-width:640px!important;
-        table-layout:fixed!important;
-        font-size:13.5px!important;
-      }
-      .tm-create-equipment-table th,
-      .tm-create-equipment-table td,
-      .tm-view-table th,
-      .tm-view-table td{
-        padding:4px 6px!important;
-        line-height:1.35!important;
-        white-space:nowrap!important;
-        vertical-align:middle!important;
-      }
-      .tm-create-equipment-table th:nth-child(1),
-      .tm-create-equipment-table td:nth-child(1),
-      .tm-view-table th:nth-child(1),
-      .tm-view-table td:nth-child(1){
-        width:40px!important;
-        min-width:40px!important;
-        max-width:40px!important;
-        text-align:center!important;
-      }
-      .tm-create-equipment-table th:nth-child(2),
-      .tm-create-equipment-table td:nth-child(2),
-      .tm-view-table th:nth-child(2),
-      .tm-view-table td:nth-child(2){
-        width:330px!important;
-        min-width:330px!important;
-        max-width:330px!important;
-      }
-      .tm-create-equipment-table th:nth-child(3),
-      .tm-create-equipment-table td:nth-child(3),
-      .tm-view-table th:nth-child(3),
-      .tm-view-table td:nth-child(3),
-      .tm-create-equipment-table tbody td:nth-child(4),
-      .tm-create-equipment-table tbody td:nth-child(5),
-      .tm-create-equipment-table thead tr:nth-child(2) th,
-      .tm-view-table tbody td:nth-child(4),
-      .tm-view-table tbody td:nth-child(5),
-      .tm-view-table thead tr:nth-child(2) th{
-        width:75px!important;
-        min-width:75px!important;
-        max-width:75px!important;
-        text-align:center!important;
-      }
-      .tm-create-equipment-table input[type="number"],
-      .tm-view-table input[type="number"]{
-        width:100%!important;
-        min-width:0!important;
-        min-height:28px!important;
-        padding:2px 3px!important;
-        font-size:13.5px!important;
-        text-align:center!important;
-      }
-      .tm-create-equipment-table .eq-name-input,
-      .tm-create-equipment-table .unit-input,
-      .tm-view-table .eq-name-input,
-      .tm-view-table .unit-input{
-        width:100%!important;
-        min-width:0!important;
-      }
-    }
-
-  
-    @media (min-width:761px){
-      .tm-create-equipment-table{
-        min-width:420px!important;
-        table-layout:fixed!important;
-        font-size:13.5px!important;
-      }
-      .tm-create-equipment-table th:nth-child(1),
-      .tm-create-equipment-table td:nth-child(1){
-        width:40px!important;
-        max-width:40px!important;
-        min-width:40px!important;
-        text-align:center!important;
-      }
-      .tm-create-equipment-table th:nth-child(2),
-      .tm-create-equipment-table td:nth-child(2){
-        width:170px!important;
-        max-width:170px!important;
-        min-width:170px!important;
-      }
-      .tm-create-equipment-table th:nth-child(3),
-      .tm-create-equipment-table td:nth-child(3),
-      .tm-create-equipment-table th:nth-child(4),
-      .tm-create-equipment-table td:nth-child(4),
-      .tm-create-equipment-table th:nth-child(5),
-      .tm-create-equipment-table td:nth-child(5){
-        width:70px!important;
-        max-width:70px!important;
-        min-width:70px!important;
-        text-align:center!important;
-      }
-      .tm-create-equipment-table input[type="number"]{
-        width:100%!important;
-        min-width:0!important;
-        text-align:center!important;
-      }
-      .tm-create-equipment-table .eq-name-input,
-      .tm-create-equipment-table .unit-input{
-        width:100%!important;
-        min-width:0!important;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -404,7 +283,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=52.220526-TM-TABBAR-TO-HOME-LINE" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=21.220526-TM-UNIFIED-HEADER" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -419,14 +298,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 52.220526-TM-TABBAR-TO-HOME-LINE</p>
+      <p class="login-version">Version: 21.220526-TM-UNIFIED-HEADER</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=52.220526-TM-TABBAR-TO-HOME-LINE" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=21.220526-TM-UNIFIED-HEADER" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -455,7 +334,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 52.220526-TM-TABBAR-TO-HOME-LINE</div>
+    <div class="app-version">Version: 21.220526-TM-UNIFIED-HEADER</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -463,7 +342,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = '52.220526-TM-TABBAR-TO-HOME-LINE';
+const APP_VERSION = '21.220526-TM-UNIFIED-HEADER';
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
@@ -503,9 +382,7 @@ const state = {
     giaoBan: { key:'', time:0, data:null }
   },
   currentGiaoBan: null,
-  currentReports: [],
-  sessionGuard: 0,
-  isLoggingOut: false
+  currentReports: []
 };
 
 const $ = sel => document.querySelector(sel);
@@ -549,10 +426,7 @@ async function boot(){
       return;
     }
     try{
-      const bootToken = state.token;
-      const bootGuard = state.sessionGuard;
-      const res = await api('checkSession', {}, {token: bootToken});
-      if(state.isLoggingOut || state.sessionGuard !== bootGuard || state.token !== bootToken) return;
+      const res = await api('checkSession', {}, {token: state.token});
       state.user = res.data.user;
       storeSession(state.token, state.user);
       showApp();
@@ -570,17 +444,12 @@ async function boot(){
 }
 
 async function checkSessionInBackground(){
-  const checkingToken = state.token;
-  const checkingGuard = state.sessionGuard;
   try{
-    const res = await api('checkSession', {}, {token: checkingToken});
-    // Tránh lỗi: người dùng đã bấm đăng xuất nhưng request kiểm tra phiên cũ trả về muộn.
-    if(state.isLoggingOut || state.sessionGuard !== checkingGuard || state.token !== checkingToken) return;
+    const res = await api('checkSession', {}, {token: state.token});
     state.user = res.data.user || state.user;
     storeSession(state.token, state.user);
     showApp();
   }catch(err){
-    if(state.isLoggingOut || state.sessionGuard !== checkingGuard || state.token !== checkingToken) return;
     // Nếu API lỗi mạng tạm thời thì không đẩy người dùng về đăng nhập ngay.
     // Chỉ xóa phiên khi backend trả lỗi phiên rõ ràng.
     const msg = String(err.message || '');
@@ -611,8 +480,6 @@ async function login(){
   if(!maNhanVien || !matKhau) return toast('Vui lòng nhập mã nhân viên và mật khẩu.');
   withButton($('#loginBtn'), 'Đang đăng nhập...', async () => {
     const res = await api('login', {maNhanVien, matKhau}, {noToken:true});
-    state.isLoggingOut = false;
-    state.sessionGuard++;
     state.token = res.data.token;
     state.user = res.data.user;
     storeSession(state.token, state.user);
@@ -623,29 +490,18 @@ async function login(){
 
 async function logout(){
   const oldToken = state.token;
-  state.isLoggingOut = true;
-  state.sessionGuard++;
   clearStoredSession();
   state.token = '';
   state.user = null;
   state.initLoaded = false;
-  state.personnel = [];
-  state.khoaPhong = [];
-  state.selectedStaff = [];
-  state.currentGiaoBan = null;
-  state.currentReports = [];
-  clearListCaches();
   showLogin();
   try{ if(oldToken) await api('logout', {}, {token: oldToken}); }catch(e){}
-  // Giữ cờ đăng xuất cho tới khi người dùng đăng nhập lại thủ công.
 }
 
 function showLogin(){
   $('#bootScreen').classList.add('hidden');
   $('#loginScreen').classList.remove('hidden');
   $('#app').classList.add('hidden');
-  const pw = $('#loginPw');
-  if(pw) pw.value = '';
 }
 
 function showApp(){
@@ -773,7 +629,7 @@ async function withButton(btn, busyText, fn){
 
 function renderCreateTab(){
   const today = todayIso();
-  const now = toDatetimeLocal(hanoiNowIso());
+  const now = toDatetimeLocal(new Date());
   $('#tab-create').innerHTML = `
     <div class="card">
       <h2 class="section-title">I. Thông tin phiếu</h2>
@@ -1051,7 +907,7 @@ function renderBanGiaoTaiSanInput(isTM){
       <table class="tm-equip-table tm-create-equipment-table">
         <thead>
           <tr>
-            <th rowspan="2">STT</th>
+            <th rowspan="2">Stt</th>
             <th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th>
             <th rowspan="2">Đơn vị</th>
             <th colspan="2">Số lượng</th>
@@ -1265,7 +1121,7 @@ function renderPhieuList(items, note=''){
     const title = `Bàn giao thường trực - ${formatKhoaTitle(p.khoaPhong)} - ${dateTimeVi(p.thoiGianBanGiao)}`;
     const detailHtml = !isDone ? `
       <div class="phieu-inline">
-        <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.4 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
@@ -1333,7 +1189,7 @@ function showPhieuModal(p, opts={}){
       ${reportHtml}
       <h3 class="sub-title">${handoverRoman}. Bàn giao thường trực</h3>
       <div class="list-card data-card">
-        <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.4 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
@@ -1344,7 +1200,7 @@ function showPhieuModal(p, opts={}){
           <div class="field-row"><span class="field-name">Thời điểm ký nhận</span><div class="field-value">${dateTimeVi(p.thoiDiemNhanKy)}</div></div>
         </div>
       ` : ''}
-      <div class="btn-row sign-bottom-small">
+      <div class="btn-row">
         ${!opts.created && p.canSignBanGiao ? `<button class="btn ok" onclick="signBanGiao('${escAttr(p.phieuID)}', this)">Ký nhận bàn giao</button>` : ''}
         <button class="btn secondary" onclick="closeModal()">Đóng</button>
       </div>
@@ -1662,7 +1518,7 @@ function renderEditBanGiaoTaiSanInput(p){
     <div class="tm-equip-wrap">
       <table class="tm-equip-table tm-create-equipment-table">
         <thead>
-          <tr><th rowspan="2">STT</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng</th></tr>
+          <tr><th rowspan="2">Stt</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng</th></tr>
           <tr><th>HĐ BT</th><th>Hỏng</th></tr>
         </thead>
         <tbody id="editTmEquipmentBody">${rows}</tbody>
@@ -1766,11 +1622,13 @@ function renderMeetingTab(){
     <div class="card">
       <h2 class="section-title">Giao ban</h2>
       <div class="grid filter-grid">
-        <div class="col-3 date-pair"><label>Từ ngày</label><input id="gbFrom" class="equal-control" type="date"></div>
-        <div class="col-3 date-pair"><label>Đến ngày</label><input id="gbTo" class="equal-control" type="date"></div>
+        <div class="col-3 date-pair"><label>Từ ngày</label><input id="gbFrom" type="date"></div>
+        <div class="col-3 date-pair"><label>Đến ngày</label><input id="gbTo" type="date"></div>
         <div class="col-3"><label>Khoa/phòng</label><select id="gbDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
-        <div class="col-3"><label>Trạng thái</label><select id="gbStatus" class="equal-control"><option>${STATUS_CHUA}</option><option>Tất cả</option><option>${STATUS_DA}</option></select></div>
-        <div class="col-3 filter-action"><button id="loadGbBtn" class="btn primary">Tải danh sách giao ban</button></div>
+        <div class="col-3"><label>Trạng thái</label><select id="gbStatus"><option>Tất cả</option><option>${STATUS_CHUA}</option><option>${STATUS_DA}</option></select></div>
+      </div>
+      <div class="btn-row">
+        <button id="loadGbBtn" class="btn primary">Tải danh sách giao ban</button>
       </div>
     </div>
     <div id="giaoBanListBox"></div>
@@ -1803,7 +1661,7 @@ function getGiaoBanFilters(){
     fromDate: $('#gbFrom')?.value || addDaysIso(todayIso(), -14),
     toDate: $('#gbTo')?.value || todayIso(),
     khoaPhong: $('#gbDept')?.value || state.user?.khoaPhong || '',
-    trangThai: $('#gbStatus')?.value || STATUS_CHUA
+    trangThai: $('#gbStatus')?.value || 'Tất cả'
   };
 }
 
@@ -1834,7 +1692,7 @@ function renderGiaoBanList(items, note=''){
 
 window.openGiaoBan = async function(giaoBanID, khoaPhong, btn){
   const task = async () => {
-    const res = await api('openGiaoBan', {giaoBanID, khoaPhong, thoiGianMoGiaoBan: hanoiNowIso()});
+    const res = await api('openGiaoBan', {giaoBanID, khoaPhong});
     state.currentGiaoBan = res.data.giaoBan;
     state.currentReports = res.data.reports || [];
     renderGiaoBanModal();
@@ -1843,124 +1701,20 @@ window.openGiaoBan = async function(giaoBanID, khoaPhong, btn){
   try{ await task(); }catch(err){ toast(err.message); }
 }
 
-
-function getLatestMauTonFromReports(){
-  const reports = (state.currentReports || []).slice().sort((a,b) => {
-    const da = String(a.ngayTruc || '');
-    const db = String(b.ngayTruc || '');
-    if(da !== db) return da.localeCompare(db);
-    return String(a.phieuID || '').localeCompare(String(b.phieuID || ''));
-  });
-  const last = reports[reports.length - 1];
-  if(!last || !last.soLieuTruc) return null;
-  const text = String(last.soLieuTruc || '');
-  const get = label => {
-    const re = new RegExp('(?:^|\\n)\\s*-?\\s*' + label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*:\\s*([^\\n\\r]*)', 'i');
-    const m = text.match(re);
-    return m ? String(m[1] || '').trim() : '';
-  };
-  const data = {
-    khc: get('KHC'),
-    htt: get('HTT'),
-    tua: get('Tủa') || get('Tua'),
-    ktc: get('KTC'),
-    sourceDate: last.ngayTruc || ''
-  };
-  return (data.khc || data.htt || data.tua || data.ktc) ? data : null;
-}
-
-function preferSavedOrLatest(saved, latestValue){
-  const s = String(saved ?? '').trim();
-  return s ? s : String(latestValue ?? '').trim();
-}
-
-
-function parseReportMetricLine_(text, label){
-  const safeLabel = String(label || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const re = new RegExp('(?:^|\\n)\\s*-?\\s*' + safeLabel + '\\s*:\\s*([^\\n\\r]*)', 'i');
-  const m = String(text || '').match(re);
-  return m ? String(m[1] || '').trim() : '';
-}
-
-function compactLineHtml_(title, pairs){
-  const gap = '     ';
-  const body = pairs
-    .filter(x => x && x[0])
-    .map(([label, value]) => `${esc(label)}: ${esc(value || '')}`)
-    .join(gap);
-  return `<div>- ${esc(title)}:${gap}${body}</div>`;
-}
-
-function formatSoLieuTrucCompact(text){
-  const s = String(text || '').trim();
-  if(!s) return '';
-  const hasTmReport = /Phát máu|Phat mau|Máu tồn|Mau ton|Các xét nghiệm khác|Cac xet nghiem khac/i.test(s);
-  if(!hasTmReport) return esc(s).replace(/\n/g,'<br>');
-
-  const phat = compactLineHtml_('Phát máu', [
-    ['KHC', parseReportMetricLine_(s, 'KHC')],
-    ['CP', parseReportMetricLine_(s, 'CP')],
-    ['Tổng số', parseReportMetricLine_(s, 'Tổng số') || parseReportMetricLine_(s, 'Tong so')]
-  ]);
-
-  const mauTonPart = (() => {
-    const idx = s.search(/Máu tồn|Mau ton/i);
-    return idx >= 0 ? s.slice(idx) : s;
-  })();
-
-  const mauTon = compactLineHtml_('Máu tồn', [
-    ['KHC', parseReportMetricLine_(mauTonPart, 'KHC')],
-    ['HTT', parseReportMetricLine_(mauTonPart, 'HTT')],
-    ['Tủa', parseReportMetricLine_(mauTonPart, 'Tủa') || parseReportMetricLine_(mauTonPart, 'Tua')],
-    ['KTC', parseReportMetricLine_(mauTonPart, 'KTC')]
-  ]);
-
-  const xnPart = (() => {
-    const idx = s.search(/Các xét nghiệm khác|Cac xet nghiem khac/i);
-    return idx >= 0 ? s.slice(idx) : s;
-  })();
-
-  const xnKhac = parseReportMetricLine_(xnPart, 'Khác') || parseReportMetricLine_(xnPart, 'ĐDKTBT') || parseReportMetricLine_(xnPart, 'DDKTBT');
-  const xn = compactLineHtml_('Các xét nghiệm khác', [
-    ['Nhóm máu', parseReportMetricLine_(xnPart, 'Nhóm máu') || parseReportMetricLine_(xnPart, 'Nhom mau')],
-    ['Rh(D)', parseReportMetricLine_(xnPart, 'Rh\\(D\\)') || parseReportMetricLine_(xnPart, 'Rh(D)')],
-    ['SLKTBT', parseReportMetricLine_(xnPart, 'SLKTBT')],
-    ['Khác', xnKhac]
-  ]);
-
-  return phat + mauTon + xn;
-}
-
 function renderGiaoBanModal(){
   const g = state.currentGiaoBan;
   const reportsHtml = state.currentReports.length ? state.currentReports.map(r => `
     <div class="report-day">
-      <div class="report-day-title">Ngày ${dateVi(r.ngayTruc)}</div>
-
-      <div class="report-item">
-        <div class="report-label">1. Nhân viên trực</div>
-        <div class="report-value">${esc(renderStaffNameList(r.nhanVienThuongTruc) || 'Chưa nhập')}</div>
-      </div>
-
-      <div class="report-item">
-        <div class="report-label">2. Số liệu trực</div>
-        <div class="report-compact-value">${formatSoLieuTrucCompact(r.soLieuTruc)}</div>
-      </div>
-
-      <div class="report-item">
-        <div class="report-label">3. Chuyên môn</div>
-        <div class="report-value">${esc(r.baoCaoChuyenMon || '')}</div>
-      </div>
-
-      <div class="report-item">
-        <div class="report-label">4. Vấn đề khác</div>
-        <div class="report-value">${esc(r.baoCaoVanDeKhac || '')}</div>
-      </div>
+      <strong>Ngày ${dateVi(r.ngayTruc)} - ${esc(r.nguoiThucHienTen || '')}</strong>
+      <div class="meta">Nhân viên trực:</div>
+      <div class="two-col-text">${esc(renderStaffNameList(r.nhanVienThuongTruc) || 'Chưa nhập')}</div>
+      <div class="meta">Số liệu trực:</div><div class="two-col-text">${esc(r.soLieuTruc||'')}</div>
+      <div class="meta">Chuyên môn:</div><div class="two-col-text">${esc(r.baoCaoChuyenMon||'')}</div>
+      <div class="meta">Vấn đề khác:</div><div class="two-col-text">${esc(r.baoCaoVanDeKhac||'')}</div>
     </div>
   `).join('') : `<div class="empty">Chưa có báo cáo thường trực chưa giao ban.</div>`;
 
   const isTM = norm(g.khoaPhong).includes('truyen mau');
-  const latestMauTon = isTM ? getLatestMauTonFromReports() : null;
   openModal(`
     <div class="modal full-modal">
       <div class="modal-card">
@@ -1973,16 +1727,19 @@ function renderGiaoBanModal(){
         </div>
 
         <div class="card" style="box-shadow:none">
-          <div class="gb-sub-label">Thời gian giao ban</div>
-          <div id="gbTimeText" class="report-value">${dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso())}</div>
-          <input id="gbTime" type="hidden" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}">
+          <div class="grid">
+            <div class="col-6">
+              <label>Thời gian giao ban</label>
+              <input id="gbTime" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBan || new Date()))}" ${g.daKhoa ? 'readonly' : ''}>
+            </div>
+          </div>
         </div>
 
         <div class="card" style="box-shadow:none">
           <h3 class="section-title">I. Nhân lực</h3>
-          <div class="gb-sub-label">1.1 Nhân viên thường trực</div>
+          <label>Nhân viên thường trực</label>
           <div class="list-card two-col-text">${esc(g.nhanLucTongHop || summarizeReportsStaff(state.currentReports) || 'Chưa có dữ liệu')}</div>
-          <label class="gb-sub-label" for="gbNghi">1.2 Nghỉ</label>
+          <label>Nghỉ</label>
           <textarea id="gbNghi" ${g.daKhoa ? 'readonly' : ''}>${esc(g.nghi || '')}</textarea>
         </div>
 
@@ -1994,21 +1751,18 @@ function renderGiaoBanModal(){
         <div class="card" style="box-shadow:none">
           <h3 class="section-title">III. Nội dung giao ban khác</h3>
           ${isTM ? `
-            <div class="gb-sub-label">3.1 Kho máu</div>
-            ${latestMauTon ? `<div class="kho-auto-note">Tự lấy từ báo cáo trực gần nhất ngày ${dateVi(latestMauTon.sourceDate)}. Có thể sửa lại nếu cần.</div>` : ''}
-            <div class="kho-compact-grid">
-              <div><label>KHC</label><input id="khoKHC" value="${escAttr(preferSavedOrLatest(g.khoMauKHC, latestMauTon?.khc))}" ${g.daKhoa ? 'readonly' : ''}></div>
-              <div><label>HTT</label><input id="khoHTT" value="${escAttr(preferSavedOrLatest(g.khoMauHTT, latestMauTon?.htt))}" ${g.daKhoa ? 'readonly' : ''}></div>
-              <div><label>Tủa</label><input id="khoTua" value="${escAttr(preferSavedOrLatest(g.khoMauTua, latestMauTon?.tua))}" ${g.daKhoa ? 'readonly' : ''}></div>
-              <div><label>KTC</label><input id="khoKTC" value="${escAttr(preferSavedOrLatest(g.khoMauKTC, latestMauTon?.ktc))}" ${g.daKhoa ? 'readonly' : ''}></div>
-              <div class="kho-other"><label>Khác</label><textarea id="khoKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.khoMauKhac || '')}</textarea></div>
-            </div>
-            <div class="grid" style="margin-top:10px">
-              <div class="col-12"><label class="gb-sub-label" for="gbThongBao">3.2 Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
-              <div class="col-12"><label class="gb-sub-label" for="gbNoiDungKhac">3.3 Nội dung khác</label><textarea id="gbNoiDungKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.noiDungKhac || '')}</textarea></div>
+            <h4 class="sub-title">Kho máu</h4>
+            <div class="grid">
+              <div class="col-4"><label>KHC</label><input id="khoKHC" value="${escAttr(g.khoMauKHC || '')}" ${g.daKhoa ? 'readonly' : ''}></div>
+              <div class="col-4"><label>HTT</label><input id="khoHTT" value="${escAttr(g.khoMauHTT || '')}" ${g.daKhoa ? 'readonly' : ''}></div>
+              <div class="col-4"><label>Tủa</label><input id="khoTua" value="${escAttr(g.khoMauTua || '')}" ${g.daKhoa ? 'readonly' : ''}></div>
+              <div class="col-4"><label>KTC</label><input id="khoKTC" value="${escAttr(g.khoMauKTC || '')}" ${g.daKhoa ? 'readonly' : ''}></div>
+              <div class="col-8"><label>Khác</label><input id="khoKhac" value="${escAttr(g.khoMauKhac || '')}" ${g.daKhoa ? 'readonly' : ''}></div>
+              <div class="col-12"><label>Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
+              <div class="col-12"><label>Nội dung khác</label><textarea id="gbNoiDungKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.noiDungKhac || '')}</textarea></div>
             </div>
           ` : `
-            <label class="gb-sub-label" for="gbNoiDungGiaoBanKhac">3.1 Nội dung giao ban khác</label>
+            <label>Nội dung giao ban khác</label>
             <textarea id="gbNoiDungGiaoBanKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.noiDungGiaoBanKhac || '')}</textarea>
           `}
         </div>
@@ -2021,9 +1775,10 @@ function renderGiaoBanModal(){
             ${g.pdfGiaoBanUrl ? `<div class="btn-row"><a target="_blank" class="btn ok" href="${escAttr(g.pdfGiaoBanUrl)}">Mở PDF giao ban</a></div>` : ''}
           </div>
         ` : `
-          <div class="btn-row sign-bottom-small">
+          <div class="btn-row" style="padding-bottom:18px">
             <button class="btn secondary" onclick="saveGiaoBanDraft(this)">Lưu nháp</button>
             <button class="btn ok" onclick="finishGiaoBan(this)">Chủ trì ký xác nhận kết thúc giao ban</button>
+            <button class="btn secondary" onclick="closeModal()">Đóng</button>
           </div>
         `}
       </div>
@@ -2082,11 +1837,14 @@ function renderPdfTab(){
     <div class="card">
       <h2 class="section-title">Tra cứu / PDF</h2>
       <div class="grid filter-grid">
-        <div class="col-3 date-pair"><label>Từ ngày</label><input id="pdfFrom" class="equal-control" type="date"></div>
-        <div class="col-3 date-pair"><label>Đến ngày</label><input id="pdfTo" class="equal-control" type="date"></div>
+        <div class="col-3 date-pair"><label>Từ ngày</label><input id="pdfFrom" type="date"></div>
+        <div class="col-3 date-pair"><label>Đến ngày</label><input id="pdfTo" type="date"></div>
         <div class="col-3"><label>Khoa/phòng</label><select id="pdfDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
-        <div class="col-12 filter-keyword"><label>Từ khóa</label><input id="pdfKeyword" class="equal-control" placeholder="Tìm theo người tạo, phòng, tiêu đề PDF"></div>
-        <div class="col-3 filter-action"><button id="loadPdfBtn" class="btn primary">Tra cứu PDF</button></div>
+        <div class="col-3"><label>Loại hồ sơ</label><select id="pdfType" class="equal-control"><option>Giao ban</option></select></div>
+        <div class="col-12"><label>Từ khóa</label><input id="pdfKeyword" placeholder="Tìm theo người tạo, phòng, tiêu đề PDF"></div>
+      </div>
+      <div class="btn-row">
+        <button id="loadPdfBtn" class="btn primary">Tra cứu PDF</button>
       </div>
       <p class="meta">Chỉ phiên giao ban đã ký kết thúc mới xuất và tra cứu PDF.</p>
     </div>
@@ -2104,7 +1862,7 @@ async function loadPdfList(){
       fromDate: $('#pdfFrom').value,
       toDate: $('#pdfTo').value,
       khoaPhong: $('#pdfDept').value,
-      loaiHoSo: 'Giao ban',
+      loaiHoSo: $('#pdfType').value,
       keyword: $('#pdfKeyword').value
     });
     const items = res.data.items || [];
@@ -2153,7 +1911,7 @@ function renderSettingsTab(){
       <p class="meta">Admin có thể thêm thiết bị mới, sửa tên, đơn vị, số lượng HĐ BT mặc định và số lượng Hỏng mặc định. Cấu hình này sẽ tự điền vào mục bàn giao tài sản khi ô Khoa/phòng đang chọn có chứa chữ “Truyền máu”.</p>
       <div class="tm-equip-wrap">
         <table class="tm-equip-table">
-          <thead><tr><th rowspan="2">STT</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng mặc định</th><th rowspan="2"></th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead>
+          <thead><tr><th rowspan="2">Stt</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng mặc định</th><th rowspan="2"></th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead>
           <tbody id="tmEquipmentSettingsBody">${rows}</tbody>
         </table>
       </div>
@@ -2381,9 +2139,25 @@ function normalizeTmHandoverItem(it){
 function renderBanGiaoTaiSanValue(value){
   const items = parseTmHandover(value);
   if(!items) return esc(value || '');
-  const rows = items.map((it, idx) => `<tr><td class="stt">${idx + 1}</td><td>${esc(it.name || '')}</td><td class="unit">${esc(it.unit || '')}</td><td class="qty">${esc(it.okQty ?? '')}</td><td class="qty">${esc(it.brokenQty ?? '')}</td></tr>`).join('');
-  return `<div class="tm-equip-wrap"><table class="tm-equip-table tm-view-table"><thead><tr><th rowspan="2">STT</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng</th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  const rows = items.map((it, idx) => `
+    <tr>
+      <td class="stt">${idx + 1}</td>
+      <td>${esc(it.name || '')}</td>
+      <td class="unit">${esc(it.unit || '')}</td>
+      <td class="qty">${esc(it.okQty ?? '')}</td>
+      <td class="qty">${esc(it.brokenQty ?? '')}</td>
+    </tr>
+  `).join('');
+  return `
+    <div class="tm-equip-wrap">
+      <table class="tm-equip-table tm-view-table">
+        <thead><tr><th rowspan="2">Stt</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng</th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
 }
+
 
 function openModal(inner, alreadyWrapped){
   $('#modalRoot').innerHTML = alreadyWrapped ? inner : `<div class="modal">${inner}</div>`;
@@ -2449,32 +2223,16 @@ function summarizeReportsStaff(reports){
   return Object.keys(groups).sort().map(day => `${day}:\n- ${groups[day].join('\n- ') || 'Chưa nhập'}`).join('\n\n');
 }
 
-function hanoiDateParts(date=new Date()){
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone:'Asia/Ho_Chi_Minh',
-    year:'numeric',
-    month:'2-digit',
-    day:'2-digit',
-    hour:'2-digit',
-    minute:'2-digit',
-    second:'2-digit',
-    hour12:false
-  }).formatToParts(date).reduce((acc,p) => {
-    acc[p.type] = p.value;
-    return acc;
-  }, {});
-}
-
 function todayIso(){
-  const p = hanoiDateParts();
-  return `${p.year}-${p.month}-${p.day}`;
+  const d = new Date();
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 }
 
 function addDaysIso(iso, days){
-  const [y,m,d] = String(iso || todayIso()).split('-').map(Number);
-  const dt = new Date(Date.UTC(y, (m || 1) - 1, d || 1));
-  dt.setUTCDate(dt.getUTCDate() + Number(days || 0));
-  return `${dt.getUTCFullYear()}-${pad(dt.getUTCMonth()+1)}-${pad(dt.getUTCDate())}`;
+  const [y,m,d] = iso.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  dt.setDate(dt.getDate()+days);
+  return `${dt.getFullYear()}-${pad(dt.getMonth()+1)}-${pad(dt.getDate())}`;
 }
 
 function pad(n){ return String(n).padStart(2,'0'); }
@@ -2489,44 +2247,22 @@ function dateVi(iso){
 function dateTimeVi(value){
   if(!value) return '';
   const s = String(value);
-  // Nếu API trả ISO có múi giờ/UTC, phải chuyển sang Asia/Ho_Chi_Minh trước khi hiển thị.
-  if(/[zZ]$|[+-]\d{2}:?\d{2}$/.test(s)){
-    const d = new Date(s);
-    if(!isNaN(d.getTime())){
-      const p = hanoiDateParts(d);
-      return `${p.day}/${p.month}/${p.year} ${p.hour}h${p.minute}`;
-    }
-  }
   const m = s.match(/^(\d{4})-(\d{2})-(\d{2})[T ]?(\d{2})?:?(\d{2})?/);
   if(m) return `${m[3]}/${m[2]}/${m[1]} ${m[4] || '00'}h${m[5] || '00'}`;
   const d = new Date(value);
   if(!isNaN(d.getTime())){
-    const p = hanoiDateParts(d);
-    return `${p.day}/${p.month}/${p.year} ${p.hour}h${p.minute}`;
+    const dd = pad(d.getDate()), mm = pad(d.getMonth()+1), yyyy = d.getFullYear();
+    return `${dd}/${mm}/${yyyy} ${pad(d.getHours())}h${pad(d.getMinutes())}`;
   }
   return s;
-}
-
-
-function hanoiNowIso(){
-  const parts = hanoiDateParts();
-  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}`;
 }
 
 function toDatetimeLocal(value){
   if(!value) return '';
   if(value instanceof Date){
-    const p = hanoiDateParts(value);
-    return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`;
+    return `${value.getFullYear()}-${pad(value.getMonth()+1)}-${pad(value.getDate())}T${pad(value.getHours())}:${pad(value.getMinutes())}`;
   }
   const s = String(value);
-  if(/[zZ]$|[+-]\d{2}:?\d{2}$/.test(s)){
-    const d = new Date(s);
-    if(!isNaN(d.getTime())){
-      const p = hanoiDateParts(d);
-      return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`;
-    }
-  }
   const m = s.match(/^(\d{4})-(\d{2})-(\d{2})[T ]?(\d{2})?:?(\d{2})?/);
   if(m) return `${m[1]}-${m[2]}-${m[3]}T${m[4]||'00'}:${m[5]||'00'}`;
   return '';
