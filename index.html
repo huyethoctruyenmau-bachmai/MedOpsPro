@@ -2495,7 +2495,7 @@ function renderGiaoBanFinishBlock(g){
       </div>`;
   }
 
-  if(isDotXuatClient(g.loaiGiaoBan)){
+  if(isBienBanHopLoai(g.loaiGiaoBan)){
     const thuKySigned = !!(g.thoiDiemThuKyKy || g.chuKyThuKyFileId);
     return `
       <div class="card" style="box-shadow:none">
@@ -2645,7 +2645,7 @@ function getSignatureRoleTitle(role){
 window.openFullSignatureForRole = function(role, btn){
   normalizeChairInput();
   const g = state.currentGiaoBan || {};
-  const isBB = isDotXuatClient(g.loaiGiaoBan);
+  const isBB = isBienBanHopLoai(g.loaiGiaoBan);
   if(role === 'chuTri' && isBB && !(g.thoiDiemThuKyKy || g.chuKyThuKyFileId)){
     toast('Thư ký cần ký xác nhận trước khi chủ trì ký.');
     return;
