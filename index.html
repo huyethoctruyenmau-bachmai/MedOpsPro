@@ -481,8 +481,8 @@
     .signature-full-chair strong{color:var(--wine-dark);font-weight:800}
     .signature-full-actions{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px max(12px,env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line)}
     .signature-full-actions .btn{min-height:40px;height:40px}
-    .sign-step-box{border:1px solid var(--g-line);border-radius:12px;background:#fff;padding:10px;margin-top:8px}.sign-step-title{font-weight:800;color:var(--wine-dark);margin-bottom:4px}.sign-step-status{font-size:13px;color:var(--muted);line-height:1.4;margin-bottom:8px}
-    @media (max-width:760px){.template-config-grid,.global-template-grid{grid-template-columns:1fr}.format-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sign-action-row{grid-template-columns:minmax(0,1fr) auto}.sign-action-row .btn{width:auto}.sign-mode-grid{grid-template-columns:minmax(0,1fr) auto}.sign-mode-grid .btn{width:auto}.signature-pad{height:170px}.signature-full-head{height:50px;min-height:50px}.signature-full-body{padding:8px}.signature-full-canvas-wrap{min-height:360px}.signature-full-actions .btn{width:auto;flex:1}}
+    .sign-step-box{border:1px solid var(--g-line);border-radius:12px;background:#fff;padding:10px;margin-top:8px}.sign-step-title{font-weight:800;color:var(--wine-dark);margin-bottom:8px}.sign-step-status{font-size:13px;color:var(--muted);line-height:1.4;margin-top:8px}.sign-action-row{display:grid;grid-template-columns:72px auto;gap:8px;align-items:center;justify-content:start;margin-top:6px}.sign-action-row .sign-mode-compact{width:72px}.sign-action-row select{width:72px!important;min-width:72px!important;height:38px;min-height:38px;text-align:center;text-align-last:center;font-weight:700;padding-left:8px;padding-right:22px}.sign-action-row .btn{width:auto!important;min-width:0;height:38px;min-height:38px;white-space:nowrap;padding:0 16px}
+    @media (max-width:760px){.template-config-grid,.global-template-grid{grid-template-columns:1fr}.format-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sign-action-row{grid-template-columns:64px auto;gap:8px}.sign-action-row .sign-mode-compact{width:64px}.sign-action-row select{width:64px!important;min-width:64px!important}.sign-action-row .btn{width:auto!important;padding:0 12px}.sign-mode-grid{grid-template-columns:minmax(0,1fr) auto}.sign-mode-grid .btn{width:auto}.signature-pad{height:170px}.signature-full-head{height:50px;min-height:50px}.signature-full-body{padding:8px}.signature-full-canvas-wrap{min-height:360px}.signature-full-actions .btn{width:auto;flex:1}}
 
 
     .gb-pdf-preview{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px;line-height:1.45;color:var(--g-text)}
@@ -2498,7 +2498,7 @@ function renderGiaoBanFinishBlock(g){
       </div>`;
   }
 
-  const thuKySigned = !!(g.thoiDiemThuKyKy || g.chuKyThuKyFileId);
+  const thuKySigned = !!(g.thoiDiemThuKyKy || g.chuKyThuKyFileId || g._thuKySignedLocal);
   const title = isBienBanHopLoai(g.loaiGiaoBan) ? 'Hoàn tất / ký biên bản họp' : 'Hoàn tất / ký giao ban';
 
   const thuKyMode = g.hinhThucKyThuKy || g.hinhThucKy || HINH_THUC_KY_TAY;
@@ -2512,10 +2512,7 @@ function renderGiaoBanFinishBlock(g){
 
       <div id="signSingleBlock" class="sign-mode-box hidden">
         <div class="sign-action-row">
-          <div>
-            <label>Hình thức ký</label>
-            ${renderSignModeSelect('gbHinhThucKyChuTriSingle', chuTriMode)}
-          </div>
+          <div class="sign-mode-compact">${renderSignModeSelect('gbHinhThucKyChuTriSingle', chuTriMode)}</div>
           <button id="signSingleInlineBtn" class="btn ok" onclick="finishGiaoBan(this)">Ký xác nhận</button>
         </div>
       </div>
@@ -2524,10 +2521,7 @@ function renderGiaoBanFinishBlock(g){
         <div class="sign-step-box">
           <div class="sign-step-title">1. Thư ký ký xác nhận</div>
           <div class="sign-action-row">
-            <div>
-              <label>Hình thức ký</label>
-              ${renderSignModeSelect('gbHinhThucKyThuKy', thuKyMode, thuKySigned)}
-            </div>
+            <div class="sign-mode-compact">${renderSignModeSelect('gbHinhThucKyThuKy', thuKyMode, thuKySigned)}</div>
             <button class="btn ${thuKySigned ? 'secondary' : 'ok'}" ${thuKySigned ? 'disabled' : ''} onclick="handleSignClick('thuKy', this)">${thuKySigned ? 'Thư ký đã ký' : 'Thư ký ký xác nhận'}</button>
           </div>
           ${thuKySigned ? `<div class="sign-step-status">Đã ký: ${dateTimeVi(g.thoiDiemThuKyKy)}</div>` : ''}
@@ -2535,10 +2529,7 @@ function renderGiaoBanFinishBlock(g){
         <div class="sign-step-box">
           <div class="sign-step-title">2. Chủ trì ký xác nhận</div>
           <div class="sign-action-row">
-            <div>
-              <label>Hình thức ký</label>
-              ${renderSignModeSelect('gbHinhThucKyChuTri', chuTriMode, !thuKySigned)}
-            </div>
+            <div class="sign-mode-compact">${renderSignModeSelect('gbHinhThucKyChuTri', chuTriMode, !thuKySigned)}</div>
             <button class="btn ok" ${thuKySigned ? '' : 'disabled'} onclick="handleSignClick('chuTri', this)">Chủ trì ký xác nhận</button>
           </div>
         </div>
@@ -2553,9 +2544,9 @@ function renderGiaoBanFinishBlock(g){
 function renderSignModeSelect(id, selected, disabled){
   const v = selected === HINH_THUC_KY_TAY ? HINH_THUC_KY_TAY : HINH_THUC_KY_HE_THONG;
   return `
-    <select id="${escAttr(id)}" class="equal-control" ${disabled ? 'disabled' : ''}>
-      <option value="${escAttr(HINH_THUC_KY_HE_THONG)}" ${v === HINH_THUC_KY_HE_THONG ? 'selected' : ''}>HT - Xác nhận trên hệ thống</option>
-      <option value="${escAttr(HINH_THUC_KY_TAY)}" ${v === HINH_THUC_KY_TAY ? 'selected' : ''}>KT - Ký tay trực tiếp trên màn hình</option>
+    <select id="${escAttr(id)}" class="sign-mode-select" aria-label="Hình thức ký" title="HT: Xác nhận trên hệ thống; KT: Ký tay trực tiếp trên màn hình" ${disabled ? 'disabled' : ''}>
+      <option value="${escAttr(HINH_THUC_KY_HE_THONG)}" ${v === HINH_THUC_KY_HE_THONG ? 'selected' : ''} title="Xác nhận trên hệ thống">HT</option>
+      <option value="${escAttr(HINH_THUC_KY_TAY)}" ${v === HINH_THUC_KY_TAY ? 'selected' : ''} title="Ký tay trực tiếp trên màn hình">KT</option>
     </select>`;
 }
 
@@ -2927,9 +2918,12 @@ async function submitThuKySignature(btn, systemSign){
     payload.hinhThucKyThuKy = mode;
     payload.chuKyThuKyDataUrl = mode === HINH_THUC_KY_TAY ? getSignatureDataUrl() : '';
     const res = await api('signThuKyBienBanHop', payload);
-    state.currentGiaoBan = res.data.giaoBan;
+    state.currentGiaoBan = res.data.giaoBan || state.currentGiaoBan || {};
+    state.currentGiaoBan._thuKySignedLocal = true;
+    state.currentGiaoBan.thoiDiemThuKyKy = state.currentGiaoBan.thoiDiemThuKyKy || hanoiNowIso();
+    if(payload.chuKyThuKyDataUrl) state.currentGiaoBan.chuKyThuKyFileId = state.currentGiaoBan.chuKyThuKyFileId || 'LOCAL_SIGNED';
     clearListCaches();
-    toast('Thư ký đã ký xác nhận');
+    toast('Thư ký đã ký xác nhận. Chủ trì có thể ký tiếp.');
     closeFullSignatureModal();
     renderGiaoBanModal();
   };
@@ -2937,23 +2931,47 @@ async function submitThuKySignature(btn, systemSign){
   try{ await task(); }catch(err){ toast(err.message); }
 }
 
+function goBackToGiaoBanListWhileFinishing(){
+  closeFullSignatureModal();
+  closeModal();
+  switchTab('meeting');
+  clearListCaches();
+  const box = document.getElementById('giaoBanListBox');
+  if(box){
+    box.innerHTML = `<div class="loading">Đang hoàn tất ký và tạo PDF trong hệ thống...</div>`;
+  }
+  setTimeout(() => loadGiaoBanList(true), 250);
+}
+
 async function submitChuTriSignature(btn, systemSign){
-  const task = async () => {
-    const payload = collectGiaoBanPayload();
-    const mode = systemSign ? HINH_THUC_KY_HE_THONG : getSelectedHinhThucKy('chuTri');
-    payload.hinhThucKy = mode;
-    payload.hinhThucKyChuTri = mode;
-    if(mode === HINH_THUC_KY_TAY) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
-    const res = await api('finishGiaoBan', payload);
-    state.currentGiaoBan = res.data.giaoBan;
-    clearListCaches();
-    toast('Đã ký kết thúc giao ban');
-    closeFullSignatureModal();
-    closeModal();
-    await loadGiaoBanList(true);
-  };
-  if(btn) return withButton(btn, 'Đang ký...', task);
-  try{ await task(); }catch(err){ toast(err.message); }
+  const payload = collectGiaoBanPayload();
+  const mode = systemSign ? HINH_THUC_KY_HE_THONG : getSelectedHinhThucKy('chuTri');
+  payload.hinhThucKy = mode;
+  payload.hinhThucKyChuTri = mode;
+  if(mode === HINH_THUC_KY_TAY) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
+
+  if(mode === HINH_THUC_KY_TAY && !payload.chuKyChuTriDataUrl){
+    toast('Vui lòng ký trong khung trước khi xác nhận.');
+    return;
+  }
+
+  if(btn){
+    btn.disabled = true;
+    btn.innerHTML = `<span class="loading-dot"></span>Đang ký...`;
+  }
+
+  goBackToGiaoBanListWhileFinishing();
+  toast('Đã nhận lệnh ký. PDF sẽ được tạo trong hệ thống.');
+
+  api('finishGiaoBan', payload)
+    .then(res => {
+      state.currentGiaoBan = res.data.giaoBan;
+      clearListCaches();
+      toast('Đã hoàn tất ký và tạo PDF giao ban.');
+    })
+    .catch(err => {
+      toast('Lỗi hoàn tất ký: ' + (err.message || err));
+    });
 }
 
 /* ================= PDF ================= */
