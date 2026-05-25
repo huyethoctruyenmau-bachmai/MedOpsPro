@@ -2495,14 +2495,19 @@ function renderGiaoBanFinishBlock(g){
       </div>`;
   }
 
-  const sameSecretaryChair = isSecretarySameChair();
   const thuKySigned = !!(g.thoiDiemThuKyKy || g.chuKyThuKyFileId);
   const title = isBienBanHopLoai(g.loaiGiaoBan) ? 'Hoàn tất / ký biên bản họp' : 'Hoàn tất / ký giao ban';
 
-  if(!sameSecretaryChair){
-    return `
-      <div class="card" style="box-shadow:none">
-        <h3 class="section-title">${title}</h3>
+  // Không quyết định cố định theo dữ liệu cũ tại thời điểm render.
+  // Luôn render cả 2 khối, sau đó syncSignModeWithChair() sẽ bật/tắt theo ô Chủ trì giao ban hiện tại.
+  return `
+    <div class="card" style="box-shadow:none">
+      <h3 class="section-title">${title}</h3>
+
+      <div id="signTwoStepBlock" class="hidden">
+        <div class="empty" style="text-align:left;margin-bottom:10px">
+          Thư ký khác chủ trì giao ban. Biên bản cần ký theo thứ tự: thư ký ký trước, sau đó chủ trì ký xác nhận.
+        </div>
         <div class="sign-step-box">
           <div class="sign-step-title">1. Thư ký ký xác nhận</div>
           <div class="sign-step-status">${thuKySigned ? 'Đã ký: ' + dateTimeVi(g.thoiDiemThuKyKy) : 'Chưa ký. Thư ký cần ký trước để mở bước chủ trì ký.'}</div>
@@ -2513,25 +2518,23 @@ function renderGiaoBanFinishBlock(g){
           <div class="sign-step-status">${thuKySigned ? 'Đã sẵn sàng để chủ trì ký xác nhận.' : 'Nút ký chủ trì chỉ sáng lên sau khi thư ký đã ký.'}</div>
           <button class="btn ok" ${thuKySigned ? '' : 'disabled'} onclick="openFullSignatureForRole('chuTri', this)">Chủ trì ký xác nhận</button>
         </div>
-        <div class="btn-row sign-bottom-small">
-          <button class="btn secondary" onclick="saveGiaoBanDraft(this)">Lưu nháp</button>
-        </div>
-      </div>`;
-  }
+      </div>
 
-  return `
-    <div class="card" style="box-shadow:none">
-      <h3 class="section-title">${title}</h3>
-      <div class="sign-mode-box">
-        <label>Hình thức ký</label>
-        <div class="sign-options">
-          <label class="sign-option sign-option-system"><input type="radio" name="gbHinhThucKy" value="Ký xác nhận trên hệ thống" ${g.hinhThucKy !== 'Ký tay trực tiếp trên màn hình' ? 'checked' : ''} onchange="toggleSignaturePad()"><span><strong>Ký xác nhận trên hệ thống</strong><br><span class="meta">Không cần vẽ chữ ký, PDF ghi nhận chủ trì đã xác nhận trên hệ thống.</span></span></label>
-          <label class="sign-option sign-option-manual"><input type="radio" name="gbHinhThucKy" value="Ký tay trực tiếp trên màn hình" ${g.hinhThucKy === 'Ký tay trực tiếp trên màn hình' ? 'checked' : ''} onchange="toggleSignaturePad()"><span><strong>Ký tay trực tiếp trên màn hình</strong><br><span class="meta">Có thể ký bằng ngón tay, bút cảm ứng, laptop cảm ứng hoặc chuột.</span></span></label>
+      <div id="signSingleBlock" class="hidden">
+        <div class="sign-mode-box">
+          <label>Hình thức ký</label>
+          <div class="sign-options">
+            <label class="sign-option sign-option-system"><input type="radio" name="gbHinhThucKy" value="Ký xác nhận trên hệ thống" ${g.hinhThucKy !== 'Ký tay trực tiếp trên màn hình' ? 'checked' : ''} onchange="toggleSignaturePad()"><span><strong>Ký xác nhận trên hệ thống</strong><br><span class="meta">Không cần vẽ chữ ký, PDF ghi nhận chủ trì đã xác nhận trên hệ thống.</span></span></label>
+            <label class="sign-option sign-option-manual"><input type="radio" name="gbHinhThucKy" value="Ký tay trực tiếp trên màn hình" ${g.hinhThucKy === 'Ký tay trực tiếp trên màn hình' ? 'checked' : ''} onchange="toggleSignaturePad()"><span><strong>Ký tay trực tiếp trên màn hình</strong><br><span class="meta">Có thể ký bằng ngón tay, bút cảm ứng, laptop cảm ứng hoặc chuột.</span></span></label>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn ok" onclick="finishGiaoBan(this)">Ký xác nhận</button>
         </div>
       </div>
+
       <div class="btn-row sign-bottom-small">
         <button class="btn secondary" onclick="saveGiaoBanDraft(this)">Lưu nháp</button>
-        <button class="btn ok" onclick="finishGiaoBan(this)">Ký xác nhận</button>
       </div>
     </div>`;
 }
@@ -2599,19 +2602,27 @@ window.normalizeChairInput = function(){
 }
 
 window.syncSignModeWithChair = function(){
+  const twoStep = document.getElementById('signTwoStepBlock');
+  const single = document.getElementById('signSingleBlock');
+  const {thuKy, chuTri} = getChairSecretaryNames();
+  const same = eqText(thuKy, chuTri);
+
+  if(twoStep && single){
+    twoStep.classList.toggle('hidden', same);
+    single.classList.toggle('hidden', !same);
+  }
+
   const systemLabel = document.querySelector('.sign-option-system');
   const systemInput = document.querySelector('input[name="gbHinhThucKy"][value="Ký xác nhận trên hệ thống"]');
   const manualInput = document.querySelector('input[name="gbHinhThucKy"][value="Ký tay trực tiếp trên màn hình"]');
-  if(!systemLabel || !systemInput || !manualInput) return;
-  const {thuKy, chuTri} = getChairSecretaryNames();
-  const same = eqText(thuKy, chuTri);
-  systemLabel.classList.toggle('hidden', !same);
-  systemInput.disabled = !same;
-  if(!same){
-    manualInput.checked = true;
+  if(systemLabel && systemInput && manualInput){
+    systemLabel.classList.toggle('hidden', !same);
+    systemInput.disabled = !same;
+    if(!same) manualInput.checked = true;
   }
   toggleSignaturePad();
 }
+
 
 function getSelectedHinhThucKy(){
   return document.querySelector('input[name="gbHinhThucKy"]:checked')?.value || 'Ký xác nhận trên hệ thống';
