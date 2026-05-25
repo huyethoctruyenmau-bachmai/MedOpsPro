@@ -464,6 +464,9 @@
     .sign-options{display:grid;gap:8px;margin-top:8px}
     .sign-option{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--g-line);border-radius:10px;padding:8px;background:#fff}
     .sign-option input{width:18px;min-height:18px;box-shadow:none;flex:0 0 auto;margin-top:2px}
+    .sign-mode-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end;margin:10px 0 12px}
+    .sign-mode-grid .btn{height:38px;min-height:38px;white-space:nowrap}
+    .sign-mode-grid select{height:38px;min-height:38px}
     .signature-pad-wrap{margin-top:10px;border:1px solid var(--g-line);border-radius:14px;background:#fff;overflow:hidden}
     .signature-pad-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--g-line);background:#fff8fb}
     .signature-pad{width:100%;height:190px;display:block;background:#fff;touch-action:none}
@@ -479,7 +482,7 @@
     .signature-full-actions{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px max(12px,env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line)}
     .signature-full-actions .btn{min-height:40px;height:40px}
     .sign-step-box{border:1px solid var(--g-line);border-radius:12px;background:#fff;padding:10px;margin-top:8px}.sign-step-title{font-weight:800;color:var(--wine-dark);margin-bottom:4px}.sign-step-status{font-size:13px;color:var(--muted);line-height:1.4;margin-bottom:8px}
-    @media (max-width:760px){.template-config-grid,.global-template-grid{grid-template-columns:1fr}.format-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.signature-pad{height:170px}.signature-full-head{height:50px;min-height:50px}.signature-full-body{padding:8px}.signature-full-canvas-wrap{min-height:360px}.signature-full-actions .btn{width:auto;flex:1}}
+    @media (max-width:760px){.template-config-grid,.global-template-grid{grid-template-columns:1fr}.format-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sign-mode-grid{grid-template-columns:1fr}.sign-mode-grid .btn{width:100%}.signature-pad{height:170px}.signature-full-head{height:50px;min-height:50px}.signature-full-body{padding:8px}.signature-full-canvas-wrap{min-height:360px}.signature-full-actions .btn{width:auto;flex:1}}
 
 
     .gb-pdf-preview{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px;line-height:1.45;color:var(--g-text)}
@@ -564,7 +567,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = '71.220526-TM-BM06-DUAL-SIGNATURE-DARK';
+const APP_VERSION = '72.220526-TM-SIGN-SELECT-CANVAS-FIX';
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
@@ -2504,6 +2507,20 @@ function renderGiaoBanFinishBlock(g){
     <div class="card" style="box-shadow:none">
       <h3 class="section-title">${title}</h3>
 
+      <div class="sign-mode-box">
+        <div class="sign-mode-grid">
+          <div>
+            <label>Hình thức ký</label>
+            <select id="gbHinhThucKy" class="equal-control" onchange="syncSignModeWithChair()">
+              <option value="Ký xác nhận trên hệ thống" ${g.hinhThucKy !== 'Ký tay trực tiếp trên màn hình' ? 'selected' : ''}>Ký xác nhận trên hệ thống</option>
+              <option value="Ký tay trực tiếp trên màn hình" ${g.hinhThucKy === 'Ký tay trực tiếp trên màn hình' ? 'selected' : ''}>Ký tay trực tiếp trên màn hình</option>
+            </select>
+          </div>
+          <button id="signSingleInlineBtn" class="btn ok hidden" onclick="finishGiaoBan(this)">Ký xác nhận</button>
+        </div>
+        <div class="meta" id="signModeNote">Chọn hình thức ký trước khi ký xác nhận.</div>
+      </div>
+
       <div id="signTwoStepBlock" class="hidden">
         <div class="empty" style="text-align:left;margin-bottom:10px">
           Thư ký khác chủ trì giao ban. Biên bản cần ký theo thứ tự: thư ký ký trước, sau đó chủ trì ký xác nhận.
@@ -2511,27 +2528,16 @@ function renderGiaoBanFinishBlock(g){
         <div class="sign-step-box">
           <div class="sign-step-title">1. Thư ký ký xác nhận</div>
           <div class="sign-step-status">${thuKySigned ? 'Đã ký: ' + dateTimeVi(g.thoiDiemThuKyKy) : 'Chưa ký. Thư ký cần ký trước để mở bước chủ trì ký.'}</div>
-          <button class="btn ${thuKySigned ? 'secondary' : 'ok'}" ${thuKySigned ? 'disabled' : ''} onclick="openFullSignatureForRole('thuKy', this)">${thuKySigned ? 'Thư ký đã ký' : 'Thư ký ký xác nhận'}</button>
+          <button class="btn ${thuKySigned ? 'secondary' : 'ok'}" ${thuKySigned ? 'disabled' : ''} onclick="handleSignClick('thuKy', this)">${thuKySigned ? 'Thư ký đã ký' : 'Thư ký ký xác nhận'}</button>
         </div>
         <div class="sign-step-box">
           <div class="sign-step-title">2. Chủ trì ký xác nhận</div>
           <div class="sign-step-status">${thuKySigned ? 'Đã sẵn sàng để chủ trì ký xác nhận.' : 'Nút ký chủ trì chỉ sáng lên sau khi thư ký đã ký.'}</div>
-          <button class="btn ok" ${thuKySigned ? '' : 'disabled'} onclick="openFullSignatureForRole('chuTri', this)">Chủ trì ký xác nhận</button>
+          <button class="btn ok" ${thuKySigned ? '' : 'disabled'} onclick="handleSignClick('chuTri', this)">Chủ trì ký xác nhận</button>
         </div>
       </div>
 
-      <div id="signSingleBlock" class="hidden">
-        <div class="sign-mode-box">
-          <label>Hình thức ký</label>
-          <div class="sign-options">
-            <label class="sign-option sign-option-system"><input type="radio" name="gbHinhThucKy" value="Ký xác nhận trên hệ thống" ${g.hinhThucKy !== 'Ký tay trực tiếp trên màn hình' ? 'checked' : ''} onchange="toggleSignaturePad()"><span><strong>Ký xác nhận trên hệ thống</strong><br><span class="meta">Không cần vẽ chữ ký, PDF ghi nhận chủ trì đã xác nhận trên hệ thống.</span></span></label>
-            <label class="sign-option sign-option-manual"><input type="radio" name="gbHinhThucKy" value="Ký tay trực tiếp trên màn hình" ${g.hinhThucKy === 'Ký tay trực tiếp trên màn hình' ? 'checked' : ''} onchange="toggleSignaturePad()"><span><strong>Ký tay trực tiếp trên màn hình</strong><br><span class="meta">Có thể ký bằng ngón tay, bút cảm ứng, laptop cảm ứng hoặc chuột.</span></span></label>
-          </div>
-        </div>
-        <div class="btn-row">
-          <button class="btn ok" onclick="finishGiaoBan(this)">Ký xác nhận</button>
-        </div>
-      </div>
+      <div id="signSingleBlock" class="hidden"></div>
 
       <div class="btn-row sign-bottom-small">
         <button class="btn secondary" onclick="saveGiaoBanDraft(this)">Lưu nháp</button>
@@ -2612,20 +2618,20 @@ window.syncSignModeWithChair = function(){
     single.classList.toggle('hidden', !same);
   }
 
-  const systemLabel = document.querySelector('.sign-option-system');
-  const systemInput = document.querySelector('input[name="gbHinhThucKy"][value="Ký xác nhận trên hệ thống"]');
-  const manualInput = document.querySelector('input[name="gbHinhThucKy"][value="Ký tay trực tiếp trên màn hình"]');
-  if(systemLabel && systemInput && manualInput){
-    systemLabel.classList.toggle('hidden', !same);
-    systemInput.disabled = !same;
-    if(!same) manualInput.checked = true;
+  const singleBtn = document.getElementById('signSingleInlineBtn');
+  if(singleBtn) singleBtn.classList.toggle('hidden', !same);
+  const modeNote = document.getElementById('signModeNote');
+  if(modeNote){
+    modeNote.textContent = getSelectedHinhThucKy() === HINH_THUC_KY_TAY
+      ? 'Khi bấm ký, hệ thống sẽ mở bảng vẽ chữ ký toàn màn hình.'
+      : 'Ký xác nhận trên hệ thống không cần vẽ chữ ký.';
   }
   toggleSignaturePad();
 }
 
 
 function getSelectedHinhThucKy(){
-  return document.querySelector('input[name="gbHinhThucKy"]:checked')?.value || 'Ký xác nhận trên hệ thống';
+  return document.getElementById('gbHinhThucKy')?.value || HINH_THUC_KY_HE_THONG;
 }
 
 function setupSignaturePad(){
@@ -2659,6 +2665,27 @@ function getSignatureRoleName(role){
 
 function getSignatureRoleTitle(role){
   return role === 'thuKy' ? 'Thư ký' : 'Chủ trì giao ban';
+}
+
+window.handleSignClick = async function(role, btn){
+  normalizeChairInput();
+  const mode = getSelectedHinhThucKy();
+  if(mode === HINH_THUC_KY_TAY){
+    openFullSignatureForRole(role, btn);
+    return;
+  }
+  if(role === 'thuKy'){
+    const ok = await showConfirmDialog({
+      title:'Thư ký ký xác nhận',
+      message:'Bạn xác nhận thư ký đã kiểm tra nội dung biên bản/giao ban?',
+      confirmText:'Thư ký xác nhận',
+      cancelText:'Hủy',
+      danger:false
+    });
+    if(!ok) return;
+    return submitThuKySignature(btn, true);
+  }
+  return finishGiaoBan(btn);
 }
 
 window.openFullSignatureForRole = function(role, btn){
@@ -2702,6 +2729,15 @@ window.closeFullSignatureModal = function(){
   state.signaturePad.canvas = null;
   state.signaturePad.ctx = null;
   state.signaturePad.lastPoint = null;
+}
+
+function getCanvasPoint(e, canvas){
+  const rect = canvas.getBoundingClientRect();
+  const src = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]) || e;
+  return {
+    x: Math.max(0, Math.min(rect.width, (src.clientX || 0) - rect.left)),
+    y: Math.max(0, Math.min(rect.height, (src.clientY || 0) - rect.top))
+  };
 }
 
 function setupFullSignaturePad(){
@@ -2752,6 +2788,16 @@ function setupFullSignaturePad(){
   canvas.onpointerup = endDraw;
   canvas.onpointercancel = endDraw;
   canvas.onpointerleave = endDraw;
+
+  // Fallback cho trình duyệt/thiết bị không bắt pointer event ổn định.
+  canvas.ontouchstart = startDraw;
+  canvas.ontouchmove = moveDraw;
+  canvas.ontouchend = endDraw;
+  canvas.ontouchcancel = endDraw;
+  canvas.onmousedown = startDraw;
+  canvas.onmousemove = moveDraw;
+  canvas.onmouseup = endDraw;
+  canvas.onmouseleave = endDraw;
 }
 
 function exportSignatureSquareDataUrl(canvas){
@@ -2852,7 +2898,7 @@ window.saveGiaoBanDraft = async function(btn){
 
 window.finishGiaoBan = async function(btn){
   const mode = getSelectedHinhThucKy();
-  if(mode === 'Ký tay trực tiếp trên màn hình'){
+  if(mode === HINH_THUC_KY_TAY){
     openFullSignatureForRole('chuTri', btn);
     return;
   }
@@ -2867,10 +2913,11 @@ window.finishGiaoBan = async function(btn){
   await submitChuTriSignature(btn, true);
 }
 
-async function submitThuKySignature(btn){
+async function submitThuKySignature(btn, systemSign){
   const task = async () => {
     const payload = collectGiaoBanPayload();
-    payload.chuKyThuKyDataUrl = getSignatureDataUrl();
+    payload.hinhThucKy = systemSign ? HINH_THUC_KY_HE_THONG : HINH_THUC_KY_TAY;
+    payload.chuKyThuKyDataUrl = systemSign ? '' : getSignatureDataUrl();
     const res = await api('signThuKyBienBanHop', payload);
     state.currentGiaoBan = res.data.giaoBan;
     clearListCaches();
@@ -2885,7 +2932,7 @@ async function submitThuKySignature(btn){
 async function submitChuTriSignature(btn, systemSign){
   const task = async () => {
     const payload = collectGiaoBanPayload();
-    payload.hinhThucKy = systemSign ? 'Ký xác nhận trên hệ thống' : 'Ký tay trực tiếp trên màn hình';
+    payload.hinhThucKy = systemSign ? HINH_THUC_KY_HE_THONG : HINH_THUC_KY_TAY;
     if(!systemSign) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
     const res = await api('finishGiaoBan', payload);
     state.currentGiaoBan = res.data.giaoBan;
