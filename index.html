@@ -482,7 +482,7 @@
     .signature-full-actions{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px max(12px,env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line)}
     .signature-full-actions .btn{min-height:40px;height:40px}
     .sign-step-box{border:1px solid var(--g-line);border-radius:12px;background:#fff;padding:10px;margin-top:8px}.sign-step-title{font-weight:800;color:var(--wine-dark);margin-bottom:4px}.sign-step-status{font-size:13px;color:var(--muted);line-height:1.4;margin-bottom:8px}
-    @media (max-width:760px){.template-config-grid,.global-template-grid{grid-template-columns:1fr}.format-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sign-mode-grid{grid-template-columns:1fr}.sign-mode-grid .btn{width:100%}.signature-pad{height:170px}.signature-full-head{height:50px;min-height:50px}.signature-full-body{padding:8px}.signature-full-canvas-wrap{min-height:360px}.signature-full-actions .btn{width:auto;flex:1}}
+    @media (max-width:760px){.template-config-grid,.global-template-grid{grid-template-columns:1fr}.format-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sign-action-row{grid-template-columns:minmax(0,1fr) auto}.sign-action-row .btn{width:auto}.sign-mode-grid{grid-template-columns:minmax(0,1fr) auto}.sign-mode-grid .btn{width:auto}.signature-pad{height:170px}.signature-full-head{height:50px;min-height:50px}.signature-full-body{padding:8px}.signature-full-canvas-wrap{min-height:360px}.signature-full-actions .btn{width:auto;flex:1}}
 
 
     .gb-pdf-preview{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px;line-height:1.45;color:var(--g-text)}
@@ -2501,48 +2501,62 @@ function renderGiaoBanFinishBlock(g){
   const thuKySigned = !!(g.thoiDiemThuKyKy || g.chuKyThuKyFileId);
   const title = isBienBanHopLoai(g.loaiGiaoBan) ? 'Hoàn tất / ký biên bản họp' : 'Hoàn tất / ký giao ban';
 
+  const thuKyMode = g.hinhThucKyThuKy || g.hinhThucKy || HINH_THUC_KY_TAY;
+  const chuTriMode = g.hinhThucKyChuTri || g.hinhThucKy || HINH_THUC_KY_TAY;
+
   // Không quyết định cố định theo dữ liệu cũ tại thời điểm render.
   // Luôn render cả 2 khối, sau đó syncSignModeWithChair() sẽ bật/tắt theo ô Chủ trì giao ban hiện tại.
   return `
     <div class="card" style="box-shadow:none">
       <h3 class="section-title">${title}</h3>
 
-      <div class="sign-mode-box">
-        <div class="sign-mode-grid">
+      <div id="signSingleBlock" class="sign-mode-box hidden">
+        <div class="sign-action-row">
           <div>
             <label>Hình thức ký</label>
-            <select id="gbHinhThucKy" class="equal-control" onchange="syncSignModeWithChair()">
-              <option value="Ký xác nhận trên hệ thống" ${g.hinhThucKy !== 'Ký tay trực tiếp trên màn hình' ? 'selected' : ''}>Ký xác nhận trên hệ thống</option>
-              <option value="Ký tay trực tiếp trên màn hình" ${g.hinhThucKy === 'Ký tay trực tiếp trên màn hình' ? 'selected' : ''}>Ký tay trực tiếp trên màn hình</option>
-            </select>
+            ${renderSignModeSelect('gbHinhThucKyChuTriSingle', chuTriMode)}
           </div>
-          <button id="signSingleInlineBtn" class="btn ok hidden" onclick="finishGiaoBan(this)">Ký xác nhận</button>
+          <button id="signSingleInlineBtn" class="btn ok" onclick="finishGiaoBan(this)">Ký xác nhận</button>
         </div>
-        <div class="meta" id="signModeNote">Chọn hình thức ký trước khi ký xác nhận.</div>
       </div>
 
       <div id="signTwoStepBlock" class="hidden">
-        <div class="empty" style="text-align:left;margin-bottom:10px">
-          Thư ký khác chủ trì giao ban. Biên bản cần ký theo thứ tự: thư ký ký trước, sau đó chủ trì ký xác nhận.
-        </div>
         <div class="sign-step-box">
           <div class="sign-step-title">1. Thư ký ký xác nhận</div>
-          <div class="sign-step-status">${thuKySigned ? 'Đã ký: ' + dateTimeVi(g.thoiDiemThuKyKy) : 'Chưa ký. Thư ký cần ký trước để mở bước chủ trì ký.'}</div>
-          <button class="btn ${thuKySigned ? 'secondary' : 'ok'}" ${thuKySigned ? 'disabled' : ''} onclick="handleSignClick('thuKy', this)">${thuKySigned ? 'Thư ký đã ký' : 'Thư ký ký xác nhận'}</button>
+          <div class="sign-action-row">
+            <div>
+              <label>Hình thức ký</label>
+              ${renderSignModeSelect('gbHinhThucKyThuKy', thuKyMode, thuKySigned)}
+            </div>
+            <button class="btn ${thuKySigned ? 'secondary' : 'ok'}" ${thuKySigned ? 'disabled' : ''} onclick="handleSignClick('thuKy', this)">${thuKySigned ? 'Thư ký đã ký' : 'Thư ký ký xác nhận'}</button>
+          </div>
+          ${thuKySigned ? `<div class="sign-step-status">Đã ký: ${dateTimeVi(g.thoiDiemThuKyKy)}</div>` : ''}
         </div>
         <div class="sign-step-box">
           <div class="sign-step-title">2. Chủ trì ký xác nhận</div>
-          <div class="sign-step-status">${thuKySigned ? 'Đã sẵn sàng để chủ trì ký xác nhận.' : 'Nút ký chủ trì chỉ sáng lên sau khi thư ký đã ký.'}</div>
-          <button class="btn ok" ${thuKySigned ? '' : 'disabled'} onclick="handleSignClick('chuTri', this)">Chủ trì ký xác nhận</button>
+          <div class="sign-action-row">
+            <div>
+              <label>Hình thức ký</label>
+              ${renderSignModeSelect('gbHinhThucKyChuTri', chuTriMode, !thuKySigned)}
+            </div>
+            <button class="btn ok" ${thuKySigned ? '' : 'disabled'} onclick="handleSignClick('chuTri', this)">Chủ trì ký xác nhận</button>
+          </div>
         </div>
       </div>
-
-      <div id="signSingleBlock" class="hidden"></div>
 
       <div class="btn-row sign-bottom-small">
         <button class="btn secondary" onclick="saveGiaoBanDraft(this)">Lưu nháp</button>
       </div>
     </div>`;
+}
+
+function renderSignModeSelect(id, selected, disabled){
+  const v = selected === HINH_THUC_KY_TAY ? HINH_THUC_KY_TAY : HINH_THUC_KY_HE_THONG;
+  return `
+    <select id="${escAttr(id)}" class="equal-control" ${disabled ? 'disabled' : ''}>
+      <option value="${escAttr(HINH_THUC_KY_HE_THONG)}" ${v === HINH_THUC_KY_HE_THONG ? 'selected' : ''}>HT - Xác nhận trên hệ thống</option>
+      <option value="${escAttr(HINH_THUC_KY_TAY)}" ${v === HINH_THUC_KY_TAY ? 'selected' : ''}>KT - Ký tay trực tiếp trên màn hình</option>
+    </select>`;
 }
 
 window.updateGiaoBanTimeNow = function(){
@@ -2620,18 +2634,17 @@ window.syncSignModeWithChair = function(){
 
   const singleBtn = document.getElementById('signSingleInlineBtn');
   if(singleBtn) singleBtn.classList.toggle('hidden', !same);
-  const modeNote = document.getElementById('signModeNote');
-  if(modeNote){
-    modeNote.textContent = getSelectedHinhThucKy() === HINH_THUC_KY_TAY
-      ? 'Khi bấm ký, hệ thống sẽ mở bảng vẽ chữ ký toàn màn hình.'
-      : 'Ký xác nhận trên hệ thống không cần vẽ chữ ký.';
-  }
   toggleSignaturePad();
 }
 
 
-function getSelectedHinhThucKy(){
-  return document.getElementById('gbHinhThucKy')?.value || HINH_THUC_KY_HE_THONG;
+function getSelectedHinhThucKy(role){
+  const same = isSecretarySameChair();
+  let id = 'gbHinhThucKyChuTriSingle';
+  if(!same && role === 'thuKy') id = 'gbHinhThucKyThuKy';
+  if(!same && role === 'chuTri') id = 'gbHinhThucKyChuTri';
+  const el = document.getElementById(id);
+  return el?.value || HINH_THUC_KY_HE_THONG;
 }
 
 function setupSignaturePad(){
@@ -2669,7 +2682,7 @@ function getSignatureRoleTitle(role){
 
 window.handleSignClick = async function(role, btn){
   normalizeChairInput();
-  const mode = getSelectedHinhThucKy();
+  const mode = getSelectedHinhThucKy(role);
   if(mode === HINH_THUC_KY_TAY){
     openFullSignatureForRole(role, btn);
     return;
@@ -2744,13 +2757,14 @@ function setupFullSignaturePad(){
   const canvas = document.getElementById('fullSignaturePad');
   if(!canvas) return;
   state.signaturePad.canvas = canvas;
+  canvas.style.touchAction = 'none';
   const rect = canvas.getBoundingClientRect();
   const ratio = window.devicePixelRatio || 1;
   canvas.width = Math.max(1, Math.floor(rect.width * ratio));
   canvas.height = Math.max(1, Math.floor(rect.height * ratio));
   const ctx = canvas.getContext('2d');
   ctx.setTransform(ratio,0,0,ratio,0,0);
-  ctx.lineWidth = 3.2;
+  ctx.lineWidth = 3.4;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
   ctx.strokeStyle = '#000';
@@ -2758,18 +2772,19 @@ function setupFullSignaturePad(){
   state.signaturePad.hasInk = false;
   state.signaturePad.lastPoint = null;
 
+  const safePrevent = e => { try{ if(e.cancelable !== false) e.preventDefault(); }catch(_e){} try{ e.stopPropagation(); }catch(_e){} };
   const startDraw = e => {
-    e.preventDefault();
+    safePrevent(e);
     state.signaturePad.drawing = true;
     state.signaturePad.hasInk = true;
     state.signaturePad.lastPoint = getCanvasPoint(e, canvas);
-    try{ canvas.setPointerCapture(e.pointerId); }catch(_e){}
+    try{ if(e.pointerId !== undefined) canvas.setPointerCapture(e.pointerId); }catch(_e){}
     ctx.beginPath();
     ctx.moveTo(state.signaturePad.lastPoint.x, state.signaturePad.lastPoint.y);
   };
   const moveDraw = e => {
     if(!state.signaturePad.drawing) return;
-    e.preventDefault();
+    safePrevent(e);
     const p = getCanvasPoint(e, canvas);
     const last = state.signaturePad.lastPoint || p;
     const mid = {x:(last.x + p.x)/2, y:(last.y + p.y)/2};
@@ -2779,25 +2794,14 @@ function setupFullSignaturePad(){
   };
   const endDraw = e => {
     if(!state.signaturePad.drawing) return;
-    e.preventDefault();
+    safePrevent(e);
     state.signaturePad.drawing = false;
     state.signaturePad.lastPoint = null;
   };
-  canvas.onpointerdown = startDraw;
-  canvas.onpointermove = moveDraw;
-  canvas.onpointerup = endDraw;
-  canvas.onpointercancel = endDraw;
-  canvas.onpointerleave = endDraw;
 
-  // Fallback cho trình duyệt/thiết bị không bắt pointer event ổn định.
-  canvas.ontouchstart = startDraw;
-  canvas.ontouchmove = moveDraw;
-  canvas.ontouchend = endDraw;
-  canvas.ontouchcancel = endDraw;
-  canvas.onmousedown = startDraw;
-  canvas.onmousemove = moveDraw;
-  canvas.onmouseup = endDraw;
-  canvas.onmouseleave = endDraw;
+  ['pointerdown','mousedown','touchstart'].forEach(ev => canvas.addEventListener(ev, startDraw, {passive:false}));
+  ['pointermove','mousemove','touchmove'].forEach(ev => canvas.addEventListener(ev, moveDraw, {passive:false}));
+  ['pointerup','pointercancel','pointerleave','mouseup','mouseleave','touchend','touchcancel'].forEach(ev => canvas.addEventListener(ev, endDraw, {passive:false}));
 }
 
 function exportSignatureSquareDataUrl(canvas){
@@ -2872,7 +2876,9 @@ function collectGiaoBanPayload(){
     chuTriTen: chuTri.tenNhanVien || '',
     chuTriChucDanh: chuTri.chucDanh || '',
     nguoiChuTriTuDo: chuTri.tenNhanVien || '',
-    hinhThucKy: getSelectedHinhThucKy(),
+    hinhThucKy: getSelectedHinhThucKy('chuTri'),
+    hinhThucKyThuKy: getSelectedHinhThucKy('thuKy'),
+    hinhThucKyChuTri: getSelectedHinhThucKy('chuTri'),
     chuKyChuTriDataUrl: '',
     chuKyThuKyDataUrl: '',
     thanhPhanThamDu: $('#gbThanhPhanThamDu')?.value || '',
@@ -2897,7 +2903,7 @@ window.saveGiaoBanDraft = async function(btn){
 }
 
 window.finishGiaoBan = async function(btn){
-  const mode = getSelectedHinhThucKy();
+  const mode = getSelectedHinhThucKy('chuTri');
   if(mode === HINH_THUC_KY_TAY){
     openFullSignatureForRole('chuTri', btn);
     return;
@@ -2916,8 +2922,10 @@ window.finishGiaoBan = async function(btn){
 async function submitThuKySignature(btn, systemSign){
   const task = async () => {
     const payload = collectGiaoBanPayload();
-    payload.hinhThucKy = systemSign ? HINH_THUC_KY_HE_THONG : HINH_THUC_KY_TAY;
-    payload.chuKyThuKyDataUrl = systemSign ? '' : getSignatureDataUrl();
+    const mode = systemSign ? HINH_THUC_KY_HE_THONG : getSelectedHinhThucKy('thuKy');
+    payload.hinhThucKy = mode;
+    payload.hinhThucKyThuKy = mode;
+    payload.chuKyThuKyDataUrl = mode === HINH_THUC_KY_TAY ? getSignatureDataUrl() : '';
     const res = await api('signThuKyBienBanHop', payload);
     state.currentGiaoBan = res.data.giaoBan;
     clearListCaches();
@@ -2932,8 +2940,10 @@ async function submitThuKySignature(btn, systemSign){
 async function submitChuTriSignature(btn, systemSign){
   const task = async () => {
     const payload = collectGiaoBanPayload();
-    payload.hinhThucKy = systemSign ? HINH_THUC_KY_HE_THONG : HINH_THUC_KY_TAY;
-    if(!systemSign) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
+    const mode = systemSign ? HINH_THUC_KY_HE_THONG : getSelectedHinhThucKy('chuTri');
+    payload.hinhThucKy = mode;
+    payload.hinhThucKyChuTri = mode;
+    if(mode === HINH_THUC_KY_TAY) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
     const res = await api('finishGiaoBan', payload);
     state.currentGiaoBan = res.data.giaoBan;
     clearListCaches();
