@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX">
-  <link rel="manifest" href="./manifest.json?v=70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL">
+  <link rel="manifest" href="./manifest.json?v=72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -458,6 +458,7 @@
     .template-status{font-size:13px;color:var(--muted);line-height:1.45;margin-top:8px;word-break:break-word}
     .template-file{margin-top:8px}
     .template-file input[type="file"]{height:auto;min-height:38px;padding:7px 8px;background:#fff}
+    .template-name{font-size:13.5px;color:var(--g-text);line-height:1.45;margin-top:8px;word-break:break-word}.template-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.template-actions .btn{width:auto;min-height:32px;height:32px;padding:0 12px}.template-check{font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:6px;white-space:pre-wrap}.global-template-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.global-template-box textarea{min-height:260px;font-family:Consolas,Menlo,monospace;font-size:13.5px;line-height:1.45}.format-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.variable-table-wrap{overflow:auto;border:1px solid var(--g-line);border-radius:12px;background:#fff}.variable-table{width:100%;border-collapse:collapse;min-width:780px;font-size:13px}.variable-table th,.variable-table td{border-bottom:1px solid var(--g-line);border-right:1px solid var(--g-line);padding:7px 8px;vertical-align:top;text-align:left}.variable-table th{background:#fff4f8;color:var(--wine-dark);font-weight:700}.variable-table th:last-child,.variable-table td:last-child{border-right:0}.variable-key{font-family:Consolas,Menlo,monospace;color:var(--wine-dark);font-weight:700;white-space:nowrap}.copy-var-btn{min-height:28px!important;height:28px!important;padding:0 8px!important;font-size:12px!important}
     .sign-mode-box{border:1px solid var(--g-line);border-radius:14px;background:#fff;padding:12px;margin-top:12px}
     .sign-options{display:grid;gap:8px;margin-top:8px}
     .sign-option{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--g-line);border-radius:10px;padding:8px;background:#fff}
@@ -466,7 +467,7 @@
     .signature-pad-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--g-line);background:#fff8fb}
     .signature-pad{width:100%;height:190px;display:block;background:#fff;touch-action:none}
     .signature-pad-note{font-size:12.5px;color:var(--muted);line-height:1.35;padding:8px 10px;border-top:1px solid var(--g-line)}
-    @media (max-width:760px){.template-config-grid{grid-template-columns:1fr}.signature-pad{height:170px}}
+    @media (max-width:760px){.template-config-grid,.global-template-grid{grid-template-columns:1fr}.format-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.signature-pad{height:170px}}
 
   </style>
 </head>
@@ -481,7 +482,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -496,14 +497,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX</p>
+      <p class="login-version">Version: 72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -532,7 +533,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX</div>
+    <div class="app-version">Version: 72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -540,7 +541,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = '70.220526-TM-UPLOAD-PDF-TEMPLATE-DRIVEV3-FIX';
+const APP_VERSION = '72.220526-TM-TEMPLATE-MANAGER-VARS-GLOBAL';
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
@@ -577,6 +578,8 @@ const state = {
   khoaPhong: [],
   tmEquipmentConfig: defaultTmEquipmentConfig(),
   pdfTemplateConfig: null,
+  pdfContentTemplates: null,
+  pdfTemplateVariables: [],
   signaturePad: {drawing:false, canvas:null, ctx:null, hasInk:false},
   selectedStaff: [],
   selectedStaffCandidate: null,
@@ -755,6 +758,8 @@ async function loadInitData(){
     state.khoaPhong = res.data.khoaPhong || [];
     state.tmEquipmentConfig = normalizeTmEquipmentConfig(res.data.tmEquipmentConfig || []);
     state.pdfTemplateConfig = res.data.pdfTemplateConfig || null;
+    state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || null;
+    state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || [];
     state.initLoaded = true;
     refreshDatalists();
     renderCreateTab();
@@ -2568,13 +2573,14 @@ async function loadPdfList(){
 
 /* ================= SETTINGS ================= */
 
+
 function renderSettingsTab(){
   const items = getTmEquipmentConfig();
   const rows = items.map((it, idx) => renderSettingEquipmentRow(it, idx)).join('');
   $('#tab-settings').innerHTML = `
     <div class="card">
       <h2 class="section-title">Cài đặt</h2>
-      <p class="meta">Tab này dành cho quản trị. Bản hiện tại lưu dữ liệu app trong các sheet SESSION, PHIEU, GIAO_BAN, LOG và lưu cấu hình thiết bị Truyền máu trong Script Properties của backend.</p>
+      <p class="meta">Tab này dành cho quản trị. Bản hiện tại lưu dữ liệu app trong các sheet SESSION, PHIEU, GIAO_BAN, LOG; cấu hình thiết bị và mẫu PDF được lưu trong Script Properties của backend.</p>
       <div class="list-card">
         <strong>API đang dùng</strong>
         <div class="meta" style="word-break:break-all">${esc(API_URL)}</div>
@@ -2585,15 +2591,41 @@ function renderSettingsTab(){
       </div>
     </div>
 
-
     <div class="card">
       <h2 class="section-title">Cấu hình mẫu PDF giao ban</h2>
-      <p class="meta">Admin upload trực tiếp file Word mẫu. Backend sẽ chuyển sang Google Docs template và dùng khi hoàn tất/xuất PDF giao ban. Nếu mẫu chưa gắn biến, hệ thống vẫn dựng nội dung theo đúng đề mục BM04/BM06 trên khung trang của mẫu.</p>
+      <p class="meta">Upload file Word mẫu, sau đó dùng bảng biến bên dưới để khai báo vị trí cần chèn dữ liệu. Có thể dùng một biến khối <b>{{APP_NOI_DUNG_GIAO_BAN}}</b> hoặc các biến chi tiết.</p>
       <div class="template-config-grid">
-        ${renderPdfTemplateBox('BM04', 'Mẫu BM04 - Giao ban thường trực')}
-        ${renderPdfTemplateBox('BM06', 'Mẫu BM06 - Biên bản họp / giao ban đột xuất')}
+        ${renderPdfTemplateBox('BM04', 'Mẫu Giao ban thường trực')}
+        ${renderPdfTemplateBox('BM06', 'Mẫu Biên bản họp / Giao ban đột xuất')}
       </div>
-      <p class="meta" style="margin-top:10px">Lưu ý: cần bật Drive API nâng cao trong Apps Script: Dịch vụ/Services → thêm Drive API.</p>
+      <p class="meta" style="margin-top:10px">Cần bật Drive API nâng cao trong Apps Script: Dịch vụ/Services → thêm Drive API.</p>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Cấu hình nội dung PDF toàn cục</h2>
+      <p class="meta">Dùng khi file Word có biến <b>{{APP_NOI_DUNG_GIAO_BAN}}</b>. App sẽ thay các biến chi tiết trong nội dung toàn cục rồi chèn vào vị trí biến khối.</p>
+      <div class="global-template-grid">
+        <div class="global-template-box">
+          <label>Nội dung toàn cục - Giao ban thường trực</label>
+          <textarea id="pdfContentBM04">${esc(state.pdfContentTemplates?.bm04 || '')}</textarea>
+        </div>
+        <div class="global-template-box">
+          <label>Nội dung toàn cục - Biên bản họp / Giao ban đột xuất</label>
+          <textarea id="pdfContentBM06">${esc(state.pdfContentTemplates?.bm06 || '')}</textarea>
+        </div>
+      </div>
+      <h3 class="sub-title">Định dạng phần nội dung do app chèn</h3>
+      ${renderPdfFormatControls()}
+      <div class="btn-row">
+        <button id="savePdfContentBtn" class="btn primary" type="button">Lưu nội dung & định dạng PDF</button>
+        <button id="reloadPdfContentBtn" class="btn secondary" type="button">Tải lại cấu hình</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Bảng biến mẫu PDF</h2>
+      <p class="meta">Copy đúng tên biến rồi dán vào file mẫu Word/Google Docs. Sau này nếu cập nhật thêm biến mới, bảng này sẽ tự cập nhật theo backend.</p>
+      ${renderPdfVariableTable()}
     </div>
 
     <div class="card">
@@ -2614,23 +2646,65 @@ function renderSettingsTab(){
   `;
   bindSettingsEquipmentEvents();
   bindPdfTemplateEvents();
+  bindPdfContentEvents();
+  setTimeout(() => $$('textarea').forEach(autoGrow), 0);
 }
-
 
 function renderPdfTemplateBox(type, title){
   const key = String(type || '').toLowerCase();
   const cfg = state.pdfTemplateConfig?.[key] || {};
-  const name = cfg.name || '';
-  const status = cfg.docId ? `Đã cấu hình: ${esc(name || cfg.docId)}` : 'Chưa cấu hình mẫu.';
+  const name = cfg.name || 'Chưa có';
+  const configured = !!cfg.docId && cfg.status === 'Đã cấu hình';
+  const statusClass = configured ? 'ok' : (cfg.docId ? 'warn' : 'muted');
+  const check = cfg.check || {};
+  const foundText = check.found?.length ? `Đã nhận diện: ${check.found.length} biến (${esc(check.mode || '')})` : (cfg.docId ? 'Chưa nhận diện biến dữ liệu.' : 'Chưa upload mẫu.');
+  const unknownText = check.unknown?.length ? `\nBiến lạ: ${check.unknown.join(', ')}` : '';
   return `
     <div class="template-box">
       <strong>${esc(title)}</strong>
-      <div class="template-status" id="tplStatus${escAttr(type)}">${status}</div>
+      <div class="template-name"><b>Tên file:</b> ${esc(name)}</div>
+      <div class="template-status"><b>Trạng thái:</b> <span class="pill ${statusClass}">${esc(cfg.status || 'Chưa cấu hình')}</span></div>
+      <div class="template-check">${foundText}${unknownText}</div>
       <div class="template-file"><input id="tplFile${escAttr(type)}" type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></div>
-      <div class="btn-row" style="margin-top:10px">
-        <button id="uploadTpl${escAttr(type)}" class="btn primary" type="button">Upload ${esc(type)}</button>
-        <button id="testTpl${escAttr(type)}" class="btn secondary" type="button">Kiểm tra mẫu</button>
+      <div class="template-actions">
+        <button id="uploadTpl${escAttr(type)}" class="btn primary" type="button">Upload mẫu</button>
+        <button id="previewTpl${escAttr(type)}" class="btn secondary" type="button" ${cfg.docId ? '' : 'disabled'}>Xem mẫu</button>
+        <button id="editTpl${escAttr(type)}" class="btn secondary" type="button" ${cfg.docId ? '' : 'disabled'}>Mở để sửa</button>
+        <button id="testTpl${escAttr(type)}" class="btn ghost" type="button" ${cfg.docId ? '' : 'disabled'}>Kiểm tra</button>
       </div>
+    </div>`;
+}
+
+function renderPdfFormatControls(){
+  const f = state.pdfContentTemplates?.format || state.pdfTemplateConfig?.format || {};
+  const align = f.alignment || 'LEFT';
+  return `
+    <div class="format-grid">
+      <div><label>Font chữ</label><input id="pdfFmtFont" value="${escAttr(f.fontFamily || 'Times New Roman')}"></div>
+      <div><label>Cỡ chữ nội dung</label><input id="pdfFmtBodySize" type="number" min="10" max="16" step="0.5" value="${escAttr(f.bodyFontSize || 13)}"></div>
+      <div><label>Cỡ chữ đề mục</label><input id="pdfFmtHeadingSize" type="number" min="10" max="18" step="0.5" value="${escAttr(f.headingFontSize || 13)}"></div>
+      <div><label>Giãn dòng</label><input id="pdfFmtLineSpacing" type="number" min="1" max="2" step="0.05" value="${escAttr(f.lineSpacing || 1.15)}"></div>
+      <div><label>Cách sau đoạn</label><input id="pdfFmtSpacingAfter" type="number" min="0" max="12" step="1" value="${escAttr(f.spacingAfter || 0)}"></div>
+      <div><label>Căn đoạn</label><select id="pdfFmtAlign"><option value="LEFT" ${align==='LEFT'?'selected':''}>Căn trái</option><option value="JUSTIFY" ${align==='JUSTIFY'?'selected':''}>Căn đều</option><option value="CENTER" ${align==='CENTER'?'selected':''}>Căn giữa</option></select></div>
+    </div>`;
+}
+
+function renderPdfVariableTable(){
+  const vars = state.pdfTemplateVariables || state.pdfTemplateConfig?.variables || [];
+  if(!vars.length) return `<div class="empty">Chưa tải được bảng biến.</div>`;
+  return `
+    <div class="variable-table-wrap">
+      <table class="variable-table">
+        <thead><tr><th>Biến</th><th>Nhóm</th><th>Dùng cho</th><th>Ý nghĩa</th><th></th></tr></thead>
+        <tbody>${vars.map((v, idx) => `
+          <tr>
+            <td><span class="variable-key">${esc(v.key || '')}</span></td>
+            <td>${esc(v.group || '')}</td>
+            <td>${esc(v.scope || '')}</td>
+            <td><b>${esc(v.label || '')}</b><br><span class="meta">${esc(v.description || '')}</span></td>
+            <td><button class="btn secondary copy-var-btn" type="button" onclick="copyPdfVariable('${escAttr(v.key || '')}')">Copy</button></td>
+          </tr>`).join('')}</tbody>
+      </table>
     </div>`;
 }
 
@@ -2638,7 +2712,14 @@ function bindPdfTemplateEvents(){
   ['BM04','BM06'].forEach(type => {
     document.getElementById('uploadTpl' + type)?.addEventListener('click', () => uploadPdfTemplate(type, document.getElementById('uploadTpl' + type)));
     document.getElementById('testTpl' + type)?.addEventListener('click', () => testPdfTemplate(type, document.getElementById('testTpl' + type)));
+    document.getElementById('previewTpl' + type)?.addEventListener('click', () => previewPdfTemplate(type, document.getElementById('previewTpl' + type)));
+    document.getElementById('editTpl' + type)?.addEventListener('click', () => openPdfTemplateEditor(type, document.getElementById('editTpl' + type)));
   });
+}
+
+function bindPdfContentEvents(){
+  $('#savePdfContentBtn')?.addEventListener('click', () => savePdfContentTemplateConfig($('#savePdfContentBtn')));
+  $('#reloadPdfContentBtn')?.addEventListener('click', () => loadPdfContentTemplateConfig($('#reloadPdfContentBtn')));
 }
 
 function readFileAsDataUrl(file){
@@ -2659,19 +2740,89 @@ async function uploadPdfTemplate(type, btn){
     const dataUrl = await readFileAsDataUrl(file);
     const res = await api('uploadPdfTemplate', {templateType:type, fileName:file.name, mimeType:file.type || 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', base64:dataUrl});
     state.pdfTemplateConfig = res.data.config;
+    state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || state.pdfContentTemplates;
+    state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || state.pdfTemplateVariables;
     renderSettingsTab();
-    const missing = res.data.check?.missing || [];
-    toast(missing.length ? `Đã upload ${type}. Mẫu chưa có ${missing.length} biến, hệ thống sẽ dùng khung mặc định nếu cần.` : `Đã upload mẫu ${type}.`);
+    const check = res.data.check || {};
+    toast(check.configured ? `Đã upload và nhận diện biến trong mẫu ${type}.` : `Đã upload ${type}. Hãy bấm Mở để sửa và copy biến từ bảng chú thích vào mẫu.`);
   });
 }
 
 async function testPdfTemplate(type, btn){
   await withButton(btn, 'Đang kiểm tra...', async () => {
     const res = await api('testPdfTemplate', {templateType:type});
+    if(res.data.config){
+      state.pdfTemplateConfig = res.data.config;
+      state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || state.pdfContentTemplates;
+      state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || state.pdfTemplateVariables;
+      renderSettingsTab();
+    }
     const check = res.data.check || {};
-    const missing = check.missing || [];
-    toast(missing.length ? `Mẫu ${type} mở được nhưng thiếu ${missing.length} biến.` : `Mẫu ${type} hợp lệ.`);
+    toast(check.configured ? `Mẫu ${type} đã sẵn sàng dùng (${check.mode}).` : `Mẫu ${type} chưa có biến dữ liệu.`);
   });
+}
+
+async function previewPdfTemplate(type, btn){
+  await withButton(btn, 'Đang tạo...', async () => {
+    const res = await api('previewPdfTemplate', {templateType:type});
+    const url = res.data.url;
+    openGiaoBanPdf(url, 'Xem mẫu ' + type);
+  });
+}
+
+async function openPdfTemplateEditor(type, btn){
+  await withButton(btn, 'Đang mở...', async () => {
+    const res = await api('getPdfTemplateEditUrl', {templateType:type});
+    window.open(res.data.url, '_blank', 'noopener');
+  });
+}
+
+async function savePdfContentTemplateConfig(btn){
+  const payload = {
+    bm04: $('#pdfContentBM04')?.value || '',
+    bm06: $('#pdfContentBM06')?.value || '',
+    format: {
+      fontFamily: $('#pdfFmtFont')?.value || 'Times New Roman',
+      bodyFontSize: Number($('#pdfFmtBodySize')?.value || 13),
+      headingFontSize: Number($('#pdfFmtHeadingSize')?.value || 13),
+      lineSpacing: Number($('#pdfFmtLineSpacing')?.value || 1.15),
+      spacingAfter: Number($('#pdfFmtSpacingAfter')?.value || 0),
+      alignment: $('#pdfFmtAlign')?.value || 'LEFT'
+    }
+  };
+  await withButton(btn, 'Đang lưu...', async () => {
+    const res = await api('savePdfContentTemplateConfig', payload);
+    state.pdfContentTemplates = res.data;
+    if(state.pdfTemplateConfig){
+      state.pdfTemplateConfig.contentTemplates = res.data;
+      state.pdfTemplateConfig.format = res.data.format;
+    }
+    toast('Đã lưu nội dung toàn cục và định dạng PDF.');
+  });
+}
+
+async function loadPdfContentTemplateConfig(btn){
+  await withButton(btn, 'Đang tải...', async () => {
+    const res = await api('getPdfContentTemplateConfig', {});
+    state.pdfContentTemplates = res.data;
+    renderSettingsTab();
+    toast('Đã tải lại cấu hình nội dung PDF.');
+  });
+}
+
+window.copyPdfVariable = async function(key){
+  try{
+    await navigator.clipboard.writeText(key);
+    toast('Đã copy biến: ' + key);
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = key;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    toast('Đã copy biến: ' + key);
+  }
 }
 
 function renderSettingEquipmentRow(it, idx){
