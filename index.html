@@ -213,7 +213,7 @@
     .login-author{position:absolute;left:0;right:0;bottom:18px;z-index:0;text-align:center;padding:0 15px;color:#666;font-size:13.5px;line-height:1.6}.login-author p{margin:3px 0}.login-author strong{color:#666;font-size:14.5px}
     .password-wrap{position:relative}.password-wrap input{padding-right:42px}.password-toggle{position:absolute;right:1px;top:1px;bottom:1px;width:38px;display:grid;place-items:center;border:0;background:transparent;color:#777;font-size:16px;cursor:pointer;border-radius:0 4px 4px 0}.password-toggle:hover{background:#f1f3f4;color:#333}
     .login-loading-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;transition:opacity .3s ease;text-align:center;color:#202124;background-image:radial-gradient(circle at 15% 50%,rgba(0,91,170,.1) 0%,rgba(0,91,170,0) 25%),radial-gradient(circle at 85% 30%,rgba(32,201,151,.1) 0%,rgba(32,201,151,0) 20%),radial-gradient(circle at 25% 80%,rgba(0,91,170,.05) 0%,rgba(0,91,170,0) 20%);animation:float-particles 20s linear infinite}
-    .login-loading-logo{position:relative;width:300px;height:300px;margin-bottom:25px;overflow:hidden;border-radius:15px;background:#fff}
+    .login-loading-logo{position:relative;width:300px;height:300px;margin-bottom:25px;overflow:hidden;border-radius:15px;background:transparent}
     .login-loading-logo img{width:100%;height:100%;display:block;object-fit:contain}.login-loading-logo::after{content:"";position:absolute;top:0;left:-150%;width:100%;height:100%;background:linear-gradient(to right,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);transform:skewX(-25deg);animation:shimmer-fixed 2.5s infinite cubic-bezier(.4,0,.2,1)}
     .login-loading-text{font-size:20px;font-weight:bold;color:#333;margin:0 0 10px}.login-loading-progress{font-size:24px;font-weight:bold;color:#005baa;min-height:28px}.login-loading-sub{font-size:13px;color:#5f6368;margin-top:6px}
     @keyframes shimmer-fixed{100%{left:150%}}@keyframes float-particles{0%{background-position:0% 0%}100%{background-position:100% 200%}}
@@ -813,6 +813,16 @@
       #tab-account .account-info-value{font-size:16px;color:#212529;font-weight:500;margin-left:28px}
       #tab-account .account-info-sep{background:#e1e5e9;margin:12px 0}
     }
+
+
+    /* ===== PATCH 90: SỬA VIỀN BẢNG THIẾT BỊ + RÚT GỌN NÚT THÔNG TIN CHUNG ===== */
+    .tm-equip-table thead tr:nth-child(2) th:last-child{
+      border-right:1px solid var(--g-line)!important;
+    }
+    .tm-equip-table thead tr:first-child th:last-child{
+      border-left:1px solid var(--g-line)!important;
+    }
+
 </style>
 </head>
 <body>
@@ -859,7 +869,7 @@
   </div>
 
   <div id="loginLoadingOverlay" class="login-loading-overlay hidden">
-    <div class="login-loading-logo"><img src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai"></div>
+    <div class="login-loading-logo"><img src="./LOGO%20BVBM%20KO%20NEN.png?v=90.050626-LOADING-LOGO-NEN-TRONG-SUOT" alt="Logo Bệnh viện Bạch Mai"></div>
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
@@ -3797,7 +3807,7 @@ function accountSetupButtonsHtml(active){
     ['templates','📄','Mẫu phiếu họp/giao ban'],
     ['global','🧩','Cấu hình biến toàn cục'],
     ['variables','📚','Bảng biến mẫu'],
-    ['info','🔗','Thông tin chung: API đang dùng']
+    ['info','🔗','Thông tin chung']
   ];
   return `<div class="account-setup-buttons">${items.map(([key,icon,label]) => `<button class="btn ${active === key ? 'primary' : 'secondary'} account-setup-btn" type="button" onclick="openAccountSetupSection('${key}')"><span>${icon}</span> ${esc(label)}</button>`).join('')}</div>`;
 }
