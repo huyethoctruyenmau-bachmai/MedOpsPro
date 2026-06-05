@@ -1844,7 +1844,7 @@ function renderPhieuList(items, note=''){
       <div class="list-card phieu-card">
         <div class="list-head">
           <div>
-            <div class="list-title title-blue">${esc(title)}</div>
+            <div class="list-title ${isReportCard ? '' : 'title-blue'}">${esc(title)}</div>
             <div class="meta">Người tạo: ${esc(p.nguoiThucHienTen || '')}${p.thoiDiemTao ? ' · Tạo lúc: ' + dateTimeVi(p.thoiDiemTao) : ''}</div>
           </div>
           ${statusPill(p.trangThaiBanGiao)}
