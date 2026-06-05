@@ -559,7 +559,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 76.050626-VIEW-SIGNATURE-SESSION</div>
+    <div class="app-version">Version: 76.050626-FIX-SAVE-SIGNATURE</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -567,7 +567,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-76.050626-VIEW-SIGNATURE-SESSION';
+const APP_VERSION = 'INDEX-76.050626-FIX-SAVE-SIGNATURE';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -640,6 +640,29 @@ const state = {
   sessionGuard: 0,
   isLoggingOut: false
 };
+
+
+function normalizeSignatureState(signature, fallbackDataUrl){
+  const sig = signature || {};
+  const dataUrl = sig.dataUrl || fallbackDataUrl || '';
+  return {
+    maNhanVien: sig.maNhanVien || state.user?.maNhanVien || '',
+    tenNhanVien: sig.tenNhanVien || state.user?.tenNhanVien || '',
+    hasSignature: !!(sig.hasSignature || dataUrl),
+    updatedAt: sig.updatedAt || '',
+    dataUrl: dataUrl
+  };
+}
+
+async function refreshMySignatureSilently(){
+  try{
+    const res = await api('getMySignature', {});
+    state.mySignature = normalizeSignatureState(res.data?.signature || null);
+    return !!state.mySignature.hasSignature;
+  }catch(e){
+    return !!state.mySignature?.hasSignature;
+  }
+}
 
 const $ = sel => document.querySelector(sel);
 const $$ = sel => Array.from(document.querySelectorAll(sel));
@@ -2735,6 +2758,8 @@ window.handleSignClick = async function(role, btn){
 
 async function ensureSystemSignatureReady(afterRole){
   if(state.mySignature?.hasSignature) return true;
+  // Tránh lỗi trạng thái frontend bị cũ: kiểm tra lại backend trước khi yêu cầu tạo chữ ký.
+  if(await refreshMySignatureSilently()) return true;
   const ok = await showConfirmDialog({
     title:'Chưa có chữ ký hệ thống',
     message:'Tài khoản của bạn chưa có chữ ký trên hệ thống. Bạn có muốn tạo chữ ký ngay không? Nếu không tạo, vui lòng chuyển hình thức ký sang KT để ký tay thủ công.',
@@ -2889,9 +2914,7 @@ function setupFullSignaturePad(){
   ['pointerup','pointercancel','pointerleave','mouseup','mouseleave','touchend','touchcancel'].forEach(ev => canvas.addEventListener(ev, endDraw, {passive:false}));
 }
 
-function exportSignatureSquareDataUrl(canvas){
-  const size = 600;
-  const padding = 72;
+function exportSignatureSquareDataUrl(canvas, size=600, padding=72){
   const srcW = canvas.width;
   const srcH = canvas.height;
   const srcCtx = canvas.getContext('2d');
@@ -2939,8 +2962,11 @@ window.confirmFullSignature = async function(btn){
     toast('Vui lòng ký trong khung trước khi xác nhận.');
     return;
   }
-  state.signaturePad.dataUrl = exportSignatureSquareDataUrl(canvas);
   const role = state.signaturePad.targetRole || 'chuTri';
+  // Chữ ký hệ thống lưu trong Google Sheet nên xuất ảnh nhỏ hơn để không vượt giới hạn ô dữ liệu.
+  state.signaturePad.dataUrl = role === 'profile'
+    ? exportSignatureSquareDataUrl(canvas, 360, 42)
+    : exportSignatureSquareDataUrl(canvas, 600, 72);
   if(role === 'profile') return saveProfileSignatureFromPad(btn);
   if(role === 'thuKy') return submitThuKySignature(btn);
   return submitChuTriSignature(btn);
@@ -2952,10 +2978,13 @@ async function saveProfileSignatureFromPad(btn){
   const afterRole = state.afterProfileSignRole || '';
   const task = async () => {
     const res = await api('saveMySignature', {chuKyDataUrl: dataUrl});
-    state.mySignature = res.data.signature || {hasSignature:true, dataUrl};
+    state.mySignature = normalizeSignatureState(res.data?.signature || null, dataUrl);
+    // Đọc lại một lần từ backend để chắc chắn lần bấm ký tiếp theo không hỏi tạo lại chữ ký.
+    await refreshMySignatureSilently();
     toast('Đã lưu chữ ký hệ thống.');
     closeFullSignatureModal();
-    renderSettingsTab();
+    state.afterProfileSignRole = '';
+    if(state.activeTab === 'settings') renderSettingsTab();
     if(afterRole === 'thuKy') return submitThuKySignature(null, true);
     if(afterRole === 'chuTri') return submitChuTriSignature(null, true);
   };
@@ -3255,7 +3284,7 @@ function bindMySignatureEvents(){
 async function loadMySignature(btn){
   await withButton(btn, 'Đang tải...', async () => {
     const res = await api('getMySignature', {});
-    state.mySignature = res.data.signature || null;
+    state.mySignature = normalizeSignatureState(res.data?.signature || null);
     renderSettingsTab();
     toast('Đã tải lại chữ ký cá nhân.');
   });
@@ -3272,7 +3301,7 @@ async function deleteMySignature(btn){
   if(!ok) return;
   await withButton(btn, 'Đang xóa...', async () => {
     const res = await api('deleteMySignature', {});
-    state.mySignature = res.data.signature || null;
+    state.mySignature = normalizeSignatureState(res.data?.signature || null);
     renderSettingsTab();
     toast('Đã xóa chữ ký hệ thống.');
   });
