@@ -744,7 +744,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-84.050626-CREATE-TM-MOBILE-LAYOUT';
+const APP_VERSION = 'INDEX-85.050626-DATETIME-VI-23H30';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -1121,7 +1121,7 @@ async function withButton(btn, busyText, fn){
 
 function renderCreateTab(){
   const today = todayIso();
-  const now = toDatetimeLocal(hanoiNowIso());
+  const now = dateTimeVi(hanoiNowIso());
   $('#tab-create').innerHTML = `
     <div class="card">
       <h2 class="section-title">I. Thông tin phiếu</h2>
@@ -1194,7 +1194,7 @@ function renderCreateTab(){
         </div>
         <div class="col-3">
           <label id="handoverLabel4">2.4 Thời gian bàn giao</label>
-          <input id="thoiGianBanGiao" class="equal-control datetime-vi-input" type="datetime-local" value="${now}">
+          <input id="thoiGianBanGiao" class="equal-control datetime-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy HHhmm" value="${now}">
         </div>
       </div>
       <div class="btn-row">
@@ -1801,7 +1801,7 @@ window.editPhieu = async function(phieuID, btn){
               <div class="col-12"><label>${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</label><div id="editBanGiaoTaiSanBox">${renderEditBanGiaoTaiSanInput(p)}</div></div>
               <div class="col-12"><label>${handoverNo}.2 Chuyên môn</label><textarea id="editBGCM">${esc(p.banGiaoChuyenMon||'')}</textarea></div>
               <div class="col-12"><label>${handoverNo}.3 Vấn đề khác</label><textarea id="editBGKhac">${esc(p.banGiaoVanDeKhac||'')}</textarea></div>
-              <div class="col-3"><label>${handoverNo}.4 Thời gian bàn giao</label><input id="editTGBG" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(p.thoiGianBanGiao))}"></div>
+              <div class="col-3"><label>${handoverNo}.4 Thời gian bàn giao</label><input id="editTGBG" class="equal-control datetime-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy HHhmm" value="${escAttr(dateTimeVi(p.thoiGianBanGiao))}"></div>
             ` : `<div class="col-12"><div class="empty">Phần bàn giao đã ký nhận nên không được sửa. Nếu là phiếu Báo cáo thường trực, bạn vẫn có thể sửa phần báo cáo phía trên cho đến khi kết thúc giao ban.</div></div>`}
           </div>
         </div>
@@ -2616,7 +2616,7 @@ function renderGiaoBanModal(){
             <div class="col-3">
               <label>Thời gian giao ban</label>
               <div class="gb-time-row">
-                <input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>
+                <input id="gbTime" class="equal-control datetime-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy HHhmm" value="${escAttr(dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>
                 ${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}
               </div>
             </div>
@@ -2694,7 +2694,7 @@ function renderGiaoBanDotXuatModal(){
         <div class="card" style="box-shadow:none">
           <h3 class="section-title">A. Phần hành chính</h3>
           <div class="grid">
-            <div class="col-3"><label>Thời gian giao ban</label><div class="gb-time-row"><input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}</div></div>
+            <div class="col-3"><label>Thời gian giao ban</label><div class="gb-time-row"><input id="gbTime" class="equal-control datetime-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy HHhmm" value="${escAttr(dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}</div></div>
             <div class="col-3"><label>Khoa/phòng</label><select id="gbDotDept" class="equal-control" ${g.daKhoa ? 'disabled' : ''}>${deptOptions(g.khoaPhong || state.user?.khoaPhong || '')}</select></div>
             <div class="col-3"><label>Thư ký</label><input class="equal-control" readonly value="${escAttr(g.nguoiTaoTen || state.user?.tenNhanVien || '')}"></div>
             <div class="col-3"><label>Chủ trì giao ban</label><input id="gbChuTriInput" class="equal-control" list="staffDatalist" value="${escAttr(g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '')}" ${g.daKhoa ? 'readonly' : ''} onblur="normalizeChairInput();syncSignModeWithChair()" onchange="normalizeChairInput();syncSignModeWithChair()" oninput="syncSignModeWithChair()"></div>
@@ -2821,7 +2821,7 @@ window.updateGiaoBanTimeNow = function(){
   const input = $('#gbTime');
   const text = $('#gbTimeDisplay') || $('#gbTimeText');
   if(input){
-    input.value = toDatetimeLocal(now);
+    input.value = input.type === 'datetime-local' ? toDatetimeLocal(now) : dateTimeVi(now);
     updateViDateDisplay(input);
   }
   if(text){ if('value' in text) text.value = dateTimeVi(now); else text.textContent = dateTimeVi(now); }
@@ -4082,12 +4082,16 @@ function scheduleViDatePickerEnhance(){
 
 function enhanceViDatePickers(root){
   const scope = root || document;
-  $$('.date-vi-input[type="date"], .datetime-vi-input[type="datetime-local"]', scope).forEach(input => {
+  $$('.date-vi-input[type="date"], .datetime-vi-input[type="datetime-local"], .datetime-vi-input[type="text"]', scope).forEach(input => {
     if(input.dataset.viEnhanced === '1') return;
     input.dataset.viEnhanced = '1';
     input.setAttribute('lang', 'vi-VN');
     input.setAttribute('autocomplete', 'off');
     if(input.type === 'datetime-local' && !input.getAttribute('step')) input.setAttribute('step', '60');
+    if(input.classList.contains('datetime-vi-input')){
+      input.setAttribute('placeholder', 'dd/mm/yyyy HHhmm');
+      input.setAttribute('inputmode', 'numeric');
+    }
     input.addEventListener('change', () => input.blur());
   });
 }
@@ -4136,8 +4140,7 @@ function getDateInputIso(id){
 }
 
 function dateTimeInputVi(value){
-  const text = dateTimeVi(value);
-  return text ? text.replace('h', ':') : '';
+  return dateTimeVi(value);
 }
 
 function getDateTimeInputSql(id){
@@ -4254,6 +4257,8 @@ function toDatetimeLocal(value){
 }
 
 function fromDatetimeLocal(v){
+  const parsed = parseDateTimeInputSql(v);
+  if(parsed) return parsed;
   return v ? v.replace('T',' ') + ':00' : '';
 }
 
