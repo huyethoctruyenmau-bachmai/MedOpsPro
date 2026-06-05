@@ -258,9 +258,9 @@
     .vi-date-wrap{position:relative;width:100%;display:block}
     .vi-date-display{display:none}
 
-    html.desktop-date-ui .vi-date-wrap .vi-date-display{display:block;width:100%;height:38px;min-height:38px;padding-right:42px;cursor:pointer;background:#fff}
-    html.desktop-date-ui .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;opacity:0!important;z-index:2;cursor:pointer}
-    html.desktop-date-ui .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:16px;opacity:.72}
+    html.desktop-date-ui .vi-date-wrap .vi-date-display{display:block;position:relative;z-index:2;width:100%;height:38px;min-height:38px;padding-right:44px;cursor:text;background:#fff}
+    html.desktop-date-ui .vi-date-wrap input.vi-date-native{position:absolute!important;right:0!important;top:0!important;left:auto!important;width:42px!important;height:100%!important;max-width:42px!important;min-width:42px!important;opacity:0!important;z-index:4;cursor:pointer}
+    html.desktop-date-ui .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:3;pointer-events:none;font-size:16px;opacity:.72}
     #gbTime{cursor:pointer}
     #gbTime:disabled{cursor:not-allowed;background:#f8f9fa}
 
@@ -4062,33 +4062,25 @@ function enhanceViDatePickers(root){
     const display = document.createElement('input');
     display.type = 'text';
     display.className = 'equal-control vi-date-display';
-    display.readOnly = true;
-    display.setAttribute('aria-label', input.getAttribute('aria-label') || input.id || 'Chọn ngày');
+    display.readOnly = false;
+    display.setAttribute('aria-label', input.getAttribute('aria-label') || input.id || 'Nhập ngày');
     display.setAttribute('autocomplete', 'off');
+    display.setAttribute('inputmode', 'numeric');
 
     input.parentNode.insertBefore(wrap, input);
     wrap.appendChild(display);
     wrap.appendChild(input);
 
-    const openNativePicker = () => {
-      try{
-        if(input.showPicker) input.showPicker();
-        else input.click();
-      }catch(e){
-        input.focus();
-        input.click();
-      }
-    };
-    display.addEventListener('click', openNativePicker);
-    input.addEventListener('click', () => {
-      if(document.documentElement.classList.contains('desktop-date-ui')){
-        try{ if(input.showPicker) input.showPicker(); }catch(e){}
-      }
-    });
+    const syncDisplay = () => syncViDateDisplayToNative(input, false);
+    const commitDisplay = () => syncViDateDisplayToNative(input, true);
+    display.addEventListener('input', syncDisplay);
+    display.addEventListener('change', commitDisplay);
+    display.addEventListener('blur', commitDisplay);
     display.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){
+      if(e.key === 'Enter'){
         e.preventDefault();
-        openNativePicker();
+        commitDisplay();
+        display.blur();
       }
     });
     input.addEventListener('input', () => updateViDateDisplay(input));
@@ -4105,9 +4097,63 @@ function updateViDateDisplay(input){
   if(!input || !input.parentElement) return;
   const display = input.parentElement.querySelector('.vi-date-display');
   if(!display) return;
+  if(document.activeElement === display && display.dataset.manualEditing === '1') return;
   if(input.type === 'date') display.value = input.value ? dateVi(input.value) : '';
   else if(input.type === 'datetime-local') display.value = input.value ? dateTimeInputVi(input.value) : '';
-  display.placeholder = input.type === 'datetime-local' ? 'dd/mm/yyyy HH:mm' : 'dd/mm/yyyy';
+  display.placeholder = input.type === 'datetime-local' ? 'dd/mm/yyyy' + ' HH:mm' : 'dd/mm/yyyy';
+}
+
+function syncViDateDisplayToNative(input, commit){
+  if(!input || !input.parentElement) return false;
+  const display = input.parentElement.querySelector('.vi-date-display');
+  if(!display) return false;
+  const text = String(display.value || '').trim();
+  display.dataset.manualEditing = text ? '1' : '';
+
+  if(!text){
+    input.value = '';
+    if(commit){
+      display.dataset.manualEditing = '';
+      updateViDateDisplay(input);
+      input.dispatchEvent(new Event('input', {bubbles:true}));
+      input.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    return true;
+  }
+
+  if(input.type === 'date'){
+    const iso = parseDateInputVi(text);
+    if(iso){
+      input.value = iso;
+      if(commit){
+        display.dataset.manualEditing = '';
+        updateViDateDisplay(input);
+        input.dispatchEvent(new Event('input', {bubbles:true}));
+        input.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+      return true;
+    }
+  }
+
+  if(input.type === 'datetime-local'){
+    const dt = parseDateTimeInputSql(text);
+    if(dt){
+      input.value = dt.slice(0,16).replace(' ', 'T');
+      if(commit){
+        display.dataset.manualEditing = '';
+        updateViDateDisplay(input);
+        input.dispatchEvent(new Event('input', {bubbles:true}));
+        input.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+      return true;
+    }
+  }
+
+  if(commit){
+    display.dataset.manualEditing = '';
+    updateViDateDisplay(input);
+  }
+  return false;
 }
 
 function setDefaultDateRange(fromId,toId,daysBack){
@@ -4131,6 +4177,7 @@ function parseDateInputVi(value){
 function getDateInputIso(id){
   const el = document.getElementById(id);
   if(!el) return '';
+  syncViDateDisplayToNative(el, true);
   const iso = parseDateInputVi(el.value);
   if(iso && el.type === 'date') el.value = iso;
   updateViDateDisplay(el);
@@ -4145,6 +4192,7 @@ function dateTimeInputVi(value){
 function getDateTimeInputSql(id){
   const el = document.getElementById(id);
   if(!el) return '';
+  syncViDateDisplayToNative(el, true);
   updateViDateDisplay(el);
   return parseDateTimeInputSql(el.value);
 }
