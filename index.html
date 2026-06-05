@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING">
-  <link rel="manifest" href="./manifest.json?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT">
+  <link rel="manifest" href="./manifest.json?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -207,7 +207,7 @@
     .login-hospital{font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;margin:0 0 5px;color:#1a73e8;font-size:15px;font-weight:600;text-align:center;letter-spacing:0;line-height:1.35}
     .login-center{font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;margin:0 0 5px;color:var(--wine);font-size:18px;font-weight:700;text-align:center;letter-spacing:0;line-height:1.35}
     .login-title{font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;margin:0 0 16px;color:var(--wine-dark);font-size:25px;font-weight:800;text-align:center;letter-spacing:0;line-height:1.35}
-    .login-version{margin:12px 0 0;color:var(--g-muted);font-size:13px;text-align:center;line-height:1.4}
+    .login-version{margin:7px 0 0;color:#777;font-size:12px;text-align:center;line-height:1.4}
     .login-links{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:13px;font-size:13.5px;line-height:1.4}
     .login-links a{color:var(--g-blue);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px}.login-links a:hover{text-decoration:underline}.login-links .forgot-link{color:var(--g-danger)}
     .login-author{position:absolute;left:0;right:0;bottom:18px;z-index:0;text-align:center;padding:0 15px;color:#666;font-size:13.5px;line-height:1.6}.login-author p{margin:3px 0}.login-author strong{color:#666;font-size:14.5px}
@@ -701,12 +701,45 @@
       }
     }
 
+
+    /* ===== ACCOUNT PATCH 87: VERSION LOGIN + DESKTOP FIXED LEFT + MOBILE INFO FIRST ===== */
+    .login-author .login-version{margin-top:7px!important;font-size:12px!important;color:#777!important}
+    @media (min-width:900px){
+      #tab-account:not(.hidden){
+        height:calc(100vh - var(--header-h) - var(--tabbar-h) - 46px);
+        min-height:420px;
+      }
+      @supports (height:100dvh){
+        #tab-account:not(.hidden){height:calc(100dvh - var(--header-h) - var(--tabbar-h) - 46px)}
+      }
+      #tab-account .account-layout{height:100%;min-height:0;align-items:stretch}
+      #tab-account .account-menu-card{position:relative!important;top:auto!important;height:100%;max-height:100%;overflow:auto;margin:0}
+      #tab-account .account-content-card{height:100%;max-height:100%;overflow:auto;margin:0}
+    }
+    @media (max-width:760px){
+      #tab-account .account-mobile-stack{display:flex;flex-direction:column;gap:12px}
+      #tab-account .account-mobile-info-card{order:1;margin:0}
+      #tab-account .account-mobile-actions{order:2;margin:0}
+      #tab-account .account-mobile-action-panel{order:3;margin:0}
+      #tab-account .account-mobile-actions .account-header{display:none}
+      #tab-account .account-menu .btn,#tab-account .account-setup-buttons .btn{width:100%;justify-content:center;text-align:center;min-height:50px;height:50px;border-radius:10px!important;font-weight:600!important}
+      #tab-account .account-setup-buttons{padding-left:0;border-left:0;margin-top:10px}
+      #tab-account .account-info-card{background:linear-gradient(135deg,#fffafb 0%,#f8f1f4 100%);border-radius:10px;border-left:4px solid var(--wine);padding:15px;margin-bottom:0}
+      #tab-account .account-header{margin-bottom:14px;padding-bottom:15px;border-bottom:3px solid #f8f1f4}
+      #tab-account .account-avatar{font-size:32px;width:52px;height:52px}
+      #tab-account .account-title{font-size:20px}
+      #tab-account .account-info-label{font-size:14px;color:#5f4a55}
+      #tab-account .account-info-value{font-size:16px;color:#212529;font-weight:500;margin-left:28px}
+      #tab-account .account-info-sep{background:#e1e5e9;margin:12px 0}
+    }
+
+
   </style>
 </head>
 <body>
   <div id="bootScreen" class="boot-screen">
     <div class="boot-box">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="boot-title">Đang mở Sổ trực điện tử</p>
       <p class="boot-sub">Đang khôi phục phiên đăng nhập</p>
     </div>
@@ -714,7 +747,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -737,17 +770,17 @@
         <span style="color:#c8b8c1">|</span>
         <a href="#" id="forgotPasswordLink" class="forgot-link">Quên mật khẩu?</a>
       </div>
-      <p class="login-version">Version: 86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING</p>
     </div>
     <div class="login-author">
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
+      <p class="login-version">Version: 87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT</p>
     </div>
   </div>
 
   <div id="loginLoadingOverlay" class="login-loading-overlay hidden">
-    <div class="login-loading-logo"><img src="./LOGO%20TRON%20BVBM.png?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING" alt="Logo Bệnh viện Bạch Mai"></div>
+    <div class="login-loading-logo"><img src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai"></div>
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
@@ -756,7 +789,7 @@
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -786,7 +819,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="accountTabBtn" class="tab-btn" data-tab="account"><span class="ico">👤</span><span>Tài khoản</span></button>
     </nav>
-    <div class="app-version">Version: 86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING</div>
+    <div class="app-version">Version: 87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -794,7 +827,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-86.050626-ACCOUNT-RESPONSIVE-FORGOT-LOADING';
+const APP_VERSION = 'INDEX-87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -3482,35 +3515,62 @@ function renderAccountTab(){
   const info = accountInfoFallback();
   const isAdmin = !!(state.user?.isAdmin || info.isAdmin);
   const view = state.accountView || 'info';
-  root.innerHTML = `
-    <div class="account-layout">
-      <div class="card account-menu-card">
-        <div class="account-header">
-          <div class="account-avatar">👤</div>
-          <div>
-            <h2 class="account-title">TÀI KHOẢN</h2>
-            <p class="account-sub">${esc(info.tenNhanVien || '')}</p>
+  const isMobile = isAccountMobileLayout();
+  const setupButtons = view === 'setup' ? accountSetupButtonsHtml(state.accountSetupSection || '') : '';
+  const menuHtml = `
+    <div class="account-menu">
+      ${!isMobile ? accountMenuButton('info', '👤', 'Thông tin tài khoản', view) : ''}
+      ${accountMenuButton('edit', '✏️', 'Sửa thông tin tài khoản', view)}
+      ${accountMenuButton('password', '🔑', isAdmin ? 'Đổi / reset mật khẩu' : 'Đổi mật khẩu', view)}
+      ${accountMenuButton('setup', '⚙️', 'Setup cấu hình', view)}
+      ${setupButtons}
+      <button class="btn secondary account-menu-btn account-logout-btn" type="button" onclick="logout()"><span>🚪</span> Đăng xuất</button>
+    </div>`;
+
+  if(isMobile){
+    const actionPanel = (view !== 'info' && view !== 'setup')
+      ? `<div class="card account-content-card account-mobile-action-panel" id="accountContentPane">${renderAccountPanelContent(view, info, isAdmin)}</div>`
+      : '';
+    root.innerHTML = `
+      <div class="account-mobile-stack">
+        <div class="card account-content-card account-mobile-info-card">
+          ${renderAccountInfoPanel(info, isAdmin)}
+        </div>
+        <div class="card account-menu-card account-mobile-actions">
+          ${menuHtml}
+        </div>
+        ${actionPanel}
+      </div>
+      <div class="account-author">
+        <p style="margin:3px 0;font-weight:700;color:#5f3b49">PHẦN MỀM SỔ TRỰC - GIAO BAN</p>
+        <p style="margin:3px 0">Developed by Nguyễn Văn Chính</p>
+        <p style="margin:3px 0">Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
+      </div>
+    `;
+  }else{
+    root.innerHTML = `
+      <div class="account-layout">
+        <div class="card account-menu-card">
+          <div class="account-header">
+            <div class="account-avatar">👤</div>
+            <div>
+              <h2 class="account-title">TÀI KHOẢN</h2>
+              <p class="account-sub">${esc(info.tenNhanVien || '')}</p>
+            </div>
           </div>
+          ${menuHtml}
         </div>
-        <div class="account-menu">
-          ${accountMenuButton('info', '👤', 'Thông tin tài khoản', view)}
-          ${accountMenuButton('edit', '✏️', 'Sửa thông tin tài khoản', view)}
-          ${accountMenuButton('password', '🔑', isAdmin ? 'Đổi / reset mật khẩu' : 'Đổi mật khẩu', view)}
-          ${accountMenuButton('setup', '⚙️', 'Setup cấu hình', view)}
-          ${view === 'setup' ? accountSetupButtonsHtml(state.accountSetupSection || '') : ''}
-          <button class="btn secondary account-menu-btn account-logout-btn" type="button" onclick="logout()"><span>🚪</span> Đăng xuất</button>
+        <div class="card account-content-card" id="accountContentPane">
+          ${renderAccountPanelContent(view, info, isAdmin)}
         </div>
       </div>
-      <div class="card account-content-card" id="accountContentPane">
-        ${renderAccountPanelContent(view, info, isAdmin)}
+      <div class="account-author">
+        <p style="margin:3px 0;font-weight:700;color:#5f3b49">PHẦN MỀM SỔ TRỰC - GIAO BAN</p>
+        <p style="margin:3px 0">Developed by Nguyễn Văn Chính</p>
+        <p style="margin:3px 0">Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
       </div>
-    </div>
-    <div class="account-author">
-      <p style="margin:3px 0;font-weight:700;color:#5f3b49">PHẦN MỀM SỔ TRỰC - GIAO BAN</p>
-      <p style="margin:3px 0">Developed by Nguyễn Văn Chính</p>
-      <p style="margin:3px 0">Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-    </div>
-  `;
+    `;
+  }
   bindAccountPanel(view);
   if(!state.accountInfo && state.token && state.initLoaded) loadAccountInfoSilently();
 }
@@ -3913,12 +3973,14 @@ function renderEquipmentSettingsSection(){
     return `<div class="empty">Chỉ tài khoản quản trị hoặc nhân sự có Chức vụ được cấu hình trang thiết bị.</div>`;
   }
   const dept = state.user?.khoaPhong || state.user?.phongLamViec || 'Khoa/phòng hiện tại';
-  const items = getTmEquipmentConfig();
+  const isTM = isTruyenMauDept(dept);
+  const savedItems = getTmEquipmentConfig();
+  const items = savedItems.length ? savedItems : emptyEquipmentPlaceholderRows_(2);
   const rows = items.map((it, idx) => renderSettingEquipmentRow(it, idx)).join('');
   return `
     <div class="card">
       <h2 class="section-title">Cấu hình trang thiết bị - ${esc(dept)}</h2>
-      <p class="meta">Danh mục này dùng để tự điền mục bàn giao tài sản cho khoa/phòng đang sử dụng. Hiện dữ liệu cấu hình được lưu ở backend và áp dụng theo danh mục trang thiết bị đang cấu hình cho app.</p>
+      <p class="meta">Danh mục này dùng để tự điền mục bàn giao tài sản cho khoa/phòng đang sử dụng. ${isTM ? 'Phòng Truyền máu có danh mục mặc định sẵn.' : 'Các phòng khác hiển thị bảng trống với 2 dòng chờ để tự thêm thiết bị.'}</p>
       <div class="tm-equip-wrap">
         <table class="tm-equip-table">
           <thead><tr><th rowspan="2">STT</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng mặc định</th><th rowspan="2"></th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead>
@@ -3927,7 +3989,7 @@ function renderEquipmentSettingsSection(){
       </div>
       <div class="btn-row">
         <button id="addTmEquipmentBtn" class="btn secondary" type="button">Thêm thiết bị</button>
-        <button id="resetTmEquipmentBtn" class="btn secondary" type="button">Khôi phục danh mục mặc định</button>
+        ${isTM ? '<button id="resetTmEquipmentBtn" class="btn secondary" type="button">Khôi phục danh mục mặc định</button>' : '<button id="resetTmEquipmentBtn" class="btn secondary" type="button">Tạo lại 2 dòng trống</button>'}
         <button id="saveTmEquipmentBtn" class="btn primary">Lưu cấu hình thiết bị</button>
       </div>
     </div>`;
@@ -4263,6 +4325,16 @@ window.copyPdfVariable = async function(key){
   }
 }
 
+function emptyEquipmentPlaceholderRows_(count){
+  return Array.from({length: count || 2}, (_, idx) => ({
+    id: makeLocalId('setting_eq_blank_' + idx),
+    name: '',
+    unit: 'Cái',
+    okQty: '',
+    brokenQty: ''
+  }));
+}
+
 function renderSettingEquipmentRow(it, idx){
   const id = it.id || makeLocalId('setting_eq');
   return `
@@ -4304,8 +4376,13 @@ window.removeSettingTmEquipmentRow = function(btn){
 }
 
 function resetDefaultTmEquipmentConfig(){
-  if(!confirm('Khôi phục danh mục thiết bị mặc định? Các dòng đang sửa trên màn hình sẽ được thay bằng danh mục mặc định.')) return;
-  state.tmEquipmentConfig = defaultTmEquipmentConfig();
+  const dept = state.user?.khoaPhong || state.user?.phongLamViec || '';
+  const isTM = isTruyenMauDept(dept);
+  const msg = isTM
+    ? 'Khôi phục danh mục thiết bị mặc định? Các dòng đang sửa trên màn hình sẽ được thay bằng danh mục mặc định.'
+    : 'Tạo lại 2 dòng trống để phòng tự thêm thiết bị? Các dòng đang sửa trên màn hình sẽ được thay bằng 2 dòng trống.';
+  if(!confirm(msg)) return;
+  state.tmEquipmentConfig = isTM ? defaultTmEquipmentConfig() : [];
   renderSettingsTab();
 }
 
@@ -4333,9 +4410,10 @@ async function saveTmEquipmentConfig(btn){
   const items = collectSettingsTmEquipmentConfig();
   if(!items.length) return toast('Vui lòng nhập ít nhất một thiết bị.');
   await withButton(btn, 'Đang lưu...', async () => {
-    const res = await api('saveTmEquipmentConfig', {items});
+    const dept = state.user?.khoaPhong || state.user?.phongLamViec || '';
+    const res = await api('saveTmEquipmentConfig', {items, khoaPhong: dept});
     state.tmEquipmentConfig = normalizeTmEquipmentConfig(res.data.items || items);
-    toast('Đã lưu cấu hình thiết bị Truyền máu');
+    toast('Đã lưu cấu hình thiết bị cho ' + (dept || 'khoa/phòng hiện tại'));
     renderSettingsTab();
     renderCreateTab();
   });
