@@ -218,6 +218,26 @@
     .login-loading-text{font-size:20px;font-weight:bold;color:#333;margin:0 0 10px}.login-loading-progress{font-size:24px;font-weight:bold;color:#005baa;min-height:28px}.login-loading-sub{font-size:13px;color:#5f6368;margin-top:6px}
     @keyframes shimmer-fixed{100%{left:150%}}@keyframes float-particles{0%{background-position:0% 0%}100%{background-position:100% 200%}}
     .account-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:12px;align-items:start}.account-menu-card{position:sticky;top:0}.account-menu{display:flex;flex-direction:column;gap:10px}.account-menu-btn{width:100%;min-height:48px;justify-content:flex-start;background:linear-gradient(135deg,#f8f1f4 0%,#fff 100%);color:var(--wine-dark);border:1px solid var(--line);border-radius:10px;font-weight:700}.account-menu-btn.active,.account-menu-btn:hover{background:linear-gradient(135deg,var(--wine) 0%,var(--wine-2) 100%);color:#fff;border-color:transparent}.account-content-card{min-height:260px}.account-header{display:flex;align-items:flex-start;gap:12px;border-bottom:3px solid #f8f1f4;padding-bottom:14px;margin-bottom:14px}.account-avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#fff0f5;color:var(--wine);font-size:30px;flex:0 0 auto}.account-title{margin:0;color:var(--wine-dark);font-size:21px;line-height:1.25}.account-sub{margin:4px 0 0;color:var(--muted);font-size:13px}.account-info-grid{display:grid;grid-template-columns:1fr;gap:12px}.account-info-item{margin-bottom:0;padding:15px;background:linear-gradient(135deg,#fffafb 0%,#f8f1f4 100%);border-radius:10px;border:1px solid var(--line);border-left:4px solid var(--wine);transition:all .3s ease}.account-info-label{display:flex;align-items:flex-start;font-weight:bold;color:#5f4a55;margin-bottom:6px;font-size:14px}.account-info-label .info-ico{margin-right:8px;color:var(--wine);width:20px;text-align:left;flex:0 0 auto}.account-info-value{font-size:16px;color:var(--g-text);font-weight:600;margin-left:28px;word-break:break-word}.account-action-form{max-width:760px}.account-setup-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.account-setup-btn{min-height:46px;border-radius:10px;justify-content:flex-start;background:#fff;color:var(--wine-dark);border:1px solid var(--line);font-weight:700}.account-setup-btn:hover,.account-setup-btn.active{background:#fff0f5;color:var(--wine);border-color:#e8c8d5}.account-setup-content{margin-top:12px}.account-author{display:none;text-align:center;margin:18px 0 6px;color:var(--g-muted);font-size:12.5px;line-height:1.45}
+
+    /* ===== ACCOUNT TAB: ĐỒNG BỘ NÚT CHUNG + THẺ THÔNG TIN GIỐNG APP ĐỔI TRỰC ===== */
+    .account-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:12px;align-items:start}
+    .account-menu-card{position:sticky;top:calc(var(--header-h) + 8px)}
+    .account-menu{display:flex;flex-direction:column;gap:8px}
+    .account-menu .btn,.account-setup-buttons .btn{width:100%;justify-content:flex-start;text-align:left;white-space:normal;height:auto;min-height:38px;line-height:20px}
+    .account-menu-btn,.account-setup-btn{border-radius:4px!important;font-weight:500!important;padding:0 12px!important}
+    .account-menu-btn span,.account-setup-btn span{display:inline-flex;min-width:22px;align-items:center;justify-content:center}
+    .account-logout-btn{margin-top:4px}
+    .account-setup-buttons{display:flex;flex-direction:column;gap:8px;margin:8px 0 0 0;padding:0 0 0 10px;border-left:3px solid #f8f1f4}
+    .account-content-card{min-height:300px}
+    .account-info-section{margin-bottom:20px}
+    .account-info-card{margin-bottom:15px;padding:15px;background:linear-gradient(135deg,#fffafb 0%,#f8f1f4 100%);border-radius:10px;border:1px solid var(--line);border-left:4px solid var(--wine);transition:all .3s ease}
+    .account-info-row{padding:0}
+    .account-info-label{display:flex;align-items:flex-start;font-weight:bold;color:#5f4a55;margin-bottom:6px;font-size:14px;line-height:1.35}
+    .account-info-label .info-ico{margin-right:8px;color:var(--wine);width:20px;text-align:left;flex:0 0 auto;margin-top:1px}
+    .account-info-value{font-size:16px;color:var(--g-text);font-weight:600;margin-left:28px;word-break:break-word;line-height:1.4}
+    .account-info-sep{border:none;height:1px;background-color:#eadce3;margin:12px 0}
+    .account-setup-content{margin-top:0}.account-action-form{max-width:760px}
+    @media(max-width:760px){.account-layout{display:block}.account-menu-card{position:static}.account-menu{gap:8px}.account-content-card{margin-top:12px}.account-setup-buttons{margin-top:8px}.account-menu .btn,.account-setup-buttons .btn{width:100%}.account-info-card{padding:15px}.account-info-value{font-size:15.5px}}
     .modal-small{max-width:520px}.modal-small h3{margin:0 0 12px;color:var(--wine-dark)}.modal-note{font-size:13px;color:var(--muted);line-height:1.45;margin:6px 0 0}
     @media(max-width:760px){.login-screen{padding:18px 18px 112px}.login-card{padding:20px}.login-loading-logo{width:300px;height:300px}.account-layout{display:block}.account-menu-card{position:static}.account-menu{gap:8px}.account-menu-btn{min-height:46px}.account-content-card{margin-top:12px}.account-setup-buttons{grid-template-columns:1fr}.account-info-grid{grid-template-columns:1fr}.login-author{font-size:12.5px;bottom:14px}}
     .toast{
@@ -3477,7 +3497,8 @@ function renderAccountTab(){
           ${accountMenuButton('edit', '✏️', 'Sửa thông tin tài khoản', view)}
           ${accountMenuButton('password', '🔑', isAdmin ? 'Đổi / reset mật khẩu' : 'Đổi mật khẩu', view)}
           ${accountMenuButton('setup', '⚙️', 'Setup cấu hình', view)}
-          <button class="account-menu-btn" type="button" onclick="logout()">🚪 Đăng xuất</button>
+          ${view === 'setup' ? accountSetupButtonsHtml(state.accountSetupSection || '') : ''}
+          <button class="btn secondary account-menu-btn account-logout-btn" type="button" onclick="logout()"><span>🚪</span> Đăng xuất</button>
         </div>
       </div>
       <div class="card account-content-card" id="accountContentPane">
@@ -3495,7 +3516,8 @@ function renderAccountTab(){
 }
 
 function accountMenuButton(view, icon, label, active){
-  return `<button class="account-menu-btn ${active === view ? 'active' : ''}" type="button" onclick="setAccountView('${escAttr(view)}')"><span>${icon}</span> ${esc(label)}</button>`;
+  const cls = active === view ? 'primary' : 'secondary';
+  return `<button class="btn ${cls} account-menu-btn" type="button" onclick="setAccountView('${escAttr(view)}')"><span>${icon}</span> ${esc(label)}</button>`;
 }
 
 function setAccountView(view){
@@ -3512,6 +3534,16 @@ function renderAccountPanelContent(view, info, isAdmin){
 }
 
 function renderAccountInfoPanel(info, isAdmin){
+  const rows = [
+    ['👤', 'Tên nhân viên', info.tenNhanVien || 'Chưa cập nhật'],
+    ['🪪', 'Mã nhân viên', info.maNhanVien || 'Chưa cập nhật'],
+    ['📅', 'Ngày sinh', info.ngaySinh || 'Chưa cập nhật'],
+    ['✉️', 'Địa chỉ email', info.email || 'Chưa cập nhật'],
+    ['💼', 'Chức danh', info.chucDanh || info.chucDanhHienThi || 'Chưa cập nhật'],
+    ['🏢', 'Khoa/phòng', info.khoaPhong || info.phongLamViec || 'Chưa cập nhật'],
+    ['📍', 'Vị trí trực', info.viTriTruc || 'Chưa cập nhật'],
+    ['🛡️', 'Quyền', isAdmin ? 'Admin' : (info.chucVu ? 'Có chức vụ' : 'Người dùng')]
+  ];
   return `
     <div class="account-header">
       <div class="account-avatar">👤</div>
@@ -3520,15 +3552,10 @@ function renderAccountInfoPanel(info, isAdmin){
         <p class="account-sub">Thông tin lấy từ dữ liệu nhân sự dùng chung của Trung tâm.</p>
       </div>
     </div>
-    <div class="account-info-grid">
-      ${accountInfoItem('👤', 'Tên nhân viên', info.tenNhanVien)}
-      ${accountInfoItem('🪪', 'Mã nhân viên', info.maNhanVien)}
-      ${accountInfoItem('📅', 'Ngày sinh', info.ngaySinh || 'Chưa cập nhật')}
-      ${accountInfoItem('✉️', 'Email', info.email || 'Chưa cập nhật')}
-      ${accountInfoItem('💼', 'Chức danh', info.chucDanh || info.chucDanhHienThi || 'Chưa cập nhật')}
-      ${accountInfoItem('🏢', 'Khoa/phòng', info.khoaPhong || info.phongLamViec || 'Chưa cập nhật')}
-      ${accountInfoItem('📍', 'Vị trí trực', info.viTriTruc || 'Chưa cập nhật')}
-      ${accountInfoItem('🛡️', 'Quyền', isAdmin ? 'Admin' : (info.chucVu ? 'Có chức vụ' : 'Người dùng'))}
+    <div class="account-info-section">
+      <div class="account-info-card">
+        ${rows.map((row, idx) => accountInfoItem(row[0], row[1], row[2]) + (idx < rows.length - 1 ? '<hr class="account-info-sep">' : '')).join('')}
+      </div>
     </div>
     ${!state.accountInfo ? '<p class="meta" style="margin-top:10px">Đang tải thông tin tài khoản chi tiết...</p>' : ''}
   `;
@@ -3590,12 +3617,11 @@ function renderAccountSetupPanel(){
       <div class="account-avatar">⚙️</div>
       <div>
         <h2 class="account-title">SETUP CẤU HÌNH</h2>
-        <p class="account-sub">Chọn nhóm cấu hình cần mở. Trên điện thoại, mỗi nhóm mở bằng bảng popup có nút X để đóng.</p>
+        <p class="account-sub">Chọn nhóm cấu hình ở cột bên trái. Trên điện thoại, mỗi nhóm mở bằng bảng popup có nút X để đóng.</p>
       </div>
     </div>
-    ${accountSetupButtonsHtml(section)}
     <div id="accountSetupContent" class="account-setup-content">
-      ${section ? renderAccountSetupSectionHtml(section) : '<div class="empty" style="margin-top:12px">Chọn một nhóm cấu hình ở trên để xem nội dung.</div>'}
+      ${section ? renderAccountSetupSectionHtml(section) : '<div class="empty" style="margin-top:12px">Chọn một nhóm cấu hình ở cột bên trái để xem nội dung.</div>'}
     </div>
   `;
 }
@@ -3609,7 +3635,7 @@ function accountSetupButtonsHtml(active){
     ['variables','📚','Bảng biến mẫu'],
     ['info','🔗','Thông tin chung: API đang dùng']
   ];
-  return `<div class="account-setup-buttons">${items.map(([key,icon,label]) => `<button class="account-setup-btn ${active === key ? 'active' : ''}" type="button" onclick="openAccountSetupSection('${key}')">${icon} ${esc(label)}</button>`).join('')}</div>`;
+  return `<div class="account-setup-buttons">${items.map(([key,icon,label]) => `<button class="btn ${active === key ? 'primary' : 'secondary'} account-setup-btn" type="button" onclick="openAccountSetupSection('${key}')"><span>${icon}</span> ${esc(label)}</button>`).join('')}</div>`;
 }
 
 function openAccountSetupSection(section){
@@ -3650,7 +3676,7 @@ function bindAccountPanel(view){
 }
 
 function accountInfoItem(icon, label, value){
-  return `<div class="account-info-item"><div class="account-info-label"><span class="info-ico">${esc(icon || '')}</span>${esc(label)}</div><div class="account-info-value">${esc(value || '')}</div></div>`;
+  return `<div class="account-info-row"><div class="account-info-label"><span class="info-ico">${esc(icon || '')}</span>${esc(label)}</div><div class="account-info-value">${esc(value || '')}</div></div>`;
 }
 
 async function loadAccountInfoSilently(){
