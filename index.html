@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=79.050626-VI-DATEPICKER">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=79.050626-VI-DATEPICKER">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=79.050626-VI-DATEPICKER">
-  <link rel="manifest" href="./manifest.json?v=79.050626-VI-DATEPICKER">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=79.050626-VI-DATEPICKER">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=80.050626-RESPONSIVE-DATE-CLICK">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=80.050626-RESPONSIVE-DATE-CLICK">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=80.050626-RESPONSIVE-DATE-CLICK">
+  <link rel="manifest" href="./manifest.json?v=80.050626-RESPONSIVE-DATE-CLICK">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=80.050626-RESPONSIVE-DATE-CLICK">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -258,10 +258,13 @@
     .vi-date-wrap{position:relative;width:100%;display:block}
     .vi-date-display{display:none}
 
+    html.desktop-date-ui .vi-date-wrap .vi-date-display{display:block;width:100%;height:38px;min-height:38px;padding-right:42px;cursor:pointer;background:#fff}
+    html.desktop-date-ui .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;opacity:0!important;z-index:2;cursor:pointer}
+    html.desktop-date-ui .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:16px;opacity:.72}
+    #gbTime{cursor:pointer}
+    #gbTime:disabled{cursor:not-allowed;background:#f8f9fa}
+
     @media (min-width:900px){
-      .vi-date-wrap .vi-date-display{display:block;width:100%;height:38px;min-height:38px;padding-right:42px;cursor:pointer;background:#fff}
-      .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;opacity:0!important;z-index:2;cursor:pointer}
-      .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:16px;opacity:.72}
       .tabbar{
         top:var(--header-h);
         bottom:auto;
@@ -669,7 +672,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=79.050626-VI-DATEPICKER" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=80.050626-RESPONSIVE-DATE-CLICK" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -684,14 +687,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 79.050626-VI-DATEPICKER</p>
+      <p class="login-version">Version: 80.050626-RESPONSIVE-DATE-CLICK</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=79.050626-VI-DATEPICKER" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=80.050626-RESPONSIVE-DATE-CLICK" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -720,7 +723,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 79.050626-VI-DATEPICKER</div>
+    <div class="app-version">Version: 80.050626-RESPONSIVE-DATE-CLICK</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -728,7 +731,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-79.050626-VI-DATEPICKER';
+const APP_VERSION = 'INDEX-80.050626-RESPONSIVE-DATE-CLICK';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -2581,10 +2584,9 @@ function renderGiaoBanModal(){
             <div class="col-3">
               <label>Thời gian giao ban</label>
               <div class="gb-time-row">
-                <input id="gbTimeDisplay" class="equal-control" readonly value="${escAttr(dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}">
+                <input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>
                 ${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}
               </div>
-              <input id="gbTime" type="hidden" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}">
             </div>
             <div class="col-3"><label>Khoa/phòng</label><input class="equal-control" readonly value="${escAttr(g.khoaPhong || '')}"></div>
             <div class="col-3"><label>Thư ký</label><input class="equal-control" readonly value="${escAttr(g.nguoiTaoTen || state.user?.tenNhanVien || '')}"></div>
@@ -2640,7 +2642,7 @@ function renderGiaoBanModal(){
       </div>
     </div>
   `, true);
-  setTimeout(() => { $$('textarea').forEach(autoGrow); setupSignaturePad(); normalizeChairInput(); syncSignModeWithChair(); }, 0);
+  setTimeout(() => { $$('textarea').forEach(autoGrow); setupSignaturePad(); normalizeChairInput(); syncSignModeWithChair(); scheduleViDatePickerEnhance(); }, 0);
 }
 
 function renderGiaoBanDotXuatModal(){
@@ -2659,7 +2661,7 @@ function renderGiaoBanDotXuatModal(){
         <div class="card" style="box-shadow:none">
           <h3 class="section-title">A. Phần hành chính</h3>
           <div class="grid">
-            <div class="col-3"><label>Thời gian giao ban</label><div class="gb-time-row"><input id="gbTimeDisplay" class="equal-control" readonly value="${escAttr(dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}">${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}</div><input id="gbTime" type="hidden" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}"></div>
+            <div class="col-3"><label>Thời gian giao ban</label><div class="gb-time-row"><input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}</div></div>
             <div class="col-3"><label>Khoa/phòng</label><select id="gbDotDept" class="equal-control" ${g.daKhoa ? 'disabled' : ''}>${deptOptions(g.khoaPhong || state.user?.khoaPhong || '')}</select></div>
             <div class="col-3"><label>Thư ký</label><input class="equal-control" readonly value="${escAttr(g.nguoiTaoTen || state.user?.tenNhanVien || '')}"></div>
             <div class="col-3"><label>Chủ trì giao ban</label><input id="gbChuTriInput" class="equal-control" list="staffDatalist" value="${escAttr(g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '')}" ${g.daKhoa ? 'readonly' : ''} onblur="normalizeChairInput();syncSignModeWithChair()" onchange="normalizeChairInput();syncSignModeWithChair()" oninput="syncSignModeWithChair()"></div>
@@ -2688,7 +2690,7 @@ function renderGiaoBanDotXuatModal(){
       </div>
     </div>
   `, true);
-  setTimeout(() => { $$('textarea').forEach(autoGrow); setupSignaturePad(); normalizeChairInput(); syncSignModeWithChair(); }, 0);
+  setTimeout(() => { $$('textarea').forEach(autoGrow); setupSignaturePad(); normalizeChairInput(); syncSignModeWithChair(); scheduleViDatePickerEnhance(); }, 0);
 }
 
 
@@ -2783,17 +2785,24 @@ function renderSignModeSelect(id, selected, disabled){
 
 window.updateGiaoBanTimeNow = function(){
   const now = hanoiNowIso();
-  const hidden = $('#gbTime');
+  const input = $('#gbTime');
   const text = $('#gbTimeDisplay') || $('#gbTimeText');
-  if(hidden) hidden.value = toDatetimeLocal(now);
+  if(input){
+    input.value = toDatetimeLocal(now);
+    updateViDateDisplay(input);
+  }
   if(text){ if('value' in text) text.value = dateTimeVi(now); else text.textContent = dateTimeVi(now); }
   if(state.currentGiaoBan){
     state.currentGiaoBan.thoiGianGiaoBan = now;
     state.currentGiaoBan.thoiGianGiaoBanHienThi = now;
     state.currentGiaoBan.ngayGiaoBan = now.slice(0,10);
   }
+  buildGiaoBanPreview();
   toast('Đã cập nhật thời gian giao ban theo thời điểm hiện tại.');
 }
+
+document.addEventListener('change', e => { if(e.target && e.target.id === 'gbTime') buildGiaoBanPreview(); });
+document.addEventListener('input', e => { if(e.target && e.target.id === 'gbTime') buildGiaoBanPreview(); });
 
 
 function resolveChairFromInput(raw){
@@ -4010,11 +4019,24 @@ function autoGrow(el){
 let viDatePickerEnhanceTimer = null;
 let viDatePickerObserver = null;
 
+function isDesktopDateUi(){
+  const ua = navigator.userAgent || '';
+  const mobileUA = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+  const finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  return finePointer || !mobileUA;
+}
+
+function updateDesktopDateUiClass(){
+  document.documentElement.classList.toggle('desktop-date-ui', isDesktopDateUi());
+}
+
 function setupViDatePickerObserver(){
-  if(viDatePickerObserver || !window.MutationObserver || !document.body) return;
-  viDatePickerObserver = new MutationObserver(() => scheduleViDatePickerEnhance());
-  viDatePickerObserver.observe(document.body, {childList:true, subtree:true});
-  window.addEventListener('resize', () => refreshViDatePickers(), {passive:true});
+  updateDesktopDateUiClass();
+  if(!viDatePickerObserver && window.MutationObserver && document.body){
+    viDatePickerObserver = new MutationObserver(() => scheduleViDatePickerEnhance());
+    viDatePickerObserver.observe(document.body, {childList:true, subtree:true});
+  }
+  window.addEventListener('resize', () => { updateDesktopDateUiClass(); refreshViDatePickers(); }, {passive:true});
 }
 
 function scheduleViDatePickerEnhance(){
@@ -4058,6 +4080,11 @@ function enhanceViDatePickers(root){
       }
     };
     display.addEventListener('click', openNativePicker);
+    input.addEventListener('click', () => {
+      if(document.documentElement.classList.contains('desktop-date-ui')){
+        try{ if(input.showPicker) input.showPicker(); }catch(e){}
+      }
+    });
     display.addEventListener('keydown', e => {
       if(e.key === 'Enter' || e.key === ' '){
         e.preventDefault();
