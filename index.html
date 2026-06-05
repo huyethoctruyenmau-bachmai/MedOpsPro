@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=81.050626-DATE-NATIVE-MANUAL">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=81.050626-DATE-NATIVE-MANUAL">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=81.050626-DATE-NATIVE-MANUAL">
-  <link rel="manifest" href="./manifest.json?v=81.050626-DATE-NATIVE-MANUAL">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=81.050626-DATE-NATIVE-MANUAL">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=82.050626-VI-DATETIME-24H">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=82.050626-VI-DATETIME-24H">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=82.050626-VI-DATETIME-24H">
+  <link rel="manifest" href="./manifest.json?v=82.050626-VI-DATETIME-24H">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=82.050626-VI-DATETIME-24H">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -255,6 +255,14 @@
     input[type="date"],input[type="datetime-local"]{width:100%;max-width:100%;height:38px;min-height:38px;display:block;cursor:pointer}
     input[type="date"]::-webkit-date-and-time-value,input[type="datetime-local"]::-webkit-date-and-time-value{text-align:left;width:100%}
     input[type="date"]::-webkit-calendar-picker-indicator,input[type="datetime-local"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:1}
+    .vi-date-wrap{position:relative;display:block;width:100%;max-width:100%}
+    .vi-date-display{padding-right:42px!important;background:#fff!important;color:var(--g-text)!important;cursor:text!important}
+    .vi-date-wrap .vi-native-input{position:absolute!important;right:0!important;top:0!important;width:40px!important;height:38px!important;min-height:38px!important;opacity:0!important;z-index:2!important;padding:0!important;border:0!important;margin:0!important;cursor:pointer!important;pointer-events:auto!important}
+    .vi-picker-btn{position:absolute;right:1px;top:1px;width:38px;height:36px;min-width:38px;min-height:36px;border-radius:4px;background:#fff;color:var(--g-muted);display:grid;place-items:center;border:0;border-left:1px solid var(--g-line);z-index:1;padding:0;font-size:18px;line-height:1;cursor:pointer}
+    .vi-picker-btn:hover{background:#f8fbff;color:var(--g-blue)}
+    .vi-date-wrap.is-disabled .vi-date-display{background:var(--g-readonly)!important;color:var(--g-muted)!important;cursor:not-allowed!important}
+    .vi-date-wrap.is-disabled .vi-picker-btn{opacity:.55;cursor:not-allowed;background:var(--g-readonly)}
+    @media (hover:none), (pointer:coarse){.vi-date-display,.vi-picker-btn{display:none!important}.vi-date-wrap .vi-native-input{position:static!important;opacity:1!important;width:100%!important;border:1px solid var(--g-line)!important;padding:5px 9px!important;z-index:auto!important}}
     #gbTime{cursor:pointer}
     #gbTime:disabled{cursor:not-allowed;background:#f8f9fa}
 
@@ -666,7 +674,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=81.050626-DATE-NATIVE-MANUAL" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=82.050626-VI-DATETIME-24H" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -681,14 +689,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 81.050626-DATE-NATIVE-MANUAL</p>
+      <p class="login-version">Version: 82.050626-VI-DATETIME-24H</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=81.050626-DATE-NATIVE-MANUAL" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=82.050626-VI-DATETIME-24H" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -717,7 +725,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 81.050626-DATE-NATIVE-MANUAL</div>
+    <div class="app-version">Version: 82.050626-VI-DATETIME-24H</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -725,7 +733,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-81.050626-DATE-NATIVE-MANUAL';
+const APP_VERSION = 'INDEX-82.050626-VI-DATETIME-24H';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -917,6 +925,7 @@ function bindGlobalEvents(){
   document.addEventListener('input', e => {
     if(e.target.matches('textarea')) autoGrow(e.target);
   });
+  startVietnameseDateInputObserver();
 }
 
 async function login(){
@@ -2782,7 +2791,7 @@ window.updateGiaoBanTimeNow = function(){
   const text = $('#gbTimeDisplay') || $('#gbTimeText');
   if(input){
     input.value = toDatetimeLocal(now);
-    updateViDateDisplay(input);
+    syncNativeToViDisplay(input);
   }
   if(text){ if('value' in text) text.value = dateTimeVi(now); else text.textContent = dateTimeVi(now); }
   if(state.currentGiaoBan){
@@ -4014,6 +4023,142 @@ function setDefaultDateRange(fromId,toId,daysBack){
   const to = document.getElementById(toId);
   if(from && !from.value) from.value = addDaysIso(todayIso(), -daysBack);
   if(to && !to.value) to.value = todayIso();
+  refreshVietnameseDateDisplays();
+}
+
+function shouldUseDesktopVietnameseDateInput(){
+  return window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+}
+
+function setupVietnameseDateInputs(root=document){
+  if(!shouldUseDesktopVietnameseDateInput()) return;
+  root.querySelectorAll('input.date-vi-input[type="date"],input.datetime-vi-input[type="datetime-local"]').forEach(enhanceVietnameseDateInput);
+  refreshVietnameseDateDisplays(root);
+}
+
+function enhanceVietnameseDateInput(native){
+  if(!native || native.dataset.viEnhanced === '1') return;
+  native.dataset.viEnhanced = '1';
+  const isDateTime = native.type === 'datetime-local' || native.classList.contains('datetime-vi-input');
+  const wrap = document.createElement('span');
+  wrap.className = 'vi-date-wrap';
+  const display = document.createElement('input');
+  display.type = 'text';
+  display.className = Array.from(native.classList).filter(c => c !== 'date-vi-input' && c !== 'datetime-vi-input').join(' ') + ' vi-date-display';
+  display.placeholder = isDateTime ? 'dd/mm/yyyy HH:mm' : 'dd/mm/yyyy';
+  display.autocomplete = 'off';
+  display.inputMode = 'numeric';
+  display.disabled = native.disabled;
+  display.readOnly = native.readOnly;
+  display.dataset.nativeId = native.id || '';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'vi-picker-btn';
+  btn.innerHTML = '📅';
+  btn.title = 'Mở bảng chọn ngày giờ';
+  btn.setAttribute('aria-label','Mở bảng chọn ngày giờ');
+  native.parentNode.insertBefore(wrap, native);
+  wrap.appendChild(display);
+  wrap.appendChild(native);
+  wrap.appendChild(btn);
+  native.classList.add('vi-native-input');
+  syncNativeToViDisplay(native);
+  display.addEventListener('input', () => syncViDisplayToNative(display, false));
+  display.addEventListener('blur', () => syncViDisplayToNative(display, true));
+  display.addEventListener('change', () => syncViDisplayToNative(display, true));
+  native.addEventListener('input', () => syncNativeToViDisplay(native));
+  native.addEventListener('change', () => syncNativeToViDisplay(native));
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    if(native.disabled || display.disabled) return;
+    try{ if(native.showPicker) native.showPicker(); else native.click(); }
+    catch(_e){ native.focus(); native.click(); }
+  });
+  display.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){
+      syncViDisplayToNative(display, true);
+      display.blur();
+    }
+  });
+}
+
+function refreshVietnameseDateDisplays(root=document){
+  if(!shouldUseDesktopVietnameseDateInput()) return;
+  root.querySelectorAll('input.date-vi-input[data-vi-enhanced="1"],input.datetime-vi-input[data-vi-enhanced="1"]').forEach(syncNativeToViDisplay);
+}
+
+function syncNativeToViDisplay(native){
+  if(!native) return;
+  const wrap = native.closest('.vi-date-wrap');
+  const display = wrap ? wrap.querySelector('.vi-date-display') : null;
+  if(!display) return;
+  const isDateTime = native.type === 'datetime-local' || native.classList.contains('datetime-vi-input');
+  display.value = isDateTime ? formatNativeDateTimeForViInput(native.value) : formatNativeDateForViInput(native.value);
+  display.disabled = native.disabled;
+  display.readOnly = native.readOnly;
+  wrap.classList.toggle('is-disabled', native.disabled || native.readOnly);
+}
+
+function syncViDisplayToNative(display, normalizeDisplay){
+  if(!display) return '';
+  const wrap = display.closest('.vi-date-wrap');
+  const native = wrap ? wrap.querySelector('.vi-native-input') : null;
+  if(!native || native.disabled || native.readOnly) return native ? native.value : '';
+  const isDateTime = native.type === 'datetime-local' || native.classList.contains('datetime-vi-input');
+  const parsed = isDateTime ? parseDateTimeInputForNative(display.value) : parseDateInputVi(display.value);
+  if(parsed){
+    const changed = native.value !== parsed;
+    native.value = parsed;
+    if(normalizeDisplay) syncNativeToViDisplay(native);
+    if(changed){
+      native.dispatchEvent(new Event('input', {bubbles:true}));
+      native.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+  }
+  return native.value || '';
+}
+
+function syncViDateInputToNativeById(id){
+  const native = document.getElementById(id);
+  if(!native) return '';
+  const display = native.closest('.vi-date-wrap')?.querySelector('.vi-date-display');
+  if(display) syncViDisplayToNative(display, false);
+  return native.value || '';
+}
+
+function formatNativeDateForViInput(value){
+  const iso = parseDateInputVi(value);
+  return iso ? dateVi(iso) : String(value || '');
+}
+
+function formatNativeDateTimeForViInput(value){
+  const s = String(value || '').trim();
+  if(!s) return '';
+  const m = s.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{1,2}):(\d{1,2})/);
+  if(m) return `${m[3]}/${m[2]}/${m[1]} ${pad(m[4])}:${pad(m[5])}`;
+  const sql = parseDateTimeInputSql(s);
+  if(!sql) return s;
+  const n = sql.match(/^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})/);
+  return n ? `${n[3]}/${n[2]}/${n[1]} ${n[4]}:${n[5]}` : s;
+}
+
+function parseDateTimeInputForNative(value){
+  const sql = parseDateTimeInputSql(value);
+  if(!sql) return '';
+  const m = sql.match(/^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})/);
+  return m ? `${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}` : '';
+}
+
+function startVietnameseDateInputObserver(){
+  if(!window.MutationObserver) return;
+  let timer = null;
+  const run = () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => setupVietnameseDateInputs(document), 30);
+  };
+  new MutationObserver(run).observe(document.body, {childList:true, subtree:true});
+  window.addEventListener('resize', run);
+  run();
 }
 
 function parseDateInputVi(value){
@@ -4027,6 +4172,7 @@ function parseDateInputVi(value){
 }
 
 function getDateInputIso(id){
+  syncViDateInputToNativeById(id);
   const el = document.getElementById(id);
   if(!el) return '';
   const iso = parseDateInputVi(el.value);
@@ -4040,6 +4186,7 @@ function dateTimeInputVi(value){
 }
 
 function getDateTimeInputSql(id){
+  syncViDateInputToNativeById(id);
   const el = document.getElementById(id);
   if(!el) return '';
   return parseDateTimeInputSql(el.value);
@@ -4069,7 +4216,7 @@ function summarizeReportsStaff(reports){
 }
 
 function hanoiDateParts(date=new Date()){
-  return new Intl.DateTimeFormat('en-CA', {
+  const parts = new Intl.DateTimeFormat('en-CA', {
     timeZone:'Asia/Ho_Chi_Minh',
     year:'numeric',
     month:'2-digit',
@@ -4077,11 +4224,13 @@ function hanoiDateParts(date=new Date()){
     hour:'2-digit',
     minute:'2-digit',
     second:'2-digit',
-    hour12:false
+    hourCycle:'h23'
   }).formatToParts(date).reduce((acc,p) => {
     acc[p.type] = p.value;
     return acc;
   }, {});
+  if(parts.hour === '24') parts.hour = '00';
+  return parts;
 }
 
 function todayIso(){
