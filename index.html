@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=77.050626-LIST-DATE-FIX">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=77.050626-LIST-DATE-FIX">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=77.050626-LIST-DATE-FIX">
-  <link rel="manifest" href="./manifest.json?v=77.050626-LIST-DATE-FIX">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=77.050626-LIST-DATE-FIX">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=78.050626-DESKTOP-LAYOUT">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=78.050626-DESKTOP-LAYOUT">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=78.050626-DESKTOP-LAYOUT">
+  <link rel="manifest" href="./manifest.json?v=78.050626-DESKTOP-LAYOUT">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=78.050626-DESKTOP-LAYOUT">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -255,6 +255,72 @@
     input[type="date"],input[type="datetime-local"]{width:100%;max-width:100%;height:38px;min-height:38px;display:block;cursor:pointer}
     input[type="date"]::-webkit-date-and-time-value,input[type="datetime-local"]::-webkit-date-and-time-value{text-align:left;width:100%}
     input[type="date"]::-webkit-calendar-picker-indicator,input[type="datetime-local"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:1}
+
+    @media (min-width:900px){
+      .tabbar{
+        top:var(--header-h);
+        bottom:auto;
+        height:var(--tabbar-h);
+        border-top:0;
+        border-bottom:1px solid var(--line);
+        box-shadow:0 4px 16px rgba(74,7,31,.08);
+        padding:3px 8px;
+      }
+      .main{
+        top:calc(var(--header-h) + var(--tabbar-h));
+        bottom:0;
+        padding:14px 18px 18px;
+      }
+      .app-version{
+        bottom:6px;
+      }
+      #tab-list:not(.hidden),
+      #tab-meeting:not(.hidden),
+      #tab-pdf:not(.hidden){
+        display:grid;
+        grid-template-columns:320px minmax(0,1fr);
+        gap:14px;
+        align-items:start;
+      }
+      #tab-list > .card,
+      #tab-meeting > .card,
+      #tab-pdf > .card{
+        position:sticky;
+        top:0;
+        margin-bottom:0;
+      }
+      #phieuListBox,
+      #giaoBanListBox,
+      #pdfListBox{
+        min-width:0;
+      }
+      #tab-list .filter-grid,
+      #tab-meeting .filter-grid,
+      #tab-pdf .filter-grid{
+        grid-template-columns:1fr!important;
+        gap:9px;
+      }
+      #tab-list .filter-grid > div,
+      #tab-meeting .filter-grid > div,
+      #tab-pdf .filter-grid > div,
+      #tab-pdf .filter-keyword,
+      #tab-list .filter-action,
+      #tab-meeting .filter-action,
+      #tab-pdf .filter-action{
+        grid-column:auto!important;
+        min-width:0;
+      }
+      #tab-list .filter-action .btn,
+      #tab-meeting .filter-action .btn,
+      #tab-pdf .filter-action .btn{
+        width:100%;
+      }
+      #tab-meeting .card .meta,
+      #tab-pdf .card .meta{
+        margin-top:10px;
+      }
+    }
+
     @media (max-width:760px){
       .tm-view-table{min-width:400px;font-size:13.5px}
       .tm-view-table th:nth-child(1),.tm-view-table td:nth-child(1){width:38px}
@@ -508,7 +574,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=77.050626-LIST-DATE-FIX" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=78.050626-DESKTOP-LAYOUT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -523,14 +589,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 77.050626-LIST-DATE-FIX</p>
+      <p class="login-version">Version: 78.050626-DESKTOP-LAYOUT</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=77.050626-LIST-DATE-FIX" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=78.050626-DESKTOP-LAYOUT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -559,7 +625,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 77.050626-LIST-DATE-FIX</div>
+    <div class="app-version">Version: 78.050626-DESKTOP-LAYOUT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -567,7 +633,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-77.050626-LIST-DATE-FIX';
+const APP_VERSION = 'INDEX-78.050626-DESKTOP-LAYOUT';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
