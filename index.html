@@ -734,6 +734,16 @@
     }
 
 
+    /* ===== ACCOUNT PATCH 88: MOBILE TAB ORDER + ACCOUNT MODAL ACTIONS ===== */
+    @media (max-width:760px){
+      .tabbar .tab-btn[data-tab="create"]{order:1}
+      .tabbar .tab-btn[data-tab="account"]{order:2}
+      .tabbar .tab-btn[data-tab="list"]{order:3}
+      .tabbar .tab-btn[data-tab="meeting"]{order:4}
+      .tabbar .tab-btn[data-tab="pdf"]{order:5}
+    }
+
+
   </style>
 </head>
 <body>
@@ -775,7 +785,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: 87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT</p>
+      <p class="login-version">Version: 88.050626-MOBILE-ACCOUNT-BEFORE-SIGN-MODAL</p>
     </div>
   </div>
 
@@ -814,12 +824,12 @@
 
     <nav class="tabbar">
       <button class="tab-btn active" data-tab="create"><span class="ico">➕</span><span>Tạo phiếu</span></button>
-      <button class="tab-btn" data-tab="list"><span class="ico">📋</span><span>DS phiếu</span></button>
+      <button class="tab-btn" data-tab="list"><span class="ico">📋</span><span>Ký nhận</span></button>
       <button class="tab-btn" data-tab="meeting"><span class="ico">🗣️</span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="accountTabBtn" class="tab-btn" data-tab="account"><span class="ico">👤</span><span>Tài khoản</span></button>
     </nav>
-    <div class="app-version">Version: 87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT</div>
+    <div class="app-version">Version: 88.050626-MOBILE-ACCOUNT-BEFORE-SIGN-MODAL</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -3528,9 +3538,7 @@ function renderAccountTab(){
     </div>`;
 
   if(isMobile){
-    const actionPanel = (view !== 'info' && view !== 'setup')
-      ? `<div class="card account-content-card account-mobile-action-panel" id="accountContentPane">${renderAccountPanelContent(view, info, isAdmin)}</div>`
-      : '';
+    const actionPanel = '';
     root.innerHTML = `
       <div class="account-mobile-stack">
         <div class="card account-content-card account-mobile-info-card">
@@ -3577,7 +3585,34 @@ function renderAccountTab(){
 
 function accountMenuButton(view, icon, label, active){
   const cls = active === view ? 'primary' : 'secondary';
-  return `<button class="btn ${cls} account-menu-btn" type="button" onclick="setAccountView('${escAttr(view)}')"><span>${icon}</span> ${esc(label)}</button>`;
+  return `<button class="btn ${cls} account-menu-btn" type="button" onclick="openAccountActionView('${escAttr(view)}')"><span>${icon}</span> ${esc(label)}</button>`;
+}
+
+function openAccountActionView(view){
+  const target = view || 'info';
+  const info = accountInfoFallback();
+  const isAdmin = !!(state.user?.isAdmin || info.isAdmin);
+
+  if(isAccountMobileLayout()){
+    if(target === 'edit' || target === 'password'){
+      openModal(`
+        <div class="modal-card">
+          <div class="modal-head"><div class="modal-title">${target === 'edit' ? 'Sửa thông tin tài khoản' : (isAdmin ? 'Đổi / reset mật khẩu' : 'Đổi mật khẩu')}</div><button class="close-btn" onclick="closeModal()">×</button></div>
+          <div style="margin-top:12px">${renderAccountPanelContent(target, info, isAdmin)}</div>
+        </div>
+      `);
+      bindAccountPanel(target);
+      return;
+    }
+    if(target === 'setup'){
+      state.accountView = state.accountView === 'setup' ? 'info' : 'setup';
+      if(state.accountView !== 'setup') state.accountSetupSection = '';
+      renderAccountTab();
+      return;
+    }
+  }
+
+  setAccountView(target);
 }
 
 function setAccountView(view){
