@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=76.050626-VIEW-SIGNATURE-SESSION">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=76.050626-VIEW-SIGNATURE-SESSION">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=76.050626-VIEW-SIGNATURE-SESSION">
-  <link rel="manifest" href="./manifest.json?v=76.050626-VIEW-SIGNATURE-SESSION">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=76.050626-VIEW-SIGNATURE-SESSION">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=77.050626-LIST-DATE-FIX">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=77.050626-LIST-DATE-FIX">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=77.050626-LIST-DATE-FIX">
+  <link rel="manifest" href="./manifest.json?v=77.050626-LIST-DATE-FIX">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=77.050626-LIST-DATE-FIX">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -508,7 +508,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=76.050626-VIEW-SIGNATURE-SESSION" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=77.050626-LIST-DATE-FIX" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -523,14 +523,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 76.050626-VIEW-SIGNATURE-SESSION</p>
+      <p class="login-version">Version: 77.050626-LIST-DATE-FIX</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=76.050626-VIEW-SIGNATURE-SESSION" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=77.050626-LIST-DATE-FIX" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -559,7 +559,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 76.050626-FIX-SAVE-SIGNATURE</div>
+    <div class="app-version">Version: 77.050626-LIST-DATE-FIX</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -567,7 +567,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-76.050626-FIX-SAVE-SIGNATURE';
+const APP_VERSION = 'INDEX-77.050626-LIST-DATE-FIX';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -957,7 +957,7 @@ function renderCreateTab(){
         </div>
         <div class="col-3">
           <label>Ngày trực</label>
-          <input id="createDate" class="equal-control" type="date" value="${today}">
+          <input id="createDate" class="equal-control date-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy" value="${dateVi(today)}">
         </div>
         <div class="col-3">
           <label>Khoa/phòng trực</label>
@@ -1016,7 +1016,7 @@ function renderCreateTab(){
         </div>
         <div class="col-3">
           <label id="handoverLabel4">2.4 Thời gian bàn giao</label>
-          <input id="thoiGianBanGiao" class="equal-control" type="datetime-local" value="${now}">
+          <input id="thoiGianBanGiao" class="equal-control datetime-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy HH:mm" value="${dateTimeInputVi(now)}">
         </div>
       </div>
       <div class="btn-row">
@@ -1337,7 +1337,7 @@ function collectBanGiaoTaiSan(){
 async function submitCreatePhieu(){
   const payload = {
     loaiPhieu: $('#createLoai').value,
-    ngayTruc: $('#createDate').value,
+    ngayTruc: getDateInputIso('createDate'),
     khoaPhong: $('#createDept').value,
     nhanVienThuongTruc: state.selectedStaff,
     soLieuTruc: collectSoLieuTruc(),
@@ -1346,7 +1346,7 @@ async function submitCreatePhieu(){
     banGiaoTaiSan: collectBanGiaoTaiSan(),
     banGiaoChuyenMon: $('#banGiaoChuyenMon').value,
     banGiaoVanDeKhac: $('#banGiaoVanDeKhac').value,
-    thoiGianBanGiao: fromDatetimeLocal($('#thoiGianBanGiao').value)
+    thoiGianBanGiao: getDateTimeInputSql('thoiGianBanGiao')
   };
 
   if(payload.loaiPhieu === LOAI_BAO_CAO) ensureLoginUserInStaff();
@@ -1367,8 +1367,8 @@ function renderListTab(){
     <div class="card">
       <h2 class="section-title">Danh sách phiếu</h2>
       <div class="grid filter-grid">
-        <div class="date-pair"><label>Từ ngày</label><input id="filterFrom" class="equal-control" type="date"></div>
-        <div class="date-pair"><label>Đến ngày</label><input id="filterTo" class="equal-control" type="date"></div>
+        <div class="date-pair"><label>Từ ngày</label><input id="filterFrom" class="equal-control date-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy"></div>
+        <div class="date-pair"><label>Đến ngày</label><input id="filterTo" class="equal-control date-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy"></div>
         <div><label>Khoa/Phòng trực</label><select id="filterDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
         <div>
           <label>Loại phiếu</label>
@@ -1414,8 +1414,8 @@ async function loadPhieuList(force){
 
 function getPhieuFilters(){
   return {
-    fromDate: $('#filterFrom')?.value || addDaysIso(todayIso(), -1),
-    toDate: $('#filterTo')?.value || todayIso(),
+    fromDate: getDateInputIso('filterFrom') || addDaysIso(todayIso(), -1),
+    toDate: getDateInputIso('filterTo') || todayIso(),
     khoaPhong: $('#filterDept')?.value || state.user?.khoaPhong || '',
     loaiPhieu: $('#filterLoai')?.value || 'Tất cả',
     trangThai: $('#filterStatus')?.value || 'Tất cả'
@@ -1434,8 +1434,8 @@ function renderPhieuList(items, note=''){
     const handoverNo = p.loaiPhieuGoc === LOAI_BAO_CAO ? '3' : '2';
     const isReportCard = (p.loaiPhieuGoc || p.loaiPhieu) === LOAI_BAO_CAO;
     const title = isReportCard
-      ? `Báo cáo/ Bàn giao trực - ${formatDeptPlain(p.khoaPhong)} - ${dateTimeVi(p.thoiGianBanGiao)}`
-      : `Bàn giao thường trực - ${formatKhoaTitle(p.khoaPhong)} - ${dateTimeVi(p.thoiGianBanGiao)}`;
+      ? `Báo cáo/ Bàn giao trực - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
+      : `Bàn giao thường trực - ${formatKhoaTitle(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`;
     const detailHtml = !isDone ? `
       <div class="phieu-inline">
         <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
@@ -1536,6 +1536,7 @@ window.signBanGiao = async function(phieuID, btn){
   const task = async () => {
     const res = await api('signBanGiao', {phieuID});
     clearListCaches();
+    await loadPhieuList(true);
     toast('Đã ký nhận bàn giao');
     showPhieuModal(res.data.phieu);
   };
@@ -1582,7 +1583,7 @@ window.editPhieu = async function(phieuID, btn){
           <h3 class="section-title">I. Thông tin phiếu</h3>
           <div class="grid">
             <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${escAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
-            <div class="col-3"><label>Ngày trực</label><input id="editDate" class="equal-control" type="date" value="${escAttr(p.ngayTruc)}"></div>
+            <div class="col-3"><label>Ngày trực</label><input id="editDate" class="equal-control date-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy" value="${escAttr(dateVi(p.ngayTruc))}"></div>
             <div class="col-3"><label>Khoa/phòng</label><select id="editDept" class="equal-control">${deptOptions(p.khoaPhong)}</select></div>
             <div class="col-3"><label>Người thực hiện</label><input class="equal-control" readonly value="${escAttr([p.nguoiThucHienTen, p.nguoiThucHienChucDanh, p.khoaPhong].filter(Boolean).join(' - '))}"></div>
           </div>
@@ -1620,7 +1621,7 @@ window.editPhieu = async function(phieuID, btn){
               <div class="col-12"><label>${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</label><div id="editBanGiaoTaiSanBox">${renderEditBanGiaoTaiSanInput(p)}</div></div>
               <div class="col-12"><label>${handoverNo}.2 Chuyên môn</label><textarea id="editBGCM">${esc(p.banGiaoChuyenMon||'')}</textarea></div>
               <div class="col-12"><label>${handoverNo}.3 Vấn đề khác</label><textarea id="editBGKhac">${esc(p.banGiaoVanDeKhac||'')}</textarea></div>
-              <div class="col-3"><label>${handoverNo}.4 Thời gian bàn giao</label><input id="editTGBG" class="equal-control" type="datetime-local" value="${escAttr(toDatetimeLocal(p.thoiGianBanGiao))}"></div>
+              <div class="col-3"><label>${handoverNo}.4 Thời gian bàn giao</label><input id="editTGBG" class="equal-control datetime-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy HH:mm" value="${escAttr(dateTimeInputVi(p.thoiGianBanGiao))}"></div>
             ` : `<div class="col-12"><div class="empty">Phần bàn giao đã ký nhận nên không được sửa. Nếu là phiếu Báo cáo thường trực, bạn vẫn có thể sửa phần báo cáo phía trên cho đến khi kết thúc giao ban.</div></div>`}
           </div>
         </div>
@@ -1910,7 +1911,7 @@ function collectEditBanGiaoTaiSan(){
 window.saveEditPhieu = async function(phieuID, btn){
   const payload = {
     phieuID,
-    ngayTruc: $('#editDate').value,
+    ngayTruc: getDateInputIso('editDate'),
     khoaPhong: $('#editDept').value,
     nhanVienThuongTruc: state.selectedStaff,
     soLieuTruc: collectEditSoLieuTruc(),
@@ -1919,7 +1920,7 @@ window.saveEditPhieu = async function(phieuID, btn){
     banGiaoTaiSan: collectEditBanGiaoTaiSan(),
     banGiaoChuyenMon: $('#editBGCM')?.value || '',
     banGiaoVanDeKhac: $('#editBGKhac')?.value || '',
-    thoiGianBanGiao: $('#editTGBG') ? fromDatetimeLocal($('#editTGBG').value) : ''
+    thoiGianBanGiao: $('#editTGBG') ? getDateTimeInputSql('editTGBG') : ''
   };
   const task = async () => {
     const res = await api('updatePhieu', payload);
@@ -1938,18 +1939,18 @@ function renderMeetingTab(){
     <div class="card">
       <h2 class="section-title">Giao ban</h2>
       <div class="grid filter-grid">
-        <div class="col-3 date-pair"><label>Từ ngày</label><input id="gbFrom" class="equal-control" type="date"></div>
-        <div class="col-3 date-pair"><label>Đến ngày</label><input id="gbTo" class="equal-control" type="date"></div>
+        <div class="col-3 date-pair"><label>Từ ngày</label><input id="gbFrom" class="equal-control date-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy"></div>
+        <div class="col-3 date-pair"><label>Đến ngày</label><input id="gbTo" class="equal-control date-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy"></div>
         <div class="col-3"><label>Khoa/phòng</label><select id="gbDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
         <div class="col-3">
-          <label>Loại giao ban</label>
+          <label>Loại phiếu</label>
           <select id="gbLoai" class="equal-control">
             <option>Tất cả</option>
             <option>${LOAI_GIAO_BAN_THUONG_TRUC}</option>
             <option>${LOAI_GIAO_BAN_DOT_XUAT}</option>
           </select>
         </div>
-        <div class="col-3"><label>Trạng thái</label><select id="gbStatus" class="equal-control"><option>${STATUS_CHUA}</option><option>Tất cả</option><option>${STATUS_DA}</option></select></div>
+        <div class="col-3"><label>Trạng thái</label><select id="gbStatus" class="equal-control"><option>Tất cả</option><option>${STATUS_CHUA}</option><option>${STATUS_DA}</option></select></div>
         <div class="col-3 filter-action"><button id="loadGbBtn" class="btn primary">Xem danh sách</button></div>
         <div class="col-3 filter-action"><button id="createGbBtn" class="btn ok">Tạo phiên giao ban</button></div>
       </div>
@@ -1983,11 +1984,11 @@ async function loadGiaoBanList(force){
 
 function getGiaoBanFilters(){
   return {
-    fromDate: $('#gbFrom')?.value || addDaysIso(todayIso(), -14),
-    toDate: $('#gbTo')?.value || todayIso(),
+    fromDate: getDateInputIso('gbFrom') || addDaysIso(todayIso(), -14),
+    toDate: getDateInputIso('gbTo') || todayIso(),
     khoaPhong: $('#gbDept')?.value || state.user?.khoaPhong || '',
-    loaiGiaoBan: $('#gbLoai')?.value || LOAI_GIAO_BAN_THUONG_TRUC,
-    trangThai: $('#gbStatus')?.value || STATUS_CHUA
+    loaiGiaoBan: $('#gbLoai')?.value || 'Tất cả',
+    trangThai: $('#gbStatus')?.value || 'Tất cả'
   };
 }
 
@@ -1998,7 +1999,12 @@ function renderGiaoBanList(items, note=''){
     return;
   }
   const noteHtml = note ? `<div class="empty" style="text-align:left;margin-bottom:10px">${esc(note)}</div>` : '';
-  box.innerHTML = noteHtml + items.map(g => {
+  const sortedItems = (items || []).slice().sort((a, b) => {
+    const ta = String(a.thoiGianGiaoBanHienThi || a.thoiGianGiaoBan || a.createdAt || '').replace('T',' ');
+    const tb = String(b.thoiGianGiaoBanHienThi || b.thoiGianGiaoBan || b.createdAt || '').replace('T',' ');
+    return tb.localeCompare(ta);
+  });
+  box.innerHTML = noteHtml + sortedItems.map(g => {
     const loai = g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC;
     const title = `${loai} - ${formatDeptPlain(g.khoaPhong)} - ${dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan)}`;
     const isDotXuat = isBienBanHopLoai(loai);
@@ -3121,8 +3127,8 @@ function renderPdfTab(){
     <div class="card">
       <h2 class="section-title">Tra cứu / PDF</h2>
       <div class="grid filter-grid">
-        <div class="col-3 date-pair"><label>Từ ngày</label><input id="pdfFrom" class="equal-control" type="date"></div>
-        <div class="col-3 date-pair"><label>Đến ngày</label><input id="pdfTo" class="equal-control" type="date"></div>
+        <div class="col-3 date-pair"><label>Từ ngày</label><input id="pdfFrom" class="equal-control date-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy"></div>
+        <div class="col-3 date-pair"><label>Đến ngày</label><input id="pdfTo" class="equal-control date-vi-input" type="text" inputmode="numeric" placeholder="dd/mm/yyyy"></div>
         <div class="col-3"><label>Khoa/phòng</label><select id="pdfDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
         <div class="col-12 filter-keyword"><label>Từ khóa</label><input id="pdfKeyword" class="equal-control" placeholder="Tìm theo người tạo, phòng, tiêu đề PDF"></div>
         <div class="col-3 filter-action"><button id="loadPdfBtn" class="btn primary">Tra cứu PDF</button></div>
@@ -3140,8 +3146,8 @@ async function loadPdfList(){
   box.innerHTML = `<div class="loading">Đang tải hồ sơ PDF...</div>`;
   try{
     const res = await api('searchPdf', {
-      fromDate: $('#pdfFrom').value,
-      toDate: $('#pdfTo').value,
+      fromDate: getDateInputIso('pdfFrom'),
+      toDate: getDateInputIso('pdfTo'),
       khoaPhong: $('#pdfDept').value,
       loaiHoSo: 'Giao ban',
       keyword: $('#pdfKeyword').value
@@ -3842,8 +3848,50 @@ function autoGrow(el){
 function setDefaultDateRange(fromId,toId,daysBack){
   const from = document.getElementById(fromId);
   const to = document.getElementById(toId);
-  if(from && !from.value) from.value = addDaysIso(todayIso(), -daysBack);
-  if(to && !to.value) to.value = todayIso();
+  if(from && !from.value) from.value = dateVi(addDaysIso(todayIso(), -daysBack));
+  if(to && !to.value) to.value = dateVi(todayIso());
+}
+
+function parseDateInputVi(value){
+  const s = String(value || '').trim();
+  if(!s) return '';
+  let m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(m) return `${m[1]}-${m[2]}-${m[3]}`;
+  m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})$/);
+  if(m) return `${m[3]}-${pad(m[2])}-${pad(m[1])}`;
+  return '';
+}
+
+function getDateInputIso(id){
+  const el = document.getElementById(id);
+  if(!el) return '';
+  const iso = parseDateInputVi(el.value);
+  if(iso) {
+    el.value = dateVi(iso);
+    return iso;
+  }
+  return '';
+}
+
+function dateTimeInputVi(value){
+  const text = dateTimeVi(value);
+  return text ? text.replace('h', ':') : '';
+}
+
+function getDateTimeInputSql(id){
+  const el = document.getElementById(id);
+  if(!el) return '';
+  return parseDateTimeInputSql(el.value);
+}
+
+function parseDateTimeInputSql(value){
+  const s = String(value || '').trim();
+  if(!s) return '';
+  let m = s.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{1,2}):(\d{1,2})/);
+  if(m) return `${m[1]}-${m[2]}-${m[3]} ${pad(m[4])}:${pad(m[5])}:00`;
+  m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})(?:\s+(\d{1,2})(?:[:hH](\d{1,2}))?)?$/);
+  if(m) return `${m[3]}-${pad(m[2])}-${pad(m[1])} ${pad(m[4] || '00')}:${pad(m[5] || '00')}:00`;
+  return '';
 }
 
 function summarizeReportsStaff(reports){
