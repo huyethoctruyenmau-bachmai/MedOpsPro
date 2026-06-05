@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=78.050626-DESKTOP-LAYOUT">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=78.050626-DESKTOP-LAYOUT">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=78.050626-DESKTOP-LAYOUT">
-  <link rel="manifest" href="./manifest.json?v=78.050626-DESKTOP-LAYOUT">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=78.050626-DESKTOP-LAYOUT">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=79.050626-VI-DATEPICKER">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=79.050626-VI-DATEPICKER">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=79.050626-VI-DATEPICKER">
+  <link rel="manifest" href="./manifest.json?v=79.050626-VI-DATEPICKER">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=79.050626-VI-DATEPICKER">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -255,8 +255,13 @@
     input[type="date"],input[type="datetime-local"]{width:100%;max-width:100%;height:38px;min-height:38px;display:block;cursor:pointer}
     input[type="date"]::-webkit-date-and-time-value,input[type="datetime-local"]::-webkit-date-and-time-value{text-align:left;width:100%}
     input[type="date"]::-webkit-calendar-picker-indicator,input[type="datetime-local"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:1}
+    .vi-date-wrap{position:relative;width:100%;display:block}
+    .vi-date-display{display:none}
 
     @media (min-width:900px){
+      .vi-date-wrap .vi-date-display{display:block;width:100%;height:38px;min-height:38px;padding-right:42px;cursor:pointer;background:#fff}
+      .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;opacity:0!important;z-index:2;cursor:pointer}
+      .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:16px;opacity:.72}
       .tabbar{
         top:var(--header-h);
         bottom:auto;
@@ -664,7 +669,7 @@
 
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-card">
-      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=78.050626-DESKTOP-LAYOUT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+      <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=79.050626-VI-DATEPICKER" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
       <h1 class="login-title">S&#7893; Tr&#7921;c - Giao ban</h1>
@@ -679,14 +684,14 @@
         </div>
       </div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
-      <p class="login-version">Version: 78.050626-DESKTOP-LAYOUT</p>
+      <p class="login-version">Version: 79.050626-VI-DATEPICKER</p>
     </div>
   </div>
 
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=78.050626-DESKTOP-LAYOUT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
+        <div class="brand-icon logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=79.050626-VI-DATEPICKER" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
         <div>
           <div id="brandTitle" class="brand-title">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
@@ -715,7 +720,7 @@
       <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
       <button id="settingsTabBtn" class="tab-btn hidden" data-tab="settings"><span class="ico">⚙️</span><span>Cài đặt</span></button>
     </nav>
-    <div class="app-version">Version: 78.050626-DESKTOP-LAYOUT</div>
+    <div class="app-version">Version: 79.050626-VI-DATEPICKER</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -723,7 +728,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-78.050626-DESKTOP-LAYOUT';
+const APP_VERSION = 'INDEX-79.050626-VI-DATEPICKER';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -846,6 +851,7 @@ function clearStoredSession(){
 }
 
 document.addEventListener('DOMContentLoaded', boot);
+document.addEventListener('DOMContentLoaded', () => { setupViDatePickerObserver(); scheduleViDatePickerEnhance(); });
 
 async function boot(){
   bindGlobalEvents();
@@ -4001,11 +4007,88 @@ function autoGrow(el){
   el.style.height = Math.max(34, el.scrollHeight + 2) + 'px';
 }
 
+let viDatePickerEnhanceTimer = null;
+let viDatePickerObserver = null;
+
+function setupViDatePickerObserver(){
+  if(viDatePickerObserver || !window.MutationObserver || !document.body) return;
+  viDatePickerObserver = new MutationObserver(() => scheduleViDatePickerEnhance());
+  viDatePickerObserver.observe(document.body, {childList:true, subtree:true});
+  window.addEventListener('resize', () => refreshViDatePickers(), {passive:true});
+}
+
+function scheduleViDatePickerEnhance(){
+  clearTimeout(viDatePickerEnhanceTimer);
+  viDatePickerEnhanceTimer = setTimeout(() => {
+    enhanceViDatePickers(document);
+    refreshViDatePickers();
+  }, 0);
+}
+
+function enhanceViDatePickers(root){
+  const scope = root || document;
+  $$('.date-vi-input[type="date"], .datetime-vi-input[type="datetime-local"]', scope).forEach(input => {
+    if(input.dataset.viEnhanced === '1'){
+      updateViDateDisplay(input);
+      return;
+    }
+    input.dataset.viEnhanced = '1';
+    input.classList.add('vi-date-native');
+
+    const wrap = document.createElement('div');
+    wrap.className = 'vi-date-wrap';
+    const display = document.createElement('input');
+    display.type = 'text';
+    display.className = 'equal-control vi-date-display';
+    display.readOnly = true;
+    display.setAttribute('aria-label', input.getAttribute('aria-label') || input.id || 'Chọn ngày');
+    display.setAttribute('autocomplete', 'off');
+
+    input.parentNode.insertBefore(wrap, input);
+    wrap.appendChild(display);
+    wrap.appendChild(input);
+
+    const openNativePicker = () => {
+      try{
+        if(input.showPicker) input.showPicker();
+        else input.click();
+      }catch(e){
+        input.focus();
+        input.click();
+      }
+    };
+    display.addEventListener('click', openNativePicker);
+    display.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        openNativePicker();
+      }
+    });
+    input.addEventListener('input', () => updateViDateDisplay(input));
+    input.addEventListener('change', () => updateViDateDisplay(input));
+    updateViDateDisplay(input);
+  });
+}
+
+function refreshViDatePickers(){
+  $$('.vi-date-native').forEach(updateViDateDisplay);
+}
+
+function updateViDateDisplay(input){
+  if(!input || !input.parentElement) return;
+  const display = input.parentElement.querySelector('.vi-date-display');
+  if(!display) return;
+  if(input.type === 'date') display.value = input.value ? dateVi(input.value) : '';
+  else if(input.type === 'datetime-local') display.value = input.value ? dateTimeInputVi(input.value) : '';
+  display.placeholder = input.type === 'datetime-local' ? 'dd/mm/yyyy HH:mm' : 'dd/mm/yyyy';
+}
+
 function setDefaultDateRange(fromId,toId,daysBack){
   const from = document.getElementById(fromId);
   const to = document.getElementById(toId);
   if(from && !from.value) from.value = addDaysIso(todayIso(), -daysBack);
   if(to && !to.value) to.value = todayIso();
+  refreshViDatePickers();
 }
 
 function parseDateInputVi(value){
@@ -4023,6 +4106,7 @@ function getDateInputIso(id){
   if(!el) return '';
   const iso = parseDateInputVi(el.value);
   if(iso && el.type === 'date') el.value = iso;
+  updateViDateDisplay(el);
   return iso || '';
 }
 
@@ -4034,6 +4118,7 @@ function dateTimeInputVi(value){
 function getDateTimeInputSql(id){
   const el = document.getElementById(id);
   if(!el) return '';
+  updateViDateDisplay(el);
   return parseDateTimeInputSql(el.value);
 }
 
