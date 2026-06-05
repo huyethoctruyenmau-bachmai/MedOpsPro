@@ -259,9 +259,9 @@
     .gb-time-row .vi-date-wrap{flex:1;min-width:0}
     .vi-date-display{display:none}
 
-    html.desktop-date-ui .vi-date-wrap .vi-date-display{display:block;width:100%;height:38px;min-height:38px;padding-right:42px;cursor:text;background:#fff;position:relative;z-index:2}
-    html.desktop-date-ui .vi-date-wrap input.vi-date-native{position:absolute!important;left:0!important;top:0!important;width:1px!important;height:1px!important;max-width:1px!important;min-height:1px!important;opacity:0!important;pointer-events:none!important;z-index:-1!important}
-    html.desktop-date-ui .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:3;pointer-events:none;font-size:16px;opacity:.72}
+    html.desktop-date-ui .vi-date-wrap .vi-date-display{display:block;width:100%;height:38px;min-height:38px;padding-right:42px;cursor:pointer;background:#fff}
+    html.desktop-date-ui .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;opacity:0!important;z-index:2;cursor:pointer}
+    html.desktop-date-ui .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:16px;opacity:.72}
     .vi-date-wrap.is-disabled .vi-date-display{background:#f8f9fa;color:var(--g-muted);cursor:not-allowed}
     #gbTime{cursor:pointer}
     #gbTime:disabled{cursor:not-allowed;background:#f8f9fa}
@@ -4076,62 +4076,12 @@ function scheduleViDatePickerEnhance(){
 function enhanceViDatePickers(root){
   const scope = root || document;
   $$('.date-vi-input[type="date"], .datetime-vi-input[type="datetime-local"]', scope).forEach(input => {
-    if(!input.classList.contains('vi-date-native')) input.classList.add('vi-date-native');
-
-    let wrap = input.closest('.vi-date-wrap');
-    let display = wrap ? wrap.querySelector('.vi-date-display') : null;
-    if(!wrap){
-      wrap = document.createElement('span');
-      wrap.className = 'vi-date-wrap';
-      input.parentNode.insertBefore(wrap, input);
-      wrap.appendChild(input);
-    }
-    if(!display){
-      display = document.createElement('input');
-      display.type = 'text';
-      display.className = 'vi-date-display';
-      display.setAttribute('autocomplete', 'off');
-      display.setAttribute('spellcheck', 'false');
-      display.inputMode = 'numeric';
-      wrap.insertBefore(display, input);
-      bindViDateDisplay(display, input);
-    }
-
-    if(input.dataset.viEnhanced !== '1'){
-      input.dataset.viEnhanced = '1';
-      input.setAttribute('lang', 'vi-VN');
-      input.setAttribute('autocomplete', 'off');
-      if(input.type === 'datetime-local' && !input.getAttribute('step')) input.setAttribute('step', '60');
-      input.addEventListener('input', () => updateViDateDisplay(input));
-      input.addEventListener('change', () => { updateViDateDisplay(input); if(!isDesktopDateUi()) input.blur(); });
-    }
-    updateViDateDisplay(input);
-  });
-}
-
-function bindViDateDisplay(display, input){
-  if(display.dataset.viBound === '1') return;
-  display.dataset.viBound = '1';
-  const sync = (normalizeAfter) => {
-    const raw = display.value;
-    const parsed = input.type === 'date' ? parseDateInputVi(raw) : parseDateTimeInputSql(raw);
-    if(!parsed) return;
-    input.value = input.type === 'date' ? parsed : toDatetimeLocal(parsed);
-    if(normalizeAfter){
-      input.dispatchEvent(new Event('input', {bubbles:true}));
-      input.dispatchEvent(new Event('change', {bubbles:true}));
-      updateViDateDisplay(input);
-    }
-  };
-  display.addEventListener('input', () => sync(false));
-  display.addEventListener('change', () => sync(true));
-  display.addEventListener('blur', () => sync(true));
-  display.addEventListener('keydown', e => {
-    if(e.key === 'Enter'){
-      e.preventDefault();
-      sync(true);
-      display.blur();
-    }
+    if(input.dataset.viEnhanced === '1') return;
+    input.dataset.viEnhanced = '1';
+    input.setAttribute('lang', 'vi-VN');
+    input.setAttribute('autocomplete', 'off');
+    if(input.type === 'datetime-local' && !input.getAttribute('step')) input.setAttribute('step', '60');
+    input.addEventListener('change', () => input.blur());
   });
 }
 
@@ -4141,12 +4091,12 @@ function refreshViDatePickers(){
 
 function updateViDateDisplay(input){
   if(!input || !input.parentElement) return;
-  const wrap = input.closest('.vi-date-wrap') || input.parentElement;
+  const wrap = input.parentElement;
   const display = wrap.querySelector('.vi-date-display');
   if(!display) return;
   if(input.type === 'date') display.value = input.value ? dateVi(input.value) : '';
   else if(input.type === 'datetime-local') display.value = input.value ? dateTimeInputVi(input.value) : '';
-  display.placeholder = input.type === 'datetime-local' ? 'dd/mm/yyyy HHhmm' : 'dd/mm/yyyy';
+  display.placeholder = input.type === 'datetime-local' ? 'dd/mm/yyyy HH:mm' : 'dd/mm/yyyy';
   display.disabled = !!input.disabled;
   wrap.classList.toggle('is-disabled', !!input.disabled);
 }
@@ -4169,34 +4119,25 @@ function parseDateInputVi(value){
   return '';
 }
 
-function getViDisplayForInput(el){
-  return el ? (el.closest('.vi-date-wrap')?.querySelector('.vi-date-display') || null) : null;
-}
-
 function getDateInputIso(id){
   const el = document.getElementById(id);
   if(!el) return '';
-  const display = getViDisplayForInput(el);
-  const raw = display && isDesktopDateUi() ? display.value : el.value;
-  const iso = parseDateInputVi(raw);
+  const iso = parseDateInputVi(el.value);
   if(iso && el.type === 'date') el.value = iso;
   updateViDateDisplay(el);
   return iso || '';
 }
 
 function dateTimeInputVi(value){
-  return dateTimeVi(value);
+  const text = dateTimeVi(value);
+  return text ? text.replace('h', ':') : '';
 }
 
 function getDateTimeInputSql(id){
   const el = document.getElementById(id);
   if(!el) return '';
-  const display = getViDisplayForInput(el);
-  const raw = display && isDesktopDateUi() ? display.value : el.value;
-  const parsed = parseDateTimeInputSql(raw);
-  if(parsed) el.value = toDatetimeLocal(parsed);
   updateViDateDisplay(el);
-  return parsed;
+  return parseDateTimeInputSql(el.value);
 }
 
 function parseDateTimeInputSql(value){
