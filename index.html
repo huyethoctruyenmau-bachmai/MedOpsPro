@@ -588,6 +588,15 @@
     .pdf-frame{
       width:100%;height:100%;border:0;display:block;background:#fff;
     }
+    .protected-view{position:relative;overflow:hidden;user-select:none;-webkit-user-select:none}
+    .protected-watermark{position:absolute;inset:-22%;z-index:30;pointer-events:none;display:grid;grid-template-columns:repeat(2,minmax(680px,1fr));gap:74px 120px;align-content:center;justify-content:center;transform:rotate(-36deg);opacity:.10;mix-blend-mode:multiply}
+    .protected-watermark span{display:block;white-space:nowrap;color:#1f2937;font-size:18px;font-weight:700;letter-spacing:.4px;line-height:1.2;text-transform:uppercase}
+    .protected-view > .pdf-topbar,.protected-view > .modal-head,.protected-view > .card,.protected-view > h3,.protected-view > div:not(.protected-watermark){position:relative;z-index:2}
+    .pdf-frame-wrap{position:relative}
+    .pdf-frame-wrap .protected-watermark{position:absolute;inset:-28%;z-index:5;opacity:.11}
+    .pdf-download-btn{border:0;background:transparent}
+    .secure-blackout{position:fixed;inset:0;z-index:999999;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-weight:800;font-size:18px;letter-spacing:.2px}
+    .secure-blackout.hidden{display:none}
     @media (max-width:760px){
       .pdf-modal{padding-top:env(safe-area-inset-top,0px)}
       .pdf-topbar{height:42px;min-height:42px}
@@ -1017,7 +1026,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-103.070626-TM-GIAOBAN-DANH-SO-BENH-NHAN-PDF</p>
+      <p class="login-version">Version: INDEX-104.070626-WATERMARK-PDF-INAPP-BAOVE</p>
     </div>
   </div>
 
@@ -1061,15 +1070,16 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-103.070626-TM-GIAOBAN-DANH-SO-BENH-NHAN-PDF</div>
+    <div class="app-version">Version: INDEX-104.070626-WATERMARK-PDF-INAPP-BAOVE</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
   <div id="modalRoot"></div>
   <div id="toast" class="toast hidden"></div>
+  <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-103.070626-TM-GIAOBAN-DANH-SO-BENH-NHAN-PDF';
+const APP_VERSION = 'INDEX-104.070626-WATERMARK-PDF-INAPP-BAOVE';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -2606,7 +2616,8 @@ function showTmPhieuModal(p){
   const isXuTri = p.loaiPhieuTM === LOAI_TM_XU_TRI || p.loaiPhieu === LOAI_TM_XU_TRI;
   const detailHtml = isXuTri ? renderTmXutriDetailHtml(p, d) : renderTmTdkmmDetailHtml(p, d);
   openModal(`
-    <div class="modal-card">
+    <div class="modal-card protected-view">
+      ${watermarkLayerHtml()}
       <div class="modal-head">
         <div class="modal-title">${esc(p.loaiPhieuTM || p.loaiPhieu)} ${statusPill(p.trangThai)}</div>
         <button class="close-btn" onclick="closeModal()">×</button>
@@ -2782,7 +2793,8 @@ function showPhieuModal(p, opts={}){
   ` : '';
 
   openModal(`
-    <div class="modal-card">
+    <div class="modal-card protected-view">
+      ${watermarkLayerHtml()}
       <div class="modal-head">
         <div class="modal-title">${esc(p.loaiPhieu)} ${statusPill(p.trangThaiBanGiao)}</div>
         <button class="close-btn" onclick="closeModal()">×</button>
@@ -3295,7 +3307,7 @@ function renderGiaoBanList(items, note=''){
     const deleteBtn = g.canDelete ? `<button class="app-icon-btn delete" onclick="deleteGiaoBan('${escAttr(g.giaoBanID)}', this)" title="Xóa phiên giao ban" aria-label="Xóa phiên giao ban">${iconTrash()}</button>` : '';
     const done = g.trangThai === STATUS_DA;
     const pdfBtn = g.pdfGiaoBanUrl ? `<button class="btn secondary" onclick="openGiaoBanPdf('${escAttr(g.pdfGiaoBanUrl)}','${escAttr(title)}')">Xem PDF</button>` : '';
-    const pdfDownload = g.pdfGiaoBanUrl ? `<a class="app-icon-btn" href="${escAttr(toPdfDownloadUrl(g.pdfGiaoBanUrl))}" target="_blank" title="Tải PDF" aria-label="Tải PDF">${iconDownload()}</a>` : '';
+    const pdfDownload = g.pdfGiaoBanUrl ? `<button class="app-icon-btn" type="button" onclick="downloadPdfWithLog('${escAttr(g.pdfGiaoBanUrl)}','${escAttr(title)}','GIAO_BAN','${escAttr(g.giaoBanID)}')" title="Tải PDF" aria-label="Tải PDF">${iconDownload()}</button>` : '';
     const mainActions = done
       ? `${pdfBtn}${g.pdfGiaoBanUrl ? '' : '<span class="meta">Chưa có file PDF đã ký.</span>'}`
       : `<button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}', this)">Mở giao ban</button>`;
@@ -3684,7 +3696,8 @@ function renderGiaoBanModal(){
   const latestMauTon = isTM ? getLatestMauTonFromReports(sortedReports) : null;
   openModal(`
     <div class="modal full-modal">
-      <div class="modal-card">
+      <div class="modal-card protected-view">
+        ${watermarkLayerHtml()}
         <div class="modal-head">
           <div>
             <div class="modal-title">${esc(loai)} ngày ${dateVi(g.ngayGiaoBan)}</div>
@@ -3768,7 +3781,8 @@ function renderGiaoBanDotXuatModal(){
   const g = state.currentGiaoBan;
   openModal(`
     <div class="modal full-modal">
-      <div class="modal-card">
+      <div class="modal-card protected-view">
+        ${watermarkLayerHtml()}
         <div class="modal-head">
           <div>
             <div class="modal-title">${esc(LOAI_GIAO_BAN_DOT_XUAT)} ngày ${dateVi(g.ngayGiaoBan)}</div>
@@ -3845,7 +3859,7 @@ function renderGiaoBanFinishBlock(g){
         <div class="meta">Chủ trì: ${esc(g.chuTriTen || g.nguoiChuTriTuDo || '')}</div>
         ${g.thoiDiemThuKyKy ? `<div class="meta">Thư ký ký: ${dateTimeVi(g.thoiDiemThuKyKy)}</div>` : ''}
         <div class="meta">Thời điểm ký chủ trì: ${dateTimeVi(g.thoiDiemChuTriKy)}</div>
-        ${g.pdfGiaoBanUrl ? `<div class="btn-row"><button class="btn secondary" onclick="openGiaoBanPdf('${escAttr(g.pdfGiaoBanUrl)}','${escAttr((g.loaiGiaoBan || '') + ' - ' + formatDeptPlain(g.khoaPhong || '') + ' - ' + dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || ''))}')">Xem PDF đã ký</button><a class="app-icon-btn" href="${escAttr(toPdfDownloadUrl(g.pdfGiaoBanUrl))}" target="_blank" title="Tải PDF" aria-label="Tải PDF">${iconDownload()}</a></div>` : '<div class="empty">Chưa có file PDF đã ký.</div>'}
+        ${g.pdfGiaoBanUrl ? `<div class="btn-row"><button class="btn secondary" onclick="openGiaoBanPdf('${escAttr(g.pdfGiaoBanUrl)}','${escAttr((g.loaiGiaoBan || '') + ' - ' + formatDeptPlain(g.khoaPhong || '') + ' - ' + dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || ''))}')">Xem PDF đã ký</button><button class="app-icon-btn" type="button" onclick="downloadPdfWithLog('${escAttr(g.pdfGiaoBanUrl)}','${escAttr((g.loaiGiaoBan || '') + ' - ' + formatDeptPlain(g.khoaPhong || '') + ' - ' + dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || ''))}','GIAO_BAN','${escAttr(g.giaoBanID || '')}')" title="Tải PDF" aria-label="Tải PDF">${iconDownload()}</button></div>` : '<div class="empty">Chưa có file PDF đã ký.</div>'}
       </div>`;
   }
 
@@ -4527,7 +4541,7 @@ function sortDsPhieuByCreatedDesc(items){
 
 function renderDsPhieuCard(x){
   const isTm = x.source === 'TM_PHIEU';
-  const pdfBtn = x.pdfUrl ? `<a class="btn secondary" target="_blank" href="${escAttr(x.pdfUrl)}">Xem PDF</a>` : '';
+  const pdfBtn = x.pdfUrl ? `<button class="btn secondary" type="button" onclick="openGiaoBanPdf('${escAttr(x.pdfUrl)}','${escAttr(x.title || x.loaiPhieu || 'PDF')}')">Xem PDF</button>` : '';
   const detailBtn = isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem chi tiết</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem chi tiết</button>` : '');
   const editBtn = isTm && x.canEdit ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
@@ -5537,6 +5551,70 @@ async function saveTmEquipmentConfig(btn){
 
 
 
+
+function watermarkText(){
+  const u = state.user || {};
+  const ma = String(u.maNhanVien || u.maNV || u.ma || '').trim();
+  const ten = String(u.tenNhanVien || u.hoTen || '').trim().toUpperCase();
+  const who = [ma, ten].filter(Boolean).join(' - ') || 'NGƯỜI DÙNG ĐANG XEM';
+  return who + ' - ' + dateTimeVi(hanoiNowIso());
+}
+
+function watermarkLayerHtml(){
+  const text = esc(watermarkText());
+  return `<div class="protected-watermark" aria-hidden="true">${Array.from({length:10}).map(() => `<span>${text}</span>`).join('')}</div>`;
+}
+
+function hasProtectedContentOpen(){
+  return !!document.querySelector('.protected-view, .pdf-modal');
+}
+
+function setSecureBlackout(show, message){
+  const el = document.getElementById('secureBlackout');
+  if(!el) return;
+  el.textContent = message || 'Nội dung được bảo vệ';
+  el.classList.toggle('hidden', !show);
+}
+
+function releaseSecureBlackoutSoon(){
+  setTimeout(() => setSecureBlackout(false), 260);
+}
+
+function setupScreenProtection(){
+  if(setupScreenProtection.done) return;
+  setupScreenProtection.done = true;
+  window.addEventListener('blur', () => {
+    if(hasProtectedContentOpen()) setSecureBlackout(true, 'Nội dung được bảo vệ');
+  });
+  window.addEventListener('focus', releaseSecureBlackoutSoon);
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden && hasProtectedContentOpen()) setSecureBlackout(true, 'Nội dung được bảo vệ');
+    else releaseSecureBlackoutSoon();
+  });
+  document.addEventListener('contextmenu', e => {
+    if(!hasProtectedContentOpen()) return;
+    e.preventDefault();
+    toast('Nội dung đang được bảo vệ.');
+  });
+  document.addEventListener('copy', e => {
+    if(!hasProtectedContentOpen()) return;
+    e.preventDefault();
+    toast('Không cho phép sao chép nội dung đang xem.');
+  });
+  document.addEventListener('keydown', e => {
+    if(!hasProtectedContentOpen()) return;
+    const k = String(e.key || '').toLowerCase();
+    const block = e.key === 'PrintScreen'
+      || (e.ctrlKey && ['p','s','c','u'].includes(k))
+      || (e.metaKey && ['p','s','c'].includes(k));
+    if(!block) return;
+    e.preventDefault();
+    setSecureBlackout(true, 'Nội dung được bảo vệ');
+    setTimeout(() => setSecureBlackout(false), 1800);
+    toast('Nội dung đang được bảo vệ.');
+  }, true);
+}
+
 function iconDownload(){
   return '<svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>';
 }
@@ -5576,25 +5654,37 @@ function closePdfViewer(){
 
 window.openGiaoBanPdf = function(url, title='PDF giao ban'){
   setViewportForPdf(true);
+  setupScreenProtection();
+  const wm = watermarkLayerHtml();
   openModal(`
-    <div class="pdf-modal">
+    <div class="pdf-modal protected-view">
+      ${wm}
       <div class="pdf-topbar">
         <div class="pdf-title">${esc(title || 'PDF giao ban')}</div>
         <div class="pdf-actions">
-          <a class="pdf-icon-btn" href="${escAttr(toPdfDownloadUrl(url))}" target="_blank" title="Tải PDF" aria-label="Tải PDF">
+          <button class="pdf-icon-btn pdf-download-btn" type="button" onclick="downloadPdfWithLog('${escAttr(url)}','${escAttr(title || 'PDF giao ban')}','PDF','')" title="Tải PDF" aria-label="Tải PDF">
             <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
-          </a>
+          </button>
           <button class="pdf-icon-btn" onclick="closePdfViewer()" title="Đóng" aria-label="Đóng">
             <svg viewBox="0 0 24 24"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
           </button>
         </div>
       </div>
       <div class="pdf-frame-wrap">
+        ${wm}
         <iframe class="pdf-frame" src="${escAttr(toPdfPreviewUrl(url))}" allow="autoplay; fullscreen"></iframe>
       </div>
     </div>
   `, true);
 }
+
+async function downloadPdfWithLog(url, title='', source='PDF', id=''){
+  try{
+    await api('logPdfDownload', {url, title, source, id});
+  }catch(e){}
+  window.open(toPdfDownloadUrl(url), '_blank', 'noopener');
+}
+
 
 function iconEdit(){
   return '<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
@@ -5733,10 +5823,12 @@ function renderBanGiaoTaiSanValue(value){
 }
 
 function openModal(inner, alreadyWrapped){
+  setupScreenProtection();
   $('#modalRoot').innerHTML = alreadyWrapped ? inner : `<div class="modal">${inner}</div>`;
 }
 
 window.closeModal = function(){
+  setSecureBlackout(false);
   $('#modalRoot').innerHTML = '';
   if(state.refreshGiaoBanListOnClose){
     state.refreshGiaoBanListOnClose = false;
