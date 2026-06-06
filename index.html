@@ -56,6 +56,16 @@
     button,input,select,textarea{font:inherit}
     button{border:0;cursor:pointer}
     button,input,select,textarea{-webkit-tap-highlight-color:transparent}
+
+    .icon2d{width:1.15em;height:1.15em;display:inline-block;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;filter:none;text-shadow:none;shape-rendering:geometricPrecision}
+    .tab-btn .ico{display:flex;align-items:center;justify-content:center}
+    .tab-btn .ico .icon2d{width:22px;height:22px;stroke-width:1.9}
+    .password-toggle .icon2d{width:18px;height:18px}
+    .account-avatar .icon2d{width:30px;height:30px;stroke-width:1.8}
+    .account-menu-btn .btn-icon,.account-setup-btn .btn-icon{display:inline-flex;align-items:center;justify-content:center;min-width:24px;flex:0 0 24px}
+    .account-menu-btn .btn-label,.account-setup-btn .btn-label{display:block;min-width:0}
+    .account-info-label .info-ico{display:inline-flex!important;align-items:center;justify-content:center}
+    .account-info-label .info-ico .icon2d{width:18px;height:18px;stroke-width:1.85}
     .hidden{display:none!important}
     .app-shell{height:100%;display:flex;flex-direction:column}
     
@@ -311,7 +321,7 @@
 
     html.desktop-date-ui .vi-date-wrap .vi-date-display{display:block;width:100%;height:38px;min-height:38px;padding-right:42px;cursor:pointer;background:#fff}
     html.desktop-date-ui .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;opacity:0!important;z-index:2;cursor:pointer}
-    html.desktop-date-ui .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:16px;opacity:.72}
+    html.desktop-date-ui .vi-date-wrap::after{content:"";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;width:16px;height:16px;background:currentColor;opacity:.72;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='15' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 9h16'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='15' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 9h16'/%3E%3C/svg%3E") center/contain no-repeat}
     .vi-date-wrap.is-disabled .vi-date-display{background:#f8f9fa;color:var(--g-muted);cursor:not-allowed}
     #gbTime{cursor:pointer}
     #gbTime:disabled{cursor:not-allowed;background:#f8f9fa}
@@ -403,7 +413,7 @@
       .vi-date-wrap{width:100%!important;max-width:100%!important;min-width:0!important}
       .vi-date-wrap .vi-date-display{display:block!important;width:100%!important;max-width:100%!important;height:38px!important;min-height:38px!important;padding:5px 42px 5px 9px!important;font-size:15.5px!important;line-height:20px!important;letter-spacing:.1px!important;text-align:left!important;background:#fff;cursor:pointer}
       .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;min-width:0!important;opacity:0!important;z-index:2!important;cursor:pointer!important;margin:0!important}
-      .vi-date-wrap::after{content:"📅";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:16px;opacity:.72}
+      .vi-date-wrap::after{content:"";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;width:16px;height:16px;background:currentColor;opacity:.72;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='15' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 9h16'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='15' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 9h16'/%3E%3C/svg%3E") center/contain no-repeat}
       .btn{width:100%;min-height:38px}
       .phieu-actions .btn,.modal-card .btn-row .btn{width:auto!important;min-height:32px;height:32px;padding:0 13px}
       .staff-add-btn{width:42px!important;min-width:42px!important}
@@ -810,6 +820,11 @@
       #tab-account .account-mobile-actions{order:2;margin:0!important}
       #tab-account .account-mobile-action-panel{order:3;margin:0!important}
       #tab-account .account-mobile-actions .account-header{display:none!important}
+
+      #tab-account .account-mobile-actions .account-menu-btn,
+      #tab-account .account-mobile-actions .account-setup-btn{justify-content:flex-start!important;text-align:left!important;gap:10px!important}
+      #tab-account .account-mobile-actions .account-menu-btn .btn-label,
+      #tab-account .account-mobile-actions .account-setup-btn .btn-label{flex:1;text-align:left!important}
       #tab-account .account-menu .btn,
       #tab-account .account-setup-buttons .btn{
         width:100%!important;
@@ -946,7 +961,7 @@
           <label>Mật khẩu</label>
           <div class="password-wrap">
             <input id="loginPw" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu">
-            <button id="loginPwToggle" class="password-toggle" type="button" title="Hiện/ẩn mật khẩu">👁️</button>
+            <button id="loginPwToggle" class="password-toggle" type="button" title="Hiện/ẩn mật khẩu"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
       </div>
@@ -999,11 +1014,11 @@
     </main>
 
     <nav class="tabbar">
-      <button id="accountTabBtn" class="tab-btn" data-tab="account"><span class="ico">👤</span><span>Tài khoản</span></button>
-      <button class="tab-btn active" data-tab="create"><span class="ico">➕</span><span>Tạo phiếu</span></button>
-      <button class="tab-btn" data-tab="list"><span class="ico">📋</span><span>Ký nhận</span></button>
-      <button class="tab-btn" data-tab="meeting"><span class="ico">🗣️</span><span>Họp</span></button>
-      <button class="tab-btn" data-tab="pdf"><span class="ico">📄</span><span>PDF</span></button>
+      <button id="accountTabBtn" class="tab-btn" data-tab="account"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/></svg></span><span>Tài khoản</span></button>
+      <button class="tab-btn active" data-tab="create"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span><span>Tạo phiếu</span></button>
+      <button class="tab-btn" data-tab="list"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 4h6l1 2h3v15H5V6h3l1-2Z"/><path d="M9 10h6M9 14h6M9 18h4"/></svg></span><span>Ký nhận</span></button>
+      <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16v10H8l-4 4V6Z"/><path d="M8 10h8M8 13h5"/></svg></span><span>Họp</span></button>
+      <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>PDF</span></button>
     </nav>
     <div class="app-version">Version: 93.050626-EQUIPMENT-COLUMN-SAFE</div>
   </div>
@@ -3718,6 +3733,13 @@ async function loadPdfList(){
 
 /* ================= ACCOUNT ================= */
 
+
+const ICON_2D_PATHS = {"user": "<circle cx=\"12\" cy=\"7\" r=\"3.5\"/><path d=\"M5 21a7 7 0 0 1 14 0\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "clipboard": "<path d=\"M9 4h6l1 2h3v15H5V6h3l1-2Z\"/><path d=\"M9 10h6M9 14h6M9 18h4\"/>", "meeting": "<path d=\"M4 6h16v10H8l-4 4V6Z\"/><path d=\"M8 10h8M8 13h5\"/>", "file": "<path d=\"M7 3h7l4 4v14H7V3Z\"/><path d=\"M14 3v5h5M10 12h6M10 16h6\"/>", "eye": "<path d=\"M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "eye-off": "<path d=\"M3 3l18 18\"/><path d=\"M10.6 10.6a3 3 0 0 0 3.8 3.8\"/><path d=\"M9.5 5.7A9.8 9.8 0 0 1 12 5.4c6 0 9.5 6.6 9.5 6.6a16 16 0 0 1-3.1 4.1\"/><path d=\"M6.1 6.6C3.8 8.3 2.5 12 2.5 12a16.1 16.1 0 0 0 6.4 6\"/>", "edit": "<path d=\"M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z\"/><path d=\"M13.5 8.5l3 3\"/>", "key": "<circle cx=\"7.5\" cy=\"14.5\" r=\"3.5\"/><path d=\"M11 14.5h10M16 14.5v3M19 14.5v2\"/>", "settings": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a7 7 0 0 0-1.8-1L14.4 3h-4.8l-.3 3.1a7 7 0 0 0-1.8 1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7 7 0 0 0 1.8 1l.3 3.1h4.8l.3-3.1a7 7 0 0 0 1.8-1l2.4 1 2-3.4-2-1.5c.1-.3.1-.7.1-1Z\"/>", "logout": "<path d=\"M10 4H5v16h5\"/><path d=\"M14 16l4-4-4-4M18 12H9\"/>", "id": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"11\" r=\"2\"/><path d=\"M6 16a3 3 0 0 1 6 0M14 10h4M14 14h4\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M4 9h16\"/>", "mail": "<rect x=\"4\" y=\"6\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M4 8l8 5 8-5\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M9 7V5h6v2M3 12h18\"/>", "building": "<path d=\"M5 21V4h14v17\"/><path d=\"M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2M3 21h18\"/>", "map": "<path d=\"M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/>", "shield": "<path d=\"M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3Z\"/><path d=\"M9 12l2 2 4-5\"/>", "signature": "<path d=\"M4 17c2.5-5 5-5 5-2 0 2-2 3-3 3 3 0 5-6 8-6 2 0 1 4 3 4 1.5 0 2.5-2 3-3\"/><path d=\"M4 21h16\"/>", "equipment": "<rect x=\"5\" y=\"7\" width=\"14\" height=\"11\" rx=\"2\"/><path d=\"M8 7V5h8v2M9 12h2M13 12h2M9 16h6\"/>", "puzzle": "<path d=\"M8 3h4v3a2 2 0 1 0 0 4v3h3a2 2 0 1 1 0 4h-3v4H8v-4H5a2 2 0 1 1 0-4h3v-3a2 2 0 1 0 0-4V3Z\"/>", "book": "<path d=\"M4 5a3 3 0 0 1 3-2h13v16H7a3 3 0 0 0-3 2V5Z\"/><path d=\"M4 5v16M8 7h8M8 11h8\"/>", "link": "<path d=\"M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1.2 1.2\"/><path d=\"M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1.2-1.2\"/>"};
+function icon2d(name){
+  const path = ICON_2D_PATHS[name] || ICON_2D_PATHS.file || '';
+  return `<svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${path}</svg>`;
+}
+
 function showLoginLoading(progress=0, text='Đang tải dữ liệu...'){
   const overlay = $('#loginLoadingOverlay');
   if(!overlay) return;
@@ -3730,12 +3752,12 @@ function hideLoginLoading(){
   $('#loginLoadingOverlay')?.classList.add('hidden');
 }
 
-function togglePasswordInput(inputId, btnId){
+function togglePasswordInput(inputId, btnRef){
   const input = document.getElementById(inputId);
-  const btn = document.getElementById(btnId);
+  const btn = typeof btnRef === 'string' ? document.getElementById(btnRef) : btnRef;
   if(!input) return;
   input.type = input.type === 'password' ? 'text' : 'password';
-  if(btn) btn.textContent = input.type === 'password' ? '👁️' : '🙈';
+  if(btn) btn.innerHTML = icon2d(input.type === 'password' ? 'eye' : 'eye-off');
 }
 
 function accountInfoFallback(){
@@ -3766,12 +3788,12 @@ function renderAccountTab(){
   const setupButtons = view === 'setup' ? accountSetupButtonsHtml(state.accountSetupSection || '') : '';
   const menuHtml = `
     <div class="account-menu">
-      ${!isMobile ? accountMenuButton('info', '👤', 'Thông tin tài khoản', view) : ''}
-      ${accountMenuButton('edit', '✏️', 'Sửa thông tin tài khoản', view)}
-      ${accountMenuButton('password', '🔑', isAdmin ? 'Đổi / reset mật khẩu' : 'Đổi mật khẩu', view)}
-      ${accountMenuButton('setup', '⚙️', 'Setup cấu hình', view)}
+      ${!isMobile ? accountMenuButton('info', 'user', 'Thông tin tài khoản', view) : ''}
+      ${accountMenuButton('edit', 'edit', 'Sửa thông tin tài khoản', view)}
+      ${accountMenuButton('password', 'key', isAdmin ? 'Đổi / reset mật khẩu' : 'Đổi mật khẩu', view)}
+      ${accountMenuButton('setup', 'settings', 'Setup cấu hình', view)}
       ${setupButtons}
-      <button class="btn secondary account-menu-btn account-logout-btn" type="button" onclick="logout()"><span>🚪</span> Đăng xuất</button>
+      <button class="btn secondary account-menu-btn account-logout-btn" type="button" onclick="logout()"><span class="btn-icon">${icon2d('logout')}</span><span class="btn-label">Đăng xuất</span></button>
     </div>`;
 
   if(isMobile){
@@ -3797,7 +3819,7 @@ function renderAccountTab(){
       <div class="account-layout">
         <div class="card account-menu-card">
           <div class="account-header">
-            <div class="account-avatar">👤</div>
+            <div class="account-avatar">${icon2d('user')}</div>
             <div>
               <h2 class="account-title">TÀI KHOẢN</h2>
               <p class="account-sub">${esc(info.tenNhanVien || '')}</p>
@@ -3822,7 +3844,7 @@ function renderAccountTab(){
 
 function accountMenuButton(view, icon, label, active){
   const cls = active === view ? 'primary' : 'secondary';
-  return `<button class="btn ${cls} account-menu-btn" type="button" onclick="openAccountActionView('${escAttr(view)}')"><span>${icon}</span> ${esc(label)}</button>`;
+  return `<button class="btn ${cls} account-menu-btn" type="button" onclick="openAccountActionView('${escAttr(view)}')"><span class="btn-icon">${icon2d(icon)}</span><span class="btn-label">${esc(label)}</span></button>`;
 }
 
 function openAccountActionView(view){
@@ -3867,18 +3889,18 @@ function renderAccountPanelContent(view, info, isAdmin){
 
 function renderAccountInfoPanel(info, isAdmin){
   const rows = [
-    ['👤', 'Tên nhân viên', info.tenNhanVien || 'Chưa cập nhật'],
-    ['🪪', 'Mã nhân viên', info.maNhanVien || 'Chưa cập nhật'],
-    ['📅', 'Ngày sinh', info.ngaySinh || 'Chưa cập nhật'],
-    ['✉️', 'Địa chỉ email', info.email || 'Chưa cập nhật'],
-    ['💼', 'Chức danh', info.chucDanh || info.chucDanhHienThi || 'Chưa cập nhật'],
-    ['🏢', 'Khoa/phòng', info.khoaPhong || info.phongLamViec || 'Chưa cập nhật'],
-    ['📍', 'Vị trí trực', info.viTriTruc || 'Chưa cập nhật'],
-    ['🛡️', 'Quyền', isAdmin ? 'Admin' : (info.chucVu ? 'Có chức vụ' : 'Người dùng')]
+    ['user', 'Tên nhân viên', info.tenNhanVien || 'Chưa cập nhật'],
+    ['id', 'Mã nhân viên', info.maNhanVien || 'Chưa cập nhật'],
+    ['calendar', 'Ngày sinh', info.ngaySinh || 'Chưa cập nhật'],
+    ['mail', 'Địa chỉ email', info.email || 'Chưa cập nhật'],
+    ['briefcase', 'Chức danh', info.chucDanh || info.chucDanhHienThi || 'Chưa cập nhật'],
+    ['building', 'Khoa/phòng', info.khoaPhong || info.phongLamViec || 'Chưa cập nhật'],
+    ['map', 'Vị trí trực', info.viTriTruc || 'Chưa cập nhật'],
+    ['shield', 'Quyền', isAdmin ? 'Admin' : (info.chucVu ? 'Có chức vụ' : 'Người dùng')]
   ];
   return `
     <div class="account-header">
-      <div class="account-avatar">👤</div>
+      <div class="account-avatar">${icon2d('user')}</div>
       <div>
         <h2 class="account-title">THÔNG TIN TÀI KHOẢN</h2>
         <p class="account-sub">Thông tin lấy từ dữ liệu nhân sự dùng chung của Trung tâm.</p>
@@ -3897,7 +3919,7 @@ function renderAccountEditPanel(info){
   const opts = state.accountOptions || {listPhongBan: [], listViTriTruc: [], listChucDanh: []};
   return `
     <div class="account-header">
-      <div class="account-avatar">✏️</div>
+      <div class="account-avatar">${icon2d('edit')}</div>
       <div>
         <h2 class="account-title">SỬA THÔNG TIN TÀI KHOẢN</h2>
         <p class="account-sub">Chỉ cập nhật thông tin cá nhân của tài khoản đang đăng nhập.</p>
@@ -3917,7 +3939,7 @@ function renderAccountEditPanel(info){
 function renderAccountPasswordPanel(isAdmin){
   return `
     <div class="account-header">
-      <div class="account-avatar">🔑</div>
+      <div class="account-avatar">${icon2d('key')}</div>
       <div>
         <h2 class="account-title">${isAdmin ? 'ĐỔI / RESET MẬT KHẨU' : 'ĐỔI MẬT KHẨU'}</h2>
         <p class="account-sub">Sau khi đổi mật khẩu cá nhân, app sẽ đăng xuất để đăng nhập lại.</p>
@@ -3946,7 +3968,7 @@ function renderAccountSetupPanel(){
   const section = state.accountSetupSection || '';
   return `
     <div class="account-header">
-      <div class="account-avatar">⚙️</div>
+      <div class="account-avatar">${icon2d('settings')}</div>
       <div>
         <h2 class="account-title">SETUP CẤU HÌNH</h2>
         <p class="account-sub">Chọn nhóm cấu hình ở cột bên trái. Trên điện thoại, mỗi nhóm mở bằng bảng popup có nút X để đóng.</p>
@@ -3960,14 +3982,14 @@ function renderAccountSetupPanel(){
 
 function accountSetupButtonsHtml(active){
   const items = [
-    ['signature','✍️','Chữ ký'],
-    ['equipment','🧰','Cấu hình trang thiết bị'],
-    ['templates','📄','Mẫu phiếu họp/giao ban'],
-    ['global','🧩','Cấu hình biến toàn cục'],
-    ['variables','📚','Bảng biến mẫu'],
-    ['info','🔗','Thông tin chung']
+    ['signature','signature','Chữ ký'],
+    ['equipment','equipment','Cấu hình trang thiết bị'],
+    ['templates','file','Mẫu phiếu họp/giao ban'],
+    ['global','puzzle','Cấu hình biến toàn cục'],
+    ['variables','book','Bảng biến mẫu'],
+    ['info','link','Thông tin chung']
   ];
-  return `<div class="account-setup-buttons">${items.map(([key,icon,label]) => `<button class="btn ${active === key ? 'primary' : 'secondary'} account-setup-btn" type="button" onclick="openAccountSetupSection('${key}')"><span>${icon}</span> ${esc(label)}</button>`).join('')}</div>`;
+  return `<div class="account-setup-buttons">${items.map(([key,icon,label]) => `<button class="btn ${active === key ? 'primary' : 'secondary'} account-setup-btn" type="button" onclick="openAccountSetupSection('${key}')"><span class="btn-icon">${icon2d(icon)}</span><span class="btn-label">${esc(label)}</span></button>`).join('')}</div>`;
 }
 
 function openAccountSetupSection(section){
@@ -4008,7 +4030,7 @@ function bindAccountPanel(view){
 }
 
 function accountInfoItem(icon, label, value){
-  return `<div class="account-info-row"><div class="account-info-label"><span class="info-ico">${esc(icon || '')}</span>${esc(label)}</div><div class="account-info-value">${esc(value || '')}</div></div>`;
+  return `<div class="account-info-row"><div class="account-info-label"><span class="info-ico">${icon2d(icon)}</span>${esc(label)}</div><div class="account-info-value">${esc(value || '')}</div></div>`;
 }
 
 async function loadAccountInfoSilently(){
@@ -4082,7 +4104,7 @@ function openChangePasswordModal(){
 }
 
 function passwordFieldHtml(id, label, placeholder){
-  return `<div class="col-12"><label>${esc(label)}</label><div class="password-wrap"><input id="${escAttr(id)}" type="password" placeholder="${escAttr(placeholder)}"><button class="password-toggle" type="button" onclick="togglePasswordInput('${escAttr(id)}', this.id)">👁️</button></div></div>`;
+  return `<div class="col-12"><label>${esc(label)}</label><div class="password-wrap"><input id="${escAttr(id)}" type="password" placeholder="${escAttr(placeholder)}"><button class="password-toggle" type="button" onclick="togglePasswordInput('${escAttr(id)}', this)">${icon2d('eye')}</button></div></div>`;
 }
 
 async function saveChangePassword(){
