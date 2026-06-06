@@ -1069,7 +1069,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-98.060626-DINH-DANG-TM-GIAOBAN';
+const APP_VERSION = 'INDEX-99.060626-MUCIII-TM-GIAOBAN-PDF';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -3496,7 +3496,7 @@ function renderGiaoBanModal(){
           <div class="gb-inner-section" style="border-top:1px solid var(--line);padding-top:10px;margin-top:12px">
             ${isTM ? `
               <h3 class="sub-title">III. Xử trí chuyên môn và tác dụng không mong muốn liên quan đến truyền máu</h3>
-              <div class="list-card data-card">${renderTmGiaoBanSummaryCardHtml(state.currentTmPhieus || [])}</div>
+              ${renderTmGiaoBanSummaryCardHtml(state.currentTmPhieus || [])}
               <h3 class="sub-title" style="margin-top:14px">IV. Nội dung giao ban khác</h3>
               <div class="gb-sub-label">1. Kho máu</div>
               ${latestMauTon ? `<div class="kho-auto-note">Tự lấy từ báo cáo trực gần nhất ngày ${dateVi(latestMauTon.sourceDate)}. Có thể sửa lại nếu cần.</div>` : ''}
