@@ -175,6 +175,22 @@
     .tm-equip-table .status{text-align:center;width:70px}
     .tm-equip-table input[type="number"]{min-height:30px;text-align:center;padding:3px 6px}
     .tm-equip-table input[type="text"],.tm-equip-table select{min-height:30px;padding:3px 6px}
+    .tm-equip-table input[type="text"],
+    .tm-equip-table input[type="number"],
+    .tm-equip-table select{
+      border:0!important;
+      background:transparent!important;
+      box-shadow:none!important;
+      border-radius:0!important;
+      outline:none!important;
+      width:100%;
+    }
+    .tm-equip-table input[type="text"]:focus,
+    .tm-equip-table input[type="number"]:focus,
+    .tm-equip-table select:focus{
+      background:#fffdf4!important;
+      box-shadow:inset 0 -1px 0 var(--wine)!important;
+    }
     .tm-equip-table input[type="radio"]{width:18px;min-height:18px;box-shadow:none}
     .tm-equip-table .action{width:72px;text-align:center}
     .tm-equip-table .eq-name-cell{min-width:135px}
@@ -823,6 +839,9 @@
       border-left:1px solid var(--g-line)!important;
     }
 
+    /* ===== PATCH 91: ĐỒNG BỘ BẢNG THIẾT BỊ - KHÔNG KHUNG INPUT, KHÔNG CỘT XÓA ===== */
+    .tm-equip-table .action{display:none!important}
+
 </style>
 </head>
 <body>
@@ -1217,10 +1236,21 @@ async function loadInitData(opts={}){
     renderPdfTab();
     renderAccountTab();
     setDefaultFilters();
+    if(opts.fromLogin){
+      showLoginLoading(88, 'Đang tải danh sách Ký nhận và Họp...');
+      await preloadStartupLists();
+    }
   }catch(err){
     hideLoginLoading();
     toast(err.message);
   }
+}
+
+async function preloadStartupLists(){
+  const tasks = [];
+  if(document.getElementById('phieuListBox')) tasks.push(loadPhieuList(true));
+  if(document.getElementById('giaoBanListBox')) tasks.push(loadGiaoBanList(true));
+  await Promise.allSettled(tasks);
 }
 
 function refreshDatalists(){
@@ -4147,7 +4177,7 @@ function renderEquipmentSettingsSection(){
       <p class="meta">Danh mục này dùng để tự điền mục bàn giao tài sản cho khoa/phòng đang sử dụng. ${isTM ? 'Phòng Truyền máu có danh mục mặc định sẵn.' : 'Các phòng khác hiển thị bảng trống với 2 dòng chờ để tự thêm thiết bị.'}</p>
       <div class="tm-equip-wrap">
         <table class="tm-equip-table">
-          <thead><tr><th rowspan="2">STT</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng mặc định</th><th rowspan="2"></th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead>
+          <thead><tr><th rowspan="2">STT</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng mặc định</th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead>
           <tbody id="tmEquipmentSettingsBody">${rows}</tbody>
         </table>
       </div>
@@ -4508,7 +4538,6 @@ function renderSettingEquipmentRow(it, idx){
       <td class="unit"><input class="setting-eq-unit unit-input" type="text" value="${escAttr(it.unit || '')}" placeholder="Đơn vị"></td>
       <td class="qty"><input class="setting-eq-ok-qty" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(it.okQty ?? '')}"></td>
       <td class="qty"><input class="setting-eq-broken-qty" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(it.brokenQty ?? '')}"></td>
-      <td class="action"><button type="button" class="btn danger" style="min-height:30px;padding:0 10px" onclick="removeSettingTmEquipmentRow(this)">Xóa</button></td>
     </tr>
   `;
 }
