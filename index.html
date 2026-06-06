@@ -1069,7 +1069,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-100.060626-DS-PHIEU-SORT-TM-VIEW';
+const APP_VERSION = 'INDEX-101.070626-TM-VIEW-GACH-DAU-DONG';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -2194,6 +2194,27 @@ function tmDetailLine(label, value){
   return v ? `- ${label}: ${v}` : '';
 }
 
+function tmBulletLine(value){
+  const v = tmTxt(value);
+  return v ? `- ${v}` : '';
+}
+
+function tmDetailBlock(label, childLines){
+  const lines = (Array.isArray(childLines) ? childLines : [childLines]).map(tmTxt).filter(Boolean);
+  if(!lines.length) return '';
+  return `- ${label}:\n${lines.map(x => '  ' + x).join('\n')}`;
+}
+
+function tmBeforeBloodDetailLines(value){
+  if(!value) return [];
+  if(typeof value === 'string') return [value];
+  if(value.chuaTruyen) return ['Chưa truyền'];
+  return (value.items || []).map(it => tmJoinInline([
+    it && it.ten ? it.ten : '',
+    it && it.theTich ? `Thể tích đã truyền: ${it.theTich}` : ''
+  ])).filter(Boolean);
+}
+
 function tmDetailValue(lines){
   return (lines || []).map(tmTxt).filter(Boolean).join('\n');
 }
@@ -2216,16 +2237,16 @@ function renderTmInfoCardHtml(p, actorLabel){
 
 function renderTmXutriDetailHtml(p, d){
   const patientInfo = tmDetailValue([
-    tmJoinInline([
+    tmBulletLine(tmJoinInline([
       p.hoTenBenhNhan || '',
       p.namSinh ? `Năm sinh: ${p.namSinh}` : '',
       d.gioiTinh ? `Giới: ${d.gioiTinh}` : '',
       p.maBenhNhan ? `Mã BN: ${p.maBenhNhan}` : ''
-    ]),
-    tmJoinInline([
+    ])),
+    tmBulletLine(tmJoinInline([
       p.khoaPhongDieuTri ? `Viện/TT/khoa/phòng: ${p.khoaPhongDieuTri}` : '',
       d.giuong ? `Giường: ${d.giuong}` : ''
-    ]),
+    ])),
     tmDetailLine('Chẩn đoán', d.chanDoan)
   ]);
   const xuTriInfo = tmDetailValue([
@@ -2235,10 +2256,10 @@ function renderTmXutriDetailHtml(p, d){
     tmDetailLine('Kết quả xử lý', d.ketQuaXuLy)
   ]);
   const xetNghiemInfo = tmDetailValue([
-    tmJoinInline([
+    tmBulletLine(tmJoinInline([
       d.nhomMauABO ? `Nhóm máu ABO: ${d.nhomMauABO}` : '',
       d.rhD ? `Rh(D): ${d.rhD}` : ''
-    ]),
+    ])),
     tmDetailLine('Sàng lọc kháng thể bất thường', d.khangTheBatThuong),
     tmDetailLine('Các lưu ý khác', d.luuYKhac)
   ]);
@@ -2255,21 +2276,21 @@ function renderTmXutriDetailHtml(p, d){
 
 function renderTmTdkmmDetailHtml(p, d){
   const patientInfo = tmDetailValue([
-    tmJoinInline([
+    tmBulletLine(tmJoinInline([
       p.hoTenBenhNhan || '',
       p.namSinh ? `Năm sinh: ${p.namSinh}` : '',
       d.gioiTinh ? `Giới: ${d.gioiTinh}` : '',
       p.maBenhNhan ? `Mã BN: ${p.maBenhNhan}` : ''
-    ]),
-    tmJoinInline([
+    ])),
+    tmBulletLine(tmJoinInline([
       (d.vienKhoaPhong || p.khoaPhongDieuTri) ? `Viện/TT/khoa/phòng: ${d.vienKhoaPhong || p.khoaPhongDieuTri}` : '',
       d.giuong ? `Giường: ${d.giuong}` : ''
-    ]),
+    ])),
     tmDetailLine('Chẩn đoán', d.chanDoan),
-    tmJoinInline([
+    tmBulletLine(tmJoinInline([
       d.nhomMauABO ? `Nhóm máu ABO: ${d.nhomMauABO}` : '',
       d.rhD ? `Rh(D): ${d.rhD}` : ''
-    ])
+    ]))
   ]);
   const thoiGianTruyen = tmJoinInline([
     d.thoiGianTruyenTu ? `Từ ${d.thoiGianTruyenTu}` : '',
@@ -2277,13 +2298,13 @@ function renderTmTdkmmDetailHtml(p, d){
     d.ngayTruyen ? dateVi(d.ngayTruyen) : ''
   ], ' ');
   const truyenMauInfo = tmDetailValue([
-    tmDetailLine('Loại Máu/Chế phẩm nghi ngờ phản ứng', tmJoinInline([
+    tmDetailBlock('Loại Máu/Chế phẩm nghi ngờ phản ứng', tmJoinInline([
       d.loaiMauChePhamNghiNgo || '',
       d.maDonViMauNghiNgo ? `Mã: ${d.maDonViMauNghiNgo}` : '',
       d.theTichDonViMauDaTruyen ? `Thể tích đã truyền: ${d.theTichDonViMauDaTruyen}` : ''
     ])),
     tmDetailLine('Thời gian truyền', thoiGianTruyen),
-    tmDetailLine('Loại máu đã truyền trước khi phản ứng', formatLoaiMauTruocClient(d.loaiMauDaTruyenTruocPhanUng))
+    tmDetailBlock('Loại máu đã truyền trước khi phản ứng', tmBeforeBloodDetailLines(d.loaiMauDaTruyenTruocPhanUng))
   ]);
   const phanUngInfo = tmDetailValue([
     tmDetailLine('Mức độ phản ứng', d.mucDoPhanUng),
