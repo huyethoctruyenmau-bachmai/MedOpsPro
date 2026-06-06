@@ -597,12 +597,19 @@
     .pdf-modal.protected-view{overflow:hidden}
     .modal-card.protected-view{overflow-y:auto;overflow-x:hidden;max-width:calc(100vw - 16px);box-sizing:border-box;contain:paint}
     .protected-watermark{position:absolute;inset:0;z-index:30;pointer-events:none;opacity:.12;mix-blend-mode:multiply;overflow:hidden}
-    .protected-watermark span{position:absolute;left:50%;top:50%;display:block;width:170vmax;max-width:none;white-space:nowrap;color:#1f2937;font-size:18px;font-weight:700;letter-spacing:.4px;line-height:1.2;text-transform:uppercase;transform:translate(-50%,-50%) rotate(-52deg);transform-origin:center;text-align:center}
+    .protected-watermark span{position:absolute;left:50%;top:var(--wm-top,50%);display:block;width:210vmax;max-width:none;white-space:nowrap;color:#1f2937;font-size:22px;font-weight:800;letter-spacing:.7px;line-height:1.2;text-transform:uppercase;transform:translate(-50%,-50%) rotate(-48deg);transform-origin:center;text-align:center}
+    .protected-watermark span:nth-child(1){--wm-top:12%}
+    .protected-watermark span:nth-child(2){--wm-top:30%}
+    .protected-watermark span:nth-child(3){--wm-top:48%}
+    .protected-watermark span:nth-child(4){--wm-top:66%}
+    .protected-watermark span:nth-child(5){--wm-top:84%}
     .protected-view > .pdf-topbar,.protected-view > .modal-head,.protected-view > .card,.protected-view > h3,.protected-view > div:not(.protected-watermark){position:relative;z-index:2}
     .pdf-frame-wrap{position:relative}
     .pdf-frame-wrap .protected-watermark{display:none}
-    .modal-card.protected-view .protected-watermark{position:fixed;inset:0;width:100vw;height:100dvh;opacity:.10;z-index:100002}
-    .modal-card.protected-view .protected-watermark span{font-size:16px}
+    .modal-card.protected-view .protected-watermark{position:fixed;inset:0;width:100vw;height:100dvh;opacity:.085;z-index:100002}
+    .modal-card.protected-view .protected-watermark span{font-size:24px}
+    .pdf-secure-loading{height:100%;display:grid;place-items:center;background:#f1f2f4}
+    .pdf-secure-loading .loading-dot{font-size:22px}
     .modal-card.protected-view .list-card,
     .modal-card.protected-view .data-card,
     .modal-card.protected-view .phieu-inline,
@@ -619,8 +626,8 @@
       .modal-card{width:calc(100vw - 16px);max-width:calc(100vw - 16px);margin-left:8px;margin-right:8px}
       .full-modal .modal-card{width:100%;max-width:100%;margin:0}
       .modal-card.protected-view{width:calc(100vw - 16px);max-width:calc(100vw - 16px);overflow-x:hidden}
-      .modal-card.protected-view .protected-watermark{inset:0;width:100vw;height:100dvh;opacity:.10}
-      .modal-card.protected-view .protected-watermark span{font-size:13px;width:190vmax;transform:translate(-50%,-50%) rotate(-52deg)}
+      .modal-card.protected-view .protected-watermark{inset:0;width:100vw;height:100dvh;opacity:.09}
+      .modal-card.protected-view .protected-watermark span{font-size:18px;width:230vmax;transform:translate(-50%,-50%) rotate(-48deg)}
     }
     .pdf-download-btn{border:0;background:transparent}
     .secure-blackout{position:fixed;inset:0;z-index:999999;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-weight:800;font-size:18px;letter-spacing:.2px}
@@ -1054,7 +1061,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-113.070626-PDF-ANH-WATERMARK-KHO-XOA</p>
+      <p class="login-version">Version: INDEX-114.070626-PDF-LOADING-AN-WM-CHI-TIET</p>
     </div>
   </div>
 
@@ -1098,7 +1105,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-113.070626-PDF-ANH-WATERMARK-KHO-XOA</div>
+    <div class="app-version">Version: INDEX-114.070626-PDF-LOADING-AN-WM-CHI-TIET</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -1107,7 +1114,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-113.070626-PDF-ANH-WATERMARK-KHO-XOA';
+const APP_VERSION = 'INDEX-114.070626-PDF-LOADING-AN-WM-CHI-TIET';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -5592,14 +5599,19 @@ function watermarkText(){
   return who + ' - ' + dateTimeVi(hanoiNowIso());
 }
 
-function watermarkLayerHtml(){
+function watermarkLayerInnerHtml(){
   const text = esc(watermarkText());
-  return `<div class="protected-watermark" aria-hidden="true"><span>${text}</span></div>`;
+  const line = Array(3).fill(text).join('     •     ');
+  return Array.from({length:5}, () => `<span>${line}</span>`).join('');
+}
+
+function watermarkLayerHtml(){
+  return `<div class="protected-watermark" aria-hidden="true">${watermarkLayerInnerHtml()}</div>`;
 }
 
 function refreshProtectedWatermarks(){
   document.querySelectorAll('.protected-watermark').forEach(layer => {
-    layer.innerHTML = `<span>${esc(watermarkText())}</span>`;
+    layer.innerHTML = watermarkLayerInnerHtml();
   });
 }
 
@@ -5873,7 +5885,7 @@ function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=fals
   setViewportForPdf(true);
   setupScreenProtection();
   const content = loading
-    ? `<div class="empty" style="margin:16px"><span class="loading-dot"></span>${esc(message || 'Đang đóng watermark vào PDF...')}</div>`
+    ? `<div class="pdf-secure-loading" aria-label="${escAttr(message || 'Đang xử lý PDF bảo mật')}"><span class="loading-dot"></span></div>`
     : `<iframe class="pdf-frame" src="${escAttr(frameSrc || '')}" allow="autoplay; fullscreen"></iframe>`;
   openModal(`
     <div class="pdf-modal protected-view" style="position:absolute!important;inset:0!important;width:100vw!important;height:100dvh!important;margin:0!important;z-index:100001!important;">
@@ -5898,15 +5910,11 @@ function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=fals
 window.openGiaoBanPdf = async function(url, title='PDF giao ban'){
   if(!url) return toast('Không có link PDF.');
   revokeCurrentPdfObjectUrl();
-  renderPdfModal({url, title, loading:true, message:'Đang chuyển PDF thành ảnh và đóng watermark bảo mật...'});
+  renderPdfModal({url, title, loading:true, message:'Đang xử lý PDF bảo mật'});
   try{
     const res = await api('getPdfFileBase64', {url}, {timeoutMs:180000});
     const pdf = res.data || {};
-    const watermarkedBytes = await buildWatermarkedPdfBytesFromBase64(pdf.base64 || '', (page, total) => {
-      const msg = `Đang xử lý trang ${page}/${total} để đóng watermark bảo mật...`;
-      const box = document.querySelector('.pdf-frame-wrap .empty');
-      if(box) box.innerHTML = '<span class="loading-dot"></span>' + esc(msg);
-    });
+    const watermarkedBytes = await buildWatermarkedPdfBytesFromBase64(pdf.base64 || '', () => {});
     const objectUrl = blobUrlFromBytes(watermarkedBytes, 'application/pdf');
     state.currentPdfObjectUrl = objectUrl;
     state.currentPdfWatermarkedBytes = watermarkedBytes;
