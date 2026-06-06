@@ -3434,12 +3434,61 @@ window.saveGiaoBanDraft = async function(btn){
   try{ await task(); }catch(err){ toast(err.message); }
 }
 
+
+function sameEmployeeCode(a, b){
+  const sa = String(a || '').trim();
+  const sb = String(b || '').trim();
+  if(sa === sb) return true;
+  const na = parseInt(sa, 10);
+  const nb = parseInt(sb, 10);
+  return !Number.isNaN(na) && !Number.isNaN(nb) && na === nb;
+}
+
+function getSelectedChairForSigning(){
+  const g = state.currentGiaoBan || {};
+  return resolveChairFromInput($('#gbChuTriInput')?.value || g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '');
+}
+
+async function handleChairSystemSignatureMismatch(btn){
+  const chair = getSelectedChairForSigning();
+  const chairMa = String(chair.maNhanVien || '').trim();
+  const userMa = String(state.user?.maNhanVien || '').trim();
+  let message = '';
+  if(!chairMa){
+    message = 'Chủ trì đang chọn/nhập không có mã nhân viên trong danh sách nhân sự nên không thể ký xác nhận trên hệ thống. Vui lòng chuyển sang ký tay trực tiếp trên màn hình.';
+  }else{
+    message = `Mã nhân viên của chủ trì được chọn (${chairMa}) không khớp với tài khoản đang đăng nhập (${userMa || 'chưa xác định'}). Không cho ký xác nhận trên hệ thống. Vui lòng chuyển sang ký tay trực tiếp trên màn hình.`;
+  }
+  const ok = await showConfirmDialog({
+    title:'Không thể ký trên hệ thống',
+    message,
+    confirmText:'Ký tay',
+    cancelText:'Đóng',
+    danger:false
+  });
+  if(ok){
+    const sel = $('#gbHinhThucKyChuTri') || $('#gbHinhThucKyChuTriSingle');
+    if(sel) sel.value = HINH_THUC_KY_TAY;
+    openFullSignatureForRole('chuTri', btn);
+  }
+  return false;
+}
+
+async function canChairSignBySystem(btn){
+  const chair = getSelectedChairForSigning();
+  const chairMa = String(chair.maNhanVien || '').trim();
+  const userMa = String(state.user?.maNhanVien || '').trim();
+  if(!chairMa || !sameEmployeeCode(chairMa, userMa)) return handleChairSystemSignatureMismatch(btn);
+  return true;
+}
+
 window.finishGiaoBan = async function(btn){
   const mode = getSelectedHinhThucKy('chuTri');
   if(mode === HINH_THUC_KY_TAY){
     openFullSignatureForRole('chuTri', btn);
     return;
   }
+  if(!await canChairSignBySystem(btn)) return;
   const ok = await showConfirmDialog({
     title:'Xác nhận kết thúc giao ban',
     message:'Sau khi xác nhận, phiên giao ban sẽ hoàn thành và hệ thống sẽ xuất PDF giao ban. Với giao ban thường trực, các báo cáo được gộp sẽ bị khóa.\nBạn xác nhận ký kết thúc giao ban?',
@@ -3487,6 +3536,7 @@ async function submitChuTriSignature(btn, systemSign){
   const task = async () => {
     const payload = collectGiaoBanPayload();
     const mode = systemSign ? HINH_THUC_KY_HE_THONG : getSelectedHinhThucKy('chuTri');
+    if(mode === HINH_THUC_KY_HE_THONG && !await canChairSignBySystem(btn)) return;
     payload.hinhThucKy = mode;
     payload.hinhThucKyChuTri = mode;
     if(mode === HINH_THUC_KY_TAY) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
