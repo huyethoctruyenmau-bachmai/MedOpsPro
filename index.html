@@ -935,6 +935,26 @@
     }
 
 
+
+    /* FIX INDEX-98: tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    #tab-account .account-menu-btn:not(.active):hover,
+    #tab-account .account-setup-btn:not(.active):hover{
+      background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
+      color:var(--wine-dark)!important;
+      border-color:var(--line)!important;
+      opacity:1!important;
+      box-shadow:0 1px 2px rgba(60,64,67,.18)!important;
+    }
+    #tab-account .account-menu-btn:not(.active):hover .icon2d,
+    #tab-account .account-setup-btn:not(.active):hover .icon2d{
+      stroke:currentColor!important;
+    }
+    #tab-account .account-menu-btn.active:hover,
+    #tab-account .account-setup-btn.active:hover{
+      background:var(--g-blue-hover)!important;
+      color:#fff!important;
+      opacity:1!important;
+    }
 </style>
 </head>
 <body>
