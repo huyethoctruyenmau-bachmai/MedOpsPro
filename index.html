@@ -593,6 +593,15 @@
     .pdf-frame{
       width:100%;height:100%;border:0;display:block;background:#fff;
     }
+    .pdf-pages{
+      height:100%;overflow:auto;background:#e5e7eb;padding:10px;
+      display:flex;flex-direction:column;align-items:center;gap:10px;
+      -webkit-overflow-scrolling:touch;box-sizing:border-box;
+    }
+    .pdf-page-img{
+      display:block;width:100%;max-width:980px;height:auto;background:#fff;
+      box-shadow:0 1px 8px rgba(15,23,42,.18);border-radius:2px;
+    }
     .protected-view{position:relative;user-select:none;-webkit-user-select:none}
     .pdf-modal.protected-view{overflow:hidden}
     .modal-card.protected-view{overflow-y:auto;overflow-x:hidden;max-width:calc(100vw - 16px);box-sizing:border-box;contain:paint}
@@ -603,8 +612,10 @@
     .pdf-frame-wrap .protected-watermark{display:none}
     .modal-card.protected-view .protected-watermark{position:fixed;inset:0;width:100vw;height:100dvh;opacity:.14;z-index:100002}
     .modal-card.protected-view .protected-watermark span{position:fixed;left:var(--wm-left,12px);bottom:var(--wm-bottom,20px);top:auto;font-size:30px;font-weight:400;width:var(--wm-width,1000px);transform:rotate(-62deg);transform-origin:left center}
-    .pdf-secure-loading{height:100%;display:grid;place-items:center;background:#f1f2f4}
-    .pdf-secure-loading .loading-dot{font-size:22px}
+    .pdf-secure-loading{height:100%;display:grid;place-items:center;background:#f1f2f4;color:var(--muted)}
+    .pdf-loading-box{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:16px 18px;border:1px dashed #dec0cc;border-radius:18px;background:#fff;font-weight:700;text-align:center}
+    .pdf-secure-loading .loading-dot{width:20px;height:20px;border-color:#ead0da;border-top-color:var(--wine);flex:0 0 auto}
+    .pdf-loading-text{font-size:15px;line-height:1.35}
     .modal-card.protected-view .list-card,
     .modal-card.protected-view .data-card,
     .modal-card.protected-view .phieu-inline,
@@ -632,6 +643,9 @@
       .pdf-topbar{height:42px;min-height:42px}
       .pdf-title{font-size:13px}
       .pdf-icon-btn{width:36px;height:36px}
+      .pdf-pages{padding:0;gap:8px;background:#dfe2e6;align-items:stretch}
+      .pdf-page-img{width:100%;max-width:100%;box-shadow:none;border-radius:0}
+      .pdf-loading-box{margin:12px;font-size:14px}
     }
 
 
@@ -1056,7 +1070,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-117.070626-CHI-TIET-WATERMARK-CHEO-GOC-TRAI</p>
+      <p class="login-version">Version: INDEX-118.070626-MOBILE-PDF-FIT-LOADING</p>
     </div>
   </div>
 
@@ -1100,7 +1114,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-117.070626-CHI-TIET-WATERMARK-CHEO-GOC-TRAI</div>
+    <div class="app-version">Version: INDEX-118.070626-MOBILE-PDF-FIT-LOADING</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -1109,7 +1123,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-117.070626-CHI-TIET-WATERMARK-CHEO-GOC-TRAI';
+const APP_VERSION = 'INDEX-118.070626-MOBILE-PDF-FIT-LOADING';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -5712,6 +5726,7 @@ function revokeCurrentPdfObjectUrl(){
   state.currentPdfWatermarkedBytes = null;
   state.currentPdfWatermarkedTitle = '';
   state.currentPdfWatermarkedUrl = '';
+  state.currentPdfPreviewImages = [];
 }
 
 function closePdfViewer(){
@@ -5772,6 +5787,21 @@ function triggerPdfDownload(bytes, fileName){
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+function isMobilePdfViewer(){
+  return !!(window.matchMedia && window.matchMedia('(max-width: 760px)').matches);
+}
+
+function setPdfLoadingMessage(message){
+  const el = document.getElementById('pdfLoadingText');
+  if(el) el.textContent = message || 'Đang mở PDF...';
+}
+
+function pdfPageImagesHtml(pageImages){
+  const imgs = Array.isArray(pageImages) ? pageImages : [];
+  if(!imgs.length) return '';
+  return `<div class="pdf-pages" aria-label="Nội dung PDF">${imgs.map((p, i) => `<img class="pdf-page-img" src="${escAttr(p.dataUrl || p)}" alt="Trang ${i + 1}" loading="eager" decoding="async">`).join('')}</div>`;
 }
 
 async function ensurePdfLibLoaded(){
@@ -5853,7 +5883,7 @@ function drawRasterWatermark_(ctx, canvas, text){
   ctx.restore();
 }
 
-async function buildWatermarkedPdfBytesFromBase64(base64, onProgress){
+async function buildWatermarkedPdfBytesFromBase64(base64, onProgress, options){
   const PDFLib = await ensurePdfLibLoaded();
   const pdfjsLib = await ensurePdfJsLoaded();
   const srcBytes = base64ToUint8Array(base64);
@@ -5862,6 +5892,7 @@ async function buildWatermarkedPdfBytesFromBase64(base64, onProgress){
   const outPdf = await PDFLib.PDFDocument.create();
   const scale = pdfRasterScale();
   const wmText = watermarkText();
+  const pageImages = options && Array.isArray(options.pageImages) ? options.pageImages : null;
 
   for(let pageNo = 1; pageNo <= srcPdf.numPages; pageNo++){
     if(typeof onProgress === 'function') onProgress(pageNo, srcPdf.numPages);
@@ -5880,6 +5911,7 @@ async function buildWatermarkedPdfBytesFromBase64(base64, onProgress){
     drawRasterWatermark_(ctx, canvas, wmText);
 
     const jpgDataUrl = canvas.toDataURL('image/jpeg', 0.88);
+    if(pageImages) pageImages.push({dataUrl: jpgDataUrl, width: baseViewport.width, height: baseViewport.height});
     const jpgBytes = dataUrlToBytes(jpgDataUrl);
     const jpg = await outPdf.embedJpg(jpgBytes);
     const outPage = outPdf.addPage([baseViewport.width, baseViewport.height]);
@@ -5892,12 +5924,17 @@ async function buildWatermarkedPdfBytesFromBase64(base64, onProgress){
   return await outPdf.save({useObjectStreams:true});
 }
 
-function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=false, message=''}){
+function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=false, message='', pageImages=null}){
   setViewportForPdf(true);
   setupScreenProtection();
-  const content = loading
-    ? `<div class="pdf-secure-loading" aria-label="${escAttr(message || 'Đang xử lý PDF bảo mật')}"><span class="loading-dot"></span></div>`
-    : `<iframe class="pdf-frame" src="${escAttr(frameSrc || '')}" allow="autoplay; fullscreen"></iframe>`;
+  let content = '';
+  if(loading){
+    content = `<div class="pdf-secure-loading" aria-label="${escAttr(message || 'Đang mở PDF...')}"><div class="pdf-loading-box"><span class="loading-dot"></span><span class="pdf-loading-text" id="pdfLoadingText">${esc(message || 'Đang mở PDF...')}</span></div></div>`;
+  }else if(Array.isArray(pageImages) && pageImages.length && isMobilePdfViewer()){
+    content = pdfPageImagesHtml(pageImages);
+  }else{
+    content = `<iframe class="pdf-frame" src="${escAttr(frameSrc || '')}" allow="autoplay; fullscreen"></iframe>`;
+  }
   openModal(`
     <div class="pdf-modal protected-view" style="position:absolute!important;inset:0!important;width:100vw!important;height:100dvh!important;margin:0!important;z-index:100001!important;">
       <div class="pdf-topbar">
@@ -5921,17 +5958,21 @@ function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=fals
 window.openGiaoBanPdf = async function(url, title='PDF giao ban'){
   if(!url) return toast('Không có link PDF.');
   revokeCurrentPdfObjectUrl();
-  renderPdfModal({url, title, loading:true, message:'Đang xử lý PDF bảo mật'});
+  renderPdfModal({url, title, loading:true, message:'Đang mở PDF...'});
   try{
     const res = await api('getPdfFileBase64', {url}, {timeoutMs:180000});
     const pdf = res.data || {};
-    const watermarkedBytes = await buildWatermarkedPdfBytesFromBase64(pdf.base64 || '', () => {});
+    const pageImages = [];
+    const watermarkedBytes = await buildWatermarkedPdfBytesFromBase64(pdf.base64 || '', (pageNo, total) => {
+      setPdfLoadingMessage(total > 1 ? `Đang mở PDF... Trang ${pageNo}/${total}` : 'Đang mở PDF...');
+    }, {pageImages});
     const objectUrl = blobUrlFromBytes(watermarkedBytes, 'application/pdf');
     state.currentPdfObjectUrl = objectUrl;
     state.currentPdfWatermarkedBytes = watermarkedBytes;
     state.currentPdfWatermarkedTitle = title || pdf.name || 'PDF giao ban';
     state.currentPdfWatermarkedUrl = url;
-    renderPdfModal({url, frameSrc: objectUrl, title: state.currentPdfWatermarkedTitle});
+    state.currentPdfPreviewImages = pageImages;
+    renderPdfModal({url, frameSrc: objectUrl, title: state.currentPdfWatermarkedTitle, pageImages});
   }catch(err){
     revokeCurrentPdfObjectUrl();
     renderPdfModal({url:'', title, loading:true, message:'Không tạo được PDF có watermark. Vui lòng kiểm tra mạng hoặc tải lại app.'});
