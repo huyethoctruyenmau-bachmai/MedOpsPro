@@ -208,7 +208,7 @@
     .tm-equip-table .unit-input{min-width:72px;text-align:center}
     .manual-eq-inline{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center}
     .manual-eq-inline .btn{min-height:30px;padding:0 10px}
-    .tm-doc-view{white-space:pre-wrap;font-size:15px;line-height:1.65;color:var(--text);font-family:inherit}.tm-doc-view strong{font-weight:700}.tm-view-table{min-width:420px;table-layout:fixed;font-size:13.5px}.tm-view-table th:nth-child(1),.tm-view-table td:nth-child(1){width:40px}.tm-view-table th:nth-child(2),.tm-view-table td:nth-child(2){width:170px;max-width:170px}.tm-view-table th:nth-child(3),.tm-view-table td:nth-child(3),.tm-view-table th:nth-child(4),.tm-view-table td:nth-child(4),.tm-view-table th:nth-child(5),.tm-view-table td:nth-child(5){width:70px;text-align:center}.phieu-inline .field-value.has-table{white-space:normal}.phieu-inline .field-value.has-table .tm-equip-wrap{margin:0}
+    .tm-doc-view{white-space:pre-wrap;font-size:15px;line-height:1.65;color:var(--text);font-family:inherit}.tm-doc-view strong{font-weight:700}.tm-detail-card .field-name{font-weight:700;color:var(--muted)}.tm-detail-card .field-value{font-size:14px;line-height:1.45;white-space:pre-wrap}.tm-detail-card .tm-major-field .field-name{color:var(--wine-dark);font-weight:700;font-style:italic}.tm-view-table{min-width:420px;table-layout:fixed;font-size:13.5px}.tm-view-table th:nth-child(1),.tm-view-table td:nth-child(1){width:40px}.tm-view-table th:nth-child(2),.tm-view-table td:nth-child(2){width:170px;max-width:170px}.tm-view-table th:nth-child(3),.tm-view-table td:nth-child(3),.tm-view-table th:nth-child(4),.tm-view-table td:nth-child(4),.tm-view-table th:nth-child(5),.tm-view-table td:nth-child(5){width:70px;text-align:center}.phieu-inline .field-value.has-table{white-space:normal}.phieu-inline .field-value.has-table .tm-equip-wrap{margin:0}
     .locked-chip{padding-right:10px}
     .modal{
       position:fixed;inset:0;z-index:50;background:rgba(24,4,12,.56);display:flex;align-items:flex-start;justify-content:center;padding-top:8px;
@@ -1069,7 +1069,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-99.060626-MUCIII-TM-GIAOBAN-PDF';
+const APP_VERSION = 'INDEX-100.060626-DS-PHIEU-SORT-TM-VIEW';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -2189,32 +2189,130 @@ function tmDateTimeText(value){
 function tmPatientNo(index){ return `· Bệnh nhân ${index + 1}`; }
 function tmLine(label, value){ const v = tmTxt(value); return v ? `- ${label}: ${v}` : ''; }
 
-function renderTmDocHtml(text){
-  return `<div class="list-card data-card tm-doc-view">${esc(text || '')}</div>`;
+function tmDetailLine(label, value){
+  const v = tmTxt(value);
+  return v ? `- ${label}: ${v}` : '';
+}
+
+function tmDetailValue(lines){
+  return (lines || []).map(tmTxt).filter(Boolean).join('\n');
+}
+
+function tmFieldHtml(label, value, extraClass=''){
+  const v = tmTxt(value);
+  if(!v) return '';
+  return `<div class="field-row ${extraClass}"><span class="field-name">${esc(label)}</span><div class="field-value">${esc(v)}</div></div>`;
+}
+
+function renderTmInfoCardHtml(p, actorLabel){
+  return `
+    <h3 class="sub-title">I. Thông tin phiếu</h3>
+    <div class="list-card data-card tm-detail-card">
+      ${tmFieldHtml('Ngày', tmDateTimeText(p.ngaySuKien))}
+      ${tmFieldHtml(actorLabel, p.nguoiTaoTen)}
+    </div>
+  `;
 }
 
 function renderTmXutriDetailHtml(p, d){
-  const text = [
-    'I. Thông tin phiếu',
-    tmLine('Ngày', tmDateTimeText(p.ngaySuKien)),
-    tmLine('Người thực hiện', p.nguoiTaoTen),
-    '',
-    'II. Khai báo xử trí chuyên môn Truyền máu',
-    tmXuTriGiaoBanLines([p], false)
-  ].filter(x => x !== null && x !== undefined).join('\n').replace(/\n{3,}/g, '\n\n');
-  return renderTmDocHtml(text);
+  const patientInfo = tmDetailValue([
+    tmJoinInline([
+      p.hoTenBenhNhan || '',
+      p.namSinh ? `Năm sinh: ${p.namSinh}` : '',
+      d.gioiTinh ? `Giới: ${d.gioiTinh}` : '',
+      p.maBenhNhan ? `Mã BN: ${p.maBenhNhan}` : ''
+    ]),
+    tmJoinInline([
+      p.khoaPhongDieuTri ? `Viện/TT/khoa/phòng: ${p.khoaPhongDieuTri}` : '',
+      d.giuong ? `Giường: ${d.giuong}` : ''
+    ]),
+    tmDetailLine('Chẩn đoán', d.chanDoan)
+  ]);
+  const xuTriInfo = tmDetailValue([
+    tmDetailLine('Vấn đề cần xử trí', d.vanDeCanXuTri),
+    tmDetailLine('Các vấn đề khác', d.vanDeKhac),
+    tmDetailLine('Cách xử lý', d.cachXuLy),
+    tmDetailLine('Kết quả xử lý', d.ketQuaXuLy)
+  ]);
+  const xetNghiemInfo = tmDetailValue([
+    tmJoinInline([
+      d.nhomMauABO ? `Nhóm máu ABO: ${d.nhomMauABO}` : '',
+      d.rhD ? `Rh(D): ${d.rhD}` : ''
+    ]),
+    tmDetailLine('Sàng lọc kháng thể bất thường', d.khangTheBatThuong),
+    tmDetailLine('Các lưu ý khác', d.luuYKhac)
+  ]);
+  return `
+    ${renderTmInfoCardHtml(p, 'Người thực hiện')}
+    <h3 class="sub-title">II. Khai báo xử trí chuyên môn Truyền máu</h3>
+    <div class="list-card data-card tm-detail-card">
+      ${tmFieldHtml('1.1. Thông tin người bệnh', patientInfo, 'tm-major-field')}
+      ${tmFieldHtml('1.2. Nội dung xử trí', xuTriInfo, 'tm-major-field')}
+      ${tmFieldHtml('1.3. Thông tin nhóm máu/xét nghiệm liên quan', xetNghiemInfo, 'tm-major-field')}
+    </div>
+  `;
 }
 
 function renderTmTdkmmDetailHtml(p, d){
-  const text = [
-    'I. Thông tin phiếu',
-    tmLine('Ngày', tmDateTimeText(p.ngaySuKien)),
-    tmLine('Người báo cáo', p.nguoiTaoTen),
-    '',
-    'II. Tác dụng không mong muốn liên quan đến truyền máu',
-    tmTdkmmGiaoBanLines([p], false)
-  ].filter(x => x !== null && x !== undefined).join('\n').replace(/\n{3,}/g, '\n\n');
-  return renderTmDocHtml(text);
+  const patientInfo = tmDetailValue([
+    tmJoinInline([
+      p.hoTenBenhNhan || '',
+      p.namSinh ? `Năm sinh: ${p.namSinh}` : '',
+      d.gioiTinh ? `Giới: ${d.gioiTinh}` : '',
+      p.maBenhNhan ? `Mã BN: ${p.maBenhNhan}` : ''
+    ]),
+    tmJoinInline([
+      (d.vienKhoaPhong || p.khoaPhongDieuTri) ? `Viện/TT/khoa/phòng: ${d.vienKhoaPhong || p.khoaPhongDieuTri}` : '',
+      d.giuong ? `Giường: ${d.giuong}` : ''
+    ]),
+    tmDetailLine('Chẩn đoán', d.chanDoan),
+    tmJoinInline([
+      d.nhomMauABO ? `Nhóm máu ABO: ${d.nhomMauABO}` : '',
+      d.rhD ? `Rh(D): ${d.rhD}` : ''
+    ])
+  ]);
+  const thoiGianTruyen = tmJoinInline([
+    d.thoiGianTruyenTu ? `Từ ${d.thoiGianTruyenTu}` : '',
+    d.thoiGianTruyenDen ? `đến ${d.thoiGianTruyenDen}` : '',
+    d.ngayTruyen ? dateVi(d.ngayTruyen) : ''
+  ], ' ');
+  const truyenMauInfo = tmDetailValue([
+    tmDetailLine('Loại Máu/Chế phẩm nghi ngờ phản ứng', tmJoinInline([
+      d.loaiMauChePhamNghiNgo || '',
+      d.maDonViMauNghiNgo ? `Mã: ${d.maDonViMauNghiNgo}` : '',
+      d.theTichDonViMauDaTruyen ? `Thể tích đã truyền: ${d.theTichDonViMauDaTruyen}` : ''
+    ])),
+    tmDetailLine('Thời gian truyền', thoiGianTruyen),
+    tmDetailLine('Loại máu đã truyền trước khi phản ứng', formatLoaiMauTruocClient(d.loaiMauDaTruyenTruocPhanUng))
+  ]);
+  const phanUngInfo = tmDetailValue([
+    tmDetailLine('Mức độ phản ứng', d.mucDoPhanUng),
+    tmDetailLine('Triệu chứng', d.trieuChung),
+    tmDetailLine('Ghi chú', d.ghiChu)
+  ]);
+  const truocTruyen = tmDetailValue([
+    tmDetailLine('Phản ứng hòa hợp', d.phanUngHoaHopTruoc),
+    tmDetailLine('Coombs TT', d.coombsTTTruoc),
+    tmDetailLine('Coombs GT', d.coombsGTTruoc),
+    tmDetailLine('SLKTBT', d.slktTruoc)
+  ]);
+  const sauTruyen = tmDetailValue([
+    tmDetailLine('Phản ứng hòa hợp', d.phanUngHoaHopSau),
+    tmDetailLine('Coombs TT', d.coombsTTSau),
+    tmDetailLine('Coombs GT', d.coombsGTSau),
+    tmDetailLine('SLKTBT', d.slktbtSau)
+  ]);
+  return `
+    ${renderTmInfoCardHtml(p, 'Người báo cáo')}
+    <h3 class="sub-title">II. Tác dụng không mong muốn liên quan đến truyền máu</h3>
+    <div class="list-card data-card tm-detail-card">
+      ${tmFieldHtml('2.1. Thông tin người bệnh', patientInfo, 'tm-major-field')}
+      ${tmFieldHtml('2.2. Thông tin truyền máu', truyenMauInfo, 'tm-major-field')}
+      ${tmFieldHtml('2.3. Mô tả phản ứng', phanUngInfo, 'tm-major-field')}
+      ${tmFieldHtml('2.4. Xét nghiệm trước truyền', truocTruyen, 'tm-major-field')}
+      ${tmFieldHtml('2.5. Xét nghiệm sau truyền', sauTruyen, 'tm-major-field')}
+    </div>
+  `;
 }
 
 function getTmGiaoBanGroups(items){
@@ -4264,7 +4362,7 @@ async function loadDsPhieuList(){
   const payload = getDsPhieuFilters();
   try{
     const res = await api('searchHoSo', payload);
-    const items = res.data.items || [];
+    const items = sortDsPhieuByCreatedDesc(res.data.items || []);
     if(!items.length){ box.innerHTML = `<div class="empty">Không có phiếu phù hợp.</div>`; return; }
     const exportBtn = isTmPhieuLoai(payload.loaiHoSo) ? `<button class="btn secondary" onclick="exportTmExcel(this)">Xuất Excel danh sách BN</button>` : '';
     box.innerHTML = `<div class="ds-toolbar"><p class="meta">Tổng: ${items.length} phiếu</p>${exportBtn}</div>` + items.map(renderDsPhieuCard).join('');
@@ -4280,6 +4378,17 @@ function getDsPhieuFilters(){
     trangThai: $('#pdfStatus')?.value || 'Tất cả',
     keyword: $('#pdfKeyword')?.value || ''
   };
+}
+
+function sortDsPhieuByCreatedDesc(items){
+  return (items || []).slice().sort((a,b) => {
+    const ca = String(a.createdAt || a.thoiDiemTao || a.thoiDiemLuuNhap || a.date || '');
+    const cb = String(b.createdAt || b.thoiDiemTao || b.thoiDiemLuuNhap || b.date || '');
+    if(ca !== cb) return cb.localeCompare(ca);
+    const da = String(a.date || '');
+    const db = String(b.date || '');
+    return db.localeCompare(da);
+  });
 }
 
 function renderDsPhieuCard(x){
