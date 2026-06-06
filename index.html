@@ -112,7 +112,7 @@
     .section-title{font-size:20px;font-weight:700;color:var(--wine-dark);margin:0 0 10px}
     .sub-title{font-size:18px;font-weight:700;color:var(--wine);margin:12px 0 8px}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}
-    .col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}
+    .col-12{grid-column:span 12}.col-9{grid-column:span 9}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}.col-2{grid-column:span 2}
     label{display:block;font-weight:500;font-size:14.5px;line-height:18px;margin:0 0 5px;color:var(--g-muted)}
     input,select,textarea{
       width:100%;border:1px solid var(--g-line);background:var(--g-field-bg);color:var(--g-text);border-radius:4px;
@@ -958,15 +958,23 @@
 
     /* ===== PATCH 95: PHIẾU CHUYÊN MÔN TRUYỀN MÁU + DS PHIẾU ===== */
     .tm-form-note{font-size:13px;color:var(--muted);margin:6px 0 0;line-height:1.45}
-    .tm-form-row-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(160px,240px);gap:10px;align-items:end}
-    .tm-blood-options{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;margin-top:6px}
-    .tm-blood-row{display:grid;grid-template-columns:24px minmax(0,1fr) minmax(130px,190px);gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed #f1dce6}
+    .tm-radio-stack{display:flex;flex-direction:column;gap:8px;margin:6px 0 8px}
+    .tm-radio-stack label{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--g-text);line-height:1.35}
+    .tm-radio-stack input[type="checkbox"],.tm-radio-stack input[type="radio"]{width:18px;min-height:18px;box-shadow:none}
+    .tm-form-row-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(160px,240px);gap:10px;align-items:end;max-width:100%;min-width:0}
+    .tm-form-row-2 > div,.tm-tdkmm-form .grid > div{min-width:0}
+    .tm-blood-options{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;margin-top:6px;max-width:100%;min-width:0;overflow:hidden}
+    .tm-blood-header,.tm-blood-row{display:grid;grid-template-columns:24px minmax(0,1fr) minmax(110px,170px);gap:8px;align-items:center}
+    .tm-blood-header{font-size:12.5px;font-weight:700;color:var(--wine-dark);padding:0 0 6px;border-bottom:1px solid var(--line);margin-bottom:2px}
+    .tm-blood-row{padding:6px 0;border-bottom:1px dashed #f1dce6}
     .tm-blood-row:last-child{border-bottom:0}
+    .tm-blood-row span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .tm-blood-row input[type="checkbox"]{width:18px;min-height:18px;box-shadow:none}
-    .tm-blood-row input[type="text"]{min-height:34px;padding:5px 8px}
+    .tm-blood-row input[type="text"]{min-height:34px;padding:5px 8px;min-width:0;width:100%}
     .ds-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;flex-wrap:wrap}
     .ds-toolbar .meta{margin:0}
-    @media (max-width:760px){.tm-form-row-2{grid-template-columns:1fr}.tm-blood-row{grid-template-columns:24px minmax(0,1fr);}.tm-blood-row input[type="text"]{grid-column:2 / -1}}
+    @media (max-width:760px){.tm-tdkmm-form{max-width:100%;overflow:hidden}.tm-form-row-2{grid-template-columns:1fr}.tm-blood-header,.tm-blood-row{grid-template-columns:22px minmax(0,1fr) minmax(86px,108px);gap:6px}.tm-blood-row span{font-size:13.5px}.tm-blood-row input[type="text"]{font-size:13.5px;padding:5px 6px}.tm-blood-options{padding:8px}}
+    @media (max-width:560px){.tm-tdkmm-form .tdk-half{grid-column:span 6!important}.tm-tdkmm-form .tdk-main{grid-column:span 9!important}.tm-tdkmm-form .tdk-small{grid-column:span 3!important}}
 
 </style>
 </head>
@@ -1061,7 +1069,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-95.060626-TM-PHIEU-DS-PHIEU';
+const APP_VERSION = 'INDEX-96.060626-FIX-TM-FORM-MOBILE';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -1941,7 +1949,7 @@ function renderTmPhieuCreateForm(loai){
   if(!box) return;
   box.innerHTML = renderTmPhieuFormHtml(loai, {}, 'tmCreate') + `
     <div class="btn-row"><button id="createTmBtn" class="btn primary">Tạo phiếu</button></div>
-    <p class="meta">Người thực hiện/người báo cáo được lấy tự động từ tài khoản đang đăng nhập.</p>`;
+    <p class="meta">Thông tin người tạo phiếu được lấy tự động từ tài khoản đang đăng nhập.</p>`;
   $('#createTmBtn').addEventListener('click', submitCreatePhieu);
   bindTmPhieuFormEvents('tmCreate', loai);
   setTimeout(() => $$('textarea').forEach(autoGrow), 0);
@@ -1959,7 +1967,7 @@ function renderTmXuTriFormHtml(d={}, prefix='tmCreate'){
   const rh = appSetupList('rhD', ['Dương','Âm','Yếu','Chưa xác định']);
   return `
     <h3 class="section-title">II. Khai báo xử trí chuyên môn Truyền máu</h3>
-    <h3 class="sub-title">A. Thông tin người bệnh</h3>
+    <h3 class="sub-title">1. Thông tin người bệnh</h3>
     <div class="grid">
       <div class="col-3"><label>PID</label><input id="${prefix}Pid" class="equal-control" value="${escAttr(d.maBenhNhan || d.pid || '')}"></div>
       <div class="col-3"><label>Họ tên bệnh nhân</label><input id="${prefix}HoTen" class="equal-control" value="${escAttr(d.hoTenBenhNhan || d.hoTen || '')}"></div>
@@ -1967,22 +1975,20 @@ function renderTmXuTriFormHtml(d={}, prefix='tmCreate'){
       <div class="col-3"><label>TT/Khoa/Phòng</label><input id="${prefix}KhoaDieuTri" class="equal-control" value="${escAttr(d.khoaPhongDieuTri || d.ttKhoaPhong || '')}"></div>
       <div class="col-12"><label>Chẩn đoán</label><textarea id="${prefix}ChanDoan">${esc(d.chanDoan || '')}</textarea></div>
     </div>
-    <h3 class="sub-title">B. Nội dung xử trí</h3>
+    <h3 class="sub-title">2. Nội dung xử trí</h3>
     <div class="grid">
       <div class="col-6"><label>Vấn đề cần xử trí</label><select id="${prefix}VanDe" class="equal-control">${optionHtml(vanDe, d.vanDeCanXuTri || '')}</select></div>
       <div class="col-6"><label>Các vấn đề khác</label><input id="${prefix}VanDeKhac" class="equal-control" value="${escAttr(d.vanDeKhac || '')}"></div>
       <div class="col-12"><label>Cách xử lý</label><textarea id="${prefix}CachXuLy">${esc(d.cachXuLy || '')}</textarea></div>
       <div class="col-12"><label>Kết quả xử lý</label><textarea id="${prefix}KetQuaXuLy">${esc(d.ketQuaXuLy || '')}</textarea></div>
     </div>
-    <h3 class="sub-title">C. Thông tin nhóm máu/xét nghiệm liên quan</h3>
+    <h3 class="sub-title">3. Thông tin nhóm máu/xét nghiệm liên quan</h3>
     <div class="grid">
       <div class="col-3"><label>Nhóm máu hệ ABO</label><select id="${prefix}ABO" class="equal-control">${optionHtml(abo, d.nhomMauABO || '')}</select></div>
       <div class="col-3"><label>Nhóm máu hệ Rh(D)</label><select id="${prefix}RhD" class="equal-control">${optionHtml(rh, d.rhD || '')}</select></div>
       <div class="col-6"><label>Kháng thể bất thường</label><input id="${prefix}KhangThe" class="equal-control" value="${escAttr(d.khangTheBatThuong || '')}"></div>
       <div class="col-12"><label>Các lưu ý khác</label><textarea id="${prefix}LuuYKhac">${esc(d.luuYKhac || '')}</textarea></div>
-    </div>
-    <h3 class="sub-title">D. Người thực hiện</h3>
-    <div class="list-card data-card"><div class="field-row"><span class="field-name">Người thực hiện</span><div class="field-value">${esc(state.user?.tenNhanVien || '')}</div></div></div>`;
+    </div>`;
 }
 
 function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
@@ -1993,73 +1999,92 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
   const daTruyen = appSetupList('loaiMauDaTruyenTruocPhanUng', ['Chưa truyền','KHC','KTC','HTT','KTC GT','Tủa VIII']);
   const mucDo = appSetupList('mucDoPhanUng', ['Nhẹ','Trung bình','Nặng']);
   const kq = appSetupList('ketQuaXetNghiem', ['Âm tính','Dương tính (1+)','Dương tính (2+)','Dương tính (3+)','Dương tính (4+)','Không thực hiện']);
-  const before = d.loaiMauDaTruyenTruocPhanUng || {chuaTruyen:false, items:[]};
+  const before = d.loaiMauDaTruyenTruocPhanUng || {};
   const beforeItems = Array.isArray(before.items) ? before.items : [];
-  const isChua = !!before.chuaTruyen;
+  const hasBeforeData = before.chuaTruyen === true || beforeItems.length > 0;
+  const isChua = before.chuaTruyen === true || !hasBeforeData;
+  const isDaTruyen = !isChua;
+  const khoaPhongOnly = d.vienKhoaPhong || d.khoaPhongDieuTri || d.vienKhoaPhongGiuong || '';
   const rows = daTruyen.filter(x => norm(x)!==norm('Chưa truyền')).map(x => {
     const found = beforeItems.find(it => norm(it.ten)===norm(x)) || {};
-    return `<div class="tm-blood-row"><input type="checkbox" class="${prefix}DaTruyenCheck" value="${escAttr(x)}" ${found.ten ? 'checked' : ''}><span>${esc(x)}</span><input type="text" class="${prefix}DaTruyenTheTich" data-name="${escAttr(x)}" placeholder="Thể tích" value="${escAttr(found.theTich || '')}"></div>`;
+    return `<div class="tm-blood-row"><input type="checkbox" class="${prefix}DaTruyenCheck" value="${escAttr(x)}" ${found.ten ? 'checked' : ''}><span title="${escAttr(x)}">${esc(x)}</span><input type="text" class="${prefix}DaTruyenTheTich" data-name="${escAttr(x)}" placeholder="ml" value="${escAttr(found.theTich || '')}"></div>`;
   }).join('');
   return `
+    <div class="tm-tdkmm-form">
     <h3 class="section-title">II. Khai báo tác dụng không mong muốn liên quan truyền máu</h3>
-    <h3 class="sub-title">A. Thông tin người bệnh</h3>
+    <h3 class="sub-title">1. Thông tin người bệnh</h3>
     <div class="grid">
-      <div class="col-3"><label>Mã bệnh nhân</label><input id="${prefix}MaBN" class="equal-control" value="${escAttr(d.maBenhNhan || d.maBN || '')}"></div>
-      <div class="col-3"><label>Họ tên</label><input id="${prefix}HoTen" class="equal-control" value="${escAttr(d.hoTenBenhNhan || d.hoTen || '')}"></div>
-      <div class="col-2"><label>Năm sinh</label><input id="${prefix}NamSinh" class="equal-control" value="${escAttr(d.namSinh || '')}"></div>
-      <div class="col-2"><label>Giới tính</label><select id="${prefix}GioiTinh" class="equal-control">${optionHtml(gioiTinh, d.gioiTinh || '')}</select></div>
-      <div class="col-2"><label>Nhóm máu ABO</label><select id="${prefix}ABO" class="equal-control">${optionHtml(abo, d.nhomMauABO || '')}</select></div>
-      <div class="col-3"><label>Rh(D)</label><select id="${prefix}RhD" class="equal-control">${optionHtml(rh, d.rhD || '')}</select></div>
-      <div class="col-9"><label>Viện/TT/Khoa - Phòng - Giường</label><input id="${prefix}KhoaGiuong" class="equal-control" value="${escAttr(d.khoaPhongDieuTri || d.vienKhoaPhongGiuong || '')}"></div>
+      <div class="col-6"><label>Mã bệnh nhân</label><input id="${prefix}MaBN" class="equal-control" value="${escAttr(d.maBenhNhan || d.maBN || '')}"></div>
+      <div class="col-6"><label>Họ tên bệnh nhân</label><input id="${prefix}HoTen" class="equal-control" value="${escAttr(d.hoTenBenhNhan || d.hoTen || '')}"></div>
+      <div class="col-6 tdk-half"><label>Năm sinh</label><input id="${prefix}NamSinh" class="equal-control" value="${escAttr(d.namSinh || '')}"></div>
+      <div class="col-6 tdk-half"><label>Giới tính</label><select id="${prefix}GioiTinh" class="equal-control">${optionHtml(gioiTinh, d.gioiTinh || '')}</select></div>
+      <div class="col-9 tdk-main"><label>Viện/TT/Khoa/phòng</label><input id="${prefix}KhoaPhong" class="equal-control" value="${escAttr(khoaPhongOnly)}"></div>
+      <div class="col-3 tdk-small"><label>Giường</label><input id="${prefix}Giuong" class="equal-control" value="${escAttr(d.giuong || '')}"></div>
       <div class="col-12"><label>Chẩn đoán</label><textarea id="${prefix}ChanDoan">${esc(d.chanDoan || '')}</textarea></div>
+      <div class="col-6 tdk-half"><label>Nhóm máu ABO</label><select id="${prefix}ABO" class="equal-control">${optionHtml(abo, d.nhomMauABO || '')}</select></div>
+      <div class="col-6 tdk-half"><label>Rh(D)</label><select id="${prefix}RhD" class="equal-control">${optionHtml(rh, d.rhD || '')}</select></div>
     </div>
-    <h3 class="sub-title">B. Thông tin truyền máu</h3>
+    <h3 class="sub-title">2. Thông tin truyền máu</h3>
     <div class="grid">
       <div class="col-4"><label>Mã đơn vị máu nghi ngờ phản ứng</label><input id="${prefix}MaDonVi" class="equal-control" value="${escAttr(d.maDonViMauNghiNgo || '')}"></div>
       <div class="col-8 tm-form-row-2"><div><label>Loại Máu - Chế phẩm nghi ngờ phản ứng</label><select id="${prefix}ChePhamNghiNgo" class="equal-control">${optionHtml(nghiNgo, d.loaiMauChePhamNghiNgo || '')}</select></div><div><label>Thể tích đơn vị máu đã truyền</label><input id="${prefix}TheTichNghiNgo" class="equal-control" value="${escAttr(d.theTichDonViMauDaTruyen || '')}"></div></div>
       <div class="col-12">
         <label>Loại máu đã truyền trước khi phản ứng</label>
-        <label class="tm-form-note"><input id="${prefix}ChuaTruyen" type="checkbox" ${isChua ? 'checked' : ''}> Chưa truyền</label>
-        <div id="${prefix}DaTruyenBox" class="tm-blood-options ${isChua ? 'hidden' : ''}">${rows}</div>
+        <div class="tm-radio-stack">
+          <label><input id="${prefix}ChuaTruyen" type="checkbox" value="chua" ${isChua ? 'checked' : ''}> Chưa truyền</label>
+          <label><input id="${prefix}DaTruyen" type="checkbox" value="da" ${isDaTruyen ? 'checked' : ''}> Đã truyền</label>
+        </div>
+        <div id="${prefix}DaTruyenBox" class="tm-blood-options ${isChua ? 'hidden' : ''}">
+          <div class="tm-blood-header"><span></span><span>Loại máu</span><span>Thể tích máu đã truyền</span></div>
+          ${rows}
+        </div>
       </div>
     </div>
-    <h3 class="sub-title">C. Mô tả phản ứng</h3>
+    <h3 class="sub-title">3. Mô tả phản ứng</h3>
     <div class="grid">
       <div class="col-3"><label>Mức độ phản ứng</label><select id="${prefix}MucDo" class="equal-control">${optionHtml(mucDo, d.mucDoPhanUng || '')}</select></div>
       <div class="col-9"><label>Triệu chứng</label><input id="${prefix}TrieuChung" class="equal-control" value="${escAttr(d.trieuChung || '')}"></div>
       <div class="col-12"><label>Ghi chú</label><textarea id="${prefix}GhiChu">${esc(d.ghiChu || '')}</textarea></div>
     </div>
-    <h3 class="sub-title">D. Xét nghiệm trước truyền</h3>
+    <h3 class="sub-title">4. Xét nghiệm trước truyền</h3>
     <div class="grid">
       <div class="col-3"><label>Phản ứng hòa hợp - Trước truyền</label><select id="${prefix}PUHHTruoc" class="equal-control">${optionHtml(kq, d.phanUngHoaHopTruoc || '')}</select></div>
       <div class="col-3"><label>Coombs TT - Trước truyền</label><select id="${prefix}CoombsTTTruoc" class="equal-control">${optionHtml(kq, d.coombsTTTruoc || '')}</select></div>
       <div class="col-3"><label>Coombs GT - Trước truyền</label><select id="${prefix}CoombsGTTruoc" class="equal-control">${optionHtml(kq, d.coombsGTTruoc || '')}</select></div>
       <div class="col-3"><label>SLKT - Trước truyền</label><select id="${prefix}SLKTTruoc" class="equal-control">${optionHtml(kq, d.slktTruoc || '')}</select></div>
     </div>
-    <h3 class="sub-title">E. Xét nghiệm sau truyền</h3>
+    <h3 class="sub-title">5. Xét nghiệm sau truyền</h3>
     <div class="grid">
       <div class="col-3"><label>Phản ứng hòa hợp - Sau truyền</label><select id="${prefix}PUHHSau" class="equal-control">${optionHtml(kq, d.phanUngHoaHopSau || '')}</select></div>
       <div class="col-3"><label>Coombs TT - Sau truyền</label><select id="${prefix}CoombsTTSau" class="equal-control">${optionHtml(kq, d.coombsTTSau || '')}</select></div>
       <div class="col-3"><label>Coombs GT - Sau truyền</label><select id="${prefix}CoombsGTSau" class="equal-control">${optionHtml(kq, d.coombsGTSau || '')}</select></div>
       <div class="col-3"><label>SLKTBT - Sau truyền</label><select id="${prefix}SLKTSau" class="equal-control">${optionHtml(kq, d.slktbtSau || '')}</select></div>
     </div>
-    <h3 class="sub-title">F. Người báo cáo</h3>
-    <div class="list-card data-card"><div class="field-row"><span class="field-name">Người báo cáo</span><div class="field-value">${esc(state.user?.tenNhanVien || '')}</div></div></div>`;
+    </div>`;
 }
 
 function bindTmPhieuFormEvents(prefix, loai){
   const chua = document.getElementById(`${prefix}ChuaTruyen`);
-  if(chua){
-    chua.addEventListener('change', () => {
-      const box = document.getElementById(`${prefix}DaTruyenBox`);
-      if(box) box.classList.toggle('hidden', chua.checked);
-      if(chua.checked){
-        $$(`#${prefix}DaTruyenBox input[type="checkbox"]`).forEach(x => x.checked = false);
-        $$(`#${prefix}DaTruyenBox input[type="text"]`).forEach(x => x.value = '');
-      }
-    });
-  }
+  const da = document.getElementById(`${prefix}DaTruyen`);
+  const toggle = (source) => {
+    if(chua && da){
+      if(source === chua && chua.checked) da.checked = false;
+      if(source === da && da.checked) chua.checked = false;
+      if(!chua.checked && !da.checked) chua.checked = true;
+    }
+    const box = document.getElementById(`${prefix}DaTruyenBox`);
+    const isChua = !!(chua && chua.checked);
+    if(box) box.classList.toggle('hidden', isChua);
+    if(isChua && box){
+      $$(`#${prefix}DaTruyenBox input[type="checkbox"]`).forEach(x => x.checked = false);
+      $$(`#${prefix}DaTruyenBox input[type="text"]`).forEach(x => x.value = '');
+    }
+  };
+  if(chua) chua.addEventListener('change', () => toggle(chua));
+  if(da) da.addEventListener('change', () => toggle(da));
+  toggle(null);
 }
+
 
 function collectTmPhieuPayload(prefix, loai){
   const base = {
@@ -2086,16 +2111,21 @@ function collectTmPhieuPayload(prefix, loai){
     });
   }
   const chua = document.getElementById(`${prefix}ChuaTruyen`)?.checked;
+  const khoaPhong = document.getElementById(`${prefix}KhoaPhong`)?.value || '';
+  const giuong = document.getElementById(`${prefix}Giuong`)?.value || '';
+  const khoaGiuong = [khoaPhong, giuong ? ('Giường ' + giuong) : ''].filter(Boolean).join(' - ');
   const items = chua ? [] : $$(`#${prefix}DaTruyenBox .${prefix}DaTruyenCheck`).filter(x => x.checked).map(x => ({
     ten: x.value,
     theTich: document.querySelector(`#${prefix}DaTruyenBox .${prefix}DaTruyenTheTich[data-name="${cssEscape(x.value)}"]`)?.value || ''
-  }));
+  })).filter(x => x.ten);
   return Object.assign(base, {
     maBenhNhan: document.getElementById(`${prefix}MaBN`)?.value || '',
     hoTenBenhNhan: document.getElementById(`${prefix}HoTen`)?.value || '',
     gioiTinh: document.getElementById(`${prefix}GioiTinh`)?.value || '',
-    vienKhoaPhongGiuong: document.getElementById(`${prefix}KhoaGiuong`)?.value || '',
-    khoaPhongDieuTri: document.getElementById(`${prefix}KhoaGiuong`)?.value || '',
+    vienKhoaPhong: khoaPhong,
+    giuong: giuong,
+    vienKhoaPhongGiuong: khoaGiuong,
+    khoaPhongDieuTri: khoaGiuong || khoaPhong,
     nhomMauABO: document.getElementById(`${prefix}ABO`)?.value || '',
     rhD: document.getElementById(`${prefix}RhD`)?.value || '',
     maDonViMauNghiNgo: document.getElementById(`${prefix}MaDonVi`)?.value || '',
