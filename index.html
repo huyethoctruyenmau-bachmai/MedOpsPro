@@ -831,12 +831,10 @@
     }
 
 
-    /* ===== PATCH 90: SỬA VIỀN BẢNG THIẾT BỊ + RÚT GỌN NÚT THÔNG TIN CHUNG ===== */
-    .tm-equip-table thead tr:nth-child(2) th:last-child{
-      border-right:1px solid var(--g-line)!important;
-    }
-    .tm-equip-table thead tr:first-child th:last-child{
-      border-left:1px solid var(--g-line)!important;
+    /* ===== PATCH 94: SỬA VIỀN KÉP CẠNH PHẢI CỘT HỎNG - GIỮ NGUYÊN BẢNG CẤU HÌNH THIẾT BỊ ===== */
+    .tm-equip-wrap > .tm-equip-table thead tr:nth-child(2) th:last-child,
+    .tm-equip-wrap > .tm-equip-table tbody td:last-child{
+      border-right:0!important;
     }
 
     /* ===== PATCH 91: ĐỒNG BỘ BẢNG THIẾT BỊ - KHÔNG KHUNG INPUT, KHÔNG CỘT XÓA ===== */
@@ -1015,7 +1013,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-const APP_VERSION = 'INDEX-93.050626-EQUIPMENT-COLUMN-SAFE';
+const APP_VERSION = 'INDEX-94.050626-EQUIPMENT-BORDER-FIX';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
