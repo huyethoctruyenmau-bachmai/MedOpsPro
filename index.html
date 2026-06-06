@@ -596,13 +596,13 @@
     .protected-view{position:relative;user-select:none;-webkit-user-select:none}
     .pdf-modal.protected-view{overflow:hidden}
     .modal-card.protected-view{overflow-y:auto;overflow-x:hidden;max-width:calc(100vw - 16px);box-sizing:border-box;contain:paint}
-    .protected-watermark{position:absolute;inset:-22%;z-index:30;pointer-events:none;display:grid;grid-template-columns:repeat(2,minmax(680px,1fr));gap:74px 120px;align-content:center;justify-content:center;transform:rotate(-36deg);opacity:.10;mix-blend-mode:multiply}
+    .protected-watermark{position:absolute;inset:-22%;z-index:30;pointer-events:none;display:grid;grid-template-columns:repeat(2,minmax(680px,1fr));gap:74px 120px;align-content:center;justify-content:center;transform:rotate(-36deg);opacity:.10;mix-blend-mode:multiply;overflow:hidden}
     .protected-watermark span{display:block;white-space:nowrap;color:#1f2937;font-size:18px;font-weight:700;letter-spacing:.4px;line-height:1.2;text-transform:uppercase}
     .protected-view > .pdf-topbar,.protected-view > .modal-head,.protected-view > .card,.protected-view > h3,.protected-view > div:not(.protected-watermark){position:relative;z-index:2}
     .pdf-frame-wrap{position:relative}
-    .pdf-frame-wrap .protected-watermark{position:absolute;inset:-28%;z-index:5;opacity:.11}
-    .modal-card.protected-view .protected-watermark{inset:0;overflow:hidden;grid-template-columns:1fr;gap:54px 0;transform:rotate(-36deg) scale(1.25);transform-origin:center;opacity:.08}
-    .modal-card.protected-view .protected-watermark span{font-size:16px;max-width:none}
+    .pdf-frame-wrap .protected-watermark{display:none}
+    .modal-card.protected-view .protected-watermark{position:fixed;top:-22vh;left:-38vw;right:auto;bottom:auto;width:176vw;height:144vh;overflow:hidden;grid-template-columns:repeat(4,minmax(520px,1fr));gap:64px 90px;align-content:start;justify-content:start;transform:rotate(-36deg);transform-origin:center;opacity:.075;z-index:100002}
+    .modal-card.protected-view .protected-watermark span{font-size:16px;max-width:none;display:block;white-space:nowrap}
     .modal-card.protected-view .list-card,
     .modal-card.protected-view .data-card,
     .modal-card.protected-view .phieu-inline,
@@ -619,7 +619,7 @@
       .modal-card{width:calc(100vw - 16px);max-width:calc(100vw - 16px);margin-left:8px;margin-right:8px}
       .full-modal .modal-card{width:100%;max-width:100%;margin:0}
       .modal-card.protected-view{width:calc(100vw - 16px);max-width:calc(100vw - 16px);overflow-x:hidden}
-      .modal-card.protected-view .protected-watermark{grid-template-columns:1fr;gap:46px 0;transform:rotate(-36deg) scale(1.15);opacity:.075}
+      .modal-card.protected-view .protected-watermark{top:-26vh;left:-65vw;width:230vw;height:156vh;grid-template-columns:repeat(3,minmax(360px,1fr));gap:54px 64px;transform:rotate(-36deg);opacity:.075}
       .modal-card.protected-view .protected-watermark span{font-size:14px}
     }
     .pdf-download-btn{border:0;background:transparent}
@@ -1107,7 +1107,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-110.070626-SUA-VI-TRI-PDF-INAPP';
+const APP_VERSION = 'INDEX-111.070626-PDF-WATERMARK-THUC-TE';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -1188,7 +1188,10 @@ const state = {
   refreshGiaoBanListOnClose: false,
   sessionGuard: 0,
   isLoggingOut: false,
-  currentPdfObjectUrl: ''
+  currentPdfObjectUrl: '',
+  currentPdfWatermarkedBytes: null,
+  currentPdfWatermarkedTitle: '',
+  currentPdfWatermarkedUrl: ''
 };
 
 
@@ -5589,10 +5592,28 @@ function watermarkText(){
   return who + ' - ' + dateTimeVi(hanoiNowIso());
 }
 
-function watermarkLayerHtml(){
+function watermarkLayerHtml(count=72){
   const text = esc(watermarkText());
-  return `<div class="protected-watermark" aria-hidden="true">${Array.from({length:10}).map(() => `<span>${text}</span>`).join('')}</div>`;
+  return `<div class="protected-watermark" aria-hidden="true">${Array.from({length:count}).map(() => `<span>${text}</span>`).join('')}</div>`;
 }
+
+function refreshProtectedWatermarks(){
+  document.querySelectorAll('.modal-card.protected-view > .protected-watermark').forEach(layer => {
+    const host = layer.closest('.modal-card.protected-view');
+    if(!host) return;
+    const h = Math.max(host.scrollHeight || 0, host.clientHeight || 0, window.innerHeight || 0);
+    const w = Math.max(host.scrollWidth || 0, host.clientWidth || 0, window.innerWidth || 0);
+    const rows = Math.max(8, Math.ceil(h / 120) + 5);
+    const cols = Math.max(2, Math.ceil(w / 520) + 2);
+    const count = Math.min(160, rows * cols);
+    layer.style.setProperty('--wm-h', h + 'px');
+    layer.innerHTML = Array.from({length:count}).map(() => `<span>${esc(watermarkText())}</span>`).join('');
+  });
+}
+
+window.addEventListener('resize', () => {
+  if(hasProtectedContentOpen()) setTimeout(refreshProtectedWatermarks, 80);
+});
 
 function hasProtectedContentOpen(){
   return !!document.querySelector('.protected-view, .pdf-modal');
@@ -5673,6 +5694,9 @@ function revokeCurrentPdfObjectUrl(){
     try{ URL.revokeObjectURL(state.currentPdfObjectUrl); }catch(e){}
     state.currentPdfObjectUrl = '';
   }
+  state.currentPdfWatermarkedBytes = null;
+  state.currentPdfWatermarkedTitle = '';
+  state.currentPdfWatermarkedUrl = '';
 }
 
 function closePdfViewer(){
@@ -5702,34 +5726,125 @@ window.downloadPdfFromButton = function(btn){
   return downloadPdfWithLog(d.pdfUrl || '', d.pdfTitle || '', d.pdfSource || 'PDF', d.pdfId || '');
 }
 
-function base64ToBlobUrl(base64, mimeType){
+function base64ToUint8Array(base64){
   const raw = atob(String(base64 || ''));
-  const chunks = [];
-  const chunkSize = 8192;
-  for(let i = 0; i < raw.length; i += chunkSize){
-    const part = raw.slice(i, i + chunkSize);
-    const bytes = new Uint8Array(part.length);
-    for(let j = 0; j < part.length; j++) bytes[j] = part.charCodeAt(j);
-    chunks.push(bytes);
-  }
-  const blob = new Blob(chunks, {type: mimeType || 'application/pdf'});
+  const bytes = new Uint8Array(raw.length);
+  for(let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return bytes;
+}
+
+function blobUrlFromBytes(bytes, mimeType){
+  const blob = new Blob([bytes], {type: mimeType || 'application/pdf'});
   return URL.createObjectURL(blob);
+}
+
+function base64ToBlobUrl(base64, mimeType){
+  return blobUrlFromBytes(base64ToUint8Array(base64), mimeType || 'application/pdf');
+}
+
+function safeDownloadName(name, fallback='file.pdf'){
+  const raw = String(name || fallback || 'file.pdf').trim() || 'file.pdf';
+  const clean = raw.replace(/[\/:*?"<>|]+/g, '_').replace(/\s+/g, ' ').trim();
+  return /\.pdf$/i.test(clean) ? clean : clean + '.pdf';
+}
+
+function triggerPdfDownload(bytes, fileName){
+  const url = blobUrlFromBytes(bytes, 'application/pdf');
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = safeDownloadName(fileName || 'PDF_watermark.pdf');
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+async function ensurePdfLibLoaded(){
+  if(window.PDFLib && window.PDFLib.PDFDocument) return window.PDFLib;
+  await new Promise((resolve, reject) => {
+    const existed = document.querySelector('script[data-pdf-lib="1"]');
+    if(existed){
+      existed.addEventListener('load', resolve, {once:true});
+      existed.addEventListener('error', reject, {once:true});
+      return;
+    }
+    const script = document.createElement('script');
+    script.dataset.pdfLib = '1';
+    script.src = 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js';
+    script.onload = resolve;
+    script.onerror = () => reject(new Error('Không tải được thư viện đóng watermark PDF. Vui lòng kiểm tra mạng.'));
+    document.head.appendChild(script);
+  });
+  if(!window.PDFLib || !window.PDFLib.PDFDocument) throw new Error('Thư viện đóng watermark PDF chưa sẵn sàng.');
+  return window.PDFLib;
+}
+
+function dataUrlToBytes(dataUrl){
+  const b64 = String(dataUrl || '').split(',')[1] || '';
+  return base64ToUint8Array(b64);
+}
+
+function makeWatermarkPngBytes(text){
+  const canvas = document.createElement('canvas');
+  const ratio = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  const w = 980;
+  const h = 92;
+  canvas.width = Math.round(w * ratio);
+  canvas.height = Math.round(h * ratio);
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(ratio, ratio);
+  ctx.clearRect(0, 0, w, h);
+  ctx.font = '700 24px "Segoe UI", Arial, "Noto Sans", Tahoma, sans-serif';
+  ctx.fillStyle = 'rgba(31, 41, 55, 0.18)';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(String(text || '').toUpperCase(), 18, h / 2);
+  return dataUrlToBytes(canvas.toDataURL('image/png'));
+}
+
+async function buildWatermarkedPdfBytesFromBase64(base64){
+  const PDFLib = await ensurePdfLibLoaded();
+  const srcBytes = base64ToUint8Array(base64);
+  const pdfDoc = await PDFLib.PDFDocument.load(srcBytes, {ignoreEncryption:true});
+  const pngBytes = makeWatermarkPngBytes(watermarkText());
+  const png = await pdfDoc.embedPng(pngBytes);
+  const pages = pdfDoc.getPages();
+  pages.forEach(page => {
+    const size = page.getSize();
+    const pageW = size.width;
+    const pageH = size.height;
+    const tileW = Math.min(460, Math.max(340, pageW * 0.72));
+    const tileH = tileW * png.height / png.width;
+    const stepX = tileW + 105;
+    const stepY = 135;
+    for(let y = -pageH * 0.35; y < pageH * 1.35; y += stepY){
+      for(let x = -pageW * 0.55; x < pageW * 1.35; x += stepX){
+        page.drawImage(png, {
+          x, y,
+          width: tileW,
+          height: tileH,
+          rotate: PDFLib.degrees(35),
+          opacity: 0.9
+        });
+      }
+    }
+  });
+  return await pdfDoc.save();
 }
 
 function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=false, message=''}){
   setViewportForPdf(true);
   setupScreenProtection();
-  const wm = watermarkLayerHtml();
   const content = loading
-    ? `<div class="empty" style="margin:16px"><span class="loading-dot"></span>${esc(message || 'Đang tải PDF...')}</div>`
+    ? `<div class="empty" style="margin:16px"><span class="loading-dot"></span>${esc(message || 'Đang đóng watermark vào PDF...')}</div>`
     : `<iframe class="pdf-frame" src="${escAttr(frameSrc || '')}" allow="autoplay; fullscreen"></iframe>`;
   openModal(`
     <div class="pdf-modal protected-view" style="position:absolute!important;inset:0!important;width:100vw!important;height:100dvh!important;margin:0!important;z-index:100001!important;">
-      ${wm}
       <div class="pdf-topbar">
         <div class="pdf-title">${esc(title || 'PDF giao ban')}</div>
         <div class="pdf-actions">
-          <button class="pdf-icon-btn pdf-download-btn" type="button" data-pdf-url="${escAttr(url)}" data-pdf-title="${escAttr(title || 'PDF giao ban')}" data-pdf-source="PDF" data-pdf-id="" onclick="downloadPdfFromButton(this)" title="Tải PDF" aria-label="Tải PDF">
+          <button class="pdf-icon-btn pdf-download-btn" type="button" data-pdf-url="${escAttr(url)}" data-pdf-title="${escAttr(title || 'PDF giao ban')}" data-pdf-source="PDF" data-pdf-id="" onclick="downloadPdfFromButton(this)" title="Tải PDF có watermark" aria-label="Tải PDF có watermark">
             <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
           </button>
           <button class="pdf-icon-btn" onclick="closePdfViewer()" title="Đóng" aria-label="Đóng">
@@ -5738,7 +5853,6 @@ function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=fals
         </div>
       </div>
       <div class="pdf-frame-wrap">
-        ${wm}
         ${content}
       </div>
     </div>
@@ -5748,25 +5862,42 @@ function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=fals
 window.openGiaoBanPdf = async function(url, title='PDF giao ban'){
   if(!url) return toast('Không có link PDF.');
   revokeCurrentPdfObjectUrl();
-  renderPdfModal({url, title, loading:true, message:'Đang tải PDF trong app...'});
+  renderPdfModal({url, title, loading:true, message:'Đang đóng watermark vào PDF để xem trong app...'});
   try{
     const res = await api('getPdfFileBase64', {url}, {timeoutMs:180000});
     const pdf = res.data || {};
-    const objectUrl = base64ToBlobUrl(pdf.base64 || '', pdf.mimeType || 'application/pdf');
+    const watermarkedBytes = await buildWatermarkedPdfBytesFromBase64(pdf.base64 || '');
+    const objectUrl = blobUrlFromBytes(watermarkedBytes, 'application/pdf');
     state.currentPdfObjectUrl = objectUrl;
-    renderPdfModal({url, frameSrc: objectUrl, title: title || pdf.name || 'PDF giao ban'});
+    state.currentPdfWatermarkedBytes = watermarkedBytes;
+    state.currentPdfWatermarkedTitle = title || pdf.name || 'PDF giao ban';
+    state.currentPdfWatermarkedUrl = url;
+    renderPdfModal({url, frameSrc: objectUrl, title: state.currentPdfWatermarkedTitle});
   }catch(err){
     revokeCurrentPdfObjectUrl();
-    renderPdfModal({url, frameSrc: toPdfPreviewUrl(url), title});
-    toast((err && err.message ? err.message : 'Không tải được PDF qua app.') + ' Đang thử chế độ xem dự phòng.');
+    renderPdfModal({url:'', title, loading:true, message:'Không tạo được PDF có watermark. Vui lòng kiểm tra mạng hoặc tải lại app.'});
+    toast(err && err.message ? err.message : 'Không tạo được PDF có watermark.');
   }
 }
 
 async function downloadPdfWithLog(url, title='', source='PDF', id=''){
+  if(!url && !(state.currentPdfWatermarkedBytes && state.currentPdfWatermarkedUrl)) return toast('Không có file PDF để tải.');
   try{
-    await api('logPdfDownload', {url, title, source, id});
-  }catch(e){}
-  window.open(toPdfDownloadUrl(url), '_blank', 'noopener');
+    const sameCurrent = state.currentPdfWatermarkedBytes && state.currentPdfWatermarkedUrl && String(url || '') === String(state.currentPdfWatermarkedUrl || '');
+    let bytes = sameCurrent ? state.currentPdfWatermarkedBytes : null;
+    let finalTitle = title || state.currentPdfWatermarkedTitle || 'PDF_watermark';
+    if(!bytes){
+      toast('Đang tạo file PDF có watermark để tải xuống...');
+      const res = await api('getPdfFileBase64', {url}, {timeoutMs:180000});
+      const pdf = res.data || {};
+      finalTitle = title || pdf.name || 'PDF_watermark';
+      bytes = await buildWatermarkedPdfBytesFromBase64(pdf.base64 || '');
+    }
+    await api('logPdfDownload', {url: url || state.currentPdfWatermarkedUrl || '', title: finalTitle, source, id});
+    triggerPdfDownload(bytes, safeDownloadName(finalTitle.replace(/\.pdf$/i, '') + '_watermark.pdf'));
+  }catch(err){
+    toast(err && err.message ? err.message : 'Không tạo được file PDF có watermark để tải xuống.');
+  }
 }
 
 
@@ -5919,6 +6050,8 @@ function openModal(inner, alreadyWrapped){
   if(!root) return;
   root.innerHTML = alreadyWrapped ? inner : `<div class="modal">${inner}</div>`;
   document.body.classList.add('modal-open');
+  setTimeout(refreshProtectedWatermarks, 40);
+  setTimeout(refreshProtectedWatermarks, 350);
 }
 
 window.closeModal = function(){
