@@ -1075,6 +1075,17 @@
       .phieu-actions{align-items:center}
       .phieu-icon-actions{margin-left:auto}
     }
+
+    /* ===== PATCH 123: MOBILE TDKMM + CARD ACTION ORDER ===== */
+    .phieu-icon-actions{justify-content:flex-end}
+    .phieu-icon-actions .pill{order:99;margin-left:2px}
+    @media (max-width:760px){
+      .tm-tdkmm-form .tdk-trieuchung{grid-column:span 12!important;width:100%!important;max-width:100%!important}
+      .tm-tdkmm-form .tdk-trieuchung input{width:100%!important;max-width:100%!important}
+      .phieu-main-actions{min-width:0;flex:1 1 auto}
+      .phieu-icon-actions{flex:0 0 auto;margin-left:auto;justify-content:flex-end}
+    }
+
 </style>
 </head>
 <body>
@@ -1116,7 +1127,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-122.070626-TM-MOBILE-DS-CARD-STATUS</p>
+      <p class="login-version">Version: INDEX-123.070626-MOBILE-TDKMM-DS-CARD-TOMTAT</p>
     </div>
   </div>
 
@@ -1160,7 +1171,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-122.070626-TM-MOBILE-DS-CARD-STATUS</div>
+    <div class="app-version">Version: INDEX-123.070626-MOBILE-TDKMM-DS-CARD-TOMTAT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -1169,7 +1180,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-122.070626-TM-MOBILE-DS-CARD-STATUS';
+const APP_VERSION = 'INDEX-123.070626-MOBILE-TDKMM-DS-CARD-TOMTAT';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -2154,7 +2165,7 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
     <h3 class="sub-title">3. Mô tả phản ứng</h3>
     <div class="grid">
       <div class="col-3"><label>Mức độ phản ứng</label><select id="${prefix}MucDo" class="equal-control">${optionHtml(mucDo, d.mucDoPhanUng || '')}</select></div>
-      <div class="col-9"><label>Triệu chứng</label><input id="${prefix}TrieuChung" class="equal-control" value="${escAttr(d.trieuChung || '')}"></div>
+      <div class="col-9 tdk-trieuchung"><label>Triệu chứng</label><input id="${prefix}TrieuChung" class="equal-control" value="${escAttr(d.trieuChung || '')}"></div>
       <div class="col-12"><label>Ghi chú</label><textarea id="${prefix}GhiChu">${esc(d.ghiChu || '')}</textarea></div>
     </div>
     <h3 class="sub-title">4. Xét nghiệm trước truyền</h3>
@@ -2286,7 +2297,10 @@ function formatLoaiMauTruocClient(value){
 function tmSummaryLine(item){
   const d = item.data || {};
   if(item.loaiPhieu === LOAI_TM_XU_TRI) return `Vấn đề: ${d.vanDeCanXuTri || ''}${d.ketQuaXuLy ? ' · Kết quả: ' + d.ketQuaXuLy : ''}`;
-  return `Chế phẩm nghi ngờ: ${d.loaiMauChePhamNghiNgo || ''}${d.theTichDonViMauDaTruyen ? ' · Thể tích: ' + d.theTichDonViMauDaTruyen : ''}${d.mucDoPhanUng ? ' · Mức độ: ' + d.mucDoPhanUng : ''}`;
+  return [
+    `- Chế phẩm nghi ngờ: ${d.loaiMauChePhamNghiNgo || ''}${d.mucDoPhanUng ? ' -  Mức độ: ' + d.mucDoPhanUng : ''}`,
+    d.trieuChung ? `- Triệu chứng: ${d.trieuChung}` : ''
+  ].filter(Boolean).join('\n');
 }
 
 
@@ -2867,9 +2881,9 @@ function renderPhieuList(items, note=''){
         <div class="phieu-actions">
           <div class="phieu-main-actions">
             ${signBtn}
-            <button class="btn secondary" onclick="openPhieu('${escAttr(p.phieuID)}', this)">Xem chi tiết</button>
+            <button class="btn secondary" onclick="openPhieu('${escAttr(p.phieuID)}', this)">Xem phiếu</button>
           </div>
-          <div class="phieu-icon-actions">${statusPill(p.trangThaiBanGiao)}${editBtn}${deleteBtn}</div>
+          <div class="phieu-icon-actions">${editBtn}${deleteBtn}${statusPill(p.trangThaiBanGiao)}</div>
         </div>
       </div>`;
   }).join('');
@@ -3427,7 +3441,7 @@ function renderGiaoBanList(items, note=''){
         </div>
         <div class="phieu-actions">
           <div class="phieu-main-actions">${mainActions}</div>
-          <div class="phieu-icon-actions">${statusPill(g.trangThai)}${pdfDownload}${deleteBtn}</div>
+          <div class="phieu-icon-actions">${pdfDownload}${deleteBtn}${statusPill(g.trangThai)}</div>
         </div>
       </div>`;
   }).join('');
@@ -4663,8 +4677,10 @@ function dsCreatorName(x){
 function dsPatientDeptText(value){
   const raw = String(value || '').trim();
   if(!raw) return '';
-  if(/^(tt|trung tâm|trung tam|viện|vien|khoa|phòng|phong)\b/i.test(raw)) return raw;
-  return 'TT ' + raw;
+  const m = raw.match(/^tt\s+(.+)$/i);
+  if(m) return 'Trung tâm ' + m[1].trim();
+  if(/^(trung tâm|trung tam|viện|vien|khoa|phòng|phong)\b/i.test(raw)) return raw;
+  return 'Trung tâm ' + raw;
 }
 
 function dsPhieuTitle(x){
@@ -4687,8 +4703,8 @@ function dsBnMetaHtml(x){
   const birth = x.namSinh || d.namSinh || '';
   const pid = x.maBenhNhan || d.maBenhNhan || d.pid || d.maBN || '';
   const dept = dsPatientDeptText(d.vienKhoaPhong || x.khoaPhongDieuTri || d.khoaPhongDieuTri || d.ttKhoaPhong || '');
-  const parts = [name ? `BN: ${name}` : '', birth, pid ? `PID: ${pid}` : '', dept].filter(Boolean);
-  return parts.length ? `<div class="meta ds-card-bn">${esc(parts.join('     '))}</div>` : '';
+  const parts = [name ? `BN: ${name}` : '', birth, pid ? `PID: ${pid}` : '', dept ? `Đv: ${dept}` : ''].filter(Boolean);
+  return parts.length ? `<div class="meta ds-card-bn">${esc(parts.join(' - '))}</div>` : '';
 }
 
 function dsCreatorMetaHtml(x){
@@ -4702,13 +4718,13 @@ function renderDsPhieuCard(x){
   const isTm = x.source === 'TM_PHIEU';
   const title = dsPhieuTitle(x);
   const pdfBtn = x.pdfUrl ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
-  const detailBtn = isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem chi tiết</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem chi tiết</button>` : '');
+  const detailBtn = isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '');
   const editBtn = isTm && x.canEdit ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
   const bn = dsBnMetaHtml(x);
   const creator = dsCreatorMetaHtml(x);
   const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : '';
-  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(title || x.title || x.loaiPhieu || '')}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${statusPill(x.trangThai || '')}${editBtn}${deleteBtn}</div></div></div>`;
+  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(title || x.title || x.loaiPhieu || '')}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${editBtn}${deleteBtn}${statusPill(x.trangThai || '')}</div></div></div>`;
 }
 
 
