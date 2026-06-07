@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-151.080626-SUA-GOI-Y-CHU-TRI-KHONG-TRUNG tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-154.080626-BO-KIEM-TRA-CHU-KY-CHU-TRI tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -1584,6 +1584,20 @@
       }
     }
 
+
+
+    /* ===== PATCH 152: BẢNG KÝ TAY LUÔN NỔI TRÊN MODAL GIAO BAN ===== */
+    .signature-full-modal{
+      z-index:100800!important;
+      pointer-events:auto!important;
+    }
+    .signature-full-modal .signature-full-head,
+    .signature-full-modal .signature-full-body,
+    .signature-full-modal .signature-full-actions{
+      position:relative!important;
+      z-index:100801!important;
+    }
+
 </style>
 </head>
 <body>
@@ -1625,7 +1639,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-151.080626-SUA-GOI-Y-CHU-TRI-KHONG-TRUNG</p>
+      <p class="login-version">Version: INDEX-154.080626-BO-KIEM-TRA-CHU-KY-CHU-TRI</p>
     </div>
   </div>
 
@@ -1669,7 +1683,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-151.080626-SUA-GOI-Y-CHU-TRI-KHONG-TRUNG</div>
+    <div class="app-version">Version: INDEX-154.080626-BO-KIEM-TRA-CHU-KY-CHU-TRI</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -1678,7 +1692,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-151.080626-SUA-GOI-Y-CHU-TRI-KHONG-TRUNG';
+const APP_VERSION = 'INDEX-154.080626-BO-KIEM-TRA-CHU-KY-CHU-TRI';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -4833,7 +4847,12 @@ async function ensureSystemSignatureReady(afterRole){
     openProfileSignatureModal(afterRole || '');
   }else{
     setSignModeManual(afterRole);
-    toast('Đã chuyển sang KT. Bấm lại nút ký để ký tay thủ công.');
+    if(afterRole === 'thuKy' || afterRole === 'chuTri'){
+      toast('Đã chuyển sang KT. Đang mở bảng ký tay thủ công...');
+      setTimeout(() => openFullSignatureForRole(afterRole, null), 120);
+    }else{
+      toast('Đã chuyển sang KT. Bấm lại nút ký để ký tay thủ công.');
+    }
   }
   return false;
 }
@@ -5178,6 +5197,38 @@ window.finishGiaoBan = async function(btn){
   await submitChuTriSignature(btn, true);
 }
 
+
+function scrollToChuTriSignArea(){
+  setTimeout(() => {
+    const root = document.getElementById('modalRoot');
+    const card = root?.querySelector('.modal-card');
+    if(!root || !card) return;
+    const target = root.querySelector("button[onclick*=\"handleSignClick('chuTri'\"]")?.closest('.sign-step-box')
+      || root.querySelector('#signTwoStepBlock .sign-step-box:last-child')
+      || root.querySelector('#signSingleBlock')
+      || root.querySelector('.sign-bottom-small');
+    if(!target) return;
+    const top = Math.max(0, target.offsetTop - Math.round(card.clientHeight * 0.45));
+    try{
+      card.scrollTo({top, behavior:'smooth'});
+    }catch(e){
+      card.scrollTop = top;
+    }
+  }, 160);
+}
+
+async function returnToGiaoBanListAfterFinish(){
+  closeFullSignatureModal();
+  closeModal();
+  state.currentGiaoBan = null;
+  if(state.activeTab !== 'meeting') switchTab('meeting');
+  await loadGiaoBanList(true);
+  setTimeout(() => {
+    const main = document.getElementById('main');
+    if(main) main.scrollTop = 0;
+  }, 80);
+}
+
 async function submitThuKySignature(btn, systemSign){
   const task = async () => {
     const g = state.currentGiaoBan || {};
@@ -5204,6 +5255,7 @@ async function submitThuKySignature(btn, systemSign){
     toast('Thư ký đã ký xác nhận');
     closeFullSignatureModal();
     renderGiaoBanModal();
+    scrollToChuTriSignArea();
   };
   if(btn) return withButton(btn, 'Đang ký...', task);
   try{ await task(); }catch(err){ toast(err.message); }
@@ -5222,9 +5274,7 @@ async function submitChuTriSignature(btn, systemSign){
     resetPendingThuKySignature('');
     clearListCaches();
     toast('Đã ký kết thúc giao ban');
-    closeFullSignatureModal();
-    closeModal();
-    await loadGiaoBanList(true);
+    await returnToGiaoBanListAfterFinish();
   };
   if(btn) return withButton(btn, 'Đang ký...', task);
   try{ await task(); }catch(err){ toast(err.message); }
