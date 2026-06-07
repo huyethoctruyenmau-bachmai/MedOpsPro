@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-147.070626-TANG-KHOANG-CACH-HEADER-TREN tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-148.070626-SUA-HEADER-THEO-HUONG-DAN tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -1403,10 +1403,10 @@
 
 
 
+
     /* ===== PATCH 138: KHỬ KHE SÁNG TRÊN HEADER KHI CHẠY PWA/EDGE WINDOWS ===== */
     :root{
       --pwa-header-wine:#580824;
-      --pwa-header-wine-2:#650a2b;
     }
     html,
     body{
@@ -1414,10 +1414,7 @@
     }
     #app,
     .app-shell,
-    .topbar,
-    .brandbar,
-    .app-titlebar,
-    header{
+    .topbar{
       background-color:var(--pwa-header-wine)!important;
       background-image:none!important;
       box-shadow:none!important;
@@ -1432,35 +1429,17 @@
       left:0;
       right:0;
       top:0;
-      height:8px;
+      height:10px;
       background:var(--pwa-header-wine)!important;
-      z-index:2147483000;
+      z-index:19;
       pointer-events:none;
       transform:translateZ(0);
     }
     .topbar{
       border-top:0!important;
       border-bottom:1px solid var(--pwa-header-wine)!important;
-      margin-top:0!important;
       transform:translateZ(0);
       backface-visibility:hidden;
-    }
-    .topbar::before,
-    .brandbar::before{
-      content:"";
-      position:absolute;
-      left:0;
-      right:0;
-      top:-4px;
-      height:6px;
-      background:var(--pwa-header-wine)!important;
-      pointer-events:none;
-      z-index:2;
-    }
-    .brandbar{
-      border-top:0!important;
-      margin-top:-1px!important;
-      box-shadow:none!important;
     }
     @media (display-mode:standalone){
       html,
@@ -1470,204 +1449,37 @@
         background:var(--pwa-header-wine)!important;
       }
       .app-shell::before{
-        height:10px;
+        height:12px;
       }
     }
 
-
-
     /* ===== PATCH 139: LOGO HEADER KHÔNG BỊ CẮT GÓC ===== */
-    .brandbar,
     .topbar,
-    .brand-left,
-    .brand-logo-wrap,
-    .logo-wrap,
-    .app-logo-wrap{
+    .brand,
+    .brand-icon{
       overflow:visible!important;
     }
-    .brand-logo,
-    .app-logo,
-    .header-logo,
-    .logo-img,
-    .brandbar img,
-    .brand-left img{
+    .logo-img{
       object-fit:contain!important;
       object-position:center center!important;
       overflow:visible!important;
       clip-path:none!important;
       -webkit-clip-path:none!important;
       border-radius:50%!important;
-      flex-shrink:0!important;
-    }
-    .brandbar img,
-    .brand-left img{
-      max-width:72px!important;
-      max-height:72px!important;
-    }
-    @media (max-width:760px){
-      .brandbar img,
-      .brand-left img{
-        max-width:62px!important;
-        max-height:62px!important;
-      }
     }
 
-
-
-    /* ===== PATCH 140: LÀM ĐẬM MÀU CHỮ TOÀN APP, KHÔNG ĐỔI BỐ CỤC ===== */
+    /* ===== PATCH 140: LÀM ĐẬM MÀU CHỮ TOÀN APP ===== */
     :root{
       --g-text:#111827!important;
       --g-muted:#4b5563!important;
       --text:#111827!important;
       --muted:#4b5563!important;
     }
-    body,
-    input,
-    select,
-    textarea,
-    button{
-      color:#111827;
-    }
-    .muted,
-    .sub,
-    .hint,
-    .card-sub,
-    .list-sub,
-    .meta,
-    .small,
-    .form-help,
-    .field-help,
-    .view-muted{
-      color:#4b5563!important;
-    }
+    body, input, select, textarea, button { color:#111827; }
+    .muted, .sub, .hint, .card-sub, .list-sub, .meta, .small, .form-help, .field-help, .view-muted { color:#4b5563!important; }
 
-
-
-    /* ===== PATCH 141: KHUNG LOGO AN TOÀN - KHÔNG BỊ CẮT GÓC ===== */
-    .brand-logo-safe{
-      width:72px!important;
-      height:72px!important;
-      min-width:72px!important;
-      flex:0 0 72px!important;
-      padding:4px!important;
-      border-radius:50%!important;
-      background:#fff!important;
-      display:flex!important;
-      align-items:center!important;
-      justify-content:center!important;
-      overflow:visible!important;
-      box-sizing:border-box!important;
-      position:relative!important;
-      z-index:5!important;
-      line-height:0!important;
-    }
-    .brand-logo-safe img{
-      width:100%!important;
-      height:100%!important;
-      max-width:100%!important;
-      max-height:100%!important;
-      min-width:0!important;
-      min-height:0!important;
-      display:block!important;
-      object-fit:contain!important;
-      object-position:center center!important;
-      border-radius:50%!important;
-      clip-path:none!important;
-      -webkit-clip-path:none!important;
-      overflow:visible!important;
-      margin:0!important;
-      padding:0!important;
-      transform:none!important;
-    }
-    .brandbar,
-    .brand-left,
-    .brand-info{
-      min-height:84px!important;
-    }
-    .brandbar,
-    .brand-left{
-      overflow:visible!important;
-      align-items:center!important;
-    }
-    @media (max-width:760px){
-      .brand-logo-safe{
-        width:62px!important;
-        height:62px!important;
-        min-width:62px!important;
-        flex-basis:62px!important;
-        padding:3px!important;
-      }
-      .brandbar,
-      .brand-left,
-      .brand-info{
-        min-height:74px!important;
-      }
-    }
-
-
-
-    /* ===== PATCH 142: THU NHỎ LOGO HEADER - CHỈ SỬA KÍCH THƯỚC LOGO ===== */
-    .brand-logo-safe{
-      width:58px!important;
-      height:58px!important;
-      min-width:58px!important;
-      flex:0 0 58px!important;
-      padding:3px!important;
-    }
-    .brandbar,
-    .brand-left,
-    .brand-info{
-      min-height:70px!important;
-    }
-    @media (max-width:760px){
-      .brand-logo-safe{
-        width:52px!important;
-        height:52px!important;
-        min-width:52px!important;
-        flex-basis:52px!important;
-        padding:3px!important;
-      }
-      .brandbar,
-      .brand-left,
-      .brand-info{
-        min-height:64px!important;
-      }
-    }
-
-
-
-    /* ===== PATCH 143: THU NHỎ LOGO HEADER LẦN 2 - CHỈ SỬA KÍCH THƯỚC LOGO ===== */
-    .brand-logo-safe{
-      width:48px!important;
-      height:48px!important;
-      min-width:48px!important;
-      flex:0 0 48px!important;
-      padding:2px!important;
-    }
-    .brandbar,
-    .brand-left,
-    .brand-info{
-      min-height:60px!important;
-    }
-    @media (max-width:760px){
-      .brand-logo-safe{
-        width:44px!important;
-        height:44px!important;
-        min-width:44px!important;
-        flex-basis:44px!important;
-        padding:2px!important;
-      }
-      .brandbar,
-      .brand-left,
-      .brand-info{
-        min-height:56px!important;
-      }
-    }
-
-
-
-    /* ===== PATCH 144: ÉP NHỎ LOGO HEADER THỰC TẾ ===== */
-    .brand-logo-safe{
+    /* ===== PATCH 141 -> 145: ÉP NHỎ LOGO HEADER ===== */
+    .brand-icon{
       width:38px!important;
       height:38px!important;
       min-width:38px!important;
@@ -1675,20 +1487,14 @@
       flex:0 0 38px!important;
       padding:1px!important;
       margin:0 10px 0 0!important;
+      background:#fff!important;
+      display:flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      position:relative!important;
+      z-index:25!important;
     }
-    .brand-logo-safe img,
-    .brandbar .brand-logo-safe img,
-    .brand-left .brand-logo-safe img,
-    .brandbar img.brand-logo,
-    .brandbar img.header-logo,
-    .brandbar img.app-logo,
-    .brandbar img.logo-img,
-    .brand-left img.brand-logo,
-    .brand-left img.header-logo,
-    .brand-left img.app-logo,
-    .brand-left img.logo-img,
-    .brandbar > img,
-    .brand-left > img{
+    .brand-icon img.logo-img{
       width:36px!important;
       height:36px!important;
       min-width:36px!important;
@@ -1696,39 +1502,19 @@
       min-height:36px!important;
       max-height:36px!important;
       object-fit:contain!important;
-    }
-    .brandbar,
-    .brand-left,
-    .brand-info{
-      min-height:50px!important;
-    }
-    .brandbar{
-      padding-top:8px!important;
-      padding-bottom:8px!important;
+      margin:0!important;
+      padding:0!important;
     }
     @media (max-width:760px){
-      .brand-logo-safe{
+      .brand-icon{
         width:34px!important;
         height:34px!important;
         min-width:34px!important;
         max-width:34px!important;
         flex-basis:34px!important;
-        padding:1px!important;
         margin-right:8px!important;
       }
-      .brand-logo-safe img,
-      .brandbar .brand-logo-safe img,
-      .brand-left .brand-logo-safe img,
-      .brandbar img.brand-logo,
-      .brandbar img.header-logo,
-      .brandbar img.app-logo,
-      .brandbar img.logo-img,
-      .brand-left img.brand-logo,
-      .brand-left img.header-logo,
-      .brand-left img.app-logo,
-      .brand-left img.logo-img,
-      .brandbar > img,
-      .brand-left > img{
+      .brand-icon img.logo-img{
         width:32px!important;
         height:32px!important;
         min-width:32px!important;
@@ -1736,141 +1522,18 @@
         min-height:32px!important;
         max-height:32px!important;
       }
-      .brandbar,
-      .brand-left,
-      .brand-info{
-        min-height:46px!important;
-      }
-      .brandbar{
-        padding-top:7px!important;
-        padding-bottom:7px!important;
-      }
     }
 
-
-
-    /* ===== PATCH 145: ÉP NHỎ LOGO HEADER LẦN 2 ===== */
-    .brand-logo-safe{
-      width:30px!important;
-      height:30px!important;
-      min-width:30px!important;
-      max-width:30px!important;
-      flex:0 0 30px!important;
-      padding:1px!important;
-      margin:0 8px 0 0!important;
-    }
-    .brand-logo-safe img,
-    .brandbar .brand-logo-safe img,
-    .brand-left .brand-logo-safe img,
-    .brandbar img.brand-logo,
-    .brandbar img.header-logo,
-    .brandbar img.app-logo,
-    .brandbar img.logo-img,
-    .brand-left img.brand-logo,
-    .brand-left img.header-logo,
-    .brand-left img.app-logo,
-    .brand-left img.logo-img,
-    .brandbar > img,
-    .brand-left > img{
-      width:28px!important;
-      height:28px!important;
-      min-width:28px!important;
-      max-width:28px!important;
-      min-height:28px!important;
-      max-height:28px!important;
-      object-fit:contain!important;
-    }
-    .brandbar,
-    .brand-left,
-    .brand-info{
-      min-height:42px!important;
-    }
-    .brandbar{
-      padding-top:6px!important;
-      padding-bottom:6px!important;
+    /* ===== PATCH 146 + 147: TĂNG KHOẢNG CÁCH THẬT PHÍA TRÊN CỤM LOGO/TIÊU ĐỀ ===== */
+    .topbar{
+      padding-top: calc(var(--safe-top) + 12px)!important;
+      padding-bottom: 8px!important;
+      align-items: center!important;
     }
     @media (max-width:760px){
-      .brand-logo-safe{
-        width:28px!important;
-        height:28px!important;
-        min-width:28px!important;
-        max-width:28px!important;
-        flex-basis:28px!important;
-        padding:1px!important;
-        margin-right:7px!important;
-      }
-      .brand-logo-safe img,
-      .brandbar .brand-logo-safe img,
-      .brand-left .brand-logo-safe img,
-      .brandbar img.brand-logo,
-      .brandbar img.header-logo,
-      .brandbar img.app-logo,
-      .brandbar img.logo-img,
-      .brand-left img.brand-logo,
-      .brand-left img.header-logo,
-      .brand-left img.app-logo,
-      .brand-left img.logo-img,
-      .brandbar > img,
-      .brand-left > img{
-        width:26px!important;
-        height:26px!important;
-        min-width:26px!important;
-        max-width:26px!important;
-        min-height:26px!important;
-        max-height:26px!important;
-      }
-      .brandbar,
-      .brand-left,
-      .brand-info{
-        min-height:40px!important;
-      }
-      .brandbar{
-        padding-top:6px!important;
-        padding-bottom:6px!important;
-      }
-    }
-
-
-
-    /* ===== PATCH 146: DỊCH CỤM HEADER XUỐNG NHẸ ===== */
-    .brandbar{
-      padding-top:10px!important;
-      padding-bottom:6px!important;
-    }
-    .brand-left,
-    .brand-info{
-      transform:translateY(3px)!important;
-    }
-    @media (max-width:760px){
-      .brandbar{
-        padding-top:9px!important;
-        padding-bottom:6px!important;
-      }
-      .brand-left,
-      .brand-info{
-        transform:translateY(2px)!important;
-      }
-    }
-
-
-
-    /* ===== PATCH 147: TĂNG KHOẢNG CÁCH THẬT PHÍA TRÊN CỤM LOGO/TIÊU ĐỀ ===== */
-    .brandbar{
-      padding-top:18px!important;
-      padding-bottom:8px!important;
-    }
-    .brand-left,
-    .brand-info{
-      transform:none!important;
-    }
-    @media (max-width:760px){
-      .brandbar{
-        padding-top:15px!important;
-        padding-bottom:8px!important;
-      }
-      .brand-left,
-      .brand-info{
-        transform:none!important;
+      .topbar{
+        padding-top: calc(var(--safe-top) + 10px)!important;
+        padding-bottom: 8px!important;
       }
     }
 
@@ -1915,7 +1578,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-147.070626-TANG-KHOANG-CACH-HEADER-TREN</p>
+      <p class="login-version">Version: INDEX-148.070626-SUA-HEADER-THEO-HUONG-DAN</p>
     </div>
   </div>
 
@@ -1959,7 +1622,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-147.070626-TANG-KHOANG-CACH-HEADER-TREN</div>
+    <div class="app-version">Version: INDEX-148.070626-SUA-HEADER-THEO-HUONG-DAN</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -1968,7 +1631,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-147.070626-TANG-KHOANG-CACH-HEADER-TREN';
+const APP_VERSION = 'INDEX-148.070626-SUA-HEADER-THEO-HUONG-DAN';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
