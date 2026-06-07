@@ -149,7 +149,7 @@
     .pill.ok{background:#e8f7ef;color:var(--ok)}.pill.warn{background:#fff5e5;color:var(--warn)}.pill.danger{background:#feeceb;color:var(--danger)}.pill.muted{background:#f2e7ec;color:#6e5360}
     .list-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;margin:10px 0}.data-card{border-left:4px solid var(--wine);background:#fffafb;line-height:1.55}.data-card .field-row{padding:5px 0;border-bottom:1px solid rgba(234,215,223,.65)}.data-card .field-row:last-child{border-bottom:0}.data-card .field-name{font-weight:600;color:var(--wine-dark);display:block;margin-bottom:2px}.data-card .field-value{color:var(--text);font-size:14px;line-height:1.45;white-space:pre-wrap}.data-card strong{font-weight:600;color:var(--wine-dark)}.phieu-inline{margin-top:8px;border:1px solid var(--line);border-left:4px solid var(--wine);border-radius:12px;background:#fff;padding:10px 12px;line-height:1.5}.phieu-inline .field-row{color:var(--text);font-size:14.5px;line-height:1.45;margin:0 0 8px;padding:0;border:0}.phieu-inline .field-row:last-child{margin-bottom:0}.phieu-inline .field-name{font-weight:700;color:var(--muted);display:block;margin:0 0 2px;font-size:14.5px;line-height:1.35}.phieu-inline .field-value{color:var(--text);font-size:14.5px;line-height:1.45;font-weight:400;white-space:pre-wrap}
     .list-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .list-title{font-weight:700;color:var(--wine-dark);font-size:17px}.list-title.title-blue{color:var(--g-blue)}
+    .list-title{font-weight:700;color:var(--wine-dark);font-size:17px}.list-title.title-blue{color:var(--wine-dark)}
     .meta{font-size:14px;color:var(--muted);line-height:1.45}
     .empty,.loading{padding:18px;text-align:center;color:var(--muted);background:#fff;border:1px dashed #dec0cc;border-radius:16px}
     .loading:before{content:"";display:inline-block;width:17px;height:17px;border-radius:50%;border:3px solid #ead0da;border-top-color:var(--wine);animation:spin .75s linear infinite;margin-right:8px;vertical-align:-4px}
@@ -1029,6 +1029,52 @@
     @media (max-width:760px){.tm-tdkmm-form{max-width:100%;overflow:hidden}.tm-form-row-2{grid-template-columns:1fr}.tm-blood-header,.tm-blood-row{grid-template-columns:22px minmax(0,1fr) minmax(86px,108px);gap:6px}.tm-blood-row span{font-size:13.5px}.tm-blood-row input[type="text"]{font-size:13.5px;padding:5px 6px}.tm-blood-options{padding:8px}}
     @media (max-width:560px){.tm-tdkmm-form .tdk-half{grid-column:span 6!important}.tm-tdkmm-form .tdk-main{grid-column:span 9!important}.tm-tdkmm-form .tdk-small{grid-column:span 3!important}}
 
+
+
+    /* ===== PATCH 122: MOBILE TDKMM FIX + DS CARD META/STATUS ===== */
+    .tm-tdkmm-form,
+    #tmPhieuBlock,
+    #tmPhieuBlock .card,
+    #tmPhieuBlock .grid{
+      max-width:100%!important;
+      min-width:0!important;
+      overflow-x:hidden!important;
+      box-sizing:border-box!important;
+    }
+    .tm-tdkmm-form .grid{
+      grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    }
+    .tm-tdkmm-form .grid > div,
+    .tm-tdkmm-form input,
+    .tm-tdkmm-form select,
+    .tm-tdkmm-form textarea{
+      min-width:0!important;
+      max-width:100%!important;
+      box-sizing:border-box!important;
+    }
+    .tm-form-row-4{
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(120px,150px) minmax(86px,110px) minmax(86px,110px);
+      gap:8px;
+      align-items:end;
+      max-width:100%;
+      min-width:0;
+      overflow:hidden;
+    }
+    .tm-form-row-4 > div{min-width:0;max-width:100%}
+    .tm-time-input{padding-left:6px!important;padding-right:6px!important;text-align:center}
+    .phieu-icon-actions .pill{align-self:center;white-space:nowrap}
+    .ds-card-meta{margin-top:3px}
+    .ds-card-bn{font-weight:500;color:var(--g-muted)}
+    @media (max-width:760px){
+      .tm-tdkmm-form{width:100%!important}
+      .tm-form-row-4{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+      .tm-form-row-4 .tm-product-cell{grid-column:1 / -1}
+      .tm-form-row-4 label{font-size:12.5px;line-height:1.25}
+      .tm-time-input{font-size:14px!important}
+      .phieu-actions{align-items:center}
+      .phieu-icon-actions{margin-left:auto}
+    }
 </style>
 </head>
 <body>
@@ -1070,7 +1116,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-119.070626-CHI-TIET-WM-CHEO-GOC-TRAI-CO-DINH</p>
+      <p class="login-version">Version: INDEX-122.070626-TM-MOBILE-DS-CARD-STATUS</p>
     </div>
   </div>
 
@@ -1114,7 +1160,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-119.070626-CHI-TIET-WM-CHEO-GOC-TRAI-CO-DINH</div>
+    <div class="app-version">Version: INDEX-122.070626-TM-MOBILE-DS-CARD-STATUS</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -1123,7 +1169,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-119.070626-CHI-TIET-WM-CHEO-GOC-TRAI-CO-DINH';
+const APP_VERSION = 'INDEX-122.070626-TM-MOBILE-DS-CARD-STATUS';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -2087,7 +2133,12 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
     <h3 class="sub-title">2. Thông tin truyền máu</h3>
     <div class="grid">
       <div class="col-4"><label>Mã đơn vị máu nghi ngờ phản ứng</label><input id="${prefix}MaDonVi" class="equal-control" value="${escAttr(d.maDonViMauNghiNgo || '')}"></div>
-      <div class="col-8 tm-form-row-2"><div><label>Loại Máu - Chế phẩm nghi ngờ phản ứng</label><select id="${prefix}ChePhamNghiNgo" class="equal-control">${optionHtml(nghiNgo, d.loaiMauChePhamNghiNgo || '')}</select></div><div><label>Thể tích đơn vị máu đã truyền</label><input id="${prefix}TheTichNghiNgo" class="equal-control" value="${escAttr(d.theTichDonViMauDaTruyen || '')}"></div></div>
+      <div class="col-8 tm-form-row-4">
+        <div class="tm-product-cell"><label>Loại Máu - Chế phẩm nghi ngờ phản ứng</label><select id="${prefix}ChePhamNghiNgo" class="equal-control">${optionHtml(nghiNgo, d.loaiMauChePhamNghiNgo || '')}</select></div>
+        <div><label>Thể tích đã truyền</label><input id="${prefix}TheTichNghiNgo" class="equal-control" value="${escAttr(d.theTichDonViMauDaTruyen || '')}"></div>
+        <div><label>Truyền từ</label><input id="${prefix}TruyenTu" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenTu || ''))}"></div>
+        <div><label>Đến</label><input id="${prefix}TruyenDen" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenDen || ''))}"></div>
+      </div>
       <div class="col-12">
         <label>Loại máu đã truyền trước khi phản ứng</label>
         <div class="tm-radio-stack">
@@ -2191,6 +2242,8 @@ function collectTmPhieuPayload(prefix, loai){
     maDonViMauNghiNgo: document.getElementById(`${prefix}MaDonVi`)?.value || '',
     loaiMauChePhamNghiNgo: document.getElementById(`${prefix}ChePhamNghiNgo`)?.value || '',
     theTichDonViMauDaTruyen: document.getElementById(`${prefix}TheTichNghiNgo`)?.value || '',
+    thoiGianTruyenTu: document.getElementById(`${prefix}TruyenTu`)?.value || '',
+    thoiGianTruyenDen: document.getElementById(`${prefix}TruyenDen`)?.value || '',
     loaiMauDaTruyenTruocPhanUng: {chuaTruyen: !!chua, items},
     mucDoPhanUng: document.getElementById(`${prefix}MucDo`)?.value || '',
     trieuChung: document.getElementById(`${prefix}TrieuChung`)?.value || '',
@@ -2243,6 +2296,12 @@ function tmDateTimeText(value){
   const s = tmTxt(value);
   if(!s) return '';
   return /T|\d{1,2}:\d{2}|\d{1,2}h\d{1,2}/.test(s) ? dateTimeVi(s) : dateVi(s);
+}
+function tmTimeInputValue(value){
+  const s = tmTxt(value);
+  if(!s) return '';
+  const m = s.match(/(\d{1,2})[:hH](\d{1,2})/);
+  return m ? `${pad(m[1])}:${pad(m[2])}` : '';
 }
 function tmPatientNo(prefix, index){ return `${prefix}.${index + 1}. Bệnh nhân ${index + 1}`; }
 function tmLine(label, value){ const v = tmTxt(value); return v ? `- ${label}: ${v}` : ''; }
@@ -2800,10 +2859,9 @@ function renderPhieuList(items, note=''){
       <div class="list-card phieu-card">
         <div class="list-head">
           <div>
-            <div class="list-title ${isReportCard ? '' : 'title-blue'}">${esc(title)}</div>
-            <div class="meta">Người tạo: ${esc(p.nguoiThucHienTen || '')}${p.thoiDiemTao ? ' · Tạo lúc: ' + dateTimeVi(p.thoiDiemTao) : ''}</div>
+            <div class="list-title">${esc(title)}</div>
+            <div class="meta">Người tạo: ${esc(p.nguoiThucHienTen || '')}${p.thoiDiemTao ? ' - Thời gian tạo: ' + dateTimeViColon(p.thoiDiemTao) : ''}</div>
           </div>
-          ${statusPill(p.trangThaiBanGiao)}
         </div>
         ${detailHtml}
         <div class="phieu-actions">
@@ -2811,7 +2869,7 @@ function renderPhieuList(items, note=''){
             ${signBtn}
             <button class="btn secondary" onclick="openPhieu('${escAttr(p.phieuID)}', this)">Xem chi tiết</button>
           </div>
-          <div class="phieu-icon-actions">${editBtn}${deleteBtn}</div>
+          <div class="phieu-icon-actions">${statusPill(p.trangThaiBanGiao)}${editBtn}${deleteBtn}</div>
         </div>
       </div>`;
   }).join('');
@@ -3363,14 +3421,13 @@ function renderGiaoBanList(items, note=''){
       <div class="list-card phieu-card">
         <div class="list-head">
           <div>
-            <div class="list-title ${isDotXuat ? 'title-blue' : ''}">${esc(title)}</div>
+            <div class="list-title">${esc(title)}</div>
             ${metaHtml}
           </div>
-          ${statusPill(g.trangThai)}
         </div>
         <div class="phieu-actions">
           <div class="phieu-main-actions">${mainActions}</div>
-          <div class="phieu-icon-actions">${pdfDownload}${deleteBtn}</div>
+          <div class="phieu-icon-actions">${statusPill(g.trangThai)}${pdfDownload}${deleteBtn}</div>
         </div>
       </div>`;
   }).join('');
@@ -4587,16 +4644,73 @@ function sortDsPhieuByCreatedDesc(items){
   });
 }
 
+function dateTimeViColon(value){
+  return dateTimeVi(value).replace('h', ':');
+}
+
+function dsPhieuDate(x){
+  return x.date || x.ngaySuKien || x.ngayTruc || x.ngay || '';
+}
+
+function dsCreatedAt(x){
+  return x.createdAt || x.thoiDiemTao || x.thoiDiemLuuNhap || '';
+}
+
+function dsCreatorName(x){
+  return x.nguoiTao || x.nguoiTaoTen || x.nguoiThucHienTen || x.createdByName || '';
+}
+
+function dsPatientDeptText(value){
+  const raw = String(value || '').trim();
+  if(!raw) return '';
+  if(/^(tt|trung tâm|trung tam|viện|vien|khoa|phòng|phong)\b/i.test(raw)) return raw;
+  return 'TT ' + raw;
+}
+
+function dsPhieuTitle(x){
+  const isTm = x.source === 'TM_PHIEU';
+  const loai = x.loaiPhieu || x.type || '';
+  const day = dateVi(dsPhieuDate(x));
+  if(isTm) return [loai, day].filter(Boolean).join(' - ');
+  if(x.source === 'PHIEU'){
+    if(x.title) return x.title;
+    const dept = formatDeptPlain(x.khoaPhong || '');
+    return [loai || '', day, dept].filter(Boolean).join(' - ');
+  }
+  return x.title || [loai, day, formatDeptPlain(x.khoaPhong || '')].filter(Boolean).join(' - ');
+}
+
+function dsBnMetaHtml(x){
+  if(x.source !== 'TM_PHIEU') return '';
+  const d = x.data || {};
+  const name = x.hoTenBenhNhan || d.hoTenBenhNhan || d.hoTen || '';
+  const birth = x.namSinh || d.namSinh || '';
+  const pid = x.maBenhNhan || d.maBenhNhan || d.pid || d.maBN || '';
+  const dept = dsPatientDeptText(d.vienKhoaPhong || x.khoaPhongDieuTri || d.khoaPhongDieuTri || d.ttKhoaPhong || '');
+  const parts = [name ? `BN: ${name}` : '', birth, pid ? `PID: ${pid}` : '', dept].filter(Boolean);
+  return parts.length ? `<div class="meta ds-card-bn">${esc(parts.join('     '))}</div>` : '';
+}
+
+function dsCreatorMetaHtml(x){
+  const creator = dsCreatorName(x);
+  const createdAt = dsCreatedAt(x);
+  const parts = [creator ? `Người tạo: ${creator}` : '', createdAt ? `Thời gian tạo: ${dateTimeViColon(createdAt)}` : ''].filter(Boolean);
+  return parts.length ? `<div class="meta ds-card-meta">${esc(parts.join(' - '))}</div>` : '';
+}
+
 function renderDsPhieuCard(x){
   const isTm = x.source === 'TM_PHIEU';
-  const pdfBtn = x.pdfUrl ? pdfViewButtonHtml(x.pdfUrl, x.title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
+  const title = dsPhieuTitle(x);
+  const pdfBtn = x.pdfUrl ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
   const detailBtn = isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem chi tiết</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem chi tiết</button>` : '');
   const editBtn = isTm && x.canEdit ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
-  const bn = isTm ? `<div class="meta">BN: ${esc(x.hoTenBenhNhan || '')}${x.maBenhNhan ? ' · PID/Mã BN: ' + esc(x.maBenhNhan) : ''}</div>` : '';
+  const bn = dsBnMetaHtml(x);
+  const creator = dsCreatorMetaHtml(x);
   const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : '';
-  return `<div class="list-card"><div class="list-head"><div><div class="list-title ${isTm ? 'title-blue' : ''}">${esc(x.title || x.loaiPhieu || '')}</div><div class="meta">${esc(x.loaiPhieu || x.type || '')} · ${esc(x.khoaPhong || '')} · ${esc(x.nguoiTao || '')}</div>${bn}</div>${statusPill(x.trangThai || '')}</div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${editBtn}${deleteBtn}</div></div></div>`;
+  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(title || x.title || x.loaiPhieu || '')}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${statusPill(x.trangThai || '')}${editBtn}${deleteBtn}</div></div></div>`;
 }
+
 
 window.exportTmExcel = async function(btn){
   const payload = getDsPhieuFilters();
