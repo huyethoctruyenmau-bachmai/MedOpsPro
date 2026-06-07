@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Sổ trực - Giao ban Phòng Truyền máu</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=129.070626-PWA-ICON-TO-HON">
-  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=129.070626-PWA-ICON-TO-HON">
-  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=129.070626-PWA-ICON-TO-HON">
-  <link rel="manifest" href="./manifest.json?v=129.070626-PWA-ICON-TO-HON">
-  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=129.070626-PWA-ICON-TO-HON">
+  <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
+  <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
+  <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
+  <link rel="manifest" href="./manifest.json?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
+  <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-98: tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-131.070626-SUA-WATERMARK-KHONG-CHAN-NUT-KY tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -1119,6 +1119,43 @@
       }
     }
 
+
+
+    /* ===== PATCH 131: WATERMARK KHÔNG CHẶN THAO TÁC KÝ / CUỘN TRÊN MOBILE ===== */
+    .protected-watermark,
+    .protected-watermark *{
+      pointer-events:none!important;
+      user-select:none!important;
+      -webkit-user-select:none!important;
+      -webkit-touch-callout:none!important;
+      -webkit-user-drag:none!important;
+    }
+    .modal-card.protected-view .protected-watermark{
+      pointer-events:none!important;
+      touch-action:none!important;
+    }
+    .modal-card.protected-view .modal-head,
+    .modal-card.protected-view .btn-row,
+    .modal-card.protected-view .sign-step-box,
+    .modal-card.protected-view .sign-mode-box,
+    .modal-card.protected-view .signature-pad-wrap,
+    .modal-card.protected-view button,
+    .modal-card.protected-view .btn,
+    .modal-card.protected-view select,
+    .modal-card.protected-view input,
+    .modal-card.protected-view textarea{
+      position:relative!important;
+      z-index:100010!important;
+      pointer-events:auto!important;
+    }
+    .modal-card.protected-view{
+      touch-action:pan-y!important;
+      -webkit-overflow-scrolling:touch!important;
+    }
+    .modal-card.protected-view .sign-bottom-small{
+      padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)!important;
+    }
+
 </style>
 </head>
 <body>
@@ -1160,7 +1197,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-129.070626-PWA-ICON-TO-HON</p>
+      <p class="login-version">Version: INDEX-130.070626-PWA-ICON-KHONG-VONG-TRANG</p>
     </div>
   </div>
 
@@ -1204,7 +1241,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-129.070626-PWA-ICON-TO-HON</div>
+    <div class="app-version">Version: INDEX-130.070626-PWA-ICON-KHONG-VONG-TRANG</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -1213,7 +1250,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-129.070626-PWA-ICON-TO-HON';
+const APP_VERSION = 'INDEX-130.070626-PWA-ICON-KHONG-VONG-TRANG';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
