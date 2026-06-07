@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-132.070626-WATERMARK-CHI-PHIEU-HOAN-THANH tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-134.070626-XOA-WATERMARK-KHI-CO-NUT-KY tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -1156,6 +1156,54 @@
       padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)!important;
     }
 
+
+
+    /* ===== PATCH 133: GỢI Ý NHÂN SỰ TRÊN ĐIỆN THOẠI KHÔNG BỊ CHE/CẮT ===== */
+    @media (max-width:760px){
+      .staff-suggest{
+        position:fixed!important;
+        left:var(--staff-suggest-left,10px)!important;
+        right:auto!important;
+        top:var(--staff-suggest-top,120px)!important;
+        width:var(--staff-suggest-width,calc(100vw - 20px))!important;
+        max-width:calc(100vw - 20px)!important;
+        max-height:260px!important;
+        z-index:100200!important;
+        overflow-y:auto!important;
+        -webkit-overflow-scrolling:touch!important;
+      }
+      .staff-suggest button{
+        min-height:44px!important;
+        font-size:15px!important;
+      }
+    }
+
+
+
+    /* ===== PATCH 134: MODAL CÓ NÚT KÝ KHÔNG ĐƯỢC CÓ WATERMARK PHỦ LÊN ===== */
+    .modal-card:not(.protected-view) > .protected-watermark{
+      display:none!important;
+    }
+    .modal-card.signing-modal{
+      touch-action:pan-y!important;
+      -webkit-overflow-scrolling:touch!important;
+    }
+    .modal-card.signing-modal .btn-row,
+    .modal-card.signing-modal .sign-step-box,
+    .modal-card.signing-modal .sign-mode-box,
+    .modal-card.signing-modal .sign-action-row,
+    .modal-card.signing-modal button,
+    .modal-card.signing-modal .btn,
+    .modal-card.signing-modal select{
+      position:relative!important;
+      z-index:10!important;
+      pointer-events:auto!important;
+      touch-action:manipulation!important;
+    }
+    .modal-card.signing-modal .sign-bottom-small{
+      padding-bottom:calc(env(safe-area-inset-bottom,0px) + 128px)!important;
+    }
+
 </style>
 </head>
 <body>
@@ -1197,7 +1245,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-130.070626-PWA-ICON-KHONG-VONG-TRANG</p>
+      <p class="login-version">Version: INDEX-134.070626-XOA-WATERMARK-KHI-CO-NUT-KY</p>
     </div>
   </div>
 
@@ -1241,7 +1289,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-130.070626-PWA-ICON-KHONG-VONG-TRANG</div>
+    <div class="app-version">Version: INDEX-134.070626-XOA-WATERMARK-KHI-CO-NUT-KY</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -1250,7 +1298,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-130.070626-PWA-ICON-KHONG-VONG-TRANG';
+const APP_VERSION = 'INDEX-134.070626-XOA-WATERMARK-KHI-CO-NUT-KY';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -1387,6 +1435,14 @@ function clearStoredSession(){
 
 document.addEventListener('DOMContentLoaded', boot);
 document.addEventListener('DOMContentLoaded', () => { setupViDatePickerObserver(); scheduleViDatePickerEnhance(); });
+
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize', repositionVisibleStaffSuggest);
+  window.visualViewport.addEventListener('scroll', repositionVisibleStaffSuggest);
+}
+window.addEventListener('resize', repositionVisibleStaffSuggest);
+window.addEventListener('scroll', repositionVisibleStaffSuggest, true);
+
 
 async function boot(){
   bindGlobalEvents();
@@ -1834,6 +1890,33 @@ function ensureLoginUserInStaff(){
   });
 }
 
+
+function positionStaffSuggestBox(input, box){
+  if(!input || !box) return;
+  if(window.matchMedia && window.matchMedia('(max-width:760px)').matches){
+    const r = input.getBoundingClientRect();
+    const gap = 6;
+    const left = Math.max(10, Math.min(r.left, window.innerWidth - 20));
+    const width = Math.max(220, Math.min(r.width + 48, window.innerWidth - 20));
+    let top = r.bottom + gap;
+    const maxTop = Math.max(72, window.innerHeight - 278);
+    if(top > maxTop) top = Math.max(72, r.top - 266);
+    box.style.setProperty('--staff-suggest-left', left + 'px');
+    box.style.setProperty('--staff-suggest-top', top + 'px');
+    box.style.setProperty('--staff-suggest-width', width + 'px');
+  }else{
+    box.style.removeProperty('--staff-suggest-left');
+    box.style.removeProperty('--staff-suggest-top');
+    box.style.removeProperty('--staff-suggest-width');
+  }
+}
+
+function repositionVisibleStaffSuggest(){
+  const box = document.getElementById('staffSuggestBox');
+  const input = document.getElementById('staffSearch');
+  if(box && input && !box.classList.contains('hidden')) positionStaffSuggestBox(input, box);
+}
+
 function handleStaffSearchInput(){
   const input = $('#staffSearch');
   const box = $('#staffSuggestBox');
@@ -1851,6 +1934,7 @@ function handleStaffSearchInput(){
   }).slice(0, 8);
   if(!matched.length){
     box.innerHTML = `<button type="button" disabled>Không tìm thấy nhân viên phù hợp</button>`;
+    positionStaffSuggestBox(input, box);
     box.classList.remove('hidden');
     return;
   }
@@ -1860,6 +1944,7 @@ function handleStaffSearchInput(){
       ${p.chucDanh ? `<div class="staff-role">${esc(p.chucDanh)}</div>` : ''}
     </button>
   `).join('');
+  positionStaffSuggestBox(input, box);
   box.classList.remove('hidden');
 }
 
@@ -6388,14 +6473,41 @@ function renderBanGiaoTaiSanValue(value){
   return `<div class="tm-equip-wrap"><table class="tm-equip-table tm-view-table"><thead><tr><th rowspan="2">STT</th><th rowspan="2">Trang thiết bị, dụng cụ, hóa chất</th><th rowspan="2">Đơn vị</th><th colspan="2">Số lượng</th></tr><tr><th>HĐ BT</th><th>Hỏng</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+
+function modalHasSigningControls(root){
+  if(!root) return false;
+  const selectors = [
+    '.sign-step-box',
+    '.sign-mode-box',
+    'button[onclick*="signBanGiao"]',
+    'button[onclick*="finishGiaoBan"]',
+    'button[onclick*="handleSignClick"]'
+  ];
+  if(selectors.some(sel => root.querySelector(sel))) return true;
+  return Array.from(root.querySelectorAll('button')).some(btn => {
+    const t = norm(btn.textContent || '');
+    return /(^|\s)ky(\s|$)|ky xac nhan|ky nhan|ky giao ban|thu ky ky|chu tri ky/.test(t);
+  });
+}
+
+function removeProtectionWhenModalHasSigningControls(){
+  const root = document.getElementById('modalRoot');
+  if(!root || !modalHasSigningControls(root)) return;
+  root.querySelectorAll('.protected-watermark').forEach(el => el.remove());
+  root.querySelectorAll('.protected-view').forEach(el => el.classList.remove('protected-view'));
+  root.querySelectorAll('.modal-card').forEach(el => el.classList.add('signing-modal'));
+  setSecureBlackout(false);
+}
+
 function openModal(inner, alreadyWrapped){
   setupScreenProtection();
   const root = $('#modalRoot');
   if(!root) return;
   root.innerHTML = alreadyWrapped ? inner : `<div class="modal">${inner}</div>`;
+  removeProtectionWhenModalHasSigningControls();
   document.body.classList.add('modal-open');
-  setTimeout(refreshProtectedWatermarks, 40);
-  setTimeout(refreshProtectedWatermarks, 350);
+  setTimeout(() => { removeProtectionWhenModalHasSigningControls(); refreshProtectedWatermarks(); }, 40);
+  setTimeout(() => { removeProtectionWhenModalHasSigningControls(); refreshProtectedWatermarks(); }, 350);
 }
 
 window.closeModal = function(){
