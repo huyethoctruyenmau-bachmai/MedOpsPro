@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-172.080626-MOBILE-NUT-KY-TO-HON tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-173.080626-X-HOI-LUU-NHAP-BO-NUT-LUU tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -2310,6 +2310,34 @@
       }
     }
 
+
+
+    /* ===== PATCH 173: X THOÁT HÌNH VUÔNG + BỎ NÚT LƯU NHÁP PHIẾU GIAO BAN ===== */
+    .close-btn{
+      border-radius:8px!important;
+    }
+    .pdf-icon-btn[aria-label="Đóng"]{
+      border-radius:8px!important;
+    }
+    .gb-finish-left-empty{
+      display:none!important;
+    }
+    .gb-finish-compact{
+      justify-content:flex-end!important;
+    }
+    .gb-finish-compact .gb-finish-right{
+      margin-left:auto!important;
+    }
+    @media (max-width:899px){
+      .gb-finish-compact{
+        align-items:flex-end!important;
+      }
+      .gb-finish-compact .gb-finish-right{
+        width:100%!important;
+        justify-content:flex-end!important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -2351,7 +2379,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-172.080626-MOBILE-NUT-KY-TO-HON</p>
+      <p class="login-version">Version: INDEX-173.080626-X-HOI-LUU-NHAP-BO-NUT-LUU</p>
     </div>
   </div>
 
@@ -2395,7 +2423,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-172.080626-MOBILE-NUT-KY-TO-HON</div>
+    <div class="app-version">Version: INDEX-173.080626-X-HOI-LUU-NHAP-BO-NUT-LUU</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -2404,7 +2432,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-172.080626-MOBILE-NUT-KY-TO-HON';
+const APP_VERSION = 'INDEX-173.080626-X-HOI-LUU-NHAP-BO-NUT-LUU';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -4288,7 +4316,7 @@ window.editPhieu = async function(phieuID, btn){
       <div class="modal-card">
         <div class="modal-head">
           <div class="modal-title">Sửa phiếu</div>
-          <button class="close-btn" onclick="closeModal()">×</button>
+          <button class="close-btn" onclick="closeGiaoBanModal()">×</button>
         </div>
 
         <div class="card" style="box-shadow:none">
@@ -5190,7 +5218,7 @@ function renderGiaoBanModal(){
             <div class="modal-title">${esc(loai)} ngày ${dateVi(g.ngayGiaoBan)}</div>
             <div class="meta">${esc(g.khoaPhong)} · ${esc(g.trangThai)}${g.nguoiTaoTen ? ' · Người tạo phiên: ' + esc(g.nguoiTaoTen) : ''}</div>
           </div>
-          <button class="close-btn" onclick="closeModal()">×</button>
+          <button class="close-btn" onclick="closeGiaoBanModal()">×</button>
         </div>
 
         <div class="gb-regular-layout">
@@ -5311,9 +5339,7 @@ function renderGiaoBanFinishBlock(g){
   // Logic ẩn/hiện vẫn do syncSignModeWithChair() xử lý theo tên chủ trì hiện tại.
   return `
     <div class="gb-finish-compact">
-      <div class="gb-finish-left">
-        <button class="btn secondary" onclick="saveGiaoBanDraft(this)">Lưu nháp</button>
-      </div>
+      <div class="gb-finish-left gb-finish-left-empty" aria-hidden="true"></div>
 
       <div class="gb-finish-right">
         <div id="signSingleBlock" class="gb-sign-compact hidden">
@@ -7831,6 +7857,49 @@ function openModal(inner, alreadyWrapped){
   document.body.classList.add('modal-open');
   setTimeout(() => { removeProtectionWhenModalHasSigningControls(); refreshProtectedWatermarks(); }, 40);
   setTimeout(() => { removeProtectionWhenModalHasSigningControls(); refreshProtectedWatermarks(); }, 350);
+}
+
+function shouldAskSaveGiaoBanDraftOnClose(){
+  const g = state.currentGiaoBan;
+  const root = $('#modalRoot');
+  if(!g || !root || !root.querySelector('#gbTime')) return false;
+  if(g.trangThai === STATUS_DA || g.daKhoa) return false;
+
+  // Khi thư ký đã ký thì backend đã lưu nội dung nháp/ký, bấm X thoát không hỏi nữa.
+  const thuKySigned = !!(g.thoiDiemThuKyKy || g.chuKyThuKyFileId || getPendingThuKySignatureAt());
+  if(thuKySigned) return false;
+
+  return true;
+}
+
+window.closeGiaoBanModal = async function(){
+  if(!shouldAskSaveGiaoBanDraftOnClose()){
+    closeModal();
+    return;
+  }
+
+  const ok = await showConfirmDialog({
+    title:'Lưu bản nháp?',
+    message:'Bạn có muốn lưu bản nháp trước khi thoát phiếu giao ban không?',
+    confirmText:'Có, lưu nháp',
+    cancelText:'Không lưu',
+    danger:false
+  });
+
+  if(ok){
+    try{
+      const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
+      state.currentGiaoBan = res.data.giaoBan;
+      state.refreshGiaoBanListOnClose = true;
+      clearListCaches();
+      toast('Đã lưu nháp giao ban');
+    }catch(err){
+      toast(err.message);
+      return;
+    }
+  }
+
+  closeModal();
 }
 
 window.closeModal = function(){
