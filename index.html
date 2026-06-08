@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-173.080626-X-HOI-LUU-NHAP-BO-NUT-LUU tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-175.080626-X-THOAT-VUONG-HOVER-DO-CAN-GIUA tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -2338,6 +2338,60 @@
       }
     }
 
+
+
+    /* ===== PATCH 175: NÚT X THOÁT HÌNH VUÔNG, CĂN GIỮA, HOVER MÀU ĐỎ ===== */
+    .close-btn{
+      width:42px!important;
+      height:42px!important;
+      min-width:42px!important;
+      min-height:42px!important;
+      padding:0!important;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      text-align:center!important;
+      line-height:1!important;
+      border-radius:8px!important;
+      color:#5f6368!important;
+      background:#ffffff!important;
+      border:1px solid var(--line)!important;
+      font-size:30px!important;
+      font-weight:700!important;
+      box-sizing:border-box!important;
+    }
+    .close-btn:hover,
+    .close-btn:focus-visible{
+      color:#dc2626!important;
+      background:#fff1f2!important;
+      border-color:#fecdd3!important;
+    }
+
+    /* Nút X đóng khung xem PDF nếu dùng dạng icon button */
+    .pdf-icon-btn[aria-label="Đóng"]{
+      width:42px!important;
+      height:42px!important;
+      min-width:42px!important;
+      min-height:42px!important;
+      padding:0!important;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      text-align:center!important;
+      line-height:1!important;
+      border-radius:8px!important;
+      color:#5f6368!important;
+      background:#ffffff!important;
+      border:1px solid var(--line)!important;
+      box-sizing:border-box!important;
+    }
+    .pdf-icon-btn[aria-label="Đóng"]:hover,
+    .pdf-icon-btn[aria-label="Đóng"]:focus-visible{
+      color:#dc2626!important;
+      background:#fff1f2!important;
+      border-color:#fecdd3!important;
+    }
+
 </style>
 </head>
 <body>
@@ -2379,7 +2433,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-173.080626-X-HOI-LUU-NHAP-BO-NUT-LUU</p>
+      <p class="login-version">Version: INDEX-175.080626-X-THOAT-VUONG-HOVER-DO-CAN-GIUA</p>
     </div>
   </div>
 
@@ -2423,7 +2477,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-173.080626-X-HOI-LUU-NHAP-BO-NUT-LUU</div>
+    <div class="app-version">Version: INDEX-175.080626-X-THOAT-VUONG-HOVER-DO-CAN-GIUA</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -2432,7 +2486,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-173.080626-X-HOI-LUU-NHAP-BO-NUT-LUU';
+const APP_VERSION = 'INDEX-175.080626-X-THOAT-VUONG-HOVER-DO-CAN-GIUA';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -5972,22 +6026,37 @@ window.finishGiaoBan = async function(btn){
 
 
 function scrollToChuTriSignArea(){
-  setTimeout(() => {
+  const doScroll = () => {
     const root = document.getElementById('modalRoot');
     const card = root?.querySelector('.modal-card');
     if(!root || !card) return;
-    const target = root.querySelector("button[onclick*=\"handleSignClick('chuTri'\"]")?.closest('.sign-step-box')
-      || root.querySelector('#signTwoStepBlock .sign-step-box:last-child')
-      || root.querySelector('#signSingleBlock')
-      || root.querySelector('.sign-bottom-small');
+
+    // Bản giao diện hiện tại không còn .sign-step-box, nên phải bắt đúng cụm Chủ trì trong footer ký.
+    const target =
+      root.querySelector("#signTwoStepBlock:not(.hidden) button[onclick*=\"handleSignClick('chuTri'\"]")?.closest('.gb-sign-person')
+      || root.querySelector('#signTwoStepBlock:not(.hidden)')
+      || root.querySelector('#signSingleBlock:not(.hidden)')
+      || root.querySelector('.gb-regular-finish')
+      || root.querySelector('.gb-finish-compact');
+
     if(!target) return;
-    const top = Math.max(0, target.offsetTop - Math.round(card.clientHeight * 0.45));
+
     try{
-      card.scrollTo({top, behavior:'smooth'});
+      target.scrollIntoView({behavior:'smooth', block:'center', inline:'nearest'});
     }catch(e){
-      card.scrollTop = top;
+      try{
+        const cardRect = card.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const top = Math.max(0, card.scrollTop + targetRect.top - cardRect.top - Math.round(card.clientHeight * 0.45));
+        card.scrollTop = top;
+      }catch(_){}
     }
-  }, 160);
+  };
+
+  // iOS/Safari thường render layout chậm sau khi render lại modal, nên cuộn 3 nhịp để giữ đúng vị trí.
+  setTimeout(doScroll, 80);
+  setTimeout(doScroll, 260);
+  setTimeout(doScroll, 520);
 }
 
 async function returnToGiaoBanListAfterFinish(){
