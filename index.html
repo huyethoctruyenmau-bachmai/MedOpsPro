@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-180.080626-SUA-THU-KY-KY-KHONG-XOAY-MAI-GOI-Y-DONG-BO-MAU tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-181.080626-GIAOBAN-2COT-BIENBAN-HANHCHINH-GOIY-PHIM tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -2643,6 +2643,94 @@
       color:#8a5a6a!important;
     }
 
+
+
+    /* ===== PATCH 181: GIAO BAN 2 CỘT BẰNG NHAU + BIÊN BẢN HỌP HÀNH CHÍNH DÃN ĐỀU + GỢI Ý PHÍM/MÀU ===== */
+    @media (min-width:900px){
+      .gb-regular-layout{
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+      }
+      .gb-regular-col,
+      .gb-regular-left,
+      .gb-regular-right{
+        min-width:0!important;
+      }
+
+      .gb-dot-admin-grid{
+        display:grid!important;
+        grid-template-columns:repeat(4,minmax(0,1fr))!important;
+        gap:10px!important;
+        align-items:end!important;
+      }
+      .gb-dot-admin-grid > .gb-dot-admin-item,
+      .gb-dot-admin-grid > .gb-admin-item{
+        grid-column:auto!important;
+        min-width:0!important;
+      }
+      .gb-dot-admin-grid > .col-12{
+        grid-column:1 / -1!important;
+      }
+      .gb-dot-admin-grid .equal-control,
+      .gb-dot-admin-grid input,
+      .gb-dot-admin-grid select{
+        width:100%!important;
+        min-width:0!important;
+      }
+    }
+
+    .autocomplete-dropdown,
+    .staff-suggest,
+    .staff-suggest.autocomplete-dropdown,
+    .chair-suggest,
+    .chair-suggest.autocomplete-dropdown{
+      background:#fff!important;
+      border:1px solid var(--line)!important;
+      border-radius:12px!important;
+      box-shadow:0 10px 24px rgba(60,64,67,.16)!important;
+      color:var(--text)!important;
+    }
+
+    .autocomplete-item,
+    .staff-suggest button,
+    .chair-suggest button{
+      background:#fff!important;
+      color:var(--text)!important;
+      border-bottom:1px solid var(--line)!important;
+      font-weight:400!important;
+    }
+
+    .autocomplete-item:hover,
+    .autocomplete-item.selected,
+    .autocomplete-item.active,
+    .staff-suggest button:hover,
+    .staff-suggest button.active,
+    .chair-suggest button:hover,
+    .chair-suggest button.active{
+      background:#fff3f7!important;
+      color:var(--wine-dark)!important;
+      outline:0!important;
+    }
+
+    .employee-name,
+    .staff-suggest .staff-code,
+    .chair-suggest .staff-code{
+      color:var(--wine-dark)!important;
+      font-weight:400!important;
+    }
+
+    .employee-details,
+    .staff-suggest .staff-role,
+    .chair-suggest .staff-role{
+      color:var(--muted)!important;
+      font-weight:400!important;
+    }
+
+    .no-results{
+      background:#fff!important;
+      color:var(--muted)!important;
+      font-weight:400!important;
+    }
+
 </style>
 </head>
 <body>
@@ -2684,7 +2772,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-180.080626-SUA-THU-KY-KY-KHONG-XOAY-MAI-GOI-Y-DONG-BO-MAU</p>
+      <p class="login-version">Version: INDEX-181.080626-GIAOBAN-2COT-BIENBAN-HANHCHINH-GOIY-PHIM</p>
     </div>
   </div>
 
@@ -2728,7 +2816,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-180.080626-SUA-THU-KY-KY-KHONG-XOAY-MAI-GOI-Y-DONG-BO-MAU</div>
+    <div class="app-version">Version: INDEX-181.080626-GIAOBAN-2COT-BIENBAN-HANHCHINH-GOIY-PHIM</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -2737,7 +2825,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-180.080626-SUA-THU-KY-KY-KHONG-XOAY-MAI-GOI-Y-DONG-BO-MAU';
+const APP_VERSION = 'INDEX-181.080626-GIAOBAN-2COT-BIENBAN-HANHCHINH-GOIY-PHIM';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -3349,11 +3437,12 @@ function renderEmployeeAutocompleteItems(box, list, chooseFnName){
     box.innerHTML = '<div class="no-results">Không tìm thấy nhân viên phù hợp</div>';
     return;
   }
+  box.setAttribute('role', 'listbox');
   box.innerHTML = list.map((p, idx) => {
     const ma = employeeCodeForAutocomplete(p);
     const name = employeeNameForAutocomplete(p);
     const details = employeeDetailsForAutocomplete(p);
-    return `<div class="autocomplete-item staff-suggest-item ${idx === 0 ? 'selected active' : ''}" role="button" tabindex="-1" data-ma="${escAttr(ma)}" onmousedown="event.preventDefault()" onclick="${chooseFnName}('${escAttr(ma)}')">
+    return `<div class="autocomplete-item staff-suggest-item ${idx === 0 ? 'selected active' : ''}" role="option" aria-selected="${idx === 0 ? 'true' : 'false'}" tabindex="-1" data-ma="${escAttr(ma)}" onmousedown="event.preventDefault()" onclick="${chooseFnName}('${escAttr(ma)}')">
       <div class="employee-name">${esc(name)}</div>
       ${details ? `<div class="employee-details">${esc(details)}</div>` : ''}
     </div>`;
@@ -3368,6 +3457,43 @@ function hideAutocompleteBox(box){
   if(!box) return;
   box.classList.add('hidden');
   box.style.display = 'none';
+}
+
+function getAutocompleteItems(box){
+  return Array.from(box?.querySelectorAll('.autocomplete-item, .staff-suggest-item') || []);
+}
+
+function setAutocompleteActive(box, index){
+  const items = getAutocompleteItems(box);
+  if(!items.length) return null;
+  const safeIndex = ((index % items.length) + items.length) % items.length;
+  items.forEach((item, i) => {
+    item.classList.toggle('active', i === safeIndex);
+    item.classList.toggle('selected', i === safeIndex);
+    item.setAttribute('aria-selected', i === safeIndex ? 'true' : 'false');
+  });
+  const active = items[safeIndex];
+  try{ active.scrollIntoView({block:'nearest'}); }catch(e){}
+  return active;
+}
+
+function moveAutocompleteActive(box, delta){
+  const items = getAutocompleteItems(box);
+  if(!items.length) return null;
+  let idx = items.findIndex(x => x.classList.contains('active') || x.classList.contains('selected'));
+  if(idx < 0) idx = 0;
+  return setAutocompleteActive(box, idx + delta);
+}
+
+function chooseActiveAutocompleteItem(box){
+  const items = getAutocompleteItems(box);
+  if(!items.length) return false;
+  const active = items.find(x => x.classList.contains('active') || x.classList.contains('selected')) || items[0];
+  if(active){
+    active.click();
+    return true;
+  }
+  return false;
 }
 
 function positionStaffSuggestBox(input, box){
@@ -3416,13 +3542,29 @@ function handleStaffSearchInput(){
 }
 
 function handleStaffSearchKeydown(e){
+  const box = $('#staffSuggestBox');
+
+  if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+    if(box && !box.classList.contains('hidden')){
+      e.preventDefault();
+      moveAutocompleteActive(box, e.key === 'ArrowDown' ? 1 : -1);
+    }
+    return;
+  }
+
   if(e.key === 'Enter'){
     e.preventDefault();
-    const first = $('#staffSuggestBox .staff-suggest-item');
-    if(first && !state.selectedStaffCandidate) chooseStaffSuggestion(first.dataset.ma);
+    if(box && !box.classList.contains('hidden') && getAutocompleteItems(box).length){
+      chooseActiveAutocompleteItem(box);
+    }else{
+      const first = $('#staffSuggestBox .staff-suggest-item');
+      if(first && !state.selectedStaffCandidate) chooseStaffSuggestion(first.dataset.ma);
+    }
     addSelectedStaff();
+    return;
   }
-  if(e.key === 'Escape') hideAutocompleteBox($('#staffSuggestBox'));
+
+  if(e.key === 'Escape') hideAutocompleteBox(box);
 }
 
 function closeStaffSuggestOnOutsideClick(e){
@@ -5563,13 +5705,13 @@ function renderGiaoBanDotXuatModal(){
             <div class="modal-title">${esc(LOAI_GIAO_BAN_DOT_XUAT)} ngày ${dateVi(g.ngayGiaoBan)}</div>
             <div class="meta">${esc(g.khoaPhong)} · ${esc(g.trangThai)}${g.nguoiTaoTen ? ' · Người tạo phiên: ' + esc(g.nguoiTaoTen) : ''}</div>
           </div>
-          <button class="close-btn" onclick="closeModal()">×</button>
+          <button class="close-btn" onclick="closeGiaoBanModal()">×</button>
         </div>
 
         <div class="card" style="box-shadow:none">
           <h3 class="section-title">A. Phần hành chính</h3>
-          <div class="grid">
-            <div class="col-3"><label>Thời gian giao ban</label><div class="gb-time-row"><input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}</div></div>
+          <div class="grid gb-dot-admin-grid">
+            <div class="gb-dot-admin-item gb-dot-admin-time"><label>Thời gian giao ban</label><div class="gb-time-row"><input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}</div></div>
             <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="gbDotDept" class="equal-control" ${g.daKhoa ? 'disabled' : ''}>${deptOptions(g.khoaPhong || state.user?.khoaPhong || '')}</select></div>
             <div class="gb-admin-item gb-admin-secretary"><label>Thư ký</label><input class="equal-control" readonly value="${escAttr(g.nguoiTaoTen || state.user?.tenNhanVien || '')}"></div>
             <div class="gb-admin-item gb-admin-chair"><label>Chủ trì giao ban</label><div class="autocomplete-container" id="gbChuTriContainer"><input id="gbChuTriInput" class="equal-control autocomplete-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" onfocus="showChairSuggestForInput(this)" value="${escAttr(g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '')}" ${g.daKhoa ? 'readonly' : ''} onblur="normalizeChairInput();syncSignModeWithChair()" onchange="normalizeChairInput();syncSignModeWithChair()" oninput="syncSignModeWithChair()"><div id="gbChuTriSuggestBox" class="chair-suggest autocomplete-dropdown hidden"></div></div></div>
@@ -5777,6 +5919,27 @@ function bindChairSuggestDelegates(){
   });
   document.addEventListener('input', e => {
     if(e.target && e.target.id === 'gbChuTriInput') showChairSuggestForInput(e.target);
+  });
+  document.addEventListener('keydown', e => {
+    if(!e.target || e.target.id !== 'gbChuTriInput') return;
+    const box = document.getElementById('gbChuTriSuggestBox');
+    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+      if(box && !box.classList.contains('hidden')){
+        e.preventDefault();
+        moveAutocompleteActive(box, e.key === 'ArrowDown' ? 1 : -1);
+      }
+      return;
+    }
+    if(e.key === 'Enter'){
+      if(box && !box.classList.contains('hidden') && getAutocompleteItems(box).length){
+        e.preventDefault();
+        chooseActiveAutocompleteItem(box);
+      }
+      return;
+    }
+    if(e.key === 'Escape'){
+      hideChairSuggestBox();
+    }
   });
   document.addEventListener('click', e => {
     const input = e.target && e.target.closest ? e.target.closest('#gbChuTriInput') : null;
