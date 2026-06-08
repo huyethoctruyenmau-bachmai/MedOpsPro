@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-168.080626-SUA-HIEN-THI-THU-KY-CHU-TRI-KY tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-169.080626-MOBILE-O-CHON-KY-RONG-HON-NUT tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -1974,6 +1974,55 @@
       }
     }
 
+
+
+    /* ===== PATCH 169: MOBILE Ô CHỌN HÌNH THỨC KÝ RỘNG HƠN NÚT KÝ ===== */
+    @media (max-width:899px){
+      .gb-sign-two-person .gb-sign-person{
+        display:grid!important;
+        grid-template-columns:54px minmax(142px,1.18fr) minmax(112px,1fr)!important;
+        gap:7px!important;
+        align-items:center!important;
+        width:100%!important;
+      }
+      .gb-sign-two-person .gb-sign-label{
+        min-width:0!important;
+        overflow:hidden!important;
+        text-overflow:ellipsis!important;
+      }
+      .gb-sign-two-person .sign-mode-compact,
+      .gb-sign-two-person .sign-mode-compact select{
+        width:100%!important;
+        min-width:142px!important;
+        max-width:none!important;
+        height:36px!important;
+        min-height:36px!important;
+      }
+      .gb-sign-two-person .btn{
+        width:100%!important;
+        min-width:112px!important;
+        height:36px!important;
+        min-height:36px!important;
+        padding-left:8px!important;
+        padding-right:8px!important;
+        white-space:nowrap!important;
+      }
+    }
+    @media (max-width:360px){
+      .gb-sign-two-person .gb-sign-person{
+        grid-template-columns:48px minmax(132px,1.2fr) minmax(104px,1fr)!important;
+        gap:6px!important;
+      }
+      .gb-sign-two-person .sign-mode-compact,
+      .gb-sign-two-person .sign-mode-compact select{
+        min-width:132px!important;
+      }
+      .gb-sign-two-person .btn{
+        min-width:104px!important;
+        font-size:13px!important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -2015,7 +2064,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-168.080626-SUA-HIEN-THI-THU-KY-CHU-TRI-KY</p>
+      <p class="login-version">Version: INDEX-169.080626-MOBILE-O-CHON-KY-RONG-HON-NUT</p>
     </div>
   </div>
 
@@ -2059,7 +2108,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-168.080626-SUA-HIEN-THI-THU-KY-CHU-TRI-KY</div>
+    <div class="app-version">Version: INDEX-169.080626-MOBILE-O-CHON-KY-RONG-HON-NUT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -2068,7 +2117,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-168.080626-SUA-HIEN-THI-THU-KY-CHU-TRI-KY';
+const APP_VERSION = 'INDEX-169.080626-MOBILE-O-CHON-KY-RONG-HON-NUT';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
