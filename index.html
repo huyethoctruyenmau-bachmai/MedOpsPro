@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-179.080626-TDKMM-4-O-BENH-NHAN-1-DONG tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-180.080626-SUA-THU-KY-KY-KHONG-XOAY-MAI-GOI-Y-DONG-BO-MAU tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -2582,6 +2582,67 @@
       }
     }
 
+
+
+    /* ===== PATCH 180: DROPDOWN GỢI Ý NHÂN VIÊN/CHỦ TRÌ ĐỒNG BỘ MÀU APP ===== */
+    .autocomplete-dropdown,
+    .staff-suggest,
+    .staff-suggest.autocomplete-dropdown,
+    .chair-suggest,
+    .chair-suggest.autocomplete-dropdown{
+      background:#fffafc!important;
+      border:1px solid #ead1dc!important;
+      border-radius:12px!important;
+      box-shadow:0 12px 28px rgba(112,0,43,.16)!important;
+      color:var(--text)!important;
+      overflow:hidden!important;
+    }
+
+    .autocomplete-item,
+    .staff-suggest button,
+    .chair-suggest button{
+      background:#fffafc!important;
+      color:var(--text)!important;
+      border-bottom:1px solid #f3dce6!important;
+      font-weight:600!important;
+    }
+
+    .autocomplete-item:last-child,
+    .staff-suggest button:last-child,
+    .chair-suggest button:last-child{
+      border-bottom:0!important;
+    }
+
+    .autocomplete-item:hover,
+    .autocomplete-item.selected,
+    .autocomplete-item.active,
+    .staff-suggest button:hover,
+    .staff-suggest button.active,
+    .chair-suggest button:hover,
+    .chair-suggest button.active{
+      background:#fde8f0!important;
+      color:var(--wine-dark)!important;
+    }
+
+    .employee-name,
+    .staff-suggest .staff-code,
+    .chair-suggest .staff-code{
+      color:var(--wine-dark)!important;
+      font-weight:800!important;
+    }
+
+    .employee-details,
+    .staff-suggest .staff-role,
+    .chair-suggest .staff-role{
+      color:#6b4b57!important;
+      font-weight:500!important;
+    }
+
+    .no-results{
+      background:#fffafc!important;
+      color:#8a5a6a!important;
+    }
+
 </style>
 </head>
 <body>
@@ -2623,7 +2684,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-179.080626-TDKMM-4-O-BENH-NHAN-1-DONG</p>
+      <p class="login-version">Version: INDEX-180.080626-SUA-THU-KY-KY-KHONG-XOAY-MAI-GOI-Y-DONG-BO-MAU</p>
     </div>
   </div>
 
@@ -2667,7 +2728,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-179.080626-TDKMM-4-O-BENH-NHAN-1-DONG</div>
+    <div class="app-version">Version: INDEX-180.080626-SUA-THU-KY-KY-KHONG-XOAY-MAI-GOI-Y-DONG-BO-MAU</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -2676,7 +2737,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-179.080626-TDKMM-4-O-BENH-NHAN-1-DONG';
+const APP_VERSION = 'INDEX-180.080626-SUA-THU-KY-KY-KHONG-XOAY-MAI-GOI-Y-DONG-BO-MAU';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -3086,7 +3147,7 @@ async function api(action, payload={}, opts={}){
     });
   }catch(err){
     if(err && err.name === 'AbortError'){
-      throw new Error('API xử lý quá lâu hoặc bị treo. Vui lòng kiểm tra Nhật ký thực thi trong Apps Script và thử lại.');
+      throw new Error('API xử lý quá lâu hoặc bị treo. Nút đã được mở lại; vui lòng kiểm tra Nhật ký thực thi trong Apps Script rồi thử lại.');
     }
     throw new Error('Không kết nối được API. Kiểm tra link Web App /exec và quyền triển khai.');
   }finally{
@@ -6276,16 +6337,21 @@ async function submitThuKySignature(btn, systemSign){
       toast('Vui lòng ký thư ký trong khung trước khi xác nhận.');
       return;
     }
+
     const payload = collectGiaoBanPayload();
     payload.hinhThucKyThuKy = mode;
     payload.chuKyThuKyDataUrl = signDataUrl;
+
     if(chairBeforeSign.tenNhanVien){
       payload.chuTriMa = chairBeforeSign.maNhanVien || '';
       payload.chuTriTen = chairBeforeSign.tenNhanVien || '';
       payload.chuTriChucDanh = chairBeforeSign.chucDanh || '';
       payload.nguoiChuTriTuDo = chairBeforeSign.tenNhanVien || '';
     }
-    const res = await api('signThuKyBienBanHop', payload);
+
+    // Không để nút Thư ký ký xoay vô hạn. Nếu backend bị kẹt lock/Apps Script chậm,
+    // frontend tự dừng sau 45 giây và trả lại nút để người dùng thao tác lại.
+    const res = await api('signThuKyBienBanHop', payload, {timeoutMs: 45000});
     state.currentGiaoBan = res.data.giaoBan || state.currentGiaoBan;
     resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
     clearListCaches();
@@ -6294,6 +6360,7 @@ async function submitThuKySignature(btn, systemSign){
     renderGiaoBanModal();
     scrollToChuTriSignArea();
   };
+
   if(btn) return withButton(btn, 'Đang ký...', task);
   try{ await task(); }catch(err){ toast(err.message); }
 }
