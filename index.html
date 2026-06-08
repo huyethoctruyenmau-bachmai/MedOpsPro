@@ -989,7 +989,7 @@
 
 
 
-    /* FIX INDEX-175.080626-X-THOAT-VUONG-HOVER-DO-CAN-GIUA tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-176.080626-TAO-PHIEU-2-COT-DESKTOP-NUT-DUOI-PHAI tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -2392,6 +2392,84 @@
       border-color:#fecdd3!important;
     }
 
+
+
+    /* ===== PATCH 176: TAB TẠO PHIẾU 2 CỘT TRÊN DESKTOP, MOBILE GIỮ NGUYÊN ===== */
+    @media (min-width:900px){
+      #tab-create{
+        display:flex!important;
+        flex-direction:column!important;
+        min-height:calc(100dvh - 178px)!important;
+        overflow:hidden!important;
+      }
+      #tab-create .create-two-col-shell{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        display:grid!important;
+        grid-template-columns:minmax(280px,.36fr) minmax(0,.64fr)!important;
+        gap:12px!important;
+        overflow:hidden!important;
+      }
+      #tab-create .create-left-col,
+      #tab-create .create-right-col{
+        min-width:0!important;
+        min-height:0!important;
+        overflow-y:auto!important;
+        overflow-x:hidden!important;
+        overscroll-behavior:contain!important;
+        padding-right:2px!important;
+      }
+      #tab-create .create-left-col .card,
+      #tab-create .create-right-col .card{
+        margin-bottom:12px!important;
+      }
+      #tab-create .create-info-card .grid{
+        grid-template-columns:1fr!important;
+      }
+      #tab-create .create-info-card .grid > div{
+        grid-column:auto!important;
+        min-width:0!important;
+      }
+      #tab-create .create-fixed-footer{
+        flex:0 0 auto!important;
+        position:sticky!important;
+        bottom:0!important;
+        z-index:30!important;
+        display:flex!important;
+        justify-content:flex-end!important;
+        align-items:center!important;
+        padding:10px 0 0!important;
+        background:linear-gradient(180deg, rgba(255,255,255,0), var(--page-bg) 36%, var(--page-bg) 100%)!important;
+      }
+      #tab-create .create-fixed-footer #createBtn{
+        min-width:168px!important;
+        height:42px!important;
+        min-height:42px!important;
+        font-weight:800!important;
+      }
+    }
+
+    @media (max-width:899px){
+      #tab-create .create-two-col-shell{
+        display:block!important;
+      }
+      #tab-create .create-left-col,
+      #tab-create .create-right-col{
+        overflow:visible!important;
+        padding-right:0!important;
+      }
+      #tab-create .create-fixed-footer{
+        position:static!important;
+        display:flex!important;
+        justify-content:flex-start!important;
+        padding:0!important;
+        background:transparent!important;
+      }
+      #tab-create .create-fixed-footer #createBtn{
+        width:auto!important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -2433,7 +2511,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-175.080626-X-THOAT-VUONG-HOVER-DO-CAN-GIUA</p>
+      <p class="login-version">Version: INDEX-176.080626-TAO-PHIEU-2-COT-DESKTOP-NUT-DUOI-PHAI</p>
     </div>
   </div>
 
@@ -2477,7 +2555,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-175.080626-X-THOAT-VUONG-HOVER-DO-CAN-GIUA</div>
+    <div class="app-version">Version: INDEX-176.080626-TAO-PHIEU-2-COT-DESKTOP-NUT-DUOI-PHAI</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -2486,7 +2564,7 @@
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
 <script>
-const APP_VERSION = 'INDEX-175.080626-X-THOAT-VUONG-HOVER-DO-CAN-GIUA';
+const APP_VERSION = 'INDEX-176.080626-TAO-PHIEU-2-COT-DESKTOP-NUT-DUOI-PHAI';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -2942,86 +3020,93 @@ function renderCreateTab(){
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>` : '';
   $('#tab-create').innerHTML = `
-    <div class="card">
-      <h2 class="section-title">I. Thông tin phiếu</h2>
-      <div class="grid">
-        <div class="col-3">
-          <label>Loại phiếu</label>
-          <select id="createLoai" class="equal-control">
-            <option>${LOAI_BAN_GIAO}</option>
-            <option>${LOAI_BAO_CAO}</option>${tmOptions}
-          </select>
-        </div>
-        <div class="col-3">
-          <label id="createDateLabel">Ngày trực</label>
-          <input id="createDate" class="equal-control date-vi-input" type="date" value="${today}">
-        </div>
-        <div class="col-3">
-          <label>Khoa/phòng trực</label>
-          <select id="createDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select>
-        </div>
-        <div class="col-3">
-          <label id="createUserLabel">Người thực hiện</label>
-          <input class="equal-control" readonly value="${esc(displayUser(state.user))}">
-        </div>
-      </div>
-    </div>
-
-    <div id="tmPhieuBlock" class="card hidden"></div>
-
-    <div id="reportBlock" class="card hidden">
-      <h3 class="section-title">II. Báo cáo thường trực</h3>
-      <div class="grid">
-        <div class="col-12">
-          <label>2.1 Nhân viên phiên thường trực</label>
-          <div class="staff-picker autocomplete-container">
-            <div class="staff-input-row">
-              <input id="staffSearch" class="autocomplete-input" autocomplete="off" placeholder="Gõ tên hoặc mã nhân viên">
-              <button id="addStaffBtn" class="btn secondary staff-add-btn" type="button" title="Thêm nhân viên" aria-label="Thêm nhân viên">+</button>
+    <div class="create-two-col-shell">
+      <div class="create-left-col">
+        <div class="card create-info-card">
+          <h2 class="section-title">I. Thông tin phiếu</h2>
+          <div class="grid">
+            <div class="col-3">
+              <label>Loại phiếu</label>
+              <select id="createLoai" class="equal-control">
+                <option>${LOAI_BAN_GIAO}</option>
+                <option>${LOAI_BAO_CAO}</option>${tmOptions}
+              </select>
             </div>
-            <div id="staffSuggestBox" class="staff-suggest autocomplete-dropdown hidden"></div>
+            <div class="col-3">
+              <label id="createDateLabel">Ngày trực</label>
+              <input id="createDate" class="equal-control date-vi-input" type="date" value="${today}">
+            </div>
+            <div class="col-3">
+              <label>Khoa/phòng trực</label>
+              <select id="createDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select>
+            </div>
+            <div class="col-3">
+              <label id="createUserLabel">Người thực hiện</label>
+              <input class="equal-control" readonly value="${esc(displayUser(state.user))}">
+            </div>
           </div>
         </div>
-        <div class="col-12"><div id="staffList" class="staff-list"></div></div>
-        <div class="col-12">
-          <label>2.2 Tình hình chung / số liệu trực</label>
-          <div id="soLieuTrucBox"><textarea id="soLieuTruc" placeholder="Nhập số liệu trực"></textarea></div>
+      </div>
+
+      <div class="create-right-col">
+        <div id="tmPhieuBlock" class="card hidden"></div>
+
+        <div id="reportBlock" class="card hidden">
+          <h3 class="section-title">II. Báo cáo thường trực</h3>
+          <div class="grid">
+            <div class="col-12">
+              <label>2.1 Nhân viên phiên thường trực</label>
+              <div class="staff-picker autocomplete-container">
+                <div class="staff-input-row">
+                  <input id="staffSearch" class="autocomplete-input" autocomplete="off" placeholder="Gõ tên hoặc mã nhân viên">
+                  <button id="addStaffBtn" class="btn secondary staff-add-btn" type="button" title="Thêm nhân viên" aria-label="Thêm nhân viên">+</button>
+                </div>
+                <div id="staffSuggestBox" class="staff-suggest autocomplete-dropdown hidden"></div>
+              </div>
+            </div>
+            <div class="col-12"><div id="staffList" class="staff-list"></div></div>
+            <div class="col-12">
+              <label>2.2 Tình hình chung / số liệu trực</label>
+              <div id="soLieuTrucBox"><textarea id="soLieuTruc" placeholder="Nhập số liệu trực"></textarea></div>
+            </div>
+            <div class="col-12">
+              <label>2.3 Chuyên môn</label>
+              <textarea id="baoCaoChuyenMon">Không có gì đặc biệt</textarea>
+            </div>
+            <div class="col-12">
+              <label>2.4 Vấn đề khác</label>
+              <textarea id="baoCaoVanDeKhac">Không có gì đặc biệt</textarea>
+            </div>
+          </div>
         </div>
-        <div class="col-12">
-          <label>2.3 Chuyên môn</label>
-          <textarea id="baoCaoChuyenMon">Không có gì đặc biệt</textarea>
-        </div>
-        <div class="col-12">
-          <label>2.4 Vấn đề khác</label>
-          <textarea id="baoCaoVanDeKhac">Không có gì đặc biệt</textarea>
+
+        <div id="regularPhieuBlock" class="card">
+          <h3 id="handoverTitle" class="section-title">II. Bàn giao thường trực</h3>
+          <div class="grid">
+            <div class="col-12">
+              <label id="handoverLabel1">2.1 Tài sản, dụng cụ, thiết bị y tế</label>
+              <div id="banGiaoTaiSanBox"><textarea id="banGiaoTaiSan">Bình thường</textarea></div>
+            </div>
+            <div class="col-12">
+              <label id="handoverLabel2">2.2 Chuyên môn</label>
+              <textarea id="banGiaoChuyenMon">Không có gì đặc biệt</textarea>
+            </div>
+            <div class="col-12">
+              <label id="handoverLabel3">2.3 Vấn đề khác</label>
+              <textarea id="banGiaoVanDeKhac">Không có gì đặc biệt</textarea>
+            </div>
+            <div class="col-3">
+              <label id="handoverLabel4">2.4 Thời gian bàn giao</label>
+              <input id="thoiGianBanGiao" class="equal-control datetime-vi-input" type="datetime-local" value="${now}">
+            </div>
+          </div>
+          <p class="meta">Khi bấm Tạo phiếu, hệ thống hiểu rằng người thực hiện đã ký xác nhận nội dung phiếu.</p>
         </div>
       </div>
     </div>
 
-    <div id="regularPhieuBlock" class="card">
-      <h3 id="handoverTitle" class="section-title">II. Bàn giao thường trực</h3>
-      <div class="grid">
-        <div class="col-12">
-          <label id="handoverLabel1">2.1 Tài sản, dụng cụ, thiết bị y tế</label>
-          <div id="banGiaoTaiSanBox"><textarea id="banGiaoTaiSan">Bình thường</textarea></div>
-        </div>
-        <div class="col-12">
-          <label id="handoverLabel2">2.2 Chuyên môn</label>
-          <textarea id="banGiaoChuyenMon">Không có gì đặc biệt</textarea>
-        </div>
-        <div class="col-12">
-          <label id="handoverLabel3">2.3 Vấn đề khác</label>
-          <textarea id="banGiaoVanDeKhac">Không có gì đặc biệt</textarea>
-        </div>
-        <div class="col-3">
-          <label id="handoverLabel4">2.4 Thời gian bàn giao</label>
-          <input id="thoiGianBanGiao" class="equal-control datetime-vi-input" type="datetime-local" value="${now}">
-        </div>
-      </div>
-      <div class="btn-row">
-        <button id="createBtn" class="btn primary">Tạo phiếu</button>
-      </div>
-      <p class="meta">Khi bấm Tạo phiếu, hệ thống hiểu rằng người thực hiện đã ký xác nhận nội dung phiếu.</p>
+    <div class="create-fixed-footer">
+      <button id="createBtn" class="btn primary">Tạo phiếu</button>
     </div>
   `;
 
@@ -3434,9 +3519,7 @@ function renderTmPhieuCreateForm(loai){
   const box = $('#tmPhieuBlock');
   if(!box) return;
   box.innerHTML = renderTmPhieuFormHtml(loai, {}, 'tmCreate') + `
-    <div class="btn-row"><button id="createTmBtn" class="btn primary">Tạo phiếu</button></div>
     <p class="meta">Thông tin người tạo phiếu được lấy tự động từ tài khoản đang đăng nhập.</p>`;
-  $('#createTmBtn').addEventListener('click', submitCreatePhieu);
   bindTmPhieuFormEvents('tmCreate', loai);
   setTimeout(() => $$('textarea').forEach(autoGrow), 0);
 }
