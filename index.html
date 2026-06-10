@@ -2869,6 +2869,124 @@
       }
     }
 
+
+
+    /* ===== PATCH 185: BIÊN BẢN HỌP - KHUNG 2 CỘT DÃN CAO KÍN MÀN HÌNH DESKTOP ===== */
+    @media (min-width:900px){
+      .full-modal .modal-card.gb-dot-modal-card{
+        height:calc(100dvh - 16px)!important;
+        max-height:calc(100dvh - 16px)!important;
+        min-height:0!important;
+        display:flex!important;
+        flex-direction:column!important;
+        overflow:hidden!important;
+        padding-bottom:10px!important;
+      }
+      .gb-dot-modal-card .modal-head{
+        flex:0 0 auto!important;
+      }
+      .gb-dot-modal-card .gb-dot-layout{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        height:auto!important;
+        max-height:none!important;
+        display:grid!important;
+        grid-template-columns:minmax(280px,.38fr) minmax(0,1fr)!important;
+        gap:12px!important;
+        overflow:hidden!important;
+        align-items:stretch!important;
+      }
+      .gb-dot-modal-card .gb-dot-left,
+      .gb-dot-modal-card .gb-dot-right{
+        height:100%!important;
+        min-height:0!important;
+        max-height:100%!important;
+        overflow:hidden!important;
+        padding-right:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-left > .gb-regular-card,
+      .gb-dot-modal-card .gb-dot-right > .gb-regular-card{
+        height:100%!important;
+        min-height:0!important;
+        max-height:100%!important;
+        margin:0!important;
+        overflow:hidden!important;
+        box-sizing:border-box!important;
+      }
+      .gb-dot-modal-card .gb-dot-left > .gb-regular-card{
+        display:flex!important;
+        flex-direction:column!important;
+      }
+      .gb-dot-modal-card .gb-dot-left .section-title,
+      .gb-dot-modal-card .gb-dot-right .section-title{
+        flex:0 0 auto!important;
+      }
+      .gb-dot-modal-card .gb-dot-left .gb-dot-admin-grid{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        height:auto!important;
+        display:flex!important;
+        flex-direction:column!important;
+        gap:9px!important;
+      }
+      .gb-dot-modal-card .gb-dot-left .gb-dot-admin-grid > .gb-dot-admin-item,
+      .gb-dot-modal-card .gb-dot-left .gb-dot-admin-grid > .gb-admin-item{
+        flex:0 0 auto!important;
+        width:100%!important;
+        min-width:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-left .gb-dot-admin-grid > .col-12{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        width:100%!important;
+        display:flex!important;
+        flex-direction:column!important;
+      }
+      .gb-dot-modal-card #gbThanhPhanThamDu{
+        flex:1 1 auto!important;
+        height:100%!important;
+        min-height:180px!important;
+        resize:none!important;
+        overflow:auto!important;
+      }
+      .gb-dot-modal-card .gb-dot-right{
+        display:grid!important;
+        grid-template-rows:minmax(0,1fr) minmax(0,1fr)!important;
+        gap:12px!important;
+      }
+      .gb-dot-modal-card .gb-dot-right > .gb-regular-card:first-child{
+        display:grid!important;
+        grid-template-rows:auto minmax(88px,.34fr) minmax(0,.66fr)!important;
+        gap:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-right > .gb-regular-card:last-child{
+        display:grid!important;
+        grid-template-rows:auto minmax(0,1fr)!important;
+        gap:0!important;
+      }
+      .gb-dot-modal-card .gb-inner-section{
+        min-height:0!important;
+        display:flex!important;
+        flex-direction:column!important;
+      }
+      .gb-dot-modal-card .gb-inner-section .gb-sub-label{
+        flex:0 0 auto!important;
+      }
+      .gb-dot-modal-card #gbLyDoGiaoBan,
+      .gb-dot-modal-card #gbNoiDungDotXuat,
+      .gb-dot-modal-card #gbKetLuan{
+        flex:1 1 auto!important;
+        height:100%!important;
+        min-height:0!important;
+        resize:none!important;
+        overflow:auto!important;
+      }
+      .gb-dot-modal-card .gb-regular-finish{
+        flex:0 0 auto!important;
+        margin-top:8px!important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -5871,7 +5989,7 @@ function renderGiaoBanDotXuatModal(){
 
   openModal(`
     <div class="modal full-modal">
-      <div class="modal-card gb-regular-modal-card${protectedViewClassIfDone(g.trangThai)}">
+      <div class="modal-card gb-regular-modal-card gb-dot-modal-card${protectedViewClassIfDone(g.trangThai)}">
         ${protectedWatermarkIfDone(g.trangThai)}
         <div class="modal-head">
           <div>
