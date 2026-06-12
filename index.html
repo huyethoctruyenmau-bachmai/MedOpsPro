@@ -3195,7 +3195,26 @@
       }
     }
 
-</style>
+
+
+    /* ===== PATCH 189: TDKMM THEO THÔNG TƯ 26 + XUẤT PDF TEMPLATE ===== */
+    .tdkmm-section-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px;margin:10px 0}
+    .tdkmm-section-card .sub-title{margin-top:0}
+    .tdkmm-lab-wrap{overflow:auto;border:1px solid var(--g-line);border-radius:12px;background:#fff;margin-top:8px}
+    .tdkmm-lab-table{width:100%;border-collapse:collapse;min-width:760px;font-size:13.5px;table-layout:fixed}
+    .tdkmm-lab-table th,.tdkmm-lab-table td{border-right:1px solid var(--g-line);border-bottom:1px solid var(--g-line);padding:6px 7px;vertical-align:middle;text-align:left;line-height:1.35}
+    .tdkmm-lab-table th{background:#fff4f8;color:var(--wine-dark);font-weight:700;text-align:center}
+    .tdkmm-lab-table th:last-child,.tdkmm-lab-table td:last-child{border-right:0}
+    .tdkmm-lab-table tr:last-child td{border-bottom:0}
+    .tdkmm-lab-table th:nth-child(1),.tdkmm-lab-table td:nth-child(1){width:26%;font-weight:600;color:var(--wine-dark)}
+    .tdkmm-lab-table input{min-height:30px!important;border:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;padding:3px 4px!important;font-size:13.5px!important}
+    .tdkmm-lab-table input:focus{background:#fffdf4!important;box-shadow:inset 0 -1px 0 var(--wine)!important}
+    .tdkmm-pdf-choice{display:grid;gap:8px;margin-top:10px}
+    .tdkmm-pdf-choice label{display:flex;align-items:flex-start;gap:8px;border:1px solid var(--g-line);border-radius:10px;background:#fff;padding:9px 10px;color:var(--g-text);font-size:14.5px;line-height:1.35}
+    .tdkmm-pdf-choice input{width:18px;min-height:18px;box-shadow:none;flex:0 0 auto;margin-top:1px}
+    @media (max-width:760px){.tdkmm-lab-table{min-width:720px;font-size:13px}.tdkmm-section-card{padding:9px}}
+
+  </style>
 </head>
 <body>
 <!-- ===== MODULE: HTML_BODY_SHELL_START - boot/login/app/modal roots ===== -->
@@ -3306,7 +3325,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-188.120626-CHUAN-HOA-INDEX-1FILE';
+const APP_VERSION = 'INDEX-189.120626-TDKMM-TT26-PDF-TEMPLATE';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -4356,6 +4375,39 @@ function renderTmXuTriFormHtml(d={}, prefix='tmCreate'){
     </div>`;
 }
 
+function tdkmmLabRows(){
+  return [
+    ['tuNgungKet','Tự ngưng kết'],
+    ['tanMau','Huyết tương/huyết thanh có tan máu'],
+    ['mauSac','Màu sắc mẫu máu'],
+    ['abo','Định nhóm ABO'],
+    ['rh','Định nhóm Rh'],
+    ['coombsTt','Xét nghiệm kháng globulin trực tiếp'],
+    ['coombsGt','Xét nghiệm kháng globulin gián tiếp'],
+    ['ktbt','Xét nghiệm kháng thể bất thường'],
+    ['khac','Các xét nghiệm khác']
+  ];
+}
+function tdkmmLabFieldName(key, col){
+  const map = {tuNgungKet:'TuNgungKet',tanMau:'TanMau',mauSac:'MauSac',abo:'Abo',rh:'Rh',coombsTt:'CoombsTt',coombsGt:'CoombsGt',ktbt:'Ktbt',khac:'Khac'};
+  const colMap = {truoc:'Truoc', sau:'Sau', donVi:'DonVi'};
+  return 'xn' + (map[key] || key) + (colMap[col] || col);
+}
+function tdkmmLabValue(d, key, col){
+  const name = tdkmmLabFieldName(key, col);
+  const fallback = {
+    xnCoombsTtTruoc:'coombsTTTruoc', xnCoombsTtSau:'coombsTTSau',
+    xnCoombsGtTruoc:'coombsGTTruoc', xnCoombsGtSau:'coombsGTSau',
+    xnKtbtTruoc:'slktTruoc', xnKtbtSau:'slktbtSau',
+    xnAboTruoc:'nhomMauABO', xnAboSau:'nhomMauABO', xnAboDonVi:'aboDonViMau',
+    xnRhTruoc:'rhD', xnRhSau:'rhD', xnRhDonVi:'rhDonViMau'
+  };
+  return d[name] || (fallback[name] ? d[fallback[name]] : '') || '';
+}
+function renderTdkmmLabInputTable(d={}, prefix='tmCreate'){
+  return `<div class="tdkmm-lab-wrap"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả xét nghiệm</th><th>Mẫu máu người bệnh trước truyền</th><th>Mẫu máu người bệnh sau truyền</th><th>Mẫu máu từ đơn vị máu nghi ngờ gây tai biến</th></tr></thead><tbody>${tdkmmLabRows().map(([key,label]) => `<tr><td>${esc(label)}</td>${['truoc','sau','donVi'].map(col => `<td><input id="${prefix}Lab_${key}_${col}" value="${escAttr(tdkmmLabValue(d,key,col))}"></td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+
 function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
   const abo = appSetupList('nhomMauHeABO', ['A','B','O','AB','Chưa xác định']);
   const rh = appSetupList('rhD', ['Dương','Âm','Yếu','Chưa xác định']);
@@ -4363,7 +4415,6 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
   const nghiNgo = appSetupList('loaiMauChePhamNghiNgo', ['KHC 50','KHC 250','KHC 350','HTT 200','HTT 250','KTC Pool','KTC GT 120','KTC GT 250','Tủa VIII','KBC']);
   const daTruyen = appSetupList('loaiMauDaTruyenTruocPhanUng', ['Chưa truyền','KHC','KTC','HTT','KTC GT','Tủa VIII']);
   const mucDo = appSetupList('mucDoPhanUng', ['Nhẹ','Trung bình','Nặng']);
-  const kq = appSetupList('ketQuaXetNghiem', ['Âm tính','Dương tính (1+)','Dương tính (2+)','Dương tính (3+)','Dương tính (4+)','Không thực hiện']);
   const before = d.loaiMauDaTruyenTruocPhanUng || {};
   const beforeItems = Array.isArray(before.items) ? before.items : [];
   const hasBeforeData = before.chuaTruyen === true || beforeItems.length > 0;
@@ -4378,59 +4429,83 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
   return `
     <div class="tm-tdkmm-form">
     <h3 class="section-title">II. Khai báo tác dụng không mong muốn liên quan truyền máu</h3>
-    <h3 class="sub-title">1. Thông tin người bệnh</h3>
-    <div class="grid tm-patient-info-grid">
-      <div class="col-6 tm-patient-code"><label>Mã bệnh nhân</label><input id="${prefix}MaBN" class="equal-control" value="${escAttr(d.maBenhNhan || d.maBN || '')}"></div>
-      <div class="col-6 tm-patient-name"><label>Họ tên bệnh nhân</label><input id="${prefix}HoTen" class="equal-control" value="${escAttr(d.hoTenBenhNhan || d.hoTen || '')}"></div>
-      <div class="col-6 tdk-half tm-patient-year"><label>Năm sinh</label><input id="${prefix}NamSinh" class="equal-control" value="${escAttr(d.namSinh || '')}"></div>
-      <div class="col-6 tdk-half tm-patient-gender"><label>Giới tính</label><select id="${prefix}GioiTinh" class="equal-control">${optionHtml(gioiTinh, d.gioiTinh || '')}</select></div>
-      <div class="col-9 tdk-main"><label>Viện/TT/Khoa/phòng</label><input id="${prefix}KhoaPhong" class="equal-control" value="${escAttr(khoaPhongOnly)}"></div>
-      <div class="col-3 tdk-small"><label>Giường</label><input id="${prefix}Giuong" class="equal-control" value="${escAttr(d.giuong || '')}"></div>
-      <div class="col-12"><label>Chẩn đoán</label><textarea id="${prefix}ChanDoan">${esc(d.chanDoan || '')}</textarea></div>
-      <div class="col-6 tdk-half"><label>Nhóm máu ABO</label><select id="${prefix}ABO" class="equal-control">${optionHtml(abo, d.nhomMauABO || '')}</select></div>
-      <div class="col-6 tdk-half"><label>Rh(D)</label><select id="${prefix}RhD" class="equal-control">${optionHtml(rh, d.rhD || '')}</select></div>
-    </div>
-    <h3 class="sub-title">2. Thông tin truyền máu</h3>
-    <div class="grid">
-      <div class="col-12 tm-transfusion-line">
-        <div class="tm-transfusion-field tm-transfusion-code"><label>Mã đơn vị máu nghi ngờ phản ứng</label><input id="${prefix}MaDonVi" class="equal-control" value="${escAttr(d.maDonViMauNghiNgo || '')}"></div>
-        <div class="tm-transfusion-field tm-transfusion-product"><label>Loại Máu - Chế phẩm nghi ngờ phản ứng</label><select id="${prefix}ChePhamNghiNgo" class="equal-control">${optionHtml(nghiNgo, d.loaiMauChePhamNghiNgo || '')}</select></div>
-        <div class="tm-transfusion-field tm-transfusion-volume"><label>Thể tích đã truyền</label><input id="${prefix}TheTichNghiNgo" class="equal-control" value="${escAttr(d.theTichDonViMauDaTruyen || '')}"></div>
-        <div class="tm-transfusion-field tm-transfusion-date"><label>Ngày truyền</label><input id="${prefix}NgayTruyen" class="equal-control date-vi-input" type="date" value="${escAttr(ngayTruyenValue)}"></div>
-        <div class="tm-transfusion-field tm-transfusion-time"><label>Truyền từ</label><input id="${prefix}TruyenTu" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenTu || ''))}"></div>
-        <div class="tm-transfusion-field tm-transfusion-time"><label>Đến</label><input id="${prefix}TruyenDen" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenDen || ''))}"></div>
-      </div>
-      <div class="col-12">
-        <label>Loại máu đã truyền trước khi phản ứng</label>
-        <div class="tm-radio-stack">
-          <label><input id="${prefix}ChuaTruyen" type="checkbox" value="chua" ${isChua ? 'checked' : ''}> Chưa truyền</label>
-          <label><input id="${prefix}DaTruyen" type="checkbox" value="da" ${isDaTruyen ? 'checked' : ''}> Đã truyền</label>
-        </div>
-        <div id="${prefix}DaTruyenBox" class="tm-blood-options ${isChua ? 'hidden' : ''}">
-          <div class="tm-blood-header"><span></span><span>Loại máu</span><span>Thể tích máu đã truyền</span></div>
-          ${rows}
-        </div>
+    <div class="tdkmm-section-card">
+      <h3 class="sub-title">1. Thông tin người bệnh</h3>
+      <div class="grid tm-patient-info-grid">
+        <div class="col-6 tm-patient-code"><label>Mã bệnh nhân/PID</label><input id="${prefix}MaBN" class="equal-control" value="${escAttr(d.maBenhNhan || d.maBN || '')}"></div>
+        <div class="col-6 tm-patient-name"><label>Họ tên bệnh nhân</label><input id="${prefix}HoTen" class="equal-control" value="${escAttr(d.hoTenBenhNhan || d.hoTen || '')}"></div>
+        <div class="col-3 tdk-half tm-patient-year"><label>Tuổi</label><input id="${prefix}Tuoi" class="equal-control" value="${escAttr(d.tuoi || '')}"></div>
+        <div class="col-3 tdk-half tm-patient-year"><label>Năm sinh</label><input id="${prefix}NamSinh" class="equal-control" value="${escAttr(d.namSinh || '')}"></div>
+        <div class="col-3 tdk-half tm-patient-gender"><label>Giới tính</label><select id="${prefix}GioiTinh" class="equal-control">${optionHtml(gioiTinh, d.gioiTinh || '')}</select></div>
+        <div class="col-3 tdk-half"><label>Nhóm máu ABO</label><select id="${prefix}ABO" class="equal-control">${optionHtml(abo, d.nhomMauABO || '')}</select></div>
+        <div class="col-9 tdk-main"><label>Viện/TT/Khoa/phòng</label><input id="${prefix}KhoaPhong" class="equal-control" value="${escAttr(khoaPhongOnly)}"></div>
+        <div class="col-3 tdk-small"><label>Giường</label><input id="${prefix}Giuong" class="equal-control" value="${escAttr(d.giuong || '')}"></div>
+        <div class="col-3 tdk-half"><label>Rh(D)</label><select id="${prefix}RhD" class="equal-control">${optionHtml(rh, d.rhD || '')}</select></div>
+        <div class="col-9"><label>Chẩn đoán</label><textarea id="${prefix}ChanDoan">${esc(d.chanDoan || '')}</textarea></div>
       </div>
     </div>
-    <h3 class="sub-title">3. Mô tả phản ứng</h3>
-    <div class="grid tm-reaction-grid">
-      <div class="col-3"><label>Mức độ phản ứng</label><select id="${prefix}MucDo" class="equal-control">${optionHtml(mucDo, d.mucDoPhanUng || '')}</select></div>
-      <div class="col-9 tdk-trieuchung"><label>Triệu chứng</label><input id="${prefix}TrieuChung" class="equal-control" value="${escAttr(d.trieuChung || '')}"></div>
-      <div class="col-12"><label>Ghi chú</label><textarea id="${prefix}GhiChu">${esc(d.ghiChu || '')}</textarea></div>
+    <div class="tdkmm-section-card">
+      <h3 class="sub-title">2. Thông tin truyền máu và đơn vị máu nghi ngờ</h3>
+      <div class="grid">
+        <div class="col-3"><label>Ngày truyền</label><input id="${prefix}NgayTruyen" class="equal-control date-vi-input" type="date" value="${escAttr(ngayTruyenValue)}"></div>
+        <div class="col-3"><label>Bắt đầu truyền</label><input id="${prefix}TruyenTu" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenTu || ''))}"></div>
+        <div class="col-3"><label>Xuất hiện dấu hiệu đầu tiên</label><input id="${prefix}DauHieuDauTienLuc" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiDiemXuatHienDauHieuDauTien || ''))}"></div>
+        <div class="col-3"><label>Ngừng truyền</label><input id="${prefix}NgungTruyen" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiDiemNgungTruyen || d.thoiGianTruyenDen || ''))}"></div>
+        <div class="col-4"><label>Tên người cho máu</label><input id="${prefix}TenNguoiCho" class="equal-control" value="${escAttr(d.tenNguoiChoMau || '')}"></div>
+        <div class="col-4"><label>Mã đơn vị máu nghi ngờ</label><input id="${prefix}MaDonVi" class="equal-control" value="${escAttr(d.maDonViMauNghiNgo || '')}"></div>
+        <div class="col-4"><label>Loại chế phẩm máu</label><select id="${prefix}ChePhamNghiNgo" class="equal-control">${optionHtml(nghiNgo, d.loaiMauChePhamNghiNgo || '')}</select></div>
+        <div class="col-3"><label>Thể tích đơn vị (ml)</label><input id="${prefix}TheTichDonVi" class="equal-control" value="${escAttr(d.theTichDonViMau || '')}"></div>
+        <div class="col-3"><label>Tốc độ truyền (giọt/ph)</label><input id="${prefix}TocDoTruyen" class="equal-control" value="${escAttr(d.tocDoTruyen || '')}"></div>
+        <div class="col-3"><label>Thể tích đã truyền (ml)</label><input id="${prefix}TheTichNghiNgo" class="equal-control" value="${escAttr(d.theTichDonViMauDaTruyen || '')}"></div>
+        <div class="col-3"><label>ABO đơn vị máu</label><select id="${prefix}ABODonVi" class="equal-control">${optionHtml(abo, d.aboDonViMau || '')}</select></div>
+        <div class="col-3"><label>Rh đơn vị máu</label><select id="${prefix}RhDonVi" class="equal-control">${optionHtml(rh, d.rhDonViMau || '')}</select></div>
+        <div class="col-3"><label>Ngày lấy máu</label><input id="${prefix}NgayLayMau" class="equal-control date-vi-input" type="date" value="${escAttr(d.ngayLayMau || '')}"></div>
+        <div class="col-3"><label>Hạn sử dụng</label><input id="${prefix}HanSuDung" class="equal-control date-vi-input" type="date" value="${escAttr(d.hanSuDung || '')}"></div>
+        <div class="col-12"><label>Cơ sở lấy máu và điều chế</label><input id="${prefix}CoSoLayMau" class="equal-control" value="${escAttr(d.coSoLayMauDieuChe || '')}"></div>
+        <div class="col-12">
+          <label>Loại máu đã truyền trước khi phản ứng</label>
+          <div class="tm-radio-stack">
+            <label><input id="${prefix}ChuaTruyen" type="checkbox" value="chua" ${isChua ? 'checked' : ''}> Chưa truyền</label>
+            <label><input id="${prefix}DaTruyen" type="checkbox" value="da" ${isDaTruyen ? 'checked' : ''}> Đã truyền</label>
+          </div>
+          <div id="${prefix}DaTruyenBox" class="tm-blood-options ${isChua ? 'hidden' : ''}">
+            <div class="tm-blood-header"><span></span><span>Loại máu</span><span>Thể tích máu đã truyền</span></div>
+            ${rows}
+          </div>
+        </div>
+      </div>
     </div>
-    <h3 class="sub-title">4. Xét nghiệm trước truyền</h3>
-    <div class="grid tm-lab-grid tm-lab-before-grid">
-      <div class="col-3"><label>Phản ứng hòa hợp - Trước truyền</label><select id="${prefix}PUHHTruoc" class="equal-control">${optionHtml(kq, d.phanUngHoaHopTruoc || '')}</select></div>
-      <div class="col-3"><label>Coombs TT - Trước truyền</label><select id="${prefix}CoombsTTTruoc" class="equal-control">${optionHtml(kq, d.coombsTTTruoc || '')}</select></div>
-      <div class="col-3"><label>Coombs GT - Trước truyền</label><select id="${prefix}CoombsGTTruoc" class="equal-control">${optionHtml(kq, d.coombsGTTruoc || '')}</select></div>
-      <div class="col-3"><label>SLKT - Trước truyền</label><select id="${prefix}SLKTTruoc" class="equal-control">${optionHtml(kq, d.slktTruoc || '')}</select></div>
+    <div class="tdkmm-section-card">
+      <h3 class="sub-title">3. Thuốc/dịch truyền và diễn biến lâm sàng</h3>
+      <div class="grid tm-reaction-grid">
+        <div class="col-12"><label>Dung dịch/thuốc dùng ngay trước phản ứng</label><textarea id="${prefix}ThuocDichTruyen">${esc(d.dungDichThuocTruyenTruocPhanUng || '')}</textarea></div>
+        <div class="col-6"><label>Dấu hiệu đầu tiên</label><input id="${prefix}DauHieuDauTien" class="equal-control" value="${escAttr(d.dauHieuDauTien || d.trieuChung || '')}"></div>
+        <div class="col-3"><label>Mức độ phản ứng</label><select id="${prefix}MucDo" class="equal-control">${optionHtml(mucDo, d.mucDoPhanUng || '')}</select></div>
+        <div class="col-12"><label>Diễn biến và xử trí đã thực hiện</label><textarea id="${prefix}DienBienXuTri">${esc(d.dienBienVaXuTriDaThucHien || d.ghiChu || '')}</textarea></div>
+      </div>
     </div>
-    <h3 class="sub-title">5. Xét nghiệm sau truyền</h3>
-    <div class="grid tm-lab-grid tm-lab-after-grid">
-      <div class="col-3"><label>Phản ứng hòa hợp - Sau truyền</label><select id="${prefix}PUHHSau" class="equal-control">${optionHtml(kq, d.phanUngHoaHopSau || '')}</select></div>
-      <div class="col-3"><label>Coombs TT - Sau truyền</label><select id="${prefix}CoombsTTSau" class="equal-control">${optionHtml(kq, d.coombsTTSau || '')}</select></div>
-      <div class="col-3"><label>Coombs GT - Sau truyền</label><select id="${prefix}CoombsGTSau" class="equal-control">${optionHtml(kq, d.coombsGTSau || '')}</select></div>
-      <div class="col-3"><label>SLKTBT - Sau truyền</label><select id="${prefix}SLKTSau" class="equal-control">${optionHtml(kq, d.slktbtSau || '')}</select></div>
+    <div class="tdkmm-section-card">
+      <h3 class="sub-title">4. Kiểm tra tại giường và lấy mẫu</h3>
+      <div class="grid">
+        <div class="col-6"><label>ABO tại giường - Người bệnh</label><select id="${prefix}ABOTaiGiuongNB" class="equal-control">${optionHtml(abo, d.aboTaiGiuongNguoiBenhSauPhanUng || '')}</select></div>
+        <div class="col-6"><label>ABO tại giường - Đơn vị máu truyền</label><select id="${prefix}ABOTaiGiuongDonVi" class="equal-control">${optionHtml(abo, d.aboTaiGiuongDonViMauTruyen || '')}</select></div>
+        <div class="col-6"><label>Thời điểm lấy mẫu máu người bệnh sau bất thường</label><input id="${prefix}LayMauSauBatThuong" class="equal-control" value="${escAttr(d.thoiDiemLayMauNguoiBenhSauBatThuong || '')}"></div>
+        <div class="col-6"><label>Thời điểm nhận thông báo và mẫu máu người bệnh</label><input id="${prefix}NhanThongBaoMau" class="equal-control" value="${escAttr(d.thoiDiemNhanThongBaoVaMauNguoiBenh || '')}"></div>
+      </div>
+    </div>
+    <div class="tdkmm-section-card">
+      <h3 class="sub-title">5. Kết quả xét nghiệm tai biến truyền máu</h3>
+      ${renderTdkmmLabInputTable(d, prefix)}
+    </div>
+    <div class="tdkmm-section-card">
+      <h3 class="sub-title">6. Kết luận/tình trạng hiện tại/việc cần theo dõi</h3>
+      <div class="grid">
+        <div class="col-12"><label>Kết luận</label><textarea id="${prefix}KetLuanTdkmm">${esc(d.ketLuanTdkmm || '')}</textarea></div>
+        <div class="col-12"><label>Tình trạng hiện tại</label><textarea id="${prefix}TinhTrangHienTai">${esc(d.tinhTrangHienTai || '')}</textarea></div>
+        <div class="col-12"><label>Việc cần theo dõi/bàn giao tiếp</label><textarea id="${prefix}TheoDoiBanGiao">${esc(d.noiDungTheoDoiBanGiao || '')}</textarea></div>
+        <div class="col-6"><label>Bác sĩ điều trị</label><input id="${prefix}BacSiDieuTri" class="equal-control" value="${escAttr(d.bacSiDieuTri || '')}"></div>
+        <div class="col-6"><label>Điều dưỡng truyền máu</label><input id="${prefix}DieuDuongTruyenMau" class="equal-control" value="${escAttr(d.dieuDuongTruyenMau || '')}"></div>
+      </div>
     </div>
     </div>`;
 }
@@ -4490,9 +4565,10 @@ function collectTmPhieuPayload(prefix, loai){
     ten: x.value,
     theTich: document.querySelector(`#${prefix}DaTruyenBox .${prefix}DaTruyenTheTich[data-name="${cssEscape(x.value)}"]`)?.value || ''
   })).filter(x => x.ten);
-  return Object.assign(base, {
+  const payload = Object.assign(base, {
     maBenhNhan: document.getElementById(`${prefix}MaBN`)?.value || '',
     hoTenBenhNhan: document.getElementById(`${prefix}HoTen`)?.value || '',
+    tuoi: document.getElementById(`${prefix}Tuoi`)?.value || '',
     gioiTinh: document.getElementById(`${prefix}GioiTinh`)?.value || '',
     vienKhoaPhong: khoaPhong,
     giuong: giuong,
@@ -4500,25 +4576,49 @@ function collectTmPhieuPayload(prefix, loai){
     khoaPhongDieuTri: khoaGiuong || khoaPhong,
     nhomMauABO: document.getElementById(`${prefix}ABO`)?.value || '',
     rhD: document.getElementById(`${prefix}RhD`)?.value || '',
-    maDonViMauNghiNgo: document.getElementById(`${prefix}MaDonVi`)?.value || '',
-    loaiMauChePhamNghiNgo: document.getElementById(`${prefix}ChePhamNghiNgo`)?.value || '',
-    theTichDonViMauDaTruyen: document.getElementById(`${prefix}TheTichNghiNgo`)?.value || '',
     ngayTruyen: getDateInputIso(`${prefix}NgayTruyen`) || document.getElementById(`${prefix}NgayTruyen`)?.value || '',
     thoiGianTruyenTu: document.getElementById(`${prefix}TruyenTu`)?.value || '',
-    thoiGianTruyenDen: document.getElementById(`${prefix}TruyenDen`)?.value || '',
+    thoiDiemXuatHienDauHieuDauTien: document.getElementById(`${prefix}DauHieuDauTienLuc`)?.value || '',
+    thoiDiemNgungTruyen: document.getElementById(`${prefix}NgungTruyen`)?.value || '',
+    thoiGianTruyenDen: document.getElementById(`${prefix}NgungTruyen`)?.value || '',
+    tenNguoiChoMau: document.getElementById(`${prefix}TenNguoiCho`)?.value || '',
+    maDonViMauNghiNgo: document.getElementById(`${prefix}MaDonVi`)?.value || '',
+    loaiMauChePhamNghiNgo: document.getElementById(`${prefix}ChePhamNghiNgo`)?.value || '',
+    theTichDonViMau: document.getElementById(`${prefix}TheTichDonVi`)?.value || '',
+    tocDoTruyen: document.getElementById(`${prefix}TocDoTruyen`)?.value || '',
+    theTichDonViMauDaTruyen: document.getElementById(`${prefix}TheTichNghiNgo`)?.value || '',
+    aboDonViMau: document.getElementById(`${prefix}ABODonVi`)?.value || '',
+    rhDonViMau: document.getElementById(`${prefix}RhDonVi`)?.value || '',
+    ngayLayMau: getDateInputIso(`${prefix}NgayLayMau`) || document.getElementById(`${prefix}NgayLayMau`)?.value || '',
+    hanSuDung: getDateInputIso(`${prefix}HanSuDung`) || document.getElementById(`${prefix}HanSuDung`)?.value || '',
+    coSoLayMauDieuChe: document.getElementById(`${prefix}CoSoLayMau`)?.value || '',
     loaiMauDaTruyenTruocPhanUng: {chuaTruyen: !!chua, items},
+    dungDichThuocTruyenTruocPhanUng: document.getElementById(`${prefix}ThuocDichTruyen`)?.value || '',
+    dauHieuDauTien: document.getElementById(`${prefix}DauHieuDauTien`)?.value || '',
     mucDoPhanUng: document.getElementById(`${prefix}MucDo`)?.value || '',
-    trieuChung: document.getElementById(`${prefix}TrieuChung`)?.value || '',
-    ghiChu: document.getElementById(`${prefix}GhiChu`)?.value || '',
-    phanUngHoaHopTruoc: document.getElementById(`${prefix}PUHHTruoc`)?.value || '',
-    coombsTTTruoc: document.getElementById(`${prefix}CoombsTTTruoc`)?.value || '',
-    coombsGTTruoc: document.getElementById(`${prefix}CoombsGTTruoc`)?.value || '',
-    slktTruoc: document.getElementById(`${prefix}SLKTTruoc`)?.value || '',
-    phanUngHoaHopSau: document.getElementById(`${prefix}PUHHSau`)?.value || '',
-    coombsTTSau: document.getElementById(`${prefix}CoombsTTSau`)?.value || '',
-    coombsGTSau: document.getElementById(`${prefix}CoombsGTSau`)?.value || '',
-    slktbtSau: document.getElementById(`${prefix}SLKTSau`)?.value || ''
+    dienBienVaXuTriDaThucHien: document.getElementById(`${prefix}DienBienXuTri`)?.value || '',
+    trieuChung: document.getElementById(`${prefix}DauHieuDauTien`)?.value || '',
+    ghiChu: document.getElementById(`${prefix}DienBienXuTri`)?.value || '',
+    aboTaiGiuongNguoiBenhSauPhanUng: document.getElementById(`${prefix}ABOTaiGiuongNB`)?.value || '',
+    aboTaiGiuongDonViMauTruyen: document.getElementById(`${prefix}ABOTaiGiuongDonVi`)?.value || '',
+    thoiDiemLayMauNguoiBenhSauBatThuong: document.getElementById(`${prefix}LayMauSauBatThuong`)?.value || '',
+    thoiDiemNhanThongBaoVaMauNguoiBenh: document.getElementById(`${prefix}NhanThongBaoMau`)?.value || '',
+    ketLuanTdkmm: document.getElementById(`${prefix}KetLuanTdkmm`)?.value || '',
+    tinhTrangHienTai: document.getElementById(`${prefix}TinhTrangHienTai`)?.value || '',
+    noiDungTheoDoiBanGiao: document.getElementById(`${prefix}TheoDoiBanGiao`)?.value || '',
+    bacSiDieuTri: document.getElementById(`${prefix}BacSiDieuTri`)?.value || '',
+    dieuDuongTruyenMau: document.getElementById(`${prefix}DieuDuongTruyenMau`)?.value || ''
   });
+  tdkmmLabRows().forEach(([key]) => ['truoc','sau','donVi'].forEach(col => {
+    payload[tdkmmLabFieldName(key, col)] = document.getElementById(`${prefix}Lab_${key}_${col}`)?.value || '';
+  }));
+  payload.coombsTTTruoc = payload.xnCoombsTtTruoc;
+  payload.coombsTTSau = payload.xnCoombsTtSau;
+  payload.coombsGTTruoc = payload.xnCoombsGtTruoc;
+  payload.coombsGTSau = payload.xnCoombsGtSau;
+  payload.slktTruoc = payload.xnKtbtTruoc;
+  payload.slktbtSau = payload.xnKtbtSau;
+  return payload;
 }
 
 function cssEscape(v){
@@ -4656,64 +4756,95 @@ function renderTmXutriDetailHtml(p, d){
   `;
 }
 
+function tmAgeYearText(d, p){
+  const tuoi = tmTxt(d.tuoi);
+  const nam = tmTxt(p?.namSinh || d.namSinh);
+  return tmJoinInline([tuoi, nam], '/');
+}
+function tmDateTimeFromDateAndTime(dateValue, timeValue){
+  const date = dateValue ? dateVi(dateValue) : '';
+  const time = tmTxt(timeValue);
+  return time ? (date ? `${date} ${time}` : time) : date;
+}
+function tdkmmViewData(p, d){
+  const ngayTruyen = d.ngayTruyen || p.ngaySuKien || '';
+  return Object.assign({}, d, {
+    ngayGhiNhan: tmDateTimeText(p.ngaySuKien),
+    nguoiTaoPhieu: p.nguoiTaoTen || '',
+    hoTenBenhNhan: p.hoTenBenhNhan || d.hoTenBenhNhan || '',
+    maBenhNhan: p.maBenhNhan || d.maBenhNhan || '',
+    namSinh: p.namSinh || d.namSinh || '',
+    khoaPhongDieuTriText: d.vienKhoaPhong || p.khoaPhongDieuTri || d.khoaPhongDieuTri || '',
+    thoiDiemBatDauTruyenText: tmDateTimeFromDateAndTime(ngayTruyen, d.thoiGianTruyenTu),
+    thoiDiemXuatHienDauHieuDauTienText: tmDateTimeFromDateAndTime(ngayTruyen, d.thoiDiemXuatHienDauHieuDauTien),
+    thoiDiemNgungTruyenText: tmDateTimeFromDateAndTime(ngayTruyen, d.thoiDiemNgungTruyen || d.thoiGianTruyenDen),
+    tenNguoiChoHoacMaDonVi: tmJoinInline([d.tenNguoiChoMau, d.maDonViMauNghiNgo], ' / ')
+  });
+}
+function renderTdkmmLabViewTable(d){
+  return `<div class="tdkmm-lab-wrap"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả xét nghiệm</th><th>Mẫu máu người bệnh trước truyền</th><th>Mẫu máu người bệnh sau truyền</th><th>Mẫu máu từ đơn vị máu nghi ngờ gây tai biến</th></tr></thead><tbody>${tdkmmLabRows().map(([key,label]) => `<tr><td>${esc(label)}</td><td>${esc(tdkmmLabValue(d,key,'truoc'))}</td><td>${esc(tdkmmLabValue(d,key,'sau'))}</td><td>${esc(tdkmmLabValue(d,key,'donVi'))}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function tdkmmGiaoBanTextBlocks(p, d){
+  const x = tdkmmViewData(p,d);
+  const lines = [];
+  lines.push(tmJoinInline([x.ngayGhiNhan ? `Ngày ghi nhận: ${x.ngayGhiNhan}` : '', x.nguoiTaoPhieu ? `Người tạo phiếu: ${x.nguoiTaoPhieu}` : ''], ' – '));
+  lines.push('a. Thông tin người bệnh');
+  lines.push('- ' + tmJoinInline([
+    x.hoTenBenhNhan ? `Họ tên: ${x.hoTenBenhNhan}` : '',
+    tmAgeYearText(x,p) ? `Tuổi/Năm sinh: ${tmAgeYearText(x,p)}` : '',
+    x.gioiTinh ? `Giới: ${x.gioiTinh}` : '',
+    x.maBenhNhan ? `PID: ${x.maBenhNhan}` : ''
+  ], ' – '));
+  if(x.chanDoan) lines.push(`- Chẩn đoán: ${x.chanDoan}`);
+  lines.push('- ' + tmJoinInline([x.nhomMauABO ? `Nhóm máu: ABO ${x.nhomMauABO}` : '', x.rhD ? `Rh(D) ${x.rhD}` : ''], ' '));
+  if(x.khoaPhongDieuTriText || x.giuong) lines.push('- ' + tmJoinInline([x.khoaPhongDieuTriText ? `Khoa/phòng: ${x.khoaPhongDieuTriText}` : '', x.giuong ? `Giường: ${x.giuong}` : ''], ' – '));
+  lines.push('b. Thông tin truyền máu và đơn vị máu nghi ngờ');
+  lines.push('- ' + tmJoinInline([x.thoiDiemBatDauTruyenText ? `Bắt đầu truyền: ${x.thoiDiemBatDauTruyenText}` : '', x.thoiDiemXuatHienDauHieuDauTienText ? `Xuất hiện dấu hiệu đầu tiên: ${x.thoiDiemXuatHienDauHieuDauTienText}` : '', x.thoiDiemNgungTruyenText ? `Ngừng truyền: ${x.thoiDiemNgungTruyenText}` : ''], ' – '));
+  lines.push('- ' + tmJoinInline([x.tenNguoiChoHoacMaDonVi ? `Tên người cho/Mã đơn vị máu: ${x.tenNguoiChoHoacMaDonVi}` : '', x.loaiMauChePhamNghiNgo ? `Loại chế phẩm: ${x.loaiMauChePhamNghiNgo}` : '', x.theTichDonViMau ? `Thể tích đơn vị: ${x.theTichDonViMau} ml` : ''], ' – '));
+  lines.push('- ' + tmJoinInline([x.tocDoTruyen ? `Tốc độ truyền: ${x.tocDoTruyen} giọt/ph` : '', x.theTichDonViMauDaTruyen ? `Thể tích đã truyền: ${x.theTichDonViMauDaTruyen} ml` : ''], ' – '));
+  lines.push('- ' + tmJoinInline([(x.aboDonViMau || x.rhDonViMau) ? `Nhóm máu đơn vị máu: ABO ${x.aboDonViMau || ''} Rh ${x.rhDonViMau || ''}` : '', x.ngayLayMau ? `Ngày lấy máu: ${dateVi(x.ngayLayMau)}` : '', x.hanSuDung ? `Hạn sử dụng: ${dateVi(x.hanSuDung)}` : ''], ' – '));
+  if(x.coSoLayMauDieuChe) lines.push(`- Cơ sở lấy máu và điều chế: ${x.coSoLayMauDieuChe}`);
+  lines.push('c. Thuốc/dịch truyền và diễn biến lâm sàng');
+  if(x.dungDichThuocTruyenTruocPhanUng) lines.push(`- Dung dịch/thuốc dùng ngay trước phản ứng: ${x.dungDichThuocTruyenTruocPhanUng}`);
+  lines.push('- ' + tmJoinInline([x.dauHieuDauTien ? `Dấu hiệu đầu tiên: ${x.dauHieuDauTien}` : '', x.thoiDiemXuatHienDauHieuDauTienText ? `Thời điểm xuất hiện: ${x.thoiDiemXuatHienDauHieuDauTienText}` : ''], ' – '));
+  if(x.mucDoPhanUng) lines.push(`- Mức độ phản ứng: ${x.mucDoPhanUng}`);
+  if(x.dienBienVaXuTriDaThucHien) lines.push(`- Diễn biến và xử trí đã thực hiện: ${x.dienBienVaXuTriDaThucHien}`);
+  lines.push('d. Kiểm tra tại giường và lấy mẫu');
+  lines.push('- Định nhóm ABO tại giường sau phản ứng:');
+  lines.push(`   Người bệnh ${x.aboTaiGiuongNguoiBenhSauPhanUng || ''} – Đơn vị máu truyền ${x.aboTaiGiuongDonViMauTruyen || ''}`);
+  if(x.thoiDiemLayMauNguoiBenhSauBatThuong) lines.push(`- Thời điểm lấy mẫu máu người bệnh sau bất thường: ${x.thoiDiemLayMauNguoiBenhSauBatThuong}`);
+  if(x.thoiDiemNhanThongBaoVaMauNguoiBenh) lines.push(`- Thời điểm nhận thông báo và mẫu máu người bệnh: ${x.thoiDiemNhanThongBaoVaMauNguoiBenh}`);
+  lines.push('f. Kết luận/tình trạng hiện tại/việc cần theo dõi');
+  if(x.ketLuanTdkmm) lines.push(`- Kết luận: ${x.ketLuanTdkmm}`);
+  if(x.tinhTrangHienTai) lines.push(`- Tình trạng hiện tại: ${x.tinhTrangHienTai}`);
+  if(x.noiDungTheoDoiBanGiao) lines.push(`- Việc cần theo dõi/bàn giao tiếp: ${x.noiDungTheoDoiBanGiao}`);
+  return lines.filter(v => tmTxt(v));
+}
+
 function renderTmTdkmmDetailHtml(p, d){
-  const patientInfo = tmDetailValue([
-    tmBulletLine(tmJoinInline([
-      p.hoTenBenhNhan || '',
-      p.namSinh ? `Năm sinh: ${p.namSinh}` : '',
-      d.gioiTinh ? `Giới: ${d.gioiTinh}` : '',
-      p.maBenhNhan ? `Mã BN: ${p.maBenhNhan}` : ''
-    ])),
-    tmBulletLine(tmJoinInline([
-      (d.vienKhoaPhong || p.khoaPhongDieuTri) ? `Viện/TT/khoa/phòng: ${d.vienKhoaPhong || p.khoaPhongDieuTri}` : '',
-      d.giuong ? `Giường: ${d.giuong}` : ''
-    ])),
-    tmDetailLine('Chẩn đoán', d.chanDoan),
-    tmBulletLine(tmJoinInline([
-      d.nhomMauABO ? `Nhóm máu ABO: ${d.nhomMauABO}` : '',
-      d.rhD ? `Rh(D): ${d.rhD}` : ''
-    ]))
-  ]);
-  const thoiGianTruyen = tmJoinInline([
-    d.thoiGianTruyenTu ? `Từ ${d.thoiGianTruyenTu}` : '',
-    d.thoiGianTruyenDen ? `đến ${d.thoiGianTruyenDen}` : ''
-  ], ' ');
-  const truyenMauInfo = tmDetailValue([
-    tmDetailBlock('Loại Máu/Chế phẩm nghi ngờ phản ứng', tmJoinInline([
-      d.loaiMauChePhamNghiNgo || '',
-      d.maDonViMauNghiNgo ? `Mã: ${d.maDonViMauNghiNgo}` : '',
-      d.theTichDonViMauDaTruyen ? `Thể tích đã truyền: ${d.theTichDonViMauDaTruyen}` : ''
-    ])),
-    tmDetailLine('Ngày truyền', d.ngayTruyen ? dateVi(d.ngayTruyen) : ''),
-    tmDetailLine('Thời gian truyền', thoiGianTruyen),
-    tmDetailBlock('Loại máu đã truyền trước khi phản ứng', tmBeforeBloodDetailLines(d.loaiMauDaTruyenTruocPhanUng))
-  ]);
-  const phanUngInfo = tmDetailValue([
-    tmDetailLine('Mức độ phản ứng', d.mucDoPhanUng),
-    tmDetailLine('Triệu chứng', d.trieuChung),
-    tmDetailLine('Ghi chú', d.ghiChu)
-  ]);
-  const truocTruyen = tmDetailValue([
-    tmDetailLine('Phản ứng hòa hợp', d.phanUngHoaHopTruoc),
-    tmDetailLine('Coombs TT', d.coombsTTTruoc),
-    tmDetailLine('Coombs GT', d.coombsGTTruoc),
-    tmDetailLine('SLKTBT', d.slktTruoc)
-  ]);
-  const sauTruyen = tmDetailValue([
-    tmDetailLine('Phản ứng hòa hợp', d.phanUngHoaHopSau),
-    tmDetailLine('Coombs TT', d.coombsTTSau),
-    tmDetailLine('Coombs GT', d.coombsGTSau),
-    tmDetailLine('SLKTBT', d.slktbtSau)
-  ]);
+  const x = tdkmmViewData(p, d);
+  const blocks = tdkmmGiaoBanTextBlocks(p, d);
+  const header = blocks.shift() || '';
+  const sections = [];
+  let currentTitle = '';
+  let current = [];
+  blocks.forEach(line => {
+    if(/^[a-f]\.\s+/.test(line)){
+      if(currentTitle) sections.push({title: currentTitle, lines: current});
+      currentTitle = line;
+      current = [];
+    }else current.push(line);
+  });
+  if(currentTitle) sections.push({title: currentTitle, lines: current});
   return `
     ${renderTmInfoCardHtml(p, 'Người báo cáo')}
     <h3 class="sub-title">II. Tác dụng không mong muốn liên quan đến truyền máu</h3>
     <div class="list-card data-card tm-detail-card">
-      ${tmFieldHtml('2.1. Thông tin người bệnh', patientInfo, 'tm-major-field')}
-      ${tmFieldHtml('2.2. Thông tin truyền máu', truyenMauInfo, 'tm-major-field')}
-      ${tmFieldHtml('2.3. Mô tả phản ứng', phanUngInfo, 'tm-major-field')}
-      ${tmFieldHtml('2.4. Xét nghiệm trước truyền', truocTruyen, 'tm-major-field')}
-      ${tmFieldHtml('2.5. Xét nghiệm sau truyền', sauTruyen, 'tm-major-field')}
+      ${tmFieldHtml('2.1. Bệnh nhân 1', header, 'tm-major-field')}
+      ${sections.filter(sec => !sec.title.startsWith('f.')).map(sec => tmFieldHtml(sec.title, tmDetailValue(sec.lines), 'tm-major-field')).join('')}
+      <div class="field-row tm-major-field"><span class="field-name">e. Kết quả xét nghiệm tai biến truyền máu</span><div class="field-value has-table">${renderTdkmmLabViewTable(x)}</div></div>
+      ${sections.filter(sec => sec.title.startsWith('f.')).map(sec => tmFieldHtml(sec.title, tmDetailValue(sec.lines), 'tm-major-field')).join('')}
+      ${tmFieldHtml('Người ký khi xuất PDF', tmDetailValue([tmDetailLine('Bác sĩ điều trị', x.bacSiDieuTri), tmDetailLine('Điều dưỡng truyền máu', x.dieuDuongTruyenMau)]), 'tm-major-field')}
     </div>
   `;
 }
@@ -4775,75 +4906,11 @@ function tmTdkmmGiaoBanLines(items, includePatientNo=true){
     const d = x.data || {};
     const lines = [];
     if(includePatientNo) lines.push(tmPatientNo(2, index));
-    const ngay = tmDateTimeText(x.ngaySuKien);
-    if(ngay) lines.push(`- Ngày: ${ngay}`);
-    if(x.nguoiTaoTen) lines.push(`- Người báo cáo: ${x.nguoiTaoTen}`);
-
-    lines.push('a. Thông tin người bệnh');
-    lines.push('- ' + tmJoinInline([
-      x.hoTenBenhNhan || '',
-      x.namSinh ? `Năm sinh: ${x.namSinh}` : '',
-      d.gioiTinh ? `Giới: ${d.gioiTinh}` : '',
-      x.maBenhNhan ? `Mã BN: ${x.maBenhNhan}` : ''
-    ]));
-    if(d.vienKhoaPhong || x.khoaPhongDieuTri || d.giuong){
-      lines.push('- ' + tmJoinInline([
-        (d.vienKhoaPhong || x.khoaPhongDieuTri) ? `Viện/TT/khoa/phòng: ${d.vienKhoaPhong || x.khoaPhongDieuTri}` : '',
-        d.giuong ? `Giường: ${d.giuong}` : ''
-      ]));
-    }
-    if(d.chanDoan) lines.push(`- Chẩn đoán: ${d.chanDoan}`);
-    const blood = tmJoinInline([
-      d.nhomMauABO ? `Nhóm máu ABO: ${d.nhomMauABO}` : '',
-      d.rhD ? `Rh(D): ${d.rhD}` : ''
-    ]);
-    if(blood) lines.push('- ' + blood);
-
-    lines.push('b. Thông tin truyền máu');
-    if(d.loaiMauChePhamNghiNgo || d.maDonViMauNghiNgo || d.theTichDonViMauDaTruyen){
-      lines.push('- Loại Máu/Chế phẩm nghi ngờ phản ứng:');
-      lines.push('  ' + tmJoinInline([
-        d.loaiMauChePhamNghiNgo || '',
-        d.maDonViMauNghiNgo ? `Mã: ${d.maDonViMauNghiNgo}` : '',
-        d.theTichDonViMauDaTruyen ? `Thể tích đã truyền: ${d.theTichDonViMauDaTruyen}` : ''
-      ]));
-    }
-    const thoiGianTruyen = tmJoinInline([
-      d.thoiGianTruyenTu ? `Từ ${d.thoiGianTruyenTu}` : '',
-      d.thoiGianTruyenDen ? `đến ${d.thoiGianTruyenDen}` : ''
-    ], ' ');
-    if(d.ngayTruyen) lines.push(`- Ngày truyền: ${dateVi(d.ngayTruyen)}`);
-    if(thoiGianTruyen) lines.push(`- Thời gian truyền: ${thoiGianTruyen}`);
-
-    const truoc = d.loaiMauDaTruyenTruocPhanUng;
-    if(truoc){
-      if(typeof truoc === 'string' || truoc.chuaTruyen){
-        lines.push(`- Loại máu đã truyền trước khi phản ứng: ${formatLoaiMauTruocClient(truoc)}`);
-      }else{
-        const beforeItems = Array.isArray(truoc.items) ? truoc.items.filter(it => tmTxt(it && it.ten)) : [];
-        if(beforeItems.length){
-          lines.push('- Loại máu đã truyền trước khi phản ứng:');
-          beforeItems.forEach(it => lines.push(`  ${it.ten || ''}${it.theTich ? '          Thể tích đã truyền: ' + it.theTich : ''}`));
-        }
-      }
-    }
-
-    lines.push('c. Mô tả phản ứng');
-    if(d.mucDoPhanUng) lines.push(`- Mức độ phản ứng: ${d.mucDoPhanUng}`);
-    if(d.trieuChung) lines.push(`- Triệu chứng: ${d.trieuChung}`);
-    if(d.ghiChu) lines.push(`- Ghi chú: ${d.ghiChu}`);
-
-    lines.push('d. Xét nghiệm trước truyền');
-    if(d.phanUngHoaHopTruoc) lines.push(`- Phản ứng hòa hợp: ${d.phanUngHoaHopTruoc}`);
-    if(d.coombsTTTruoc) lines.push(`- Coombs TT: ${d.coombsTTTruoc}`);
-    if(d.coombsGTTruoc) lines.push(`- Coombs GT: ${d.coombsGTTruoc}`);
-    if(d.slktTruoc) lines.push(`- SLKTBT: ${d.slktTruoc}`);
-
-    lines.push('e. Xét nghiệm sau truyền');
-    if(d.phanUngHoaHopSau) lines.push(`- Phản ứng hòa hợp: ${d.phanUngHoaHopSau}`);
-    if(d.coombsTTSau) lines.push(`- Coombs TT: ${d.coombsTTSau}`);
-    if(d.coombsGTSau) lines.push(`- Coombs GT: ${d.coombsGTSau}`);
-    if(d.slktbtSau) lines.push(`- SLKTBT: ${d.slktbtSau}`);
+    lines.push(...tdkmmGiaoBanTextBlocks(x, d));
+    lines.push('e. Kết quả xét nghiệm tai biến truyền máu');
+    tdkmmLabRows().forEach(([key,label]) => {
+      lines.push(`- ${label}: Trước truyền ${tdkmmLabValue(d,key,'truoc') || ''} – Sau truyền ${tdkmmLabValue(d,key,'sau') || ''} – Đơn vị máu ${tdkmmLabValue(d,key,'donVi') || ''}`);
+    });
     return lines.filter(x => tmTxt(x)).join('\n');
   }).join('\n\n');
 }
@@ -4904,66 +4971,21 @@ function renderTmTdkmmGiaoBanCardHtml(items){
   const arr = items || [];
   const body = arr.length ? arr.map((x, index) => {
     const d = x.data || {};
-    const headerLines = tmDetailValue([
-      tmLine('Ngày', tmDateTimeText(x.ngaySuKien)),
-      tmLine('Người báo cáo', x.nguoiTaoTen)
-    ]);
-    const patientInfo = tmDetailValue([
-      tmBulletLine(tmJoinInline([
-        x.hoTenBenhNhan || '',
-        x.namSinh ? `Năm sinh: ${x.namSinh}` : '',
-        d.gioiTinh ? `Giới: ${d.gioiTinh}` : ''
-      ])),
-      tmDetailLine('Mã BN', x.maBenhNhan),
-      tmBulletLine(tmJoinInline([
-        (d.vienKhoaPhong || x.khoaPhongDieuTri) ? `Viện/TT/khoa/phòng: ${d.vienKhoaPhong || x.khoaPhongDieuTri}` : '',
-        d.giuong ? `Giường: ${d.giuong}` : ''
-      ])),
-      tmDetailLine('Chẩn đoán', d.chanDoan),
-      tmBulletLine(tmJoinInline([
-        d.nhomMauABO ? `Nhóm máu ABO: ${d.nhomMauABO}` : '',
-        d.rhD ? `Rh(D): ${d.rhD}` : ''
-      ]))
-    ]);
-    const thoiGianTruyen = tmJoinInline([
-      d.thoiGianTruyenTu ? `Từ ${d.thoiGianTruyenTu}` : '',
-      d.thoiGianTruyenDen ? `đến ${d.thoiGianTruyenDen}` : ''
-    ], ' ');
-    const truyenMauInfo = tmDetailValue([
-      tmDetailBlock('Loại Máu/Chế phẩm nghi ngờ phản ứng', tmJoinInline([
-        d.loaiMauChePhamNghiNgo || '',
-        d.maDonViMauNghiNgo ? `Mã: ${d.maDonViMauNghiNgo}` : '',
-        d.theTichDonViMauDaTruyen ? `Thể tích đã truyền: ${d.theTichDonViMauDaTruyen}` : ''
-      ])),
-      tmDetailLine('Ngày truyền', d.ngayTruyen ? dateVi(d.ngayTruyen) : ''),
-      tmDetailLine('Thời gian truyền', thoiGianTruyen),
-      tmDetailBlock('Loại máu đã truyền trước khi phản ứng', tmBeforeBloodDetailLines(d.loaiMauDaTruyenTruocPhanUng))
-    ]);
-    const phanUngInfo = tmDetailValue([
-      tmDetailLine('Mức độ phản ứng', d.mucDoPhanUng),
-      tmDetailLine('Triệu chứng', d.trieuChung),
-      tmDetailLine('Ghi chú', d.ghiChu)
-    ]);
-    const truocTruyen = tmDetailValue([
-      tmDetailLine('Phản ứng hòa hợp', d.phanUngHoaHopTruoc),
-      tmDetailLine('Coombs TT', d.coombsTTTruoc),
-      tmDetailLine('Coombs GT', d.coombsGTTruoc),
-      tmDetailLine('SLKTBT', d.slktTruoc)
-    ]);
-    const sauTruyen = tmDetailValue([
-      tmDetailLine('Phản ứng hòa hợp', d.phanUngHoaHopSau),
-      tmDetailLine('Coombs TT', d.coombsTTSau),
-      tmDetailLine('Coombs GT', d.coombsGTSau),
-      tmDetailLine('SLKTBT', d.slktbtSau)
-    ]);
-    return `
-      ${tmReportItemHtml(tmPatientNo(2, index), headerLines)}
-      ${tmReportItemHtml('a. Thông tin người bệnh', patientInfo)}
-      ${tmReportItemHtml('b. Thông tin truyền máu', truyenMauInfo)}
-      ${tmReportItemHtml('c. Mô tả phản ứng', phanUngInfo)}
-      ${tmReportItemHtml('d. Xét nghiệm trước truyền', truocTruyen)}
-      ${tmReportItemHtml('e. Xét nghiệm sau truyền', sauTruyen)}
-    `;
+    const blocks = tdkmmGiaoBanTextBlocks(x, d);
+    const header = blocks.shift() || '';
+    const htmlParts = [tmReportItemHtml(tmPatientNo(2, index), header)];
+    let currentTitle = '';
+    let current = [];
+    blocks.forEach(line => {
+      if(/^[a-f]\.\s+/.test(line)){
+        if(currentTitle) htmlParts.push(tmReportItemHtml(currentTitle, tmDetailValue(current)));
+        currentTitle = line;
+        current = [];
+      }else current.push(line);
+    });
+    if(currentTitle) htmlParts.push(tmReportItemHtml(currentTitle, tmDetailValue(current)));
+    htmlParts.splice(htmlParts.length - 1, 0, `<div class="report-item"><div class="report-label">e. Kết quả xét nghiệm tai biến truyền máu</div><div class="report-value has-table">${renderTdkmmLabViewTable(d)}</div></div>`);
+    return htmlParts.join('');
   }).join('') : '<div class="report-value">Không có bệnh nhân nào có tai biến liên quan đến truyền máu.</div>';
   return `<div class="report-day"><div class="report-day-title">2. Tác dụng không mong muốn liên quan đến truyền máu</div>${body}</div>`;
 }
@@ -4987,6 +5009,7 @@ function renderTmGiaoBanSummaryPreviewHtml(items){
 function showTmPhieuModal(p){
   const d = p.data || {};
   const isXuTri = p.loaiPhieuTM === LOAI_TM_XU_TRI || p.loaiPhieu === LOAI_TM_XU_TRI;
+  const isTdkmm = p.loaiPhieuTM === LOAI_TM_TDKMM || p.loaiPhieu === LOAI_TM_TDKMM;
   const detailHtml = isXuTri ? renderTmXutriDetailHtml(p, d) : renderTmTdkmmDetailHtml(p, d);
   openModal(`
     <div class="modal-card${protectedViewClassIfDone(p.trangThai)}">
@@ -4996,9 +5019,48 @@ function showTmPhieuModal(p){
         <button class="close-btn" onclick="closeModal()">×</button>
       </div>
       ${detailHtml}
-      <div class="btn-row sign-bottom-small"><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
+      <div class="btn-row sign-bottom-small">${isTdkmm ? `<button class="btn primary" onclick="openTdkmmPdfExportDialog('${escAttr(p.phieuTMID || p.id)}')">Xuất PDF</button>` : ''}<button class="btn secondary" onclick="closeModal()">Đóng</button></div>
     </div>
   `);
+}
+
+
+window.openTdkmmPdfExportDialog = function(phieuTMID){
+  openModal(`
+    <div class="modal-card modal-small">
+      <div class="modal-head">
+        <div class="modal-title">Xuất PDF theo Thông tư 26</div>
+        <button class="close-btn" onclick="closeModal()">×</button>
+      </div>
+      <p class="meta">Chọn mẫu PDF cần xuất. Nếu chọn cả 2, app sẽ tự tải 2 file PDF độc lập sau một lần nhấn.</p>
+      <div class="tdkmm-pdf-choice">
+        <label><input type="radio" name="tdkmmPdfType" value="PL11" checked> Báo cáo Tai biến không mong muốn liên quan đến truyền máu</label>
+        <label><input type="radio" name="tdkmmPdfType" value="PL12"> Phiếu xét nghiệm tai biến không mong muốn liên quan đến truyền máu</label>
+        <label><input type="radio" name="tdkmmPdfType" value="BOTH"> Cả 2</label>
+      </div>
+      <div class="btn-row">
+        <button id="exportTdkmmPdfBtn" class="btn primary" type="button">Xuất PDF</button>
+        <button class="btn secondary" type="button" onclick="closeModal()">Hủy</button>
+      </div>
+    </div>
+  `);
+  $('#exportTdkmmPdfBtn')?.addEventListener('click', () => exportTdkmmPdf(phieuTMID, $('#exportTdkmmPdfBtn')));
+}
+
+async function exportTdkmmPdf(phieuTMID, btn){
+  const pdfType = document.querySelector('input[name="tdkmmPdfType"]:checked')?.value || 'PL11';
+  await withButton(btn, 'Đang xuất...', async () => {
+    const res = await api('exportTdkmmPdf', {phieuTMID, pdfType}, {timeoutMs: 180000});
+    const files = res.data?.files || [];
+    if(!files.length) throw new Error('API chưa trả file PDF.');
+    files.forEach((f, idx) => {
+      setTimeout(() => {
+        if(f.base64) downloadBase64File(f.fileName || f.name || 'TDKMM.pdf', f.mimeType || 'application/pdf', f.base64);
+        else if(f.url) window.open(f.url, '_blank');
+      }, idx * 450);
+    });
+    toast(files.length > 1 ? 'Đã xuất và tải 2 file PDF.' : 'Đã xuất và tải file PDF.');
+  });
 }
 
 window.openTmPhieu = async function(phieuTMID, btn){
@@ -7826,10 +7888,12 @@ function renderPdfTemplateSettingsSection(){
   return `
     <div class="card">
       <h2 class="section-title">Mẫu phiếu họp/giao ban</h2>
-      <p class="meta">Upload file Word mẫu, sau đó dùng bảng biến để khai báo vị trí cần chèn dữ liệu. Có thể dùng biến khối <b>{{APP_NOI_DUNG_GIAO_BAN}}</b> hoặc các biến chi tiết.</p>
+      <p class="meta">Upload file Word mẫu, sau đó dùng bảng biến để khai báo vị trí cần chèn dữ liệu. Với TDKMM, file Word chỉ cần biến khối <b>{{APP_NOI_DUNG_TDKMM_PL11}}</b> hoặc <b>{{APP_NOI_DUNG_TDKMM_PL12}}</b>.</p>
       <div class="template-config-grid">
         ${renderPdfTemplateBox('BM04', 'Mẫu Giao ban thường trực')}
         ${renderPdfTemplateBox('BM06', 'Mẫu Biên bản họp')}
+        ${renderPdfTemplateBox('TDKMM_PL11', 'TDKMM - Báo cáo tai biến truyền máu')}
+        ${renderPdfTemplateBox('TDKMM_PL12', 'TDKMM - Phiếu xét nghiệm tai biến truyền máu')}
       </div>
       <p class="meta" style="margin-top:10px">Cần bật Drive API nâng cao trong Apps Script: Dịch vụ/Services → thêm Drive API.</p>
     </div>`;
@@ -8008,7 +8072,7 @@ function renderPdfVariableTable(){
 }
 
 function bindPdfTemplateEvents(){
-  ['BM04','BM06'].forEach(type => {
+  ['BM04','BM06','TDKMM_PL11','TDKMM_PL12'].forEach(type => {
     document.getElementById('uploadTpl' + type)?.addEventListener('click', () => uploadPdfTemplate(type, document.getElementById('uploadTpl' + type)));
     document.getElementById('testTpl' + type)?.addEventListener('click', () => testPdfTemplate(type, document.getElementById('testTpl' + type)));
     document.getElementById('previewTpl' + type)?.addEventListener('click', () => previewPdfTemplate(type, document.getElementById('previewTpl' + type)));
