@@ -3370,6 +3370,85 @@
       .tdkmm-signer-grid{grid-template-columns:minmax(0,1.55fr) minmax(88px,.45fr)!important;gap:7px!important}
     }
 
+
+    /* ===== PATCH 193: FIX NGAY MOBILE TDKMM - Ô GIỜ KHÔNG TRÀN + THANH CUỘN DƯỚI BẢNG LUÔN HIỆN ===== */
+    .tm-tdkmm-form .tdkmm-time-field{
+      min-width:0!important;
+      max-width:100%!important;
+      overflow:hidden!important;
+      box-sizing:border-box!important;
+    }
+    .tm-tdkmm-form input.tdkmm-time-control{
+      display:block!important;
+      width:100%!important;
+      min-width:0!important;
+      max-width:100%!important;
+      height:38px!important;
+      min-height:38px!important;
+      font-size:14.5px!important;
+      line-height:20px!important;
+      padding:5px 7px!important;
+      text-align:center!important;
+      letter-spacing:0!important;
+      overflow:hidden!important;
+      white-space:nowrap!important;
+      text-overflow:clip!important;
+      box-sizing:border-box!important;
+      background:#fff!important;
+      border:1px solid var(--g-line)!important;
+      border-radius:4px!important;
+      color:var(--g-text)!important;
+      appearance:textfield!important;
+      -webkit-appearance:none!important;
+    }
+    .tm-tdkmm-form input.tdkmm-time-control::placeholder{color:#80868b!important;opacity:1!important}
+    .tdkmm-lab-scrollbox{
+      width:100%!important;
+      max-width:100%!important;
+      min-width:0!important;
+      overflow:visible!important;
+      padding-bottom:2px!important;
+    }
+    .tdkmm-lab-range{
+      display:none;
+      width:100%!important;
+      min-width:0!important;
+      max-width:100%!important;
+      height:26px!important;
+      margin:8px 0 0!important;
+      padding:0!important;
+      accent-color:#7b8794;
+      touch-action:manipulation!important;
+      cursor:pointer!important;
+      box-shadow:none!important;
+    }
+    .tdkmm-lab-range:disabled{opacity:.45!important;cursor:not-allowed!important}
+    @media (max-width:760px){
+      .tm-tdkmm-form .tdkmm-time-field label{
+        white-space:normal!important;
+        overflow:hidden!important;
+        text-overflow:ellipsis!important;
+      }
+      .tm-tdkmm-form input.tdkmm-time-control{
+        height:38px!important;
+        min-height:38px!important;
+        font-size:13.8px!important;
+        line-height:19px!important;
+        padding-left:4px!important;
+        padding-right:4px!important;
+      }
+      .tdkmm-lab-scrollbar{display:none!important}
+      .tdkmm-lab-range{display:block!important}
+      .tdkmm-lab-wrap{
+        overflow-x:auto!important;
+        overflow-y:hidden!important;
+        -webkit-overflow-scrolling:touch!important;
+        padding-bottom:2px!important;
+        margin-bottom:0!important;
+        touch-action:pan-x pan-y!important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -4560,7 +4639,7 @@ function tdkmmLabValue(d, key, col){
   return d[name] || (fallback[name] ? d[fallback[name]] : '') || '';
 }
 function renderTdkmmLabInputTable(d={}, prefix='tmCreate'){
-  return `<div class="tdkmm-lab-scrollbox"><div class="tdkmm-lab-wrap" data-tdkmm-lab-scroll="1"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả XN</th><th>Mẫu máu người bệnh trước truyền</th><th>Mẫu máu người bệnh sau truyền</th><th>Mẫu máu từ đơn vị máu nghi ngờ gây tai biến</th></tr></thead><tbody>${tdkmmLabRows().map(([key,label]) => `<tr><td>${esc(label)}</td>${['truoc','sau','donVi'].map(col => `<td><input id="${prefix}Lab_${key}_${col}" value="${escAttr(tdkmmLabValue(d,key,col))}"></td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="tdkmm-lab-scrollbar" data-tdkmm-lab-bar="1" aria-label="Thanh cuộn ngang bảng kết quả xét nghiệm"><div class="tdkmm-lab-scrollbar-inner"></div></div></div>`;
+  return `<div class="tdkmm-lab-scrollbox"><div class="tdkmm-lab-wrap" data-tdkmm-lab-scroll="1"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả XN</th><th>Mẫu máu người bệnh trước truyền</th><th>Mẫu máu người bệnh sau truyền</th><th>Mẫu máu từ đơn vị máu nghi ngờ gây tai biến</th></tr></thead><tbody>${tdkmmLabRows().map(([key,label]) => `<tr><td>${esc(label)}</td>${['truoc','sau','donVi'].map(col => `<td><input id="${prefix}Lab_${key}_${col}" value="${escAttr(tdkmmLabValue(d,key,col))}"></td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="tdkmm-lab-scrollbar" data-tdkmm-lab-bar="1" aria-label="Thanh cuộn ngang bảng kết quả xét nghiệm"><div class="tdkmm-lab-scrollbar-inner"></div></div><input class="tdkmm-lab-range" data-tdkmm-lab-range="1" type="range" min="0" max="0" value="0" step="1" aria-label="Thanh cuộn ngang bảng kết quả XN"></div>`;
 }
 
 function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
@@ -4604,9 +4683,9 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
       <h3 class="sub-title">2. Thông tin truyền máu và đơn vị máu nghi ngờ</h3>
       <div class="grid">
         <div class="col-6 tdk-mobile-half"><label>Ngày truyền</label><input id="${prefix}NgayTruyen" class="equal-control date-vi-input" type="date" value="${escAttr(ngayTruyenValue)}"></div>
-        <div class="col-6 tdk-mobile-half"><label>T/G bắt đầu truyền</label><input id="${prefix}TruyenTu" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenTu || ''))}"></div>
-        <div class="col-6 tdk-mobile-half"><label>T/G xuất hiện phản ứng</label><input id="${prefix}DauHieuDauTienLuc" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiDiemXuatHienDauHieuDauTien || ''))}"></div>
-        <div class="col-6 tdk-mobile-half"><label>T/G ngừng truyền</label><input id="${prefix}NgungTruyen" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiDiemNgungTruyen || d.thoiGianTruyenDen || ''))}"></div>
+        <div class="col-6 tdk-mobile-half tdkmm-time-field"><label>T/G bắt đầu truyền</label><input id="${prefix}TruyenTu" class="equal-control tm-time-input tdkmm-time-control" type="text" inputmode="numeric" maxlength="5" placeholder="HH:mm" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenTu || ''))}"></div>
+        <div class="col-6 tdk-mobile-half tdkmm-time-field"><label>T/G xuất hiện phản ứng</label><input id="${prefix}DauHieuDauTienLuc" class="equal-control tm-time-input tdkmm-time-control" type="text" inputmode="numeric" maxlength="5" placeholder="HH:mm" value="${escAttr(tmTimeInputValue(d.thoiDiemXuatHienDauHieuDauTien || ''))}"></div>
+        <div class="col-6 tdk-mobile-half tdkmm-time-field"><label>T/G ngừng truyền</label><input id="${prefix}NgungTruyen" class="equal-control tm-time-input tdkmm-time-control" type="text" inputmode="numeric" maxlength="5" placeholder="HH:mm" value="${escAttr(tmTimeInputValue(d.thoiDiemNgungTruyen || d.thoiGianTruyenDen || ''))}"></div>
         <div class="col-12 tdk-mobile-full"><label>Tên người cho máu/Mã đơn vị máu nghi ngờ</label><input id="${prefix}NguoiChoMaDonVi" class="equal-control" value="${escAttr(nguoiChoMaDonViValue)}"></div>
         <div class="col-6 tdk-mobile-half"><label>Loại chế phẩm máu</label><select id="${prefix}ChePhamNghiNgo" class="equal-control">${optionHtml(nghiNgo, d.loaiMauChePhamNghiNgo || '')}</select></div>
         <div class="col-6 tdk-mobile-half"><label>Thể tích đơn vị (ml)</label><input id="${prefix}TheTichDonVi" class="equal-control" value="${escAttr(d.theTichDonViMau || '')}"></div>
@@ -4678,17 +4757,35 @@ function syncTdkmmLabScrollbars(root=document){
     const wrap = box.querySelector('[data-tdkmm-lab-scroll]');
     const bar = box.querySelector('[data-tdkmm-lab-bar]');
     const inner = bar ? bar.querySelector('.tdkmm-lab-scrollbar-inner') : null;
-    if(!wrap || !bar || !inner || bar.dataset.bound === '1') return;
+    const range = box.querySelector('[data-tdkmm-lab-range]');
+    if(!wrap) return;
     const update = () => {
-      inner.style.width = Math.max(wrap.scrollWidth, wrap.clientWidth + 1) + 'px';
-      bar.scrollLeft = wrap.scrollLeft;
+      const maxScroll = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+      if(inner) inner.style.width = Math.max(wrap.scrollWidth, wrap.clientWidth + 1) + 'px';
+      if(bar && bar.scrollLeft !== wrap.scrollLeft) bar.scrollLeft = wrap.scrollLeft;
+      if(range){
+        range.max = String(maxScroll);
+        range.disabled = maxScroll <= 0;
+        if(String(Math.round(wrap.scrollLeft)) !== String(range.value)) range.value = String(Math.round(wrap.scrollLeft));
+      }
     };
     update();
     setTimeout(update, 80);
-    wrap.addEventListener('scroll', () => { if(bar.scrollLeft !== wrap.scrollLeft) bar.scrollLeft = wrap.scrollLeft; }, {passive:true});
-    bar.addEventListener('scroll', () => { if(wrap.scrollLeft !== bar.scrollLeft) wrap.scrollLeft = bar.scrollLeft; }, {passive:true});
+    setTimeout(update, 300);
+    if(box.dataset.bound === '1') return;
+    wrap.addEventListener('scroll', () => {
+      if(bar && bar.scrollLeft !== wrap.scrollLeft) bar.scrollLeft = wrap.scrollLeft;
+      if(range && String(Math.round(wrap.scrollLeft)) !== String(range.value)) range.value = String(Math.round(wrap.scrollLeft));
+    }, {passive:true});
+    if(bar){
+      bar.addEventListener('scroll', () => { if(wrap.scrollLeft !== bar.scrollLeft) wrap.scrollLeft = bar.scrollLeft; }, {passive:true});
+    }
+    if(range){
+      range.addEventListener('input', () => { wrap.scrollLeft = Number(range.value || 0); }, {passive:true});
+      range.addEventListener('change', () => { wrap.scrollLeft = Number(range.value || 0); }, {passive:true});
+    }
     window.addEventListener('resize', update, {passive:true});
-    bar.dataset.bound = '1';
+    box.dataset.bound = '1';
   });
 }
 
