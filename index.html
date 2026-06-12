@@ -3250,6 +3250,65 @@
       .tdkmm-lab-table input{font-size:13px!important;padding:2px 3px!important}
     }
 
+    /* ===== PATCH 191: TDKMM - ĐỒNG BỘ NHÃN, Ô NHẬP, CUỘN BẢNG, NGƯỜI KÝ ===== */
+    .tm-tdkmm-form label{
+      font-size:14.5px!important;
+      line-height:18px!important;
+      min-height:18px!important;
+      margin-bottom:5px!important;
+    }
+    .tm-tdkmm-form .equal-control,
+    .tm-tdkmm-form input.equal-control,
+    .tm-tdkmm-form select.equal-control,
+    .tm-tdkmm-form .vi-date-display{
+      height:38px!important;
+      min-height:38px!important;
+      font-size:15.5px!important;
+      line-height:20px!important;
+      padding:5px 9px!important;
+      box-sizing:border-box!important;
+    }
+    .tm-tdkmm-form .vi-date-wrap{width:100%!important;max-width:100%!important;min-width:0!important}
+    .tdkmm-lab-wrap{
+      overflow-x:scroll!important;
+      overflow-y:hidden!important;
+      padding-bottom:12px!important;
+      scrollbar-gutter:stable!important;
+      -webkit-overflow-scrolling:touch!important;
+      touch-action:pan-x pan-y!important;
+      overscroll-behavior-x:contain!important;
+    }
+    .tdkmm-lab-wrap::-webkit-scrollbar{height:11px}
+    .tdkmm-lab-wrap::-webkit-scrollbar-track{background:#f1f3f4;border-radius:999px}
+    .tdkmm-lab-wrap::-webkit-scrollbar-thumb{background:#c7cdd4;border-radius:999px;border:2px solid #f1f3f4}
+    .tdkmm-lab-wrap::-webkit-scrollbar-thumb:hover{background:#9aa4b2}
+    .tdkmm-sign-card .grid{align-items:start!important}
+    @media (max-width:760px){
+      .tm-tdkmm-form label{
+        font-size:14.5px!important;
+        line-height:18px!important;
+        min-height:18px!important;
+        margin-bottom:5px!important;
+      }
+      .tm-tdkmm-form input.equal-control,
+      .tm-tdkmm-form select.equal-control,
+      .tm-tdkmm-form .vi-date-display{
+        height:38px!important;
+        min-height:38px!important;
+        font-size:14.5px!important;
+        line-height:19px!important;
+        padding-left:7px!important;
+        padding-right:7px!important;
+      }
+      .tm-tdkmm-form .tm-patient-info-grid .tm-patient-code{grid-column:span 5!important}
+      .tm-tdkmm-form .tm-patient-info-grid .tm-patient-name{grid-column:span 7!important}
+      .tdkmm-lab-wrap{
+        margin-left:-2px!important;
+        margin-right:-2px!important;
+        border-radius:10px!important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -3292,7 +3351,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-188.120626-CHUAN-HOA-INDEX-1FILE</p>
+      <p class="login-version">Version: INDEX-191.120626-TDKMM-FORM-TINH-CHINH-O-NHAP</p>
     </div>
   </div>
 
@@ -3336,7 +3395,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-188.120626-CHUAN-HOA-INDEX-1FILE</div>
+    <div class="app-version">Version: INDEX-191.120626-TDKMM-FORM-TINH-CHINH-O-NHAP</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -3361,7 +3420,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-190.120626-TDKMM-FORM-MOBILE-DONG-BO';
+const APP_VERSION = 'INDEX-191.120626-TDKMM-FORM-TINH-CHINH-O-NHAP';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -4524,8 +4583,8 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
       <div class="grid">
         <div class="col-6"><label>ABO tại giường - Người bệnh</label><select id="${prefix}ABOTaiGiuongNB" class="equal-control blood-abo">${optionHtml(abo, d.aboTaiGiuongNguoiBenhSauPhanUng || '')}</select></div>
         <div class="col-6"><label>ABO tại giường - Đơn vị máu truyền</label><select id="${prefix}ABOTaiGiuongDonVi" class="equal-control blood-abo">${optionHtml(abo, d.aboTaiGiuongDonViMauTruyen || '')}</select></div>
-        <div class="col-6"><label>Thời điểm lấy mẫu máu người bệnh sau bất thường</label><input id="${prefix}LayMauSauBatThuong" class="equal-control" value="${escAttr(d.thoiDiemLayMauNguoiBenhSauBatThuong || '')}"></div>
-        <div class="col-6"><label>Thời điểm nhận thông báo và mẫu máu người bệnh</label><input id="${prefix}NhanThongBaoMau" class="equal-control" value="${escAttr(d.thoiDiemNhanThongBaoVaMauNguoiBenh || '')}"></div>
+        <div class="col-6"><label>Thời điểm lấy mẫu máu người bệnh sau bất thường</label><input id="${prefix}LayMauSauBatThuong" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(d.thoiDiemLayMauNguoiBenhSauBatThuong || ''))}"></div>
+        <div class="col-6"><label>Thời điểm nhận thông báo và mẫu máu người bệnh</label><input id="${prefix}NhanThongBaoMau" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(d.thoiDiemNhanThongBaoVaMauNguoiBenh || ''))}"></div>
       </div>
     </div>
     <div class="tdkmm-section-card">
@@ -4540,10 +4599,10 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
       </div>
     </div>
     <div class="tdkmm-section-card tdkmm-sign-card">
-      <h3 class="sub-title">Người ký khi xuất PDF</h3>
+      <h3 class="sub-title">Người ký</h3>
       <div class="grid">
-        <div class="col-6 tdk-mobile-half"><label>Bác sĩ điều trị</label><input id="${prefix}BacSiDieuTri" class="equal-control" value="${escAttr(d.bacSiDieuTri || '')}"></div>
-        <div class="col-6 tdk-mobile-half"><label>Điều dưỡng truyền máu</label><input id="${prefix}DieuDuongTruyenMau" class="equal-control" value="${escAttr(d.dieuDuongTruyenMau || '')}"></div>
+        <div class="col-12"><label>Bác sỹ điều trị - Mã nhân viên</label><input id="${prefix}BacSiDieuTri" class="equal-control" value="${escAttr(d.bacSiDieuTri || '')}"></div>
+        <div class="col-12"><label>Điều dưỡng truyền máu - Mã nhân viên</label><input id="${prefix}DieuDuongTruyenMau" class="equal-control" value="${escAttr(d.dieuDuongTruyenMau || '')}"></div>
       </div>
     </div>
     </div>`;
@@ -4640,8 +4699,8 @@ function collectTmPhieuPayload(prefix, loai){
     ghiChu: document.getElementById(`${prefix}DienBienXuTri`)?.value || '',
     aboTaiGiuongNguoiBenhSauPhanUng: document.getElementById(`${prefix}ABOTaiGiuongNB`)?.value || '',
     aboTaiGiuongDonViMauTruyen: document.getElementById(`${prefix}ABOTaiGiuongDonVi`)?.value || '',
-    thoiDiemLayMauNguoiBenhSauBatThuong: document.getElementById(`${prefix}LayMauSauBatThuong`)?.value || '',
-    thoiDiemNhanThongBaoVaMauNguoiBenh: document.getElementById(`${prefix}NhanThongBaoMau`)?.value || '',
+    thoiDiemLayMauNguoiBenhSauBatThuong: getDateTimeInputSql(`${prefix}LayMauSauBatThuong`) || document.getElementById(`${prefix}LayMauSauBatThuong`)?.value || '',
+    thoiDiemNhanThongBaoVaMauNguoiBenh: getDateTimeInputSql(`${prefix}NhanThongBaoMau`) || document.getElementById(`${prefix}NhanThongBaoMau`)?.value || '',
     ketLuanTdkmm: '',
     tinhTrangHienTai: document.getElementById(`${prefix}TinhTrangHienTai`)?.value || '',
     noiDungTheoDoiBanGiao: document.getElementById(`${prefix}TheoDoiBanGiao`)?.value || '',
