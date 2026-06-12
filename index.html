@@ -14,7 +14,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Sổ trực">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <!-- =========================================================
+    INDEX CHUẨN HÓA 1 FILE - SỔ TRỰC/GIAO BAN
+    Quy ước bảo trì:
+    1) Vẫn giữ một file index.html để anh chỉ cần copy/thay một file khi sửa frontend.
+    2) Không tách thành nhiều file CSS/JS ở giai đoạn hiện tại.
+    3) Các vùng CSS/JS được đánh dấu MODULE để khi sửa chỉ động đúng vùng liên quan.
+    4) Không đổi ID HTML, tên hàm JS, tên biến quan trọng nếu không có yêu cầu riêng.
+    5) Nếu lần sau chỉ sửa giao diện: ưu tiên chỉ xuất lại index.html.text.
+  ========================================================== -->
   <style>
+    /* =========================================================
+      CSS MODULE MAP - GIỮ TRONG 1 FILE
+      CSS_BASE_THEME             : biến màu, nền, font, card, button, form chung
+      CSS_TM_PHIEU               : phiếu truyền máu, bảng thiết bị, form TDKMM
+      CSS_MODAL_COMMON           : modal, popup xác nhận, ký, autocomplete
+      CSS_DS_PHIEU_FILTER        : bộ lọc DS phiếu, Họp, PDF
+      CSS_HOP_GIAO_BAN           : tab Họp, giao ban thường trực, biên bản họp
+      CSS_PDF_VIEWER_WATERMARK   : xem PDF trong app, watermark, chống che thao tác
+      CSS_ACCOUNT_PWA            : tài khoản, login, PWA, header/logo, responsive
+      Lưu ý: các PATCH cũ được giữ nguyên để tránh thay đổi hành vi ngoài ý muốn.
+    ========================================================= */
+
+    /* ===== MODULE: CSS_BASE_THEME_START ===== */
     :root{
       --wine:#7b113a;
       --wine-2:#9f174d;
@@ -169,6 +191,7 @@
     .staff-suggest .staff-code{font-weight:700;color:var(--wine-dark)}
     .staff-suggest .staff-role{color:var(--g-muted);font-size:12.5px}
 
+    /* ===== MODULE: CSS_TM_PHIEU_START ===== */
     .tm-report-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:2px}
     .tm-report-group{grid-column:span 12;border:1px solid var(--g-line);border-radius:10px;background:#fff;padding:10px}
     .tm-report-title{font-weight:700;color:var(--wine-dark);margin-bottom:8px}
@@ -215,6 +238,7 @@
     .manual-eq-inline .btn{min-height:30px;padding:0 10px}
     .tm-doc-view{white-space:pre-wrap;font-size:15px;line-height:1.65;color:var(--text);font-family:inherit}.tm-doc-view strong{font-weight:700}.tm-detail-card .field-name{font-weight:700;color:var(--muted)}.tm-detail-card .field-value{font-size:14px;line-height:1.45;white-space:pre-wrap}.tm-detail-card .tm-major-field .field-name{color:var(--wine-dark);font-weight:700;font-style:italic}.tm-view-table{min-width:420px;table-layout:fixed;font-size:13.5px}.tm-view-table th:nth-child(1),.tm-view-table td:nth-child(1){width:40px}.tm-view-table th:nth-child(2),.tm-view-table td:nth-child(2){width:170px;max-width:170px}.tm-view-table th:nth-child(3),.tm-view-table td:nth-child(3),.tm-view-table th:nth-child(4),.tm-view-table td:nth-child(4),.tm-view-table th:nth-child(5),.tm-view-table td:nth-child(5){width:70px;text-align:center}.phieu-inline .field-value.has-table{white-space:normal}.phieu-inline .field-value.has-table .tm-equip-wrap{margin:0}
     .locked-chip{padding-right:10px}
+    /* ===== MODULE: CSS_MODAL_COMMON_START ===== */
     .modal{
       position:fixed;inset:0;z-index:50;background:rgba(24,4,12,.56);display:flex;align-items:flex-start;justify-content:center;padding-top:8px;
     }
@@ -226,6 +250,7 @@
     .full-modal{align-items:stretch}
     .full-modal .modal-card{width:100%;max-width:none;height:100vh;max-height:100vh;border-radius:0;margin:0;padding-top:max(14px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}@supports (height: 100dvh){.full-modal .modal-card{height:100dvh;max-height:100dvh}}
 
+    /* ===== MODULE: CSS_ACCOUNT_PWA_START ===== */
     .boot-screen{min-height:100%;display:grid;place-items:center;padding:24px;background:#f8f1f4;color:var(--g-text)}
     .boot-box{width:min(420px,92vw);background:#fff;border:1px solid var(--g-line);border-radius:8px;box-shadow:0 1px 2px rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);padding:22px;text-align:center}
     .boot-logo{width:48px;height:48px;border-radius:12px;background:#e8f0fe;color:var(--g-blue);display:grid;place-items:center;margin:0 auto 12px;font-size:24px;font-weight:800}
@@ -310,6 +335,7 @@
     .gb-choice-sub{color:var(--muted);font-size:13px;line-height:1.35;margin-top:2px}
 
 
+    /* ===== MODULE: CSS_DS_PHIEU_FILTER_START ===== */
     #tab-list .filter-grid{grid-template-columns:repeat(6,minmax(0,1fr));}
     #tab-list .filter-grid > div{grid-column:auto!important;min-width:0;}
     #tab-meeting .filter-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
@@ -552,6 +578,7 @@
     }
 
   
+    /* ===== MODULE: CSS_HOP_GIAO_BAN_START ===== */
     .gb-create-choice{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
     .gb-pdf-frame{width:100%;height:calc(100dvh - 150px);min-height:420px;border:1px solid var(--g-line);border-radius:12px;background:#fff}
     .pdf-inline-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-bottom:10px;flex-wrap:wrap}
@@ -602,6 +629,7 @@
       display:block;width:100%;max-width:980px;height:auto;background:#fff;
       box-shadow:0 1px 8px rgba(15,23,42,.18);border-radius:2px;
     }
+    /* ===== MODULE: CSS_PDF_VIEWER_WATERMARK_START ===== */
     .protected-view{position:relative;user-select:none;-webkit-user-select:none}
     .pdf-modal.protected-view{overflow:hidden}
     .modal-card.protected-view{overflow-y:auto;overflow-x:hidden;max-width:calc(100vw - 16px);box-sizing:border-box}
@@ -649,6 +677,7 @@
     }
 
 
+    /* ===== MODULE: CSS_PDF_TEMPLATE_SIGNATURE_START ===== */
     .template-config-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
     .template-box{border:1px solid var(--g-line);border-radius:14px;background:#fff;padding:12px}
     .template-status{font-size:13px;color:var(--muted);line-height:1.45;margin-top:8px;word-break:break-word}
@@ -989,7 +1018,7 @@
 
 
 
-    /* FIX INDEX-185.110626-BIEN-BAN-HOP-COT-PHAI-TO-FULL-HEIGHT tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
+    /* FIX INDEX-188.120626-CHUAN-HOA-INDEX-1FILE tránh nút tab Tài khoản bị chữ trắng trên nền sáng khi hover desktop */
     #tab-account .account-menu-btn:not(.active):hover,
     #tab-account .account-setup-btn:not(.active):hover{
       background:linear-gradient(135deg,#fffafb 0%,#fff0f5 100%)!important;
@@ -2987,9 +3016,189 @@
       }
     }
 
+
+
+    /* ===== PATCH 186: BIÊN BẢN HỌP - DÙNG ĐÚNG KHUNG FULL HEIGHT NHƯ PHIẾU GIAO BAN ===== */
+    @media (min-width:900px){
+      .full-modal .modal-card.gb-dot-modal-card{
+        height:calc(100dvh - 16px)!important;
+        max-height:calc(100dvh - 16px)!important;
+        min-height:0!important;
+        display:flex!important;
+        flex-direction:column!important;
+        overflow:hidden!important;
+        padding-bottom:10px!important;
+      }
+      .gb-dot-modal-card .modal-head{
+        flex:0 0 auto!important;
+      }
+      .gb-dot-modal-card .gb-regular-finish{
+        flex:0 0 auto!important;
+        margin-top:8px!important;
+        padding-top:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-layout{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        height:auto!important;
+        max-height:none!important;
+        display:grid!important;
+        grid-template-columns:minmax(260px,.36fr) minmax(0,1fr)!important;
+        gap:12px!important;
+        overflow:hidden!important;
+        align-items:stretch!important;
+        border:1px solid var(--line)!important;
+        border-radius:16px!important;
+        padding:10px!important;
+        background:#fffafb!important;
+        margin-top:10px!important;
+      }
+      .gb-dot-modal-card .gb-dot-left,
+      .gb-dot-modal-card .gb-dot-right{
+        min-width:0!important;
+        min-height:0!important;
+        height:100%!important;
+        max-height:100%!important;
+        overflow:hidden!important;
+        padding:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-left > .gb-regular-card,
+      .gb-dot-modal-card .gb-dot-right > .gb-regular-card{
+        height:100%!important;
+        min-height:0!important;
+        max-height:100%!important;
+        margin:0!important;
+        overflow:hidden!important;
+        box-sizing:border-box!important;
+        border-radius:12px!important;
+      }
+      .gb-dot-modal-card .gb-dot-left > .gb-regular-card{
+        display:flex!important;
+        flex-direction:column!important;
+      }
+      .gb-dot-modal-card .gb-dot-left .gb-dot-admin-grid{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        height:auto!important;
+        display:flex!important;
+        flex-direction:column!important;
+        gap:9px!important;
+      }
+      .gb-dot-modal-card .gb-dot-left .gb-dot-admin-grid > .gb-dot-admin-item,
+      .gb-dot-modal-card .gb-dot-left .gb-dot-admin-grid > .gb-admin-item{
+        flex:0 0 auto!important;
+        width:100%!important;
+        min-width:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-left .gb-dot-admin-grid > .col-12{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        width:100%!important;
+        display:flex!important;
+        flex-direction:column!important;
+      }
+      .gb-dot-modal-card #gbThanhPhanThamDu{
+        flex:1 1 auto!important;
+        height:100%!important;
+        min-height:180px!important;
+        resize:none!important;
+        overflow:auto!important;
+      }
+      .gb-dot-modal-card .gb-dot-right{
+        display:grid!important;
+        grid-template-rows:minmax(0,1fr) minmax(0,1fr)!important;
+        gap:12px!important;
+      }
+      .gb-dot-modal-card .gb-dot-right > .gb-regular-card:first-child{
+        display:grid!important;
+        grid-template-rows:auto minmax(88px,.34fr) minmax(0,.66fr)!important;
+        gap:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-right > .gb-regular-card:last-child{
+        display:grid!important;
+        grid-template-rows:auto minmax(0,1fr)!important;
+        gap:0!important;
+      }
+      .gb-dot-modal-card .gb-inner-section{
+        min-height:0!important;
+        display:flex!important;
+        flex-direction:column!important;
+      }
+      .gb-dot-modal-card .gb-inner-section .gb-sub-label{
+        flex:0 0 auto!important;
+      }
+      .gb-dot-modal-card #gbLyDoGiaoBan,
+      .gb-dot-modal-card #gbNoiDungDotXuat,
+      .gb-dot-modal-card #gbKetLuan{
+        flex:1 1 auto!important;
+        height:100%!important;
+        min-height:0!important;
+        resize:none!important;
+        overflow:auto!important;
+      }
+    }
+
+
+    /* ===== PATCH 187: GIAO BAN THƯỜNG TRỰC - KHUNG 2 CỘT CAO KÍN MÀN HÌNH DESKTOP ===== */
+    @media (min-width:900px){
+      .full-modal .modal-card.gb-regular-modal-card:not(.gb-dot-modal-card){
+        height:calc(100dvh - 16px)!important;
+        max-height:calc(100dvh - 16px)!important;
+        min-height:0!important;
+        display:flex!important;
+        flex-direction:column!important;
+        overflow:hidden!important;
+        padding-bottom:10px!important;
+      }
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .modal-head{
+        flex:0 0 auto!important;
+      }
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .gb-regular-layout{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        height:auto!important;
+        max-height:none!important;
+        display:grid!important;
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+        gap:12px!important;
+        overflow:hidden!important;
+        align-items:stretch!important;
+        border:1px solid var(--line)!important;
+        border-radius:16px!important;
+        padding:10px!important;
+        background:#fffafb!important;
+        margin-top:10px!important;
+      }
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .gb-regular-left,
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .gb-regular-right{
+        min-width:0!important;
+        min-height:0!important;
+        height:100%!important;
+        max-height:100%!important;
+        overflow-y:auto!important;
+        overflow-x:hidden!important;
+        overscroll-behavior:contain!important;
+        padding:0 4px 0 0!important;
+      }
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .gb-regular-left > .gb-regular-card:first-child,
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .gb-regular-right > .gb-regular-card:first-child{
+        margin-top:0!important;
+      }
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .gb-regular-left > .gb-regular-card:last-child,
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .gb-regular-right > .gb-regular-card:last-child{
+        margin-bottom:0!important;
+      }
+      .gb-regular-modal-card:not(.gb-dot-modal-card) .gb-regular-finish{
+        flex:0 0 auto!important;
+        margin-top:8px!important;
+        padding-top:0!important;
+      }
+    }
+
 </style>
 </head>
 <body>
+<!-- ===== MODULE: HTML_BODY_SHELL_START - boot/login/app/modal roots ===== -->
   <div id="bootScreen" class="boot-screen">
     <div class="boot-box">
       <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><div class="brand-logo-safe"><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div></div>
@@ -3028,7 +3237,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-185.110626-BIEN-BAN-HOP-COT-PHAI-TO-FULL-HEIGHT</p>
+      <p class="login-version">Version: INDEX-188.120626-CHUAN-HOA-INDEX-1FILE</p>
     </div>
   </div>
 
@@ -3072,7 +3281,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-185.110626-BIEN-BAN-HOP-COT-PHAI-TO-FULL-HEIGHT</div>
+    <div class="app-version">Version: INDEX-188.120626-CHUAN-HOA-INDEX-1FILE</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -3080,8 +3289,24 @@
   <div id="toast" class="toast hidden"></div>
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
 
+<!-- ===== MODULE: JAVASCRIPT_SINGLE_FILE_START ===== -->
 <script>
-const APP_VERSION = 'INDEX-185.110626-BIEN-BAN-HOP-COT-PHAI-TO-FULL-HEIGHT';
+/* =========================================================
+  JS MODULE MAP - GIỮ TRONG 1 FILE
+  JS_CONFIG_STATE        : version, API_URL, hằng số, state toàn cục
+  JS_UTILS               : hàm tiện ích định dạng, ngày giờ, escape HTML, debounce
+  JS_API                 : fetch tới Google Apps Script Web App /exec
+  JS_APP_CORE            : boot app, tab, toast, modal, render khung chung
+  JS_CREATE_PHIEU        : tab Tạo phiếu, báo cáo/bàn giao, phiếu Truyền máu
+  JS_DS_PHIEU            : tab DS phiếu, lọc danh sách, xem/sửa/xóa, xuất Excel
+  JS_HOP_GIAO_BAN        : tab Họp, giao ban thường trực, biên bản họp, ký xác nhận
+  JS_PDF_VIEWER          : tab PDF, xem PDF trong app, watermark, tải file
+  JS_ACCOUNT             : tài khoản, chữ ký cá nhân, đổi mật khẩu, cấu hình
+  Quy ước sửa code: lần sau sửa tính năng nào thì chỉ sửa trong vùng module tương ứng.
+========================================================= */
+
+// ===== MODULE: JS_CONFIG_STATE_START =====
+const APP_VERSION = 'INDEX-188.120626-CHUAN-HOA-INDEX-1FILE';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -3470,6 +3695,7 @@ function switchTab(tab){
 
 /* ================= API ================= */
 
+// ===== MODULE: JS_API_START =====
 async function api(action, payload={}, opts={}){
   const token = opts.token || state.token || '';
   const body = JSON.stringify({
@@ -3529,6 +3755,7 @@ async function withInlineBusy(el, busyText, fn){
 
 /* ================= TẠO PHIẾU ================= */
 
+// ===== MODULE: JS_CREATE_PHIEU_START =====
 function renderCreateTab(){
   const today = todayIso();
   const now = toDatetimeLocal(hanoiNowIso());
@@ -3946,6 +4173,7 @@ function renderBanGiaoTaiSanInput(isTM){
   bindCreateEquipmentEvents();
 }
 
+// ===== MODULE: JS_TM_PHIEU_START =====
 function renderTmCreateEquipmentRow(it, idx, manual){
   const id = it.id || makeLocalId('manual_eq');
   const name = it.name || '';
@@ -4869,6 +5097,7 @@ function sortPhieuByCreatedDesc(items){
   });
 }
 
+// ===== MODULE: JS_DS_PHIEU_START =====
 function renderPhieuList(items, note=''){
   const box = $('#phieuListBox');
   if(!items.length){
@@ -5428,6 +5657,7 @@ function getGiaoBanFilters(){
   };
 }
 
+// ===== MODULE: JS_HOP_GIAO_BAN_START =====
 function renderGiaoBanList(items, note=''){
   const box = $('#giaoBanListBox');
   if(!items.length){
@@ -5820,6 +6050,7 @@ function bindGiaoBanPreviewAutoRefresh(){
   });
 }
 
+// ===== MODULE: JS_GIAO_BAN_MODAL_START =====
 function renderGiaoBanModal(){
   const g = state.currentGiaoBan;
   const loai = g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC;
@@ -5950,6 +6181,7 @@ function renderGiaoBanModal(){
 }
 
 
+// ===== MODULE: JS_BIEN_BAN_HOP_MODAL_START =====
 function renderGiaoBanDotXuatModal(){
   const g = state.currentGiaoBan;
 
@@ -6825,6 +7057,7 @@ async function submitChuTriSignature(btn, systemSign){
 
 /* ================= PDF ================= */
 
+// ===== MODULE: JS_PDF_TAB_START =====
 function renderPdfTab(){
   const allowTm = isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
   const tmOptions = allowTm ? `
@@ -7074,6 +7307,7 @@ function accountInfoFallback(){
   };
 }
 
+// ===== MODULE: JS_ACCOUNT_START =====
 function renderAccountTab(){
   const root = $('#tab-account');
   if(!root) return;
@@ -7835,6 +8069,7 @@ async function previewPdfTemplate(type, btn){
   });
 }
 
+// ===== MODULE: JS_PDF_VIEWER_START =====
 async function openPdfTemplateEditor(type, btn){
   // Mở tab trống ngay khi người dùng bấm nút để tránh trình duyệt chặn popup sau request async.
   const newTab = window.open('about:blank', '_blank');
@@ -9004,6 +9239,7 @@ function shortText(s, max){
   return esc(t.length > max ? t.slice(0,max) + '...' : t);
 }
 
+// ===== MODULE: JS_UTILS_START =====
 function norm(s){
   return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim();
 }
@@ -9014,6 +9250,8 @@ function esc(s){
 
 function escAttr(s){ return esc(s).replace(/`/g,'&#096;'); }
 function jsArg(s){ return JSON.stringify(String(s ?? '')).replace(/</g,'\u003C').replace(/>/g,'\u003E').replace(/&/g,'\u0026'); }
+// ===== MODULE: JS_ALL_END =====
 </script>
+<!-- ===== MODULE: HTML_BODY_SHELL_END ===== -->
 </body>
 </html>
