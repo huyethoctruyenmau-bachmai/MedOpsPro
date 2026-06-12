@@ -3309,6 +3309,67 @@
       }
     }
 
+
+    /* ===== PATCH 192: TDKMM MOBILE - ĐỒNG BỘ Ô GIỜ, THANH CUỘN BẢNG, NGƯỜI KÝ 2 Ô ===== */
+    .tm-tdkmm-form input.tm-time-input.equal-control,
+    .tm-tdkmm-form input[type="time"].tm-time-input{
+      width:100%!important;
+      max-width:100%!important;
+      min-width:0!important;
+      height:38px!important;
+      min-height:38px!important;
+      font-size:15.5px!important;
+      line-height:20px!important;
+      padding:5px 9px!important;
+      box-sizing:border-box!important;
+      text-align:left!important;
+      background:#fff!important;
+      border:1px solid var(--g-line)!important;
+      border-radius:4px!important;
+      color:var(--g-text)!important;
+      appearance:auto!important;
+      -webkit-appearance:auto!important;
+    }
+    .tm-tdkmm-form input.tm-time-input::-webkit-date-and-time-value{
+      text-align:left!important;
+      width:100%!important;
+      margin:0!important;
+      padding:0!important;
+      line-height:20px!important;
+    }
+    .tdkmm-lab-scrollbox{width:100%;max-width:100%;min-width:0;overflow:hidden}
+    .tdkmm-lab-scrollbar{
+      height:18px!important;
+      overflow-x:scroll!important;
+      overflow-y:hidden!important;
+      margin:6px 0 0!important;
+      border:1px solid var(--g-line)!important;
+      border-radius:999px!important;
+      background:#f1f3f4!important;
+      -webkit-overflow-scrolling:auto!important;
+      scrollbar-gutter:stable!important;
+    }
+    .tdkmm-lab-scrollbar-inner{height:1px!important;min-height:1px!important}
+    .tdkmm-lab-scrollbar::-webkit-scrollbar{height:14px!important}
+    .tdkmm-lab-scrollbar::-webkit-scrollbar-track{background:#f1f3f4!important;border-radius:999px!important}
+    .tdkmm-lab-scrollbar::-webkit-scrollbar-thumb{background:#9aa4b2!important;border-radius:999px!important;border:3px solid #f1f3f4!important}
+    .tdkmm-signer-grid{display:grid!important;grid-template-columns:minmax(0,1.45fr) minmax(96px,.55fr)!important;gap:8px!important;align-items:end!important}
+    .tdkmm-signer-grid > div{min-width:0!important}
+    .tdkmm-signer-name input,.tdkmm-signer-code input{width:100%!important;min-width:0!important}
+    @media (max-width:760px){
+      .tm-tdkmm-form input.tm-time-input.equal-control,
+      .tm-tdkmm-form input[type="time"].tm-time-input{
+        height:38px!important;
+        min-height:38px!important;
+        font-size:14.5px!important;
+        line-height:19px!important;
+        padding:5px 7px!important;
+      }
+      .tdkmm-lab-wrap{padding-bottom:4px!important;scrollbar-width:thin!important;scrollbar-color:#9aa4b2 #f1f3f4!important}
+      .tdkmm-lab-scrollbar{display:block!important;height:20px!important}
+      .tdkmm-signer-grid{grid-template-columns:minmax(0,1.55fr) minmax(88px,.45fr)!important;gap:7px!important}
+    }
+
   </style>
 </head>
 <body>
@@ -3351,7 +3412,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-191.120626-TDKMM-FORM-TINH-CHINH-O-NHAP</p>
+      <p class="login-version">Version: INDEX-192.120626-TDKMM-MOBILE-TIME-SCROLL-NGUOI-KY</p>
     </div>
   </div>
 
@@ -3395,7 +3456,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-191.120626-TDKMM-FORM-TINH-CHINH-O-NHAP</div>
+    <div class="app-version">Version: INDEX-192.120626-TDKMM-MOBILE-TIME-SCROLL-NGUOI-KY</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -3420,7 +3481,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-191.120626-TDKMM-FORM-TINH-CHINH-O-NHAP';
+const APP_VERSION = 'INDEX-192.120626-TDKMM-MOBILE-TIME-SCROLL-NGUOI-KY';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -4499,7 +4560,7 @@ function tdkmmLabValue(d, key, col){
   return d[name] || (fallback[name] ? d[fallback[name]] : '') || '';
 }
 function renderTdkmmLabInputTable(d={}, prefix='tmCreate'){
-  return `<div class="tdkmm-lab-wrap"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả XN</th><th>Mẫu máu người bệnh trước truyền</th><th>Mẫu máu người bệnh sau truyền</th><th>Mẫu máu từ đơn vị máu nghi ngờ gây tai biến</th></tr></thead><tbody>${tdkmmLabRows().map(([key,label]) => `<tr><td>${esc(label)}</td>${['truoc','sau','donVi'].map(col => `<td><input id="${prefix}Lab_${key}_${col}" value="${escAttr(tdkmmLabValue(d,key,col))}"></td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  return `<div class="tdkmm-lab-scrollbox"><div class="tdkmm-lab-wrap" data-tdkmm-lab-scroll="1"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả XN</th><th>Mẫu máu người bệnh trước truyền</th><th>Mẫu máu người bệnh sau truyền</th><th>Mẫu máu từ đơn vị máu nghi ngờ gây tai biến</th></tr></thead><tbody>${tdkmmLabRows().map(([key,label]) => `<tr><td>${esc(label)}</td>${['truoc','sau','donVi'].map(col => `<td><input id="${prefix}Lab_${key}_${col}" value="${escAttr(tdkmmLabValue(d,key,col))}"></td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="tdkmm-lab-scrollbar" data-tdkmm-lab-bar="1" aria-label="Thanh cuộn ngang bảng kết quả xét nghiệm"><div class="tdkmm-lab-scrollbar-inner"></div></div></div>`;
 }
 
 function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
@@ -4544,8 +4605,8 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
       <div class="grid">
         <div class="col-6 tdk-mobile-half"><label>Ngày truyền</label><input id="${prefix}NgayTruyen" class="equal-control date-vi-input" type="date" value="${escAttr(ngayTruyenValue)}"></div>
         <div class="col-6 tdk-mobile-half"><label>T/G bắt đầu truyền</label><input id="${prefix}TruyenTu" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenTu || ''))}"></div>
-        <div class="col-6 tdk-mobile-half"><label>T/G xuất hiện dấu hiệu đầu tiên</label><input id="${prefix}DauHieuDauTienLuc" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiDiemXuatHienDauHieuDauTien || ''))}"></div>
-        <div class="col-6 tdk-mobile-half"><label>Ngừng truyền</label><input id="${prefix}NgungTruyen" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiDiemNgungTruyen || d.thoiGianTruyenDen || ''))}"></div>
+        <div class="col-6 tdk-mobile-half"><label>T/G xuất hiện phản ứng</label><input id="${prefix}DauHieuDauTienLuc" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiDiemXuatHienDauHieuDauTien || ''))}"></div>
+        <div class="col-6 tdk-mobile-half"><label>T/G ngừng truyền</label><input id="${prefix}NgungTruyen" class="equal-control tm-time-input" type="time" value="${escAttr(tmTimeInputValue(d.thoiDiemNgungTruyen || d.thoiGianTruyenDen || ''))}"></div>
         <div class="col-12 tdk-mobile-full"><label>Tên người cho máu/Mã đơn vị máu nghi ngờ</label><input id="${prefix}NguoiChoMaDonVi" class="equal-control" value="${escAttr(nguoiChoMaDonViValue)}"></div>
         <div class="col-6 tdk-mobile-half"><label>Loại chế phẩm máu</label><select id="${prefix}ChePhamNghiNgo" class="equal-control">${optionHtml(nghiNgo, d.loaiMauChePhamNghiNgo || '')}</select></div>
         <div class="col-6 tdk-mobile-half"><label>Thể tích đơn vị (ml)</label><input id="${prefix}TheTichDonVi" class="equal-control" value="${escAttr(d.theTichDonViMau || '')}"></div>
@@ -4600,15 +4661,39 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
     </div>
     <div class="tdkmm-section-card tdkmm-sign-card">
       <h3 class="sub-title">Người ký</h3>
-      <div class="grid">
-        <div class="col-12"><label>Bác sỹ điều trị - Mã nhân viên</label><input id="${prefix}BacSiDieuTri" class="equal-control" value="${escAttr(d.bacSiDieuTri || '')}"></div>
-        <div class="col-12"><label>Điều dưỡng truyền máu - Mã nhân viên</label><input id="${prefix}DieuDuongTruyenMau" class="equal-control" value="${escAttr(d.dieuDuongTruyenMau || '')}"></div>
+      <div class="tdkmm-signer-grid">
+        <div class="tdkmm-signer-name"><label>Bác sỹ điều trị</label><input id="${prefix}BacSiDieuTri" class="equal-control" value="${escAttr(d.bacSiDieuTri || '')}"></div>
+        <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}BacSiDieuTriMa" class="equal-control" value="${escAttr(d.bacSiDieuTriMaNhanVien || d.bacSiDieuTriMa || '')}"></div>
+        <div class="tdkmm-signer-name"><label>Điều dưỡng truyền máu</label><input id="${prefix}DieuDuongTruyenMau" class="equal-control" value="${escAttr(d.dieuDuongTruyenMau || '')}"></div>
+        <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}DieuDuongTruyenMauMa" class="equal-control" value="${escAttr(d.dieuDuongTruyenMauMaNhanVien || d.dieuDuongTruyenMauMa || '')}"></div>
       </div>
     </div>
     </div>`;
 }
 
+
+function syncTdkmmLabScrollbars(root=document){
+  const scope = root && root.querySelectorAll ? root : document;
+  scope.querySelectorAll('.tdkmm-lab-scrollbox').forEach(box => {
+    const wrap = box.querySelector('[data-tdkmm-lab-scroll]');
+    const bar = box.querySelector('[data-tdkmm-lab-bar]');
+    const inner = bar ? bar.querySelector('.tdkmm-lab-scrollbar-inner') : null;
+    if(!wrap || !bar || !inner || bar.dataset.bound === '1') return;
+    const update = () => {
+      inner.style.width = Math.max(wrap.scrollWidth, wrap.clientWidth + 1) + 'px';
+      bar.scrollLeft = wrap.scrollLeft;
+    };
+    update();
+    setTimeout(update, 80);
+    wrap.addEventListener('scroll', () => { if(bar.scrollLeft !== wrap.scrollLeft) bar.scrollLeft = wrap.scrollLeft; }, {passive:true});
+    bar.addEventListener('scroll', () => { if(wrap.scrollLeft !== bar.scrollLeft) wrap.scrollLeft = bar.scrollLeft; }, {passive:true});
+    window.addEventListener('resize', update, {passive:true});
+    bar.dataset.bound = '1';
+  });
+}
+
 function bindTmPhieuFormEvents(prefix, loai){
+  syncTdkmmLabScrollbars(document);
   const chua = document.getElementById(`${prefix}ChuaTruyen`);
   const da = document.getElementById(`${prefix}DaTruyen`);
   const toggle = (source) => {
@@ -4705,7 +4790,9 @@ function collectTmPhieuPayload(prefix, loai){
     tinhTrangHienTai: document.getElementById(`${prefix}TinhTrangHienTai`)?.value || '',
     noiDungTheoDoiBanGiao: document.getElementById(`${prefix}TheoDoiBanGiao`)?.value || '',
     bacSiDieuTri: document.getElementById(`${prefix}BacSiDieuTri`)?.value || '',
-    dieuDuongTruyenMau: document.getElementById(`${prefix}DieuDuongTruyenMau`)?.value || ''
+    bacSiDieuTriMaNhanVien: document.getElementById(`${prefix}BacSiDieuTriMa`)?.value || '',
+    dieuDuongTruyenMau: document.getElementById(`${prefix}DieuDuongTruyenMau`)?.value || '',
+    dieuDuongTruyenMauMaNhanVien: document.getElementById(`${prefix}DieuDuongTruyenMauMa`)?.value || ''
   });
   tdkmmLabRows().forEach(([key]) => ['truoc','sau','donVi'].forEach(col => {
     payload[tdkmmLabFieldName(key, col)] = document.getElementById(`${prefix}Lab_${key}_${col}`)?.value || '';
@@ -4941,7 +5028,7 @@ function renderTmTdkmmDetailHtml(p, d){
       ${sections.filter(sec => !sec.title.startsWith('f.')).map(sec => tmFieldHtml(sec.title, tmDetailValue(sec.lines), 'tm-major-field')).join('')}
       <div class="field-row tm-major-field"><span class="field-name">e. Kết quả xét nghiệm tai biến truyền máu</span><div class="field-value has-table">${renderTdkmmLabViewTable(x)}</div></div>
       ${sections.filter(sec => sec.title.startsWith('f.')).map(sec => tmFieldHtml(sec.title, tmDetailValue(sec.lines), 'tm-major-field')).join('')}
-      ${tmFieldHtml('Người ký khi xuất PDF', tmDetailValue([tmDetailLine('Bác sĩ điều trị', x.bacSiDieuTri), tmDetailLine('Điều dưỡng truyền máu', x.dieuDuongTruyenMau)]), 'tm-major-field')}
+      ${tmFieldHtml('Người ký khi xuất PDF', tmDetailValue([tmDetailLine('Bác sĩ điều trị', tmJoinInline([x.bacSiDieuTri, x.bacSiDieuTriMaNhanVien ? ('Mã NV: ' + x.bacSiDieuTriMaNhanVien) : ''])), tmDetailLine('Điều dưỡng truyền máu', tmJoinInline([x.dieuDuongTruyenMau, x.dieuDuongTruyenMauMaNhanVien ? ('Mã NV: ' + x.dieuDuongTruyenMauMaNhanVien) : '']))]), 'tm-major-field')}
     </div>
   `;
 }
