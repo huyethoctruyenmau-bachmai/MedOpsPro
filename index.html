@@ -3826,6 +3826,108 @@
       }
     }
 
+
+    /* ===== PATCH 196: TDKMM TIME PICKER TRONG CÙNG Ô + DESKTOP CỘT ĐỀU ===== */
+    .tm-tdkmm-form .tdkmm-time-field{
+      min-width:0!important;
+      overflow:visible!important;
+    }
+    .tdkmm-time-combo{
+      position:relative!important;
+      display:block!important;
+      width:100%!important;
+      min-width:0!important;
+    }
+    .tdkmm-time-combo .tdkmm-time-control{
+      width:100%!important;
+      min-width:0!important;
+      max-width:100%!important;
+      height:38px!important;
+      min-height:38px!important;
+      padding-right:40px!important;
+      box-sizing:border-box!important;
+      text-align:center!important;
+      cursor:text!important;
+      background:#fff!important;
+    }
+    .tdkmm-time-picker{
+      position:absolute!important;
+      right:1px!important;
+      top:1px!important;
+      width:36px!important;
+      min-width:36px!important;
+      height:36px!important;
+      min-height:36px!important;
+      border:0!important;
+      border-left:1px solid var(--g-line)!important;
+      border-radius:0 4px 4px 0!important;
+      background:#fff!important;
+      box-shadow:none!important;
+      cursor:pointer!important;
+      padding:0!important;
+      margin:0!important;
+      color:transparent!important;
+      outline:none!important;
+      z-index:2!important;
+    }
+    .tdkmm-time-picker::-webkit-datetime-edit,
+    .tdkmm-time-picker::-webkit-datetime-edit-fields-wrapper,
+    .tdkmm-time-picker::-webkit-datetime-edit-hour-field,
+    .tdkmm-time-picker::-webkit-datetime-edit-minute-field,
+    .tdkmm-time-picker::-webkit-datetime-edit-text{
+      display:none!important;
+      color:transparent!important;
+    }
+    .tdkmm-time-picker::-webkit-calendar-picker-indicator{
+      display:block!important;
+      opacity:1!important;
+      cursor:pointer!important;
+      margin:0 auto!important;
+      padding:6px!important;
+      width:20px!important;
+      height:20px!important;
+    }
+
+    @media (min-width:900px){
+      .tm-tdkmm-form .tm-tdkmm-transfusion-grid{
+        grid-template-columns:repeat(4,minmax(0,1fr))!important;
+        gap:8px!important;
+        align-items:end!important;
+      }
+      .tm-tdkmm-form .tm-tdkmm-transfusion-grid > div{
+        min-width:0!important;
+        max-width:100%!important;
+        display:flex!important;
+        flex-direction:column!important;
+      }
+      .tm-tdkmm-form .tm-tx-code{grid-column:1 / 3!important;grid-row:1!important}
+      .tm-tdkmm-form .tm-tx-product{grid-column:3!important;grid-row:1!important}
+      .tm-tdkmm-form .tm-tx-volume{grid-column:4!important;grid-row:1!important}
+
+      .tm-tdkmm-form .tm-tx-collect-date{grid-column:1!important;grid-row:2!important}
+      .tm-tdkmm-form .tm-tx-expire-date{grid-column:2!important;grid-row:2!important}
+      .tm-tdkmm-form .tm-tx-source{grid-column:3 / 5!important;grid-row:2!important}
+
+      .tm-tdkmm-form .tm-tx-abo{grid-column:1 / 3!important;grid-row:3!important}
+      .tm-tdkmm-form .tm-tx-rh{grid-column:3 / 5!important;grid-row:3!important}
+
+      .tm-tdkmm-form .tm-tx-date{grid-column:1!important;grid-row:4!important}
+      .tm-tdkmm-form .tm-tx-start{grid-column:2!important;grid-row:4!important}
+      .tm-tdkmm-form .tm-tx-react{grid-column:3!important;grid-row:4!important}
+      .tm-tdkmm-form .tm-tx-stop{grid-column:4!important;grid-row:4!important}
+
+      .tm-tdkmm-form .tm-tx-speed{grid-column:1 / 3!important;grid-row:5!important}
+      .tm-tdkmm-form .tm-tx-volume-done{grid-column:3 / 5!important;grid-row:5!important}
+
+      .tm-tdkmm-form .tm-tdkmm-transfusion-grid input,
+      .tm-tdkmm-form .tm-tdkmm-transfusion-grid select,
+      .tm-tdkmm-form .tm-tdkmm-transfusion-grid .tdkmm-time-combo{
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -3868,7 +3970,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-195.120626-TDKMM-DESKTOP-LAYOUT-TIME-PICK</p>
+      <p class="login-version">Version: INDEX-196.120626-TDKMM-TIME-INBOX-EQUAL-GRID</p>
     </div>
   </div>
 
@@ -3912,7 +4014,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-195.120626-TDKMM-DESKTOP-LAYOUT-TIME-PICK</div>
+    <div class="app-version">Version: INDEX-196.120626-TDKMM-TIME-INBOX-EQUAL-GRID</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5026,7 +5128,7 @@ function renderTdkmmLabInputTable(d={}, prefix='tmCreate'){
 
 function tdkmmTimePickInputHtml(id, value){
   const v = tmTimeInputValue(value || '');
-  return `<div class="tdkmm-time-combo"><input id="${id}" class="equal-control tm-time-input tdkmm-time-control" type="text" inputmode="numeric" maxlength="5" placeholder="HH:mm" value="${escAttr(v)}"><input id="${id}Picker" class="tdkmm-time-picker" type="time" value="${escAttr(v)}" data-target="${escAttr(id)}" aria-label="Chọn giờ"></div>`;
+  return `<div class="tdkmm-time-combo"><input id="${id}" class="equal-control tm-time-input tdkmm-time-control" type="text" inputmode="numeric" maxlength="5" placeholder="HH:mm" value="${escAttr(v)}" autocomplete="off"><input id="${id}Picker" class="tdkmm-time-picker" type="time" value="${escAttr(v)}" data-target="${escAttr(id)}" aria-label="Chọn giờ"></div>`;
 }
 
 function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
@@ -5086,7 +5188,7 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
         <div class="col-6 tdk-mobile-half tm-tx-abo"><label>Nhóm ABO đơn vị máu</label><select id="${prefix}ABODonVi" class="equal-control blood-abo">${optionHtml(abo, d.aboDonViMau || '')}</select></div>
         <div class="col-6 tdk-mobile-half tm-tx-rh"><label>Rh(D) đơn vị máu</label><select id="${prefix}RhDonVi" class="equal-control blood-rh">${optionHtml(rh, d.rhDonViMau || '')}</select></div>
         <div class="col-6 tdk-mobile-half tm-tx-date"><label>Ngày truyền</label><input id="${prefix}NgayTruyen" class="equal-control date-vi-input" type="date" value="${escAttr(ngayTruyenValue)}"></div>
-        <div class="col-6 tdk-mobile-half tdkmm-time-field tm-tx-start"><label>T/G bắt đầu truyền</label><input id="${prefix}TruyenTu" class="equal-control tm-time-input tdkmm-time-control" type="text" inputmode="numeric" maxlength="5" placeholder="HH:mm" value="${escAttr(tmTimeInputValue(d.thoiGianTruyenTu || ''))}"></div>
+        <div class="col-6 tdk-mobile-half tdkmm-time-field tm-tx-start"><label>T/G bắt đầu truyền</label>${tdkmmTimePickInputHtml(`${prefix}TruyenTu`, d.thoiGianTruyenTu || '')}</div>
         <div class="col-6 tdk-mobile-half tdkmm-time-field tm-tx-react"><label>T/G xuất hiện phản ứng</label>${tdkmmTimePickInputHtml(`${prefix}DauHieuDauTienLuc`, d.thoiDiemXuatHienDauHieuDauTien || '')}</div>
         <div class="col-6 tdk-mobile-half tdkmm-time-field tm-tx-stop"><label>T/G ngừng truyền</label>${tdkmmTimePickInputHtml(`${prefix}NgungTruyen`, d.thoiDiemNgungTruyen || d.thoiGianTruyenDen || '')}</div>
         <div class="col-6 tdk-mobile-half tm-tx-speed"><label>Tốc độ truyền (giọt/ph)</label><input id="${prefix}TocDoTruyen" class="equal-control" value="${escAttr(d.tocDoTruyen || '')}"></div>
@@ -10194,7 +10296,7 @@ function escAttr(s){ return esc(s).replace(/`/g,'&#096;'); }
 function jsArg(s){ return JSON.stringify(String(s ?? '')).replace(/</g,'\u003C').replace(/>/g,'\u003E').replace(/&/g,'\u0026'); }
 // ===== MODULE: JS_ALL_END =====
 
-/* ===== PATCH 195 JS: TDKMM time manual + native picker sync ===== */
+/* ===== PATCH 196 JS: TDKMM time manual + native picker sync + select all HH:mm ===== */
 function normalizeTdkmmTimeValue(value){
   const s = String(value || '').trim();
   if(!s) return '';
@@ -10206,11 +10308,32 @@ function normalizeTdkmmTimeValue(value){
   return s;
 }
 
+function selectTdkmmTimeInput(el){
+  if(!el) return;
+  setTimeout(() => {
+    try{ el.select(); }catch(_e){}
+    try{ el.setSelectionRange(0, String(el.value || '').length); }catch(_e){}
+  }, 0);
+}
+
+document.addEventListener('focusin', function(e){
+  const timeInput = e.target.closest && e.target.closest('.tdkmm-time-control');
+  if(timeInput) selectTdkmmTimeInput(timeInput);
+}, true);
+
+document.addEventListener('click', function(e){
+  const timeInput = e.target.closest && e.target.closest('.tdkmm-time-control');
+  if(timeInput) selectTdkmmTimeInput(timeInput);
+}, true);
+
 document.addEventListener('input', function(e){
   const picker = e.target.closest && e.target.closest('.tdkmm-time-picker');
   if(picker){
     const target = document.getElementById(picker.dataset.target || '');
-    if(target) target.value = picker.value || '';
+    if(target){
+      target.value = picker.value || '';
+      selectTdkmmTimeInput(target);
+    }
     return;
   }
   const timeInput = e.target.closest && e.target.closest('.tdkmm-time-control');
