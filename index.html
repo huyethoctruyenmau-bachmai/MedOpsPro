@@ -3491,7 +3491,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-194.140626-TDKMM-PDF-CLOSE-GLOBAL-CLEAN</p>
+      <p class="login-version">Version: INDEX-194.120626-TDKMM-NGUOI-KY-PL12</p>
     </div>
   </div>
 
@@ -3535,7 +3535,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-194.140626-TDKMM-PDF-CLOSE-GLOBAL-CLEAN</div>
+    <div class="app-version">Version: INDEX-194.120626-TDKMM-NGUOI-KY-PL12</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -3560,7 +3560,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-194.140626-TDKMM-PDF-CLOSE-GLOBAL-CLEAN';
+const APP_VERSION = 'INDEX-194.120626-TDKMM-NGUOI-KY-PL12';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -4661,6 +4661,12 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
     const found = beforeItems.find(it => norm(it.ten)===norm(x)) || {};
     return `<div class="tm-blood-row"><input type="checkbox" class="${prefix}DaTruyenCheck" value="${escAttr(x)}" ${found.ten ? 'checked' : ''}><span title="${escAttr(x)}">${esc(x)}</span><input type="text" class="${prefix}DaTruyenTheTich" data-name="${escAttr(x)}" placeholder="ml" value="${escAttr(found.theTich || '')}"></div>`;
   }).join('');
+  const defaultSignerName = state.user?.tenNhanVien || '';
+  const defaultSignerMa = state.user?.maNhanVien || '';
+  const nguoiPhuTrachPhatMauValue = d.nguoiPhuTrachPhatMau || d.nguoiPhuTrachPhatMauTen || defaultSignerName;
+  const nguoiPhuTrachPhatMauMaValue = d.nguoiPhuTrachPhatMauMaNhanVien || d.nguoiPhuTrachPhatMauMa || (nguoiPhuTrachPhatMauValue === defaultSignerName ? defaultSignerMa : '');
+  const kyThuatVienXetNghiemValue = d.kyThuatVienXetNghiem || d.kyThuatVienXetNghiemTen || defaultSignerName;
+  const kyThuatVienXetNghiemMaValue = d.kyThuatVienXetNghiemMaNhanVien || d.kyThuatVienXetNghiemMa || (kyThuatVienXetNghiemValue === defaultSignerName ? defaultSignerMa : '');
   return `
     <div class="tm-tdkmm-form">
     <h3 class="section-title">II. Khai báo tác dụng không mong muốn liên quan truyền máu</h3>
@@ -4745,6 +4751,10 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
         <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}BacSiDieuTriMa" class="equal-control" value="${escAttr(d.bacSiDieuTriMaNhanVien || d.bacSiDieuTriMa || '')}"></div>
         <div class="tdkmm-signer-name"><label>Điều dưỡng truyền máu</label><input id="${prefix}DieuDuongTruyenMau" class="equal-control" value="${escAttr(d.dieuDuongTruyenMau || '')}"></div>
         <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}DieuDuongTruyenMauMa" class="equal-control" value="${escAttr(d.dieuDuongTruyenMauMaNhanVien || d.dieuDuongTruyenMauMa || '')}"></div>
+        <div class="tdkmm-signer-name"><label>Người phụ trách phát máu ở cơ sở KB, CB</label><input id="${prefix}NguoiPhuTrachPhatMau" class="equal-control" list="staffDatalist" value="${escAttr(nguoiPhuTrachPhatMauValue)}"></div>
+        <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}NguoiPhuTrachPhatMauMa" class="equal-control" value="${escAttr(nguoiPhuTrachPhatMauMaValue)}"></div>
+        <div class="tdkmm-signer-name"><label>Kỹ thuật viên xét nghiệm</label><input id="${prefix}KyThuatVienXetNghiem" class="equal-control" list="staffDatalist" value="${escAttr(kyThuatVienXetNghiemValue)}"></div>
+        <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}KyThuatVienXetNghiemMa" class="equal-control" value="${escAttr(kyThuatVienXetNghiemMaValue)}"></div>
       </div>
     </div>
     </div>`;
@@ -4789,8 +4799,35 @@ function syncTdkmmLabScrollbars(root=document){
   });
 }
 
+function findPersonnelForTdkmmSigner(raw){
+  const q = norm(raw);
+  if(!q) return null;
+  return state.personnel.find(p => norm(p.maNhanVien) === q)
+    || state.personnel.find(p => norm(p.tenNhanVien) === q)
+    || state.personnel.find(p => norm([p.maNhanVien, p.tenNhanVien, p.chucDanh].filter(Boolean).join(' - ')) === q)
+    || state.personnel.find(p => norm([p.maNhanVien, p.tenNhanVien, p.chucDanh].filter(Boolean).join(' ')).includes(q));
+}
+
+function bindTdkmmSignerPicker(prefix, nameSuffix, codeSuffix){
+  const nameEl = document.getElementById(`${prefix}${nameSuffix}`);
+  const codeEl = document.getElementById(`${prefix}${codeSuffix}`);
+  if(!nameEl || !codeEl) return;
+  const apply = () => {
+    const person = findPersonnelForTdkmmSigner(nameEl.value);
+    if(!person) return;
+    nameEl.value = person.tenNhanVien || '';
+    codeEl.value = person.maNhanVien || '';
+  };
+  nameEl.addEventListener('change', apply);
+  nameEl.addEventListener('blur', apply);
+}
+
 function bindTmPhieuFormEvents(prefix, loai){
   syncTdkmmLabScrollbars(document);
+  if(loai === LOAI_TM_TDKMM){
+    bindTdkmmSignerPicker(prefix, 'NguoiPhuTrachPhatMau', 'NguoiPhuTrachPhatMauMa');
+    bindTdkmmSignerPicker(prefix, 'KyThuatVienXetNghiem', 'KyThuatVienXetNghiemMa');
+  }
   const chua = document.getElementById(`${prefix}ChuaTruyen`);
   const da = document.getElementById(`${prefix}DaTruyen`);
   const toggle = (source) => {
@@ -4889,7 +4926,11 @@ function collectTmPhieuPayload(prefix, loai){
     bacSiDieuTri: document.getElementById(`${prefix}BacSiDieuTri`)?.value || '',
     bacSiDieuTriMaNhanVien: document.getElementById(`${prefix}BacSiDieuTriMa`)?.value || '',
     dieuDuongTruyenMau: document.getElementById(`${prefix}DieuDuongTruyenMau`)?.value || '',
-    dieuDuongTruyenMauMaNhanVien: document.getElementById(`${prefix}DieuDuongTruyenMauMa`)?.value || ''
+    dieuDuongTruyenMauMaNhanVien: document.getElementById(`${prefix}DieuDuongTruyenMauMa`)?.value || '',
+    nguoiPhuTrachPhatMau: document.getElementById(`${prefix}NguoiPhuTrachPhatMau`)?.value || '',
+    nguoiPhuTrachPhatMauMaNhanVien: document.getElementById(`${prefix}NguoiPhuTrachPhatMauMa`)?.value || '',
+    kyThuatVienXetNghiem: document.getElementById(`${prefix}KyThuatVienXetNghiem`)?.value || '',
+    kyThuatVienXetNghiemMaNhanVien: document.getElementById(`${prefix}KyThuatVienXetNghiemMa`)?.value || ''
   });
   tdkmmLabRows().forEach(([key]) => ['truoc','sau','donVi'].forEach(col => {
     payload[tdkmmLabFieldName(key, col)] = document.getElementById(`${prefix}Lab_${key}_${col}`)?.value || '';
@@ -5125,7 +5166,7 @@ function renderTmTdkmmDetailHtml(p, d){
       ${sections.filter(sec => !sec.title.startsWith('f.')).map(sec => tmFieldHtml(sec.title, tmDetailValue(sec.lines), 'tm-major-field')).join('')}
       <div class="field-row tm-major-field"><span class="field-name">e. Kết quả xét nghiệm tai biến truyền máu</span><div class="field-value has-table">${renderTdkmmLabViewTable(x)}</div></div>
       ${sections.filter(sec => sec.title.startsWith('f.')).map(sec => tmFieldHtml(sec.title, tmDetailValue(sec.lines), 'tm-major-field')).join('')}
-      ${tmFieldHtml('Người ký khi xuất PDF', tmDetailValue([tmDetailLine('Bác sĩ điều trị', tmJoinInline([x.bacSiDieuTri, x.bacSiDieuTriMaNhanVien ? ('Mã NV: ' + x.bacSiDieuTriMaNhanVien) : ''])), tmDetailLine('Điều dưỡng truyền máu', tmJoinInline([x.dieuDuongTruyenMau, x.dieuDuongTruyenMauMaNhanVien ? ('Mã NV: ' + x.dieuDuongTruyenMauMaNhanVien) : '']))]), 'tm-major-field')}
+      ${tmFieldHtml('Người ký khi xuất PDF', tmDetailValue([tmDetailLine('Bác sĩ điều trị', tmJoinInline([x.bacSiDieuTri, x.bacSiDieuTriMaNhanVien ? ('Mã NV: ' + x.bacSiDieuTriMaNhanVien) : ''])), tmDetailLine('Điều dưỡng truyền máu', tmJoinInline([x.dieuDuongTruyenMau, x.dieuDuongTruyenMauMaNhanVien ? ('Mã NV: ' + x.dieuDuongTruyenMauMaNhanVien) : ''])), tmDetailLine('Người phụ trách phát máu ở cơ sở KB, CB', tmJoinInline([x.nguoiPhuTrachPhatMau, x.nguoiPhuTrachPhatMauMaNhanVien ? ('Mã NV: ' + x.nguoiPhuTrachPhatMauMaNhanVien) : ''])), tmDetailLine('Kỹ thuật viên xét nghiệm', tmJoinInline([x.kyThuatVienXetNghiem, x.kyThuatVienXetNghiemMaNhanVien ? ('Mã NV: ' + x.kyThuatVienXetNghiemMaNhanVien) : '']))]), 'tm-major-field')}
     </div>
   `;
 }
@@ -5345,7 +5386,6 @@ async function exportTdkmmPdf(phieuTMID, btn){
         else if(f.url) window.open(f.url, '_blank');
       }, idx * 450);
     });
-    closeModal();
     toast(files.length > 1 ? 'Đã xuất và tải 2 file PDF.' : 'Đã xuất và tải file PDF.');
   });
 }
@@ -8175,7 +8215,7 @@ function renderPdfTemplateSettingsSection(){
   return `
     <div class="card">
       <h2 class="section-title">Mẫu phiếu họp/giao ban</h2>
-      <p class="meta">Upload file Word mẫu, sau đó dùng bảng biến để khai báo vị trí cần chèn dữ liệu. Với TDKMM, dùng mẫu Word/Google Docs full có gắn biến chi tiết trực tiếp trong từng trường và bảng.</p>
+      <p class="meta">Upload file Word mẫu, sau đó dùng bảng biến để khai báo vị trí cần chèn dữ liệu. Với TDKMM, file Word chỉ cần biến khối <b>{{APP_NOI_DUNG_TDKMM_PL11}}</b> hoặc <b>{{APP_NOI_DUNG_TDKMM_PL12}}</b>.</p>
       <div class="template-config-grid">
         ${renderPdfTemplateBox('BM04', 'Mẫu Giao ban thường trực')}
         ${renderPdfTemplateBox('BM06', 'Mẫu Biên bản họp')}
@@ -8193,7 +8233,7 @@ function renderPdfGlobalSettingsSection(){
   return `
     <div class="card">
       <h2 class="section-title">Cấu hình biến toàn cục</h2>
-      <p class="meta">Dùng khi file Word mẫu giao ban/biên bản họp có biến khối <b>{{APP_NOI_DUNG_GIAO_BAN}}</b>. Hai phiếu TDKMM hiện dùng mẫu Google Docs full có biến chi tiết nên không cấu hình tại đây.</p>
+      <p class="meta">Dùng khi file Word có biến khối <b>{{APP_NOI_DUNG_GIAO_BAN}}</b>, <b>{{APP_NOI_DUNG_TDKMM_PL11}}</b> hoặc <b>{{APP_NOI_DUNG_TDKMM_PL12}}</b>. App sẽ thay biến chi tiết rồi chèn nội dung vào vị trí biến khối.</p>
       <div class="global-template-grid">
         <div class="global-template-box">
           <label>Nội dung toàn cục - Giao ban thường trực</label>
@@ -8202,6 +8242,16 @@ function renderPdfGlobalSettingsSection(){
         <div class="global-template-box">
           <label>Nội dung toàn cục - Biên bản họp</label>
           <textarea id="pdfContentBM06">${esc(state.pdfContentTemplates?.bm06 || '')}</textarea>
+        </div>
+        <div class="global-template-box">
+          <label>Nội dung toàn cục - TDKMM PL11</label>
+          <textarea id="pdfContentTdkmmPl11">${esc(state.pdfContentTemplates?.tdkmm_pl11 || '')}</textarea>
+          <div class="meta" style="margin-top:6px">Có thể dùng <b>{{APP_BANG_DON_VI_MAU_TDKMM}}</b> và <b>{{APP_KHU_VUC_KY_TDKMM}}</b> để app tự dựng bảng/vùng ký.</div>
+        </div>
+        <div class="global-template-box">
+          <label>Nội dung toàn cục - TDKMM PL12</label>
+          <textarea id="pdfContentTdkmmPl12">${esc(state.pdfContentTemplates?.tdkmm_pl12 || '')}</textarea>
+          <div class="meta" style="margin-top:6px">Có thể dùng <b>{{APP_BANG_XET_NGHIEM_TDKMM}}</b> để app tự dựng bảng kết quả xét nghiệm.</div>
         </div>
       </div>
       <h3 class="sub-title">Định dạng phần nội dung do app chèn</h3>
@@ -8457,8 +8507,8 @@ async function savePdfContentTemplateConfig(btn){
   const payload = {
     bm04: $('#pdfContentBM04')?.value || '',
     bm06: $('#pdfContentBM06')?.value || '',
-    tdkmm_pl11: state.pdfContentTemplates?.tdkmm_pl11 || '',
-    tdkmm_pl12: state.pdfContentTemplates?.tdkmm_pl12 || '',
+    tdkmm_pl11: $('#pdfContentTdkmmPl11')?.value || '',
+    tdkmm_pl12: $('#pdfContentTdkmmPl12')?.value || '',
     format: {
       fontFamily: $('#pdfFmtFont')?.value || 'Times New Roman',
       bodyFontSize: Number($('#pdfFmtBodySize')?.value || 13),
