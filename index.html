@@ -3449,6 +3449,18 @@
       }
     }
 
+
+    /* ===== PATCH 195: DS PHIẾU - XEM FULL 2 PHIẾU TDKMM KHÔNG TẢI XUỐNG ===== */
+    .tdkmm-full-pdf-section-title{
+      width:100%;max-width:980px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--wine);
+      border-radius:10px;padding:8px 10px;margin:8px auto 0;font-weight:800;color:var(--wine-dark);box-shadow:0 1px 6px rgba(15,23,42,.10)
+    }
+    .tdkmm-view-export-btn{width:auto!important;min-height:34px!important;height:34px!important;padding:0 12px!important;border-radius:6px!important;font-size:13.5px!important}
+    .tdkmm-history-list{display:grid;gap:8px;margin-top:10px}
+    .tdkmm-history-item{border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 10px;line-height:1.45}
+    .tdkmm-history-user{font-weight:800;color:var(--wine-dark)}
+    .tdkmm-history-time{font-size:13px;color:var(--muted)}
+
   </style>
 </head>
 <body>
@@ -3560,7 +3572,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-194.120626-TDKMM-NGUOI-KY-PL12';
+const APP_VERSION = 'INDEX-195.140626-DS-XEM-TDKMM-FULL-2-PHIEU';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -5388,39 +5400,126 @@ async function exportTdkmmPdf(phieuTMID, btn){
     });
     closeModal();
     toast(files.length > 1 ? 'Đã xuất và tải 2 file PDF.' : 'Đã xuất và tải file PDF.');
+    try{ if(document.getElementById('pdfListBox')) await loadDsPhieuList(); }catch(_e){}
   });
 }
 
-window.openTdkmmPdfViewDialog = function(phieuTMID){
+function renderTdkmmFullPdfModal({phieuTMID='', title='Xem phiếu TDKMM', loading=false, message='', sections=null}){
+  setViewportForPdf(true);
+  setupScreenProtection();
+  const content = loading
+    ? `<div class="pdf-secure-loading"><div class="pdf-loading-box"><span class="loading-dot"></span><span class="pdf-loading-text" id="tdkmmFullPdfLoadingText">${esc(message || 'Đang mở đủ 2 phiếu...')}</span></div></div>`
+    : tdkmmFullPdfSectionsHtml(sections || []);
   openModal(`
-    <div class="modal-card modal-small">
-      <div class="modal-head">
-        <div class="modal-title">Xem phiếu TDKMM</div>
-        <button class="close-btn" onclick="closeModal()">×</button>
+    <div class="pdf-modal protected-view" style="position:absolute!important;inset:0!important;width:100vw!important;height:100dvh!important;margin:0!important;z-index:100001!important;">
+      <div class="pdf-topbar">
+        <div class="pdf-title">${esc(title || 'Xem phiếu TDKMM')}</div>
+        <div class="pdf-actions">
+          <button class="btn primary tdkmm-view-export-btn" type="button" onclick="openTdkmmPdfExportDialog('${escAttr(phieuTMID)}')">Xuất PDF</button>
+          <button class="pdf-icon-btn" onclick="closePdfViewer()" title="Đóng" aria-label="Đóng">
+            <svg viewBox="0 0 24 24"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+          </button>
+        </div>
       </div>
-      <p class="meta">Chọn mẫu phiếu cần xem. App sẽ tạo bản PDF xem trước từ dữ liệu phiếu hiện tại và mở giống chức năng Xem mẫu.</p>
-      <div class="tdkmm-pdf-choice">
-        <label><input type="radio" name="tdkmmViewPdfType" value="PL11" checked> Báo cáo Tai biến không mong muốn liên quan đến truyền máu</label>
-        <label><input type="radio" name="tdkmmViewPdfType" value="PL12"> Phiếu xét nghiệm tai biến không mong muốn liên quan đến truyền máu</label>
-      </div>
-      <div class="btn-row">
-        <button id="viewTdkmmPdfBtn" class="btn primary" type="button">Xem phiếu</button>
-        <button class="btn secondary" type="button" onclick="closeModal()">Đóng</button>
-      </div>
+      <div class="pdf-frame-wrap">${content}</div>
     </div>
-  `);
-  $('#viewTdkmmPdfBtn')?.addEventListener('click', () => viewTdkmmPdf(phieuTMID, $('#viewTdkmmPdfBtn')));
+  `, true);
 }
 
-async function viewTdkmmPdf(phieuTMID, btn){
-  const pdfType = document.querySelector('input[name="tdkmmViewPdfType"]:checked')?.value || 'PL11';
-  await withButton(btn, 'Đang tạo...', async () => {
-    const res = await api('viewTdkmmPdf', {phieuTMID, pdfType}, {timeoutMs: 180000});
-    const pdf = res.data || {};
-    if(!pdf.url) throw new Error('API chưa trả link PDF để xem.');
-    closeModal();
-    openGiaoBanPdf(pdf.url, pdf.name || (pdfType === 'PL12' ? 'Phiếu xét nghiệm TDKMM' : 'Báo cáo TDKMM'));
-  });
+function tdkmmFullPdfSectionsHtml(sections){
+  const list = Array.isArray(sections) ? sections : [];
+  if(!list.length) return `<div class="empty">Không có dữ liệu PDF để xem.</div>`;
+  return `<div class="pdf-pages" aria-label="Nội dung 2 phiếu TDKMM">${list.map(sec => `
+    <div class="tdkmm-full-pdf-section-title">${esc(sec.title || '')}</div>
+    ${(sec.pageImages || []).map((p, i) => `<img class="pdf-page-img" src="${escAttr(p.dataUrl || p)}" alt="${escAttr((sec.title || 'Phiếu') + ' - Trang ' + (i + 1))}" loading="eager" decoding="async">`).join('')}
+  `).join('')}</div>`;
+}
+
+function setTdkmmFullPdfLoadingMessage(message){
+  const el = document.getElementById('tdkmmFullPdfLoadingText');
+  if(el) el.textContent = message || 'Đang mở đủ 2 phiếu...';
+}
+
+async function pdfPageImagesFromBase64NoDownload(base64, onProgress){
+  const pdfjsLib = await ensurePdfJsLoaded();
+  const bytes = base64ToUint8Array(base64 || '');
+  const loadingTask = pdfjsLib.getDocument({data: bytes, useSystemFonts: true});
+  const srcPdf = await loadingTask.promise;
+  const out = [];
+  const scale = pdfRasterScale();
+  for(let pageNo = 1; pageNo <= srcPdf.numPages; pageNo++){
+    if(typeof onProgress === 'function') onProgress(pageNo, srcPdf.numPages);
+    const page = await srcPdf.getPage(pageNo);
+    const viewport = page.getViewport({scale});
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d', {alpha:false});
+    canvas.width = Math.ceil(viewport.width);
+    canvas.height = Math.ceil(viewport.height);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    await page.render({canvasContext: ctx, viewport}).promise;
+    out.push({dataUrl: canvas.toDataURL('image/jpeg', 0.9)});
+    canvas.width = 1; canvas.height = 1;
+    if(page.cleanup) page.cleanup();
+  }
+  try{ await srcPdf.destroy(); }catch(e){}
+  return out;
+}
+
+async function viewTdkmmFullPdf(phieuTMID, btn){
+  const run = async () => {
+    renderTdkmmFullPdfModal({phieuTMID, loading:true, message:'Đang tạo đủ 2 phiếu PL11 và PL12...'});
+    const res = await api('viewTdkmmPdf', {phieuTMID, pdfType:'BOTH'}, {timeoutMs:180000});
+    const files = res.data?.files || [];
+    if(!files.length) throw new Error('API chưa trả file PDF để xem.');
+    const sections = [];
+    for(let idx = 0; idx < files.length; idx++){
+      const f = files[idx];
+      const title = f.type === 'PL12'
+        ? 'Phiếu xét nghiệm tai biến không mong muốn liên quan đến truyền máu'
+        : 'Báo cáo tai biến không mong muốn liên quan đến truyền máu';
+      setTdkmmFullPdfLoadingMessage(`Đang mở ${title}...`);
+      let base64 = f.base64 || '';
+      if(!base64){
+        const b64 = await api('getPdfFileBase64', {url:f.url, fileId:f.fileId}, {timeoutMs:180000});
+        base64 = b64.data?.base64 || '';
+      }
+      const pageImages = await pdfPageImagesFromBase64NoDownload(base64, (pageNo, total) => {
+        setTdkmmFullPdfLoadingMessage(`Đang mở ${title} - Trang ${pageNo}/${total}`);
+      });
+      sections.push({title, pageImages});
+    }
+    renderTdkmmFullPdfModal({phieuTMID, title:'Xem đầy đủ 2 phiếu TDKMM', sections});
+  };
+  if(btn) return withButton(btn, 'Đang mở...', run);
+  try{ await run(); }catch(err){ toast(err.message); }
+}
+
+window.openTdkmmPdfExportHistory = async function(phieuTMID, btn){
+  const run = async () => {
+    const res = await api('getTdkmmPdfExportHistory', {phieuTMID}, {timeoutMs:60000});
+    const items = res.data?.items || [];
+    openModal(`
+      <div class="modal-card modal-small">
+        <div class="modal-head">
+          <div class="modal-title">Lịch sử xuất PDF</div>
+          <button class="close-btn" onclick="closeModal()">×</button>
+        </div>
+        ${items.length ? `<div class="tdkmm-history-list">${items.map(it => `<div class="tdkmm-history-item"><div class="tdkmm-history-user">${esc(it.tenNhanVien || '')}${it.maNhanVien ? ' - ' + esc(it.maNhanVien) : ''}</div><div class="tdkmm-history-time">${esc(it.thoiDiemText || dateTimeViColon(it.thoiDiem) || '')}</div><div class="meta">${esc(it.noiDung || '')}</div></div>`).join('')}</div>` : '<div class="empty">Chưa ghi nhận lần xuất PDF nào.</div>'}
+      </div>
+    `);
+  };
+  if(btn) return withButton(btn, '...', run);
+  try{ await run(); }catch(err){ toast(err.message); }
+}
+
+function tdkmmPdfHistoryIconHtml(x){
+  const isTdkmm = x.source === 'TM_PHIEU' && eqText(x.loaiPhieu || x.type || '', LOAI_TM_TDKMM);
+  if(!isTdkmm) return '';
+  const hist = Array.isArray(x.pdfExportHistory) ? x.pdfExportHistory : [];
+  const latest = hist[0] || null;
+  const tip = latest ? `Lịch sử xuất PDF - gần nhất: ${(latest.tenNhanVien || '')} ${latest.thoiDiemText || dateTimeViColon(latest.thoiDiem) || ''}` : 'Lịch sử xuất PDF';
+  return `<button class="app-icon-btn" type="button" onclick="openTdkmmPdfExportHistory('${escAttr(x.id || x.phieuTMID)}', this)" title="${escAttr(tip)}" aria-label="Lịch sử xuất PDF">${icon2d('meeting')}</button>`;
 }
 
 window.openTmPhieu = async function(phieuTMID, btn){
@@ -6106,7 +6205,7 @@ function renderGiaoBanList(items, note=''){
     const pdfDownload = g.pdfGiaoBanUrl ? pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, title, 'GIAO_BAN', g.giaoBanID) : '';
     const mainActions = done
       ? `${pdfBtn}${g.pdfGiaoBanUrl ? '' : '<span class="meta">Chưa có file PDF đã ký.</span>'}`
-      : `<button class="btn secondary" onclick="previewGiaoBanDraftPdf(${jsArg(g.giaoBanID)}, ${jsArg(title)}, this)">Xem phiếu</button><button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}', this)">Mở phiên</button>`;
+      : `<button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}', this)">Xem phiếu</button>`;
     return `
       <div class="list-card phieu-card">
         <div class="list-head">
@@ -6121,17 +6220,6 @@ function renderGiaoBanList(items, note=''){
         </div>
       </div>`;
   }).join('');
-}
-
-window.previewGiaoBanDraftPdf = async function(giaoBanID, title, btn){
-  const task = async () => {
-    const res = await api('previewGiaoBanPdf', {giaoBanID}, {timeoutMs:180000});
-    const pdf = res.data || {};
-    if(!pdf.url) throw new Error('API chưa trả link PDF để xem.');
-    openGiaoBanPdf(pdf.url, title || pdf.name || 'Xem phiếu giao ban');
-  };
-  if(btn) return withButton(btn, 'Đang tạo...', task);
-  try{ await task(); }catch(err){ toast(err.message); }
 }
 
 window.openGiaoBan = async function(giaoBanID, khoaPhong, btn){
@@ -7633,22 +7721,34 @@ function dsCreatorMetaHtml(x){
   return parts.length ? `<div class="meta ds-card-meta">${esc(parts.join(' - '))}</div>` : '';
 }
 
+async function previewGiaoBanDraftPdf(giaoBanID, title='', btn){
+  const run = async () => {
+    const res = await api('previewGiaoBanPdf', {giaoBanID}, {timeoutMs:180000});
+    const pdf = res.data || {};
+    if(!pdf.url) throw new Error('API chưa trả link PDF xem trước.');
+    openGiaoBanPdf(pdf.url, title || pdf.name || 'Xem phiếu giao ban');
+  };
+  if(btn) return withButton(btn, 'Đang mở...', run);
+  try{ await run(); }catch(err){ toast(err.message); }
+}
+
 function renderDsPhieuCard(x){
   const isTm = x.source === 'TM_PHIEU';
   const title = dsPhieuTitle(x);
   const loai = x.loaiPhieu || x.type || '';
-  const pdfBtn = x.pdfUrl ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
   const isTdkmm = isTm && eqText(loai, LOAI_TM_TDKMM);
   const isGiaoBanDraft = x.source === 'GIAO_BAN' && !x.pdfUrl;
+  const pdfBtn = (!isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
   const detailBtn = isTdkmm
-    ? `<button class="btn secondary" onclick="openTdkmmPdfViewDialog('${escAttr(x.id)}')">Xem phiếu</button>`
+    ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
     : (isGiaoBanDraft ? `<button class="btn secondary" onclick="previewGiaoBanDraftPdf(${jsArg(x.id)}, ${jsArg(title)}, this)">Xem phiếu</button>` : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '')));
   const editBtn = isTm && x.canEdit ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
+  const historyBtn = tdkmmPdfHistoryIconHtml(x);
   const bn = dsBnMetaHtml(x);
   const creator = dsCreatorMetaHtml(x);
   const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : '';
-  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(title || x.title || x.loaiPhieu || '')}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${editBtn}${deleteBtn}${statusPill(x.trangThai || '')}</div></div></div>`;
+  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(title || x.title || x.loaiPhieu || '')}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${historyBtn}${editBtn}${deleteBtn}${statusPill(x.trangThai || '')}</div></div></div>`;
 }
 
 
@@ -8264,7 +8364,7 @@ function renderPdfTemplateSettingsSection(){
   return `
     <div class="card">
       <h2 class="section-title">Mẫu phiếu họp/giao ban</h2>
-      <p class="meta">Upload file Word mẫu, sau đó dùng bảng biến để khai báo vị trí cần chèn dữ liệu. Với TDKMM, dùng mẫu Google Docs/Word đầy đủ có biến chi tiết đặt trực tiếp trong từng trường và bảng.</p>
+      <p class="meta">Upload file Word mẫu, sau đó dùng bảng biến để khai báo vị trí cần chèn dữ liệu. Với TDKMM, file Word chỉ cần biến khối <b>{{APP_NOI_DUNG_TDKMM_PL11}}</b> hoặc <b>{{APP_NOI_DUNG_TDKMM_PL12}}</b>.</p>
       <div class="template-config-grid">
         ${renderPdfTemplateBox('BM04', 'Mẫu Giao ban thường trực')}
         ${renderPdfTemplateBox('BM06', 'Mẫu Biên bản họp')}
@@ -8282,7 +8382,7 @@ function renderPdfGlobalSettingsSection(){
   return `
     <div class="card">
       <h2 class="section-title">Cấu hình biến toàn cục</h2>
-      <p class="meta">Dùng khi file Word mẫu giao ban/biên bản họp có biến khối <b>{{APP_NOI_DUNG_GIAO_BAN}}</b>. Hai phiếu TDKMM hiện dùng Google Docs/Word full có biến chi tiết nên không cấu hình nội dung toàn cục tại đây.</p>
+      <p class="meta">Dùng khi file Word có biến khối <b>{{APP_NOI_DUNG_GIAO_BAN}}</b>, <b>{{APP_NOI_DUNG_TDKMM_PL11}}</b> hoặc <b>{{APP_NOI_DUNG_TDKMM_PL12}}</b>. App sẽ thay biến chi tiết rồi chèn nội dung vào vị trí biến khối.</p>
       <div class="global-template-grid">
         <div class="global-template-box">
           <label>Nội dung toàn cục - Giao ban thường trực</label>
@@ -8291,6 +8391,16 @@ function renderPdfGlobalSettingsSection(){
         <div class="global-template-box">
           <label>Nội dung toàn cục - Biên bản họp</label>
           <textarea id="pdfContentBM06">${esc(state.pdfContentTemplates?.bm06 || '')}</textarea>
+        </div>
+        <div class="global-template-box">
+          <label>Nội dung toàn cục - TDKMM PL11</label>
+          <textarea id="pdfContentTdkmmPl11">${esc(state.pdfContentTemplates?.tdkmm_pl11 || '')}</textarea>
+          <div class="meta" style="margin-top:6px">Có thể dùng <b>{{APP_BANG_DON_VI_MAU_TDKMM}}</b> và <b>{{APP_KHU_VUC_KY_TDKMM}}</b> để app tự dựng bảng/vùng ký.</div>
+        </div>
+        <div class="global-template-box">
+          <label>Nội dung toàn cục - TDKMM PL12</label>
+          <textarea id="pdfContentTdkmmPl12">${esc(state.pdfContentTemplates?.tdkmm_pl12 || '')}</textarea>
+          <div class="meta" style="margin-top:6px">Có thể dùng <b>{{APP_BANG_XET_NGHIEM_TDKMM}}</b> để app tự dựng bảng kết quả xét nghiệm.</div>
         </div>
       </div>
       <h3 class="sub-title">Định dạng phần nội dung do app chèn</h3>
@@ -8546,6 +8656,8 @@ async function savePdfContentTemplateConfig(btn){
   const payload = {
     bm04: $('#pdfContentBM04')?.value || '',
     bm06: $('#pdfContentBM06')?.value || '',
+    tdkmm_pl11: $('#pdfContentTdkmmPl11')?.value || '',
+    tdkmm_pl12: $('#pdfContentTdkmmPl12')?.value || '',
     format: {
       fontFamily: $('#pdfFmtFont')?.value || 'Times New Roman',
       bodyFontSize: Number($('#pdfFmtBodySize')?.value || 13),
