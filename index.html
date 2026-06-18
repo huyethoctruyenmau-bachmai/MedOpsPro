@@ -3460,6 +3460,28 @@
     .tdkmm-history-item{border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 10px;line-height:1.45}
     .tdkmm-history-user{font-weight:800;color:var(--wine-dark)}
     .tdkmm-history-time{font-size:13px;color:var(--muted)}
+    .tdkmm-template-preview{display:grid;gap:14px;margin-top:8px}
+    .tdkmm-template-note{border:1px dashed #d8c1cc;border-radius:10px;background:#fffafb;color:var(--muted);padding:8px 10px;font-size:13.5px;line-height:1.45}
+    .tdkmm-template-page{max-width:980px;margin:0 auto;background:#fff;border:1px solid #d8d8d8;border-radius:12px;box-shadow:0 2px 10px rgba(15,23,42,.08);padding:18px 22px;color:#111;font-family:"Times New Roman",Times,serif;font-size:15px;line-height:1.38}
+    .tdkmm-template-top{text-align:center;margin-bottom:10px;text-transform:uppercase;font-weight:700;line-height:1.35}
+    .tdkmm-template-title{text-align:center;font-size:18px;font-weight:800;text-transform:uppercase;margin:12px 0 10px;line-height:1.3}
+    .tdkmm-template-subtitle{text-align:center;font-size:14px;font-weight:700;margin:-6px 0 10px;line-height:1.35}
+    .tdkmm-template-section{margin-top:10px}
+    .tdkmm-template-section-title{font-weight:800;text-transform:uppercase;margin:10px 0 6px;border-bottom:1px solid #ddd;padding-bottom:3px}
+    .tdkmm-template-row{display:grid;grid-template-columns:210px minmax(0,1fr);gap:8px;padding:3px 0;border-bottom:1px dotted #e2e2e2}
+    .tdkmm-template-row:last-child{border-bottom:0}
+    .tdkmm-template-label{font-weight:700;color:#222}
+    .tdkmm-template-value{white-space:pre-wrap;min-height:20px}
+    .tdkmm-template-inline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;margin:4px 0}
+    .tdkmm-template-inline .tdkmm-template-row{grid-template-columns:145px minmax(0,1fr)}
+    .tdkmm-template-textbox{border:1px solid #ddd;border-radius:6px;min-height:46px;padding:7px 8px;white-space:pre-wrap;background:#fff}
+    .tdkmm-template-lab .tdkmm-lab-wrap{margin-top:6px;border-color:#cfcfcf}
+    .tdkmm-template-lab .tdkmm-lab-table{font-family:"Times New Roman",Times,serif!important;font-size:14px!important;width:100%!important;min-width:760px!important;table-layout:fixed!important}
+    .tdkmm-template-lab .tdkmm-lab-table th{background:#f6f6f6!important;color:#111!important}
+    .tdkmm-template-sign-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px;text-align:center}
+    .tdkmm-template-sign-box{min-height:92px;border-top:1px solid #bbb;padding-top:6px;font-weight:700}
+    .tdkmm-template-sign-name{display:block;margin-top:28px;font-weight:400}
+    @media(max-width:760px){.tdkmm-template-page{padding:13px 11px;font-size:14px;border-radius:10px}.tdkmm-template-title{font-size:16px}.tdkmm-template-row{grid-template-columns:1fr;gap:2px}.tdkmm-template-inline{grid-template-columns:1fr;gap:3px}.tdkmm-template-inline .tdkmm-template-row{grid-template-columns:1fr}.tdkmm-template-sign-grid{grid-template-columns:1fr}.tdkmm-template-lab .tdkmm-lab-wrap{overflow-x:auto!important;overflow-y:hidden!important}.tdkmm-template-lab .tdkmm-lab-table{display:table!important;width:760px!important;min-width:760px!important}.tdkmm-template-lab .tdkmm-lab-table thead{display:table-header-group!important}.tdkmm-template-lab .tdkmm-lab-table tbody{display:table-row-group!important}.tdkmm-template-lab .tdkmm-lab-table tr{display:table-row!important}.tdkmm-template-lab .tdkmm-lab-table th,.tdkmm-template-lab .tdkmm-lab-table td{display:table-cell!important}}
 
   
 
@@ -4500,7 +4522,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-203.150626-TDKMM-MASK-GIO</p>
+      <p class="login-version">Version: INDEX-204.180626-TDKMM-TAO-NHANH-XEM-HTML</p>
     </div>
   </div>
 
@@ -4544,7 +4566,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-203.150626-TDKMM-MASK-GIO</div>
+    <div class="app-version">Version: INDEX-204.180626-TDKMM-TAO-NHANH-XEM-HTML</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4569,7 +4591,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-203.150626-TDKMM-MASK-GIO';
+const APP_VERSION = 'INDEX-204.180626-TDKMM-TAO-NHANH-XEM-HTML';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -6269,6 +6291,122 @@ function tdkmmViewData(p, d){
 function renderTdkmmLabViewTable(d){
   return `<div class="tdkmm-lab-wrap"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả XN</th><th>Mẫu máu người bệnh trước truyền</th><th>Mẫu máu người bệnh sau truyền</th><th>Mẫu máu từ đơn vị máu nghi ngờ gây tai biến</th></tr></thead><tbody>${tdkmmLabDisplayRows(d).map(row => `<tr><td>${esc(row[0] || '')}</td><td>${esc(row[1] || '')}</td><td>${esc(row[2] || '')}</td><td>${esc(row[3] || '')}</td></tr>`).join('')}</tbody></table></div>`;
 }
+
+function tdkmmTplField(label, value){
+  const v = tmTxt(value);
+  return `<div class="tdkmm-template-row"><div class="tdkmm-template-label">${esc(label || '')}</div><div class="tdkmm-template-value">${v ? esc(v) : '&nbsp;'}</div></div>`;
+}
+
+function tdkmmTplInline(items){
+  const html = (items || []).filter(it => it && (tmTxt(it[1]) || it[2] === true)).map(it => tdkmmTplField(it[0], it[1])).join('');
+  return html ? `<div class="tdkmm-template-inline">${html}</div>` : '';
+}
+
+function tdkmmTplTextBox(label, value){
+  return `<div class="tdkmm-template-section"><div class="tdkmm-template-label">${esc(label || '')}</div><div class="tdkmm-template-textbox">${tmTxt(value) ? esc(value) : '&nbsp;'}</div></div>`;
+}
+
+function tdkmmTemplateHeaderHtml(title, subtitle=''){
+  return `
+    <div class="tdkmm-template-top">Bộ Y tế<br>Bệnh viện Bạch Mai<br>Viện Huyết học và Truyền máu</div>
+    <div class="tdkmm-template-title">${esc(title || '')}</div>
+    ${subtitle ? `<div class="tdkmm-template-subtitle">${esc(subtitle)}</div>` : ''}
+  `;
+}
+
+function tdkmmTemplateBeforeBloodText(x){
+  return tmDetailValue(tmBeforeBloodDetailLines(x.loaiMauDaTruyenTruocPhanUng));
+}
+
+function tdkmmTemplateSignersHtml(x){
+  return `<div class="tdkmm-template-sign-grid">
+    <div class="tdkmm-template-sign-box">Bác sĩ điều trị<span class="tdkmm-template-sign-name">${esc(tmJoinInline([x.bacSiDieuTri, x.bacSiDieuTriMaNhanVien ? 'Mã NV: ' + x.bacSiDieuTriMaNhanVien : ''], ' - ') || ' ')}</span></div>
+    <div class="tdkmm-template-sign-box">Điều dưỡng truyền máu<span class="tdkmm-template-sign-name">${esc(tmJoinInline([x.dieuDuongTruyenMau, x.dieuDuongTruyenMauMaNhanVien ? 'Mã NV: ' + x.dieuDuongTruyenMauMaNhanVien : ''], ' - ') || ' ')}</span></div>
+    <div class="tdkmm-template-sign-box">Người phụ trách phát máu<span class="tdkmm-template-sign-name">${esc(tmJoinInline([x.nguoiPhuTrachPhatMau, x.nguoiPhuTrachPhatMauMaNhanVien ? 'Mã NV: ' + x.nguoiPhuTrachPhatMauMaNhanVien : ''], ' - ') || ' ')}</span></div>
+    <div class="tdkmm-template-sign-box">Kỹ thuật viên xét nghiệm<span class="tdkmm-template-sign-name">${esc(tmJoinInline([x.kyThuatVienXetNghiem, x.kyThuatVienXetNghiemMaNhanVien ? 'Mã NV: ' + x.kyThuatVienXetNghiemMaNhanVien : ''], ' - ') || ' ')}</span></div>
+  </div>`;
+}
+
+function renderTdkmmTemplatePl11Html(p, x){
+  const bloodGroup = tmJoinInline([x.nhomMauABO ? 'ABO ' + x.nhomMauABO : '', x.rhD ? 'Rh(D) ' + x.rhD : ''], ' - ');
+  const unitBloodGroup = tmJoinInline([x.aboDonViMau ? 'ABO ' + x.aboDonViMau : '', x.rhDonViMau ? 'Rh(D) ' + x.rhDonViMau : ''], ' - ');
+  return `<div class="tdkmm-template-page">
+    ${tdkmmTemplateHeaderHtml('Báo cáo tai biến không mong muốn liên quan đến truyền máu')}
+    <div class="tdkmm-template-section-title">I. Thông tin người bệnh</div>
+    ${tdkmmTplInline([
+      ['Họ tên', x.hoTenBenhNhan || p.hoTenBenhNhan, true],
+      ['PID/Mã BN', x.maBenhNhan || p.maBenhNhan, true],
+      ['Tuổi/Năm sinh', tmAgeYearText(x, p), true],
+      ['Giới', x.gioiTinh, true],
+      ['Nhóm máu', bloodGroup, true],
+      ['Giường', x.giuong, true]
+    ])}
+    ${tdkmmTplField('Chẩn đoán', x.chanDoan)}
+    ${tdkmmTplField('Viện/TT/Khoa/Phòng', x.khoaPhongDieuTriText)}
+
+    <div class="tdkmm-template-section-title">II. Thông tin truyền máu và đơn vị máu nghi ngờ</div>
+    ${tdkmmTplInline([
+      ['Ngày truyền', x.ngayTruyen ? dateVi(x.ngayTruyen) : '', true],
+      ['T/G bắt đầu truyền', x.thoiDiemBatDauTruyenText, true],
+      ['T/G xuất hiện phản ứng', x.thoiDiemXuatHienDauHieuDauTienText, true],
+      ['T/G ngừng truyền', x.thoiDiemNgungTruyenText, true],
+      ['Tên người cho/Mã đơn vị', x.tenNguoiChoHoacMaDonVi, true],
+      ['Loại chế phẩm', x.loaiMauChePhamNghiNgo, true],
+      ['Thể tích đơn vị', x.theTichDonViMau ? x.theTichDonViMau + ' ml' : '', true],
+      ['Thể tích đã truyền', x.theTichDonViMauDaTruyen ? x.theTichDonViMauDaTruyen + ' ml' : '', true],
+      ['Tốc độ truyền', x.tocDoTruyen, true],
+      ['Nhóm máu đơn vị', unitBloodGroup, true],
+      ['Ngày lấy máu', x.ngayLayMau ? dateVi(x.ngayLayMau) : '', true],
+      ['Hạn sử dụng', x.hanSuDung ? dateVi(x.hanSuDung) : '', true]
+    ])}
+    ${tdkmmTplField('Cơ sở lấy máu và điều chế', x.coSoLayMauDieuChe)}
+    ${tdkmmTplField('Loại máu đã truyền trước khi phản ứng', tdkmmTemplateBeforeBloodText(x))}
+
+    <div class="tdkmm-template-section-title">III. Thuốc/dịch truyền và diễn biến lâm sàng</div>
+    ${tdkmmTplField('Dung dịch/thuốc dùng ngay trước phản ứng', x.dungDichThuocTruyenTruocPhanUng)}
+    ${tdkmmTplField('Dấu hiệu đầu tiên', x.dauHieuDauTien || x.trieuChung)}
+    ${tdkmmTplField('Mức độ phản ứng', x.mucDoPhanUng)}
+    ${tdkmmTplTextBox('Diễn biến và xử trí đã thực hiện', x.dienBienVaXuTriDaThucHien)}
+
+    <div class="tdkmm-template-section-title">IV. Theo dõi/kết luận</div>
+    ${tdkmmTplField('Tình trạng hiện tại', x.tinhTrangHienTai)}
+    ${tdkmmTplField('Kết luận', x.ketLuanTdkmm || x.ketLuan)}
+    ${tdkmmTplTextBox('Việc cần theo dõi, bàn giao tiếp', x.noiDungTheoDoiBanGiao)}
+    ${tdkmmTemplateSignersHtml(x)}
+  </div>`;
+}
+
+function renderTdkmmTemplatePl12Html(p, x){
+  return `<div class="tdkmm-template-page">
+    ${tdkmmTemplateHeaderHtml('Phiếu xét nghiệm tai biến không mong muốn liên quan đến truyền máu')}
+    <div class="tdkmm-template-section-title">I. Thông tin người bệnh và đơn vị máu</div>
+    ${tdkmmTplInline([
+      ['Họ tên người bệnh', x.hoTenBenhNhan || p.hoTenBenhNhan, true],
+      ['PID/Mã BN', x.maBenhNhan || p.maBenhNhan, true],
+      ['Tuổi/Năm sinh', tmAgeYearText(x, p), true],
+      ['Giới', x.gioiTinh, true],
+      ['Khoa/Phòng', x.khoaPhongDieuTriText, true],
+      ['Giường', x.giuong, true],
+      ['Mã đơn vị máu', x.maDonViMauNghiNgo || x.tenNguoiChoHoacMaDonVi, true],
+      ['Loại chế phẩm', x.loaiMauChePhamNghiNgo, true]
+    ])}
+
+    <div class="tdkmm-template-section-title">II. Kiểm tra tại giường và thời điểm lấy/nhận mẫu</div>
+    ${tdkmmTplInline([
+      ['ABO tại giường - người bệnh', x.aboTaiGiuongNguoiBenhSauPhanUng, true],
+      ['ABO tại giường - đơn vị máu', x.aboTaiGiuongDonViMauTruyen, true],
+      ['Lấy mẫu sau bất thường', tmDateTimeText(x.thoiDiemLayMauNguoiBenhSauBatThuong), true],
+      ['Nhận thông báo và mẫu', tmDateTimeText(x.thoiDiemNhanThongBaoVaMauNguoiBenh), true]
+    ])}
+
+    <div class="tdkmm-template-section-title">III. Kết quả xét nghiệm tai biến truyền máu</div>
+    <div class="tdkmm-template-lab">${renderTdkmmLabViewTable(x)}</div>
+
+    <div class="tdkmm-template-section-title">IV. Kết luận xét nghiệm</div>
+    ${tdkmmTplTextBox('Kết luận', x.ketLuanTdkmm || x.ketLuan)}
+    ${tdkmmTemplateSignersHtml(x)}
+  </div>`;
+}
 function tdkmmGiaoBanTextBlocks(p, d){
   const x = tdkmmViewData(p,d);
   const lines = [];
@@ -6308,28 +6446,13 @@ function tdkmmGiaoBanTextBlocks(p, d){
 
 function renderTmTdkmmDetailHtml(p, d){
   const x = tdkmmViewData(p, d);
-  const blocks = tdkmmGiaoBanTextBlocks(p, d);
-  const header = blocks.shift() || '';
-  const sections = [];
-  let currentTitle = '';
-  let current = [];
-  blocks.forEach(line => {
-    if(/^[a-f]\.\s+/.test(line)){
-      if(currentTitle) sections.push({title: currentTitle, lines: current});
-      currentTitle = line;
-      current = [];
-    }else current.push(line);
-  });
-  if(currentTitle) sections.push({title: currentTitle, lines: current});
   return `
     ${renderTmInfoCardHtml(p, 'Người báo cáo')}
     <h3 class="sub-title">II. Tác dụng không mong muốn liên quan đến truyền máu</h3>
-    <div class="list-card data-card tm-detail-card">
-      ${tmFieldHtml('2.1. Bệnh nhân 1', header, 'tm-major-field')}
-      ${sections.filter(sec => !sec.title.startsWith('f.')).map(sec => tmFieldHtml(sec.title, tmDetailValue(sec.lines), 'tm-major-field')).join('')}
-      <div class="field-row tm-major-field"><span class="field-name">e. Kết quả xét nghiệm tai biến truyền máu</span><div class="field-value has-table">${renderTdkmmLabViewTable(x)}</div></div>
-      ${sections.filter(sec => sec.title.startsWith('f.')).map(sec => tmFieldHtml(sec.title, tmDetailValue(sec.lines), 'tm-major-field')).join('')}
-      ${tmFieldHtml('Người ký khi xuất PDF', tmDetailValue([tmDetailLine('Bác sĩ điều trị', tmJoinInline([x.bacSiDieuTri, x.bacSiDieuTriMaNhanVien ? ('Mã NV: ' + x.bacSiDieuTriMaNhanVien) : ''])), tmDetailLine('Điều dưỡng truyền máu', tmJoinInline([x.dieuDuongTruyenMau, x.dieuDuongTruyenMauMaNhanVien ? ('Mã NV: ' + x.dieuDuongTruyenMauMaNhanVien) : ''])), tmDetailLine('Người phụ trách phát máu ở cơ sở KB, CB', tmJoinInline([x.nguoiPhuTrachPhatMau, x.nguoiPhuTrachPhatMauMaNhanVien ? ('Mã NV: ' + x.nguoiPhuTrachPhatMauMaNhanVien) : ''])), tmDetailLine('Kỹ thuật viên xét nghiệm', tmJoinInline([x.kyThuatVienXetNghiem, x.kyThuatVienXetNghiemMaNhanVien ? ('Mã NV: ' + x.kyThuatVienXetNghiemMaNhanVien) : '']))]), 'tm-major-field')}
+    <div class="tdkmm-template-preview">
+      <div class="tdkmm-template-note">Bản xem này được dựng trực tiếp trong app từ dữ liệu phiếu, không tạo Google Docs/PDF. File PDF chính thức chỉ được tạo khi nhấn nút <strong>Xuất PDF</strong>.</div>
+      ${renderTdkmmTemplatePl11Html(p, x)}
+      ${renderTdkmmTemplatePl12Html(p, x)}
     </div>
   `;
 }
@@ -6632,32 +6755,12 @@ async function pdfPageImagesFromBase64NoDownload(base64, onProgress){
 }
 
 async function viewTdkmmFullPdf(phieuTMID, btn){
-  const run = async () => {
-    renderTdkmmFullPdfModal({phieuTMID, loading:true, message:'Đang mở đủ 2 phiếu PL11 và PL12...'});
-    const res = await api('viewTdkmmPdf', {phieuTMID, pdfType:'BOTH'}, {timeoutMs:180000});
-    const files = res.data?.files || [];
-    if(!files.length) throw new Error('API chưa trả file PDF để xem.');
-    const sections = [];
-    for(let idx = 0; idx < files.length; idx++){
-      const f = files[idx];
-      const title = f.type === 'PL12'
-        ? 'Phiếu xét nghiệm tai biến không mong muốn liên quan đến truyền máu'
-        : 'Báo cáo tai biến không mong muốn liên quan đến truyền máu';
-      setTdkmmFullPdfLoadingMessage(`Đang mở ${title}...`);
-      let base64 = f.base64 || '';
-      if(!base64){
-        const b64 = await api('getPdfFileBase64', {url:f.url, fileId:f.fileId}, {timeoutMs:180000});
-        base64 = b64.data?.base64 || '';
-      }
-      const pageImages = await pdfPageImagesFromBase64NoDownload(base64, (pageNo, total) => {
-        setTdkmmFullPdfLoadingMessage(`Đang mở ${title} - Trang ${pageNo}/${total}`);
-      });
-      sections.push({title, pageImages});
-    }
-    renderTdkmmFullPdfModal({phieuTMID, title:'Xem đầy đủ 2 phiếu TDKMM', sections});
+  const task = async () => {
+    const res = await api('getTmPhieuDetail', {phieuTMID});
+    showTmPhieuModal(res.data.phieu);
   };
-  if(btn) return withButton(btn, 'Đang mở...', run);
-  try{ await run(); }catch(err){ toast(err.message); }
+  if(btn) return withButton(btn, 'Đang mở...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
 }
 
 window.openTdkmmPdfExportHistory = async function(phieuTMID, btn){
@@ -8905,7 +9008,7 @@ function renderDsPhieuCard(x){
   const isGiaoBanDraft = x.source === 'GIAO_BAN' && !x.pdfUrl;
   const pdfBtn = (!isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
   const detailBtn = isTdkmm
-    ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
+    ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>`
     : (isGiaoBanDraft ? `<button class="btn secondary" onclick="previewGiaoBanDraftPdf(${jsArg(x.id)}, ${jsArg(title)}, this)">Xem phiếu</button>` : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '')));
   const editBtn = isTm && x.canEdit ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
