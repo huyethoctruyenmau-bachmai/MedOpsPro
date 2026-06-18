@@ -673,6 +673,8 @@
       .pdf-icon-btn{width:36px;height:36px}
       .pdf-pages{padding:0;gap:8px;background:#dfe2e6;align-items:stretch}
       .pdf-page-img{width:100%;max-width:100%;box-shadow:none;border-radius:0}
+      .tdkmm-direct-pdf-frame{max-width:100%;height:calc(100dvh - 106px);min-height:520px;margin-bottom:8px;box-shadow:none;border-radius:0}
+      .tdkmm-direct-pdf-fallback{max-width:100%;margin-bottom:8px;border-radius:0}
       .pdf-loading-box{margin:12px;font-size:14px}
     }
 
@@ -3455,6 +3457,8 @@
       width:100%;max-width:980px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--wine);
       border-radius:10px;padding:8px 10px;margin:8px auto 0;font-weight:800;color:var(--wine-dark);box-shadow:0 1px 6px rgba(15,23,42,.10)
     }
+    .tdkmm-direct-pdf-frame{width:100%;max-width:980px;height:calc(100dvh - 132px);min-height:620px;margin:0 auto 10px;display:block;border:0;background:#fff;box-shadow:0 1px 8px rgba(15,23,42,.18);border-radius:2px}
+    .tdkmm-direct-pdf-fallback{width:100%;max-width:980px;margin:0 auto 10px;background:#fff;border:1px dashed var(--line);border-radius:10px;padding:10px;text-align:center;color:var(--muted);font-size:13.5px}
     .tdkmm-view-export-btn{width:auto!important;min-height:34px!important;height:34px!important;padding:0 12px!important;border-radius:6px!important;font-size:13.5px!important}
     .tdkmm-history-list{display:grid;gap:8px;margin-top:10px}
     .tdkmm-history-item{border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 10px;line-height:1.45}
@@ -4522,7 +4526,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-205.180626-TDKMM-DS-XEM-PREVIEW-TEMPLATE</p>
+      <p class="login-version">Version: INDEX-206.180626-TDKMM-DS-XEM-PDF-TRUC-TIEP</p>
     </div>
   </div>
 
@@ -4566,7 +4570,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-205.180626-TDKMM-DS-XEM-PREVIEW-TEMPLATE</div>
+    <div class="app-version">Version: INDEX-206.180626-TDKMM-DS-XEM-PDF-TRUC-TIEP</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4591,7 +4595,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-205.180626-TDKMM-DS-XEM-PREVIEW-TEMPLATE';
+const APP_VERSION = 'INDEX-206.180626-TDKMM-DS-XEM-PDF-TRUC-TIEP';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -4673,6 +4677,7 @@ const state = {
   sessionGuard: 0,
   isLoggingOut: false,
   currentPdfObjectUrl: '',
+  currentTdkmmPdfObjectUrls: [],
   currentPdfWatermarkedBytes: null,
   currentPdfWatermarkedTitle: '',
   currentPdfWatermarkedUrl: ''
@@ -6717,10 +6722,19 @@ function renderTdkmmFullPdfModal({phieuTMID='', title='Xem phiếu TDKMM', loadi
 function tdkmmFullPdfSectionsHtml(sections){
   const list = Array.isArray(sections) ? sections : [];
   if(!list.length) return `<div class="empty">Không có dữ liệu PDF để xem.</div>`;
-  return `<div class="pdf-pages" aria-label="Nội dung 2 phiếu TDKMM">${list.map(sec => `
+  return `<div class="pdf-pages" aria-label="Nội dung 2 phiếu TDKMM">${list.map((sec, idx) => `
     <div class="tdkmm-full-pdf-section-title">${esc(sec.title || '')}</div>
-    ${(sec.pageImages || []).map((p, i) => `<img class="pdf-page-img" src="${escAttr(p.dataUrl || p)}" alt="${escAttr((sec.title || 'Phiếu') + ' - Trang ' + (i + 1))}" loading="eager" decoding="async">`).join('')}
+    ${sec.objectUrl ? `<iframe class="tdkmm-direct-pdf-frame" src="${escAttr(sec.objectUrl)}#toolbar=0&navpanes=0&scrollbar=1&view=FitH" title="${escAttr(sec.title || 'Phiếu TDKMM')}" loading="eager"></iframe>` : ''}
+    ${sec.objectUrl ? `<div class="tdkmm-direct-pdf-fallback">Nếu trình duyệt không hiển thị PDF trực tiếp, hãy nhấn <button class="btn secondary" type="button" onclick="openTdkmmPdfObjectInNewTab(${idx})">Mở phiếu này</button>.</div>` : `<div class="empty">Không có dữ liệu PDF để xem.</div>`}
   `).join('')}</div>`;
+}
+
+
+window.openTdkmmPdfObjectInNewTab = function(index){
+  const urls = Array.isArray(state.currentTdkmmPdfObjectUrls) ? state.currentTdkmmPdfObjectUrls : [];
+  const url = urls[Number(index) || 0] || '';
+  if(!url) return toast('Không có file PDF để mở.');
+  window.open(url, '_blank', 'noopener');
 }
 
 function setTdkmmFullPdfLoadingMessage(message){
@@ -6756,6 +6770,7 @@ async function pdfPageImagesFromBase64NoDownload(base64, onProgress){
 
 async function viewTdkmmFullPdf(phieuTMID, btn){
   const task = async () => {
+    revokeCurrentPdfObjectUrl();
     renderTdkmmFullPdfModal({
       phieuTMID,
       title:'Xem phiếu TDKMM theo mẫu',
@@ -6767,21 +6782,24 @@ async function viewTdkmmFullPdf(phieuTMID, btn){
     if(!files.length) throw new Error('API chưa trả file xem trước từ mẫu.');
 
     const sections = [];
+    let index = 0;
     for(const f of files){
+      index += 1;
       const type = String(f.type || '').toUpperCase();
       const secTitle = type === 'PL12'
         ? 'Phụ lục 12 - Phiếu xét nghiệm tai biến không mong muốn liên quan đến truyền máu'
         : 'Phụ lục 11 - Báo cáo tai biến không mong muốn liên quan đến truyền máu';
+      setTdkmmFullPdfLoadingMessage(`Đang mở ${secTitle}...`);
       let base64 = f.base64 || '';
       if(!base64 && f.url){
         const fileRes = await api('getPdfFileBase64', {url:f.url}, {timeoutMs:180000});
         base64 = fileRes.data?.base64 || '';
       }
       if(!base64) throw new Error('Không đọc được nội dung PDF xem trước.');
-      const pageImages = await pdfPageImagesFromBase64NoDownload(base64, (pageNo, total) => {
-        setTdkmmFullPdfLoadingMessage(total > 1 ? `Đang mở ${secTitle}... Trang ${pageNo}/${total}` : `Đang mở ${secTitle}...`);
-      });
-      sections.push({title:secTitle, pageImages});
+      const objectUrl = base64ToBlobUrl(base64, 'application/pdf');
+      state.currentTdkmmPdfObjectUrls.push(objectUrl);
+      sections.push({title:secTitle, objectUrl});
+      setTdkmmFullPdfLoadingMessage(files.length > 1 ? `Đã chuẩn bị ${index}/${files.length} phiếu...` : 'Đã chuẩn bị phiếu...');
     }
 
     renderTdkmmFullPdfModal({
@@ -6791,7 +6809,7 @@ async function viewTdkmmFullPdf(phieuTMID, btn){
     });
   };
   if(btn) return withButton(btn, 'Đang mở...', task);
-  try{ await task(); }catch(err){ toast(err.message); }
+  try{ await task(); }catch(err){ revokeCurrentPdfObjectUrl(); toast(err.message); }
 }
 
 window.openTdkmmPdfExportHistory = async function(phieuTMID, btn){
@@ -10230,6 +10248,10 @@ function revokeCurrentPdfObjectUrl(){
   if(state.currentPdfObjectUrl){
     try{ URL.revokeObjectURL(state.currentPdfObjectUrl); }catch(e){}
     state.currentPdfObjectUrl = '';
+  }
+  if(Array.isArray(state.currentTdkmmPdfObjectUrls) && state.currentTdkmmPdfObjectUrls.length){
+    state.currentTdkmmPdfObjectUrls.forEach(url => { try{ URL.revokeObjectURL(url); }catch(e){} });
+    state.currentTdkmmPdfObjectUrls = [];
   }
   state.currentPdfWatermarkedBytes = null;
   state.currentPdfWatermarkedTitle = '';
