@@ -4536,7 +4536,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-210.180626-TDKMM-VIEW-WATERMARK-USER</p>
+      <p class="login-version">Version: INDEX-211.180626-TDKMM-XUAT-PDF-TU-BAN-DA-XEM</p>
     </div>
   </div>
 
@@ -4580,7 +4580,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-210.180626-TDKMM-VIEW-WATERMARK-USER</div>
+    <div class="app-version">Version: INDEX-211.180626-TDKMM-XUAT-PDF-TU-BAN-DA-XEM</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4605,7 +4605,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-210.180626-TDKMM-VIEW-WATERMARK-USER';
+const APP_VERSION = 'INDEX-211.180626-TDKMM-XUAT-PDF-TU-BAN-DA-XEM';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -4682,6 +4682,8 @@ const state = {
   currentGiaoBan: null,
   currentReports: [],
   currentTmPhieus: [],
+  currentTdkmmCleanPdfPhieuTMID: '',
+  currentTdkmmCleanPdfFiles: [],
   pendingCreateGiaoBanPayload: null,
   refreshGiaoBanListOnClose: false,
   sessionGuard: 0,
@@ -6725,9 +6727,49 @@ window.closeTdkmmPdfExportDialog = function(){
   }
 }
 
+function normalizeTdkmmPdfChoice_(value){
+  const v = String(value || 'PL11').trim().toUpperCase();
+  if(v === 'TDKMM_PL11') return 'PL11';
+  if(v === 'TDKMM_PL12') return 'PL12';
+  if(v === 'CA2' || v === 'ALL') return 'BOTH';
+  return ['PL11','PL12','BOTH'].includes(v) ? v : 'PL11';
+}
+
+function getCachedTdkmmCleanPdfFiles_(phieuTMID, pdfType){
+  const id = String(phieuTMID || '').trim();
+  const currentId = String(state.currentTdkmmCleanPdfPhieuTMID || '').trim();
+  if(!id || !currentId || id !== currentId) return [];
+  const choice = normalizeTdkmmPdfChoice_(pdfType);
+  const files = Array.isArray(state.currentTdkmmCleanPdfFiles) ? state.currentTdkmmCleanPdfFiles : [];
+  const order = {PL11: 1, PL12: 2};
+  return files
+    .filter(f => {
+      const t = normalizeTdkmmPdfChoice_(f.type || f.pdfType || '');
+      return choice === 'BOTH' ? (t === 'PL11' || t === 'PL12') : t === choice;
+    })
+    .sort((a, b) => (order[normalizeTdkmmPdfChoice_(a.type)] || 9) - (order[normalizeTdkmmPdfChoice_(b.type)] || 9));
+}
+
 async function exportTdkmmPdf(phieuTMID, btn){
-  const pdfType = document.querySelector('#tdkmmPdfExportDialog input[name="tdkmmPdfType"]:checked')?.value || 'PL11';
-  await withButton(btn, 'Đang xuất...', async () => {
+  const pdfType = normalizeTdkmmPdfChoice_(document.querySelector('#tdkmmPdfExportDialog input[name="tdkmmPdfType"]:checked')?.value || 'PL11');
+  const cachedFiles = getCachedTdkmmCleanPdfFiles_(phieuTMID, pdfType);
+  const expectedCount = pdfType === 'BOTH' ? 2 : 1;
+  const canUseCachedCleanPdf = cachedFiles.length >= expectedCount && cachedFiles.every(f => f && f.base64);
+
+  await withButton(btn, canUseCachedCleanPdf ? 'Đang tải...' : 'Đang xuất...', async () => {
+    if(canUseCachedCleanPdf){
+      await api('logTdkmmPdfExportFromCachedPreview', {phieuTMID, pdfType}, {timeoutMs: 60000});
+      cachedFiles.slice(0, expectedCount).forEach((f, idx) => {
+        setTimeout(() => {
+          downloadBase64File(f.fileName || f.name || 'TDKMM.pdf', f.mimeType || 'application/pdf', f.base64);
+        }, idx * 450);
+      });
+      closeTdkmmPdfExportDialog();
+      toast(expectedCount > 1 ? 'Đã tải 2 file PDF từ bản đã xem.' : 'Đã tải file PDF từ bản đã xem.');
+      try{ if(document.getElementById('pdfListBox')) await loadDsPhieuList(); }catch(_e){}
+      return;
+    }
+
     const res = await api('exportTdkmmPdf', {phieuTMID, pdfType}, {timeoutMs: 180000});
     const files = res.data?.files || [];
     if(!files.length) throw new Error('API chưa trả file PDF.');
@@ -6853,6 +6895,8 @@ async function viewTdkmmFullPdf(phieuTMID, btn){
     if(!files.length) throw new Error('API chưa trả file xem trước từ mẫu.');
 
     const sections = [];
+    state.currentTdkmmCleanPdfPhieuTMID = String(phieuTMID || '').trim();
+    state.currentTdkmmCleanPdfFiles = [];
     const viewTimeText = tdkmmNowHhmmDdmmyyyy();
     const securityDisplayText = tdkmmViewSecurityTextDisplay(viewTimeText);
     let index = 0;
@@ -6869,6 +6913,15 @@ async function viewTdkmmFullPdf(phieuTMID, btn){
         base64 = fileRes.data?.base64 || '';
       }
       if(!base64) throw new Error('Không đọc được nội dung PDF xem trước.');
+      state.currentTdkmmCleanPdfFiles.push({
+        type: type === 'PL12' ? 'PL12' : 'PL11',
+        fileId: f.fileId || '',
+        url: f.url || '',
+        name: f.name || f.fileName || (type === 'PL12' ? 'TDKMM_PL12.pdf' : 'TDKMM_PL11.pdf'),
+        fileName: f.fileName || f.name || (type === 'PL12' ? 'TDKMM_PL12.pdf' : 'TDKMM_PL11.pdf'),
+        mimeType: f.mimeType || 'application/pdf',
+        base64
+      });
       setTdkmmFullPdfLoadingMessage(`Đang đóng watermark bảo mật vào ${secTitle}...`);
       const watermarkedBytes = await buildTdkmmPreviewPdfWithUserWatermark(base64, viewTimeText);
       const objectUrl = blobUrlFromBytes(watermarkedBytes, 'application/pdf');
@@ -10427,6 +10480,8 @@ function revokeCurrentPdfObjectUrl(){
     state.currentTdkmmPdfObjectUrls = [];
   }
   state.currentTdkmmPdfSections = [];
+  state.currentTdkmmCleanPdfPhieuTMID = '';
+  state.currentTdkmmCleanPdfFiles = [];
   state.currentPdfWatermarkedBytes = null;
   state.currentPdfWatermarkedTitle = '';
   state.currentPdfWatermarkedUrl = '';
