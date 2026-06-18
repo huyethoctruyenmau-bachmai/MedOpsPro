@@ -4522,7 +4522,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-204.180626-TDKMM-TAO-NHANH-XEM-HTML</p>
+      <p class="login-version">Version: INDEX-205.180626-TDKMM-DS-XEM-PREVIEW-TEMPLATE</p>
     </div>
   </div>
 
@@ -4566,7 +4566,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-204.180626-TDKMM-TAO-NHANH-XEM-HTML</div>
+    <div class="app-version">Version: INDEX-205.180626-TDKMM-DS-XEM-PREVIEW-TEMPLATE</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4591,7 +4591,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-204.180626-TDKMM-TAO-NHANH-XEM-HTML';
+const APP_VERSION = 'INDEX-205.180626-TDKMM-DS-XEM-PREVIEW-TEMPLATE';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -6756,8 +6756,39 @@ async function pdfPageImagesFromBase64NoDownload(base64, onProgress){
 
 async function viewTdkmmFullPdf(phieuTMID, btn){
   const task = async () => {
-    const res = await api('getTmPhieuDetail', {phieuTMID});
-    showTmPhieuModal(res.data.phieu);
+    renderTdkmmFullPdfModal({
+      phieuTMID,
+      title:'Xem phiếu TDKMM theo mẫu',
+      loading:true,
+      message:'Đang tạo bản xem trước từ mẫu Word...'
+    });
+    const res = await api('viewTdkmmPdf', {phieuTMID}, {timeoutMs:180000});
+    const files = res.data?.files || [];
+    if(!files.length) throw new Error('API chưa trả file xem trước từ mẫu.');
+
+    const sections = [];
+    for(const f of files){
+      const type = String(f.type || '').toUpperCase();
+      const secTitle = type === 'PL12'
+        ? 'Phụ lục 12 - Phiếu xét nghiệm tai biến không mong muốn liên quan đến truyền máu'
+        : 'Phụ lục 11 - Báo cáo tai biến không mong muốn liên quan đến truyền máu';
+      let base64 = f.base64 || '';
+      if(!base64 && f.url){
+        const fileRes = await api('getPdfFileBase64', {url:f.url}, {timeoutMs:180000});
+        base64 = fileRes.data?.base64 || '';
+      }
+      if(!base64) throw new Error('Không đọc được nội dung PDF xem trước.');
+      const pageImages = await pdfPageImagesFromBase64NoDownload(base64, (pageNo, total) => {
+        setTdkmmFullPdfLoadingMessage(total > 1 ? `Đang mở ${secTitle}... Trang ${pageNo}/${total}` : `Đang mở ${secTitle}...`);
+      });
+      sections.push({title:secTitle, pageImages});
+    }
+
+    renderTdkmmFullPdfModal({
+      phieuTMID,
+      title:'Xem phiếu TDKMM theo mẫu',
+      sections
+    });
   };
   if(btn) return withButton(btn, 'Đang mở...', task);
   try{ await task(); }catch(err){ toast(err.message); }
@@ -9008,7 +9039,7 @@ function renderDsPhieuCard(x){
   const isGiaoBanDraft = x.source === 'GIAO_BAN' && !x.pdfUrl;
   const pdfBtn = (!isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
   const detailBtn = isTdkmm
-    ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>`
+    ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
     : (isGiaoBanDraft ? `<button class="btn secondary" onclick="previewGiaoBanDraftPdf(${jsArg(x.id)}, ${jsArg(title)}, this)">Xem phiếu</button>` : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '')));
   const editBtn = isTm && x.canEdit ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
