@@ -3984,32 +3984,16 @@
     }
     .tdkmm-xn-khac-label-wrap{
       display:grid;
-      grid-template-columns:minmax(0,1fr) auto;
-      align-items:start;
+      grid-template-columns:auto minmax(0,1fr) auto;
+      align-items:center;
       gap:6px;
       min-width:0;
       width:100%;
     }
     .tdkmm-xn-khac-default{
-      grid-column:1 / -1;
-      white-space:normal;
+      white-space:nowrap;
       font-weight:700;
       color:var(--wine-dark);
-      line-height:1.35;
-    }
-    .tdkmm-xn-khac-name-line{
-      display:grid;
-      grid-template-columns:auto minmax(0,1fr);
-      align-items:center;
-      gap:5px;
-      min-width:0;
-      width:100%;
-    }
-    .tdkmm-xn-khac-bullet{
-      font-weight:700;
-      color:var(--wine-dark);
-      line-height:1;
-      padding-left:2px;
     }
     .tdkmm-xn-khac-ten{
       width:100%!important;
@@ -4050,13 +4034,61 @@
         grid-column:1 / -1;
         font-size:15px;
       }
-      .tdkmm-xn-khac-name-line{
-        grid-template-columns:auto minmax(0,1fr);
-      }
       .tdkmm-xn-khac-ten{
         height:36px!important;
         min-height:36px!important;
         font-size:14.5px!important;
+      }
+    }
+
+
+    /* ===== PATCH 214: TDKMM - KHUNG Ô NHẬP KQXN + MOBILE GIAO BAN DẠNG DÒNG ===== */
+    .tm-tdkmm-form .tdkmm-lab-table td[data-label] input,
+    .tm-tdkmm-form .tdkmm-lab-table .tdkmm-xn-khac-value{
+      display:block!important;
+      width:100%!important;
+      min-width:0!important;
+      min-height:34px!important;
+      height:34px!important;
+      padding:5px 8px!important;
+      border:1px solid var(--g-line)!important;
+      border-radius:6px!important;
+      background:#fff!important;
+      box-shadow:none!important;
+      cursor:text!important;
+    }
+    .tm-tdkmm-form .tdkmm-lab-table td[data-label] input:hover,
+    .tm-tdkmm-form .tdkmm-lab-table .tdkmm-xn-khac-value:hover{
+      border-color:#bdc1c6!important;
+      background:#fff!important;
+    }
+    .tm-tdkmm-form .tdkmm-lab-table td[data-label] input:focus,
+    .tm-tdkmm-form .tdkmm-lab-table .tdkmm-xn-khac-value:focus{
+      border-color:var(--g-blue)!important;
+      box-shadow:0 0 0 1px var(--g-blue)!important;
+      background:#fff!important;
+    }
+    .tdkmm-gb-lab-mobile{display:none}
+    @media (max-width:760px){
+      .tdkmm-gb-lab-table{display:none!important}
+      .tdkmm-gb-lab-mobile{display:block!important}
+      .tdkmm-gb-lab-mobile-item{
+        border:1px solid var(--line);
+        border-radius:12px;
+        background:#fff;
+        padding:9px 10px;
+        margin:0 0 9px;
+        line-height:1.45;
+      }
+      .tdkmm-gb-lab-mobile-title{
+        font-weight:800;
+        color:var(--wine-dark);
+        margin-bottom:5px;
+      }
+      .tdkmm-gb-lab-mobile-line{
+        white-space:pre-wrap;
+        color:var(--text);
+        margin:2px 0;
       }
     }
 
@@ -4558,7 +4590,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-214.180626-TDKMM-XN-KHAC-BULLET</p>
+      <p class="login-version">Version: INDEX-214.180626-TDKMM-XNKHAC-MOBILE-KHUNGKQ</p>
     </div>
   </div>
 
@@ -4602,7 +4634,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-214.180626-TDKMM-XN-KHAC-BULLET</div>
+    <div class="app-version">Version: INDEX-214.180626-TDKMM-XNKHAC-MOBILE-KHUNGKQ</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4627,7 +4659,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-214.180626-TDKMM-XN-KHAC-BULLET';
+const APP_VERSION = 'INDEX-214.180626-TDKMM-XNKHAC-MOBILE-KHUNGKQ';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
@@ -5715,13 +5747,6 @@ function tdkmmLabValue(d, key, col){
   };
   return d[name] || (fallback[name] ? d[fallback[name]] : '') || '';
 }
-function tdkmmOtherLabHasAnyName(d={}){
-  return tdkmmOtherLabItems(d).some(item => tmTxt(item.ten));
-}
-function tdkmmOtherLabTitleText(d={}){
-  return tdkmmOtherLabHasAnyName(d) ? 'Các Xét nghiệm khác:' : 'Các XN khác';
-}
-
 function tdkmmOtherLabItems(d={}){
   const raw = Array.isArray(d.xnKhacList) ? d.xnKhacList : [];
   const items = raw.map(x => ({
@@ -5738,19 +5763,14 @@ function tdkmmOtherLabItems(d={}){
     donVi: tmTxt(d.xnKhacDonVi || '')
   }];
 }
-function tdkmmOtherLabRowHtml(prefix, item={}, index=0, total=1, hasNamedOther=false){
-  const i = Number(index) || 0;
-  const canRemove = i > 0;
+function tdkmmOtherLabRowHtml(prefix, item={}, index=0){
+  const canRemove = Number(index) > 0;
   const removeBtn = canRemove ? `<button class="tdkmm-xn-khac-remove" type="button" onclick="removeTdkmmOtherLabRow(this)" title="Xóa xét nghiệm này" aria-label="Xóa xét nghiệm này">×</button>` : '';
-  const title = i === 0 ? `<span class="tdkmm-xn-khac-default">${hasNamedOther ? 'Các Xét nghiệm khác:' : 'Các XN khác'}</span>` : '';
-  return `<tr class="tdkmm-xn-khac-row" data-prefix="${escAttr(prefix)}" data-index="${escAttr(i)}">
+  return `<tr class="tdkmm-xn-khac-row" data-prefix="${escAttr(prefix)}" data-index="${escAttr(index)}">
     <td class="tdkmm-lab-row-label tdkmm-xn-khac-label-cell">
       <div class="tdkmm-xn-khac-label-wrap">
-        ${title}
-        <label class="tdkmm-xn-khac-name-line" aria-label="Tên xét nghiệm khác">
-          <span class="tdkmm-xn-khac-bullet">-</span>
-          <input class="tdkmm-xn-khac-ten" data-col="ten" placeholder="Tên xét nghiệm khác nếu có" value="${escAttr(item.ten || '')}">
-        </label>
+        <span class="tdkmm-xn-khac-default">Các XN khác</span>
+        <input class="tdkmm-xn-khac-ten" data-col="ten" placeholder="Tên xét nghiệm khác nếu có" value="${escAttr(item.ten || '')}">
         ${removeBtn}
       </div>
     </td>
@@ -5766,9 +5786,7 @@ function renderTdkmmLabInputTable(d={}, prefix='tmCreate'){
     donVi: 'Mẫu máu từ đơn vị máu nghi ngờ gây tai biến'
   };
   const baseRows = tdkmmLabBaseRows().map(([key,label]) => `<tr><td class="tdkmm-lab-row-label">${esc(label)}</td>${['truoc','sau','donVi'].map(col => `<td data-label="${escAttr(sampleLabels[col])}"><input id="${prefix}Lab_${key}_${col}" value="${escAttr(tdkmmLabValue(d,key,col))}"></td>`).join('')}</tr>`).join('');
-  const otherItems = tdkmmOtherLabItems(d);
-  const otherHasName = otherItems.some(item => tmTxt(item.ten));
-  const otherRows = otherItems.map((item, index) => tdkmmOtherLabRowHtml(prefix, item, index, otherItems.length, otherHasName)).join('');
+  const otherRows = tdkmmOtherLabItems(d).map((item, index) => tdkmmOtherLabRowHtml(prefix, item, index)).join('');
   return `<div class="tdkmm-lab-scrollbox" data-prefix="${escAttr(prefix)}"><div class="tdkmm-lab-wrap" data-tdkmm-lab-scroll="1"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả XN</th><th>${sampleLabels.truoc}</th><th>${sampleLabels.sau}</th><th>${sampleLabels.donVi}</th></tr></thead><tbody>${baseRows}${otherRows}</tbody></table></div><div class="tdkmm-lab-actions"><button class="btn secondary tdkmm-add-xn-khac" type="button" onclick="addTdkmmOtherLabRow('${escAttr(prefix)}', this)">+ Thêm XN khác</button></div><div class="tdkmm-lab-scrollbar" data-tdkmm-lab-bar="1" aria-label="Thanh cuộn ngang bảng kết quả xét nghiệm"><div class="tdkmm-lab-scrollbar-inner"></div></div><input class="tdkmm-lab-range" data-tdkmm-lab-range="1" type="range" min="0" max="0" value="0" step="1" aria-label="Thanh cuộn ngang bảng kết quả XN"></div>`;
 }
 function tdkmmLabDisplayRows(d={}){
@@ -6380,6 +6398,20 @@ function tdkmmViewData(p, d){
     tenNguoiChoHoacMaDonVi: tmJoinInline([d.tenNguoiChoMau, d.maDonViMauNghiNgo], ' / ')
   });
 }
+function renderTdkmmLabMobileSummary(d={}){
+  const sampleLabels = [
+    'Mẫu máu người bệnh trước truyền',
+    'Mẫu máu người bệnh sau truyền',
+    'Mẫu máu từ đơn vị máu nghi ngờ gây tai biến'
+  ];
+  const blank = '....................';
+  return `<div class="tdkmm-gb-lab-mobile">${tdkmmLabDisplayRows(d).map(row => {
+    const title = esc(row[0] || '');
+    const vals = [row[1], row[2], row[3]].map(v => tmTxt(v) || blank);
+    return `<div class="tdkmm-gb-lab-mobile-item"><div class="tdkmm-gb-lab-mobile-title">${title}</div>${sampleLabels.map((label, i) => `<div class="tdkmm-gb-lab-mobile-line">- ${esc(label)}: ${esc(vals[i])}</div>`).join('')}</div>`;
+  }).join('')}</div>`;
+}
+
 function renderTdkmmLabViewTable(d){
   return `<div class="tdkmm-lab-wrap"><table class="tdkmm-lab-table"><thead><tr><th>Kết quả XN</th><th>Mẫu máu người bệnh trước truyền</th><th>Mẫu máu người bệnh sau truyền</th><th>Mẫu máu từ đơn vị máu nghi ngờ gây tai biến</th></tr></thead><tbody>${tdkmmLabDisplayRows(d).map(row => `<tr><td>${esc(row[0] || '')}</td><td>${esc(row[1] || '')}</td><td>${esc(row[2] || '')}</td><td>${esc(row[3] || '')}</td></tr>`).join('')}</tbody></table></div>`;
 }
@@ -6689,7 +6721,8 @@ function renderTmTdkmmGiaoBanCardHtml(items){
       }else current.push(line);
     });
     if(currentTitle) htmlParts.push(tmReportItemHtml(currentTitle, tmDetailValue(current)));
-    htmlParts.splice(htmlParts.length - 1, 0, `<div class="report-item"><div class="report-label">e. Kết quả xét nghiệm tai biến truyền máu</div><div class="report-value has-table">${renderTdkmmLabViewTable(d)}</div></div>`);
+    const labHtml = `<div class="tdkmm-gb-lab-table">${renderTdkmmLabViewTable(d)}</div>${renderTdkmmLabMobileSummary(d)}`;
+    htmlParts.splice(htmlParts.length - 1, 0, `<div class="report-item"><div class="report-label">e. Kết quả xét nghiệm tai biến truyền máu</div><div class="report-value has-table">${labHtml}</div></div>`);
     return htmlParts.join('');
   }).join('') : '<div class="report-value">Không có bệnh nhân nào có tai biến liên quan đến truyền máu.</div>';
   return `<div class="report-day"><div class="report-day-title">2. Tác dụng không mong muốn liên quan đến truyền máu</div>${body}</div>`;
@@ -11504,27 +11537,6 @@ function escAttr(s){ return esc(s).replace(/`/g,'&#096;'); }
 function jsArg(s){ return JSON.stringify(String(s ?? '')).replace(/</g,'\u003C').replace(/>/g,'\u003E').replace(/&/g,'\u0026'); }
 // ===== MODULE: JS_ALL_END =====
 
-function refreshTdkmmOtherLabLabels(box){
-  if(!box) return;
-  const rows = Array.from(box.querySelectorAll('.tdkmm-xn-khac-row'));
-  const hasName = rows.some(row => tmTxt(row.querySelector('[data-col="ten"]')?.value));
-  rows.forEach((row, i) => {
-    row.dataset.index = String(i);
-    const wrap = row.querySelector('.tdkmm-xn-khac-label-wrap');
-    if(!wrap) return;
-    let title = wrap.querySelector('.tdkmm-xn-khac-default');
-    if(i === 0){
-      if(!title){
-        wrap.insertAdjacentHTML('afterbegin', '<span class="tdkmm-xn-khac-default"></span>');
-        title = wrap.querySelector('.tdkmm-xn-khac-default');
-      }
-      title.textContent = hasName ? 'Các Xét nghiệm khác:' : 'Các XN khác';
-    } else if(title){
-      title.remove();
-    }
-  });
-}
-
 /* ===== PATCH 197 JS: TDKMM dynamic other tests ===== */
 window.addTdkmmOtherLabRow = function(prefix, btn){
   const box = btn?.closest?.('.tdkmm-lab-scrollbox') || document.querySelector(`.tdkmm-lab-scrollbox[data-prefix="${cssEscape(prefix)}"]`);
@@ -11532,28 +11544,14 @@ window.addTdkmmOtherLabRow = function(prefix, btn){
   if(!tbody) return;
   const rows = Array.from(tbody.querySelectorAll('.tdkmm-xn-khac-row'));
   const nextIndex = rows.reduce((max, row) => Math.max(max, Number(row.dataset.index || 0)), -1) + 1;
-  tbody.insertAdjacentHTML('beforeend', tdkmmOtherLabRowHtml(prefix, {}, nextIndex, rows.length + 1, true));
-  refreshTdkmmOtherLabLabels(box);
+  tbody.insertAdjacentHTML('beforeend', tdkmmOtherLabRowHtml(prefix, {}, nextIndex));
   const added = tbody.querySelector(`.tdkmm-xn-khac-row[data-index="${nextIndex}"] .tdkmm-xn-khac-ten`);
-  if(added){
-    added.addEventListener('input', () => refreshTdkmmOtherLabLabels(box));
-    setTimeout(() => added.focus(), 0);
-  }
+  if(added) setTimeout(() => added.focus(), 0);
 };
 window.removeTdkmmOtherLabRow = function(btn){
-  const box = btn?.closest?.('.tdkmm-lab-scrollbox');
   const row = btn?.closest?.('.tdkmm-xn-khac-row');
   if(row) row.remove();
-  refreshTdkmmOtherLabLabels(box);
 };
-
-
-document.addEventListener('input', function(e){
-  const el = e.target;
-  if(el && el.classList && el.classList.contains('tdkmm-xn-khac-ten')){
-    refreshTdkmmOtherLabLabels(el.closest('.tdkmm-lab-scrollbox'));
-  }
-});
 
 </script>
 <!-- ===== MODULE: HTML_BODY_SHELL_END ===== -->
