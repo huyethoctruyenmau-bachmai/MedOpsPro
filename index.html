@@ -4548,6 +4548,117 @@
       opacity:1!important;
       letter-spacing:0!important;
     }
+
+
+    /* ===== PATCH 216: MOBILE BIÊN BẢN HỌP - TRƯỜNG THÔNG TIN RỘNG ĐỀU THEO TRANG ===== */
+    @media (max-width:899px){
+      .full-modal .modal-card.gb-dot-modal-card{
+        width:100vw!important;
+        max-width:100vw!important;
+        margin:0!important;
+        border-radius:0!important;
+        padding-left:10px!important;
+        padding-right:10px!important;
+        overflow-y:auto!important;
+        overflow-x:hidden!important;
+        box-sizing:border-box!important;
+      }
+      .gb-dot-modal-card .modal-head,
+      .gb-dot-modal-card .gb-dot-layout,
+      .gb-dot-modal-card .gb-dot-left,
+      .gb-dot-modal-card .gb-dot-right,
+      .gb-dot-modal-card .gb-regular-card,
+      .gb-dot-modal-card .gb-inner-section,
+      .gb-dot-modal-card .gb-regular-finish{
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
+        box-sizing:border-box!important;
+      }
+      .gb-dot-modal-card .gb-dot-layout{
+        display:block!important;
+        height:auto!important;
+        max-height:none!important;
+        overflow:visible!important;
+        margin-top:10px!important;
+      }
+      .gb-dot-modal-card .gb-dot-left,
+      .gb-dot-modal-card .gb-dot-right{
+        display:block!important;
+        height:auto!important;
+        max-height:none!important;
+        overflow:visible!important;
+        padding:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-left > .gb-regular-card,
+      .gb-dot-modal-card .gb-dot-right > .gb-regular-card{
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        overflow:hidden!important;
+        margin-bottom:12px!important;
+      }
+      .gb-dot-modal-card .gb-dot-admin-grid{
+        display:grid!important;
+        grid-template-columns:1fr!important;
+        gap:10px!important;
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
+        overflow:hidden!important;
+        box-sizing:border-box!important;
+      }
+      .gb-dot-modal-card .gb-dot-admin-grid > .gb-dot-admin-item,
+      .gb-dot-modal-card .gb-dot-admin-grid > .gb-admin-item,
+      .gb-dot-modal-card .gb-dot-admin-grid > .col-12{
+        grid-column:1 / -1!important;
+        grid-row:auto!important;
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
+        display:block!important;
+        box-sizing:border-box!important;
+      }
+      .gb-dot-modal-card .gb-dot-admin-grid .autocomplete-container,
+      .gb-dot-modal-card .gb-dot-admin-grid .vi-date-wrap,
+      .gb-dot-modal-card .gb-dot-admin-grid .equal-control,
+      .gb-dot-modal-card .gb-dot-admin-grid input,
+      .gb-dot-modal-card .gb-dot-admin-grid select,
+      .gb-dot-modal-card .gb-dot-admin-grid textarea,
+      .gb-dot-modal-card #gbLyDoGiaoBan,
+      .gb-dot-modal-card #gbNoiDungDotXuat,
+      .gb-dot-modal-card #gbKetLuan{
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
+        box-sizing:border-box!important;
+      }
+      .gb-dot-modal-card .gb-dot-admin-time .gb-time-row{
+        display:grid!important;
+        grid-template-columns:minmax(0,1fr) 34px!important;
+        gap:6px!important;
+        align-items:end!important;
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
+      }
+      .gb-dot-modal-card .gb-dot-admin-time .gb-time-refresh-icon{
+        width:34px!important;
+        min-width:34px!important;
+        height:38px!important;
+        min-height:38px!important;
+        border-radius:6px!important;
+      }
+      .gb-dot-modal-card #gbThanhPhanThamDu,
+      .gb-dot-modal-card #gbLyDoGiaoBan,
+      .gb-dot-modal-card #gbNoiDungDotXuat,
+      .gb-dot-modal-card #gbKetLuan{
+        min-height:96px!important;
+        resize:none!important;
+        overflow:auto!important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -4590,7 +4701,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-215.210626-BANGIAO-TRANGTHAI-SORTTAO</p>
+      <p class="login-version">Version: INDEX-216.210626-MOBILE-BIENBANHOP-FULLWIDTH</p>
     </div>
   </div>
 
@@ -4634,7 +4745,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-215.210626-BANGIAO-TRANGTHAI-SORTTAO</div>
+    <div class="app-version">Version: INDEX-216.210626-MOBILE-BIENBANHOP-FULLWIDTH</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4659,7 +4770,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-215.210626-BANGIAO-TRANGTHAI-SORTTAO';
+const APP_VERSION = 'INDEX-216.210626-MOBILE-BIENBANHOP-FULLWIDTH';
 
 function canOpenAdminSettings(){
   return !!(state.user && (state.user.isAdmin || String(state.user.chucVu || '').trim()));
