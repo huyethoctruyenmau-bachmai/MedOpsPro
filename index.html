@@ -4745,7 +4745,7 @@
       <p><strong>PHẦN MỀM SỔ TRỰC - GIAO BAN</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-219.220626-TDKMM-GIAOBAN-ANH-INAPP</p>
+      <p class="login-version">Version: INDEX-220.230626-KHONG-VIEW-GIAOBAN-TM-FORMAT</p>
     </div>
   </div>
 
@@ -4789,7 +4789,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-219.220626-TDKMM-GIAOBAN-ANH-INAPP</div>
+    <div class="app-version">Version: INDEX-220.230626-KHONG-VIEW-GIAOBAN-TM-FORMAT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4814,7 +4814,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-219.220626-TDKMM-GIAOBAN-ANH-INAPP';
+const APP_VERSION = 'INDEX-220.230626-KHONG-VIEW-GIAOBAN-TM-FORMAT';
 
 function isSystemAdminAccount(user){
   const u = user || state.user || state.accountInfo || {};
@@ -5815,8 +5815,7 @@ async function submitCreatePhieu(){
   withButton($('#createBtn'), 'Đang tạo phiếu...', async () => {
     const res = await api('createPhieu', payload);
     clearListCaches();
-    toast('Đã tạo phiếu');
-    showPhieuModal(res.data.phieu, {created:true});
+    toast('Tạo phiếu thành công');
     renderCreateTab();
   });
 }
@@ -6209,6 +6208,7 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
   const nguoiPhuTrachPhatMauMaValue = d.nguoiPhuTrachPhatMauMaNhanVien || d.nguoiPhuTrachPhatMauMa || (norm(nguoiPhuTrachPhatMauValue) === norm(defaultPhatMauName) ? defaultPhatMauMa : '');
   const kyThuatVienXetNghiemValue = d.kyThuatVienXetNghiem || d.kyThuatVienXetNghiemTen || defaultSignerName;
   const kyThuatVienXetNghiemMaValue = d.kyThuatVienXetNghiemMaNhanVien || d.kyThuatVienXetNghiemMa || (kyThuatVienXetNghiemValue === defaultSignerName ? defaultSignerMa : '');
+  const bacSiDieuTriMaValue = prefix === 'tmCreate' ? '' : (d.bacSiDieuTriMaNhanVien || d.bacSiDieuTriMa || '');
   return `
     <div class="tm-tdkmm-form">
     <h3 class="section-title">II. Khai báo tác dụng không mong muốn liên quan truyền máu</h3>
@@ -6294,7 +6294,7 @@ function renderTmTdkmmFormHtml(d={}, prefix='tmCreate'){
       <h3 class="sub-title">Người ký</h3>
       <div class="tdkmm-signer-grid">
         <div class="tdkmm-signer-name"><label>Bác sỹ điều trị</label><input id="${prefix}BacSiDieuTri" class="equal-control" value="${escAttr(d.bacSiDieuTri || '')}"></div>
-        <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}BacSiDieuTriMa" class="equal-control" value="${escAttr(d.bacSiDieuTriMaNhanVien || d.bacSiDieuTriMa || '')}"></div>
+        <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}BacSiDieuTriMa" class="equal-control" value="${escAttr(bacSiDieuTriMaValue)}"></div>
         <div class="tdkmm-signer-name"><label>Điều dưỡng truyền máu</label><input id="${prefix}DieuDuongTruyenMau" class="equal-control" value="${escAttr(d.dieuDuongTruyenMau || '')}"></div>
         <div class="tdkmm-signer-code"><label>Mã nhân viên</label><input id="${prefix}DieuDuongTruyenMauMa" class="equal-control" value="${escAttr(d.dieuDuongTruyenMauMaNhanVien || d.dieuDuongTruyenMauMa || '')}"></div>
         <div class="tdkmm-signer-name"><label>Người phụ trách phát máu ở cơ sở KB, CB</label><input id="${prefix}NguoiPhuTrachPhatMau" class="equal-control" list="staffDatalist" value="${escAttr(nguoiPhuTrachPhatMauValue)}"></div>
@@ -6605,8 +6605,7 @@ async function submitCreateTmPhieu(loai){
     if(!payload.ngaySuKien || !payload.maBenhNhan || !payload.hoTenBenhNhan) throw new Error('Vui lòng nhập ngày, mã bệnh nhân/PID và họ tên bệnh nhân.');
     const res = await api('createTmPhieu', payload);
     clearListCaches();
-    toast('Đã tạo phiếu chuyên môn Truyền máu');
-    showTmPhieuModal(res.data.phieu);
+    toast('Tạo phiếu thành công');
     renderCreateTab();
   });
 }
@@ -6955,14 +6954,15 @@ function tdkmmGiaoBanSectionHtml(p, d, includeExtra=true){
   html.push(tmGbLine([`Nhóm máu: ${tmGbField('ABO', x.nhomMauABO, 'tm-gb-red-bold')}`, tmGbField('Rh(D)', x.rhD, 'tm-gb-red')]));
   html.push(tmGbLine([tmGbField('Khoa/phòng', x.khoaPhongDieuTriText), tmGbField('Giường', x.giuong)]));
   html.push(tmGbSection('b. Thông tin truyền máu và đơn vị máu nghi ngờ'));
-  html.push(tmGbLine(tmGbField('Bắt đầu truyền', x.thoiDiemBatDauTruyenText)));
-  html.push(tmGbLine(tmGbField('Xuất hiện dấu hiệu đầu tiên', x.thoiDiemXuatHienDauHieuDauTienText)));
-  html.push(tmGbLine(tmGbField('Ngừng truyền', x.thoiDiemNgungTruyenText)));
   html.push(tmGbLine([tmGbField('Mã đơn vị máu', x.maDonViMauNghiNgo || x.tenNguoiChoHoacMaDonVi), tmGbField('Loại chế phẩm', x.loaiMauChePhamNghiNgo), tmGbField('Thể tích', x.theTichDonViMau ? x.theTichDonViMau + ' ml' : '')]));
-  html.push(tmGbLine(tmGbInline([tmGbField('Tốc độ truyền', x.tocDoTruyen ? x.tocDoTruyen + ' giọt/ph' : ''), tmGbField('Thể tích đã truyền', x.theTichDonViMauDaTruyen ? x.theTichDonViMauDaTruyen + ' ml' : '')]).replace('<span class="tm-gb-gap"></span>', ' – ')));
   html.push(tmGbLine([`Nhóm máu đơn vị máu: ${tmGbField('ABO', x.aboDonViMau, 'tm-gb-red-bold')}`, tmGbField('Rh', x.rhDonViMau, 'tm-gb-red')]));
   html.push(tmGbLine([tmGbField('Ngày lấy máu', x.ngayLayMau ? dateVi(x.ngayLayMau) : ''), tmGbField('HSD', x.hanSuDung ? dateVi(x.hanSuDung) : '')]));
   html.push(tmGbLine(tmGbField('Cơ sở lấy máu và điều chế', x.coSoLayMauDieuChe)));
+  html.push(tmGbLine(tmGbField('Bắt đầu truyền', x.thoiDiemBatDauTruyenText)));
+  html.push(tmGbLine(tmGbField('Xuất hiện dấu hiệu đầu tiên', x.thoiDiemXuatHienDauHieuDauTienText)));
+  html.push(tmGbLine(tmGbField('Ngừng truyền', x.thoiDiemNgungTruyenText)));
+  const speedVolumeLine = tmGbInline([tmGbField('Tốc độ truyền', x.tocDoTruyen ? x.tocDoTruyen + ' giọt/ph' : ''), tmGbField('Thể tích đã truyền', x.theTichDonViMauDaTruyen ? x.theTichDonViMauDaTruyen + ' ml' : '')]).replace('<span class="tm-gb-gap"></span>', ' – ');
+  if(speedVolumeLine) html.push('<br>' + tmGbLine(speedVolumeLine));
   html.push(tmGbSection('c. Thuốc/dịch truyền và diễn biến lâm sàng'));
   html.push(tmGbLine(tmGbField('Dung dịch/thuốc dùng ngay trước phản ứng', x.dungDichThuocTruyenTruocPhanUng)));
   html.push(tmGbLine(tmGbField('Dấu hiệu đầu tiên', x.dauHieuDauTien)));
@@ -6973,32 +6973,28 @@ function tdkmmGiaoBanSectionHtml(p, d, includeExtra=true){
   html.push(tmGbLine(`Định nhóm ABO tại giường sau phản ứng: ${tmGbInline([tmGbField('Người bệnh', x.aboTaiGiuongNguoiBenhSauPhanUng, 'tm-gb-red-bold'), tmGbField('Đơn vị máu truyền', x.aboTaiGiuongDonViMauTruyen, 'tm-gb-red-bold')])}`));
   html.push(tmGbLine(tmGbField('Thời điểm lấy mẫu máu người bệnh sau bất thường', tmDateTimeText(x.thoiDiemLayMauNguoiBenhSauBatThuong))));
   html.push(tmGbLine(tmGbField('Thời điểm nhận thông báo và mẫu máu người bệnh', tmDateTimeText(x.thoiDiemNhanThongBaoVaMauNguoiBenh))));
-  if(includeExtra){
-    html.push(`<div class="report-item tm-gb-lab-block"><div class="report-label">e. Kết quả xét nghiệm tai biến truyền máu</div><div class="report-value has-table"><div class="tdkmm-gb-lab-table">${renderTdkmmLabViewTable(d)}</div>${renderTdkmmLabMobileSummary(d)}</div></div>`);
-    const fLines = [tmGbLine(tmGbField('Tình trạng hiện tại (tử vong, xin về, ...)', x.tinhTrangHienTai)), tmGbLine(tmGbField('Kết luận', x.ketLuanTdkmm)), tmGbLine(tmGbField('Kiến nghị (việc cần theo dõi, bàn giao tiếp,...)', x.noiDungTheoDoiBanGiao))].filter(Boolean).join('');
-    if(fLines) html.push(`<div class="report-item"><div class="report-label">f. Tình trạng hiện tại/Kết luận/Kiến nghị</div><div class="report-value">${fLines}</div></div>`);
-  }
   return html.filter(Boolean).join('');
 }
 function tdkmmGiaoBanTextBlocks(p, d){
   const x = tdkmmViewData(p,d);
   const lines = [];
   const patientAge = tmTxt(x.tuoi) || tmAgeYearText(x, p);
-  lines.push(tmJoinInline([x.ngayGhiNhan ? `Ngày ghi nhận: ${x.ngayGhiNhan}` : '', x.nguoiTaoPhieu ? `Người tạo phiếu: ${x.nguoiTaoPhieu}` : '']));
+  lines.push(tmJoinInline([x.ngayGhiNhan ? `- Ngày ghi nhận: ${x.ngayGhiNhan}` : '', x.nguoiTaoPhieu ? `Người tạo phiếu: ${x.nguoiTaoPhieu}` : '']));
   lines.push('a. Thông tin người bệnh');
   lines.push('- ' + tmJoinInline([x.hoTenBenhNhan ? `Họ tên: ${x.hoTenBenhNhan}` : '', patientAge ? `Tuổi: ${patientAge}` : '', x.gioiTinh ? `Giới: ${x.gioiTinh}` : '', x.maBenhNhan ? `PID: ${x.maBenhNhan}` : '']));
   if(x.chanDoan) lines.push(`- Chẩn đoán: ${x.chanDoan}`);
   lines.push('- ' + tmJoinInline([x.nhomMauABO ? `Nhóm máu: ABO: ${x.nhomMauABO}` : '', x.rhD ? `Rh(D): ${x.rhD}` : '']));
   if(x.khoaPhongDieuTriText || x.giuong) lines.push('- ' + tmJoinInline([x.khoaPhongDieuTriText ? `Khoa/phòng: ${x.khoaPhongDieuTriText}` : '', x.giuong ? `Giường: ${x.giuong}` : '']));
   lines.push('b. Thông tin truyền máu và đơn vị máu nghi ngờ');
-  if(x.thoiDiemBatDauTruyenText) lines.push(`- Bắt đầu truyền: ${x.thoiDiemBatDauTruyenText}`);
-  if(x.thoiDiemXuatHienDauHieuDauTienText) lines.push(`- Xuất hiện dấu hiệu đầu tiên: ${x.thoiDiemXuatHienDauHieuDauTienText}`);
-  if(x.thoiDiemNgungTruyenText) lines.push(`- Ngừng truyền: ${x.thoiDiemNgungTruyenText}`);
   lines.push('- ' + tmJoinInline([x.maDonViMauNghiNgo || x.tenNguoiChoHoacMaDonVi ? `Mã đơn vị máu: ${x.maDonViMauNghiNgo || x.tenNguoiChoHoacMaDonVi}` : '', x.loaiMauChePhamNghiNgo ? `Loại chế phẩm: ${x.loaiMauChePhamNghiNgo}` : '', x.theTichDonViMau ? `Thể tích: ${x.theTichDonViMau} ml` : '']));
-  lines.push('- ' + tmJoinInline([x.tocDoTruyen ? `Tốc độ truyền: ${x.tocDoTruyen} giọt/ph` : '', x.theTichDonViMauDaTruyen ? `Thể tích đã truyền: ${x.theTichDonViMauDaTruyen} ml` : ''], ' – '));
   lines.push('- ' + tmJoinInline([(x.aboDonViMau || x.rhDonViMau) ? `Nhóm máu đơn vị máu: ABO: ${x.aboDonViMau || ''}` : '', x.rhDonViMau ? `Rh: ${x.rhDonViMau}` : '']));
   lines.push('- ' + tmJoinInline([x.ngayLayMau ? `Ngày lấy máu: ${dateVi(x.ngayLayMau)}` : '', x.hanSuDung ? `HSD: ${dateVi(x.hanSuDung)}` : '']));
   if(x.coSoLayMauDieuChe) lines.push(`- Cơ sở lấy máu và điều chế: ${x.coSoLayMauDieuChe}`);
+  if(x.thoiDiemBatDauTruyenText) lines.push(`- Bắt đầu truyền: ${x.thoiDiemBatDauTruyenText}`);
+  if(x.thoiDiemXuatHienDauHieuDauTienText) lines.push(`- Xuất hiện dấu hiệu đầu tiên: ${x.thoiDiemXuatHienDauHieuDauTienText}`);
+  if(x.thoiDiemNgungTruyenText) lines.push(`- Ngừng truyền: ${x.thoiDiemNgungTruyenText}`);
+  const speedVolume = tmJoinInline([x.tocDoTruyen ? `Tốc độ truyền: ${x.tocDoTruyen} giọt/ph` : '', x.theTichDonViMauDaTruyen ? `Thể tích đã truyền: ${x.theTichDonViMauDaTruyen} ml` : ''], ' – ');
+  if(speedVolume){ lines.push(''); lines.push('- ' + speedVolume); lines.push(''); }
   lines.push('c. Thuốc/dịch truyền và diễn biến lâm sàng');
   if(x.dungDichThuocTruyenTruocPhanUng) lines.push(`- Dung dịch/thuốc dùng ngay trước phản ứng: ${x.dungDichThuocTruyenTruocPhanUng}`);
   if(x.dauHieuDauTien) lines.push(`- Dấu hiệu đầu tiên: ${x.dauHieuDauTien}`);
@@ -7009,15 +7005,10 @@ function tdkmmGiaoBanTextBlocks(p, d){
   lines.push('- Định nhóm ABO tại giường sau phản ứng: ' + tmJoinInline([x.aboTaiGiuongNguoiBenhSauPhanUng ? `Người bệnh: ${x.aboTaiGiuongNguoiBenhSauPhanUng}` : '', x.aboTaiGiuongDonViMauTruyen ? `Đơn vị máu truyền: ${x.aboTaiGiuongDonViMauTruyen}` : '']));
   if(x.thoiDiemLayMauNguoiBenhSauBatThuong) lines.push(`- Thời điểm lấy mẫu máu người bệnh sau bất thường: ${tmDateTimeText(x.thoiDiemLayMauNguoiBenhSauBatThuong)}`);
   if(x.thoiDiemNhanThongBaoVaMauNguoiBenh) lines.push(`- Thời điểm nhận thông báo và mẫu máu người bệnh: ${tmDateTimeText(x.thoiDiemNhanThongBaoVaMauNguoiBenh)}`);
-  lines.push('f. Tình trạng hiện tại/Kết luận/Kiến nghị');
-  if(x.tinhTrangHienTai) lines.push(`- Tình trạng hiện tại (tử vong, xin về, ...): ${x.tinhTrangHienTai}`);
-  if(x.ketLuanTdkmm) lines.push(`- Kết luận: ${x.ketLuanTdkmm}`);
-  if(x.noiDungTheoDoiBanGiao) lines.push(`- Kiến nghị (việc cần theo dõi, bàn giao tiếp,...): ${x.noiDungTheoDoiBanGiao}`);
   const attachText = tmAttachmentNamesText(d);
-  if(attachText){ lines.push('g. Ảnh/tài liệu đính kèm'); lines.push(attachText); }
-  return lines.filter(v => tmTxt(v));
+  if(attachText){ lines.push('Ảnh/tài liệu đính kèm'); lines.push(attachText); }
+  return lines.filter(v => v === '' || tmTxt(v));
 }
-
 function renderTmTdkmmDetailHtml(p, d){
   const x = tdkmmViewData(p, d);
   return `
@@ -7052,17 +7043,11 @@ function tmXuTriGiaoBanLines(items, includePatientNo=true){
 
     lines.push('a. Thông tin người bệnh');
     lines.push('- ' + tmJoinInline([
-      x.hoTenBenhNhan || '',
-      x.namSinh ? `Năm sinh: ${x.namSinh}` : '',
-      d.gioiTinh ? `Giới: ${d.gioiTinh}` : '',
-      x.maBenhNhan ? `Mã BN: ${x.maBenhNhan}` : ''
+      x.hoTenBenhNhan ? `Họ tên: ${x.hoTenBenhNhan}` : '',
+      tmAgeYearText(d, x) ? `tuổi: ${tmAgeYearText(d, x)}` : '',
+      x.maBenhNhan ? `PID: ${x.maBenhNhan}` : ''
     ]));
-    if(x.khoaPhongDieuTri || d.giuong){
-      lines.push('- ' + tmJoinInline([
-        x.khoaPhongDieuTri ? `Viện/TT/khoa/phòng: ${x.khoaPhongDieuTri}` : '',
-        d.giuong ? `Giường: ${d.giuong}` : ''
-      ]));
-    }
+    if(x.khoaPhongDieuTri) lines.push(`- Viện/TT/khoa/phòng: ${x.khoaPhongDieuTri}`);
     if(d.chanDoan) lines.push(`- Chẩn đoán: ${d.chanDoan}`);
 
     lines.push('b. Nội dung xử trí');
@@ -7080,31 +7065,20 @@ function tmXuTriGiaoBanLines(items, includePatientNo=true){
     if(d.khangTheBatThuong) lines.push(`- Sàng lọc kháng thể bất thường: ${d.khangTheBatThuong}`);
     if(d.luuYKhac) lines.push(`- Các lưu ý khác: ${d.luuYKhac}`);
     const attachText = tmAttachmentNamesText(d);
-    if(attachText){ lines.push('d. Ảnh/tài liệu đính kèm'); lines.push(attachText); }
+    if(attachText){ lines.push('Ảnh/tài liệu đính kèm'); lines.push(attachText); }
     return lines.filter(x => tmTxt(x)).join('\n');
   }).join('\n\n');
 }
-
 function tmTdkmmGiaoBanLines(items, includePatientNo=true){
   if(!items || !items.length) return 'Không có bệnh nhân nào có tai biến liên quan đến truyền máu.';
   return items.map((x, index) => {
     const d = x.data || {};
     const lines = [];
     if(includePatientNo) lines.push(tmPatientNo(2, index));
-    const blocks = tdkmmGiaoBanTextBlocks(x, d);
-    const fIndex = blocks.findIndex(line => /^f\.\s+/.test(line));
-    const beforeF = fIndex >= 0 ? blocks.slice(0, fIndex) : blocks;
-    const fBlock = fIndex >= 0 ? blocks.slice(fIndex) : [];
-    lines.push(...beforeF);
-    lines.push('e. Kết quả xét nghiệm tai biến truyền máu');
-    tdkmmLabDisplayRows(d).forEach(row => {
-      lines.push(`- ${row[0] || ''}: Trước truyền ${row[1] || ''} – Sau truyền ${row[2] || ''} – Đơn vị máu ${row[3] || ''}`);
-    });
-    lines.push(...fBlock);
-    return lines.filter(x => tmTxt(x)).join('\n');
+    lines.push(...tdkmmGiaoBanTextBlocks(x, d));
+    return lines.filter(x => x === '' || tmTxt(x)).join('\n');
   }).join('\n\n');
 }
-
 function tmReportItemHtml(label, value){
   const v = tmTxt(value);
   if(!v) return '';
@@ -7120,50 +7094,38 @@ function renderTmXuTriGiaoBanCardHtml(items){
       tmLine('Ngày', tmDateTimeText(x.ngaySuKien)),
       tmLine('Người thực hiện', x.nguoiTaoTen)
     ]);
-    const patientInfo = tmDetailValue([
-      tmBulletLine(tmJoinInline([
-        x.hoTenBenhNhan || '',
-        x.namSinh ? `Năm sinh: ${x.namSinh}` : '',
-        d.gioiTinh ? `Giới: ${d.gioiTinh}` : ''
-      ])),
-      tmDetailLine('Mã BN', x.maBenhNhan),
-      tmBulletLine(tmJoinInline([
-        x.khoaPhongDieuTri ? `Viện/TT/khoa/phòng: ${x.khoaPhongDieuTri}` : '',
-        d.giuong ? `Giường: ${d.giuong}` : ''
-      ])),
-      tmDetailLine('Chẩn đoán', d.chanDoan)
-    ]);
-    const xuTriInfo = tmDetailValue([
-      tmDetailLine('Vấn đề cần xử trí', d.vanDeCanXuTri),
-      tmDetailLine('Các vấn đề khác', d.vanDeKhac),
-      tmDetailLine('Cách xử lý', d.cachXuLy),
-      tmDetailLine('Kết quả xử lý', d.ketQuaXuLy)
-    ]);
-    const xetNghiemInfo = tmDetailValue([
-      tmBulletLine(tmJoinInline([
-        d.nhomMauABO ? `Nhóm máu ABO: ${d.nhomMauABO}` : '',
-        d.rhD ? `Rh(D): ${d.rhD}` : ''
-      ])),
-      tmDetailLine('Sàng lọc kháng thể bất thường', d.khangTheBatThuong),
-      tmDetailLine('Các lưu ý khác', d.luuYKhac)
-    ]);
+    const patientHtml = [
+      tmGbLine([tmGbField('Họ tên', x.hoTenBenhNhan), tmGbField('tuổi', tmAgeYearText(d, x)), tmGbField('PID', x.maBenhNhan)]),
+      tmGbLine(tmGbField('Viện/TT/khoa/phòng', x.khoaPhongDieuTri)),
+      tmGbLine(tmGbField('Chẩn đoán', d.chanDoan))
+    ].filter(Boolean).join('');
+    const xuTriHtml = [
+      tmGbLine(tmGbField('Vấn đề cần xử trí', d.vanDeCanXuTri)),
+      tmGbLine(tmGbField('Các vấn đề khác', d.vanDeKhac)),
+      tmGbLine(tmGbField('Cách xử lý', d.cachXuLy)),
+      tmGbLine(tmGbField('Kết quả xử lý', d.ketQuaXuLy))
+    ].filter(Boolean).join('');
+    const xetNghiemHtml = [
+      tmGbLine([`Nhóm máu ABO: ${tmGbSpan(d.nhomMauABO, 'tm-gb-red-bold')}`, tmGbField('Rh(D)', d.rhD, 'tm-gb-red')]),
+      tmGbLine(tmGbField('Sàng lọc kháng thể bất thường', d.khangTheBatThuong)),
+      tmGbLine(tmGbField('Các lưu ý khác', d.luuYKhac))
+    ].filter(Boolean).join('');
     return `
       ${tmReportItemHtml(tmPatientNo(1, index), headerLines)}
-      ${tmReportItemHtml('a. Thông tin người bệnh', patientInfo)}
-      ${tmReportItemHtml('b. Nội dung xử trí', xuTriInfo)}
-      ${tmReportItemHtml('c. Thông tin nhóm máu/xét nghiệm liên quan', xetNghiemInfo)}
-      ${renderTmAttachmentInlineHtml(d, 'd. Ảnh/tài liệu đính kèm')}
+      <div class="report-item"><div class="report-label">a. Thông tin người bệnh</div><div class="report-value">${patientHtml}</div></div>
+      <div class="report-item"><div class="report-label">b. Nội dung xử trí</div><div class="report-value">${xuTriHtml}</div></div>
+      <div class="report-item"><div class="report-label">c. Thông tin nhóm máu/xét nghiệm liên quan</div><div class="report-value">${xetNghiemHtml}</div></div>
+      ${renderTmAttachmentInlineHtml(d, 'Ảnh/tài liệu đính kèm')}
     `;
   }).join('') : '<div class="report-value">Không có bệnh nhân nào cần xử trí chuyên môn.</div>';
   return `<div class="report-day"><div class="report-day-title">1. Bệnh nhân cần xử trí chuyên môn</div>${body}</div>`;
 }
-
 function renderTmTdkmmGiaoBanCardHtml(items){
   const arr = items || [];
   const body = arr.length ? arr.map((p, index) => {
     const d = p.data || {};
-    const attachHtml = tmAttachmentItems(d).length ? renderTmAttachmentInlineHtml(d, 'g. Ảnh/tài liệu đính kèm') : '';
-    return `<div class="report-item tm-report-patient"><div class="report-label">${esc(tmPatientNo(2, index))}</div><div class="report-value">${tdkmmGiaoBanSectionHtml(p, d, true)}</div></div>${attachHtml}`;
+    const attachHtml = tmAttachmentItems(d).length ? renderTmAttachmentInlineHtml(d, 'Ảnh/tài liệu đính kèm') : '';
+    return `<div class="report-item tm-report-patient"><div class="report-label">${esc(tmPatientNo(2, index))}</div><div class="report-value">${tdkmmGiaoBanSectionHtml(p, d, false)}</div></div>${attachHtml}`;
   }).join('') : '<div class="report-value">Không có bệnh nhân nào có tai biến liên quan đến truyền máu.</div>';
   return `<div class="report-day"><div class="report-day-title">2. Tác dụng không mong muốn liên quan đến truyền máu</div>${body}</div>`;
 }
@@ -7597,7 +7559,7 @@ function tdkmmPdfHistoryIconHtml(x){
   const hist = Array.isArray(x.pdfExportHistory) ? x.pdfExportHistory : [];
   const latest = hist[0] || null;
   const tip = latest ? `Lịch sử xuất PDF - gần nhất: ${(latest.tenNhanVien || '')} ${latest.thoiDiemText || dateTimeViColon(latest.thoiDiem) || ''}` : 'Lịch sử xuất PDF';
-  return `<button class="app-icon-btn" type="button" onclick="openTdkmmPdfExportHistory('${escAttr(x.id || x.phieuTMID)}', this)" title="${escAttr(tip)}" aria-label="Lịch sử xuất PDF">${icon2d('meeting')}</button>`;
+  return `<button class="app-icon-btn" type="button" onclick="openTdkmmPdfExportHistory('${escAttr(x.id || x.phieuTMID)}', this)" title="${escAttr(tip)}" aria-label="Lịch sử xuất PDF">${icon2d('history')}</button>`;
 }
 
 window.openTmPhieu = async function(phieuTMID, btn){
@@ -9890,7 +9852,7 @@ window.exportTmExcel = window.exportDsPhieuExcel;
 /* ================= ACCOUNT ================= */
 
 
-const ICON_2D_PATHS = {"user": "<circle cx=\"12\" cy=\"7\" r=\"3.5\"/><path d=\"M5 21a7 7 0 0 1 14 0\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "clipboard": "<path d=\"M9 4h6l1 2h3v15H5V6h3l1-2Z\"/><path d=\"M9 10h6M9 14h6M9 18h4\"/>", "meeting": "<circle cx=\"12\" cy=\"6\" r=\"2.1\"/><circle cx=\"5.8\" cy=\"9.3\" r=\"1.9\"/><circle cx=\"18.2\" cy=\"9.3\" r=\"1.9\"/><path d=\"M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1\"/><path d=\"M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9\"/><path d=\"M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9\"/><ellipse cx=\"12\" cy=\"16.6\" rx=\"6.3\" ry=\"2.2\"/><path d=\"M12 18.8v2.2M8.7 21h6.6\"/>", "file": "<path d=\"M7 3h7l4 4v14H7V3Z\"/><path d=\"M14 3v5h5M10 12h6M10 16h6\"/>", "eye": "<path d=\"M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "eye-off": "<path d=\"M3 3l18 18\"/><path d=\"M10.6 10.6a3 3 0 0 0 3.8 3.8\"/><path d=\"M9.5 5.7A9.8 9.8 0 0 1 12 5.4c6 0 9.5 6.6 9.5 6.6a16 16 0 0 1-3.1 4.1\"/><path d=\"M6.1 6.6C3.8 8.3 2.5 12 2.5 12a16.1 16.1 0 0 0 6.4 6\"/>", "edit": "<path d=\"M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z\"/><path d=\"M13.5 8.5l3 3\"/>", "key": "<circle cx=\"7.5\" cy=\"14.5\" r=\"3.5\"/><path d=\"M11 14.5h10M16 14.5v3M19 14.5v2\"/>", "settings": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a7 7 0 0 0-1.8-1L14.4 3h-4.8l-.3 3.1a7 7 0 0 0-1.8 1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7 7 0 0 0 1.8 1l.3 3.1h4.8l.3-3.1a7 7 0 0 0 1.8-1l2.4 1 2-3.4-2-1.5c.1-.3.1-.7.1-1Z\"/>", "logout": "<path d=\"M10 4H5v16h5\"/><path d=\"M14 16l4-4-4-4M18 12H9\"/>", "id": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"11\" r=\"2\"/><path d=\"M6 16a3 3 0 0 1 6 0M14 10h4M14 14h4\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M4 9h16\"/>", "mail": "<rect x=\"4\" y=\"6\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M4 8l8 5 8-5\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M9 7V5h6v2M3 12h18\"/>", "building": "<path d=\"M5 21V4h14v17\"/><path d=\"M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2M3 21h18\"/>", "map": "<path d=\"M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/>", "shield": "<path d=\"M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3Z\"/><path d=\"M9 12l2 2 4-5\"/>", "signature": "<path d=\"M4 17c2.5-5 5-5 5-2 0 2-2 3-3 3 3 0 5-6 8-6 2 0 1 4 3 4 1.5 0 2.5-2 3-3\"/><path d=\"M4 21h16\"/>", "equipment": "<rect x=\"5\" y=\"7\" width=\"14\" height=\"11\" rx=\"2\"/><path d=\"M8 7V5h8v2M9 12h2M13 12h2M9 16h6\"/>", "puzzle": "<path d=\"M8 3h4v3a2 2 0 1 0 0 4v3h3a2 2 0 1 1 0 4h-3v4H8v-4H5a2 2 0 1 1 0-4h3v-3a2 2 0 1 0 0-4V3Z\"/>", "book": "<path d=\"M4 5a3 3 0 0 1 3-2h13v16H7a3 3 0 0 0-3 2V5Z\"/><path d=\"M4 5v16M8 7h8M8 11h8\"/>", "link": "<path d=\"M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1.2 1.2\"/><path d=\"M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1.2-1.2\"/>"};
+const ICON_2D_PATHS = {"user": "<circle cx=\"12\" cy=\"7\" r=\"3.5\"/><path d=\"M5 21a7 7 0 0 1 14 0\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "clipboard": "<path d=\"M9 4h6l1 2h3v15H5V6h3l1-2Z\"/><path d=\"M9 10h6M9 14h6M9 18h4\"/>", "meeting": "<circle cx=\"12\" cy=\"6\" r=\"2.1\"/><circle cx=\"5.8\" cy=\"9.3\" r=\"1.9\"/><circle cx=\"18.2\" cy=\"9.3\" r=\"1.9\"/><path d=\"M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1\"/><path d=\"M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9\"/><path d=\"M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9\"/><ellipse cx=\"12\" cy=\"16.6\" rx=\"6.3\" ry=\"2.2\"/><path d=\"M12 18.8v2.2M8.7 21h6.6\"/>", "file": "<path d=\"M7 3h7l4 4v14H7V3Z\"/><path d=\"M14 3v5h5M10 12h6M10 16h6\"/>", "eye": "<path d=\"M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "eye-off": "<path d=\"M3 3l18 18\"/><path d=\"M10.6 10.6a3 3 0 0 0 3.8 3.8\"/><path d=\"M9.5 5.7A9.8 9.8 0 0 1 12 5.4c6 0 9.5 6.6 9.5 6.6a16 16 0 0 1-3.1 4.1\"/><path d=\"M6.1 6.6C3.8 8.3 2.5 12 2.5 12a16.1 16.1 0 0 0 6.4 6\"/>", "edit": "<path d=\"M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z\"/><path d=\"M13.5 8.5l3 3\"/>", "key": "<circle cx=\"7.5\" cy=\"14.5\" r=\"3.5\"/><path d=\"M11 14.5h10M16 14.5v3M19 14.5v2\"/>", "settings": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a7 7 0 0 0-1.8-1L14.4 3h-4.8l-.3 3.1a7 7 0 0 0-1.8 1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7 7 0 0 0 1.8 1l.3 3.1h4.8l.3-3.1a7 7 0 0 0 1.8-1l2.4 1 2-3.4-2-1.5c.1-.3.1-.7.1-1Z\"/>", "logout": "<path d=\"M10 4H5v16h5\"/><path d=\"M14 16l4-4-4-4M18 12H9\"/>", "id": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"11\" r=\"2\"/><path d=\"M6 16a3 3 0 0 1 6 0M14 10h4M14 14h4\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M4 9h16\"/>", "mail": "<rect x=\"4\" y=\"6\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M4 8l8 5 8-5\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M9 7V5h6v2M3 12h18\"/>", "building": "<path d=\"M5 21V4h14v17\"/><path d=\"M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2M3 21h18\"/>", "map": "<path d=\"M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/>", "shield": "<path d=\"M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3Z\"/><path d=\"M9 12l2 2 4-5\"/>", "signature": "<path d=\"M4 17c2.5-5 5-5 5-2 0 2-2 3-3 3 3 0 5-6 8-6 2 0 1 4 3 4 1.5 0 2.5-2 3-3\"/><path d=\"M4 21h16\"/>", "equipment": "<rect x=\"5\" y=\"7\" width=\"14\" height=\"11\" rx=\"2\"/><path d=\"M8 7V5h8v2M9 12h2M13 12h2M9 16h6\"/>", "puzzle": "<path d=\"M8 3h4v3a2 2 0 1 0 0 4v3h3a2 2 0 1 1 0 4h-3v4H8v-4H5a2 2 0 1 1 0-4h3v-3a2 2 0 1 0 0-4V3Z\"/>", "book": "<path d=\"M4 5a3 3 0 0 1 3-2h13v16H7a3 3 0 0 0-3 2V5Z\"/><path d=\"M4 5v16M8 7h8M8 11h8\"/>", "history": "<path d=\"M3 12a9 9 0 1 0 3-6.7\"/><path d=\"M3 4v5h5\"/><path d=\"M12 7v5l3 2\"/>", "link": "<path d=\"M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1.2 1.2\"/><path d=\"M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1.2-1.2\"/>"};
 function icon2d(name){
   const path = ICON_2D_PATHS[name] || ICON_2D_PATHS.file || '';
   return `<svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${path}</svg>`;
