@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
   <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
   <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
-  <link rel="manifest" href="./manifest.json?v=225.230626-PWA-TITLE-MEDOPS-PRO">
+  <link rel="manifest" href="./manifest.json?v=237.230626-PWA-TITLE-NO-DUP">
   <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
@@ -5008,7 +5008,15 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-236.230626-EXCEL-PERMISSION-LOGIN-GREEN';
+const APP_VERSION = 'INDEX-237.230626-PWA-TITLE-NO-DUP';
+const PWA_WINDOW_TITLE = 'MedOps Pro';
+function applyPwaWindowTitle(){
+  try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
+}
+applyPwaWindowTitle();
+document.addEventListener('DOMContentLoaded', applyPwaWindowTitle);
+window.addEventListener('pageshow', applyPwaWindowTitle);
+window.addEventListener('focus', applyPwaWindowTitle);
 
 function isSystemAdminAccount(user){
   const u = user || state.user || state.accountInfo || {};
