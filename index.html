@@ -258,17 +258,26 @@
     .boot-sub{font-size:13px;color:var(--g-muted);margin:0}
     .app-version{display:none;position:fixed;right:12px;bottom:calc(var(--tabbar-h) + 5px);z-index:19;color:var(--g-muted);font-size:11.5px;line-height:1;background:transparent;padding:0;text-align:right;pointer-events:none}
     .app-shell.show-account-version .app-version{display:block}
-    .login-screen{min-height:100%;display:grid;place-items:center;padding:24px 24px 104px;background:linear-gradient(145deg,#3f0619,#580824 45%,#f8f1f4 45%);position:relative;overflow:hidden}
-    .login-card{width:100%;max-width:420px;background:#fff;border-radius:26px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.22);text-align:center;position:relative;z-index:1}
+    .login-screen{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:calc(env(safe-area-inset-top,0px) + 14px) 24px 118px;background:linear-gradient(145deg,#3f0619,#580824 45%,#f8f1f4 45%);position:relative;overflow:hidden}
+    .login-hero{width:100%;max-width:460px;text-align:center;position:relative;z-index:1;margin:0 auto 12px;color:#fff}
+    .login-hero .login-logo{margin:0 auto 8px}
+    .login-hero .login-hospital{color:#fff;font-size:16px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.22)}
+    .login-hero .login-center{color:#fff;font-size:18px;font-weight:800;text-shadow:0 1px 2px rgba(0,0,0,.22)}
+    .login-card{width:100%;max-width:440px;background:#fff;border-radius:26px;padding:24px 26px;box-shadow:0 18px 50px rgba(0,0,0,.22);text-align:center;position:relative;z-index:1}
     .login-logo{width:76px;height:76px;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;margin:0 auto 12px;box-shadow:0 2px 10px rgba(0,0,0,.12);position:relative}
     .login-hospital{font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;margin:0 0 5px;color:#1a73e8;font-size:15px;font-weight:600;text-align:center;letter-spacing:0;line-height:1.35}
     .login-center{font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;margin:0 0 5px;color:var(--wine);font-size:18px;font-weight:700;text-align:center;letter-spacing:0;line-height:1.35}
-    .login-title{font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;margin:0 0 7px;color:var(--wine-dark);font-size:25px;font-weight:800;text-align:center;letter-spacing:0;line-height:1.35}
-    .login-app-desc{margin:0 0 16px;color:var(--g-muted);font-size:14px;font-weight:600;text-align:center;line-height:1.35}
+    .login-title{font-family:"Segoe UI",Roboto,Arial,"Noto Sans",Tahoma,sans-serif;margin:0 0 6px;color:var(--wine-dark);font-size:30px;font-weight:800;text-align:center;letter-spacing:0;line-height:1.25}
+    .login-app-desc{margin:0 0 14px;color:var(--g-muted);font-size:15px;font-weight:700;text-align:center;line-height:1.35}
+    .login-form-title{margin:4px 0 12px;color:var(--wine-dark);font-size:20px;font-weight:800;line-height:1.3;text-align:left}
+    .login-card label{text-align:left;font-size:15.5px;font-weight:700;color:var(--g-muted)}
+    .login-card input{min-height:42px;font-size:16.5px;text-align:left}
+    .login-submit-row{display:flex;justify-content:flex-end;margin-top:15px}
+    .login-submit-row .btn{width:auto!important;min-height:42px;height:42px;padding:0 24px!important;font-size:16px;font-weight:700;white-space:nowrap}
     .login-version{margin:7px 0 0;color:#777;font-size:12px;text-align:center;line-height:1.4}
-    .login-links{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:13px;font-size:13.5px;line-height:1.4}
+    .login-links{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:13px;font-size:14px;line-height:1.4}
     .login-links a{color:var(--g-blue);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px}.login-links a:hover{text-decoration:underline}.login-links .forgot-link{color:var(--g-danger)}
-    .login-author{position:absolute;left:0;right:0;bottom:18px;z-index:0;text-align:center;padding:0 15px;color:#666;font-size:13.5px;line-height:1.6}.login-author p{margin:3px 0}.login-author strong{color:#666;font-size:14.5px}
+    .login-author{position:absolute;left:0;right:0;bottom:18px;z-index:0;text-align:center;padding:0 15px;color:#666;font-size:14px;line-height:1.6}.login-author p{margin:3px 0}.login-author strong{color:#5f3b49;font-size:16px}
     .password-wrap{position:relative}.password-wrap input{padding-right:42px}.password-toggle{position:absolute;right:1px;top:1px;bottom:1px;width:38px;display:grid;place-items:center;border:0;background:transparent;color:#777;font-size:16px;cursor:pointer;border-radius:0 4px 4px 0}.password-toggle:hover{background:#f1f3f4;color:#333}
     .login-loading-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;transition:opacity .3s ease;text-align:center;color:#202124;background-image:radial-gradient(circle at 15% 50%,rgba(0,91,170,.1) 0%,rgba(0,91,170,0) 25%),radial-gradient(circle at 85% 30%,rgba(32,201,151,.1) 0%,rgba(32,201,151,0) 20%),radial-gradient(circle at 25% 80%,rgba(0,91,170,.05) 0%,rgba(0,91,170,0) 20%);animation:float-particles 20s linear infinite}
     .login-loading-logo{position:relative;width:300px;height:300px;margin-bottom:25px;overflow:hidden;border-radius:15px;background:transparent}
@@ -297,7 +306,7 @@
     .account-setup-content{margin-top:0}.account-action-form{max-width:760px}
     @media(max-width:760px){.account-layout{display:block}.account-menu-card{position:static}.account-menu{gap:8px}.account-content-card{margin-top:12px}.account-setup-buttons{margin-top:8px}.account-menu .btn,.account-setup-buttons .btn{width:100%}.account-info-card{padding:15px}.account-info-value{font-size:15.5px}}
     .modal-small{max-width:520px}.modal-small h3{margin:0 0 12px;color:var(--wine-dark)}.modal-note{font-size:13px;color:var(--muted);line-height:1.45;margin:6px 0 0}
-    @media(max-width:760px){.login-screen{padding:18px 18px 112px}.login-card{padding:20px}.login-loading-logo{width:300px;height:300px}.account-layout{display:block}.account-menu-card{position:static}.account-menu{gap:8px}.account-menu-btn{min-height:46px}.account-content-card{margin-top:12px}.account-setup-buttons{grid-template-columns:1fr}.account-info-grid{grid-template-columns:1fr}.login-author{font-size:12.5px;bottom:14px}}
+    @media(max-width:760px){.login-screen{padding:calc(env(safe-area-inset-top,0px) + 10px) 18px 124px}.login-hero{margin-bottom:10px}.login-card{padding:22px 20px}.login-title{font-size:28px}.login-form-title{font-size:19px}.login-loading-logo{width:300px;height:300px}.account-layout{display:block}.account-menu-card{position:static}.account-menu{gap:8px}.account-menu-btn{min-height:46px}.account-content-card{margin-top:12px}.account-setup-buttons{grid-template-columns:1fr}.account-info-grid{grid-template-columns:1fr}.login-author{font-size:12.5px;bottom:14px}}
     .toast{
       position:fixed;left:50%;bottom:calc(var(--tabbar-h) + 14px);transform:translateX(-50%);z-index:100;
       background:#2a111a;color:white;border-radius:999px;padding:10px 14px;box-shadow:0 8px 25px rgba(0,0,0,.2);max-width:92vw;font-size:13px
@@ -4741,7 +4750,7 @@
 </head>
 <body>
 <!-- ===== MODULE: HTML_BODY_SHELL_START - boot/login/app/modal roots ===== -->
-  <div id="bootScreen" class="boot-screen">
+  <div id="bootScreen" class="boot-screen hidden">
     <div class="boot-box">
       <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><div class="brand-logo-safe"><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div></div>
       <p class="boot-title">Đang mở MedOps Pro</p>
@@ -4750,12 +4759,15 @@
   </div>
 
   <div id="loginScreen" class="login-screen hidden">
-    <div class="login-card">
+    <div class="login-hero">
       <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
       <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
       <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
+    </div>
+    <div class="login-card">
       <h1 class="login-title">MedOps Pro</h1>
       <p class="login-app-desc">Hệ thống quản lý hồ sơ nghiệp vụ y tế</p>
+      <div class="login-form-title">Đăng nhập</div>
       <div class="grid">
         <div class="col-12">
           <label>Mã nhân viên</label>
@@ -4769,7 +4781,7 @@
           </div>
         </div>
       </div>
-      <button id="loginBtn" class="btn primary" style="width:100%;margin-top:14px">Đăng nhập</button>
+      <div class="login-submit-row"><button id="loginBtn" class="btn primary">Đăng nhập</button></div>
       <div class="login-links">
         <a href="#" id="registerAccountLink">Đăng ký tài khoản mới</a>
         <span style="color:#c8b8c1">|</span>
@@ -4777,15 +4789,15 @@
       </div>
     </div>
     <div class="login-author">
-      <p><strong>MedOps Pro</strong></p>
+      <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Hệ thống quản lý hồ sơ nghiệp vụ y tế</p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-226.230626-HEADER-TTHHTM-LOGO-GAN-CHU</p>
+      <p class="login-version">Version: INDEX-231.230626-LOGIN-BRAND-LAYOUT-MEDOPS</p>
     </div>
   </div>
 
-  <div id="loginLoadingOverlay" class="login-loading-overlay hidden">
+  <div id="loginLoadingOverlay" class="login-loading-overlay">
     <div class="login-loading-logo"><img src="./LOGO%20BVBM%20KO%20NEN.png?v=90.050626-LOADING-LOGO-NEN-TRONG-SUOT" alt="Logo Bệnh viện Bạch Mai"></div>
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
@@ -4825,7 +4837,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-226.230626-HEADER-TTHHTM-LOGO-GAN-CHU</div>
+    <div class="app-version">Version: INDEX-231.230626-LOGIN-BRAND-LAYOUT-MEDOPS</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4850,7 +4862,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-229.230626-BOOT-CHO-INIT-XONG';
+const APP_VERSION = 'INDEX-231.230626-LOGIN-BRAND-LAYOUT-MEDOPS';
 
 function isSystemAdminAccount(user){
   const u = user || state.user || state.accountInfo || {};
@@ -5019,16 +5031,18 @@ async function boot(){
   bindGlobalEvents();
   renderAllTabsSkeleton();
 
-  // Khi còn phiên đăng nhập, giữ nguyên màn hình chờ cho tới khi dữ liệu khởi tạo tải xong.
+  // Khi còn phiên đăng nhập, dùng lại màn hình loading đẹp sau đăng nhập cho tới khi dữ liệu khởi tạo tải xong.
   // Không mở app sớm để tránh người dùng đang nhập phiếu bị render lại về phiếu mặc định.
   if(state.token){
     const bootToken = state.token;
     const bootGuard = state.sessionGuard;
-    setBootStatus('Đang khôi phục phiên và tải dữ liệu...');
+    showLoginLoading(8, 'Đang khôi phục phiên đăng nhập...');
     try{
       await loadInitData({fromBoot:true, throwError:true});
       if(state.isLoggingOut || state.sessionGuard !== bootGuard || state.token !== bootToken) return;
+      showLoginLoading(100, 'Hoàn tất');
       showApp();
+      setTimeout(hideLoginLoading, 250);
     }catch(err){
       clearStoredSession();
       state.token = '';
@@ -5141,6 +5155,7 @@ async function logout(){
 
 function showLogin(){
   $('#bootScreen').classList.add('hidden');
+  hideLoginLoading();
   $('#loginScreen').classList.remove('hidden');
   $('#app').classList.add('hidden');
   const pw = $('#loginPw');
@@ -5173,7 +5188,7 @@ function showApp(){
 async function loadInitData(opts={}){
   if(state.initLoaded) return true;
   try{
-    if(opts.fromBoot) setBootStatus('Đang tải dữ liệu khởi tạo...');
+    if(opts.fromBoot) showLoginLoading(35, 'Đang tải dữ liệu khởi tạo...');
     if(opts.fromLogin) showLoginLoading(55, 'Đang tải dữ liệu...');
     const res = await api('getInitData', {});
     state.user = res.data.user || state.user;
@@ -5190,6 +5205,7 @@ async function loadInitData(opts={}){
     state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || [];
     state.initLoaded = true;
     if(opts.fromLogin) showLoginLoading(78, 'Đang dựng giao diện...');
+    if(opts.fromBoot) showLoginLoading(78, 'Đang dựng giao diện...');
     refreshDatalists();
     renderCreateTab();
     renderListTab();
