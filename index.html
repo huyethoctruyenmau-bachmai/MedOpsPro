@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>MedOps Pro - Hệ thống quản lý hồ sơ nghiệp vụ y tế</title>
+  <title>MedOps Pro</title>
   <link rel="icon" type="image/png" sizes="64x64" href="./APP_ICON_SO_TRUC_64.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
   <link rel="shortcut icon" type="image/png" href="./APP_ICON_SO_TRUC_64.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
   <link rel="apple-touch-icon" sizes="180x180" href="./APP_ICON_SO_TRUC_180.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
-  <link rel="manifest" href="./manifest.json?v=223.230626-MEDOPS-PRO-BRANDING">
+  <link rel="manifest" href="./manifest.json?v=225.230626-PWA-TITLE-MEDOPS-PRO">
   <meta name="msapplication-TileImage" content="./APP_ICON_SO_TRUC_192.png?v=130.070626-PWA-ICON-KHONG-VONG-TRANG">
   <meta name="theme-color" content="#580824">
   <meta name="mobile-web-app-capable" content="yes">
@@ -256,7 +256,8 @@
     .boot-logo{width:48px;height:48px;border-radius:12px;background:#e8f0fe;color:var(--g-blue);display:grid;place-items:center;margin:0 auto 12px;font-size:24px;font-weight:800}
     .boot-title{font-size:18px;font-weight:700;margin:0 0 6px;color:var(--g-text)}
     .boot-sub{font-size:13px;color:var(--g-muted);margin:0}
-    .app-version{position:fixed;right:12px;bottom:calc(var(--tabbar-h) + 5px);z-index:19;color:var(--g-muted);font-size:11.5px;line-height:1;background:transparent;padding:0;text-align:right;pointer-events:none}
+    .app-version{display:none;position:fixed;right:12px;bottom:calc(var(--tabbar-h) + 5px);z-index:19;color:var(--g-muted);font-size:11.5px;line-height:1;background:transparent;padding:0;text-align:right;pointer-events:none}
+    .app-shell.show-account-version .app-version{display:block}
     .login-screen{min-height:100%;display:grid;place-items:center;padding:24px 24px 104px;background:linear-gradient(145deg,#3f0619,#580824 45%,#f8f1f4 45%);position:relative;overflow:hidden}
     .login-card{width:100%;max-width:420px;background:#fff;border-radius:26px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.22);text-align:center;position:relative;z-index:1}
     .login-logo{width:76px;height:76px;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;margin:0 auto 12px;box-shadow:0 2px 10px rgba(0,0,0,.12);position:relative}
@@ -815,7 +816,7 @@
 
 
     /* ===== ACCOUNT PATCH 87: VERSION LOGIN + DESKTOP FIXED LEFT + MOBILE INFO FIRST ===== */
-    .login-author .login-version{margin-top:7px!important;font-size:12px!important;color:#777!important}
+    .login-author .login-version{display:none!important;margin-top:7px!important;font-size:12px!important;color:#777!important}
     @media (min-width:900px){
       #tab-account:not(.hidden){
         height:calc(100vh - var(--header-h) - var(--tabbar-h) - 46px);
@@ -4777,7 +4778,7 @@
       <p>Hệ thống quản lý hồ sơ nghiệp vụ y tế</p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-223.230626-MEDOPS-PRO-BRANDING</p>
+      <p class="login-version">Version: INDEX-226.230626-HEADER-TTHHTM-LOGO-GAN-CHU</p>
     </div>
   </div>
 
@@ -4793,7 +4794,7 @@
       <div class="brand">
         <img class="brand-logo-plain" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async">
         <div>
-          <div id="brandTitle" class="brand-title">MedOps Pro</div>
+          <div id="brandTitle" class="brand-title">Trung tâm Huyết học và Truyền máu</div>
           <div id="brandSub" class="brand-sub">Khoa</div>
         </div>
       </div>
@@ -4821,7 +4822,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-223.230626-MEDOPS-PRO-BRANDING</div>
+    <div class="app-version">Version: INDEX-226.230626-HEADER-TTHHTM-LOGO-GAN-CHU</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4846,7 +4847,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-223.230626-MEDOPS-PRO-BRANDING';
+const APP_VERSION = 'INDEX-226.230626-HEADER-TTHHTM-LOGO-GAN-CHU';
 
 function isSystemAdminAccount(user){
   const u = user || state.user || state.accountInfo || {};
@@ -5152,7 +5153,7 @@ function showApp(){
   $('#loginScreen').classList.add('hidden');
   $('#app').classList.remove('hidden');
   $('#userName').textContent = state.user?.tenNhanVien || 'Đang khôi phục phiên';
-  $('#brandTitle').textContent = 'MedOps Pro';
+  $('#brandTitle').textContent = 'Trung tâm Huyết học và Truyền máu';
   $('#brandSub').textContent = 'Khoa/phòng: ' + (state.user?.khoaPhong || '');
   renderCreateTab();
   renderAccountTab();
@@ -5243,6 +5244,8 @@ function renderAllTabsSkeleton(){
 
 function switchTab(tab){
   state.activeTab = tab;
+  const appShell = $('#app');
+  if(appShell) appShell.classList.toggle('show-account-version', tab === 'account');
   $$('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   $$('.tab-panel').forEach(p => p.classList.add('hidden'));
   $(`#tab-${tab}`).classList.remove('hidden');
