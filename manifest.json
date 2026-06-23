@@ -1,8 +1,8 @@
 {
-  "name": "Sổ trực - Giao ban Phòng Truyền máu",
-  "short_name": "Sổ trực",
-  "description": "Webapp Sổ trực - Giao ban nội bộ Trung tâm Huyết học và Truyền máu.",
-  "start_url": "./index.html?v=129.070626-PWA-ICON-TO-HON",
+  "name": "MedOps Pro - Hệ thống quản lý hồ sơ nghiệp vụ y tế",
+  "short_name": "MedOps Pro",
+  "description": "MedOps Pro - Hệ thống quản lý hồ sơ nghiệp vụ y tế: sổ trực, bàn giao, giao ban và phiếu chuyên môn điện tử.",
+  "start_url": "./index.html?v=223.230626-MEDOPS-PRO-BRANDING",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
