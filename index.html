@@ -4889,6 +4889,9 @@
     .excel-history-list{display:grid;gap:8px;margin-top:12px}
     .excel-history-item{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 12px;line-height:1.45}
     .excel-history-title{font-weight:700;color:var(--wine-dark);margin-bottom:3px}
+    .excel-history-pager{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .excel-history-pager .btn{width:auto!important;min-height:32px;height:32px;padding:0 12px}
+    .excel-history-filter{font-size:12.5px;color:var(--g-muted);line-height:1.4;margin-top:3px;white-space:pre-wrap}
     .excel-config-picker{max-width:760px}
     .excel-config-picker .staff-list{margin-top:10px}
     @media(max-width:760px){.ds-toolbar-actions{width:100%;justify-content:flex-end}}
@@ -5008,7 +5011,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-238.230626-EXCEL-HISTORY-NO-NOTE';
+const APP_VERSION = 'INDEX-239.230626-EXCEL-HISTORY-PAGING-BY-LOAI';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10203,31 +10206,54 @@ window.exportDsPhieuExcel = async function(btn){
 }
 
 
-window.openExcelExportHistory = async function(btn){
+window.openExcelExportHistory = async function(btn, page=1){
   const payload = getDsPhieuFilters();
   if(!payload.loaiHoSo || payload.loaiHoSo === 'Tất cả') return toast('Vui lòng chọn loại phiếu cụ thể trước khi xem lịch sử xuất Excel.');
   if(!canCurrentUserExportExcel()) return toast('Tài khoản chưa được cấp quyền xem lịch sử xuất Excel.');
   const run = async () => {
-    const res = await api('getExcelExportHistory', payload);
-    const items = res.data?.items || [];
-    const filterLine = [payload.loaiHoSo, dateVi(payload.fromDate), dateVi(payload.toDate), payload.khoaPhong, payload.trangThai].filter(Boolean).join(' · ');
+    const request = {...payload, page:Math.max(1, Number(page || 1)), pageSize:20};
+    const res = await api('getExcelExportHistory', request);
+    const data = res.data || {};
+    const items = data.items || [];
+    const total = Number(data.total || items.length || 0);
+    const currentPage = Number(data.page || 1);
+    const totalPages = Number(data.totalPages || 1);
+    const filterLine = `Loại phiếu: ${payload.loaiHoSo}`;
     openModal(`
       <div class="modal-card modal-small">
         <div class="modal-head"><div class="modal-title">${icon2d('history')} Lịch sử xuất Excel</div><button class="close-btn" onclick="closeModal()">×</button></div>
-        <p class="meta" style="margin-top:10px">Bộ lọc: ${esc(filterLine)}</p>
-        ${items.length ? `<div class="excel-history-list">${items.map(renderExcelHistoryItem).join('')}</div>` : '<div class="empty" style="margin-top:12px">Chưa có lịch sử xuất Excel phù hợp với bộ lọc này.</div>'}
-              </div>
+        <p class="meta" style="margin-top:10px">${esc(filterLine)}</p>
+        ${total ? `<p class="meta">Tổng ${total} lần xuất${totalPages > 1 ? ` · Trang ${currentPage}/${totalPages}` : ''}</p>` : ''}
+        ${items.length ? `<div class="excel-history-list">${items.map(renderExcelHistoryItem).join('')}</div>` : '<div class="empty" style="margin-top:12px">Chưa có lịch sử xuất Excel của loại phiếu này.</div>'}
+        ${totalPages > 1 ? renderExcelHistoryPager(currentPage, totalPages) : ''}
+      </div>
     `);
   };
   if(btn) return withButton(btn, 'Đang tải...', run);
   try{ await run(); }catch(err){ toast(err.message); }
 }
 
+function renderExcelHistoryPager(page, totalPages){
+  const prev = Math.max(1, Number(page) - 1);
+  const next = Math.min(Number(totalPages), Number(page) + 1);
+  return `<div class="excel-history-pager">
+    <button class="btn secondary" ${page <= 1 ? 'disabled' : ''} onclick="openExcelExportHistory(this, ${prev})">Trang trước</button>
+    <span class="meta">Trang ${page}/${totalPages}</span>
+    <button class="btn secondary" ${page >= totalPages ? 'disabled' : ''} onclick="openExcelExportHistory(this, ${next})">Trang sau</button>
+  </div>`;
+}
+
 function renderExcelHistoryItem(item){
   const time = item.thoiDiem ? dateTimeViColon(item.thoiDiem) : '';
   const user = item.nguoiXuatTen || item.nguoiXuatMa || '';
   const total = item.total ? `${item.total} dòng` : '';
-  return `<div class="excel-history-item"><div class="excel-history-title">${esc(time)} - ${esc(user)}</div><div class="meta">${esc(item.fileName || 'File Excel đã tải trực tiếp')}${total ? ' · ' + esc(total) : ''}</div></div>`;
+  const filters = [
+    item.tuNgay || item.denNgay ? `Từ ${dateVi(item.tuNgay) || '...'} đến ${dateVi(item.denNgay) || '...'}` : '',
+    item.khoaPhong ? `Khoa/phòng: ${item.khoaPhong}` : '',
+    item.trangThai ? `Trạng thái: ${item.trangThai}` : '',
+    item.keyword ? `Từ khóa: ${item.keyword}` : ''
+  ].filter(Boolean).join(' · ');
+  return `<div class="excel-history-item"><div class="excel-history-title">${esc(time)} - ${esc(user)}</div><div class="meta">${esc(item.fileName || 'File Excel')}${total ? ' · ' + esc(total) : ''}</div>${filters ? `<div class="excel-history-filter">${esc(filters)}</div>` : ''}</div>`;
 }
 
 // Giữ alias cũ để không lỗi nếu còn nút cũ trong DOM/cache trình duyệt.
