@@ -4746,6 +4746,87 @@
       }
     }
 
+
+
+    /* ===== PATCH 232: LOGIN CENTER CARD + UPPERCASE HOSPITAL HEADER ===== */
+    .login-screen{
+      justify-content:center!important;
+      padding:calc(env(safe-area-inset-top,0px) + 72px) 24px 118px!important;
+    }
+    .login-hero{
+      position:absolute!important;
+      top:calc(env(safe-area-inset-top,0px) + 12px)!important;
+      left:50%!important;
+      transform:translateX(-50%)!important;
+      width:min(460px,calc(100vw - 32px))!important;
+      margin:0!important;
+      z-index:2!important;
+    }
+    .login-hero .login-logo{
+      width:52px!important;
+      height:52px!important;
+      min-width:52px!important;
+      max-width:52px!important;
+      margin:0 auto 6px!important;
+      box-shadow:0 2px 8px rgba(0,0,0,.12)!important;
+    }
+    .login-hero .login-logo .logo-img{
+      width:50px!important;
+      height:50px!important;
+      min-width:50px!important;
+      max-width:50px!important;
+      object-fit:contain!important;
+    }
+    .login-hero .login-hospital{
+      margin:0 0 3px!important;
+      color:#fff!important;
+      font-size:19px!important;
+      font-weight:900!important;
+      letter-spacing:.3px!important;
+      text-transform:uppercase!important;
+      line-height:1.25!important;
+      text-shadow:0 1px 2px rgba(0,0,0,.24)!important;
+    }
+    .login-hero .login-center{
+      margin:0!important;
+      color:#fff!important;
+      font-size:15.5px!important;
+      font-weight:800!important;
+      letter-spacing:.2px!important;
+      text-transform:uppercase!important;
+      line-height:1.25!important;
+      text-shadow:0 1px 2px rgba(0,0,0,.24)!important;
+    }
+    .login-card{
+      margin:auto!important;
+    }
+    .login-form-title{display:none!important;}
+    .login-app-desc{margin-bottom:16px!important;}
+    @media(max-width:760px){
+      .login-screen{
+        justify-content:center!important;
+        padding:calc(env(safe-area-inset-top,0px) + 76px) 18px 124px!important;
+      }
+      .login-hero{
+        top:calc(env(safe-area-inset-top,0px) + 10px)!important;
+        width:calc(100vw - 28px)!important;
+      }
+      .login-hero .login-logo{
+        width:46px!important;
+        height:46px!important;
+        min-width:46px!important;
+        max-width:46px!important;
+        margin-bottom:5px!important;
+      }
+      .login-hero .login-logo .logo-img{
+        width:44px!important;
+        height:44px!important;
+        min-width:44px!important;
+        max-width:44px!important;
+      }
+      .login-hero .login-hospital{font-size:17px!important;}
+      .login-hero .login-center{font-size:13.5px!important;}
+    }
 </style>
 </head>
 <body>
@@ -4761,13 +4842,12 @@
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-hero">
       <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
-      <p class="login-hospital">B&#7879;nh vi&#7879;n B&#7841;ch Mai</p>
-      <p class="login-center">Trung t&#226;m Huy&#7871;t h&#7885;c v&#224; Truy&#7873;n m&#225;u</p>
+      <p class="login-hospital">B&#7878;NH VI&#7878;N B&#7840;CH MAI</p>
+      <p class="login-center">TRUNG T&#194;M HUY&#7870;T H&#7884;C V&#192; TRUY&#7872;N M&#193;U</p>
     </div>
     <div class="login-card">
       <h1 class="login-title">MedOps Pro</h1>
       <p class="login-app-desc">Hệ thống quản lý hồ sơ nghiệp vụ y tế</p>
-      <div class="login-form-title">Đăng nhập</div>
       <div class="grid">
         <div class="col-12">
           <label>Mã nhân viên</label>
@@ -4793,7 +4873,7 @@
       <p>Hệ thống quản lý hồ sơ nghiệp vụ y tế</p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-231.230626-LOGIN-BRAND-LAYOUT-MEDOPS</p>
+      <p class="login-version">Version: INDEX-232.230626-LOGIN-CENTER-HEADER-UPPER</p>
     </div>
   </div>
 
@@ -4837,7 +4917,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-231.230626-LOGIN-BRAND-LAYOUT-MEDOPS</div>
+    <div class="app-version">Version: INDEX-232.230626-LOGIN-CENTER-HEADER-UPPER</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -4862,7 +4942,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-231.230626-LOGIN-BRAND-LAYOUT-MEDOPS';
+const APP_VERSION = 'INDEX-232.230626-LOGIN-CENTER-HEADER-UPPER';
 
 function isSystemAdminAccount(user){
   const u = user || state.user || state.accountInfo || {};
