@@ -5011,7 +5011,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-239.230626-EXCEL-HISTORY-PAGING-BY-LOAI';
+const APP_VERSION = 'INDEX-240.230626-BO-GHI-CHU-FORM';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5621,7 +5621,6 @@ function renderCreateTab(){
         <div class="btn-row">
           <button id="createBtn" class="btn primary">Tạo phiếu</button>
         </div>
-        <p class="meta">Khi bấm Tạo phiếu, hệ thống hiểu rằng người thực hiện đã ký xác nhận nội dung phiếu.</p>
       </div>
     </div>
   `;
@@ -5950,7 +5949,6 @@ function renderBanGiaoTaiSanInput(isTM){
     <div class="btn-row">
       <button class="btn secondary" type="button" onclick="addManualTmEquipmentRow()">Thêm thiết bị phát sinh</button>
     </div>
-    <p class="meta">Thiết bị phát sinh chỉ lưu trong phiếu này, không tự thêm vào Cài đặt. Số lượng HĐ BT/Hỏng có thể sửa thủ công theo thực tế khi bàn giao.</p>
   `;
   bindCreateEquipmentEvents();
 }
@@ -8535,7 +8533,6 @@ function renderMeetingTab(){
         <div class="col-3 filter-action"><button id="loadGbBtn" class="btn primary">Xem danh sách</button></div>
         <div class="col-3 filter-action"><button id="createGbBtn" class="btn ok">Tạo phiên họp/giao ban</button></div>
       </div>
-      <p class="meta">Tạo phiên họp/giao ban sẽ mở hộp thoại chọn khoa/phòng và loại phiếu. Nếu không lưu nháp hoặc ký kết thúc thì phiên mới chưa được ghi nhận.</p>
     </div>
     <div id="giaoBanListBox"></div>
   `;
@@ -9991,7 +9988,6 @@ function renderPdfTab(){
         <div class="col-12 filter-keyword"><label>Từ khóa</label><input id="pdfKeyword" class="equal-control" placeholder="Tìm theo mã BN/PID, họ tên, khoa/phòng, nội dung"></div>
         <div class="col-3 filter-action"><button id="loadPdfBtn" class="btn primary">Xem danh sách</button></div>
       </div>
-      <p class="meta">Phiếu có PDF sẽ hiện nút Xem PDF. Chọn một loại phiếu cụ thể rồi bấm Xem danh sách để xuất Excel.</p>
     </div>
     <div id="pdfListBox"></div>
   `;
