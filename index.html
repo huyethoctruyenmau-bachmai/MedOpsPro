@@ -4847,7 +4847,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-226.230626-HEADER-TTHHTM-LOGO-GAN-CHU';
+const APP_VERSION = 'INDEX-227.230626-BAO-CAO-KHO-MAU-DS-7NGAY';
 
 function isSystemAdminAccount(user){
   const u = user || state.user || state.accountInfo || {};
@@ -4867,6 +4867,7 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVs
 
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
 const LOAI_BAO_CAO = 'Báo cáo thường trực';
+const LOAI_BAO_CAO_KHO_MAU = 'Báo cáo kho máu';
 const LOAI_TM_XU_TRI = 'Khai báo xử trí chuyên môn Truyền máu';
 const LOAI_TM_TDKMM = 'Khai báo tác dụng không mong muốn liên quan truyền máu';
 const STATUS_CHUA = 'Chưa hoàn thành';
@@ -5332,7 +5333,8 @@ function renderCreateTab(){
           <label>Loại phiếu</label>
           <select id="createLoai" class="equal-control create-loai-control">
             <option>${LOAI_BAN_GIAO}</option>
-            <option>${LOAI_BAO_CAO}</option>${tmOptions}
+            <option>${LOAI_BAO_CAO}</option>
+            <option>${LOAI_BAO_CAO_KHO_MAU}</option>${tmOptions}
           </select>
         </div>
         <div class="col-3">
@@ -5382,6 +5384,19 @@ function renderCreateTab(){
         </div>
       </div>
 
+      <div id="bloodStockReportBlock" class="card hidden">
+        <h3 class="section-title">II. Nội dung báo cáo</h3>
+        <div class="grid">
+          <div class="col-12">
+            <label>Nội dung báo cáo kho máu</label>
+            <textarea id="baoCaoKhoMauNoiDung" placeholder="Nhập nội dung báo cáo kho máu"></textarea>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button id="createKhoMauBtn" class="btn primary">Tạo phiếu</button>
+        </div>
+      </div>
+
       <div id="regularPhieuBlock" class="card">
         <h3 id="handoverTitle" class="section-title">II. Bàn giao thường trực</h3>
         <div class="grid">
@@ -5421,6 +5436,7 @@ function renderCreateTab(){
   document.removeEventListener('click', closeStaffSuggestOnOutsideClick);
   document.addEventListener('click', closeStaffSuggestOnOutsideClick);
   $('#createBtn').addEventListener('click', submitCreatePhieu);
+  $('#createKhoMauBtn')?.addEventListener('click', submitCreatePhieu);
   updateCreateFormNumbering();
   refreshStaffList();
   setTimeout(() => { $$('textarea').forEach(autoGrow); loadTmAttachmentImages(document.getElementById('modalRoot') || document); }, 0);
@@ -5429,13 +5445,15 @@ function renderCreateTab(){
 function updateCreateFormNumbering(){
   const loai = $('#createLoai')?.value || LOAI_BAN_GIAO;
   const isReport = loai === LOAI_BAO_CAO;
+  const isBloodStockReport = loai === LOAI_BAO_CAO_KHO_MAU;
   const isTmPhieu = isTmPhieuLoai(loai);
   const isTM = isTruyenMauDept($('#createDept')?.value || '');
   $('#reportBlock')?.classList.toggle('hidden', !isReport || isTmPhieu);
-  $('#regularPhieuBlock')?.classList.toggle('hidden', isTmPhieu);
+  $('#bloodStockReportBlock')?.classList.toggle('hidden', !isBloodStockReport);
+  $('#regularPhieuBlock')?.classList.toggle('hidden', isTmPhieu || isBloodStockReport);
   $('#tmPhieuBlock')?.classList.toggle('hidden', !isTmPhieu);
-  if($('#createDateLabel')) $('#createDateLabel').textContent = isTmPhieu ? (loai === LOAI_TM_XU_TRI ? 'Ngày thực hiện' : 'Ngày tháng năm') : (isReport ? 'Ngày trực' : 'Ngày thực hiện');
-  if($('#createUserLabel')) $('#createUserLabel').textContent = loai === LOAI_TM_TDKMM ? 'Người báo cáo' : 'Người thực hiện';
+  if($('#createDateLabel')) $('#createDateLabel').textContent = isTmPhieu ? (loai === LOAI_TM_XU_TRI ? 'Ngày thực hiện' : 'Ngày tháng năm') : (isReport ? 'Ngày trực' : (isBloodStockReport ? 'Ngày báo cáo' : 'Ngày thực hiện'));
+  if($('#createUserLabel')) $('#createUserLabel').textContent = (loai === LOAI_TM_TDKMM || isBloodStockReport) ? 'Người báo cáo' : 'Người thực hiện';
   if(isTmPhieu){
     renderTmPhieuCreateForm(loai);
     return;
@@ -5672,7 +5690,7 @@ function renderSoLieuTrucInput(isTM){
   box.innerHTML = `
     <div class="tm-report-grid">
       <div class="tm-report-group">
-        <div class="tm-report-title">Phát máu</div>
+        <div class="tm-report-title">a. Phát máu</div>
         <div class="tm-inline-grid phat-grid">
           <div class="tm-phat-total-bn"><label>Tổng số BN</label><input id="tmPhatTongBN" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           <div><label>KHC</label><input id="tmPhatKHC" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
@@ -5681,7 +5699,8 @@ function renderSoLieuTrucInput(isTM){
         </div>
       </div>
       <div class="tm-report-group">
-        <div class="tm-report-title">Máu tồn</div>
+        <div class="tm-report-title">b. Kho máu</div>
+        <div class="tm-form-note" style="margin-bottom:6px">Máu tồn</div>
         <div class="tm-inline-grid ton-grid">
           <div><label>KHC</label><input id="tmTonKHC" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           <div><label>HTT</label><input id="tmTonHTT" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
@@ -5689,6 +5708,7 @@ function renderSoLieuTrucInput(isTM){
           <div><label>KTC</label><input id="tmTonKTC" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           <div><label>KTC gạn tách</label><input id="tmTonKTCGanTach" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
         </div>
+        <div style="margin-top:8px"><label>Khác</label><textarea id="tmTonKhac" placeholder="Nhập nội dung khác về kho máu"></textarea></div>
       </div>
     </div>
   `;
@@ -5798,12 +5818,14 @@ function collectSoLieuTruc(){
     `- KHC: ${khc}`,
     `- CP: ${cp}`,
     `- Tổng số: ${total}`,
-    'Máu tồn:',
+    'Kho máu:',
+    '- Máu tồn:',
     `- KHC: ${getIntValue('tmTonKHC')}`,
     `- HTT: ${getIntValue('tmTonHTT')}`,
     `- Tủa: ${getIntValue('tmTonTua')}`,
     `- KTC: ${getIntValue('tmTonKTC')}`,
-    `- KTC gạn tách: ${getIntValue('tmTonKTCGanTach')}`
+    `- KTC gạn tách: ${getIntValue('tmTonKTCGanTach')}`,
+    `- Khác: ${$('#tmTonKhac')?.value || ''}`
   ].join('\n');
 }
 
@@ -5830,6 +5852,23 @@ function collectBanGiaoTaiSan(){
 async function submitCreatePhieu(){
   const loai = $('#createLoai').value;
   if(isTmPhieuLoai(loai)) return submitCreateTmPhieu(loai);
+
+  if(loai === LOAI_BAO_CAO_KHO_MAU){
+    const payload = {
+      loaiPhieu: loai,
+      ngayTruc: getDateInputIso('createDate'),
+      khoaPhong: $('#createDept').value,
+      noiDungBaoCaoKhoMau: $('#baoCaoKhoMauNoiDung')?.value || ''
+    };
+    if(!payload.ngayTruc || !payload.khoaPhong) return toast('Vui lòng nhập ngày báo cáo và khoa/phòng.');
+    if(!payload.noiDungBaoCaoKhoMau.trim()) return toast('Vui lòng nhập nội dung báo cáo kho máu.');
+    return withButton($('#createKhoMauBtn'), 'Đang tạo phiếu...', async () => {
+      await api('createPhieu', payload);
+      clearListCaches();
+      toast('Tạo phiếu thành công');
+      renderCreateTab();
+    });
+  }
 
   const payload = {
     loaiPhieu: loai,
@@ -7654,6 +7693,7 @@ function renderListTab(){
             <option>Tất cả</option>
             <option>${LOAI_BAN_GIAO}</option>
             <option>${LOAI_BAO_CAO}</option>
+            <option>${LOAI_BAO_CAO_KHO_MAU}</option>
           </select>
         </div>
         <div>
@@ -7720,20 +7760,23 @@ function renderPhieuList(items, note=''){
   }
   const noteHtml = note ? `<div class="empty" style="text-align:left;margin-bottom:10px">${esc(note)}</div>` : '';
   box.innerHTML = noteHtml + items.map(p => {
-    const isDone = p.trangThaiBanGiao === STATUS_DA;
+    const isBloodStockCard = (p.loaiPhieuGoc || p.loaiPhieu) === LOAI_BAO_CAO_KHO_MAU;
+    const isDone = (p.trangThaiBanGiao === STATUS_DA) || (p.trangThai === STATUS_DA);
     const handoverNo = p.loaiPhieuGoc === LOAI_BAO_CAO ? '3' : '2';
     const isReportCard = (p.loaiPhieuGoc || p.loaiPhieu) === LOAI_BAO_CAO;
-    const title = isReportCard
-      ? `Báo cáo/ Bàn giao trực - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
-      : `Bàn giao thường trực - ${formatKhoaTitle(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`;
-    const detailHtml = !isDone ? `
+    const title = isBloodStockCard
+      ? `Báo cáo kho máu - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
+      : (isReportCard
+        ? `Báo cáo/ Bàn giao trực - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
+        : `Bàn giao thường trực - ${formatKhoaTitle(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`);
+    const detailHtml = isBloodStockCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Nội dung báo cáo</span><div class="field-value">${esc(p.noiDungBaoCaoKhoMau || '')}</div></div></div>` : (!isDone ? `
       <div class="phieu-inline">
         <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.4 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
-      </div>` : '';
-    const signBtn = p.canSignBanGiao ? `<button class="btn ok" onclick="signBanGiao('${escAttr(p.phieuID)}', this)">Ký nhận bàn giao</button>` : '';
+      </div>` : '');
+    const signBtn = (!isBloodStockCard && p.canSignBanGiao) ? `<button class="btn ok" onclick="signBanGiao('${escAttr(p.phieuID)}', this)">Ký nhận bàn giao</button>` : '';
     const editBtn = p.canEdit ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(p.phieuID)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
     const deleteBtn = p.canDelete ? `<button class="app-icon-btn delete" onclick="deletePhieu('${escAttr(p.phieuID)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
     return `
@@ -7750,7 +7793,7 @@ function renderPhieuList(items, note=''){
             ${signBtn}
             <button class="btn secondary" onclick="openPhieu('${escAttr(p.phieuID)}', this)">Xem phiếu</button>
           </div>
-          <div class="phieu-icon-actions">${editBtn}${deleteBtn}${statusPill(p.trangThaiBanGiao)}</div>
+          <div class="phieu-icon-actions">${editBtn}${deleteBtn}${statusPill(p.trangThai || p.trangThaiBanGiao)}</div>
         </div>
       </div>`;
   }).join('');
@@ -7766,6 +7809,28 @@ window.openPhieu = async function(phieuID, btn){
 }
 
 function showPhieuModal(p, opts={}){
+  const isBloodStockReport = p.loaiPhieuGoc === LOAI_BAO_CAO_KHO_MAU || p.loaiPhieu === LOAI_BAO_CAO_KHO_MAU;
+  if(isBloodStockReport){
+    openModal(`
+      <div class="modal-card${protectedViewClassIfDone(p.trangThai || p.trangThaiBanGiao)}">
+        ${protectedWatermarkIfDone(p.trangThai || p.trangThaiBanGiao)}
+        <div class="modal-head">
+          <div class="modal-title">${esc(p.loaiPhieu)} ${statusPill(p.trangThai || p.trangThaiBanGiao)}</div>
+          <button class="close-btn" onclick="closeModal()">×</button>
+        </div>
+        <h3 class="sub-title">I. Thông tin phiếu</h3>
+        <div class="list-card data-card">
+          <div class="field-row"><span class="field-name">Ngày báo cáo</span><div class="field-value">${dateVi(p.ngayTruc)}</div></div>
+          <div class="field-row"><span class="field-name">Khoa/phòng</span><div class="field-value">${esc(p.khoaPhong)}</div></div>
+          <div class="field-row"><span class="field-name">Người báo cáo</span><div class="field-value">${esc(p.nguoiThucHienTen || '')}</div></div>
+        </div>
+        <h3 class="sub-title">II. Nội dung báo cáo</h3>
+        <div class="list-card data-card"><div class="field-row"><div class="field-value">${esc(p.noiDungBaoCaoKhoMau || '')}</div></div></div>
+        <div class="btn-row sign-bottom-small"><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
+      </div>
+    `);
+    return;
+  }
   const isReport = p.loaiPhieuGoc === LOAI_BAO_CAO;
   const handoverNo = isReport ? '3' : '2';
   const handoverRoman = isReport ? 'III' : 'II';
@@ -7858,6 +7923,30 @@ window.editPhieu = async function(phieuID, btn){
   const task = async () => {
     const res = await api('getPhieuDetail', {phieuID});
     const p = res.data.phieu;
+    const isBloodStockReport = p.loaiPhieuGoc === LOAI_BAO_CAO_KHO_MAU || p.loaiPhieu === LOAI_BAO_CAO_KHO_MAU;
+    if(isBloodStockReport){
+      openModal(`
+        <div class="modal-card">
+          <div class="modal-head"><div class="modal-title">Sửa phiếu</div><button class="close-btn" onclick="closeModal()">×</button></div>
+          <div class="card" style="box-shadow:none">
+            <h3 class="section-title">I. Thông tin phiếu</h3>
+            <div class="grid">
+              <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${escAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
+              <div class="col-3"><label>Ngày báo cáo</label><input id="editDate" class="equal-control date-vi-input" type="date" value="${escAttr(p.ngayTruc || '')}"></div>
+              <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="editDept" class="equal-control">${deptOptions(p.khoaPhong)}</select></div>
+              <div class="col-3"><label>Người báo cáo</label><input class="equal-control" readonly value="${escAttr(p.nguoiThucHienTen || '')}"></div>
+            </div>
+          </div>
+          <div class="card" style="box-shadow:none">
+            <h3 class="section-title">II. Nội dung báo cáo</h3>
+            <textarea id="editBaoCaoKhoMauNoiDung">${esc(p.noiDungBaoCaoKhoMau || '')}</textarea>
+          </div>
+          <div class="btn-row"><button class="btn primary" onclick="saveEditPhieu('${escAttr(p.phieuID)}', this)">Lưu cập nhật</button><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
+        </div>
+      `);
+      setTimeout(() => { $$('textarea').forEach(autoGrow); scheduleViDatePickerEnhance(); }, 0);
+      return;
+    }
     state.selectedStaff = p.nhanVienThuongTruc || [];
     state.editStaffCandidate = null;
     if(p.loaiPhieuGoc === LOAI_BAO_CAO) ensureLoginUserInStaff();
@@ -8029,12 +8118,12 @@ window.removeEditStaff = function(ma){
 }
 
 function parseTmReportText(text){
-  const data = {phatKHC:'0', phatCP:'0', phatTongBN:'0', tonKHC:'0', tonHTT:'0', tonTua:'0', tonKTC:'0', tonKTCGanTach:'0'};
+  const data = {phatKHC:'0', phatCP:'0', phatTongBN:'0', tonKHC:'0', tonHTT:'0', tonTua:'0', tonKTC:'0', tonKTCGanTach:'0', tonKhac:''};
   let section = '';
   String(text || '').split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(line => {
     const n = norm(line.replace(/:$/, ''));
     if(n === 'phat mau'){ section = 'phat'; return; }
-    if(n === 'mau ton'){ section = 'ton'; return; }
+    if(n === 'mau ton' || n === 'kho mau'){ section = 'ton'; return; }
     if(n.includes('xet nghiem')){ section = 'xn'; return; }
     const m = line.match(/^[-–]?\s*([^:]+):\s*(.*)$/);
     if(!m) return;
@@ -8048,6 +8137,7 @@ function parseTmReportText(text){
     if(section === 'ton' && label === 'tua') data.tonTua = sanitizeIntText(val) || '0';
     if(section === 'ton' && label === 'ktc') data.tonKTC = sanitizeIntText(val) || '0';
     if(section === 'ton' && (label === 'ktc gan tach' || label === 'ktc gantach')) data.tonKTCGanTach = sanitizeIntText(val) || '0';
+    if(section === 'ton' && label === 'khac') data.tonKhac = val;
   });
   return data;
 }
@@ -8060,7 +8150,7 @@ function renderEditSoLieuTrucInput(p){
   return `
     <div class="tm-report-grid">
       <div class="tm-report-group">
-        <div class="tm-report-title">Phát máu</div>
+        <div class="tm-report-title">a. Phát máu</div>
         <div class="tm-inline-grid phat-grid">
           <div class="tm-phat-total-bn"><label>Tổng số BN</label><input id="editTmPhatTongBN" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.phatTongBN)}"></div>
           <div><label>KHC</label><input id="editTmPhatKHC" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.phatKHC)}"></div>
@@ -8069,7 +8159,8 @@ function renderEditSoLieuTrucInput(p){
         </div>
       </div>
       <div class="tm-report-group">
-        <div class="tm-report-title">Máu tồn</div>
+        <div class="tm-report-title">b. Kho máu</div>
+        <div class="tm-form-note" style="margin-bottom:6px">Máu tồn</div>
         <div class="tm-inline-grid ton-grid">
           <div><label>KHC</label><input id="editTmTonKHC" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonKHC)}"></div>
           <div><label>HTT</label><input id="editTmTonHTT" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonHTT)}"></div>
@@ -8077,6 +8168,7 @@ function renderEditSoLieuTrucInput(p){
           <div><label>KTC</label><input id="editTmTonKTC" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonKTC)}"></div>
           <div><label>KTC gạn tách</label><input id="editTmTonKTCGanTach" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonKTCGanTach)}"></div>
         </div>
+        <div style="margin-top:8px"><label>Khác</label><textarea id="editTmTonKhac" placeholder="Nhập nội dung khác về kho máu">${esc(d.tonKhac || '')}</textarea></div>
       </div>
     </div>`;
 }
@@ -8096,12 +8188,14 @@ function collectEditSoLieuTruc(){
     `- KHC: ${khc}`,
     `- CP: ${cp}`,
     `- Tổng số: ${khc + cp}`,
-    'Máu tồn:',
+    'Kho máu:',
+    '- Máu tồn:',
     `- KHC: ${getIntValue('editTmTonKHC')}`,
     `- HTT: ${getIntValue('editTmTonHTT')}`,
     `- Tủa: ${getIntValue('editTmTonTua')}`,
     `- KTC: ${getIntValue('editTmTonKTC')}`,
-    `- KTC gạn tách: ${getIntValue('editTmTonKTCGanTach')}`
+    `- KTC gạn tách: ${getIntValue('editTmTonKTCGanTach')}`,
+    `- Khác: ${$('#editTmTonKhac')?.value || ''}`
   ].join('\n');
 }
 
@@ -8193,10 +8287,11 @@ window.saveEditPhieu = async function(phieuID, btn){
     ngayTruc: getDateInputIso('editDate'),
     khoaPhong: $('#editDept').value,
     nhanVienThuongTruc: state.selectedStaff,
-    soLieuTruc: collectEditSoLieuTruc(),
+    soLieuTruc: $('#editSoLieuTrucBox') ? collectEditSoLieuTruc() : '',
+    noiDungBaoCaoKhoMau: $('#editBaoCaoKhoMauNoiDung')?.value || '',
     baoCaoChuyenMon: $('#editBaoCaoCM')?.value || '',
     baoCaoVanDeKhac: $('#editBaoCaoKhac')?.value || '',
-    banGiaoTaiSan: collectEditBanGiaoTaiSan(),
+    banGiaoTaiSan: $('#editBanGiaoTaiSanBox') ? collectEditBanGiaoTaiSan() : '',
     banGiaoChuyenMon: $('#editBGCM')?.value || '',
     banGiaoVanDeKhac: $('#editBGKhac')?.value || '',
     thoiGianBanGiao: $('#editTGBG') ? getDateTimeInputSql('editTGBG') : ''
@@ -8503,10 +8598,11 @@ function compactLineHtml_(title, pairs){
 function formatSoLieuTrucCompact(text){
   const s = String(text || '').trim();
   if(!s) return '';
-  const hasTmReport = /Phát máu|Phat mau|Máu tồn|Mau ton|Các xét nghiệm khác|Cac xet nghiem khac/i.test(s);
+  const hasTmReport = /Phát máu|Phat mau|Kho máu|Kho mau|Máu tồn|Mau ton|Các xét nghiệm khác|Cac xet nghiem khac/i.test(s);
   if(!hasTmReport) return esc(s).replace(/\n/g,'<br>');
 
-  const mauTonIdx = s.search(/Máu tồn|Mau ton/i);
+  let mauTonIdx = s.search(/Kho máu|Kho mau/i);
+  if(mauTonIdx < 0) mauTonIdx = s.search(/Máu tồn|Mau ton/i);
   const phatIdx = s.search(/Phát máu|Phat mau/i);
   const mauTonPart = mauTonIdx >= 0 ? s.slice(mauTonIdx) : '';
   const phatPart = phatIdx >= 0 ? s.slice(phatIdx, mauTonIdx > phatIdx ? mauTonIdx : undefined) : '';
@@ -8519,12 +8615,14 @@ function formatSoLieuTrucCompact(text){
     `<div>&nbsp;&nbsp;KHC: ${esc(parseReportMetricLine_(phatPart, 'KHC') || '')}${gap}CP: ${esc(parseReportMetricLine_(phatPart, 'CP') || '')}${gap}Tổng số: ${esc(parseReportMetricLine_(phatPart, 'Tổng số') || parseReportMetricLine_(phatPart, 'Tong so') || '')}</div>`
   ].join('') : '';
 
-  const mauTon = mauTonPart ? compactLineHtml_('Máu tồn', [
+  const khoKhac = parseReportMetricLine_(mauTonPart, 'Khác') || parseReportMetricLine_(mauTonPart, 'Khac');
+  const mauTon = mauTonPart ? compactLineHtml_('Kho máu', [
     ['KHC', parseReportMetricLine_(mauTonPart, 'KHC')],
     ['HTT', parseReportMetricLine_(mauTonPart, 'HTT')],
     ['Tủa', parseReportMetricLine_(mauTonPart, 'Tủa') || parseReportMetricLine_(mauTonPart, 'Tua')],
     ['KTC', parseReportMetricLine_(mauTonPart, 'KTC')],
-    ['KTC gạn tách', parseReportMetricLine_(mauTonPart, 'KTC gạn tách') || parseReportMetricLine_(mauTonPart, 'KTC gan tach')]
+    ['KTC gạn tách', parseReportMetricLine_(mauTonPart, 'KTC gạn tách') || parseReportMetricLine_(mauTonPart, 'KTC gan tach')],
+    ['Khác', khoKhac]
   ]) : '';
 
   return phat + mauTon;
@@ -8621,7 +8719,7 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
     renderTmGiaoBanSummaryPreviewHtml(d.tmPhieus || []),
     pvLine('gb-pv-roman','IV. Nội dung giao ban khác'),
     pvLine('gb-pv-num','1. Kho máu'),
-    pvLine('gb-pv-detail', pvHtml([d.khoMau, d.khoMauKhac && norm(d.khoMauKhac) !== 'khong co' ? 'Khác: ' + d.khoMauKhac : ''].filter(Boolean).join('\n'))),
+    pvLine('gb-pv-detail', pvHtml([d.khoMau, d.khoMauKhac && norm(d.khoMauKhac) !== 'khong co' ? 'Khác:\n' + d.khoMauKhac : ''].filter(Boolean).join('\n'))),
     pvLine('gb-pv-num','2. Thông báo'),
     pvLine('gb-pv-detail', pvHtml(d.thongBao)),
     pvLine('gb-pv-num','3. Nội dung khác'),
@@ -8656,7 +8754,7 @@ function refreshGiaoBanStructuredPreview(){
 function bindGiaoBanPreviewAutoRefresh(){
   const root = $('#modalRoot');
   if(!root) return;
-  root.querySelectorAll('#gbNghi,#gbThongBao,#gbNoiDungKhac,#gbNoiDungGiaoBanKhac,#gbKetLuan,#gbChuTriInput,#gbThanhPhanThamDu,#gbLyDoGiaoBan,#gbNoiDungDotXuat,#khoKHC,#khoHTT,#khoTua,#khoKTC,#khoKTCGanTach,#khoKhac,#gbDotDept').forEach(el => {
+  root.querySelectorAll('#gbNghi,#gbThongBao,#gbNoiDungKhac,#gbNoiDungGiaoBanKhac,#gbKetLuan,#gbChuTriInput,#gbThanhPhanThamDu,#gbLyDoGiaoBan,#gbNoiDungDotXuat,#khoKHC,#khoHTT,#khoTua,#khoKTC,#khoKTCGanTach,#gbDotDept').forEach(el => {
     el.removeEventListener('input', refreshGiaoBanStructuredPreview);
     el.removeEventListener('change', refreshGiaoBanStructuredPreview);
     el.addEventListener('input', refreshGiaoBanStructuredPreview);
@@ -8741,7 +8839,7 @@ function renderGiaoBanModal(){
           <div><label>Tủa</label><input id="khoTua" value="${escAttr(preferSavedOrLatest(g.khoMauTua, latestMauTon?.tua))}" ${g.daKhoa ? 'readonly' : ''}></div>
           <div><label>KTC</label><input id="khoKTC" value="${escAttr(preferSavedOrLatest(g.khoMauKTC, latestMauTon?.ktc))}" ${g.daKhoa ? 'readonly' : ''}></div>
           <div><label>KTC gạn tách</label><input id="khoKTCGanTach" value="${escAttr(preferSavedOrLatest(g.khoMauKTCGanTach, latestMauTon?.ktcGanTach))}" ${g.daKhoa ? 'readonly' : ''}></div>
-          <div class="kho-other"><label>Khác</label><textarea id="khoKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.khoMauKhac || '')}</textarea></div>
+          <div class="kho-other"><label>Khác</label><textarea id="khoKhac" readonly>${esc(g.khoMauKhac || '')}</textarea><p class="meta">Tự tổng hợp từ Báo cáo thường trực và phiếu Báo cáo kho máu. Ghi chú thêm nhập ở mục Nội dung khác.</p></div>
         </div>
         <div class="grid" style="margin-top:10px">
           <div class="col-12"><label class="gb-sub-label" for="gbThongBao">2. Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
@@ -9684,7 +9782,7 @@ function renderPdfTab(){
         <div class="col-3 date-pair"><label>Từ ngày</label><input id="pdfFrom" class="equal-control date-vi-input" type="date"></div>
         <div class="col-3 date-pair"><label>Đến ngày</label><input id="pdfTo" class="equal-control date-vi-input" type="date"></div>
         <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="pdfDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
-        <div class="col-3"><label>Loại phiếu</label><select id="pdfLoai" class="equal-control"><option>Tất cả</option><option>${LOAI_BAN_GIAO}</option><option>${LOAI_BAO_CAO}</option><option>${LOAI_GIAO_BAN_THUONG_TRUC}</option><option>${LOAI_GIAO_BAN_DOT_XUAT}</option>${tmOptions}</select></div>
+        <div class="col-3"><label>Loại phiếu</label><select id="pdfLoai" class="equal-control"><option value="" selected>Chọn loại phiếu</option><option>${LOAI_BAN_GIAO}</option><option>${LOAI_BAO_CAO}</option><option>${LOAI_BAO_CAO_KHO_MAU}</option><option>${LOAI_GIAO_BAN_THUONG_TRUC}</option><option>${LOAI_GIAO_BAN_DOT_XUAT}</option>${tmOptions}</select></div>
         <div class="col-3"><label>Trạng thái</label><select id="pdfStatus" class="equal-control"><option>Tất cả</option><option>${STATUS_CHUA}</option><option>${STATUS_DA}</option></select></div>
         <div class="col-12 filter-keyword"><label>Từ khóa</label><input id="pdfKeyword" class="equal-control" placeholder="Tìm theo mã BN/PID, họ tên, khoa/phòng, nội dung"></div>
         <div class="col-3 filter-action"><button id="loadPdfBtn" class="btn primary">Xem danh sách</button></div>
@@ -9693,16 +9791,21 @@ function renderPdfTab(){
     </div>
     <div id="pdfListBox"></div>
   `;
-  $('#loadPdfBtn').addEventListener('click', () => withButton($('#loadPdfBtn'), 'Đang tải...', loadDsPhieuList));
-  setDefaultDateRange('pdfFrom','pdfTo',30);
+  $('#loadPdfBtn').addEventListener('click', () => withButton($('#loadPdfBtn'), 'Đang tải...', () => loadDsPhieuList(true)));
+  setDefaultDateRange('pdfFrom','pdfTo',7);
 }
 
-async function loadPdfList(){ return loadDsPhieuList(); }
+async function loadPdfList(){ return loadDsPhieuList(false); }
 
-async function loadDsPhieuList(){
+async function loadDsPhieuList(showRequiredToast=false){
   const box = $('#pdfListBox');
-  box.innerHTML = `<div class="loading">Đang tải danh sách phiếu...</div>`;
   const payload = getDsPhieuFilters();
+  if(!payload.loaiHoSo){
+    box.innerHTML = `<div class="empty">Vui lòng chọn loại phiếu trước khi xem danh sách.</div>`;
+    if(showRequiredToast) toast('Vui lòng chọn loại phiếu trước khi xem danh sách.');
+    return;
+  }
+  box.innerHTML = `<div class="loading">Đang tải danh sách phiếu...</div>`;
   try{
     const res = await api('searchHoSo', payload);
     const items = sortDsPhieuByCreatedDesc(res.data.items || []);
@@ -9717,7 +9820,7 @@ function getDsPhieuFilters(){
     fromDate: getDateInputIso('pdfFrom'),
     toDate: getDateInputIso('pdfTo'),
     khoaPhong: $('#pdfDept')?.value || state.user?.khoaPhong || '',
-    loaiHoSo: $('#pdfLoai')?.value || 'Tất cả',
+    loaiHoSo: $('#pdfLoai')?.value || '',
     trangThai: $('#pdfStatus')?.value || 'Tất cả',
     keyword: $('#pdfKeyword')?.value || ''
   };
@@ -9756,6 +9859,7 @@ function dsPhieuDate(x){
 function dsLoaiPhieuTitle(loai){
   if(eqText(loai, LOAI_TM_XU_TRI)) return 'Xử trí chuyên môn TM';
   if(eqText(loai, LOAI_TM_TDKMM)) return 'Tác dụng không mong muốn liên quan TM';
+  if(eqText(loai, LOAI_BAO_CAO_KHO_MAU)) return 'Báo cáo kho máu';
   return loai || '';
 }
 
@@ -9851,7 +9955,7 @@ function renderDsPhieuCard(x){
   const historyBtn = tdkmmPdfHistoryIconHtml(x);
   const bn = dsBnMetaHtml(x);
   const creator = dsCreatorMetaHtml(x);
-  const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : '';
+  const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : ((x.source === 'PHIEU' && eqText(loai, LOAI_BAO_CAO_KHO_MAU) && x.noiDungBaoCaoKhoMau) ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Nội dung</span><div class="field-value">${esc(x.noiDungBaoCaoKhoMau)}</div></div></div>` : '');
   return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(title || x.title || x.loaiPhieu || '')}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${historyBtn}${editBtn}${deleteBtn}${statusPill(x.trangThai || '')}</div></div></div>`;
 }
 
