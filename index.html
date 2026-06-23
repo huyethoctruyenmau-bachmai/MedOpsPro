@@ -303,7 +303,7 @@
       background:#2a111a;color:white;border-radius:999px;padding:10px 14px;box-shadow:0 8px 25px rgba(0,0,0,.2);max-width:92vw;font-size:13px
     }
     .two-col-text{white-space:pre-wrap;line-height:1.45}
-    .report-day{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}.report-day-title{font-weight:700;color:var(--wine-dark);font-size:17px;line-height:1.35;margin-bottom:8px}.report-item{margin:7px 0}.report-label{font-size:14px;color:var(--muted);line-height:1.45;margin-bottom:2px;font-weight:700}.gb-sub-label{display:block;font-size:15px;font-weight:700;color:var(--muted);line-height:1.45;margin:8px 0 5px}.report-value{font-size:14px;color:var(--text);line-height:1.45;white-space:pre-wrap}.report-compact-value{font-size:14px;color:var(--text);line-height:1.55;white-space:pre-wrap}.report-compact-value div{margin:2px 0}.report-compact-value strong{color:var(--text);font-weight:400}.kho-compact-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.kho-compact-grid input{height:38px;min-height:38px}.kho-compact-grid textarea{min-height:38px;line-height:20px;resize:none;overflow:hidden}.kho-compact-grid .kho-other{grid-column:1 / -1}.kho-auto-note{font-size:12.5px;color:var(--muted);margin:-2px 0 8px;line-height:1.35}
+    .report-day{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}.report-day-title{font-weight:700;color:var(--wine-dark);font-size:17px;line-height:1.35;margin-bottom:8px}.report-item{margin:7px 0}.report-label{font-size:14px;color:var(--muted);line-height:1.45;margin-bottom:2px;font-weight:700}.gb-sub-label{display:block;font-size:15px;font-weight:700;color:var(--muted);line-height:1.45;margin:8px 0 5px}.report-value{font-size:14px;color:var(--text);line-height:1.45;white-space:pre-wrap}.report-compact-value{font-size:14px;color:var(--text);line-height:1.55;white-space:pre-wrap}.report-compact-value div{margin:2px 0}.report-compact-value strong{color:var(--text);font-weight:400}.kho-compact-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.kho-compact-grid input{height:38px;min-height:38px}.kho-compact-grid textarea{min-height:38px;line-height:20px;resize:none;overflow:hidden;background:#fff}.kho-compact-grid .kho-other{grid-column:1 / -1}.kho-auto-note{font-size:12.5px;color:var(--muted);margin:-2px 0 8px;line-height:1.35}
     a.btn{text-decoration:none}
     .login-card .btn.primary{background:var(--g-blue);border-radius:4px;min-height:38px}
     .modal-card .btn-row{justify-content:flex-end}.sign-bottom-small{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 88px)!important}
@@ -1045,6 +1045,9 @@
 
     /* ===== PATCH 95: PHIẾU CHUYÊN MÔN TRUYỀN MÁU + DS PHIẾU ===== */
     .tm-form-note{font-size:13px;color:var(--muted);margin:6px 0 0;line-height:1.45}
+    .tm-ton-label{font-weight:500!important;color:var(--g-muted)!important;margin:0 0 6px!important}
+    .tm-ton-grid label{font-weight:400!important}
+    .kho-khac-display{width:100%;min-height:38px;border:1px solid var(--g-line);border-radius:4px;background:#fff;color:var(--g-text);padding:6px 9px;line-height:20px;white-space:pre-wrap;overflow-wrap:anywhere}
     .tm-radio-stack{display:flex;flex-direction:column;gap:8px;margin:6px 0 8px}
     .tm-radio-stack label{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--g-text);line-height:1.35}
     .tm-radio-stack input[type="checkbox"],.tm-radio-stack input[type="radio"]{width:18px;min-height:18px;box-shadow:none}
@@ -5325,6 +5328,8 @@ function renderCreateTab(){
   const tmOptions = allowTm ? `
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>` : '';
+  const bloodStockReportOption = allowTm ? `
+            <option>${LOAI_BAO_CAO_KHO_MAU}</option>` : '';
   $('#tab-create').innerHTML = `
     <div class="card create-left-card">
       <h2 class="section-title">I. Thông tin phiếu</h2>
@@ -5333,8 +5338,7 @@ function renderCreateTab(){
           <label>Loại phiếu</label>
           <select id="createLoai" class="equal-control create-loai-control">
             <option>${LOAI_BAN_GIAO}</option>
-            <option>${LOAI_BAO_CAO}</option>
-            <option>${LOAI_BAO_CAO_KHO_MAU}</option>${tmOptions}
+            <option>${LOAI_BAO_CAO}</option>${bloodStockReportOption}${tmOptions}
           </select>
         </div>
         <div class="col-3">
@@ -5700,8 +5704,8 @@ function renderSoLieuTrucInput(isTM){
       </div>
       <div class="tm-report-group">
         <div class="tm-report-title">b. Kho máu</div>
-        <div class="tm-form-note" style="margin-bottom:6px">Máu tồn</div>
-        <div class="tm-inline-grid ton-grid">
+        <label class="tm-ton-label">Máu tồn</label>
+        <div class="tm-inline-grid ton-grid tm-ton-grid">
           <div><label>KHC</label><input id="tmTonKHC" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           <div><label>HTT</label><input id="tmTonHTT" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           <div><label>Tủa</label><input id="tmTonTua" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
@@ -7680,6 +7684,8 @@ window.editTmPhieu = async function(phieuTMID, btn){
 /* ================= DS PHIẾU ================= */
 
 function renderListTab(){
+  const allowBloodStockReport = isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
+  const bloodStockReportFilterOption = allowBloodStockReport ? `<option>${LOAI_BAO_CAO_KHO_MAU}</option>` : '';
   $('#tab-list').innerHTML = `
     <div class="card">
       <h2 class="section-title">BÀN GIAO TRỰC</h2>
@@ -7690,10 +7696,9 @@ function renderListTab(){
         <div>
           <label>Loại phiếu</label>
           <select id="filterLoai" class="equal-control">
-            <option>Tất cả</option>
+            <option value="" selected>Chọn loại phiếu</option>
             <option>${LOAI_BAN_GIAO}</option>
-            <option>${LOAI_BAO_CAO}</option>
-            <option>${LOAI_BAO_CAO_KHO_MAU}</option>
+            <option>${LOAI_BAO_CAO}</option>${bloodStockReportFilterOption}
           </select>
         </div>
         <div>
@@ -7708,13 +7713,18 @@ function renderListTab(){
     <div id="phieuListBox"></div>
   `;
   $('#loadPhieuBtn').addEventListener('click', () => withButton($('#loadPhieuBtn'), 'Đang tải...', () => loadPhieuList(true)));
-  setDefaultDateRange('filterFrom','filterTo',1);
+  setDefaultDateRange('filterFrom','filterTo',7);
 }
 
 async function loadPhieuList(force){
   const box = $('#phieuListBox');
   if(!box) return;
   const filters = getPhieuFilters();
+  if(!filters.loaiPhieu){
+    box.innerHTML = `<div class="empty">Vui lòng chọn loại phiếu trước khi xem danh sách.</div>`;
+    toast('Vui lòng chọn loại phiếu trước khi xem danh sách.');
+    return;
+  }
   const key = JSON.stringify(filters);
   const fresh = state.cache.phieu.key === key && Date.now() - state.cache.phieu.time < 45000;
   if(!force && fresh) return renderPhieuList(state.cache.phieu.data, state.cache.phieu.note || '');
@@ -7735,7 +7745,7 @@ function getPhieuFilters(){
     fromDate: getDateInputIso('filterFrom') || addDaysIso(todayIso(), -1),
     toDate: getDateInputIso('filterTo') || todayIso(),
     khoaPhong: $('#filterDept')?.value || state.user?.khoaPhong || '',
-    loaiPhieu: $('#filterLoai')?.value || 'Tất cả',
+    loaiPhieu: $('#filterLoai')?.value || '',
     trangThai: $('#filterStatus')?.value || 'Tất cả'
   };
 }
@@ -7838,7 +7848,7 @@ function showPhieuModal(p, opts={}){
     <h3 class="sub-title">II. Báo cáo thường trực</h3>
     <div class="list-card data-card">
       <div class="field-row"><span class="field-name">2.1 Nhân viên thường trực</span><div class="field-value">${esc(renderStaffNameList(p.nhanVienThuongTruc) || 'Chưa nhập')}</div></div>
-      <div class="field-row"><span class="field-name">2.2 Tình hình chung / số liệu trực</span><div class="field-value">${esc(p.soLieuTruc || '')}</div></div>
+      <div class="field-row"><span class="field-name">2.2 Tình hình chung / số liệu trực</span><div class="field-value">${formatSoLieuTrucCompact(p.soLieuTruc || '')}</div></div>
       <div class="field-row"><span class="field-name">2.3 Chuyên môn</span><div class="field-value">${esc(p.baoCaoChuyenMon || '')}</div></div>
       <div class="field-row"><span class="field-name">2.4 Vấn đề khác</span><div class="field-value">${esc(p.baoCaoVanDeKhac || '')}</div></div>
     </div>
@@ -8160,8 +8170,8 @@ function renderEditSoLieuTrucInput(p){
       </div>
       <div class="tm-report-group">
         <div class="tm-report-title">b. Kho máu</div>
-        <div class="tm-form-note" style="margin-bottom:6px">Máu tồn</div>
-        <div class="tm-inline-grid ton-grid">
+        <label class="tm-ton-label">Máu tồn</label>
+        <div class="tm-inline-grid ton-grid tm-ton-grid">
           <div><label>KHC</label><input id="editTmTonKHC" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonKHC)}"></div>
           <div><label>HTT</label><input id="editTmTonHTT" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonHTT)}"></div>
           <div><label>Tủa</label><input id="editTmTonTua" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonTua)}"></div>
@@ -8616,18 +8626,13 @@ function formatSoLieuTrucCompact(text){
   ].join('') : '';
 
   const khoKhac = parseReportMetricLine_(mauTonPart, 'Khác') || parseReportMetricLine_(mauTonPart, 'Khac');
-  const mauTon = mauTonPart ? compactLineHtml_('Kho máu', [
-    ['KHC', parseReportMetricLine_(mauTonPart, 'KHC')],
-    ['HTT', parseReportMetricLine_(mauTonPart, 'HTT')],
-    ['Tủa', parseReportMetricLine_(mauTonPart, 'Tủa') || parseReportMetricLine_(mauTonPart, 'Tua')],
-    ['KTC', parseReportMetricLine_(mauTonPart, 'KTC')],
-    ['KTC gạn tách', parseReportMetricLine_(mauTonPart, 'KTC gạn tách') || parseReportMetricLine_(mauTonPart, 'KTC gan tach')],
-    ['Khác', khoKhac]
-  ]) : '';
+  const khoMau = mauTonPart ? [
+    `<div>- Kho máu:${gap}KHC: ${esc(parseReportMetricLine_(mauTonPart, 'KHC') || '')}${gap}HTT: ${esc(parseReportMetricLine_(mauTonPart, 'HTT') || '')}${gap}Tủa: ${esc(parseReportMetricLine_(mauTonPart, 'Tủa') || parseReportMetricLine_(mauTonPart, 'Tua') || '')}${gap}KTC: ${esc(parseReportMetricLine_(mauTonPart, 'KTC') || '')}${gap}KTC gạn tách: ${esc(parseReportMetricLine_(mauTonPart, 'KTC gạn tách') || parseReportMetricLine_(mauTonPart, 'KTC gan tach') || '')}</div>`,
+    khoKhac ? `<div>- Khác: ${esc(khoKhac)}</div>` : ''
+  ].filter(Boolean).join('') : '';
 
-  return phat + mauTon;
+  return phat + khoMau;
 }
-
 function sortReportsByDateAsc(reports){
   return (reports || []).slice().sort((a,b) => {
     const da = String(a.ngayTruc || '').slice(0,10);
@@ -8704,8 +8709,9 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
       pvLine('gb-pv-detail', pvHtml(d.ketLuan))
     ].join('');
   }
-  const reports = d.reports.length ? d.reports.map((r, idx) => [
-    pvLine('gb-pv-num', `${idx + 1}. Ngày ${dateVi(r.ngayTruc)}`),
+  const regularReports = (d.reports || []).filter(r => eqText(r.loaiPhieuGoc || r.loaiPhieu || '', LOAI_BAO_CAO));
+  const reports = regularReports.length ? regularReports.map((r, idx) => [
+    pvLine('gb-pv-num', `Ngày ${dateVi(r.ngayTruc)}`),
     pvLine('gb-pv-sub','1.1. Nhân viên trực'),
     pvLine('gb-pv-detail', pvHtml(renderStaffNameList(r.nhanVienThuongTruc) || 'Chưa nhập')),
     pvLine('gb-pv-sub','1.2. Dữ liệu trực'),
@@ -8769,7 +8775,7 @@ function renderGiaoBanModal(){
   const isDotXuat = isBienBanHopLoai(loai);
   if(isDotXuat) return renderGiaoBanDotXuatModal();
 
-  const sortedReports = sortReportsByDateAsc(state.currentReports);
+  const sortedReports = sortReportsByDateAsc((state.currentReports || []).filter(r => eqText(r.loaiPhieuGoc || r.loaiPhieu || '', LOAI_BAO_CAO)));
   const reportsHtml = sortedReports.length ? sortedReports.map(r => `
     <div class="report-day">
       <div class="report-day-title">Ngày ${dateVi(r.ngayTruc)}</div>
@@ -8839,7 +8845,7 @@ function renderGiaoBanModal(){
           <div><label>Tủa</label><input id="khoTua" value="${escAttr(preferSavedOrLatest(g.khoMauTua, latestMauTon?.tua))}" ${g.daKhoa ? 'readonly' : ''}></div>
           <div><label>KTC</label><input id="khoKTC" value="${escAttr(preferSavedOrLatest(g.khoMauKTC, latestMauTon?.ktc))}" ${g.daKhoa ? 'readonly' : ''}></div>
           <div><label>KTC gạn tách</label><input id="khoKTCGanTach" value="${escAttr(preferSavedOrLatest(g.khoMauKTCGanTach, latestMauTon?.ktcGanTach))}" ${g.daKhoa ? 'readonly' : ''}></div>
-          <div class="kho-other"><label>Khác</label><textarea id="khoKhac" readonly>${esc(g.khoMauKhac || '')}</textarea><p class="meta">Tự tổng hợp từ Báo cáo thường trực và phiếu Báo cáo kho máu. Ghi chú thêm nhập ở mục Nội dung khác.</p></div>
+          <div class="kho-other"><label>Khác</label><div class="kho-khac-display">${esc(g.khoMauKhac || 'Không có')}</div><textarea id="khoKhac" class="hidden" readonly>${esc(g.khoMauKhac || '')}</textarea></div>
         </div>
         <div class="grid" style="margin-top:10px">
           <div class="col-12"><label class="gb-sub-label" for="gbThongBao">2. Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
@@ -9775,6 +9781,7 @@ function renderPdfTab(){
   const tmOptions = allowTm ? `
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>` : '';
+  const bloodStockPdfOption = allowTm ? `<option>${LOAI_BAO_CAO_KHO_MAU}</option>` : '';
   $('#tab-pdf').innerHTML = `
     <div class="card">
       <h2 class="section-title">DS phiếu</h2>
@@ -9782,7 +9789,7 @@ function renderPdfTab(){
         <div class="col-3 date-pair"><label>Từ ngày</label><input id="pdfFrom" class="equal-control date-vi-input" type="date"></div>
         <div class="col-3 date-pair"><label>Đến ngày</label><input id="pdfTo" class="equal-control date-vi-input" type="date"></div>
         <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="pdfDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
-        <div class="col-3"><label>Loại phiếu</label><select id="pdfLoai" class="equal-control"><option value="" selected>Chọn loại phiếu</option><option>${LOAI_BAN_GIAO}</option><option>${LOAI_BAO_CAO}</option><option>${LOAI_BAO_CAO_KHO_MAU}</option><option>${LOAI_GIAO_BAN_THUONG_TRUC}</option><option>${LOAI_GIAO_BAN_DOT_XUAT}</option>${tmOptions}</select></div>
+        <div class="col-3"><label>Loại phiếu</label><select id="pdfLoai" class="equal-control"><option value="" selected>Chọn loại phiếu</option><option>${LOAI_BAN_GIAO}</option><option>${LOAI_BAO_CAO}</option>${bloodStockPdfOption}<option>${LOAI_GIAO_BAN_THUONG_TRUC}</option><option>${LOAI_GIAO_BAN_DOT_XUAT}</option>${tmOptions}</select></div>
         <div class="col-3"><label>Trạng thái</label><select id="pdfStatus" class="equal-control"><option>Tất cả</option><option>${STATUS_CHUA}</option><option>${STATUS_DA}</option></select></div>
         <div class="col-12 filter-keyword"><label>Từ khóa</label><input id="pdfKeyword" class="equal-control" placeholder="Tìm theo mã BN/PID, họ tên, khoa/phòng, nội dung"></div>
         <div class="col-3 filter-action"><button id="loadPdfBtn" class="btn primary">Xem danh sách</button></div>
