@@ -5011,7 +5011,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-242.230626-PRELOAD-EQUIPMENT-CONFIG-CACHE';
+const APP_VERSION = 'INDEX-243.230626-BANGIAO-1NGAY-HOP-4NGAY-REPORT-LINK';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -7907,7 +7907,7 @@ function renderListTab(){
         <div>
           <label>Loại phiếu</label>
           <select id="filterLoai" class="equal-control">
-            <option value="" selected>Chọn loại phiếu</option>
+            <option value="" selected>Tất cả loại phiếu</option>
             <option>${LOAI_BAN_GIAO}</option>
             <option>${LOAI_BAO_CAO}</option>${bloodStockReportFilterOption}
           </select>
@@ -7924,18 +7924,13 @@ function renderListTab(){
     <div id="phieuListBox"></div>
   `;
   $('#loadPhieuBtn').addEventListener('click', () => withButton($('#loadPhieuBtn'), 'Đang tải...', () => loadPhieuList(true)));
-  setDefaultDateRange('filterFrom','filterTo',7);
+  setDefaultDateRange('filterFrom','filterTo',1);
 }
 
 async function loadPhieuList(force){
   const box = $('#phieuListBox');
   if(!box) return;
   const filters = getPhieuFilters();
-  if(!filters.loaiPhieu){
-    box.innerHTML = `<div class="empty">Vui lòng chọn loại phiếu trước khi xem danh sách.</div>`;
-    toast('Vui lòng chọn loại phiếu trước khi xem danh sách.');
-    return;
-  }
   const key = JSON.stringify(filters);
   const fresh = state.cache.phieu.key === key && Date.now() - state.cache.phieu.time < 45000;
   if(!force && fresh) return renderPhieuList(state.cache.phieu.data, state.cache.phieu.note || '');
@@ -8554,7 +8549,7 @@ function renderMeetingTab(){
   `;
   $('#loadGbBtn').addEventListener('click', () => withButton($('#loadGbBtn'), 'Đang tải...', () => loadGiaoBanList(true)));
   $('#createGbBtn').addEventListener('click', openCreateGiaoBanDialog);
-  setDefaultDateRange('gbFrom','gbTo',14);
+  setDefaultDateRange('gbFrom','gbTo',4);
 }
 
 async function loadGiaoBanList(force){
@@ -8578,7 +8573,7 @@ async function loadGiaoBanList(force){
 
 function getGiaoBanFilters(){
   return {
-    fromDate: getDateInputIso('gbFrom') || addDaysIso(todayIso(), -14),
+    fromDate: getDateInputIso('gbFrom') || addDaysIso(todayIso(), -4),
     toDate: getDateInputIso('gbTo') || todayIso(),
     khoaPhong: $('#gbDept')?.value || state.user?.khoaPhong || '',
     loaiGiaoBan: $('#gbLoai')?.value || 'Tất cả',
@@ -8904,6 +8899,11 @@ function getGiaoBanPreviewSnapshot(isDotXuat){
   };
 }
 
+function isClientBaoCaoReport(r){
+  const loai = r?.loaiPhieuGoc || r?.loaiPhieu || '';
+  return !loai || eqText(loai, LOAI_BAO_CAO);
+}
+
 function renderGiaoBanStructuredPreviewHtml(isDotXuat){
   const d = getGiaoBanPreviewSnapshot(isDotXuat);
   if(d.isDotXuat){
@@ -8919,7 +8919,7 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
       pvLine('gb-pv-detail', pvHtml(d.ketLuan))
     ].join('');
   }
-  const regularReports = (d.reports || []).filter(r => eqText(r.loaiPhieuGoc || r.loaiPhieu || '', LOAI_BAO_CAO));
+  const regularReports = (d.reports || []).filter(isClientBaoCaoReport);
   const reports = regularReports.length ? regularReports.map((r, idx) => [
     pvLine('gb-pv-num', `Ngày ${dateVi(r.ngayTruc)}`),
     pvLine('gb-pv-sub','1.1. Nhân viên trực'),
@@ -8985,7 +8985,7 @@ function renderGiaoBanModal(){
   const isDotXuat = isBienBanHopLoai(loai);
   if(isDotXuat) return renderGiaoBanDotXuatModal();
 
-  const sortedReports = sortReportsByDateAsc((state.currentReports || []).filter(r => eqText(r.loaiPhieuGoc || r.loaiPhieu || '', LOAI_BAO_CAO)));
+  const sortedReports = sortReportsByDateAsc((state.currentReports || []).filter(isClientBaoCaoReport));
   const reportsHtml = sortedReports.length ? sortedReports.map(r => `
     <div class="report-day">
       <div class="report-day-title">Ngày ${dateVi(r.ngayTruc)}</div>
