@@ -1,4 +1,4 @@
-<!-- VERSION: 247.165 | index: 247 | Code.gs: 165 | INDEX-247.270626-REPORT-CM-SPLIT-FIX -->
+<!-- VERSION: 248.166 | index: 248 | Code.gs: 166 | INDEX-248.080726-REPORT-CM-GIAOBAN-PDF -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5012,7 +5012,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-247.270626-REPORT-CM-SPLIT-FIX';
+const APP_VERSION = 'INDEX-248.080726-REPORT-CM-GIAOBAN-PDF';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6003,6 +6003,14 @@ function renderBaoCaoChuyenMonView(detail={}, text=''){
   const d = normalizeBaoCaoChuyenMonDetail(detail, text || '');
   if(!hasBaoCaoChuyenMonDetail(d)) return esc(text || '');
   return `<div class="report-compact-value">${BAO_CAO_CHUYEN_MON_FIELDS.map(f => `<div><strong>${esc(f.label)}:</strong> ${esc(d[f.key] || 'Không có')}</div>`).join('')}</div>`;
+}
+
+function renderBaoCaoChuyenMonGiaoBanHtml(report={}){
+  const text = report.baoCaoChuyenMon || report.BaoCaoChuyenMon || '';
+  const detail = report.baoCaoChuyenMonChiTiet || report.BaoCaoChuyenMonChiTiet || report.BaoCaoChuyenMonChiTietJson || {};
+  const d = normalizeBaoCaoChuyenMonDetail(detail, text || '');
+  if(!hasBaoCaoChuyenMonDetail(d)) return esc(text || 'Không có gì đặc biệt').replace(/\n/g,'<br>');
+  return `<div class="report-compact-value">${BAO_CAO_CHUYEN_MON_FIELDS.map(f => `<div>- <strong>${esc(f.label)}:</strong> ${esc(d[f.key] || 'Không có')}</div>`).join('')}</div>`;
 }
 
 function renderSoLieuTrucInput(isTM){
@@ -9037,7 +9045,7 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
     pvLine('gb-pv-sub','1.2. Dữ liệu trực'),
     pvLine('gb-pv-detail compact', formatSoLieuTrucCompact(r.soLieuTruc || 'Chưa nhập')),
     pvLine('gb-pv-sub','1.3. Chuyên môn'),
-    pvLine('gb-pv-detail', pvHtml(r.baoCaoChuyenMon || '')),
+    pvLine('gb-pv-detail', renderBaoCaoChuyenMonGiaoBanHtml(r)),
     pvLine('gb-pv-sub','1.4. Vấn đề khác'),
     pvLine('gb-pv-detail', pvHtml(r.baoCaoVanDeKhac || ''))
   ].join('')).join('') : pvLine('gb-pv-detail','Chưa có báo cáo thường trực chưa giao ban.');
@@ -9101,7 +9109,7 @@ function renderGiaoBanModal(){
       <div class="report-day-title">Ngày ${dateVi(r.ngayTruc)}</div>
       <div class="report-item"><div class="report-label">1.1. Nhân viên trực</div><div class="report-value">${esc(renderStaffNameList(r.nhanVienThuongTruc) || 'Chưa nhập')}</div></div>
       <div class="report-item"><div class="report-label">1.2. Dữ liệu trực</div><div class="report-compact-value">${formatSoLieuTrucCompact(r.soLieuTruc)}</div></div>
-      <div class="report-item"><div class="report-label">1.3. Chuyên môn</div><div class="report-value">${esc(r.baoCaoChuyenMon || '')}</div></div>
+      <div class="report-item"><div class="report-label">1.3. Chuyên môn</div><div class="report-value">${renderBaoCaoChuyenMonGiaoBanHtml(r)}</div></div>
       <div class="report-item"><div class="report-label">1.4. Vấn đề khác</div><div class="report-value">${esc(r.baoCaoVanDeKhac || '')}</div></div>
     </div>
   `).join('') : `<div class="empty">Chưa có báo cáo thường trực chưa giao ban.</div>`;
