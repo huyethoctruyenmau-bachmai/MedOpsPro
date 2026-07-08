@@ -1,4 +1,4 @@
-<!-- VERSION: 249.167 | index: 249 | Code.gs: 167 | INDEX-249.080726-DSPHIEU-EDIT-HOPGB -->
+<!-- VERSION: 250.167 | index: 250 | Code.gs: 167 | INDEX-250.080726-REPORT-DATE-YESTERDAY -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5012,7 +5012,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-249.080726-DSPHIEU-EDIT-HOPGB';
+const APP_VERSION = 'INDEX-250.080726-REPORT-DATE-YESTERDAY';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5676,6 +5676,13 @@ function updateCreateFormNumbering(){
   $('#bloodStockReportBlock')?.classList.toggle('hidden', !isBloodStockReport);
   $('#regularPhieuBlock')?.classList.toggle('hidden', isTmPhieu || isBloodStockReport);
   $('#tmPhieuBlock')?.classList.toggle('hidden', !isTmPhieu);
+  const createDateInput = $('#createDate');
+  const createDateDefaultKey = isReport ? 'report-yesterday' : 'today';
+  if(createDateInput && createDateInput.dataset.defaultByLoai !== createDateDefaultKey){
+    createDateInput.value = isReport ? addDaysIso(todayIso(), -1) : todayIso();
+    createDateInput.dataset.defaultByLoai = createDateDefaultKey;
+    updateViDateDisplay(createDateInput);
+  }
   if($('#createDateLabel')) $('#createDateLabel').textContent = isTmPhieu ? (loai === LOAI_TM_XU_TRI ? 'Ngày thực hiện' : 'Ngày tháng năm') : (isReport ? 'Ngày trực' : (isBloodStockReport ? 'Ngày báo cáo' : 'Ngày thực hiện'));
   if($('#createUserLabel')) $('#createUserLabel').textContent = (loai === LOAI_TM_TDKMM || isBloodStockReport) ? 'Người báo cáo' : 'Người thực hiện';
   if(isTmPhieu){
