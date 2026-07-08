@@ -1,4 +1,4 @@
-<!-- VERSION: 248.166 | index: 248 | Code.gs: 166 | INDEX-248.080726-REPORT-CM-GIAOBAN-PDF -->
+<!-- VERSION: 249.167 | index: 249 | Code.gs: 167 | INDEX-249.080726-DSPHIEU-EDIT-HOPGB -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4984,7 +4984,7 @@
       <button id="accountTabBtn" class="tab-btn" data-tab="account"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/></svg></span><span>Tài khoản</span></button>
       <button class="tab-btn active" data-tab="create"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span><span>Tạo phiếu</span></button>
       <button class="tab-btn" data-tab="list"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h6"/><path d="M14.5 4.5l5 5L10 19l-5.5 1.5L6 15l8.5-10.5Z"/><path d="M13 6l5 5"/></svg></span><span>Bàn giao trực</span></button>
-      <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp</span></button>
+      <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
     <div class="app-version">Version: INDEX-247.270626-REPORT-CM-SPLIT-FIX</div>
@@ -5012,7 +5012,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-248.080726-REPORT-CM-GIAOBAN-PDF';
+const APP_VERSION = 'INDEX-249.080726-DSPHIEU-EDIT-HOPGB';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10286,7 +10286,9 @@ function renderDsPhieuCard(x){
   const detailBtn = isTdkmm
     ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
     : (isGiaoBanDraft ? `<button class="btn secondary" onclick="previewGiaoBanDraftPdf(${jsArg(x.id)}, ${jsArg(title)}, this)">Xem phiếu</button>` : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '')));
-  const editBtn = isTm && x.canEdit ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
+  const editBtn = isTm && x.canEdit
+    ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>`
+    : (x.source === 'PHIEU' && x.canEdit ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '');
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
   const historyBtn = tdkmmPdfHistoryIconHtml(x);
   const bn = dsBnMetaHtml(x);
