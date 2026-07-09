@@ -1,4 +1,4 @@
-<!-- VERSION: 259.174 | index: 259 | Code.gs: 174 | INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT -->
+<!-- VERSION: 260.175 | index: 260 | Code.gs: 175 | INDEX-260.090726-DS-SOLIEU-EXCEL-LAYOUT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4914,7 +4914,7 @@
 .tm-sl-gb-table th,.tm-sl-gb-table td,.tm-sl-stats-table th,.tm-sl-stats-table td{border:1px solid var(--line);padding:7px 8px;text-align:center;white-space:nowrap}
 .tm-sl-stats-table th{font-weight:700;background:#f8fafc}
 .tm-sl-stats-table td:first-child,.tm-sl-stats-table th:first-child{text-align:left}
-.tm-sl-total-row td{font-weight:700;background:#f8fafc}
+.tm-sl-total-row td{font-weight:700;background:#f8fafc;color:#1a73e8}
 .tm-sl-form{display:flex;flex-direction:column;gap:10px}
 .tm-sl-row{display:grid;gap:10px;align-items:end}
 .tm-sl-row-main{grid-template-columns:repeat(5,minmax(0,1fr))}
@@ -4979,7 +4979,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT</p>
+      <p class="login-version">Version: INDEX-260.090726-DS-SOLIEU-EXCEL-LAYOUT</p>
     </div>
   </div>
 
@@ -4988,7 +4988,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT</div>
+    <div class="login-loading-version">Version: INDEX-260.090726-DS-SOLIEU-EXCEL-LAYOUT</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5032,7 +5032,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT</div>
+    <div class="app-version">Version: INDEX-260.090726-DS-SOLIEU-EXCEL-LAYOUT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5057,7 +5057,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT';
+const APP_VERSION = 'INDEX-260.090726-DS-SOLIEU-EXCEL-LAYOUT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -8276,8 +8276,6 @@ window.editTmPhieu = async function(phieuTMID, btn){
 /* ================= DS PHIẾU ================= */
 
 function renderListTab(){
-  const allowBloodStockReport = isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
-  const bloodStockReportFilterOption = allowBloodStockReport ? `<option>${LOAI_BAO_CAO_KHO_MAU}</option><option>${LOAI_BAO_CAO_SO_LIEU_TM}</option>` : '';
   $('#tab-list').innerHTML = `
     <div class="card">
       <h2 class="section-title">BÀN GIAO TRỰC</h2>
@@ -8290,7 +8288,7 @@ function renderListTab(){
           <select id="filterLoai" class="equal-control">
             <option value="" selected>Tất cả loại phiếu</option>
             <option>${LOAI_BAN_GIAO}</option>
-            <option>${LOAI_BAO_CAO}</option>${bloodStockReportFilterOption}
+            <option>${LOAI_BAO_CAO}</option>
           </select>
         </div>
         <div>
@@ -10639,12 +10637,12 @@ function renderSoLieuTmStatsPanel(items, payload){
   const htmlRows = rows.map(r => `<tr>
     <td><strong>${esc(dateVi(r.date))}</strong></td>
     <td>${esc(r.tongSoBn)}</td><td>${esc(r.xnNoi)}</td><td>${esc(r.xnNgoai)}</td>
-    <td>${esc(r.dv1)}</td><td>${esc(r.dv2)}</td><td>${esc(r.tongDv)}</td>
+    <td>${esc(r.dv1)}</td><td>${esc(r.dv2)}</td>
     <td>${esc(r.khc)}</td><td>${esc(r.htt)}</td><td>${esc(r.tua)}</td><td>${esc(r.ktc)}</td><td>${esc(r.ktcGt)}</td><td>${esc(r.kbc)}</td><td>${esc(r.cpKhacTong)}</td><td>${esc(r.tongSoDonVi)}</td>
   </tr>`).join('');
-  const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td><td>${total.tongSoBn}</td><td>${total.xnNoi}</td><td>${total.xnNgoai}</td><td>${total.dv1}</td><td>${total.dv2}</td><td>${total.tongDv}</td><td>${total.khc}</td><td>${total.htt}</td><td>${total.tua}</td><td>${total.ktc}</td><td>${total.ktcGt}</td><td>${total.kbc}</td><td>${total.cpKhacTong}</td><td>${total.tongSoDonVi}</td></tr>`;
+  const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td><td>${total.tongSoBn}</td><td>${total.xnNoi}</td><td>${total.xnNgoai}</td><td>${total.dv1}</td><td>${total.dv2}</td><td>${total.khc}</td><td>${total.htt}</td><td>${total.tua}</td><td>${total.ktc}</td><td>${total.ktcGt}</td><td>${total.kbc}</td><td>${total.cpKhacTong}</td><td>${total.tongSoDonVi}</td></tr>`;
   return `<div class="ds-toolbar"><p class="meta">Tổng hợp ${rows.length} ngày${period ? ` · ${period}` : ''}</p><div class="ds-toolbar-actions">${exportBtn}${historyBtn}</div></div>
-    <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th><th>Tổng số BN</th><th>XN Nội</th><th>XN Ngoại</th><th>ĐV1</th><th>ĐV2</th><th>Tổng ĐV</th><th>KHC</th><th>HTT</th><th>Tủa</th><th>KTC</th><th>KTCGT</th><th>KBC</th><th>CP khác</th><th>Tổng số đơn vị</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
+    <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th><th>Tổng số BN</th><th>XN Nội</th><th>XN Ngoại</th><th>ĐV1</th><th>ĐV2</th><th>KHC</th><th>HTT</th><th>Tủa</th><th>KTC</th><th>KTCGT</th><th>KBC</th><th>CP khác</th><th>Tổng số đơn vị</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
 }
 
 function getDsPhieuFilters(){
