@@ -1,4 +1,4 @@
-<!-- VERSION: 257.174 | index: 257 | Code.gs: 174 | INDEX-257.090726-TM-SOLIEU-24H-CPKHAC -->
+<!-- VERSION: 258.174 | index: 258 | Code.gs: 174 | INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4915,6 +4915,20 @@
 .tm-sl-stats-table th{font-weight:700;background:#f8fafc}
 .tm-sl-stats-table td:first-child,.tm-sl-stats-table th:first-child{text-align:left}
 .tm-sl-total-row td{font-weight:700;background:#f8fafc}
+.tm-sl-form{display:flex;flex-direction:column;gap:10px}
+.tm-sl-row{display:grid;gap:10px;align-items:end}
+.tm-sl-row-main{grid-template-columns:repeat(5,minmax(0,1fr))}
+.tm-sl-row-cp{grid-template-columns:repeat(6,minmax(0,1fr))}
+.tm-sl-field{min-width:0}
+.tm-sl-field label{display:block}
+.tm-sl-cp-khac-list{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.tm-sl-cp-khac-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(96px,120px) 34px;gap:8px;align-items:end}
+.tm-sl-cp-khac-row .tm-sl-cp-khac-name,.tm-sl-cp-khac-row .tm-sl-cp-khac-qty{width:100%}
+.tm-sl-remove-x{width:34px;height:40px;border:0;background:transparent;color:#d93025;font-size:22px;font-weight:800;line-height:1;border-radius:10px;cursor:pointer}
+.tm-sl-remove-x:hover{background:#fce8e6}
+.tm-sl-total-fields{display:none}
+.tm-sl-total-warning{border:1px solid #f4b400;background:#fff7e0;color:#7a4b00;border-radius:12px;padding:9px 12px;font-weight:700}
+@media(max-width:760px){.tm-sl-row-main{grid-template-columns:repeat(2,minmax(0,1fr))}.tm-sl-row-main .tm-sl-field:first-child{grid-column:1/-1}.tm-sl-row-cp{grid-template-columns:repeat(3,minmax(0,1fr))}.tm-sl-cp-khac-row{grid-template-columns:minmax(0,1fr) minmax(72px,92px) 30px;gap:6px}.tm-sl-remove-x{width:30px;height:38px;font-size:21px}.tm-sl-field label,.tm-sl-cp-khac-row label{font-size:13px}}
 
 </style>
 </head>
@@ -4961,7 +4975,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-257.090726-TM-SOLIEU-24H-CPKHAC</p>
+      <p class="login-version">Version: INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN</p>
     </div>
   </div>
 
@@ -4970,7 +4984,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-257.090726-TM-SOLIEU-24H-CPKHAC</div>
+    <div class="login-loading-version">Version: INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5014,7 +5028,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-257.090726-TM-SOLIEU-24H-CPKHAC</div>
+    <div class="app-version">Version: INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5039,7 +5053,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-257.090726-TM-SOLIEU-24H-CPKHAC';
+const APP_VERSION = 'INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5653,25 +5667,29 @@ function renderCreateTab(){
 
       <div id="tmDailyStatsBlock" class="card hidden">
         <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-        <div class="grid">
-          <div class="col-12"><label>Tổng số bệnh nhân</label><input id="tmSlTongBn" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-6"><label>XN Nội</label><input id="tmSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-6"><label>XN Ngoại</label><input id="tmSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-6"><label>Đơn vị 1</label><input id="tmSlDv1" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-6"><label>Đơn vị 2</label><input id="tmSlDv2" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-4"><label>KHC</label><input id="tmSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-4"><label>HTT</label><input id="tmSlHtt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-4"><label>Tủa VIII</label><input id="tmSlTua" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-4"><label>KTC</label><input id="tmSlKtc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-4"><label>KTCGT</label><input id="tmSlKtcGt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-4"><label>KBC</label><input id="tmSlKbc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div class="col-12">
+        <div class="tm-sl-form">
+          <div class="tm-sl-row tm-sl-row-main">
+            <div class="tm-sl-field"><label>Tổng số bệnh nhân</label><input id="tmSlTongBn" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>XN Nội</label><input id="tmSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>XN Ngoại</label><input id="tmSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>Đơn vị 1</label><input id="tmSlDv1" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>Đơn vị 2</label><input id="tmSlDv2" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+          </div>
+          <div class="tm-sl-row tm-sl-row-cp">
+            <div class="tm-sl-field"><label>KHC</label><input id="tmSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>HTT</label><input id="tmSlHtt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>Tủa VIII</label><input id="tmSlTua" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>KTC</label><input id="tmSlKtc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>KTCGT</label><input id="tmSlKtcGt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+            <div class="tm-sl-field"><label>KBC</label><input id="tmSlKbc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+          </div>
+          <div>
             <label>CP khác</label>
             <div id="tmSlCpKhacRows" class="tm-sl-cp-khac-list"></div>
             <button class="btn secondary small" type="button" onclick="addSoLieuTmCpKhacRow('tmSl')">+ Thêm CP khác</button>
           </div>
-          <div class="col-6"><label>Tổng ĐV</label><input id="tmSlTongDv" class="equal-control" readonly value="0"></div>
-          <div class="col-6"><label>Tổng số đơn vị</label><input id="tmSlTongSoDonVi" class="equal-control" readonly value="0"></div>
+          <div id="tmSlTotalWarn" class="tm-sl-total-warning hidden"></div>
+          <div class="tm-sl-total-fields"><input id="tmSlTongDv" readonly value="0"><input id="tmSlTongSoDonVi" readonly value="0"></div>
         </div>
         <div class="btn-row">
           <button id="createSoLieuTmBtn" class="btn primary">Tạo phiếu</button>
@@ -6222,7 +6240,7 @@ function soLieuTmInputIds(prefix='tmSl'){
     tongSoBn: prefix + 'TongBn', xnNoi: prefix + 'XnNoi', xnNgoai: prefix + 'XnNgoai',
     dv1: prefix + 'Dv1', dv2: prefix + 'Dv2', tongDv: prefix + 'TongDv',
     khc: prefix + 'Khc', htt: prefix + 'Htt', tua: prefix + 'Tua', ktc: prefix + 'Ktc', ktcGt: prefix + 'KtcGt', kbc: prefix + 'Kbc',
-    tongSoDonVi: prefix + 'TongSoDonVi', cpKhacRows: prefix + 'CpKhacRows'
+    tongSoDonVi: prefix + 'TongSoDonVi', cpKhacRows: prefix + 'CpKhacRows', totalWarn: prefix + 'TotalWarn'
   };
 }
 
@@ -6257,10 +6275,10 @@ function renderSoLieuTmCpKhacRows(prefix='tmSl', items=[]){
 }
 
 function renderSoLieuTmCpKhacRow(prefix='tmSl', item={}){
-  return `<div class="grid tm-sl-cp-khac-row">
-    <div class="col-7"><input class="equal-control tm-sl-cp-khac-name" placeholder="Tên chế phẩm khác" value="${escAttr(item.ten || '')}"></div>
-    <div class="col-3"><input class="equal-control tm-sl-cp-khac-qty" type="number" min="0" step="1" inputmode="numeric" placeholder="Số lượng" value="${escAttr(item.soLuong || 0)}"></div>
-    <div class="col-2"><button class="btn danger small" type="button" onclick="removeSoLieuTmCpKhacRow(this, '${escAttr(prefix)}')">Xóa</button></div>
+  return `<div class="tm-sl-cp-khac-row">
+    <div><input class="equal-control tm-sl-cp-khac-name" placeholder="CP khác" value="${escAttr(item.ten || '')}"></div>
+    <div><input class="equal-control tm-sl-cp-khac-qty" type="number" min="0" step="1" inputmode="numeric" placeholder="Số lượng" value="${escAttr(item.soLuong || 0)}"></div>
+    <button class="tm-sl-remove-x" type="button" onclick="removeSoLieuTmCpKhacRow(this, '${escAttr(prefix)}')" title="Xóa" aria-label="Xóa">×</button>
   </div>`;
 }
 
@@ -6305,8 +6323,14 @@ function updateSoLieuTmTotals(prefix='tmSl'){
   const tongCp = get(ids.khc) + get(ids.htt) + get(ids.tua) + get(ids.ktc) + get(ids.ktcGt) + get(ids.kbc) + cpKhacTong;
   const dvEl = document.getElementById(ids.tongDv);
   const cpEl = document.getElementById(ids.tongSoDonVi);
+  const warnEl = document.getElementById(ids.totalWarn);
   if(dvEl) dvEl.value = tongDv;
   if(cpEl) cpEl.value = tongCp;
+  if(warnEl){
+    const mismatch = tongDv !== tongCp;
+    warnEl.classList.toggle('hidden', !mismatch);
+    warnEl.textContent = mismatch ? `Cảnh báo: Tổng ĐV1+2 (${tongDv}) khác tổng CP (${tongCp}).` : '';
+  }
 }
 
 function collectSoLieuTmCpKhac(prefix='tmSl'){
@@ -8536,24 +8560,32 @@ window.editPhieu = async function(phieuID, btn){
           <div class="card" style="box-shadow:none">
             <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
             <div class="grid">
-              <div class="col-12"><label>Tổng số bệnh nhân</label><input id="editSlTongBn" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tongSoBn)}"></div>
-              <div class="col-6"><label>XN Nội</label><input id="editSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
-              <div class="col-6"><label>XN Ngoại</label><input id="editSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNgoai)}"></div>
-              <div class="col-6"><label>Đơn vị 1</label><input id="editSlDv1" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.dv1)}"></div>
-              <div class="col-6"><label>Đơn vị 2</label><input id="editSlDv2" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.dv2)}"></div>
-              <div class="col-4"><label>KHC</label><input id="editSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.khc)}"></div>
-              <div class="col-4"><label>HTT</label><input id="editSlHtt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.htt)}"></div>
-              <div class="col-4"><label>Tủa VIII</label><input id="editSlTua" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tua)}"></div>
-              <div class="col-4"><label>KTC</label><input id="editSlKtc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.ktc)}"></div>
-              <div class="col-4"><label>KTCGT</label><input id="editSlKtcGt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.ktcGt)}"></div>
-              <div class="col-4"><label>KBC</label><input id="editSlKbc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.kbc)}"></div>
               <div class="col-12">
-                <label>CP khác</label>
-                <div id="editSlCpKhacRows" class="tm-sl-cp-khac-list">${renderSoLieuTmCpKhacRows('editSl', d.cpKhac)}</div>
-                <button class="btn secondary small" type="button" onclick="addSoLieuTmCpKhacRow('editSl')">+ Thêm CP khác</button>
+                <div class="tm-sl-form">
+                  <div class="tm-sl-row tm-sl-row-main">
+                    <div class="tm-sl-field"><label>Tổng số bệnh nhân</label><input id="editSlTongBn" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tongSoBn)}"></div>
+                    <div class="tm-sl-field"><label>XN Nội</label><input id="editSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
+                    <div class="tm-sl-field"><label>XN Ngoại</label><input id="editSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNgoai)}"></div>
+                    <div class="tm-sl-field"><label>Đơn vị 1</label><input id="editSlDv1" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.dv1)}"></div>
+                    <div class="tm-sl-field"><label>Đơn vị 2</label><input id="editSlDv2" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.dv2)}"></div>
+                  </div>
+                  <div class="tm-sl-row tm-sl-row-cp">
+                    <div class="tm-sl-field"><label>KHC</label><input id="editSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.khc)}"></div>
+                    <div class="tm-sl-field"><label>HTT</label><input id="editSlHtt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.htt)}"></div>
+                    <div class="tm-sl-field"><label>Tủa VIII</label><input id="editSlTua" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tua)}"></div>
+                    <div class="tm-sl-field"><label>KTC</label><input id="editSlKtc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.ktc)}"></div>
+                    <div class="tm-sl-field"><label>KTCGT</label><input id="editSlKtcGt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.ktcGt)}"></div>
+                    <div class="tm-sl-field"><label>KBC</label><input id="editSlKbc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.kbc)}"></div>
+                  </div>
+                  <div>
+                    <label>CP khác</label>
+                    <div id="editSlCpKhacRows" class="tm-sl-cp-khac-list">${renderSoLieuTmCpKhacRows('editSl', d.cpKhac)}</div>
+                    <button class="btn secondary small" type="button" onclick="addSoLieuTmCpKhacRow('editSl')">+ Thêm CP khác</button>
+                  </div>
+                  <div id="editSlTotalWarn" class="tm-sl-total-warning hidden"></div>
+                  <div class="tm-sl-total-fields"><input id="editSlTongDv" readonly value="${escAttr(d.tongDv)}"><input id="editSlTongSoDonVi" readonly value="${escAttr(d.tongSoDonVi)}"></div>
+                </div>
               </div>
-              <div class="col-6"><label>Tổng ĐV</label><input id="editSlTongDv" class="equal-control" readonly value="${escAttr(d.tongDv)}"></div>
-              <div class="col-6"><label>Tổng số đơn vị</label><input id="editSlTongSoDonVi" class="equal-control" readonly value="${escAttr(d.tongSoDonVi)}"></div>
             </div>
           </div>
           <div class="btn-row"><button class="btn primary" onclick="saveEditPhieu('${escAttr(p.phieuID)}', this)">Lưu cập nhật</button><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
