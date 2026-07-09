@@ -1,4 +1,4 @@
-<!-- VERSION: 258.174 | index: 258 | Code.gs: 174 | INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN -->
+<!-- VERSION: 259.174 | index: 259 | Code.gs: 174 | INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4921,14 +4921,18 @@
 .tm-sl-row-cp{grid-template-columns:repeat(6,minmax(0,1fr))}
 .tm-sl-field{min-width:0}
 .tm-sl-field label{display:block}
+.tm-sl-cp-khac-section{margin-top:4px}
 .tm-sl-cp-khac-list{display:flex;flex-direction:column;gap:8px;margin-top:2px}
-.tm-sl-cp-khac-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(96px,120px) 34px;gap:8px;align-items:end}
+.tm-sl-cp-khac-row{display:grid;grid-template-columns:minmax(150px,260px) minmax(86px,110px) 34px;gap:8px;align-items:end;width:max-content;max-width:100%}
+.tm-sl-cp-khac-row .tm-sl-field label{display:block}
 .tm-sl-cp-khac-row .tm-sl-cp-khac-name,.tm-sl-cp-khac-row .tm-sl-cp-khac-qty{width:100%}
+.tm-sl-cp-khac-add{margin-top:12px;color:#188038!important;border-color:#c8e6c9!important}
+.tm-sl-cp-khac-add:hover{background:#e6f4ea!important}
 .tm-sl-remove-x{width:34px;height:40px;border:0;background:transparent;color:#d93025;font-size:22px;font-weight:800;line-height:1;border-radius:10px;cursor:pointer}
 .tm-sl-remove-x:hover{background:#fce8e6}
 .tm-sl-total-fields{display:none}
 .tm-sl-total-warning{border:1px solid #f4b400;background:#fff7e0;color:#7a4b00;border-radius:12px;padding:9px 12px;font-weight:700}
-@media(max-width:760px){.tm-sl-row-main{grid-template-columns:repeat(2,minmax(0,1fr))}.tm-sl-row-main .tm-sl-field:first-child{grid-column:1/-1}.tm-sl-row-cp{grid-template-columns:repeat(3,minmax(0,1fr))}.tm-sl-cp-khac-row{grid-template-columns:minmax(0,1fr) minmax(72px,92px) 30px;gap:6px}.tm-sl-remove-x{width:30px;height:38px;font-size:21px}.tm-sl-field label,.tm-sl-cp-khac-row label{font-size:13px}}
+@media(max-width:760px){.tm-sl-row-main{grid-template-columns:repeat(2,minmax(0,1fr))}.tm-sl-row-main .tm-sl-field:first-child{grid-column:1/-1}.tm-sl-row-cp{grid-template-columns:repeat(3,minmax(0,1fr))}.tm-sl-cp-khac-row{grid-template-columns:minmax(0,1fr) minmax(72px,92px) 30px;gap:6px;width:100%}.tm-sl-cp-khac-add{margin-top:12px}.tm-sl-remove-x{width:30px;height:38px;font-size:21px}.tm-sl-field label,.tm-sl-cp-khac-row label{font-size:13px}}
 
 </style>
 </head>
@@ -4975,7 +4979,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN</p>
+      <p class="login-version">Version: INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT</p>
     </div>
   </div>
 
@@ -4984,7 +4988,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN</div>
+    <div class="login-loading-version">Version: INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5028,7 +5032,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN</div>
+    <div class="app-version">Version: INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5053,7 +5057,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-258.090726-TM-SOLIEU-MOBILE-DV-CP-WARN';
+const APP_VERSION = 'INDEX-259.090726-TM-SOLIEU-CPKHAC-LAYOUT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5683,10 +5687,9 @@ function renderCreateTab(){
             <div class="tm-sl-field"><label>KTCGT</label><input id="tmSlKtcGt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
             <div class="tm-sl-field"><label>KBC</label><input id="tmSlKbc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           </div>
-          <div>
-            <label>CP khác</label>
+          <div class="tm-sl-cp-khac-section">
             <div id="tmSlCpKhacRows" class="tm-sl-cp-khac-list"></div>
-            <button class="btn secondary small" type="button" onclick="addSoLieuTmCpKhacRow('tmSl')">+ Thêm CP khác</button>
+            <button class="btn secondary small tm-sl-cp-khac-add" type="button" onclick="addSoLieuTmCpKhacRow('tmSl')">+ Thêm CP khác</button>
           </div>
           <div id="tmSlTotalWarn" class="tm-sl-total-warning hidden"></div>
           <div class="tm-sl-total-fields"><input id="tmSlTongDv" readonly value="0"><input id="tmSlTongSoDonVi" readonly value="0"></div>
@@ -6276,8 +6279,8 @@ function renderSoLieuTmCpKhacRows(prefix='tmSl', items=[]){
 
 function renderSoLieuTmCpKhacRow(prefix='tmSl', item={}){
   return `<div class="tm-sl-cp-khac-row">
-    <div><input class="equal-control tm-sl-cp-khac-name" placeholder="CP khác" value="${escAttr(item.ten || '')}"></div>
-    <div><input class="equal-control tm-sl-cp-khac-qty" type="number" min="0" step="1" inputmode="numeric" placeholder="Số lượng" value="${escAttr(item.soLuong || 0)}"></div>
+    <div class="tm-sl-field"><label>CP khác</label><input class="equal-control tm-sl-cp-khac-name" placeholder="Tên chế phẩm" value="${escAttr(item.ten || '')}"></div>
+    <div class="tm-sl-field"><label>Số lượng</label><input class="equal-control tm-sl-cp-khac-qty" type="number" min="0" step="1" inputmode="numeric" placeholder="0" value="${escAttr(item.soLuong || 0)}"></div>
     <button class="tm-sl-remove-x" type="button" onclick="removeSoLieuTmCpKhacRow(this, '${escAttr(prefix)}')" title="Xóa" aria-label="Xóa">×</button>
   </div>`;
 }
@@ -8577,10 +8580,9 @@ window.editPhieu = async function(phieuID, btn){
                     <div class="tm-sl-field"><label>KTCGT</label><input id="editSlKtcGt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.ktcGt)}"></div>
                     <div class="tm-sl-field"><label>KBC</label><input id="editSlKbc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.kbc)}"></div>
                   </div>
-                  <div>
-                    <label>CP khác</label>
+                  <div class="tm-sl-cp-khac-section">
                     <div id="editSlCpKhacRows" class="tm-sl-cp-khac-list">${renderSoLieuTmCpKhacRows('editSl', d.cpKhac)}</div>
-                    <button class="btn secondary small" type="button" onclick="addSoLieuTmCpKhacRow('editSl')">+ Thêm CP khác</button>
+                    <button class="btn secondary small tm-sl-cp-khac-add" type="button" onclick="addSoLieuTmCpKhacRow('editSl')">+ Thêm CP khác</button>
                   </div>
                   <div id="editSlTotalWarn" class="tm-sl-total-warning hidden"></div>
                   <div class="tm-sl-total-fields"><input id="editSlTongDv" readonly value="${escAttr(d.tongDv)}"><input id="editSlTongSoDonVi" readonly value="${escAttr(d.tongSoDonVi)}"></div>
