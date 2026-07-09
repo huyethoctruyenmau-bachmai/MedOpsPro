@@ -1,4 +1,4 @@
-<!-- VERSION: 250.167 | index: 250 | Code.gs: 167 | INDEX-250.080726-REPORT-DATE-YESTERDAY -->
+<!-- VERSION: 251.168 | index: 251 | Code.gs: 168 | INDEX-251.090726-GB-DRAFT-FINISH-WAIT-PDF-SIGN-TITLE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -284,6 +284,11 @@
     .login-loading-logo{position:relative;width:300px;height:300px;margin-bottom:25px;overflow:hidden;border-radius:15px;background:transparent}
     .login-loading-logo img{width:100%;height:100%;display:block;object-fit:contain}.login-loading-logo::after{content:"";position:absolute;top:0;left:-150%;width:100%;height:100%;background:linear-gradient(to right,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);transform:skewX(-25deg);animation:shimmer-fixed 2.5s infinite cubic-bezier(.4,0,.2,1)}
     .login-loading-text{font-size:20px;font-weight:bold;color:#333;margin:0 0 10px}.login-loading-progress{font-size:24px;font-weight:bold;color:#005baa;min-height:28px}.login-loading-sub{font-size:13px;color:#5f6368;margin-top:6px}
+    .app-action-overlay{position:fixed;inset:0;z-index:100900;background:rgba(255,255,255,.86);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:var(--g-text);backdrop-filter:blur(2px)}
+    .app-action-card{width:min(360px,92vw);border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 18px 50px rgba(60,64,67,.22);padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:10px}
+    .app-action-spinner{width:42px;height:42px;border:4px solid #e8eaed;border-top-color:var(--wine);border-radius:50%;animation:app-spin .8s linear infinite}
+    .app-action-title{font-size:18px;font-weight:800;color:var(--wine-dark);line-height:1.35}.app-action-sub{font-size:13.5px;color:var(--muted);line-height:1.4}
+    @keyframes app-spin{to{transform:rotate(360deg)}}
     @keyframes shimmer-fixed{100%{left:150%}}@keyframes float-particles{0%{background-position:0% 0%}100%{background-position:100% 200%}}
     .account-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:12px;align-items:start}.account-menu-card{position:sticky;top:0}.account-menu{display:flex;flex-direction:column;gap:10px}.account-menu-btn{width:100%;min-height:48px;justify-content:flex-start;background:linear-gradient(135deg,#f8f1f4 0%,#fff 100%);color:var(--wine-dark);border:1px solid var(--line);border-radius:10px;font-weight:700}.account-menu-btn.active,.account-menu-btn:hover{background:linear-gradient(135deg,var(--wine) 0%,var(--wine-2) 100%);color:#fff;border-color:transparent}.account-content-card{min-height:260px}.account-header{display:flex;align-items:flex-start;gap:12px;border-bottom:3px solid #f8f1f4;padding-bottom:14px;margin-bottom:14px}.account-avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#fff0f5;color:var(--wine);font-size:30px;flex:0 0 auto}.account-title{margin:0;color:var(--wine-dark);font-size:21px;line-height:1.25}.account-sub{margin:4px 0 0;color:var(--muted);font-size:13px}.account-info-grid{display:grid;grid-template-columns:1fr;gap:12px}.account-info-item{margin-bottom:0;padding:15px;background:linear-gradient(135deg,#fffafb 0%,#f8f1f4 100%);border-radius:10px;border:1px solid var(--line);border-left:4px solid var(--wine);transition:all .3s ease}.account-info-label{display:flex;align-items:flex-start;font-weight:bold;color:#5f4a55;margin-bottom:6px;font-size:14px}.account-info-label .info-ico{margin-right:8px;color:var(--wine);width:20px;text-align:left;flex:0 0 auto}.account-info-value{font-size:16px;color:var(--g-text);font-weight:600;margin-left:28px;word-break:break-word}.account-action-form{max-width:760px}.account-setup-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.account-setup-btn{min-height:46px;border-radius:10px;justify-content:flex-start;background:#fff;color:var(--wine-dark);border:1px solid var(--line);font-weight:700}.account-setup-btn:hover,.account-setup-btn.active{background:#fff0f5;color:var(--wine);border-color:#e8c8d5}.account-setup-content{margin-top:12px}.account-author{display:none;text-align:center;margin:18px 0 6px;color:var(--g-muted);font-size:12.5px;line-height:1.45}
 
@@ -4943,7 +4948,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-247.270626-REPORT-CM-SPLIT-FIX</p>
+      <p class="login-version">Version: INDEX-251.090726-GB-DRAFT-FINISH-WAIT-PDF-SIGN-TITLE</p>
     </div>
   </div>
 
@@ -4952,6 +4957,14 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
+  </div>
+
+  <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
+    <div class="app-action-card">
+      <span class="app-action-spinner" aria-hidden="true"></span>
+      <div id="appActionTitle" class="app-action-title">Đang xử lý...</div>
+      <div id="appActionSub" class="app-action-sub">Vui lòng chờ trong giây lát</div>
+    </div>
   </div>
 
   <div id="app" class="app-shell hidden">
@@ -4987,7 +5000,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-247.270626-REPORT-CM-SPLIT-FIX</div>
+    <div class="app-version">Version: INDEX-251.090726-GB-DRAFT-FINISH-WAIT-PDF-SIGN-TITLE</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5012,7 +5025,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-250.080726-REPORT-DATE-YESTERDAY';
+const APP_VERSION = 'INDEX-251.090726-GB-DRAFT-FINISH-WAIT-PDF-SIGN-TITLE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -8679,11 +8692,14 @@ function renderMeetingTab(){
 
 async function loadGiaoBanList(force){
   const box = $('#giaoBanListBox');
-  if(!box) return;
+  if(!box) return false;
   const filters = getGiaoBanFilters();
   const key = JSON.stringify(filters);
   const fresh = state.cache.giaoBan.key === key && Date.now() - state.cache.giaoBan.time < 45000;
-  if(!force && fresh) return renderGiaoBanList(state.cache.giaoBan.data, state.cache.giaoBan.note || '');
+  if(!force && fresh){
+    renderGiaoBanList(state.cache.giaoBan.data, state.cache.giaoBan.note || '');
+    return true;
+  }
 
   box.innerHTML = `<div class="loading">Đang tải danh sách giao ban...</div>`;
   try{
@@ -8691,8 +8707,10 @@ async function loadGiaoBanList(force){
     const items = res.data.items || [];
     state.cache.giaoBan = {key, time:Date.now(), data:items, note:''};
     renderGiaoBanList(items, '');
+    return true;
   }catch(err){
     box.innerHTML = `<div class="empty">${esc(err.message)}</div>`;
+    return false;
   }
 }
 
@@ -9924,15 +9942,53 @@ function collectGiaoBanPayload(){
 
 window.saveGiaoBanDraft = async function(btn){
   const task = async () => {
-    const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
-    state.currentGiaoBan = res.data.giaoBan;
-    state.refreshGiaoBanListOnClose = true;
-    clearListCaches();
-    toast('Đã lưu nháp giao ban');
-    renderGiaoBanModal();
+    showAppActionOverlay('Đang lưu nháp...', 'Hệ thống đang lưu nội dung và cập nhật danh sách.');
+    try{
+      const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
+      state.currentGiaoBan = res.data.giaoBan;
+      state.refreshGiaoBanListOnClose = true;
+      clearListCaches();
+      await reloadGiaoBanListOrThrow();
+      toast('Đã lưu nháp giao ban');
+      renderGiaoBanModal();
+    }finally{
+      hideAppActionOverlay();
+    }
   };
   if(btn) return withButton(btn, 'Đang lưu...', task);
   try{ await task(); }catch(err){ toast(err.message); }
+}
+
+function getGiaoBanBusyName(){
+  const loai = state.currentGiaoBan?.loaiGiaoBan || state.currentGiaoBan?.LoaiGiaoBan || '';
+  return isBienBanHopLoai(loai) ? 'biên bản họp' : 'giao ban';
+}
+
+function getGiaoBanFinishBusyText(){
+  return isBienBanHopLoai(state.currentGiaoBan?.loaiGiaoBan || state.currentGiaoBan?.LoaiGiaoBan || '')
+    ? 'Đang kết thúc biên bản họp...'
+    : 'Đang kết thúc giao ban...';
+}
+
+async function reloadGiaoBanListOrThrow(){
+  if(state.activeTab !== 'meeting') switchTab('meeting');
+  const ok = await loadGiaoBanList(true);
+  if(ok === false) throw new Error('Đã lưu dữ liệu nhưng chưa tải lại được danh sách. Vui lòng bấm Xem danh sách để kiểm tra lại.');
+}
+
+async function saveGiaoBanDraftThenExit(){
+  showAppActionOverlay('Đang lưu nháp...', 'Hệ thống đang lưu bản nháp và tải lại danh sách.');
+  try{
+    const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
+    state.currentGiaoBan = res.data.giaoBan;
+    state.refreshGiaoBanListOnClose = false;
+    clearListCaches();
+    await reloadGiaoBanListOrThrow();
+    toast('Đã lưu nháp giao ban');
+    closeModal();
+  }finally{
+    hideAppActionOverlay();
+  }
 }
 
 
@@ -10095,16 +10151,23 @@ async function submitChuTriSignature(btn, systemSign){
     payload.hinhThucKy = mode;
     payload.hinhThucKyChuTri = mode;
     if(mode === HINH_THUC_KY_TAY) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
-    const res = await api('finishGiaoBan', payload);
-    state.currentGiaoBan = res.data.giaoBan;
-    resetPendingThuKySignature('');
-    clearListCaches();
-    toast('Đã ký');
-    closeFullSignatureModal();
-    closeModal();
-    await loadGiaoBanList(true);
+
+    showAppActionOverlay(getGiaoBanFinishBusyText(), 'Hệ thống đang ghi nhận chữ ký, xuất PDF và tải lại danh sách.');
+    try{
+      const res = await api('finishGiaoBan', payload);
+      state.currentGiaoBan = res.data.giaoBan;
+      resetPendingThuKySignature('');
+      state.refreshGiaoBanListOnClose = false;
+      clearListCaches();
+      await reloadGiaoBanListOrThrow();
+      toast('Đã ký');
+      closeFullSignatureModal();
+      closeModal();
+    }finally{
+      hideAppActionOverlay();
+    }
   };
-  if(btn) return withButton(btn, 'Đang ký...', task);
+  if(btn) return withButton(btn, getGiaoBanFinishBusyText().replace(/^Đang /,'').replace(/\.\.\.$/, '...'), task);
   try{ await task(); }catch(err){ toast(err.message); }
 }
 
@@ -10420,6 +10483,20 @@ function showLoginLoading(progress=0, text='Đang tải dữ liệu...'){
 
 function hideLoginLoading(){
   $('#loginLoadingOverlay')?.classList.add('hidden');
+}
+
+function showAppActionOverlay(title, subText){
+  const overlay = $('#appActionOverlay');
+  if(!overlay) return;
+  const titleEl = $('#appActionTitle');
+  const subEl = $('#appActionSub');
+  if(titleEl) titleEl.textContent = title || 'Đang xử lý...';
+  if(subEl) subEl.textContent = subText || 'Vui lòng chờ trong giây lát';
+  overlay.classList.remove('hidden');
+}
+
+function hideAppActionOverlay(){
+  $('#appActionOverlay')?.classList.add('hidden');
 }
 
 function togglePasswordInput(inputId, btnRef){
@@ -12498,15 +12575,11 @@ window.closeGiaoBanModal = async function(){
 
   if(ok){
     try{
-      const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
-      state.currentGiaoBan = res.data.giaoBan;
-      state.refreshGiaoBanListOnClose = true;
-      clearListCaches();
-      toast('Đã lưu nháp giao ban');
+      await saveGiaoBanDraftThenExit();
     }catch(err){
       toast(err.message);
-      return;
     }
+    return;
   }
 
   closeModal();
