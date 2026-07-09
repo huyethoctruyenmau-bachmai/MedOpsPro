@@ -1,4 +1,4 @@
-<!-- VERSION: 251.168 | index: 251 | Code.gs: 168 | INDEX-251.090726-GB-DRAFT-FINISH-WAIT-PDF-SIGN-TITLE -->
+<!-- VERSION: 252.169 | index: 252 | Code.gs: 169 | INDEX-252.090726-GB-DRAFT-RESAVE-FIX -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4948,7 +4948,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-251.090726-GB-DRAFT-FINISH-WAIT-PDF-SIGN-TITLE</p>
+      <p class="login-version">Version: INDEX-252.090726-GB-DRAFT-RESAVE-FIX</p>
     </div>
   </div>
 
@@ -5000,7 +5000,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-251.090726-GB-DRAFT-FINISH-WAIT-PDF-SIGN-TITLE</div>
+    <div class="app-version">Version: INDEX-252.090726-GB-DRAFT-RESAVE-FIX</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -9899,10 +9899,43 @@ async function saveProfileSignatureFromPad(btn){
   try{ await task(); }catch(err){ toast(err.message); }
 }
 
+function syncCurrentGiaoBanDraftFromForm(){
+  const g = state.currentGiaoBan;
+  if(!g) return null;
+  const time = fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBan || hanoiNowIso();
+  const chair = resolveChairFromInput($('#gbChuTriInput')?.value || g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '');
+  g.thoiGianGiaoBan = time;
+  g.thoiGianGiaoBanHienThi = time;
+  g.ngayGiaoBan = String(time || '').slice(0, 10) || g.ngayGiaoBan || todayIso();
+  g.khoaPhong = $('#gbDotDept')?.value || g.khoaPhong || state.user?.khoaPhong || '';
+  g.chuTriMa = chair.maNhanVien || '';
+  g.chuTriTen = chair.tenNhanVien || '';
+  g.chuTriChucDanh = chair.chucDanh || '';
+  g.nguoiChuTriTuDo = chair.tenNhanVien || '';
+  g.hinhThucKy = getSelectedHinhThucKy('chuTri');
+  g.hinhThucKyThuKy = getPendingThuKySignMode() || getSelectedHinhThucKy('thuKy');
+  g.hinhThucKyChuTri = getSelectedHinhThucKy('chuTri');
+  g.nghi = $('#gbNghi')?.value || '';
+  g.khoMauKHC = $('#khoKHC')?.value || '';
+  g.khoMauHTT = $('#khoHTT')?.value || '';
+  g.khoMauTua = $('#khoTua')?.value || '';
+  g.khoMauKTC = $('#khoKTC')?.value || '';
+  g.khoMauKTCGanTach = $('#khoKTCGanTach')?.value || '';
+  g.khoMauKhac = $('#khoKhac')?.value || '';
+  g.thongBao = $('#gbThongBao')?.value || '';
+  g.noiDungKhac = $('#gbNoiDungKhac')?.value || '';
+  g.noiDungGiaoBanKhac = $('#gbNoiDungGiaoBanKhac')?.value || '';
+  g.thanhPhanThamDu = $('#gbThanhPhanThamDu')?.value || '';
+  g.lyDoGiaoBan = $('#gbLyDoGiaoBan')?.value || '';
+  g.noiDungDotXuat = $('#gbNoiDungDotXuat')?.value || '';
+  g.ketLuan = $('#gbKetLuan')?.value || '';
+  return g;
+}
+
 function collectGiaoBanPayload(){
   normalizeChairInput();
   syncSignModeWithChair();
-  const g = state.currentGiaoBan;
+  const g = syncCurrentGiaoBanDraftFromForm() || state.currentGiaoBan;
   const chuTri = resolveChairFromInput($('#gbChuTriInput')?.value || g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '');
   const payload = {
     giaoBanID: g.giaoBanID,
@@ -9942,10 +9975,10 @@ function collectGiaoBanPayload(){
 
 window.saveGiaoBanDraft = async function(btn){
   const task = async () => {
-    showAppActionOverlay('Đang lưu nháp...', 'Hệ thống đang lưu nội dung và cập nhật danh sách.');
+    showAppActionOverlay('Đang lưu nháp...');
     try{
       const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
-      state.currentGiaoBan = res.data.giaoBan;
+      state.currentGiaoBan = Object.assign({}, state.currentGiaoBan || {}, res.data.giaoBan || {}, {isVirtual:false});
       state.refreshGiaoBanListOnClose = true;
       clearListCaches();
       await reloadGiaoBanListOrThrow();
@@ -9977,10 +10010,10 @@ async function reloadGiaoBanListOrThrow(){
 }
 
 async function saveGiaoBanDraftThenExit(){
-  showAppActionOverlay('Đang lưu nháp...', 'Hệ thống đang lưu bản nháp và tải lại danh sách.');
+  showAppActionOverlay('Đang lưu nháp...');
   try{
     const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
-    state.currentGiaoBan = res.data.giaoBan;
+    state.currentGiaoBan = Object.assign({}, state.currentGiaoBan || {}, res.data.giaoBan || {}, {isVirtual:false});
     state.refreshGiaoBanListOnClose = false;
     clearListCaches();
     await reloadGiaoBanListOrThrow();
@@ -10152,7 +10185,7 @@ async function submitChuTriSignature(btn, systemSign){
     payload.hinhThucKyChuTri = mode;
     if(mode === HINH_THUC_KY_TAY) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
 
-    showAppActionOverlay(getGiaoBanFinishBusyText(), 'Hệ thống đang ghi nhận chữ ký, xuất PDF và tải lại danh sách.');
+    showAppActionOverlay(getGiaoBanFinishBusyText());
     try{
       const res = await api('finishGiaoBan', payload);
       state.currentGiaoBan = res.data.giaoBan;
@@ -10490,8 +10523,12 @@ function showAppActionOverlay(title, subText){
   if(!overlay) return;
   const titleEl = $('#appActionTitle');
   const subEl = $('#appActionSub');
+  const note = String(subText || '').trim();
   if(titleEl) titleEl.textContent = title || 'Đang xử lý...';
-  if(subEl) subEl.textContent = subText || 'Vui lòng chờ trong giây lát';
+  if(subEl){
+    subEl.textContent = note;
+    subEl.classList.toggle('hidden', !note);
+  }
   overlay.classList.remove('hidden');
 }
 
