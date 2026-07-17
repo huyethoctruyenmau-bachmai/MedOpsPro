@@ -1,4 +1,4 @@
-<!-- VERSION: 264.177 | index: 264 | Code.gs: 177 | INDEX-264.090726-SIGNATURE-UPLOAD-COMPRESS -->
+<!-- VERSION: 265.177 | index: 265 | Code.gs: 177 | INDEX-265.090726-SIGNATURE-UPLOAD-NORMALIZE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4980,7 +4980,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-264.090726-SIGNATURE-UPLOAD-COMPRESS</p>
+      <p class="login-version">Version: INDEX-265.090726-SIGNATURE-UPLOAD-NORMALIZE</p>
     </div>
   </div>
 
@@ -4989,7 +4989,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-264.090726-SIGNATURE-UPLOAD-COMPRESS</div>
+    <div class="login-loading-version">Version: INDEX-265.090726-SIGNATURE-UPLOAD-NORMALIZE</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5033,7 +5033,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-264.090726-SIGNATURE-UPLOAD-COMPRESS</div>
+    <div class="app-version">Version: INDEX-265.090726-SIGNATURE-UPLOAD-NORMALIZE</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5058,7 +5058,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-264.090726-SIGNATURE-UPLOAD-COMPRESS';
+const APP_VERSION = 'INDEX-265.090726-SIGNATURE-UPLOAD-NORMALIZE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10595,16 +10595,19 @@ function processSignatureUploadCrop(silent){
   try{
     const c = normalizeSignatureUploadCrop(crop);
     const src = document.createElement('canvas');
-    const maxSide = 640;
+    // Chỉ xử lý vùng đã chọn, không xử lý toàn bộ ảnh gốc. Vùng chọn được thu nhỏ trước
+    // để chữ ký upload có dung lượng gần giống chữ ký vẽ trực tiếp trên app.
+    const maxSide = 520;
     const scale = Math.min(maxSide / Math.max(c.w, c.h), 1);
     src.width = Math.max(1, Math.round(c.w * scale));
     src.height = Math.max(1, Math.round(c.h * scale));
-    const srcCtx = src.getContext('2d');
+    const srcCtx = src.getContext('2d', {willReadFrequently:true});
     srcCtx.drawImage(img, c.x, c.y, c.w, c.h, 0, 0, src.width, src.height);
     const imageData = srcCtx.getImageData(0, 0, src.width, src.height);
     const data = imageData.data;
     const bg = estimateBackgroundColor(data, src.width, src.height);
     let minX = src.width, minY = src.height, maxX = -1, maxY = -1;
+
     for(let y=0; y<src.height; y++){
       for(let x=0; x<src.width; x++){
         const i = (y*src.width + x) * 4;
@@ -10612,33 +10615,46 @@ function processSignatureUploadCrop(silent){
         const lum = luminance(r,g,b);
         const sat = colorSaturation(r,g,b);
         const dist = colorDistance(r,g,b,bg);
-        let score = Math.max((dist - 18) * 2.7, (235 - lum) * 1.8, (sat - 0.08) * 290);
+        // Tạo mask nét ký rõ hơn, loại nền giấy/bóng mờ mạnh hơn để file PNG nhẹ.
+        let score = Math.max((dist - 26) * 3.2, (228 - lum) * 2.1, (sat - 0.12) * 330);
         let alpha = clampNumber(score, 0, 255);
-        if(alpha < 38) alpha = 0;
-        else alpha = clampNumber(alpha * 1.20, 80, 255);
+        if(alpha < 76) alpha = 0;
+        else alpha = alpha >= 128 ? 255 : 180;
         data[i+3] = alpha;
-        if(alpha > 0){
-          data[i] = Math.max(0, Math.round(r * 0.88));
-          data[i+1] = Math.max(0, Math.round(g * 0.88));
-          data[i+2] = Math.max(0, Math.round(b * 0.88));
+        if(alpha){
+          data[i] = r; data[i+1] = g; data[i+2] = b;
+        }else{
+          data[i] = 0; data[i+1] = 0; data[i+2] = 0;
         }
-        if(alpha > 25){ minX = Math.min(minX,x); minY = Math.min(minY,y); maxX = Math.max(maxX,x); maxY = Math.max(maxY,y); }
       }
     }
+
+    removeSignatureUploadNoise(data, src.width, src.height);
+
+    for(let y=0; y<src.height; y++){
+      for(let x=0; x<src.width; x++){
+        const i = (y*src.width + x) * 4;
+        if(data[i+3] > 0){
+          minX = Math.min(minX,x); minY = Math.min(minY,y); maxX = Math.max(maxX,x); maxY = Math.max(maxY,y);
+        }
+      }
+    }
+
     srcCtx.putImageData(imageData, 0, 0);
     if(maxX < minX || maxY < minY){
       state.signatureUpload.processedDataUrl = '';
       updateSignatureProcessedPreview('');
       return '';
     }
-    const padX = Math.max(8, Math.round((maxX-minX+1) * 0.06));
-    const padY = Math.max(8, Math.round((maxY-minY+1) * 0.16));
+
+    const padX = Math.max(6, Math.round((maxX-minX+1) * 0.05));
+    const padY = Math.max(6, Math.round((maxY-minY+1) * 0.16));
     minX = Math.max(0, minX - padX); maxX = Math.min(src.width - 1, maxX + padX);
     minY = Math.max(0, minY - padY); maxY = Math.min(src.height - 1, maxY + padY);
-    const dataUrl = exportProcessedSignatureToLimitedPng(src, minX, minY, maxX-minX+1, maxY-minY+1);
+
+    const dataUrl = exportProcessedSignatureToProfilePng(src, minX, minY, maxX-minX+1, maxY-minY+1);
     state.signatureUpload.processedDataUrl = dataUrl;
     updateSignatureProcessedPreview('');
-    if(!silent) toast('Đã xử lý vùng chữ ký.');
     return dataUrl;
   }catch(err){
     if(status) status.textContent = '';
@@ -10647,25 +10663,80 @@ function processSignatureUploadCrop(silent){
   }
 }
 
-function exportProcessedSignatureToLimitedPng(src, sx, sy, sw, sh){
-  const maxDataUrlLength = 43000;
-  const sizes = [320, 280, 240, 220, 200, 180, 160, 140, 120, 100, 80, 64];
+function removeSignatureUploadNoise(data, w, h){
+  const alpha = new Uint8Array(w*h);
+  for(let i=0, p=0; i<data.length; i+=4, p++) alpha[p] = data[i+3] > 0 ? 1 : 0;
+  for(let y=1; y<h-1; y++){
+    for(let x=1; x<w-1; x++){
+      const p = y*w + x;
+      if(!alpha[p]) continue;
+      let n = 0;
+      for(let yy=-1; yy<=1; yy++){
+        for(let xx=-1; xx<=1; xx++){
+          if(xx === 0 && yy === 0) continue;
+          n += alpha[(y+yy)*w + (x+xx)];
+        }
+      }
+      if(n <= 1){
+        const i = p * 4;
+        data[i] = 0; data[i+1] = 0; data[i+2] = 0; data[i+3] = 0;
+      }
+    }
+  }
+}
+
+function getDominantSignatureInkColorFromRegion(src, sx, sy, sw, sh){
+  const ctx = src.getContext('2d', {willReadFrequently:true});
+  const img = ctx.getImageData(sx, sy, sw, sh);
+  const data = img.data;
+  let rs = 0, gs = 0, bs = 0, ws = 0;
+  for(let i=0; i<data.length; i+=4){
+    const a = data[i+3];
+    if(a > 0){
+      rs += data[i] * a;
+      gs += data[i+1] * a;
+      bs += data[i+2] * a;
+      ws += a;
+    }
+  }
+  if(!ws) return {r:0, g:87, b:184};
+  const r = Math.round(rs/ws), g = Math.round(gs/ws), b = Math.round(bs/ws);
+  // Nếu nét quá xám/đen thì chuyển về xanh ký trực tiếp của app; nếu mực xanh rõ thì giữ tông xanh.
+  const sat = colorSaturation(r,g,b);
+  const lum = luminance(r,g,b);
+  if(sat < 0.12 || lum < 120) return {r:0, g:87, b:184};
+  return {r:Math.max(0, Math.min(50, r)), g:Math.max(45, Math.min(120, g)), b:Math.max(120, Math.min(210, b))};
+}
+
+function exportProcessedSignatureToProfilePng(src, sx, sy, sw, sh){
+  const maxDataUrlLength = 36000;
+  const ink = getDominantSignatureInkColorFromRegion(src, sx, sy, sw, sh);
+  const sizes = [
+    {w:360, h:130, padX:26, padY:20},
+    {w:320, h:118, padX:23, padY:18},
+    {w:280, h:104, padX:20, padY:16},
+    {w:240, h:90,  padX:18, padY:14},
+    {w:200, h:76,  padX:15, padY:12},
+    {w:160, h:62,  padX:12, padY:10},
+    {w:128, h:50,  padX:10, padY:8}
+  ];
   let lastDataUrl = '';
-  for(const size of sizes){
+  for(const opt of sizes){
     const out = document.createElement('canvas');
-    out.width = size; out.height = size;
-    const ctx = out.getContext('2d');
-    ctx.clearRect(0,0,size,size);
-    const pad = Math.round(size * 0.10);
-    const maxBox = size - pad * 2;
-    const scale = Math.min(maxBox / sw, maxBox / sh);
-    const dw = Math.max(1, sw * scale), dh = Math.max(1, sh * scale);
-    const dx = (size - dw) / 2;
-    const dy = (size - dh) / 2;
+    out.width = opt.w; out.height = opt.h;
+    const ctx = out.getContext('2d', {willReadFrequently:true});
+    ctx.clearRect(0,0,out.width,out.height);
+    const maxW = Math.max(1, out.width - opt.padX * 2);
+    const maxH = Math.max(1, out.height - opt.padY * 2);
+    const scale = Math.min(maxW / Math.max(1, sw), maxH / Math.max(1, sh));
+    const dw = Math.max(1, Math.round(sw * scale));
+    const dh = Math.max(1, Math.round(sh * scale));
+    const dx = Math.round((out.width - dw) / 2);
+    const dy = Math.round((out.height - dh) / 2);
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(src, sx, sy, sw, sh, dx, dy, dw, dh);
-    compactSignaturePngCanvas(out);
+    normalizeSignaturePngLikePad(out, ink);
     const dataUrl = out.toDataURL('image/png');
     lastDataUrl = dataUrl;
     if(dataUrl.length <= maxDataUrlLength) return dataUrl;
@@ -10673,37 +10744,32 @@ function exportProcessedSignatureToLimitedPng(src, sx, sy, sw, sh){
   return lastDataUrl;
 }
 
-function compactSignaturePngCanvas(canvas){
+function normalizeSignaturePngLikePad(canvas, ink){
   if(!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', {willReadFrequently:true});
   const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = img.data;
-  let rs = 0, gs = 0, bs = 0, ws = 0;
   for(let i=0; i<data.length; i+=4){
     const a = data[i+3];
-    if(a > 35){
-      rs += data[i] * a;
-      gs += data[i+1] * a;
-      bs += data[i+2] * a;
-      ws += a;
-    }
-  }
-  const ink = ws > 0
-    ? {r:Math.round(rs/ws), g:Math.round(gs/ws), b:Math.round(bs/ws)}
-    : {r:25, g:70, b:160};
-  for(let i=0; i<data.length; i+=4){
-    let a = data[i+3];
-    if(a < 58){
+    if(a < 86){
       data[i] = 0; data[i+1] = 0; data[i+2] = 0; data[i+3] = 0;
       continue;
     }
-    a = a >= 150 ? 255 : Math.min(255, Math.max(120, Math.round(a * 1.25)));
     data[i] = ink.r;
     data[i+1] = ink.g;
     data[i+2] = ink.b;
-    data[i+3] = a;
+    data[i+3] = 255;
   }
   ctx.putImageData(img, 0, 0);
+}
+
+function exportProcessedSignatureToLimitedPng(src, sx, sy, sw, sh){
+  return exportProcessedSignatureToProfilePng(src, sx, sy, sw, sh);
+}
+
+function compactSignaturePngCanvas(canvas){
+  if(!canvas) return;
+  normalizeSignaturePngLikePad(canvas, {r:0, g:87, b:184});
 }
 
 function updateSignatureProcessedPreview(message){
