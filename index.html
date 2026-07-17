@@ -1,4 +1,4 @@
-<!-- VERSION: 266.177 | index: 266 | Code.gs: 177 | INDEX-266.090726-SIGNATURE-UPLOAD-MASK-FIX -->
+<!-- VERSION: 267.178 | index: 267 | Code.gs: 178 | INDEX-267.090726-SIGNATURE-PDF-RATIO -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4980,7 +4980,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-266.090726-SIGNATURE-UPLOAD-MASK-FIX</p>
+      <p class="login-version">Version: INDEX-267.090726-SIGNATURE-PDF-RATIO</p>
     </div>
   </div>
 
@@ -4989,7 +4989,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-266.090726-SIGNATURE-UPLOAD-MASK-FIX</div>
+    <div class="login-loading-version">Version: INDEX-267.090726-SIGNATURE-PDF-RATIO</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5033,7 +5033,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-266.090726-SIGNATURE-UPLOAD-MASK-FIX</div>
+    <div class="app-version">Version: INDEX-267.090726-SIGNATURE-PDF-RATIO</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5058,7 +5058,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-266.090726-SIGNATURE-UPLOAD-MASK-FIX';
+const APP_VERSION = 'INDEX-267.090726-SIGNATURE-PDF-RATIO';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10752,13 +10752,13 @@ function exportProcessedSignatureToProfilePng(src, sx, sy, sw, sh){
   const maxDataUrlLength = 36000;
   const ink = getDominantSignatureInkColorFromRegion(src, sx, sy, sw, sh);
   const sizes = [
-    {w:360, h:130, padX:26, padY:20},
-    {w:320, h:118, padX:23, padY:18},
-    {w:280, h:104, padX:20, padY:16},
-    {w:240, h:90,  padX:18, padY:14},
-    {w:200, h:76,  padX:15, padY:12},
-    {w:160, h:62,  padX:12, padY:10},
-    {w:128, h:50,  padX:10, padY:8}
+    {w:520, h:180, padX:36, padY:24},
+    {w:480, h:166, padX:34, padY:22},
+    {w:420, h:146, padX:30, padY:20},
+    {w:360, h:126, padX:26, padY:18},
+    {w:320, h:112, padX:23, padY:16},
+    {w:280, h:98,  padX:20, padY:14},
+    {w:240, h:84,  padX:18, padY:12}
   ];
   let lastDataUrl = '';
   for(const opt of sizes){
