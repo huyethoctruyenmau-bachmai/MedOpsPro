@@ -1,4 +1,4 @@
-<!-- VERSION: 262.177 | index: 262 | Code.gs: 177 | INDEX-262.090726-SIGNATURE-UPLOAD -->
+<!-- VERSION: 263.177 | index: 263 | Code.gs: 177 | INDEX-263.090726-SIGNATURE-UPLOAD-SIMPLE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4980,7 +4980,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-262.090726-SIGNATURE-UPLOAD</p>
+      <p class="login-version">Version: INDEX-263.090726-SIGNATURE-UPLOAD-SIMPLE</p>
     </div>
   </div>
 
@@ -4989,7 +4989,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-262.090726-SIGNATURE-UPLOAD</div>
+    <div class="login-loading-version">Version: INDEX-263.090726-SIGNATURE-UPLOAD-SIMPLE</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5033,7 +5033,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-262.090726-SIGNATURE-UPLOAD</div>
+    <div class="app-version">Version: INDEX-263.090726-SIGNATURE-UPLOAD-SIMPLE</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5058,7 +5058,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-262.090726-SIGNATURE-UPLOAD';
+const APP_VERSION = 'INDEX-263.090726-SIGNATURE-UPLOAD-SIMPLE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10261,44 +10261,31 @@ window.openSignatureUploadModal = function(afterRole){
   modal.className = 'signature-full-modal signature-upload-modal';
   modal.innerHTML = `
     <div class="signature-full-head">
-      <div class="signature-full-title">Tải ảnh chữ ký hệ thống</div>
+      <div class="signature-full-title">Chọn ảnh và vùng chữ ký</div>
       <button class="close-btn" onclick="closeSignatureUploadModal()">×</button>
     </div>
     <div class="signature-full-body">
-      <div class="signature-upload-grid">
-        <div class="signature-upload-panel">
-          <div class="signature-upload-title">1. Chọn ảnh và vùng chữ ký</div>
-          <div class="signature-upload-file">
-            <input id="signatureUploadFile" type="file" accept="image/*">
-            <button id="signatureAutoDetectBtn" type="button" class="btn secondary" disabled>Tự nhận diện lại</button>
-          </div>
-          <div class="signature-crop-wrap"><canvas id="signatureCropCanvas" class="signature-crop-canvas"></canvas></div>
-          <div class="signature-upload-note">App sẽ tự khoanh vùng chữ ký sau khi chọn ảnh. Anh/chị có thể kéo khung xanh hoặc kéo các góc/cạnh để chỉnh lại vùng cần lấy.</div>
+      <div class="signature-upload-panel">
+        <div class="signature-upload-file">
+          <input id="signatureUploadFile" type="file" accept="image/*">
         </div>
-        <div class="signature-upload-panel">
-          <div class="signature-upload-title">2. Ảnh sau khi xóa nền</div>
-          <div id="signatureProcessedPreview" class="signature-upload-preview"><span class="meta">Chưa có ảnh chữ ký.</span></div>
-          <div id="signatureUploadStatus" class="signature-upload-status">Chọn ảnh chữ ký nền giấy trắng, đủ sáng để xử lý tốt hơn.</div>
-          <div class="signature-upload-actions">
-            <button id="signatureProcessBtn" type="button" class="btn secondary" disabled>Xử lý vùng chọn</button>
-            <button id="signatureSaveUploadBtn" type="button" class="btn ok" disabled>Lưu chữ ký</button>
-          </div>
-        </div>
+        <div class="signature-crop-wrap"><canvas id="signatureCropCanvas" class="signature-crop-canvas"></canvas></div>
       </div>
+    </div>
+    <div class="signature-full-actions">
+      <button type="button" class="btn secondary" onclick="closeSignatureUploadModal()">Đóng</button>
+      <button id="signatureSaveUploadBtn" type="button" class="btn ok" disabled>Lưu chữ ký</button>
     </div>`;
   document.body.appendChild(modal);
   document.body.style.overflow = 'hidden';
   document.getElementById('signatureUploadFile')?.addEventListener('change', e => handleSignatureUploadFile(e.target.files && e.target.files[0]));
-  document.getElementById('signatureAutoDetectBtn')?.addEventListener('click', () => autoDetectSignatureUploadCrop(true));
-  document.getElementById('signatureProcessBtn')?.addEventListener('click', () => processSignatureUploadCrop(false));
   document.getElementById('signatureSaveUploadBtn')?.addEventListener('click', e => saveUploadedProfileSignature(e.currentTarget));
 }
-
 async function handleSignatureUploadFile(file){
   if(!file) return;
   if(!/^image\//i.test(file.type || '')) return toast('Vui lòng chọn file ảnh chữ ký.');
   const status = document.getElementById('signatureUploadStatus');
-  if(status) status.textContent = 'Đang đọc ảnh...';
+  if(status) status.textContent = '';
   try{
     const dataUrl = await readFileAsDataUrl(file);
     const img = await loadImageElement(dataUrl);
@@ -10306,11 +10293,9 @@ async function handleSignatureUploadFile(file){
     state.signatureUpload.processedDataUrl = '';
     setupSignatureCropCanvas();
     autoDetectSignatureUploadCrop(false);
-    processSignatureUploadCrop(true);
-    document.getElementById('signatureAutoDetectBtn')?.removeAttribute('disabled');
-    document.getElementById('signatureProcessBtn')?.removeAttribute('disabled');
+    document.getElementById('signatureSaveUploadBtn')?.removeAttribute('disabled');
   }catch(err){
-    if(status) status.textContent = 'Không đọc được ảnh. Vui lòng chọn ảnh khác.';
+    if(status) status.textContent = '';
     toast(err.message || 'Không đọc được ảnh chữ ký.');
   }
 }
@@ -10486,7 +10471,6 @@ function autoDetectSignatureUploadCrop(showToast){
   state.signatureUpload.crop = detected || defaultSignatureUploadCrop();
   drawSignatureCropCanvas();
   if(showToast) toast(detected ? 'Đã tự nhận diện lại vùng chữ ký.' : 'Không tự nhận diện rõ. Vui lòng chỉnh khung thủ công.');
-  processSignatureUploadCrop(true);
 }
 
 function detectSignatureInkBounds(img){
@@ -10607,7 +10591,7 @@ function processSignatureUploadCrop(silent){
   const img = state.signatureUpload.image;
   const crop = state.signatureUpload.crop;
   const status = document.getElementById('signatureUploadStatus');
-  if(!img || !crop){ if(!silent) toast('Vui lòng chọn ảnh chữ ký trước.'); return; }
+  if(!img || !crop){ if(!silent) toast('Vui lòng chọn ảnh chữ ký trước.'); return ''; }
   try{
     const c = normalizeSignatureUploadCrop(crop);
     const src = document.createElement('canvas');
@@ -10644,8 +10628,8 @@ function processSignatureUploadCrop(silent){
     srcCtx.putImageData(imageData, 0, 0);
     if(maxX < minX || maxY < minY){
       state.signatureUpload.processedDataUrl = '';
-      updateSignatureProcessedPreview('Không nhận diện được nét chữ ký trong vùng đã chọn. Vui lòng chỉnh vùng hoặc chọn ảnh khác.');
-      return;
+      updateSignatureProcessedPreview('');
+      return '';
     }
     const padX = Math.max(8, Math.round((maxX-minX+1) * 0.06));
     const padY = Math.max(8, Math.round((maxY-minY+1) * 0.16));
@@ -10653,11 +10637,13 @@ function processSignatureUploadCrop(silent){
     minY = Math.max(0, minY - padY); maxY = Math.min(src.height - 1, maxY + padY);
     const dataUrl = exportProcessedSignatureToLimitedPng(src, minX, minY, maxX-minX+1, maxY-minY+1);
     state.signatureUpload.processedDataUrl = dataUrl;
-    updateSignatureProcessedPreview('Đã xử lý xóa nền. Kiểm tra ảnh xem trước trước khi lưu.');
+    updateSignatureProcessedPreview('');
     if(!silent) toast('Đã xử lý vùng chữ ký.');
+    return dataUrl;
   }catch(err){
-    if(status) status.textContent = 'Lỗi xử lý ảnh chữ ký. Vui lòng thử ảnh khác.';
+    if(status) status.textContent = '';
     toast(err.message || 'Lỗi xử lý ảnh chữ ký.');
+    return '';
   }
 }
 
@@ -10700,19 +10686,25 @@ function updateSignatureProcessedPreview(message){
 }
 
 async function saveUploadedProfileSignature(btn){
-  const dataUrl = state.signatureUpload.processedDataUrl || '';
-  if(!dataUrl) return toast('Vui lòng xử lý vùng chữ ký trước khi lưu.');
+  if(!state.signatureUpload.image || !state.signatureUpload.crop) return toast('Vui lòng chọn ảnh chữ ký.');
   const afterRole = state.afterProfileSignRole || '';
   const task = async () => {
-    const res = await api('saveMySignature', {chuKyDataUrl: dataUrl});
-    state.mySignature = normalizeSignatureState(res.data?.signature || null, dataUrl);
-    await refreshMySignatureSilently();
-    toast('Đã lưu chữ ký hệ thống từ ảnh.');
-    closeSignatureUploadModal();
-    state.afterProfileSignRole = '';
-    if(state.activeTab === 'account') renderSettingsTab();
-    if(afterRole === 'thuKy') return submitThuKySignature(null, true);
-    if(afterRole === 'chuTri') return submitChuTriSignature(null, true);
+    showAppActionOverlay('Đang lưu chữ ký...');
+    try{
+      const dataUrl = processSignatureUploadCrop(true) || state.signatureUpload.processedDataUrl || '';
+      if(!dataUrl) throw new Error('Không xử lý được chữ ký. Vui lòng chọn lại vùng chữ ký hoặc ảnh khác.');
+      const res = await api('saveMySignature', {chuKyDataUrl: dataUrl});
+      state.mySignature = normalizeSignatureState(res.data?.signature || null, dataUrl);
+      await refreshMySignatureSilently();
+      closeSignatureUploadModal();
+      state.afterProfileSignRole = '';
+      if(state.activeTab === 'account') renderSettingsTab();
+      toast('Đã lưu chữ ký.');
+      if(afterRole === 'thuKy') return submitThuKySignature(null, true);
+      if(afterRole === 'chuTri') return submitChuTriSignature(null, true);
+    }finally{
+      hideAppActionOverlay();
+    }
   };
   if(btn) return withButton(btn, 'Đang lưu...', task);
   try{ await task(); }catch(err){ toast(err.message); }
