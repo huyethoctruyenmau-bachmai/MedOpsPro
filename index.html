@@ -1,4 +1,4 @@
-<!-- VERSION: 267.178 | index: 267 | Code.gs: 178 | INDEX-267.090726-SIGNATURE-PDF-RATIO -->
+<!-- VERSION: 268.179 | index: 268 | Code.gs: 179 | INDEX-268.090726-SIGNATURE-HQ-PDF -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -10615,7 +10615,7 @@ function processSignatureUploadCrop(silent){
     const src = document.createElement('canvas');
     // Chỉ xử lý vùng đã chọn, không xử lý toàn bộ ảnh gốc.
     // Thu nhỏ vùng chọn trước khi tách nền để chữ ký lưu trong DATA nhẹ như chữ ký vẽ trực tiếp.
-    const maxSide = 520;
+    const maxSide = 1200;
     const scale = Math.min(maxSide / Math.max(c.w, c.h), 1);
     src.width = Math.max(1, Math.round(c.w * scale));
     src.height = Math.max(1, Math.round(c.h * scale));
@@ -10749,16 +10749,16 @@ function getDominantSignatureInkColorFromRegion(src, sx, sy, sw, sh){
 }
 
 function exportProcessedSignatureToProfilePng(src, sx, sy, sw, sh){
-  const maxDataUrlLength = 36000;
+  const maxDataUrlLength = 45000;
   const ink = getDominantSignatureInkColorFromRegion(src, sx, sy, sw, sh);
   const sizes = [
-    {w:520, h:180, padX:36, padY:24},
-    {w:480, h:166, padX:34, padY:22},
-    {w:420, h:146, padX:30, padY:20},
-    {w:360, h:126, padX:26, padY:18},
-    {w:320, h:112, padX:23, padY:16},
-    {w:280, h:98,  padX:20, padY:14},
-    {w:240, h:84,  padX:18, padY:12}
+    {w:1040, h:360, padX:72, padY:44},
+    {w:900,  h:312, padX:64, padY:40},
+    {w:760,  h:264, padX:54, padY:34},
+    {w:640,  h:222, padX:46, padY:30},
+    {w:560,  h:194, padX:40, padY:26},
+    {w:480,  h:166, padX:34, padY:22},
+    {w:420,  h:146, padX:30, padY:20}
   ];
   let lastDataUrl = '';
   for(const opt of sizes){
@@ -10789,9 +10789,32 @@ function normalizeSignaturePngLikePad(canvas, ink){
   const ctx = canvas.getContext('2d', {willReadFrequently:true});
   const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = img.data;
-  for(let i=0; i<data.length; i+=4){
+  const w = canvas.width, h = canvas.height;
+  const alpha = new Uint8ClampedArray(w*h);
+  for(let i=0, p=0; i<data.length; i+=4, p++){
     const a = data[i+3];
-    if(a < 86){
+    alpha[p] = a >= 34 ? a : 0;
+  }
+  const outAlpha = new Uint8ClampedArray(w*h);
+  for(let y=0; y<h; y++){
+    for(let x=0; x<w; x++){
+      let maxA = 0;
+      for(let yy=-1; yy<=1; yy++){
+        const ny = y + yy;
+        if(ny < 0 || ny >= h) continue;
+        for(let xx=-1; xx<=1; xx++){
+          const nx = x + xx;
+          if(nx < 0 || nx >= w) continue;
+          const a = alpha[ny*w + nx];
+          if(a > maxA) maxA = a;
+        }
+      }
+      outAlpha[y*w + x] = maxA >= 34 ? 255 : 0;
+    }
+  }
+  for(let i=0, p=0; i<data.length; i+=4, p++){
+    const a = outAlpha[p];
+    if(!a){
       data[i] = 0; data[i+1] = 0; data[i+2] = 0; data[i+3] = 0;
       continue;
     }
