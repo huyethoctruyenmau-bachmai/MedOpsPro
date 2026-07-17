@@ -1,4 +1,4 @@
-<!-- VERSION: 268.179 | index: 268 | Code.gs: 179 | INDEX-268.090726-SIGNATURE-HQ-PDF -->
+<!-- VERSION: 269.180 | index: 269 | Code.gs: 180 | INDEX-269.090726-MOBILE-TABLE-SCROLL -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4915,6 +4915,7 @@
 .tm-sl-gb-table th,.tm-sl-gb-table td,.tm-sl-stats-table th,.tm-sl-stats-table td{border:1px solid var(--line);padding:7px 8px;text-align:center;white-space:nowrap}
 .tm-sl-stats-table th{font-weight:700;background:#f8fafc}
 .tm-sl-stats-table td:first-child,.tm-sl-stats-table th:first-child{text-align:left}
+@media(max-width:760px){.tm-equip-wrap,.tm-sl-gb-table-wrap,.tm-sl-stats-wrap{max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-x pan-y!important;overscroll-behavior-x:contain!important}.tm-sl-stats-table{width:max-content!important;min-width:980px!important}.tm-sl-gb-table{width:max-content!important;min-width:520px!important}.tm-equip-wrap .tm-equip-table{width:max-content!important}}
 .tm-sl-total-row td{font-weight:700;background:#f8fafc;color:#1a73e8}
 .tm-sl-form{display:flex;flex-direction:column;gap:10px}
 .tm-sl-row{display:grid;gap:10px;align-items:end}
@@ -5058,7 +5059,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-267.090726-SIGNATURE-PDF-RATIO';
+const APP_VERSION = 'INDEX-269.090726-MOBILE-TABLE-SCROLL';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -13303,9 +13304,29 @@ function isScrollableAppTarget(el){
     '.autocomplete-dropdown',
     '.chair-suggest',
     '.tm-equip-wrap',
+    '.tm-sl-gb-table-wrap',
+    '.tm-sl-stats-wrap',
+    '.variable-table-wrap',
+    '.tdkmm-lab-wrap',
     'textarea'
   ];
   return scrollableSelectors.some(sel => el.closest && el.closest(sel));
+}
+
+function isHorizontalScrollableAppTarget(el){
+  if(!el || !el.closest) return false;
+  const selectors = [
+    '.tm-equip-wrap',
+    '.tm-sl-gb-table-wrap',
+    '.tm-sl-stats-wrap',
+    '.variable-table-wrap',
+    '.tdkmm-lab-wrap'
+  ];
+  for(const sel of selectors){
+    const node = el.closest(sel);
+    if(node && node.scrollWidth > node.clientWidth + 2) return true;
+  }
+  return false;
 }
 
 (function lockRootBackgroundPan(){
@@ -13324,6 +13345,7 @@ function isScrollableAppTarget(el){
     const dy = Math.abs(t.clientY - startY);
 
     if(dx > dy && dx > 8){
+      if(isHorizontalScrollableAppTarget(e.target)) return;
       e.preventDefault();
       return;
     }
