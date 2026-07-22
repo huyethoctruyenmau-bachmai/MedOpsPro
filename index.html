@@ -1,4 +1,4 @@
-<!-- VERSION: 274.185 | index: 274 | Code.gs: 185 | INDEX-274.090726-GB-CM-VIEW-FORMAT -->
+<!-- VERSION: 276.192 | index: 276 | Code.gs: 192 | INDEX-276.220726-PDF-DOWNLOAD-TITLE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5012,7 +5012,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-274.090726-GB-CM-VIEW-FORMAT</p>
+      <p class="login-version">Version: INDEX-275.220726-PDF-DOWNLOAD-NAME</p>
     </div>
   </div>
 
@@ -5021,7 +5021,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-274.090726-GB-CM-VIEW-FORMAT</div>
+    <div class="login-loading-version">Version: INDEX-275.220726-PDF-DOWNLOAD-NAME</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5065,7 +5065,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-274.090726-GB-CM-VIEW-FORMAT</div>
+    <div class="app-version">Version: INDEX-275.220726-PDF-DOWNLOAD-NAME</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5090,7 +5090,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-274.090726-GB-CM-VIEW-FORMAT';
+const APP_VERSION = 'INDEX-276.220726-PDF-DOWNLOAD-TITLE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5231,6 +5231,7 @@ const state = {
   tdkmmRasterViewCache: {},
   currentPdfWatermarkedBytes: null,
   currentPdfWatermarkedTitle: '',
+  currentPdfSourceName: '',
   currentPdfWatermarkedUrl: ''
 };
 
@@ -9104,6 +9105,32 @@ function getGiaoBanFilters(){
 }
 
 // ===== MODULE: JS_HOP_GIAO_BAN_START =====
+function formatGiaoBanPdfDownloadDateTime(value){
+  const s = String(value || '').trim();
+  let m = s.match(/^(\d{4})-(\d{2})-(\d{2})(?:[T\s]+(\d{1,2})(?::?(\d{1,2}))?)?/);
+  if(m) return `${m[3]}_${m[2]}_${m[1]}_${pad(m[4] || '00')}h${pad(m[5] || '00')}`;
+  m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})(?:\s+(\d{1,2})(?:[:hH](\d{1,2}))?)?/);
+  if(m) return `${pad(m[1])}_${pad(m[2])}_${m[3]}_${pad(m[4] || '00')}h${pad(m[5] || '00')}`;
+  const txt = dateTimeVi(s);
+  m = txt.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2})h(\d{1,2})/);
+  if(m) return `${pad(m[1])}_${pad(m[2])}_${m[3]}_${pad(m[4])}h${pad(m[5])}`;
+  return formatGiaoBanPdfDownloadDateTime(hanoiNowIso());
+}
+
+function giaoBanPdfDownloadUnitPart(khoaPhong){
+  return isXnhhCsNinhBinhDept(khoaPhong)
+    ? 'Khoa Huyết học và Truyền máu - BVBM CS Ninh Bình'
+    : 'Viện HH và TM Bạch Mai - BVBM CS Hà Nội';
+}
+
+function buildGiaoBanPdfDownloadTitle(g){
+  const loai = g?.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC;
+  const prefix = isBienBanHopLoai(loai) ? 'Biên bản họp' : 'Giao ban';
+  const timePart = formatGiaoBanPdfDownloadDateTime(g?.thoiGianGiaoBanHienThi || g?.thoiGianGiaoBan || g?.ngayGiaoBan || hanoiNowIso());
+  const dept = formatDeptPlain(g?.khoaPhong || '') || 'Khoa/Phòng';
+  return `${prefix} ${timePart} - ${dept} - ${giaoBanPdfDownloadUnitPart(g?.khoaPhong || '')}`;
+}
+
 function renderGiaoBanList(items, note=''){
   const box = $('#giaoBanListBox');
   if(!items.length){
@@ -9119,6 +9146,7 @@ function renderGiaoBanList(items, note=''){
   box.innerHTML = noteHtml + sortedItems.map(g => {
     const loai = g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC;
     const title = `${loai} - ${formatDeptPlain(g.khoaPhong)} - ${dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan)}`;
+    const pdfTitle = buildGiaoBanPdfDownloadTitle(g);
     const isDotXuat = isBienBanHopLoai(loai);
     const creator = g.nguoiTaoTen ? `<div class="meta">Người tạo phiên: ${esc(g.nguoiTaoTen)}${g.createdAt ? ' · Tạo lúc: ' + dateTimeVi(g.createdAt) : ''}</div>` : '';
     const metaHtml = isDotXuat
@@ -9126,8 +9154,8 @@ function renderGiaoBanList(items, note=''){
       : `${creator}<div class="meta">Khoảng báo cáo: ${dateVi(g.tuNgayBaoCao)} - ${dateVi(g.denNgayBaoCao)}</div>`;
     const deleteBtn = g.canDelete ? `<button class="app-icon-btn delete" onclick="deleteGiaoBan('${escAttr(g.giaoBanID)}', this)" title="Xóa phiên giao ban" aria-label="Xóa phiên giao ban">${iconTrash()}</button>` : '';
     const done = g.trangThai === STATUS_DA;
-    const pdfBtn = g.pdfGiaoBanUrl ? pdfViewButtonHtml(g.pdfGiaoBanUrl, title, 'Xem PDF') : '';
-    const pdfDownload = g.pdfGiaoBanUrl ? pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, title, 'GIAO_BAN', g.giaoBanID) : '';
+    const pdfBtn = g.pdfGiaoBanUrl ? pdfViewButtonHtml(g.pdfGiaoBanUrl, pdfTitle, 'Xem PDF') : '';
+    const pdfDownload = g.pdfGiaoBanUrl ? pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, pdfTitle, 'GIAO_BAN', g.giaoBanID) : '';
     const mainActions = done
       ? `${pdfBtn}${g.pdfGiaoBanUrl ? '' : '<span class="meta">Chưa có file PDF đã ký.</span>'}`
       : `<button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}', this)">Xem phiếu</button>`;
@@ -9754,7 +9782,7 @@ function renderGiaoBanFinishBlock(g){
         <div class="meta">Chủ trì: ${esc(g.chuTriTen || g.nguoiChuTriTuDo || '')}</div>
         ${g.thoiDiemThuKyKy ? `<div class="meta">Thư ký ký: ${dateTimeVi(g.thoiDiemThuKyKy)}</div>` : ''}
         <div class="meta">Thời điểm ký chủ trì: ${dateTimeVi(g.thoiDiemChuTriKy)}</div>
-        ${g.pdfGiaoBanUrl ? `<div class="btn-row">${pdfViewButtonHtml(g.pdfGiaoBanUrl, (g.loaiGiaoBan || '') + ' - ' + formatDeptPlain(g.khoaPhong || '') + ' - ' + dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || ''), 'Xem PDF đã ký')}${pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, (g.loaiGiaoBan || '') + ' - ' + formatDeptPlain(g.khoaPhong || '') + ' - ' + dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || ''), 'GIAO_BAN', g.giaoBanID || '')}</div>` : '<div class="empty">Chưa có file PDF đã ký.</div>'}
+        ${g.pdfGiaoBanUrl ? `<div class="btn-row">${pdfViewButtonHtml(g.pdfGiaoBanUrl, buildGiaoBanPdfDownloadTitle(g), 'Xem PDF đã ký')}${pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, buildGiaoBanPdfDownloadTitle(g), 'GIAO_BAN', g.giaoBanID || '')}</div>` : '<div class="empty">Chưa có file PDF đã ký.</div>'}
       </div>`;
   }
 
@@ -13086,6 +13114,7 @@ function revokeCurrentPdfObjectUrl(){
   state.currentTdkmmCleanPdfFiles = [];
   state.currentPdfWatermarkedBytes = null;
   state.currentPdfWatermarkedTitle = '';
+  state.currentPdfSourceName = '';
   state.currentPdfWatermarkedUrl = '';
   state.currentPdfPreviewImages = [];
 }
@@ -13332,6 +13361,7 @@ window.openGiaoBanPdf = async function(url, title='PDF giao ban'){
     state.currentPdfObjectUrl = objectUrl;
     state.currentPdfWatermarkedBytes = watermarkedBytes;
     state.currentPdfWatermarkedTitle = title || pdf.name || 'PDF giao ban';
+    state.currentPdfSourceName = state.currentPdfWatermarkedTitle || pdf.name || 'PDF giao ban.pdf';
     state.currentPdfWatermarkedUrl = url;
     state.currentPdfPreviewImages = pageImages;
     renderPdfModal({url, frameSrc: objectUrl, title: state.currentPdfWatermarkedTitle, pageImages});
@@ -13342,21 +13372,33 @@ window.openGiaoBanPdf = async function(url, title='PDF giao ban'){
   }
 }
 
+function isGiaoBanDownloadTitle(title, source){
+  const t = String(title || '').trim().toLowerCase();
+  return source === 'GIAO_BAN' || t.startsWith('giao ban ') || t.startsWith('biên bản họp ') || t.startsWith('bien ban hop ');
+}
+
+function watermarkedDownloadFileName(title, source){
+  const base = safeDownloadName(title || 'PDF.pdf').replace(/\.pdf$/i, '');
+  return safeDownloadName(isGiaoBanDownloadTitle(base, source) ? base + '.pdf' : base + '_watermark.pdf');
+}
+
 async function downloadPdfWithLog(url, title='', source='PDF', id=''){
   if(!url && !(state.currentPdfWatermarkedBytes && state.currentPdfWatermarkedUrl)) return toast('Không có file PDF để tải.');
   try{
     const sameCurrent = state.currentPdfWatermarkedBytes && state.currentPdfWatermarkedUrl && String(url || '') === String(state.currentPdfWatermarkedUrl || '');
     let bytes = sameCurrent ? state.currentPdfWatermarkedBytes : null;
-    let finalTitle = title || state.currentPdfWatermarkedTitle || 'PDF_watermark';
+    let finalTitle = sameCurrent
+      ? (state.currentPdfSourceName || state.currentPdfWatermarkedTitle || title || 'PDF_watermark')
+      : (title || state.currentPdfWatermarkedTitle || 'PDF_watermark');
     if(!bytes){
       toast('Đang tạo file PDF ảnh có watermark để tải xuống...');
       const res = await api('getPdfFileBase64', {url}, {timeoutMs:180000});
       const pdf = res.data || {};
-      finalTitle = title || pdf.name || 'PDF_watermark';
+      finalTitle = isGiaoBanDownloadTitle(title, source) ? (title || pdf.name || 'PDF_watermark') : (pdf.name || title || 'PDF_watermark');
       bytes = await buildWatermarkedPdfBytesFromBase64(pdf.base64 || '');
     }
     await api('logPdfDownload', {url: url || state.currentPdfWatermarkedUrl || '', title: finalTitle, source, id});
-    triggerPdfDownload(bytes, safeDownloadName(finalTitle.replace(/\.pdf$/i, '') + '_watermark.pdf'));
+    triggerPdfDownload(bytes, watermarkedDownloadFileName(finalTitle, source));
   }catch(err){
     toast(err && err.message ? err.message : 'Không tạo được file PDF có watermark để tải xuống.');
   }
