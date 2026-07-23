@@ -1,4 +1,4 @@
-<!-- VERSION: 276.192 | index: 276 | Code.gs: 192 | INDEX-276.220726-PDF-DOWNLOAD-TITLE -->
+<!-- VERSION: 277.193 | index: 277 | Code.gs: 193 | INDEX-277.220726-TM24H-STATS-LOCK -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4967,6 +4967,12 @@
 .tm-sl-total-warning{border:1px solid #f4b400;background:#fff7e0;color:#7a4b00;border-radius:12px;padding:9px 12px;font-weight:700}
 @media(max-width:760px){.tm-sl-row-main{grid-template-columns:repeat(2,minmax(0,1fr))}.tm-sl-row-main .tm-sl-field:first-child{grid-column:1/-1}.tm-sl-row-cp{grid-template-columns:repeat(3,minmax(0,1fr))}.tm-sl-cp-khac-row{grid-template-columns:minmax(0,1fr) minmax(72px,92px) 30px;gap:6px;width:100%}.tm-sl-cp-khac-add{margin-top:12px}.tm-sl-remove-x{width:30px;height:38px;font-size:21px}.tm-sl-field label,.tm-sl-cp-khac-row label{font-size:13px}}
 
+
+.tm-sl-stats-table .tm-sl-missing-row td{background:#fafafa;color:#6b7280}
+.tm-sl-stats-table .tm-sl-total-row td{color:#1a73e8;font-weight:700}
+.tm-sl-total-fields label{display:block;font-size:12px;color:var(--g-muted);margin-bottom:3px}
+.tm-sl-row-xn{grid-template-columns:repeat(2,minmax(0,1fr))}
+
 </style>
 </head>
 <body>
@@ -5012,7 +5018,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-275.220726-PDF-DOWNLOAD-NAME</p>
+      <p class="login-version">Version: INDEX-277.220726-TM24H-STATS-LOCK</p>
     </div>
   </div>
 
@@ -5021,7 +5027,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-275.220726-PDF-DOWNLOAD-NAME</div>
+    <div class="login-loading-version">Version: INDEX-277.220726-TM24H-STATS-LOCK</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5065,7 +5071,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-275.220726-PDF-DOWNLOAD-NAME</div>
+    <div class="app-version">Version: INDEX-277.220726-TM24H-STATS-LOCK</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5090,7 +5096,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-276.220726-PDF-DOWNLOAD-TITLE';
+const APP_VERSION = 'INDEX-277.220726-TM24H-STATS-LOCK';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5709,12 +5715,9 @@ function renderCreateTab(){
       <div id="tmDailyStatsBlock" class="card hidden">
         <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
         <div class="tm-sl-form">
-          <div class="tm-sl-row tm-sl-row-main">
-            <div class="tm-sl-field"><label>Tổng số bệnh nhân</label><input id="tmSlTongBn" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+          <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
             <div class="tm-sl-field"><label>XN Nội</label><input id="tmSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
             <div class="tm-sl-field"><label>XN Ngoại</label><input id="tmSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-            <div class="tm-sl-field"><label>Đơn vị 1</label><input id="tmSlDv1" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-            <div class="tm-sl-field"><label>Đơn vị 2</label><input id="tmSlDv2" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           </div>
           <div class="tm-sl-row tm-sl-row-cp">
             <div class="tm-sl-field"><label>KHC</label><input id="tmSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
@@ -5728,8 +5731,7 @@ function renderCreateTab(){
             <div id="tmSlCpKhacRows" class="tm-sl-cp-khac-list"></div>
             <button class="btn secondary small tm-sl-cp-khac-add" type="button" onclick="addSoLieuTmCpKhacRow('tmSl')">+ Thêm CP khác</button>
           </div>
-          <div id="tmSlTotalWarn" class="tm-sl-total-warning hidden"></div>
-          <div class="tm-sl-total-fields"><input id="tmSlTongDv" readonly value="0"><input id="tmSlTongSoDonVi" readonly value="0"></div>
+          <div class="tm-sl-total-fields"><label>Tổng số đơn vị</label><input id="tmSlTongSoDonVi" readonly value="0"></div>
         </div>
         <div class="btn-row">
           <button id="createSoLieuTmBtn" class="btn primary">Tạo phiếu</button>
@@ -6170,6 +6172,7 @@ function renderBaoCaoChuyenMonGiaoBanHtml(report={}){
   return groups || esc(text || 'Không có gì đặc biệt').replace(/\n/g,'<br>');
 }
 
+
 function renderSoLieuTrucInput(isTM){
   const box = $('#soLieuTrucBox');
   if(!box) return;
@@ -6180,7 +6183,7 @@ function renderSoLieuTrucInput(isTM){
   box.innerHTML = `
     <div class="tm-report-grid">
       <div class="tm-report-group">
-        <div class="tm-report-title">a. Phát máu</div>
+        <div class="tm-report-title">Số liệu phát máu của tua trực</div>
         <div class="tm-inline-grid phat-grid">
           <div class="tm-phat-total-bn"><label>Tổng số BN</label><input id="tmPhatTongBN" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           <div><label>KHC</label><input id="tmPhatKHC" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
@@ -6188,21 +6191,9 @@ function renderSoLieuTrucInput(isTM){
           <div><label>Tổng số</label><input id="tmPhatTong" class="tm-total" readonly value="0"></div>
         </div>
       </div>
-      <div class="tm-report-group">
-        <div class="tm-report-title">b. Kho máu</div>
-        <label class="tm-ton-label">Máu tồn</label>
-        <div class="tm-inline-grid ton-grid tm-ton-grid">
-          <div><label>KHC</label><input id="tmTonKHC" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div><label>HTT</label><input id="tmTonHTT" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div><label>Tủa</label><input id="tmTonTua" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div><label>KTC</label><input id="tmTonKTC" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          <div><label>KTC gạn tách</label><input id="tmTonKTCGanTach" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-        </div>
-        <div style="margin-top:8px"><label>Khác</label><textarea id="tmTonKhac" placeholder="Nhập nội dung khác về kho máu"></textarea></div>
-      </div>
     </div>
   `;
-  ['tmPhatKHC','tmPhatCP'].forEach(id => $('#'+id).addEventListener('input', updateTmPhatTong));
+  ['tmPhatKHC','tmPhatCP'].forEach(id => $('#'+id)?.addEventListener('input', updateTmPhatTong));
   $$(`#soLieuTrucBox input[type="number"]`).forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
   updateTmPhatTong();
 }
@@ -6314,17 +6305,19 @@ function normalizeSoLieuTmCpKhacClient(list){
   })).filter(item => item.ten || item.soLuong > 0);
 }
 
+
 function normalizeSoLieuTmClient(data={}){
   const n = v => Math.max(0, parseInt(String(v ?? '0').replace(/,/g,''), 10) || 0);
   const cpKhac = normalizeSoLieuTmCpKhacClient(data.cpKhac || data.cpKhacItems || []);
   const cpKhacTong = cpKhac.reduce((sum, item) => sum + n(item.soLuong), 0);
   const out = {
-    tongSoBn:n(data.tongSoBn), xnNoi:n(data.xnNoi), xnNgoai:n(data.xnNgoai),
-    dv1:n(data.dv1), dv2:n(data.dv2), khc:n(data.khc), htt:n(data.htt), tua:n(data.tua), ktc:n(data.ktc), ktcGt:n(data.ktcGt), kbc:n(data.kbc),
+    tongSoBn:0,
+    xnNoi:n(data.xnNoi), xnNgoai:n(data.xnNgoai),
+    dv1:0, dv2:0, tongDv:0,
+    khc:n(data.khc), htt:n(data.htt), tua:n(data.tua), ktc:n(data.ktc), ktcGt:n(data.ktcGt), kbc:n(data.kbc),
     cpKhac, cpKhacTong,
     ghiChu:String(data.ghiChu || '').trim()
   };
-  out.tongDv = out.dv1 + out.dv2;
   out.tongSoDonVi = out.khc + out.htt + out.tua + out.ktc + out.ktcGt + out.kbc + out.cpKhacTong;
   return out;
 }
@@ -6359,7 +6352,7 @@ window.removeSoLieuTmCpKhacRow = function(btn, prefix='tmSl'){
 
 function bindSoLieuTmFormEvents(prefix='tmSl'){
   const ids = soLieuTmInputIds(prefix);
-  ['tongSoBn','xnNoi','xnNgoai','dv1','dv2','khc','htt','tua','ktc','ktcGt','kbc'].forEach(k => {
+  ['xnNoi','xnNgoai','khc','htt','tua','ktc','ktcGt','kbc'].forEach(k => {
     const el = document.getElementById(ids[k]);
     if(el && el.type === 'number'){
       el.addEventListener('input', () => { cleanIntegerInput(el); updateSoLieuTmTotals(prefix); });
@@ -6376,21 +6369,20 @@ function getSoLieuTmCpKhacTong(prefix='tmSl'){
   return $$(`#${ids.cpKhacRows} .tm-sl-cp-khac-qty`).reduce((sum, el) => sum + getIntValue(el.id || '') + (!el.id ? (parseInt(String(el.value || '0').replace(/,/g,''), 10) || 0) : 0), 0);
 }
 
+
 function updateSoLieuTmTotals(prefix='tmSl'){
   const ids = soLieuTmInputIds(prefix);
   const get = id => getIntValue(id);
-  const tongDv = get(ids.dv1) + get(ids.dv2);
   const cpKhacTong = $$(`#${ids.cpKhacRows} .tm-sl-cp-khac-qty`).reduce((sum, el) => sum + (parseInt(String(el.value || '0').replace(/,/g,''), 10) || 0), 0);
   const tongCp = get(ids.khc) + get(ids.htt) + get(ids.tua) + get(ids.ktc) + get(ids.ktcGt) + get(ids.kbc) + cpKhacTong;
   const dvEl = document.getElementById(ids.tongDv);
   const cpEl = document.getElementById(ids.tongSoDonVi);
   const warnEl = document.getElementById(ids.totalWarn);
-  if(dvEl) dvEl.value = tongDv;
+  if(dvEl) dvEl.value = 0;
   if(cpEl) cpEl.value = tongCp;
   if(warnEl){
-    const mismatch = tongDv !== tongCp;
-    warnEl.classList.toggle('hidden', !mismatch);
-    warnEl.textContent = mismatch ? `Cảnh báo: Tổng ĐV1+2 (${tongDv}) khác tổng CP (${tongCp}).` : '';
+    warnEl.classList.add('hidden');
+    warnEl.textContent = '';
   }
 }
 
@@ -6418,29 +6410,32 @@ function renderSoLieuTmCpKhacTextClient(data){
   return d.cpKhac.map(item => `${item.ten || 'CP khác'}: ${item.soLuong}`).join('; ');
 }
 
+
 function renderSoLieuTmSummaryHtml(data){
   const d = normalizeSoLieuTmClient(data || {});
   const cpKhac = renderSoLieuTmCpKhacTextClient(d);
-  return `<div class="tm-sl-summary"><div><strong>Tổng số BN:</strong> ${esc(d.tongSoBn)}</div><div><strong>XN Nội:</strong> ${esc(d.xnNoi)} &nbsp;&nbsp; <strong>XN Ngoại:</strong> ${esc(d.xnNgoai)}</div><div><strong>Tổng số đơn vị:</strong> ${esc(d.tongSoDonVi)}</div><div class="tm-sl-inline"><strong>KHC</strong> ${esc(d.khc)} &nbsp;&nbsp; <strong>HTT</strong> ${esc(d.htt)} &nbsp;&nbsp; <strong>Tủa</strong> ${esc(d.tua)} &nbsp;&nbsp; <strong>KTC</strong> ${esc(d.ktc)} &nbsp;&nbsp; <strong>KTCGT</strong> ${esc(d.ktcGt)} &nbsp;&nbsp; <strong>KBC</strong> ${esc(d.kbc)}</div>${cpKhac ? `<div><strong>CP khác:</strong> ${esc(cpKhac)}</div>` : ''}</div>`;
+  return `<div class="tm-sl-summary"><div><strong>XN Nội:</strong> ${esc(d.xnNoi)} &nbsp;&nbsp; <strong>XN Ngoại:</strong> ${esc(d.xnNgoai)}</div><div><strong>Tổng số đơn vị:</strong> ${esc(d.tongSoDonVi)}</div><div class="tm-sl-inline"><strong>KHC</strong> ${esc(d.khc)} &nbsp;&nbsp; <strong>HTT</strong> ${esc(d.htt)} &nbsp;&nbsp; <strong>Tủa</strong> ${esc(d.tua)} &nbsp;&nbsp; <strong>KTC</strong> ${esc(d.ktc)} &nbsp;&nbsp; <strong>KTCGT</strong> ${esc(d.ktcGt)} &nbsp;&nbsp; <strong>KBC</strong> ${esc(d.kbc)}</div>${cpKhac ? `<div><strong>CP khác:</strong> ${esc(cpKhac)}</div>` : ''}</div>`;
 }
+
 
 function renderSoLieuTmGiaoBanHtml(rows){
   const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
-  if(!list.length) return `<div class="empty">Chưa có phiếu Báo cáo số liệu Truyền máu 24h chưa hoàn thành.</div>`;
+  if(!list.length) return `<div class="empty">Chưa có phiếu Báo cáo số liệu Truyền máu 24h phù hợp.</div>`;
   return list.map(r => {
     const d = normalizeSoLieuTmClient(r.soLieuTm || {});
     const cpKhac = renderSoLieuTmCpKhacTextClient(d);
-    return `<div class="tm-sl-gb-day"><div class="tm-sl-gb-date"><strong><em>${esc(dateVi(r.ngayTruc))}</em></strong></div><div>Tổng số BN: ${esc(d.tongSoBn)}</div><div>Tổng số đơn vị: ${esc(d.tongSoDonVi)}</div><div class="tm-sl-gb-table-wrap"><table class="tm-sl-gb-table"><thead><tr><th>KHC</th><th>HTT</th><th>Tủa</th><th>KTC</th><th>KTCGT</th><th>KBC</th></tr></thead><tbody><tr><td>${esc(d.khc)}</td><td>${esc(d.htt)}</td><td>${esc(d.tua)}</td><td>${esc(d.ktc)}</td><td>${esc(d.ktcGt)}</td><td>${esc(d.kbc)}</td></tr></tbody></table></div>${cpKhac ? `<div>CP khác: ${esc(cpKhac)}</div>` : ''}</div>`;
+    return `<div class="tm-sl-gb-day"><div class="tm-sl-gb-date"><strong><em>${esc(dateVi(r.ngayTruc))}</em></strong></div><div>Tổng số đơn vị: ${esc(d.tongSoDonVi)}</div><div class="tm-sl-gb-table-wrap"><table class="tm-sl-gb-table"><thead><tr><th>KHC</th><th>HTT</th><th>Tủa</th><th>KTC</th><th>KTCGT</th><th>KBC</th></tr></thead><tbody><tr><td>${esc(d.khc)}</td><td>${esc(d.htt)}</td><td>${esc(d.tua)}</td><td>${esc(d.ktc)}</td><td>${esc(d.ktcGt)}</td><td>${esc(d.kbc)}</td></tr></tbody></table></div>${cpKhac ? `<div>CP khác: ${esc(cpKhac)}</div>` : ''}</div>`;
   }).join('');
 }
 
+
 function renderSoLieuTmGiaoBanPreviewHtml(rows){
   const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
-  if(!list.length) return 'Chưa có phiếu Báo cáo số liệu Truyền máu 24h chưa hoàn thành.';
+  if(!list.length) return 'Chưa có phiếu Báo cáo số liệu Truyền máu 24h phù hợp.';
   return list.map(r => {
     const d = normalizeSoLieuTmClient(r.soLieuTm || {});
     const cpKhac = renderSoLieuTmCpKhacTextClient(d);
-    return `<strong><em>${esc(dateVi(r.ngayTruc))}</em></strong><br>Tổng số BN: ${esc(d.tongSoBn)}<br>Tổng số đơn vị: ${esc(d.tongSoDonVi)}<br>KHC&nbsp;&nbsp;&nbsp;HTT&nbsp;&nbsp;&nbsp;Tủa&nbsp;&nbsp;&nbsp;KTC&nbsp;&nbsp;&nbsp;KTCGT&nbsp;&nbsp;&nbsp;KBC<br>${esc(d.khc)}&nbsp;&nbsp;&nbsp;${esc(d.htt)}&nbsp;&nbsp;&nbsp;${esc(d.tua)}&nbsp;&nbsp;&nbsp;${esc(d.ktc)}&nbsp;&nbsp;&nbsp;${esc(d.ktcGt)}&nbsp;&nbsp;&nbsp;${esc(d.kbc)}${cpKhac ? `<br>CP khác: ${esc(cpKhac)}` : ''}`;
+    return `<strong><em>${esc(dateVi(r.ngayTruc))}</em></strong><br>Tổng số đơn vị: ${esc(d.tongSoDonVi)}<br>KHC&nbsp;&nbsp;&nbsp;HTT&nbsp;&nbsp;&nbsp;Tủa&nbsp;&nbsp;&nbsp;KTC&nbsp;&nbsp;&nbsp;KTCGT&nbsp;&nbsp;&nbsp;KBC<br>${esc(d.khc)}&nbsp;&nbsp;&nbsp;${esc(d.htt)}&nbsp;&nbsp;&nbsp;${esc(d.tua)}&nbsp;&nbsp;&nbsp;${esc(d.ktc)}&nbsp;&nbsp;&nbsp;${esc(d.ktcGt)}&nbsp;&nbsp;&nbsp;${esc(d.kbc)}${cpKhac ? `<br>CP khác: ${esc(cpKhac)}` : ''}`;
   }).join('<br><br>');
 }
 
@@ -6455,15 +6450,7 @@ function collectSoLieuTruc(){
     `- Tổng số bệnh nhân: ${getIntValue('tmPhatTongBN')}`,
     `- KHC: ${khc}`,
     `- CP: ${cp}`,
-    `- Tổng số: ${total}`,
-    'Kho máu:',
-    '- Máu tồn:',
-    `- KHC: ${getIntValue('tmTonKHC')}`,
-    `- HTT: ${getIntValue('tmTonHTT')}`,
-    `- Tủa: ${getIntValue('tmTonTua')}`,
-    `- KTC: ${getIntValue('tmTonKTC')}`,
-    `- KTC gạn tách: ${getIntValue('tmTonKTCGanTach')}`,
-    `- Khác: ${$('#tmTonKhac')?.value || ''}`
+    `- Tổng số: ${total}`
   ].join('\n');
 }
 
@@ -8621,12 +8608,9 @@ window.editPhieu = async function(phieuID, btn){
             <div class="grid">
               <div class="col-12">
                 <div class="tm-sl-form">
-                  <div class="tm-sl-row tm-sl-row-main">
-                    <div class="tm-sl-field"><label>Tổng số bệnh nhân</label><input id="editSlTongBn" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tongSoBn)}"></div>
+                  <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
                     <div class="tm-sl-field"><label>XN Nội</label><input id="editSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
                     <div class="tm-sl-field"><label>XN Ngoại</label><input id="editSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNgoai)}"></div>
-                    <div class="tm-sl-field"><label>Đơn vị 1</label><input id="editSlDv1" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.dv1)}"></div>
-                    <div class="tm-sl-field"><label>Đơn vị 2</label><input id="editSlDv2" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.dv2)}"></div>
                   </div>
                   <div class="tm-sl-row tm-sl-row-cp">
                     <div class="tm-sl-field"><label>KHC</label><input id="editSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.khc)}"></div>
@@ -8640,8 +8624,7 @@ window.editPhieu = async function(phieuID, btn){
                     <div id="editSlCpKhacRows" class="tm-sl-cp-khac-list">${renderSoLieuTmCpKhacRows('editSl', d.cpKhac)}</div>
                     <button class="btn secondary small tm-sl-cp-khac-add" type="button" onclick="addSoLieuTmCpKhacRow('editSl')">+ Thêm CP khác</button>
                   </div>
-                  <div id="editSlTotalWarn" class="tm-sl-total-warning hidden"></div>
-                  <div class="tm-sl-total-fields"><input id="editSlTongDv" readonly value="${escAttr(d.tongDv)}"><input id="editSlTongSoDonVi" readonly value="${escAttr(d.tongSoDonVi)}"></div>
+                  <div class="tm-sl-total-fields"><label>Tổng số đơn vị</label><input id="editSlTongSoDonVi" readonly value="${escAttr(d.tongSoDonVi)}"></div>
                 </div>
               </div>
             </div>
@@ -8847,8 +8830,9 @@ window.removeEditStaff = function(ma){
   refreshEditStaffList();
 }
 
+
 function parseTmReportText(text){
-  const data = {phatKHC:'0', phatCP:'0', phatTongBN:'0', tonKHC:'0', tonHTT:'0', tonTua:'0', tonKTC:'0', tonKTCGanTach:'0', tonKhac:''};
+  const data = {phatKHC:'0', phatCP:'0', phatTongBN:'0'};
   let section = '';
   String(text || '').split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(line => {
     const n = norm(line.replace(/:$/, ''));
@@ -8862,15 +8846,10 @@ function parseTmReportText(text){
     if(section === 'phat' && label === 'khc') data.phatKHC = sanitizeIntText(val) || '0';
     if(section === 'phat' && label === 'cp') data.phatCP = sanitizeIntText(val) || '0';
     if(section === 'phat' && (label === 'tong so benh nhan' || label === 'tong so bn')) data.phatTongBN = sanitizeIntText(val) || '0';
-    if(section === 'ton' && label === 'khc') data.tonKHC = sanitizeIntText(val) || '0';
-    if(section === 'ton' && label === 'htt') data.tonHTT = sanitizeIntText(val) || '0';
-    if(section === 'ton' && label === 'tua') data.tonTua = sanitizeIntText(val) || '0';
-    if(section === 'ton' && label === 'ktc') data.tonKTC = sanitizeIntText(val) || '0';
-    if(section === 'ton' && (label === 'ktc gan tach' || label === 'ktc gantach')) data.tonKTCGanTach = sanitizeIntText(val) || '0';
-    if(section === 'ton' && label === 'khac') data.tonKhac = val;
   });
   return data;
 }
+
 
 function renderEditSoLieuTrucInput(p){
   const isTM = isTruyenMauDept(p.khoaPhong || '');
@@ -8880,25 +8859,13 @@ function renderEditSoLieuTrucInput(p){
   return `
     <div class="tm-report-grid">
       <div class="tm-report-group">
-        <div class="tm-report-title">a. Phát máu</div>
+        <div class="tm-report-title">Số liệu phát máu của tua trực</div>
         <div class="tm-inline-grid phat-grid">
           <div class="tm-phat-total-bn"><label>Tổng số BN</label><input id="editTmPhatTongBN" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.phatTongBN)}"></div>
           <div><label>KHC</label><input id="editTmPhatKHC" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.phatKHC)}"></div>
           <div><label>CP</label><input id="editTmPhatCP" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.phatCP)}"></div>
           <div><label>Tổng số</label><input id="editTmPhatTong" class="tm-total" readonly value="${tong}"></div>
         </div>
-      </div>
-      <div class="tm-report-group">
-        <div class="tm-report-title">b. Kho máu</div>
-        <label class="tm-ton-label">Máu tồn</label>
-        <div class="tm-inline-grid ton-grid tm-ton-grid">
-          <div><label>KHC</label><input id="editTmTonKHC" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonKHC)}"></div>
-          <div><label>HTT</label><input id="editTmTonHTT" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonHTT)}"></div>
-          <div><label>Tủa</label><input id="editTmTonTua" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonTua)}"></div>
-          <div><label>KTC</label><input id="editTmTonKTC" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonKTC)}"></div>
-          <div><label>KTC gạn tách</label><input id="editTmTonKTCGanTach" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tonKTCGanTach)}"></div>
-        </div>
-        <div style="margin-top:8px"><label>Khác</label><textarea id="editTmTonKhac" placeholder="Nhập nội dung khác về kho máu">${esc(d.tonKhac || '')}</textarea></div>
       </div>
     </div>`;
 }
@@ -8907,6 +8874,7 @@ function updateEditTmPhatTong(){
   const el = $('#editTmPhatTong');
   if(el) el.value = getIntValue('editTmPhatKHC') + getIntValue('editTmPhatCP');
 }
+
 
 function collectEditSoLieuTruc(){
   if(!$('#editTmPhatKHC')) return $('#editSoLieu')?.value || '';
@@ -8917,15 +8885,7 @@ function collectEditSoLieuTruc(){
     `- Tổng số bệnh nhân: ${getIntValue('editTmPhatTongBN')}`,
     `- KHC: ${khc}`,
     `- CP: ${cp}`,
-    `- Tổng số: ${khc + cp}`,
-    'Kho máu:',
-    '- Máu tồn:',
-    `- KHC: ${getIntValue('editTmTonKHC')}`,
-    `- HTT: ${getIntValue('editTmTonHTT')}`,
-    `- Tủa: ${getIntValue('editTmTonTua')}`,
-    `- KTC: ${getIntValue('editTmTonKTC')}`,
-    `- KTC gạn tách: ${getIntValue('editTmTonKTCGanTach')}`,
-    `- Khác: ${$('#editTmTonKhac')?.value || ''}`
+    `- Tổng số: ${khc + cp}`
   ].join('\n');
 }
 
@@ -9019,7 +8979,7 @@ window.saveEditPhieu = async function(phieuID, btn){
     nhanVienThuongTruc: state.selectedStaff,
     soLieuTruc: $('#editSoLieuTrucBox') ? collectEditSoLieuTruc() : '',
     noiDungBaoCaoKhoMau: $('#editBaoCaoKhoMauNoiDung')?.value || '',
-    soLieuTm: $('#editSlTongBn') ? collectSoLieuTm('editSl') : {},
+    soLieuTm: $('#editSlXnNoi') ? collectSoLieuTm('editSl') : {},
     baoCaoChuyenMon: collectEditBaoCaoChuyenMon(),
     baoCaoChuyenMonChiTiet: collectBaoCaoChuyenMonChiTiet('editBaoCaoChuyenMonBox'),
     baoCaoVanDeKhac: $('#editBaoCaoKhac')?.value || '',
@@ -9360,16 +9320,16 @@ function compactLineHtml_(title, pairs){
   return `<div>- ${esc(title)}:${gap}${body}</div>`;
 }
 
+
 function formatSoLieuTrucCompact(text){
   const s = String(text || '').trim();
   if(!s) return '';
-  const hasTmReport = /Phát máu|Phat mau|Kho máu|Kho mau|Máu tồn|Mau ton|Các xét nghiệm khác|Cac xet nghiem khac/i.test(s);
+  const hasTmReport = /Phát máu|Phat mau/i.test(s);
   if(!hasTmReport) return esc(s).replace(/\n/g,'<br>');
 
   let mauTonIdx = s.search(/Kho máu|Kho mau/i);
   if(mauTonIdx < 0) mauTonIdx = s.search(/Máu tồn|Mau ton/i);
   const phatIdx = s.search(/Phát máu|Phat mau/i);
-  const mauTonPart = mauTonIdx >= 0 ? s.slice(mauTonIdx) : '';
   const phatPart = phatIdx >= 0 ? s.slice(phatIdx, mauTonIdx > phatIdx ? mauTonIdx : undefined) : '';
 
   const gap = '     ';
@@ -9380,14 +9340,9 @@ function formatSoLieuTrucCompact(text){
     `<div>&nbsp;&nbsp;KHC: ${esc(parseReportMetricLine_(phatPart, 'KHC') || '')}${gap}CP: ${esc(parseReportMetricLine_(phatPart, 'CP') || '')}${gap}Tổng số: ${esc(parseReportMetricLine_(phatPart, 'Tổng số') || parseReportMetricLine_(phatPart, 'Tong so') || '')}</div>`
   ].join('') : '';
 
-  const khoKhac = parseReportMetricLine_(mauTonPart, 'Khác') || parseReportMetricLine_(mauTonPart, 'Khac');
-  const khoMau = mauTonPart ? [
-    `<div>- Kho máu:${gap}KHC: ${esc(parseReportMetricLine_(mauTonPart, 'KHC') || '')}${gap}HTT: ${esc(parseReportMetricLine_(mauTonPart, 'HTT') || '')}${gap}Tủa: ${esc(parseReportMetricLine_(mauTonPart, 'Tủa') || parseReportMetricLine_(mauTonPart, 'Tua') || '')}${gap}KTC: ${esc(parseReportMetricLine_(mauTonPart, 'KTC') || '')}${gap}KTC gạn tách: ${esc(parseReportMetricLine_(mauTonPart, 'KTC gạn tách') || parseReportMetricLine_(mauTonPart, 'KTC gan tach') || '')}</div>`,
-    khoKhac ? `<div>- Khác: ${esc(khoKhac)}</div>` : ''
-  ].filter(Boolean).join('') : '';
-
-  return phat + khoMau;
+  return phat || esc(s).replace(/\n/g,'<br>');
 }
+
 function sortReportsByDateAsc(reports){
   return (reports || []).slice().sort((a,b) => {
     const da = String(a.ngayTruc || '').slice(0,10);
@@ -11349,34 +11304,104 @@ function updateDsPhieuActionLabel(){
   if(btn) btn.textContent = isDsSoLieuTmStatsMode() ? 'Thống kê' : 'Xem danh sách';
 }
 
+
 function soLieuTmStatsDateIso(x){
   return parseDateInputVi(x?.date || x?.ngaySuKien || x?.ngayTruc || x?.ngay || '') || String(x?.date || x?.ngayTruc || '').slice(0,10);
 }
 
-function buildSoLieuTmStatsRows(items){
+function soLieuTmStatusValue(x){
+  return String(x?.soLieuTmStatus || x?.tm24hStatus || '').trim();
+}
+
+function soLieuTmStatusLabel(value){
+  const v = norm(value || '');
+  if(v === 'used' || v === 'da dua vao giao ban') return 'Đã đưa vào giao ban';
+  if(v === 'stat_only' || v === 'not_for_meeting' || v === 'chi thong ke') return 'Chỉ thống kê';
+  return 'Đưa vào giao ban';
+}
+
+function canManageSoLieuTmStats(user){
+  const u = user || state.user || state.accountInfo || {};
+  if(isSystemAdminAccount(u)) return true;
+  const text = norm([u.chucVu, u.chucDanh, u.chucDanhHienThi, u.role, u.vaiTro].filter(Boolean).join(' '));
+  return /\bkty\s*truong\b/.test(text) || text.includes('ky thuat y truong') || text.includes('ky thuat truong');
+}
+
+function addDaysIsoClient(iso, days){
+  const d = new Date(String(iso || '') + 'T00:00:00');
+  if(Number.isNaN(d.getTime())) return '';
+  d.setDate(d.getDate() + Number(days || 0));
+  return d.toISOString().slice(0,10);
+}
+
+function isoDateRangeClient(from, to){
+  const start = String(from || '').slice(0,10);
+  const end = String(to || '').slice(0,10);
+  if(!start || !end || start > end) return [];
+  const out = [];
+  let cur = start;
+  let guard = 0;
+  while(cur && cur <= end && guard < 370){
+    out.push(cur);
+    cur = addDaysIsoClient(cur, 1);
+    guard++;
+  }
+  return out;
+}
+
+function buildSoLieuTmStatsRows(items, payload={}){
   const map = new Map();
   (items || []).forEach(x => {
     const iso = soLieuTmStatsDateIso(x);
     if(!iso) return;
     const d = normalizeSoLieuTmClient(x.soLieuTm || {});
-    if(!map.has(iso)) map.set(iso, {date:iso, count:0, tongSoBn:0, xnNoi:0, xnNgoai:0, dv1:0, dv2:0, tongDv:0, khc:0, htt:0, tua:0, ktc:0, ktcGt:0, kbc:0, cpKhacTong:0, tongSoDonVi:0});
+    if(!map.has(iso)){
+      map.set(iso, {
+        date: iso, exists: true, count: 0, phieuID: x.phieuID || x.id || '',
+        xnNoi:0, xnNgoai:0, khc:0, htt:0, tua:0, ktc:0, ktcGt:0, kbc:0, cpKhacTong:0, tongSoDonVi:0,
+        status: soLieuTmStatusValue(x),
+        statusLabel: soLieuTmStatusLabel(soLieuTmStatusValue(x)),
+        nguoiBaoCao: x.nguoiTao || x.nguoiTaoTen || x.nguoiThucHienTen || '',
+        thoiGianBaoCao: x.thoiDiemTao || x.createdAt || '',
+        nguoiSua: x.nguoiSua || x.soLieuTmEditedBy || '',
+        thoiGianSua: x.thoiDiemSua || x.soLieuTmEditedAt || ''
+      });
+    }
     const row = map.get(iso);
+    row.exists = true;
     row.count += 1;
-    ['tongSoBn','xnNoi','xnNgoai','dv1','dv2','tongDv','khc','htt','tua','ktc','ktcGt','kbc','cpKhacTong','tongSoDonVi'].forEach(k => row[k] += Number(d[k] || 0));
+    if(!row.phieuID) row.phieuID = x.phieuID || x.id || '';
+    ['xnNoi','xnNgoai','khc','htt','tua','ktc','ktcGt','kbc','cpKhacTong','tongSoDonVi'].forEach(k => row[k] += Number(d[k] || 0));
+    row.status = row.count > 1 ? 'multiple' : (soLieuTmStatusValue(x) || row.status);
+    row.statusLabel = row.count > 1 ? `Nhiều phiếu (${row.count})` : soLieuTmStatusLabel(row.status);
+    row.nguoiBaoCao = row.nguoiBaoCao || x.nguoiTao || x.nguoiTaoTen || x.nguoiThucHienTen || '';
+    row.thoiGianBaoCao = row.thoiGianBaoCao || x.thoiDiemTao || x.createdAt || '';
+    row.nguoiSua = x.nguoiSua || row.nguoiSua || '';
+    row.thoiGianSua = x.thoiDiemSua || row.thoiGianSua || '';
   });
+  const dates = isoDateRangeClient(payload.fromDate, payload.toDate);
+  if(dates.length){
+    return dates.map(date => map.get(date) || {
+      date, exists:false, count:0, phieuID:'',
+      xnNoi:0, xnNgoai:0, khc:0, htt:0, tua:0, ktc:0, ktcGt:0, kbc:0, cpKhacTong:0, tongSoDonVi:0,
+      status:'missing', statusLabel:'Chưa có',
+      nguoiBaoCao:'', thoiGianBaoCao:'', nguoiSua:'', thoiGianSua:''
+    });
+  }
   return Array.from(map.values()).sort((a,b) => String(a.date).localeCompare(String(b.date)));
 }
 
 function sumSoLieuTmStatsRows(rows){
   return (rows || []).reduce((acc, r) => {
-    ['tongSoBn','xnNoi','xnNgoai','dv1','dv2','tongDv','khc','htt','tua','ktc','ktcGt','kbc','cpKhacTong','tongSoDonVi'].forEach(k => acc[k] += Number(r[k] || 0));
+    ['xnNoi','xnNgoai','khc','htt','tua','ktc','ktcGt','kbc','cpKhacTong','tongSoDonVi'].forEach(k => acc[k] += Number(r[k] || 0));
     return acc;
-  }, {tongSoBn:0, xnNoi:0, xnNgoai:0, dv1:0, dv2:0, tongDv:0, khc:0, htt:0, tua:0, ktc:0, ktcGt:0, kbc:0, cpKhacTong:0, tongSoDonVi:0});
+  }, {xnNoi:0, xnNgoai:0, khc:0, htt:0, tua:0, ktc:0, ktcGt:0, kbc:0, cpKhacTong:0, tongSoDonVi:0});
 }
 
 function renderSoLieuTmStatsPanel(items, payload){
-  const rows = buildSoLieuTmStatsRows(items);
+  const rows = buildSoLieuTmStatsRows(items, payload || {});
   const canExcel = canExportDsPhieuExcel(payload);
+  const canManage = canManageSoLieuTmStats();
   const exportBtn = canExcel ? `<button class="btn secondary" onclick="exportDsPhieuExcel(this)">Xuất Excel</button>` : '';
   const historyBtn = canExcel ? `<button class="app-icon-btn" onclick="openExcelExportHistory(this)" title="Lịch sử xuất Excel" aria-label="Lịch sử xuất Excel">${icon2d('history')}</button>` : '';
   if(!rows.length){
@@ -11384,16 +11409,89 @@ function renderSoLieuTmStatsPanel(items, payload){
   }
   const total = sumSoLieuTmStatsRows(rows);
   const period = [dateVi(payload.fromDate), dateVi(payload.toDate)].filter(Boolean).join(' - ');
-  const htmlRows = rows.map(r => `<tr>
-    <td><strong>${esc(dateVi(r.date))}</strong></td>
-    <td>${esc(r.tongSoBn)}</td><td>${esc(r.xnNoi)}</td><td>${esc(r.xnNgoai)}</td>
-    <td>${esc(r.dv1)}</td><td>${esc(r.dv2)}</td>
-    <td>${esc(r.khc)}</td><td>${esc(r.htt)}</td><td>${esc(r.tua)}</td><td>${esc(r.ktc)}</td><td>${esc(r.ktcGt)}</td><td>${esc(r.kbc)}</td><td>${esc(r.cpKhacTong)}</td><td>${esc(r.tongSoDonVi)}</td>
-  </tr>`).join('');
-  const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td><td>${total.tongSoBn}</td><td>${total.xnNoi}</td><td>${total.xnNgoai}</td><td>${total.dv1}</td><td>${total.dv2}</td><td>${total.khc}</td><td>${total.htt}</td><td>${total.tua}</td><td>${total.ktc}</td><td>${total.ktcGt}</td><td>${total.kbc}</td><td>${total.cpKhacTong}</td><td>${total.tongSoDonVi}</td></tr>`;
+  const dept = payload.khoaPhong || state.user?.khoaPhong || '';
+  const htmlRows = rows.map(r => {
+    const action = canManage
+      ? (r.exists && r.phieuID
+        ? `<button class="btn secondary small" onclick="editPhieu('${escAttr(r.phieuID)}', this)">Sửa</button>`
+        : `<button class="btn secondary small" onclick="openSoLieuTmStatsAdd(${jsArg(r.date)}, ${jsArg(dept)})">Thêm</button>`)
+      : '';
+    return `<tr class="${r.exists ? '' : 'tm-sl-missing-row'}">
+      <td><strong>${esc(dateVi(r.date))}</strong></td>
+      <td>${esc(r.xnNoi)}</td><td>${esc(r.xnNgoai)}</td>
+      <td>${esc(r.khc)}</td><td>${esc(r.htt)}</td><td>${esc(r.tua)}</td><td>${esc(r.ktc)}</td><td>${esc(r.ktcGt)}</td><td>${esc(r.kbc)}</td><td>${esc(r.cpKhacTong)}</td><td>${esc(r.tongSoDonVi)}</td>
+      <td>${esc(r.statusLabel || '')}</td>
+      <td>${esc(r.nguoiBaoCao || '')}</td><td>${esc(dateTimeViColon(r.thoiGianBaoCao || ''))}</td>
+      <td>${esc(r.nguoiSua || '')}</td><td>${esc(dateTimeViColon(r.thoiGianSua || ''))}</td>
+      <td>${action}</td>
+    </tr>`;
+  }).join('');
+  const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td><td>${total.xnNoi}</td><td>${total.xnNgoai}</td><td>${total.khc}</td><td>${total.htt}</td><td>${total.tua}</td><td>${total.ktc}</td><td>${total.ktcGt}</td><td>${total.kbc}</td><td>${total.cpKhacTong}</td><td>${total.tongSoDonVi}</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
   return `<div class="ds-toolbar"><p class="meta">Tổng hợp ${rows.length} ngày${period ? ` · ${period}` : ''}</p><div class="ds-toolbar-actions">${exportBtn}${historyBtn}</div></div>
-    <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th><th>Tổng số BN</th><th>XN Nội</th><th>XN Ngoại</th><th>ĐV1</th><th>ĐV2</th><th>KHC</th><th>HTT</th><th>Tủa</th><th>KTC</th><th>KTCGT</th><th>KBC</th><th>CP khác</th><th>Tổng số đơn vị</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
+    <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th><th>XN Nội</th><th>XN Ngoại</th><th>KHC</th><th>HTT</th><th>Tủa</th><th>KTC</th><th>KTCGT</th><th>KBC</th><th>CP khác</th><th>Tổng số đơn vị</th><th>Trạng thái</th><th>Người báo cáo</th><th>Thời gian báo cáo</th><th>Người sửa</th><th>Thời gian sửa</th><th>Thêm/Sửa</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
 }
+
+window.openSoLieuTmStatsAdd = function(date, dept){
+  const d = normalizeSoLieuTmClient({});
+  openModal(`
+    <div class="modal-card">
+      <div class="modal-head"><div class="modal-title">Thêm số liệu Truyền máu 24h</div><button class="close-btn" onclick="closeModal()">×</button></div>
+      <div class="card" style="box-shadow:none">
+        <h3 class="section-title">I. Thông tin</h3>
+        <div class="grid">
+          <div class="col-3"><label>Ngày báo cáo</label><input class="equal-control" readonly value="${escAttr(dateVi(date))}"></div>
+          <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><input class="equal-control" readonly value="${escAttr(dept || '')}"></div>
+          <div class="col-3"><label>Trạng thái</label><input class="equal-control" readonly value="Chỉ thống kê"></div>
+        </div>
+      </div>
+      <div class="card" style="box-shadow:none">
+        <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
+        <div class="tm-sl-form">
+          <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
+            <div class="tm-sl-field"><label>XN Nội</label><input id="statsSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
+            <div class="tm-sl-field"><label>XN Ngoại</label><input id="statsSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNgoai)}"></div>
+          </div>
+          <div class="tm-sl-row tm-sl-row-cp">
+            <div class="tm-sl-field"><label>KHC</label><input id="statsSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.khc)}"></div>
+            <div class="tm-sl-field"><label>HTT</label><input id="statsSlHtt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.htt)}"></div>
+            <div class="tm-sl-field"><label>Tủa VIII</label><input id="statsSlTua" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.tua)}"></div>
+            <div class="tm-sl-field"><label>KTC</label><input id="statsSlKtc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.ktc)}"></div>
+            <div class="tm-sl-field"><label>KTCGT</label><input id="statsSlKtcGt" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.ktcGt)}"></div>
+            <div class="tm-sl-field"><label>KBC</label><input id="statsSlKbc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.kbc)}"></div>
+          </div>
+          <div class="tm-sl-cp-khac-section">
+            <div id="statsSlCpKhacRows" class="tm-sl-cp-khac-list">${renderSoLieuTmCpKhacRows('statsSl', [])}</div>
+            <button class="btn secondary small tm-sl-cp-khac-add" type="button" onclick="addSoLieuTmCpKhacRow('statsSl')">+ Thêm CP khác</button>
+          </div>
+          <div class="tm-sl-total-fields"><label>Tổng số đơn vị</label><input id="statsSlTongSoDonVi" readonly value="0"></div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="btn primary" onclick="saveSoLieuTmStatsAdd(${jsArg(date)}, ${jsArg(dept || '')}, this)">Lưu</button><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
+    </div>
+  `);
+  bindSoLieuTmFormEvents('statsSl');
+}
+
+window.saveSoLieuTmStatsAdd = async function(date, dept, btn){
+  const payload = {
+    loaiPhieu: LOAI_BAO_CAO_SO_LIEU_TM,
+    ngayTruc: date,
+    khoaPhong: dept || $('#pdfDept')?.value || state.user?.khoaPhong || '',
+    soLieuTm: collectSoLieuTm('statsSl'),
+    tm24hStatus: 'stat_only',
+    fromStats: true
+  };
+  const task = async () => {
+    await api('createPhieu', payload);
+    clearListCaches();
+    closeModal();
+    await loadDsPhieuList(true);
+    toast('Đã thêm số liệu');
+  };
+  if(btn) return withButton(btn, 'Đang lưu...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
+}
+
 
 function getDsPhieuFilters(){
   return {
