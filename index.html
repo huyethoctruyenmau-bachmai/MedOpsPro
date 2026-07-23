@@ -1,4 +1,4 @@
-<!-- VERSION: 281.198 | index: 281 | Code.gs: 198 | INDEX-281.220726-GB-KHOMAU-TM24H-VIEW -->
+<!-- VERSION: 283.200 | index: 283 | Code.gs: 200 | INDEX-283.220726-KHO-MAU-AB-ISSUES -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5032,7 +5032,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-281.220726-GB-KHOMAU-TM24H-VIEW</p>
+      <p class="login-version">Version: INDEX-283.220726-KHO-MAU-AB-ISSUES</p>
     </div>
   </div>
 
@@ -5041,7 +5041,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-281.220726-GB-KHOMAU-TM24H-VIEW</div>
+    <div class="login-loading-version">Version: INDEX-283.220726-KHO-MAU-AB-ISSUES</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5085,7 +5085,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-281.220726-GB-KHOMAU-TM24H-VIEW</div>
+    <div class="app-version">Version: INDEX-283.220726-KHO-MAU-AB-ISSUES</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5110,7 +5110,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-281.220726-GB-KHOMAU-TM24H-VIEW';
+const APP_VERSION = 'INDEX-283.220726-KHO-MAU-AB-ISSUES';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6433,24 +6433,76 @@ function hasSoLieuTmKhoMauClient(kho){
 }
 
 
+
+
 function renderSoLieuTmKhoMauViewHtml(data, meta={}){
   const d = normalizeSoLieuTmClient(data || {});
   const kho = d.khoMau;
   if(!hasSoLieuTmKhoMauClient(kho)) return '';
   const t = kho.tonKhoMau || {};
-  const stockItems = SO_LIEU_TM_KHO_FIELDS.map(f => ({label:f.label, value:t[f.key]})).filter(x => Number(x.value || 0) > 0);
+
+  // Khi đã có báo cáo kho máu trong TM24h, luôn hiển thị đủ danh mục tồn kho,
+  // kể cả các loại đang bằng 0, để giao ban nhìn thấy rõ báo cáo đã được ghi nhận.
+  const stockItems = SO_LIEU_TM_KHO_FIELDS.map(f => ({label:f.label, value:Number(t[f.key] || 0)}));
   const cpKhac = normalizeSoLieuTmCpKhacClient(t.cpKhac || []);
   if(cpKhac.length) stockItems.push({label:'CP khác', value:cpKhac.map(item => `${item.ten || 'CP khác'}: ${item.soLuong}`).join('; ')});
+
   const noteDate = meta.ngayTruc ? dateVi(meta.ngayTruc) : '';
   const noteUser = meta.nguoiTao ? ` của ${meta.nguoiTao}` : '';
-  const note = stockItems.length && noteDate ? `<div class="tm-kho-view-note">Số liệu lấy từ báo cáo ngày ${esc(noteDate)}${esc(noteUser)}.</div>` : '';
+  const note = noteDate ? `<div class="tm-kho-view-note">Số liệu lấy từ báo cáo ngày ${esc(noteDate)}${esc(noteUser)}.</div>` : '';
   const title = meta.hideTitle ? '' : `<h3 class="section-title tm-kho-main-title">III. Kho máu</h3>`;
+  const stockTitle = meta.useLetters ? 'a. Tồn kho máu' : '1. Tồn kho máu';
+  const issueTitle = meta.useLetters ? 'b. Vấn đề khác' : '2. Vấn đề khác';
+  const issueHtml = meta.issueHtml !== undefined
+    ? String(meta.issueHtml || '')
+    : (kho.vanDeKhac ? esc(kho.vanDeKhac).replace(/\n/g,'<br>') : '');
   return `<div class="tm-kho-view">
     ${title}
+    <div class="tm-sl-subtitle">${stockTitle}</div>
     ${note}
-    ${stockItems.length ? `<div class="tm-sl-subtitle">1. Tồn kho máu</div><div class="tm-kho-view-grid">${stockItems.map(x => `<div class="tm-kho-view-item"><strong>${esc(x.label)}:</strong> ${esc(x.value)}</div>`).join('')}</div>` : ''}
-    ${kho.vanDeKhac ? `<div class="tm-sl-subtitle">2. Vấn đề khác</div><div>${esc(kho.vanDeKhac).replace(/\n/g,'<br>')}</div>` : ''}
+    <div class="tm-kho-view-grid">${stockItems.map(x => `<div class="tm-kho-view-item"><strong>${esc(x.label)}:</strong> ${esc(x.value)}</div>`).join('')}</div>
+    ${issueHtml ? `<div class="tm-sl-subtitle">${issueTitle}</div><div>${issueHtml}</div>` : ''}
   </div>`;
+}
+
+
+function soLieuTmKhoMauIssueItemsClient(reports=[]){
+  return (reports || [])
+    .filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || ''))
+    .map(r => {
+      const d = normalizeSoLieuTmClient(r.soLieuTm || {});
+      const kho = d.khoMau || {};
+      const text = String(kho.vanDeKhac || '').trim();
+      if(!text || norm(text) === 'khong co') return null;
+      return {
+        date: r.ngayTruc || r.date || '',
+        nguoi: r.nguoiTao || r.nguoiTaoTen || r.nguoiThucHienTen || '',
+        text,
+        sort: dsCreatedSortValue({createdAt: r.ngayTruc || r.createdAt || r.thoiDiemTao || ''})
+      };
+    })
+    .filter(Boolean)
+    .sort((a,b) => String(a.date || '').localeCompare(String(b.date || '')) || String(a.nguoi || '').localeCompare(String(b.nguoi || '')));
+}
+
+function formatKhoMauIssueLineClient(item){
+  const date = item && item.date ? dateVi(item.date) : '';
+  const nguoi = item && item.nguoi ? ` (${esc(item.nguoi)})` : '';
+  const prefix = date ? `ngày ${esc(date)}${nguoi}: ` : '';
+  return `${prefix}${esc(item && item.text || '').replace(/\n/g,'<br>')}`;
+}
+
+function normalizeKhoMauKhacLinesClient(text=''){
+  return String(text || '')
+    .split(/\n+/)
+    .map(s => s.trim())
+    .filter(Boolean)
+    .filter(s => norm(s) !== 'khong co')
+    .map(s => {
+      const m = s.match(/^[-–]?\s*Báo cáo kho máu\s+(.+?)\s+\((.+?)\)\s*:\s*(.*)$/i);
+      if(m) return `ngày ${esc(m[1])} (${esc(m[2])}): ${esc(m[3])}`;
+      return esc(s);
+    });
 }
 
 function latestSoLieuTmKhoMauReportClient(reports=[]){
@@ -6465,19 +6517,44 @@ function latestSoLieuTmKhoMauReportClient(reports=[]){
 }
 
 
+
 function renderLatestSoLieuTmKhoMauPreviewHtml(reports=[], options={}){
   const r = latestSoLieuTmKhoMauReportClient(reports || []);
   if(!r) return '';
-  return renderSoLieuTmKhoMauViewHtml(r.soLieuTm || {}, {ngayTruc:r.ngayTruc, nguoiTao:r.nguoiTao || r.nguoiThucHienTen || '', hideTitle: !!options.hideTitle});
+  const issueItems = soLieuTmKhoMauIssueItemsClient(reports || []);
+  const issueHtml = issueItems.length
+    ? issueItems.map(formatKhoMauIssueLineClient).join('<br>')
+    : (options.showEmptyIssue ? 'Không có' : '');
+  return renderSoLieuTmKhoMauViewHtml(r.soLieuTm || {}, {
+    ngayTruc:r.ngayTruc,
+    nguoiTao:r.nguoiTao || r.nguoiThucHienTen || '',
+    hideTitle: !!options.hideTitle,
+    useLetters: !!options.useLetters,
+    issueHtml
+  });
 }
+
 
 function renderGiaoBanKhoMauHtml(reports=[], khoMauKhac=''){
   const parts = [];
-  const tmKhoHtml = renderLatestSoLieuTmKhoMauPreviewHtml(reports || [], {hideTitle:true});
-  if(tmKhoHtml) parts.push(tmKhoHtml);
-  const khac = String(khoMauKhac || '').trim();
-  if(khac && norm(khac) !== 'khong co'){
-    parts.push(`<div class="tm-sl-subtitle">Khác</div><div>${esc(khac).replace(/\n/g,'<br>')}</div>`);
+  const issueItems = soLieuTmKhoMauIssueItemsClient(reports || []);
+  const independentIssueLines = normalizeKhoMauKhacLinesClient(khoMauKhac || '');
+  const issueHtml = []
+    .concat(issueItems.map(formatKhoMauIssueLineClient))
+    .concat(independentIssueLines)
+    .filter(Boolean)
+    .join('<br>');
+  const r = latestSoLieuTmKhoMauReportClient(reports || []);
+  if(r){
+    parts.push(renderSoLieuTmKhoMauViewHtml(r.soLieuTm || {}, {
+      ngayTruc:r.ngayTruc,
+      nguoiTao:r.nguoiTao || r.nguoiThucHienTen || '',
+      hideTitle:true,
+      useLetters:true,
+      issueHtml: issueHtml || 'Không có'
+    }));
+  } else if(issueHtml) {
+    parts.push(`<div class="tm-kho-view"><div class="tm-sl-subtitle">b. Vấn đề khác</div><div>${issueHtml}</div></div>`);
   }
   return parts.join('');
 }
