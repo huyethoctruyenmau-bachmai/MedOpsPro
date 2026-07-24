@@ -1,4 +1,4 @@
-<!-- VERSION: 290.203 | index: 290 | Code.gs: 203 | INDEX-290.220726-GB-KHOMAU-SOLIEU-FORMAT -->
+<!-- VERSION: 292.203 | index: 292 | Code.gs: 203 | INDEX-292.220726-BAN-GIAO-TRUC-LABEL -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -3272,6 +3272,7 @@
     /* ===== PATCH 190: TẠO PHIẾU - ĐỒNG BỘ Ô, MÀU NHÓM MÁU, MOBILE TDKMM ===== */
     .create-loai-control{color:var(--g-blue)!important;font-weight:700!important}
     .create-loai-control option{color:var(--g-text);font-weight:400}
+    .create-loai-note{margin-top:6px;font-size:12.5px;line-height:1.45;color:var(--g-blue);background:#eef4ff;border:1px solid #d8e5ff;border-radius:10px;padding:7px 9px}
     .blood-abo,.blood-abo option{color:var(--g-danger)!important;font-weight:700!important}
     .blood-rh,.blood-rh option{color:var(--g-danger)!important}
     .tm-tdkmm-form .grid{align-items:end}
@@ -5138,7 +5139,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-290.220726-GB-KHOMAU-SOLIEU-FORMAT';
+const APP_VERSION = 'INDEX-292.220726-BAN-GIAO-TRUC-LABEL';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5680,9 +5681,9 @@ function renderCreateTab(){
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>` : '';
   const bloodStockReportOption = allowTm ? `
-            <option>${LOAI_BAO_CAO_KHO_MAU}</option>` : '';
+            <option value="${LOAI_BAO_CAO_KHO_MAU}">Báo cáo kho máu</option>` : '';
   const tmDailyStatsOption = allowTm ? `
-            <option>${LOAI_BAO_CAO_SO_LIEU_TM}</option>` : '';
+            <option value="${LOAI_BAO_CAO_SO_LIEU_TM}">Báo cáo số liệu Truyền máu 24h</option>` : '';
   $('#tab-create').innerHTML = `
     <div class="card create-left-card">
       <h2 class="section-title">I. Thông tin phiếu</h2>
@@ -5690,9 +5691,10 @@ function renderCreateTab(){
         <div class="col-3">
           <label>Loại phiếu</label>
           <select id="createLoai" class="equal-control create-loai-control">
-            <option>${LOAI_BAN_GIAO}</option>
-            <option>${LOAI_BAO_CAO}</option>${bloodStockReportOption}${tmDailyStatsOption}${tmOptions}
+            <option value="${LOAI_BAN_GIAO}">Bàn giao trực</option>
+            <option value="${LOAI_BAO_CAO}">Báo cáo trực</option>${bloodStockReportOption}${tmDailyStatsOption}${tmOptions}
           </select>
+          <div id="createLoaiNote" class="create-loai-note"></div>
         </div>
         <div class="col-3">
           <label id="createDateLabel">Ngày thực hiện</label>
@@ -5713,7 +5715,7 @@ function renderCreateTab(){
       <div id="tmPhieuBlock" class="card hidden"></div>
 
       <div id="reportBlock" class="card hidden">
-        <h3 class="section-title">II. Báo cáo thường trực</h3>
+        <h3 class="section-title">II. Báo cáo trực</h3>
         <div class="grid">
           <div class="col-12">
             <label>2.1 Nhân viên phiên thường trực</label>
@@ -5774,7 +5776,7 @@ function renderCreateTab(){
       </div>
 
       <div id="regularPhieuBlock" class="card">
-        <h3 id="handoverTitle" class="section-title">II. Bàn giao thường trực</h3>
+        <h3 id="handoverTitle" class="section-title">II. Bàn giao trực</h3>
         <div class="grid">
           <div class="col-12">
             <label id="handoverLabel1">2.1 Tài sản, dụng cụ, thiết bị y tế</label>
@@ -5823,8 +5825,26 @@ function renderCreateTab(){
   setTimeout(() => { $$('textarea').forEach(autoGrow); loadTmAttachmentImages(document.getElementById('modalRoot') || document); }, 0);
 }
 
+function getCreateLoaiNote(loai){
+  if(loai === LOAI_BAN_GIAO) return 'Chú thích: Dùng cho bộ phận làm việc giờ hành chính bàn giao cho tua trực.';
+  if(loai === LOAI_BAO_CAO) return 'Chú thích: Dùng để báo cáo tình hình tua trực.';
+  if(loai === LOAI_BAO_CAO_KHO_MAU) return 'Chú thích: Chỉ dùng cho Quản lý kho máu.';
+  if(isLoaiSoLieuTm(loai)) return 'Chú thích: Dùng để báo cáo số liệu xét nghiệm - truyền máu 24h và tồn kho máu.';
+  if(isTmPhieuLoai(loai)) return 'Chú thích: Dùng để khai báo/xử trí chuyên môn liên quan truyền máu.';
+  return '';
+}
+
+function updateCreateLoaiNote(){
+  const noteEl = $('#createLoaiNote');
+  if(!noteEl) return;
+  const note = getCreateLoaiNote($('#createLoai')?.value || '');
+  noteEl.textContent = note;
+  noteEl.classList.toggle('hidden', !note);
+}
+
 function updateCreateFormNumbering(){
   const loai = $('#createLoai')?.value || LOAI_BAN_GIAO;
+  updateCreateLoaiNote();
   const isReport = loai === LOAI_BAO_CAO;
   const isBloodStockReport = loai === LOAI_BAO_CAO_KHO_MAU;
   const isTmDailyStats = isLoaiSoLieuTm(loai);
@@ -5856,7 +5876,7 @@ function updateCreateFormNumbering(){
     return;
   }
   const n = isReport ? '3' : '2';
-  if($('#handoverTitle')) $('#handoverTitle').textContent = `${isReport ? 'III' : 'II'}. Bàn giao thường trực`;
+  if($('#handoverTitle')) $('#handoverTitle').textContent = `${isReport ? 'III' : 'II'}. Bàn giao trực`;
   if($('#handoverLabel1')) $('#handoverLabel1').textContent = `${n}.1 Tài sản, dụng cụ, thiết bị y tế`;
   if($('#handoverLabel2')) $('#handoverLabel2').textContent = `${n}.2 Chuyên môn`;
   if($('#handoverLabel3')) $('#handoverLabel3').textContent = `${n}.3 Vấn đề khác`;
@@ -8719,7 +8739,7 @@ function renderPhieuList(items, note=''){
         ? `Báo cáo số liệu Truyền máu 24h - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
         : (isReportCard
           ? `Báo cáo/ Bàn giao trực - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
-          : `Bàn giao thường trực - ${formatKhoaTitle(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`));
+          : `Bàn giao trực - ${formatKhoaTitle(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`));
     const detailHtml = isBloodStockCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Nội dung báo cáo</span><div class="field-value">${esc(p.noiDungBaoCaoKhoMau || '')}</div></div></div>` : (isSoLieuTmCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Số liệu</span><div class="field-value">${renderSoLieuTmSummaryHtml(p.soLieuTm || {})}</div></div></div>` : (!isDone ? `
       <div class="phieu-inline">
         <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
@@ -8885,7 +8905,7 @@ function showPhieuModal(p, opts={}){
         <div class="field-row"><span class="field-name">Người thực hiện</span><div class="field-value">${esc(p.nguoiThucHienTen || '')}${p.nguoiThucHienChucDanh ? ' - ' + esc(p.nguoiThucHienChucDanh) : ''}</div></div>
       </div>
       ${reportHtml}
-      <h3 class="sub-title">${handoverRoman}. Bàn giao thường trực</h3>
+      <h3 class="sub-title">${handoverRoman}. Bàn giao trực</h3>
       <div class="list-card data-card">
         <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
@@ -9063,7 +9083,7 @@ window.editPhieu = async function(phieuID, btn){
         ` : ''}
 
         <div class="card" style="box-shadow:none">
-          <h3 class="section-title">${isReport ? 'III' : 'II'}. Bàn giao thường trực</h3>
+          <h3 class="section-title">${isReport ? 'III' : 'II'}. Bàn giao trực</h3>
           <div class="grid">
             ${p.trangThaiBanGiao !== STATUS_DA ? `
               <div class="col-12"><label>${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</label><div id="editBanGiaoTaiSanBox">${renderEditBanGiaoTaiSanInput(p)}</div></div>
