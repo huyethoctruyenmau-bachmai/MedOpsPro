@@ -1,4 +1,4 @@
-<!-- VERSION: 289.203 | index: 289 | Code.gs: 203 | INDEX-289.220726-TM24H-MOBILE-XN-SAME-ROW -->
+<!-- VERSION: 290.203 | index: 290 | Code.gs: 203 | INDEX-290.220726-GB-KHOMAU-SOLIEU-FORMAT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5002,6 +5002,19 @@
   .tm-kho-readonly-cp{grid-template-columns:minmax(0,1fr) minmax(90px,.5fr)}
 }
 
+
+.gb-section-content{font-size:15px;line-height:1.65;color:var(--text);font-weight:400}
+.tm-kho-summary-lines{margin:4px 0 6px 18px;line-height:1.65}
+.tm-kho-summary-line{margin:2px 0;font-weight:400}
+.tm-kho-issue-lines{margin:4px 0 0 18px;line-height:1.65;font-weight:400}
+.tm-kho-view-note{margin:6px 0 8px 18px;font-style:italic;color:var(--muted);line-height:1.55}
+.tm-sl-gb-day{line-height:1.65}
+.tm-sl-gb-line{font-weight:400}
+@media (max-width:760px){
+  .tm-sl-gb-line{display:block}
+  .tm-kho-summary-lines,.tm-kho-issue-lines,.tm-kho-view-note{margin-left:12px}
+}
+
 </style>
 </head>
 <body>
@@ -5125,7 +5138,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-289.220726-TM24H-MOBILE-XN-SAME-ROW';
+const APP_VERSION = 'INDEX-290.220726-GB-KHOMAU-SOLIEU-FORMAT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6459,14 +6472,14 @@ function buildSoLieuTmKhoMauSummaryClient(kho){
   const ktcGt = n(t.ktcGt250) + n(t.ktcGt120);
   const platelet = ktc + ktcGt;
   const lines = [
-    `Huyết tương: ${plasma} (HTDL: ${htdl}; HTTDL: ${httdl})`,
-    `KHC: ${khc} (KHC: ${khcThuong}; KHC lọc BC: ${khcLocBc})`,
-    `Tiểu cầu: ${platelet} (KTC: ${ktc}; KTCGT: ${ktcGt})`,
+    `Huyết tương: ${plasma} (HTDL: ${htdl}, HTTDL: ${httdl})`,
+    `KHC: ${khc} (KHC: ${khcThuong}, KHC lọc BC: ${khcLocBc})`,
+    `Tiểu cầu: ${platelet} (KTC: ${ktc}, KTCGT: ${ktcGt})`,
     `Tủa: ${n(t.tua)}`,
     `Máu TP: ${n(t.mauTp)}`
   ];
   const cpKhac = normalizeSoLieuTmCpKhacClient(t.cpKhac || []);
-  if(cpKhac.length) lines.push(`CP khác: ${cpKhac.map(item => `${item.ten || 'CP khác'}: ${item.soLuong}`).join('; ')}`);
+  if(cpKhac.length) lines.push(`CP khác: ${cpKhac.map(item => `${item.ten || 'CP khác'}: ${item.soLuong}`).join(', ')}`);
   return lines;
 }
 
@@ -6484,12 +6497,12 @@ function renderSoLieuTmKhoMauViewHtml(data, meta={}){
     ? String(meta.issueHtml || '')
     : (kho.vanDeKhac ? esc(kho.vanDeKhac).replace(/\n/g,'<br>') : '');
   const summaryLines = buildSoLieuTmKhoMauSummaryClient(kho);
-  return `<div class="tm-kho-view">
+  return `<div class="tm-kho-view gb-section-content">
     ${title}
     <div class="tm-sl-subtitle">${stockTitle}</div>
-    <div class="tm-kho-summary-lines">${summaryLines.map(line => `<div>${esc(line)}</div>`).join('')}</div>
+    <div class="tm-kho-summary-lines">${summaryLines.map(line => `<div class="tm-kho-summary-line">- ${esc(line)}</div>`).join('')}</div>
     ${note}
-    ${issueHtml ? `<div class="tm-sl-subtitle">${issueTitle}</div><div>${issueHtml}</div>` : ''}
+    ${issueHtml ? `<div class="tm-sl-subtitle">${issueTitle}</div><div class="tm-kho-issue-lines">${issueHtml}</div>` : ''}
   </div>`;
 }
 
@@ -6720,7 +6733,7 @@ function renderSoLieuTmGiaoBanHtml(rows){
   if(!list.length) return `<div class="empty">Chưa có phiếu Báo cáo số liệu Truyền máu 24h phù hợp.</div>`;
   return list.map(r => {
     const d = normalizeSoLieuTmClient(r.soLieuTm || {});
-    return `<div class="tm-sl-gb-day"><div class="tm-sl-gb-date"><strong><em>${esc(dateVi(r.ngayTruc))}</em></strong></div><div>XN Nội: ${esc(d.xnNoi)} &nbsp;&nbsp; XN Ngoại: ${esc(d.xnNgoai)}</div><div>KHC: ${esc(d.khc)} &nbsp;&nbsp; CP: ${esc(d.cp)} &nbsp;&nbsp; Tổng: ${esc(d.tongSoDonVi)}</div></div>`;
+    return `<div class="tm-sl-gb-day gb-section-content"><div class="tm-sl-gb-line"><span class="gb-pv-date"><strong>${esc(dateVi(r.ngayTruc))}:</strong></span>&nbsp;&nbsp; XN Nội: ${esc(d.xnNoi)} &nbsp;&nbsp;&nbsp; XN Ngoại: ${esc(d.xnNgoai)} &nbsp;&nbsp;&nbsp; KHC: ${esc(d.khc)} &nbsp;&nbsp;&nbsp; CP: ${esc(d.cp)} &nbsp;&nbsp;&nbsp; Tổng: ${esc(d.tongSoDonVi)}</div></div>`;
   }).join('');
 }
 
@@ -6730,8 +6743,8 @@ function renderSoLieuTmGiaoBanPreviewHtml(rows){
   if(!list.length) return 'Chưa có phiếu Báo cáo số liệu Truyền máu 24h phù hợp.';
   return list.map(r => {
     const d = normalizeSoLieuTmClient(r.soLieuTm || {});
-    return `<strong><em>${esc(dateVi(r.ngayTruc))}</em></strong><br>XN Nội: ${esc(d.xnNoi)} &nbsp;&nbsp; XN Ngoại: ${esc(d.xnNgoai)}<br>KHC: ${esc(d.khc)} &nbsp;&nbsp; CP: ${esc(d.cp)} &nbsp;&nbsp; Tổng: ${esc(d.tongSoDonVi)}`;
-  }).join('<br><br>');
+    return `<span class="gb-pv-date"><strong>${esc(dateVi(r.ngayTruc))}:</strong></span>&nbsp;&nbsp; XN Nội: ${esc(d.xnNoi)} &nbsp;&nbsp;&nbsp; XN Ngoại: ${esc(d.xnNgoai)} &nbsp;&nbsp;&nbsp; KHC: ${esc(d.khc)} &nbsp;&nbsp;&nbsp; CP: ${esc(d.cp)} &nbsp;&nbsp;&nbsp; Tổng: ${esc(d.tongSoDonVi)}`;
+  }).join('<br>');
 }
 
 function collectSoLieuTruc(){
