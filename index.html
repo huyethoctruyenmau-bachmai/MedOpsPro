@@ -1,4 +1,4 @@
-<!-- VERSION: 287.203 | index: 287 | Code.gs: 203 | INDEX-287.220726-TM24H-STATS-SAVE-FIX -->
+<!-- VERSION: 289.203 | index: 289 | Code.gs: 203 | INDEX-289.220726-TM24H-MOBILE-XN-SAME-ROW -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4972,7 +4972,10 @@
 .tm-sl-stats-table .tm-sl-total-row td{color:#1a73e8;font-weight:700}
 .tm-sl-total-fields label{display:block;font-size:12px;color:var(--g-muted);margin-bottom:3px}
 .tm-sl-row-xn{grid-template-columns:repeat(2,minmax(0,1fr))}
-
+@media(max-width:760px){
+  #tmDailyStatsBlock .tm-sl-row-main.tm-sl-row-xn{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #tmDailyStatsBlock .tm-sl-row-main.tm-sl-row-xn .tm-sl-field:first-child{grid-column:auto!important}
+}
 
 /* ===== TM24H Kho máu ===== */
 .tm-sl-section-title{font-weight:700;color:#1f2937;margin:4px 0 2px;font-size:15px}
@@ -4986,6 +4989,18 @@
 .tm-kho-view-item{min-width:0;white-space:normal}
 @media (max-width:760px){.tm-kho-stock-grid,.tm-kho-view-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:420px){.tm-kho-stock-grid,.tm-kho-view-grid{grid-template-columns:1fr}}
+
+
+.tm24h-view-modal .data-card{margin-bottom:14px}
+.tm-readonly-field input[readonly], .tm24h-view-modal textarea[readonly]{background:#f8fafc;color:#111827}
+.tm-sl-view-detail .tm-sl-row{margin-bottom:10px}
+.tm-kho-view-detail{border:0;box-shadow:none;padding:0;margin:0}
+.tm-kho-view-detail .tm-kho-stock-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.tm-kho-readonly-cp{grid-template-columns:minmax(0,1.4fr) minmax(90px,.6fr);align-items:end}
+@media (max-width:760px){
+  .tm-kho-view-detail .tm-kho-stock-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tm-kho-readonly-cp{grid-template-columns:minmax(0,1fr) minmax(90px,.5fr)}
+}
 
 </style>
 </head>
@@ -5110,7 +5125,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-287.220726-TM24H-STATS-SAVE-FIX';
+const APP_VERSION = 'INDEX-289.220726-TM24H-MOBILE-XN-SAME-ROW';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -8731,27 +8746,81 @@ window.openPhieu = async function(phieuID, btn){
   try{ await task(); }catch(err){ toast(err.message); }
 }
 
+
+function renderReadonlyMiniField(label, value){
+  return `<div class="tm-sl-field tm-readonly-field"><label>${esc(label)}</label><input class="equal-control" readonly value="${escAttr(value ?? '')}"></div>`;
+}
+
+function renderSoLieuTmDetailReportViewHtml(data){
+  const d = normalizeSoLieuTmClient(data || {});
+  return `<div class="tm-sl-form tm-sl-view-detail">
+    <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
+      ${renderReadonlyMiniField('XN Nội', d.xnNoi)}
+      ${renderReadonlyMiniField('XN Ngoại', d.xnNgoai)}
+    </div>
+    <div class="tm-sl-row tm-sl-row-cp">
+      ${renderReadonlyMiniField('KHC', d.khc)}
+      ${renderReadonlyMiniField('CP', d.cp)}
+      ${renderReadonlyMiniField('Tổng', d.tongSoDonVi)}
+    </div>
+  </div>`;
+}
+
+function renderSoLieuTmKhoMauDetailViewHtml(data){
+  const d = normalizeSoLieuTmClient(data || {});
+  const kho = normalizeSoLieuTmKhoMauClient(d.khoMau || {});
+  const t = kho.tonKhoMau || {};
+  const cpKhac = normalizeSoLieuTmCpKhacClient(t.cpKhac || []);
+  const cpKhacRows = cpKhac.length
+    ? cpKhac.map(item => `<div class="tm-sl-cp-khac-row tm-kho-readonly-cp"><div class="tm-sl-field"><label>CP khác</label><input class="equal-control" readonly value="${escAttr(item.ten || '')}"></div><div class="tm-sl-field"><label>Số lượng</label><input class="equal-control" readonly value="${escAttr(item.soLuong || 0)}"></div></div>`).join('')
+    : `<div class="tm-sl-cp-khac-row tm-kho-readonly-cp"><div class="tm-sl-field"><label>CP khác</label><input class="equal-control" readonly value=""></div><div class="tm-sl-field"><label>Số lượng</label><input class="equal-control" readonly value="0"></div></div>`;
+  return `<div class="tm-kho-card tm-kho-view-detail">
+    <div class="tm-sl-subtitle">1. Tồn kho máu</div>
+    <div class="tm-kho-stock-grid">
+      ${SO_LIEU_TM_KHO_FIELDS.map(f => renderReadonlyMiniField(f.label, t[f.key] || 0)).join('')}
+    </div>
+    <div class="tm-sl-cp-khac-section">
+      <div class="tm-sl-cp-khac-list">${cpKhacRows}</div>
+    </div>
+    <div class="tm-sl-subtitle">2. Vấn đề khác</div>
+    <div class="tm-kho-van-de"><textarea readonly>${esc(kho.vanDeKhac || '')}</textarea></div>
+  </div>`;
+}
+
+function renderSoLieuTmDetailModalHtml(p){
+  const statusText = p.soLieuTmStatusText || soLieuTmStatusLabel(soLieuTmStatusValue(p)) || (p.trangThai || p.trangThaiBanGiao || '');
+  const creator = p.nguoiThucHienTen || p.nguoiTaoTen || p.nguoiTao || '';
+  const editor = p.nguoiSua || p.soLieuTmEditedBy || '';
+  const editedAt = p.soLieuTmEditedAt || p.thoiDiemSua || '';
+  return `
+    <div class="modal-card${protectedViewClassIfDone(p.trangThai || p.trangThaiBanGiao)} tm24h-view-modal">
+      ${protectedWatermarkIfDone(p.trangThai || p.trangThaiBanGiao)}
+      <div class="modal-head">
+        <div class="modal-title">${esc(p.loaiPhieu)} ${statusPill(p.trangThai || p.trangThaiBanGiao)}</div>
+        <button class="close-btn" onclick="closeModal()">×</button>
+      </div>
+      <h3 class="sub-title">I. Thông tin</h3>
+      <div class="list-card data-card">
+        <div class="field-row"><span class="field-name">Ngày báo cáo</span><div class="field-value">${dateVi(p.ngayTruc)}</div></div>
+        <div class="field-row"><span class="field-name">Khoa/phòng</span><div class="field-value">${esc(p.khoaPhong || '')}</div></div>
+        <div class="field-row"><span class="field-name">Trạng thái</span><div class="field-value">${esc(statusText || '')}</div></div>
+        <div class="field-row"><span class="field-name">Người báo cáo</span><div class="field-value">${esc(creator)}</div></div>
+        <div class="field-row"><span class="field-name">Thời gian báo cáo</span><div class="field-value">${esc(dateTimeViColon(p.thoiDiemTao || p.createdAt || ''))}</div></div>
+        <div class="field-row"><span class="field-name">Người sửa</span><div class="field-value">${esc(editor)}</div></div>
+        <div class="field-row"><span class="field-name">Thời gian sửa</span><div class="field-value">${esc(dateTimeViColon(editedAt || ''))}</div></div>
+      </div>
+      <h3 class="sub-title">II. Báo cáo số liệu Truyền máu 24h</h3>
+      <div class="list-card data-card">${renderSoLieuTmDetailReportViewHtml(p.soLieuTm || {})}</div>
+      <h3 class="sub-title">III. Kho máu</h3>
+      <div class="list-card data-card">${renderSoLieuTmKhoMauDetailViewHtml(p.soLieuTm || {})}</div>
+      <div class="btn-row sign-bottom-small"><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
+    </div>`;
+}
+
 function showPhieuModal(p, opts={}){
   const isSoLieuTmReport = isLoaiSoLieuTm(p.loaiPhieuGoc || p.loaiPhieu);
   if(isSoLieuTmReport){
-    openModal(`
-      <div class="modal-card${protectedViewClassIfDone(p.trangThai || p.trangThaiBanGiao)}">
-        ${protectedWatermarkIfDone(p.trangThai || p.trangThaiBanGiao)}
-        <div class="modal-head">
-          <div class="modal-title">${esc(p.loaiPhieu)} ${statusPill(p.trangThai || p.trangThaiBanGiao)}</div>
-          <button class="close-btn" onclick="closeModal()">×</button>
-        </div>
-        <h3 class="sub-title">I. Thông tin phiếu</h3>
-        <div class="list-card data-card">
-          <div class="field-row"><span class="field-name">Ngày báo cáo</span><div class="field-value">${dateVi(p.ngayTruc)}</div></div>
-          <div class="field-row"><span class="field-name">Khoa/phòng</span><div class="field-value">${esc(p.khoaPhong)}</div></div>
-          <div class="field-row"><span class="field-name">Người báo cáo</span><div class="field-value">${esc(p.nguoiThucHienTen || '')}</div></div>
-        </div>
-        <h3 class="sub-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-        <div class="list-card data-card"><div class="field-row"><div class="field-value">${renderSoLieuTmSummaryHtml(p.soLieuTm || {})}${renderSoLieuTmKhoMauViewHtml(p.soLieuTm || {}, {ngayTruc:p.ngayTruc, nguoiTao:p.nguoiThucHienTen || p.nguoiTaoTen || ''})}</div></div></div>
-        <div class="btn-row sign-bottom-small"><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
-      </div>
-    `);
+    openModal(renderSoLieuTmDetailModalHtml(p));
     return;
   }
   const isBloodStockReport = p.loaiPhieuGoc === LOAI_BAO_CAO_KHO_MAU || p.loaiPhieu === LOAI_BAO_CAO_KHO_MAU;
