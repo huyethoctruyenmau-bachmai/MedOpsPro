@@ -1,4 +1,4 @@
-<!-- VERSION: 293.203 | index: 293 | Code.gs: 203 | INDEX-293.220726-CREATE-LOAI-NOTE-STYLE -->
+<!-- VERSION: 294.203 | index: 294 | Code.gs: 203 | INDEX-294.220726-DISPLAY-LOAI-LABEL -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5139,7 +5139,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-293.220726-CREATE-LOAI-NOTE-STYLE';
+const APP_VERSION = 'INDEX-294.220726-DISPLAY-LOAI-LABEL';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5204,6 +5204,19 @@ function isBienBanHopLoai(loai){
 
 function isLoaiSoLieuTm(loai){
   return eqText(loai, LOAI_BAO_CAO_SO_LIEU_TM) || eqText(loai, LOAI_BAO_CAO_SO_LIEU_TM_CU);
+}
+
+function displayLoaiPhieuLabel(loai){
+  const text = String(loai || '');
+  if(eqText(text, LOAI_BAN_GIAO)) return 'Bàn giao trực';
+  if(eqText(text, LOAI_BAO_CAO)) return 'Báo cáo trực';
+  return text
+    .replaceAll(LOAI_BAN_GIAO, 'Bàn giao trực')
+    .replaceAll(LOAI_BAO_CAO, 'Báo cáo trực');
+}
+
+function displayLoaiPhieuAttr(loai){
+  return escAttr(displayLoaiPhieuLabel(loai));
 }
 
 
@@ -8660,8 +8673,8 @@ function renderListTab(){
           <label>Loại phiếu</label>
           <select id="filterLoai" class="equal-control">
             <option value="" selected>Tất cả loại phiếu</option>
-            <option>${LOAI_BAN_GIAO}</option>
-            <option>${LOAI_BAO_CAO}</option>
+            <option value="${LOAI_BAN_GIAO}">${displayLoaiPhieuLabel(LOAI_BAN_GIAO)}</option>
+            <option value="${LOAI_BAO_CAO}">${displayLoaiPhieuLabel(LOAI_BAO_CAO)}</option>
           </select>
         </div>
         <div>
@@ -8829,7 +8842,7 @@ function renderSoLieuTmDetailModalHtml(p){
     <div class="modal-card${protectedViewClassIfDone(p.trangThai || p.trangThaiBanGiao)} tm24h-view-modal">
       ${protectedWatermarkIfDone(p.trangThai || p.trangThaiBanGiao)}
       <div class="modal-head">
-        <div class="modal-title">${esc(p.loaiPhieu)} ${statusPill(p.trangThai || p.trangThaiBanGiao)}</div>
+        <div class="modal-title">${esc(displayLoaiPhieuLabel(p.loaiPhieuGoc || p.loaiPhieu))} ${statusPill(p.trangThai || p.trangThaiBanGiao)}</div>
         <button class="close-btn" onclick="closeModal()">×</button>
       </div>
       <h3 class="sub-title">I. Thông tin</h3>
@@ -8862,7 +8875,7 @@ function showPhieuModal(p, opts={}){
       <div class="modal-card${protectedViewClassIfDone(p.trangThai || p.trangThaiBanGiao)}">
         ${protectedWatermarkIfDone(p.trangThai || p.trangThaiBanGiao)}
         <div class="modal-head">
-          <div class="modal-title">${esc(p.loaiPhieu)} ${statusPill(p.trangThai || p.trangThaiBanGiao)}</div>
+          <div class="modal-title">${esc(displayLoaiPhieuLabel(p.loaiPhieuGoc || p.loaiPhieu))} ${statusPill(p.trangThai || p.trangThaiBanGiao)}</div>
           <button class="close-btn" onclick="closeModal()">×</button>
         </div>
         <h3 class="sub-title">I. Thông tin phiếu</h3>
@@ -8895,7 +8908,7 @@ function showPhieuModal(p, opts={}){
     <div class="modal-card${protectedViewClassIfDone(p.trangThaiBanGiao)}">
       ${protectedWatermarkIfDone(p.trangThaiBanGiao)}
       <div class="modal-head">
-        <div class="modal-title">${esc(p.loaiPhieu)} ${statusPill(p.trangThaiBanGiao)}</div>
+        <div class="modal-title">${esc(displayLoaiPhieuLabel(p.loaiPhieuGoc || p.loaiPhieu))} ${statusPill(p.trangThaiBanGiao)}</div>
         <button class="close-btn" onclick="closeModal()">×</button>
       </div>
       <h3 class="sub-title">I. Thông tin phiếu</h3>
@@ -8979,7 +8992,7 @@ window.editPhieu = async function(phieuID, btn){
           <div class="card" style="box-shadow:none">
             <h3 class="section-title">I. Thông tin phiếu</h3>
             <div class="grid">
-              <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${escAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
+              <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${displayLoaiPhieuAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
               <div class="col-3"><label>Ngày báo cáo</label><input id="editDate" class="equal-control date-vi-input" type="date" value="${escAttr(p.ngayTruc || '')}"></div>
               <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="editDept" class="equal-control">${deptOptions(p.khoaPhong)}</select></div>
               <div class="col-3"><label>Người báo cáo</label><input class="equal-control" readonly value="${escAttr(p.nguoiThucHienTen || '')}"></div>
@@ -9019,7 +9032,7 @@ window.editPhieu = async function(phieuID, btn){
           <div class="card" style="box-shadow:none">
             <h3 class="section-title">I. Thông tin phiếu</h3>
             <div class="grid">
-              <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${escAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
+              <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${displayLoaiPhieuAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
               <div class="col-3"><label>Ngày báo cáo</label><input id="editDate" class="equal-control date-vi-input" type="date" value="${escAttr(p.ngayTruc || '')}"></div>
               <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="editDept" class="equal-control">${deptOptions(p.khoaPhong)}</select></div>
               <div class="col-3"><label>Người báo cáo</label><input class="equal-control" readonly value="${escAttr(p.nguoiThucHienTen || '')}"></div>
@@ -9050,7 +9063,7 @@ window.editPhieu = async function(phieuID, btn){
         <div class="card" style="box-shadow:none">
           <h3 class="section-title">I. Thông tin phiếu</h3>
           <div class="grid">
-            <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${escAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
+            <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${displayLoaiPhieuAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
             <div class="col-3"><label>Ngày trực</label><input id="editDate" class="equal-control date-vi-input" type="date" value="${escAttr(p.ngayTruc || '')}"></div>
             <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="editDept" class="equal-control">${deptOptions(p.khoaPhong)}</select></div>
             <div class="col-3"><label>Người thực hiện</label><input class="equal-control" readonly value="${escAttr([p.nguoiThucHienTen, p.nguoiThucHienChucDanh, p.khoaPhong].filter(Boolean).join(' - '))}"></div>
@@ -11623,7 +11636,7 @@ function renderPdfTab(){
         <div class="col-3 date-pair"><label>Từ ngày</label><input id="pdfFrom" class="equal-control date-vi-input" type="date"></div>
         <div class="col-3 date-pair"><label>Đến ngày</label><input id="pdfTo" class="equal-control date-vi-input" type="date"></div>
         <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="pdfDept" class="equal-control">${deptOptions(state.user?.khoaPhong || '')}</select></div>
-        <div class="col-3"><label>Loại phiếu</label><select id="pdfLoai" class="equal-control"><option value="" selected>Chọn loại phiếu</option><option>${LOAI_BAN_GIAO}</option><option>${LOAI_BAO_CAO}</option>${bloodStockPdfOption}<option>${LOAI_GIAO_BAN_THUONG_TRUC}</option><option>${LOAI_GIAO_BAN_DOT_XUAT}</option>${tmOptions}</select></div>
+        <div class="col-3"><label>Loại phiếu</label><select id="pdfLoai" class="equal-control"><option value="" selected>Chọn loại phiếu</option><option value="${LOAI_BAN_GIAO}">${displayLoaiPhieuLabel(LOAI_BAN_GIAO)}</option><option value="${LOAI_BAO_CAO}">${displayLoaiPhieuLabel(LOAI_BAO_CAO)}</option>${bloodStockPdfOption}<option>${LOAI_GIAO_BAN_THUONG_TRUC}</option><option>${LOAI_GIAO_BAN_DOT_XUAT}</option>${tmOptions}</select></div>
         <div class="col-3"><label>Trạng thái</label><select id="pdfStatus" class="equal-control"><option>Tất cả</option><option>${STATUS_CHUA}</option><option>${STATUS_DA}</option></select></div>
         <div class="col-12 filter-keyword"><label>Từ khóa</label><input id="pdfKeyword" class="equal-control" placeholder="Tìm theo mã BN/PID, họ tên, khoa/phòng, nội dung"></div>
         <div class="col-3 filter-action"><button id="loadPdfBtn" class="btn primary">Xem danh sách</button></div>
@@ -11954,9 +11967,10 @@ function dsPhieuDate(x){
 function dsLoaiPhieuTitle(loai){
   if(eqText(loai, LOAI_TM_XU_TRI)) return 'Xử trí chuyên môn TM';
   if(eqText(loai, LOAI_TM_TDKMM)) return 'Tác dụng không mong muốn liên quan TM';
+  if(eqText(loai, LOAI_BAN_GIAO) || eqText(loai, LOAI_BAO_CAO)) return displayLoaiPhieuLabel(loai);
   if(eqText(loai, LOAI_BAO_CAO_KHO_MAU)) return 'Báo cáo kho máu';
   if(isLoaiSoLieuTm(loai)) return 'Báo cáo số liệu Truyền máu 24h';
-  return loai || '';
+  return displayLoaiPhieuLabel(loai);
 }
 
 function dsCreatedAt(x){
@@ -12048,7 +12062,7 @@ function renderDsPhieuCard(x){
   const bn = dsBnMetaHtml(x);
   const creator = dsCreatorMetaHtml(x);
   const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : (x.source === 'PHIEU' && isLoaiSoLieuTm(loai) ? renderSoLieuTmSummaryHtml(x.soLieuTm || {}) : ((x.source === 'PHIEU' && eqText(loai, LOAI_BAO_CAO_KHO_MAU) && x.noiDungBaoCaoKhoMau) ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Nội dung</span><div class="field-value">${esc(x.noiDungBaoCaoKhoMau)}</div></div></div>` : ''));
-  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(title || x.title || x.loaiPhieu || '')}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${historyBtn}${editBtn}${deleteBtn}${statusPill(x.trangThai || '')}</div></div></div>`;
+  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(displayLoaiPhieuLabel(title || x.title || x.loaiPhieu || ''))}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${historyBtn}${editBtn}${deleteBtn}${statusPill(x.trangThai || '')}</div></div></div>`;
 }
 
 
@@ -12104,7 +12118,7 @@ window.openExcelExportHistory = async function(btn, page=1){
     const total = Number(data.total || items.length || 0);
     const currentPage = Number(data.page || 1);
     const totalPages = Number(data.totalPages || 1);
-    const filterLine = `Loại phiếu: ${payload.loaiHoSo}`;
+    const filterLine = `Loại phiếu: ${displayLoaiPhieuLabel(payload.loaiHoSo)}`;
     openModal(`
       <div class="modal-card modal-small">
         <div class="modal-head"><div class="modal-title">${icon2d('history')} Lịch sử xuất Excel</div><button class="close-btn" onclick="closeModal()">×</button></div>
