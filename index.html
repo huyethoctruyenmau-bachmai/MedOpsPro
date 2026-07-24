@@ -1,4 +1,4 @@
-<!-- VERSION: 284.201 | index: 284 | Code.gs: 201 | INDEX-284.220726-TM24H-KHC-CP-KHO-SUMMARY -->
+<!-- VERSION: 285.202 | index: 285 | Code.gs: 202 | INDEX-285.220726-TM24H-STATS-ACTIONS -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5032,7 +5032,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-284.220726-TM24H-KHC-CP-KHO-SUMMARY</p>
+      <p class="login-version">Version: INDEX-285.220726-TM24H-STATS-ACTIONS</p>
     </div>
   </div>
 
@@ -5041,7 +5041,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-284.220726-TM24H-KHC-CP-KHO-SUMMARY</div>
+    <div class="login-loading-version">Version: INDEX-285.220726-TM24H-STATS-ACTIONS</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5085,7 +5085,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-284.220726-TM24H-KHC-CP-KHO-SUMMARY</div>
+    <div class="app-version">Version: INDEX-285.220726-TM24H-STATS-ACTIONS</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5110,7 +5110,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-284.220726-TM24H-KHC-CP-KHO-SUMMARY';
+const APP_VERSION = 'INDEX-285.220726-TM24H-STATS-ACTIONS';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -9265,7 +9265,10 @@ window.saveEditPhieu = async function(phieuID, btn){
     const res = await api('updatePhieu', payload);
     clearListCaches();
     if(state.activeTab === 'list') state.refreshPhieuListOnClose = true;
-    if(state.activeTab === 'pdf') state.refreshDsPhieuListOnClose = true;
+    if(state.activeTab === 'pdf') {
+      state.refreshDsPhieuListOnClose = true;
+      try { await loadDsPhieuList(true); } catch(_e) {}
+    }
     toast('Đã cập nhật phiếu');
     showPhieuModal(res.data.phieu);
   };
@@ -11671,19 +11674,23 @@ function renderSoLieuTmStatsPanel(items, payload){
   const rows = buildSoLieuTmStatsRows(items, payload || {});
   const canExcel = canExportDsPhieuExcel(payload);
   const canManage = canManageSoLieuTmStats();
-  const exportBtn = canExcel ? `<button class="btn secondary" onclick="exportDsPhieuExcel(this)">Xuất Excel</button>` : '';
-  const historyBtn = canExcel ? `<button class="app-icon-btn" onclick="openExcelExportHistory(this)" title="Lịch sử xuất Excel" aria-label="Lịch sử xuất Excel">${icon2d('history')}</button>` : '';
+  const exportBtn = canExcel ? `<button class="btn secondary" type="button" onclick="exportDsPhieuExcel(this)">Xuất Excel</button>` : '';
+  const historyBtn = canExcel ? `<button class="app-icon-btn" type="button" onclick="openExcelExportHistory(this)" title="Lịch sử xuất Excel" aria-label="Lịch sử xuất Excel">${icon2d('history')}</button>` : '';
   if(!rows.length){
     return `<div class="ds-toolbar"><p class="meta">Tổng: 0 ngày</p><div class="ds-toolbar-actions">${exportBtn}${historyBtn}</div></div><div class="empty">Không có số liệu phù hợp.</div>`;
   }
   const total = sumSoLieuTmStatsRows(rows);
   const period = [dateVi(payload.fromDate), dateVi(payload.toDate)].filter(Boolean).join(' - ');
-  const dept = payload.khoaPhong || state.user?.khoaPhong || '';
+  const rawDept = payload.khoaPhong || state.user?.khoaPhong || '';
+  const dept = rawDept && rawDept !== 'Tất cả' ? rawDept : (state.user?.khoaPhong || '');
   const htmlRows = rows.map(r => {
     const action = canManage
       ? (r.exists && r.phieuID
-        ? `<button class="btn secondary small" onclick="editPhieu('${escAttr(r.phieuID)}', this)">Sửa</button>`
-        : `<button class="btn secondary small" onclick="openSoLieuTmStatsAdd(${jsArg(r.date)}, ${jsArg(dept)})">Thêm</button>`)
+        ? `<button class="btn secondary small" type="button" onclick="editPhieu('${escAttr(r.phieuID)}', this)">Sửa</button>`
+        : `<button class="btn secondary small" type="button" onclick="openSoLieuTmStatsAdd(${jsArg(r.date)}, ${jsArg(dept)})">Thêm</button>`)
+      : '';
+    const viewBtn = r.exists && r.phieuID
+      ? `<button class="btn secondary small" type="button" onclick="openPhieu('${escAttr(r.phieuID)}', this)">Xem phiếu</button>`
       : '';
     return `<tr class="${r.exists ? '' : 'tm-sl-missing-row'}">
       <td><strong>${esc(dateVi(r.date))}</strong></td>
@@ -11691,16 +11698,22 @@ function renderSoLieuTmStatsPanel(items, payload){
       <td>${esc(r.khc)}</td><td>${esc(r.cp)}</td><td>${esc(r.tongSoDonVi)}</td>
       <td>${esc(r.nguoiBaoCao || '')}</td><td>${esc(dateTimeViColon(r.thoiGianBaoCao || ''))}</td>
       <td>${esc(r.nguoiSua || '')}</td><td>${esc(dateTimeViColon(r.thoiGianSua || ''))}</td>
-      <td>${action}</td>
       <td>${esc(r.statusLabel || '')}</td>
+      <td>${action}</td>
+      <td>${viewBtn}</td>
     </tr>`;
   }).join('');
-  const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td><td>${total.xnNoi}</td><td>${total.xnNgoai}</td><td>${total.khc}</td><td>${total.cp}</td><td>${total.tongSoDonVi}</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
+  const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td><td>${total.xnNoi}</td><td>${total.xnNgoai}</td><td>${total.khc}</td><td>${total.cp}</td><td>${total.tongSoDonVi}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
   return `<div class="ds-toolbar"><p class="meta">Tổng hợp ${rows.length} ngày${period ? ` · ${period}` : ''}</p><div class="ds-toolbar-actions">${exportBtn}${historyBtn}</div></div>
-    <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th><th>XN Nội</th><th>XN Ngoại</th><th>KHC</th><th>CP</th><th>Tổng</th><th>Người báo cáo</th><th>Thời gian báo cáo</th><th>Người sửa</th><th>Thời gian sửa</th><th>Thêm/Sửa</th><th>Trạng thái</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
+    <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th><th>XN Nội</th><th>XN Ngoại</th><th>KHC</th><th>CP</th><th>Tổng</th><th>Người báo cáo</th><th>Thời gian báo cáo</th><th>Người sửa</th><th>Thời gian sửa</th><th>Trạng thái</th><th>Thêm/Sửa</th><th>Xem phiếu</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
 }
 
 window.openSoLieuTmStatsAdd = function(date, dept){
+  const targetDept = (dept && dept !== 'Tất cả') ? dept : (($('#pdfDept')?.value && $('#pdfDept')?.value !== 'Tất cả') ? $('#pdfDept').value : (state.user?.khoaPhong || ''));
+  if(!targetDept || targetDept === 'Tất cả'){
+    toast('Vui lòng chọn khoa/phòng cụ thể trước khi thêm số liệu.');
+    return;
+  }
   const d = normalizeSoLieuTmClient({});
   openModal(`
     <div class="modal-card">
@@ -11709,7 +11722,7 @@ window.openSoLieuTmStatsAdd = function(date, dept){
         <h3 class="section-title">I. Thông tin</h3>
         <div class="grid">
           <div class="col-3"><label>Ngày báo cáo</label><input class="equal-control" readonly value="${escAttr(dateVi(date))}"></div>
-          <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><input class="equal-control" readonly value="${escAttr(dept || '')}"></div>
+          <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><input class="equal-control" readonly value="${escAttr(targetDept || '')}"></div>
           <div class="col-3"><label>Trạng thái</label><input class="equal-control" readonly value="Chỉ thống kê"></div>
         </div>
       </div>
@@ -11728,17 +11741,19 @@ window.openSoLieuTmStatsAdd = function(date, dept){
           ${renderSoLieuTmKhoMauForm('statsSl')}
         </div>
       </div>
-      <div class="btn-row"><button class="btn primary" onclick="saveSoLieuTmStatsAdd(${jsArg(date)}, ${jsArg(dept || '')}, this)">Lưu</button><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
+      <div class="btn-row"><button class="btn primary" type="button" onclick="saveSoLieuTmStatsAdd(${jsArg(date)}, ${jsArg(targetDept || '')}, this)">Lưu</button><button class="btn secondary" type="button" onclick="closeModal()">Đóng</button></div>
     </div>
   `);
   bindSoLieuTmFormEvents('statsSl');
 }
 
 window.saveSoLieuTmStatsAdd = async function(date, dept, btn){
+  const targetDept = (dept && dept !== 'Tất cả') ? dept : (($('#pdfDept')?.value && $('#pdfDept')?.value !== 'Tất cả') ? $('#pdfDept').value : (state.user?.khoaPhong || ''));
+  if(!targetDept || targetDept === 'Tất cả') return toast('Vui lòng chọn khoa/phòng cụ thể trước khi lưu.');
   const payload = {
     loaiPhieu: LOAI_BAO_CAO_SO_LIEU_TM,
     ngayTruc: date,
-    khoaPhong: dept || $('#pdfDept')?.value || state.user?.khoaPhong || '',
+    khoaPhong: targetDept,
     soLieuTm: collectSoLieuTm('statsSl'),
     tm24hStatus: 'stat_only',
     fromStats: true
@@ -11753,7 +11768,6 @@ window.saveSoLieuTmStatsAdd = async function(date, dept, btn){
   if(btn) return withButton(btn, 'Đang lưu...', task);
   try{ await task(); }catch(err){ toast(err.message); }
 }
-
 
 function getDsPhieuFilters(){
   return {
