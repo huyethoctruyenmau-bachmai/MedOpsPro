@@ -1,4 +1,4 @@
-<!-- VERSION: 286.202 | index: 286 | Code.gs: 202 | INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH -->
+<!-- VERSION: 287.203 | index: 287 | Code.gs: 203 | INDEX-287.220726-TM24H-STATS-SAVE-FIX -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5032,7 +5032,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH</p>
+      <p class="login-version">Version: INDEX-287.220726-TM24H-STATS-SAVE-FIX</p>
     </div>
   </div>
 
@@ -5041,7 +5041,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH</div>
+    <div class="login-loading-version">Version: INDEX-287.220726-TM24H-STATS-SAVE-FIX</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5085,7 +5085,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH</div>
+    <div class="app-version">Version: INDEX-287.220726-TM24H-STATS-SAVE-FIX</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5110,7 +5110,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH';
+const APP_VERSION = 'INDEX-287.220726-TM24H-STATS-SAVE-FIX';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -11774,32 +11774,38 @@ window.openSoLieuTmStatsAdd = function(date, dept){
           ${renderSoLieuTmKhoMauForm('statsSl')}
         </div>
       </div>
-      <div class="btn-row"><button class="btn primary" type="button" onclick="saveSoLieuTmStatsAdd(${jsArg(date)}, ${jsArg(targetDept || '')}, this)">Lưu</button><button class="btn secondary" type="button" onclick="closeModal()">Đóng</button></div>
+      <div class="btn-row"><button id="statsSlSaveBtn" class="btn primary" type="button" data-stats-save="1" data-date="${escAttr(date || '')}" data-dept="${escAttr(targetDept || '')}">Lưu</button><button class="btn secondary" type="button" onclick="closeModal()">Đóng</button></div>
     </div>
   `);
   bindSoLieuTmFormEvents('statsSl');
+  const saveBtn = document.getElementById('statsSlSaveBtn');
+  if(saveBtn){
+    saveBtn.addEventListener('click', () => window.saveSoLieuTmStatsAdd(saveBtn.dataset.date || date || '', saveBtn.dataset.dept || targetDept || '', saveBtn));
+  }
 }
 
 window.saveSoLieuTmStatsAdd = async function(date, dept, btn){
-  const targetDept = (dept && dept !== 'Tất cả') ? dept : (($('#pdfDept')?.value && $('#pdfDept')?.value !== 'Tất cả') ? $('#pdfDept').value : (state.user?.khoaPhong || ''));
-  if(!targetDept || targetDept === 'Tất cả') return toast('Vui lòng chọn khoa/phòng cụ thể trước khi lưu.');
-  const payload = {
-    loaiPhieu: LOAI_BAO_CAO_SO_LIEU_TM,
-    ngayTruc: date,
-    khoaPhong: targetDept,
-    soLieuTm: collectSoLieuTm('statsSl'),
-    tm24hStatus: 'stat_only',
-    fromStats: true
-  };
-  const task = async () => {
-    await api('createPhieu', payload);
+  const runSave = async () => {
+    const targetDept = (dept && dept !== 'Tất cả') ? dept : (($('#pdfDept')?.value && $('#pdfDept')?.value !== 'Tất cả') ? $('#pdfDept').value : (state.user?.khoaPhong || ''));
+    const reportDate = parseDateInputVi(date) || String(date || '').slice(0,10);
+    if(!reportDate) throw new Error('Không xác định được ngày báo cáo. Vui lòng đóng form và bấm Thêm lại.');
+    if(!targetDept || targetDept === 'Tất cả') throw new Error('Vui lòng chọn khoa/phòng cụ thể trước khi lưu.');
+    const payload = {
+      loaiPhieu: LOAI_BAO_CAO_SO_LIEU_TM,
+      ngayTruc: reportDate,
+      khoaPhong: targetDept,
+      soLieuTm: collectSoLieuTm('statsSl'),
+      tm24hStatus: 'stat_only',
+      fromStats: true
+    };
+    const res = await api('createPhieu', payload);
     clearListCaches();
     closeModal();
     await loadDsPhieuList(true);
-    toast('Đã thêm số liệu');
+    toast(res?.message || 'Đã lưu số liệu');
   };
-  if(btn) return withButton(btn, 'Đang lưu...', task);
-  try{ await task(); }catch(err){ toast(err.message); }
+  if(btn) return withButton(btn, 'Đang lưu...', runSave);
+  try{ await runSave(); }catch(err){ toast(err.message || 'Không lưu được số liệu.'); console.error(err); }
 }
 
 function getDsPhieuFilters(){
