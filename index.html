@@ -1,4 +1,4 @@
-<!-- VERSION: 285.202 | index: 285 | Code.gs: 202 | INDEX-285.220726-TM24H-STATS-ACTIONS -->
+<!-- VERSION: 286.202 | index: 286 | Code.gs: 202 | INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5032,7 +5032,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-285.220726-TM24H-STATS-ACTIONS</p>
+      <p class="login-version">Version: INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH</p>
     </div>
   </div>
 
@@ -5041,7 +5041,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-285.220726-TM24H-STATS-ACTIONS</div>
+    <div class="login-loading-version">Version: INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5085,7 +5085,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-285.220726-TM24H-STATS-ACTIONS</div>
+    <div class="app-version">Version: INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5110,7 +5110,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-285.220726-TM24H-STATS-ACTIONS';
+const APP_VERSION = 'INDEX-286.220726-TM24H-STATS-ACTIONS-REFRESH';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -9262,15 +9262,21 @@ window.saveEditPhieu = async function(phieuID, btn){
     thoiGianBanGiao: $('#editTGBG') ? getDateTimeInputSql('editTGBG') : ''
   };
   const task = async () => {
+    const isTm24hStatsEdit = !!document.getElementById('editSlXnNoi');
     const res = await api('updatePhieu', payload);
     clearListCaches();
     if(state.activeTab === 'list') state.refreshPhieuListOnClose = true;
-    if(state.activeTab === 'pdf') {
+    if(document.getElementById('pdfListBox')) {
       state.refreshDsPhieuListOnClose = true;
       try { await loadDsPhieuList(true); } catch(_e) {}
     }
     toast('Đã cập nhật phiếu');
     showPhieuModal(res.data.phieu);
+    if(isTm24hStatsEdit && document.getElementById('pdfListBox')) {
+      setTimeout(() => {
+        try { loadDsPhieuList(true); } catch(_e) {}
+      }, 250);
+    }
   };
   if(btn) return withButton(btn, 'Đang lưu...', task);
   try{ await task(); }catch(err){ toast(err.message); }
@@ -11546,6 +11552,7 @@ async function loadDsPhieuList(showRequiredToast=false){
     const rawItems = res.data.items || [];
     if(isStatsMode){
       box.innerHTML = renderSoLieuTmStatsPanel(rawItems, payload);
+      bindSoLieuTmStatsPanelEvents(box);
       return;
     }
     const items = sortDsPhieuByCreatedDesc(rawItems);
@@ -11686,11 +11693,11 @@ function renderSoLieuTmStatsPanel(items, payload){
   const htmlRows = rows.map(r => {
     const action = canManage
       ? (r.exists && r.phieuID
-        ? `<button class="btn secondary small" type="button" onclick="editPhieu('${escAttr(r.phieuID)}', this)">Sửa</button>`
-        : `<button class="btn secondary small" type="button" onclick="openSoLieuTmStatsAdd(${jsArg(r.date)}, ${jsArg(dept)})">Thêm</button>`)
+        ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="edit" data-phieu-id="${escAttr(r.phieuID)}">Sửa</button>`
+        : `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="add" data-date="${escAttr(r.date)}" data-dept="${escAttr(dept)}">Thêm</button>`)
       : '';
     const viewBtn = r.exists && r.phieuID
-      ? `<button class="btn secondary small" type="button" onclick="openPhieu('${escAttr(r.phieuID)}', this)">Xem phiếu</button>`
+      ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="view" data-phieu-id="${escAttr(r.phieuID)}">Xem phiếu</button>`
       : '';
     return `<tr class="${r.exists ? '' : 'tm-sl-missing-row'}">
       <td><strong>${esc(dateVi(r.date))}</strong></td>
@@ -11706,6 +11713,32 @@ function renderSoLieuTmStatsPanel(items, payload){
   const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td><td>${total.xnNoi}</td><td>${total.xnNgoai}</td><td>${total.khc}</td><td>${total.cp}</td><td>${total.tongSoDonVi}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
   return `<div class="ds-toolbar"><p class="meta">Tổng hợp ${rows.length} ngày${period ? ` · ${period}` : ''}</p><div class="ds-toolbar-actions">${exportBtn}${historyBtn}</div></div>
     <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th><th>XN Nội</th><th>XN Ngoại</th><th>KHC</th><th>CP</th><th>Tổng</th><th>Người báo cáo</th><th>Thời gian báo cáo</th><th>Người sửa</th><th>Thời gian sửa</th><th>Trạng thái</th><th>Thêm/Sửa</th><th>Xem phiếu</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
+}
+
+
+function bindSoLieuTmStatsPanelEvents(root){
+  const box = root || document.getElementById('pdfListBox');
+  if(!box || box.dataset.tm24hStatsBound === '1') return;
+  box.dataset.tm24hStatsBound = '1';
+  box.addEventListener('click', function(ev){
+    const btn = ev.target.closest('.js-tm24h-stats-action');
+    if(!btn || !box.contains(btn)) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    const action = btn.dataset.statsAction || '';
+    if(action === 'add'){
+      return window.openSoLieuTmStatsAdd(btn.dataset.date || '', btn.dataset.dept || '');
+    }
+    if(action === 'edit'){
+      const id = btn.dataset.phieuId || '';
+      if(id) return window.editPhieu(id, btn);
+    }
+    if(action === 'view'){
+      const id = btn.dataset.phieuId || '';
+      if(id) return window.openPhieu(id, btn);
+    }
+  });
 }
 
 window.openSoLieuTmStatsAdd = function(date, dept){
@@ -14189,7 +14222,7 @@ window.closeModal = function(){
   }
   if(state.refreshDsPhieuListOnClose){
     state.refreshDsPhieuListOnClose = false;
-    if(state.activeTab === 'pdf') loadDsPhieuList(true);
+    if(document.getElementById('pdfListBox')) loadDsPhieuList(true);
   }
 }
 
