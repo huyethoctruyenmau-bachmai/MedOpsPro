@@ -1,4 +1,4 @@
-<!-- VERSION: 295.203 | index: 295 | Code.gs: 203 | INDEX-295.220726-DESKTOP-TITLEBAR-LIGHT-GRAY -->
+<!-- VERSION: 297.203 | index: 297 | Code.gs: 203 | INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5017,6 +5017,93 @@
   .tm-kho-summary-lines,.tm-kho-issue-lines,.tm-kho-view-note{margin-left:12px}
 }
 
+
+
+    /* ===== PATCH 297: NÚT TAB TÀI KHOẢN THEO ĐỊNH DẠNG GOOGLE ===== */
+    #tab-account .account-menu-btn,
+    #tab-account .account-setup-btn{
+      min-height:var(--button-h)!important;
+      height:var(--button-h)!important;
+      padding:0 16px!important;
+      border-radius:4px!important;
+      border:1px solid var(--g-line)!important;
+      background:#fff!important;
+      color:var(--g-blue)!important;
+      font-size:14px!important;
+      font-weight:500!important;
+      line-height:20px!important;
+      letter-spacing:.15px!important;
+      box-shadow:none!important;
+      justify-content:flex-start!important;
+      text-align:left!important;
+      gap:8px!important;
+    }
+    #tab-account .account-menu-btn.primary,
+    #tab-account .account-menu-btn.active,
+    #tab-account .account-setup-btn.primary,
+    #tab-account .account-setup-btn.active{
+      background:var(--g-blue)!important;
+      color:#fff!important;
+      border-color:var(--g-blue)!important;
+    }
+    #tab-account .account-menu-btn.primary:hover,
+    #tab-account .account-menu-btn.active:hover,
+    #tab-account .account-setup-btn.primary:hover,
+    #tab-account .account-setup-btn.active:hover{
+      background:var(--g-blue-hover)!important;
+      color:#fff!important;
+      border-color:var(--g-blue-hover)!important;
+      box-shadow:0 1px 2px rgba(60,64,67,.30),0 1px 3px 1px rgba(60,64,67,.15)!important;
+    }
+    #tab-account .account-menu-btn.secondary:hover,
+    #tab-account .account-setup-btn.secondary:hover{
+      background:#f8fbff!important;
+      color:var(--g-blue)!important;
+      border-color:#d2e3fc!important;
+      box-shadow:0 1px 2px rgba(60,64,67,.18)!important;
+    }
+    #tab-account .account-logout-btn{
+      background:#fff!important;
+      color:var(--g-danger)!important;
+      border-color:var(--g-line)!important;
+    }
+    #tab-account .account-logout-btn:hover{
+      background:#fce8e6!important;
+      color:var(--g-danger)!important;
+      border-color:#fad2cf!important;
+      box-shadow:0 1px 2px rgba(60,64,67,.18)!important;
+    }
+    #tab-account .account-menu-btn .btn-icon,
+    #tab-account .account-setup-btn .btn-icon{
+      min-width:20px!important;
+      flex:0 0 20px!important;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+    }
+    #tab-account .account-menu-btn .btn-icon .icon2d,
+    #tab-account .account-setup-btn .btn-icon .icon2d{
+      width:18px!important;
+      height:18px!important;
+      stroke-width:1.9!important;
+    }
+    #tab-account .account-menu-btn .btn-label,
+    #tab-account .account-setup-btn .btn-label{
+      flex:1 1 auto!important;
+      min-width:0!important;
+      text-align:left!important;
+      display:block!important;
+    }
+    @media(max-width:760px){
+      #tab-account .account-menu-btn,
+      #tab-account .account-setup-btn{
+        min-height:40px!important;
+        height:40px!important;
+        justify-content:flex-start!important;
+        text-align:left!important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -5062,7 +5149,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-295.220726-DESKTOP-TITLEBAR-LIGHT-GRAY</p>
+      <p class="login-version">Version: INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS</p>
     </div>
   </div>
 
@@ -5071,7 +5158,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-295.220726-DESKTOP-TITLEBAR-LIGHT-GRAY</div>
+    <div class="login-loading-version">Version: INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5115,7 +5202,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-295.220726-DESKTOP-TITLEBAR-LIGHT-GRAY</div>
+    <div class="app-version">Version: INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5140,7 +5227,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-295.220726-DESKTOP-TITLEBAR-LIGHT-GRAY';
+const APP_VERSION = 'INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5844,7 +5931,8 @@ function getCreateLoaiNote(loai){
   if(loai === LOAI_BAO_CAO) return 'Chú thích: Dùng để báo cáo tình hình tua trực.';
   if(loai === LOAI_BAO_CAO_KHO_MAU) return 'Chú thích: Chỉ dùng cho Quản lý kho máu.';
   if(isLoaiSoLieuTm(loai)) return 'Chú thích: Dùng để báo cáo số liệu xét nghiệm - truyền máu 24h và tồn kho máu.';
-  if(isTmPhieuLoai(loai)) return 'Chú thích: Dùng để khai báo/xử trí chuyên môn liên quan truyền máu.';
+  if(loai === LOAI_TM_XU_TRI) return 'Chú thích: Dùng để khai báo bệnh nhân cần xử trí chuyên môn khoa Truyền máu.';
+  if(loai === LOAI_TM_TDKMM) return 'Chú thích: Dùng để khai báo tác dụng không mong muốn liên quan truyền máu.';
   return '';
 }
 
@@ -12242,7 +12330,7 @@ function renderAccountTab(){
       ${!isMobile ? accountMenuButton('info', 'user', 'Thông tin tài khoản', view) : ''}
       ${accountMenuButton('edit', 'edit', 'Sửa thông tin tài khoản', view)}
       ${accountMenuButton('password', 'key', isAdmin ? 'Đổi / reset mật khẩu' : 'Đổi mật khẩu', view)}
-      ${accountMenuButton('setup', 'settings', 'Setup cấu hình', view)}
+      ${accountMenuButton('setup', 'settings', 'Cài đặt', view)}
       ${setupButtons}
       <button class="btn secondary account-menu-btn account-logout-btn" type="button" onclick="logout()"><span class="btn-icon">${icon2d('logout')}</span><span class="btn-label">Đăng xuất</span></button>
     </div>`;
@@ -12423,12 +12511,12 @@ function renderAccountSetupPanel(){
     <div class="account-header">
       <div class="account-avatar">${icon2d('settings')}</div>
       <div>
-        <h2 class="account-title">SETUP CẤU HÌNH</h2>
-        <p class="account-sub">Chọn nhóm cấu hình ở cột bên trái. Trên điện thoại, mỗi nhóm mở bằng bảng popup có nút X để đóng.</p>
+        <h2 class="account-title">CÀI ĐẶT</h2>
+        <p class="account-sub">Chọn nhóm cài đặt ở cột bên trái. Trên điện thoại, mỗi nhóm mở bằng bảng popup có nút X để đóng.</p>
       </div>
     </div>
     <div id="accountSetupContent" class="account-setup-content">
-      ${section ? renderAccountSetupSectionHtml(section) : '<div class="empty" style="margin-top:12px">Chọn một nhóm cấu hình ở cột bên trái để xem nội dung.</div>'}
+      ${section ? renderAccountSetupSectionHtml(section) : '<div class="empty" style="margin-top:12px">Chọn một nhóm cài đặt ở cột bên trái để xem nội dung.</div>'}
     </div>
   `;
 }
@@ -12498,7 +12586,7 @@ function accountSetupSectionTitle(section){
     excel:'Cấu hình xuất Excel',
     info:'Thông tin chung'
   };
-  return map[section] || 'Setup cấu hình';
+  return map[section] || 'Cài đặt';
 }
 
 function isAccountMobileLayout(){
