@@ -5868,7 +5868,6 @@ function renderCreateTab(){
 
       <div id="tmDailyStatsBlock" class="card hidden">
         <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-        <div class="tm-section-note">Chú thích: Số liệu 24h là số liệu của ngày được chọn.</div>
         <div class="tm-sl-form">
           <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
             <div class="tm-sl-field"><label>XN Nội</label><input id="tmSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
@@ -5879,6 +5878,7 @@ function renderCreateTab(){
             <div class="tm-sl-field"><label>CP</label><input id="tmSlCp" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
             <div class="tm-sl-field"><label>Tổng</label><input id="tmSlTongSoDonVi" class="equal-control tm-sl-input tm-total" readonly value="0"></div>
           </div>
+          <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
           ${renderSoLieuTmKhoMauForm('tmSl')}
         </div>
         <div class="btn-row">
@@ -6539,7 +6539,6 @@ function renderSoLieuTmKhoMauForm(prefix='tmSl', khoData={}){
   const t = d.tonKhoMau || {};
   return `<div class="tm-kho-card">
     <h3 class="section-title tm-kho-main-title">III. Kho máu</h3>
-    <div class="tm-section-note">Chú thích: Tồn kho máu là số lượng còn lại tại thời điểm báo cáo.</div>
     <div class="tm-sl-subtitle">1. Tồn kho máu</div>
     <div class="tm-kho-stock-grid">
       ${SO_LIEU_TM_KHO_FIELDS.map(f => `<div class="tm-sl-field"><label>${esc(f.label)}</label><input id="${escAttr(soLieuTmKhoInputId(prefix, f.key))}" class="equal-control tm-kho-stock-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(t[f.key] || 0)}"></div>`).join('')}
@@ -6548,6 +6547,7 @@ function renderSoLieuTmKhoMauForm(prefix='tmSl', khoData={}){
       <div id="${escAttr(soLieuTmKhoCpKhacRowsId(prefix))}" class="tm-sl-cp-khac-list">${renderSoLieuTmKhoCpKhacRows(prefix, t.cpKhac)}</div>
       <button class="btn secondary small tm-sl-cp-khac-add" type="button" onclick="addSoLieuTmKhoCpKhacRow('${escAttr(prefix)}')">+ Thêm CP khác tồn kho</button>
     </div>
+    <div class="tm-section-note">*Số liệu tồn kho máu là số lượng còn lại tại thời điểm báo cáo</div>
     <div class="tm-sl-subtitle">2. Vấn đề khác</div>
     <div class="tm-kho-van-de"><textarea id="${escAttr(soLieuTmKhoVanDeId(prefix))}" placeholder="Nhập vấn đề khác liên quan kho máu">${esc(d.vanDeKhac || '')}</textarea></div>
   </div>`;
@@ -8941,6 +8941,7 @@ function renderSoLieuTmKhoMauDetailViewHtml(data){
     <div class="tm-sl-cp-khac-section">
       <div class="tm-sl-cp-khac-list">${cpKhacRows}</div>
     </div>
+    <div class="tm-section-note">*Số liệu tồn kho máu là số lượng còn lại tại thời điểm báo cáo</div>
     <div class="tm-sl-subtitle">2. Vấn đề khác</div>
     <div class="tm-kho-van-de"><textarea readonly>${esc(kho.vanDeKhac || '')}</textarea></div>
   </div>`;
@@ -8969,10 +8970,9 @@ function renderSoLieuTmDetailModalHtml(p){
         <div class="field-row"><span class="field-name">Thời gian sửa</span><div class="field-value">${esc(dateTimeViColon(editedAt || ''))}</div></div>
       </div>
       <h3 class="sub-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-      <div class="tm-section-note">Chú thích: Số liệu 24h là số liệu của ngày được chọn.</div>
       <div class="list-card data-card">${renderSoLieuTmDetailReportViewHtml(p.soLieuTm || {})}</div>
+      <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
       <h3 class="sub-title">III. Kho máu</h3>
-      <div class="tm-section-note">Chú thích: Tồn kho máu là số lượng còn lại tại thời điểm báo cáo.</div>
       <div class="list-card data-card">${renderSoLieuTmKhoMauDetailViewHtml(p.soLieuTm || {})}</div>
       <div class="btn-row sign-bottom-small"><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
     </div>`;
@@ -9115,7 +9115,6 @@ window.editPhieu = async function(phieuID, btn){
           </div>
           <div class="card" style="box-shadow:none">
             <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-            <div class="tm-section-note">Chú thích: Số liệu 24h là số liệu của ngày được chọn.</div>
             <div class="grid">
               <div class="col-12">
                 <div class="tm-sl-form">
@@ -9128,6 +9127,7 @@ window.editPhieu = async function(phieuID, btn){
                     <div class="tm-sl-field"><label>CP</label><input id="editSlCp" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.cp)}"></div>
                     <div class="tm-sl-field"><label>Tổng</label><input id="editSlTongSoDonVi" class="equal-control tm-sl-input tm-total" readonly value="${escAttr(d.tongSoDonVi)}"></div>
                   </div>
+                  <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
                   ${renderSoLieuTmKhoMauForm('editSl', d.khoMau)}
                 </div>
               </div>
@@ -11992,7 +11992,6 @@ window.openSoLieuTmStatsAdd = function(date, dept){
       </div>
       <div class="card" style="box-shadow:none">
         <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-        <div class="tm-section-note">Chú thích: Số liệu 24h là số liệu của ngày được chọn.</div>
         <div class="tm-sl-form">
           <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
             <div class="tm-sl-field"><label>XN Nội</label><input id="statsSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
@@ -12003,6 +12002,7 @@ window.openSoLieuTmStatsAdd = function(date, dept){
             <div class="tm-sl-field"><label>CP</label><input id="statsSlCp" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.cp)}"></div>
             <div class="tm-sl-field"><label>Tổng</label><input id="statsSlTongSoDonVi" class="equal-control tm-sl-input tm-total" readonly value="0"></div>
           </div>
+          <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
           ${renderSoLieuTmKhoMauForm('statsSl')}
         </div>
       </div>
