@@ -1,4 +1,4 @@
-<!-- VERSION: 307.208 | index: 307 | Code.gs: 208 | INDEX-307.260726-NOI-KIEM-TM-MOBILE-PERFORMER-LOT -->
+<!-- VERSION: 308.208 | index: 308 | Code.gs: 208 | INDEX-308.260726-FIX-NOI-KIEM-RADIO -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5183,11 +5183,32 @@
     .nk-paper-performer-value{min-height:64px;display:block;text-align:left;font-size:14px;line-height:1.35;padding:3px 4px}
     .nk-performer-view-line{display:block;white-space:nowrap}
     .nk-paper-eval-cell{padding:0!important}
-    .nk-paper-radio-label{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:29px;margin:0 4px;cursor:pointer;font-size:14px;font-weight:700;white-space:nowrap}
-    .nk-paper-radio{position:absolute;opacity:0;pointer-events:none!important}
-    .nk-paper-radio-box,.nk-paper-check-view{position:relative;display:inline-flex;width:17px;height:17px;flex:0 0 17px;align-items:center;justify-content:center;border:1.4px solid #222;background:#fff;vertical-align:middle}
-    .nk-paper-radio:checked+.nk-paper-radio-box::after,.nk-paper-check-view.is-checked::after{content:"✓";position:absolute;left:1px;top:-5px;font-size:22px;line-height:20px;font-weight:700;color:#111}
-    .nk-paper-radio:focus-visible+.nk-paper-radio-box{outline:2px solid #1a73e8;outline-offset:1px}
+    .nk-paper-radio-label{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:29px;margin:0 4px;cursor:default;font-size:14px;font-weight:700;white-space:nowrap;pointer-events:none!important}
+    .nk-paper-radio{
+      position:relative!important;
+      display:inline-block!important;
+      width:18px!important;
+      min-width:18px!important;
+      height:18px!important;
+      min-height:18px!important;
+      margin:0!important;
+      padding:0!important;
+      border:1.4px solid #222!important;
+      border-radius:0!important;
+      background:#fff!important;
+      box-shadow:none!important;
+      opacity:1!important;
+      appearance:none!important;
+      -webkit-appearance:none!important;
+      pointer-events:auto!important;
+      cursor:pointer!important;
+      touch-action:manipulation!important;
+      vertical-align:middle;
+    }
+    .nk-paper-radio:checked::after{content:"✓";position:absolute;left:1px;top:-5px;font-size:22px;line-height:20px;font-weight:700;color:#111}
+    .nk-paper-radio:focus-visible{outline:2px solid #1a73e8!important;outline-offset:1px}
+    .nk-paper-check-view{position:relative;display:inline-flex;width:17px;height:17px;flex:0 0 17px;align-items:center;justify-content:center;border:1.4px solid #222;background:#fff;vertical-align:middle}
+    .nk-paper-check-view.is-checked::after{content:"✓";position:absolute;left:1px;top:-5px;font-size:22px;line-height:20px;font-weight:700;color:#111}
     .nk-paper-eval-inline{display:flex;align-items:center;justify-content:center;gap:12px;min-height:30px;flex-wrap:nowrap}
     .nk-paper-eval-inline .nk-paper-radio-label{margin:0}
     .nk-paper-eval-label{font-weight:700}
@@ -5373,7 +5394,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-307.260726-NOI-KIEM-TM-MOBILE-PERFORMER-LOT';
+const APP_VERSION = 'INDEX-308.260726-FIX-NOI-KIEM-RADIO';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -9035,7 +9056,7 @@ function nkPaperEvalChoice(prefix, key, choice, current, readonly=false, text=''
   const checked = !!currentText && nkDefaultEval(currentText) === choice;
   if(readonly) return `<span class="nk-paper-radio-label"><span class="nk-paper-check-view${checked ? ' is-checked' : ''}"></span>${text ? `<span>${esc(text)}</span>` : ''}</span>`;
   const name = `${prefix}_${key}_eval`;
-  return `<label class="nk-paper-radio-label"><input class="nk-paper-radio" type="radio" name="${escAttr(name)}" value="${escAttr(choice)}" ${checked ? 'checked' : ''} aria-label="${escAttr(text || (choice === NK_EVAL_DAT ? 'Đạt' : 'Không đạt'))}"><span class="nk-paper-radio-box"></span>${text ? `<span>${esc(text)}</span>` : ''}</label>`;
+  return `<span class="nk-paper-radio-label"><input class="nk-paper-radio" type="radio" name="${escAttr(name)}" value="${escAttr(choice)}" ${checked ? 'checked' : ''} aria-label="${escAttr(text || (choice === NK_EVAL_DAT ? 'Đạt' : 'Không đạt'))}">${text ? `<span>${esc(text)}</span>` : ''}</span>`;
 }
 
 function nkPaperEvalInline(prefix, key, current, readonly=false){
