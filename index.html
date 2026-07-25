@@ -1,4 +1,4 @@
-<!-- VERSION: 300.203 | index: 300 | Code.gs: 203 | INDEX-300.220726-HEADER-UNIT-BY-DEPT -->
+<!-- VERSION: 302.204 | index: 302 | Code.gs: 204 | INDEX-302.220726-TM24H-DATE-NOTES -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -3274,6 +3274,7 @@
     .create-loai-control{color:var(--g-blue)!important;font-weight:700!important}
     .create-loai-control option{color:var(--g-text);font-weight:400}
     .create-loai-note{margin-top:5px;font-size:12.5px;line-height:1.35;color:#8b1e3f;font-style:italic;background:transparent;border:0;border-radius:0;padding:0}
+    .tm-section-note{margin:2px 0 8px;font-size:12.5px;line-height:1.35;color:#8b1e3f;font-style:italic;background:transparent;border:0;padding:0}
     .blood-abo,.blood-abo option{color:var(--g-danger)!important;font-weight:700!important}
     .blood-rh,.blood-rh option{color:var(--g-danger)!important}
     .tm-tdkmm-form .grid{align-items:end}
@@ -5149,7 +5150,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-298.220726-PHIEU-NOTE-TEXT</p>
+      <p class="login-version">Version: INDEX-301.220726-LIST-TAB-HANDOVER-ONLY</p>
     </div>
   </div>
 
@@ -5158,7 +5159,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-298.220726-PHIEU-NOTE-TEXT</div>
+    <div class="login-loading-version">Version: INDEX-301.220726-LIST-TAB-HANDOVER-ONLY</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5202,7 +5203,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-298.220726-PHIEU-NOTE-TEXT</div>
+    <div class="app-version">Version: INDEX-301.220726-LIST-TAB-HANDOVER-ONLY</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5227,7 +5228,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-300.220726-HEADER-UNIT-BY-DEPT';
+const APP_VERSION = 'INDEX-302.220726-TM24H-DATE-NOTES';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5867,6 +5868,7 @@ function renderCreateTab(){
 
       <div id="tmDailyStatsBlock" class="card hidden">
         <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
+        <div class="tm-section-note">Chú thích: Số liệu 24h là số liệu của ngày được chọn.</div>
         <div class="tm-sl-form">
           <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
             <div class="tm-sl-field"><label>XN Nội</label><input id="tmSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
@@ -5967,13 +5969,13 @@ function updateCreateFormNumbering(){
   $('#regularPhieuBlock')?.classList.toggle('hidden', isTmPhieu || isBloodStockReport || isTmDailyStats);
   $('#tmPhieuBlock')?.classList.toggle('hidden', !isTmPhieu);
   const createDateInput = $('#createDate');
-  const createDateDefaultKey = isReport ? 'report-yesterday' : 'today';
+  const createDateDefaultKey = (isReport || isTmDailyStats) ? 'report-yesterday' : 'today';
   if(createDateInput && createDateInput.dataset.defaultByLoai !== createDateDefaultKey){
-    createDateInput.value = isReport ? addDaysIso(todayIso(), -1) : todayIso();
+    createDateInput.value = (isReport || isTmDailyStats) ? addDaysIso(todayIso(), -1) : todayIso();
     createDateInput.dataset.defaultByLoai = createDateDefaultKey;
     updateViDateDisplay(createDateInput);
   }
-  if($('#createDateLabel')) $('#createDateLabel').textContent = isTmPhieu ? (loai === LOAI_TM_XU_TRI ? 'Ngày thực hiện' : 'Ngày tháng năm') : (isReport ? 'Ngày trực' : ((isBloodStockReport || isTmDailyStats) ? 'Ngày báo cáo' : 'Ngày thực hiện'));
+  if($('#createDateLabel')) $('#createDateLabel').textContent = isTmPhieu ? (loai === LOAI_TM_XU_TRI ? 'Ngày thực hiện' : 'Ngày tháng năm') : (isReport ? 'Ngày trực' : (isTmDailyStats ? 'Số liệu 24h ngày' : (isBloodStockReport ? 'Ngày báo cáo' : 'Ngày thực hiện')));
   if($('#createUserLabel')) $('#createUserLabel').textContent = (loai === LOAI_TM_TDKMM || isBloodStockReport || isTmDailyStats) ? 'Người báo cáo' : 'Người thực hiện';
   if(isTmPhieu){
     renderTmPhieuCreateForm(loai);
@@ -6537,6 +6539,7 @@ function renderSoLieuTmKhoMauForm(prefix='tmSl', khoData={}){
   const t = d.tonKhoMau || {};
   return `<div class="tm-kho-card">
     <h3 class="section-title tm-kho-main-title">III. Kho máu</h3>
+    <div class="tm-section-note">Chú thích: Tồn kho máu là số lượng còn lại tại thời điểm báo cáo.</div>
     <div class="tm-sl-subtitle">1. Tồn kho máu</div>
     <div class="tm-kho-stock-grid">
       ${SO_LIEU_TM_KHO_FIELDS.map(f => `<div class="tm-sl-field"><label>${esc(f.label)}</label><input id="${escAttr(soLieuTmKhoInputId(prefix, f.key))}" class="equal-control tm-kho-stock-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(t[f.key] || 0)}"></div>`).join('')}
@@ -6617,9 +6620,9 @@ function renderSoLieuTmKhoMauViewHtml(data, meta={}){
   const d = normalizeSoLieuTmClient(data || {});
   const kho = d.khoMau;
   if(!hasSoLieuTmKhoMauClient(kho)) return '';
-  const noteDate = meta.ngayTruc ? dateVi(meta.ngayTruc) : '';
+  const noteTime = meta.thoiDiemBaoCao ? dateTimeViColon(meta.thoiDiemBaoCao) : (meta.ngayTruc ? dateVi(meta.ngayTruc) : '');
   const noteUser = meta.nguoiTao ? ` (${meta.nguoiTao})` : '';
-  const note = noteDate ? `<div class="tm-kho-view-note">Ghi chú: Số liệu báo cáo ${esc(noteDate)}${esc(noteUser)}</div>` : '';
+  const note = noteTime ? `<div class="tm-kho-view-note">Ghi chú: Số liệu tồn kho tại thời điểm báo cáo ${esc(noteTime)}${esc(noteUser)}</div>` : '';
   const title = meta.hideTitle ? '' : `<h3 class="section-title tm-kho-main-title">III. Kho máu</h3>`;
   const stockTitle = meta.useLetters ? 'a. Tồn kho máu' : '1. Tồn kho máu';
   const issueTitle = meta.useLetters ? 'b. Vấn đề khác' : '2. Vấn đề khác';
@@ -6699,6 +6702,7 @@ function renderLatestSoLieuTmKhoMauPreviewHtml(reports=[], options={}){
     : (options.showEmptyIssue ? 'Không có' : '');
   return renderSoLieuTmKhoMauViewHtml(r.soLieuTm || {}, {
     ngayTruc:r.ngayTruc,
+    thoiDiemBaoCao:r.thoiDiemTao || r.createdAt || '',
     nguoiTao:r.nguoiTao || r.nguoiThucHienTen || '',
     hideTitle: !!options.hideTitle,
     useLetters: !!options.useLetters,
@@ -6720,6 +6724,7 @@ function renderGiaoBanKhoMauHtml(reports=[], khoMauKhac=''){
   if(r){
     parts.push(renderSoLieuTmKhoMauViewHtml(r.soLieuTm || {}, {
       ngayTruc:r.ngayTruc,
+      thoiDiemBaoCao:r.thoiDiemTao || r.createdAt || '',
       nguoiTao:r.nguoiTao || r.nguoiThucHienTen || '',
       hideTitle:true,
       useLetters:true,
@@ -8800,7 +8805,7 @@ async function loadPhieuList(force){
   box.innerHTML = `<div class="loading">Đang tải danh sách phiếu...</div>`;
   try{
     const res = await api('getPhieuList', filters);
-    const items = sortPhieuByCreatedDesc(res.data.items || []);
+    const items = filterHandoverTabPhieus(sortPhieuByCreatedDesc(res.data.items || []));
     state.cache.phieu = {key, time:Date.now(), data:items, note:''};
     renderPhieuList(items, '');
   }catch(err){
@@ -8830,7 +8835,18 @@ function sortPhieuByCreatedDesc(items){
 }
 
 // ===== MODULE: JS_DS_PHIEU_START =====
+function isHandoverTabAllowedPhieu(p){
+  const loai = p?.loaiPhieuGoc || p?.loaiPhieu || '';
+  return eqText(loai, LOAI_BAN_GIAO) || eqText(loai, LOAI_BAO_CAO);
+}
+
+function filterHandoverTabPhieus(items){
+  return (items || []).filter(isHandoverTabAllowedPhieu);
+}
+
 function renderPhieuList(items, note=''){
+  items = filterHandoverTabPhieus(items);
+
   const box = $('#phieuListBox');
   if(!items.length){
     box.innerHTML = `<div class="empty">Không có phiếu phù hợp bộ lọc.</div>`;
@@ -8944,7 +8960,7 @@ function renderSoLieuTmDetailModalHtml(p){
       </div>
       <h3 class="sub-title">I. Thông tin</h3>
       <div class="list-card data-card">
-        <div class="field-row"><span class="field-name">Ngày báo cáo</span><div class="field-value">${dateVi(p.ngayTruc)}</div></div>
+        <div class="field-row"><span class="field-name">Số liệu 24h ngày</span><div class="field-value">${dateVi(p.ngayTruc)}</div></div>
         <div class="field-row"><span class="field-name">Khoa/phòng</span><div class="field-value">${esc(p.khoaPhong || '')}</div></div>
         <div class="field-row"><span class="field-name">Trạng thái</span><div class="field-value">${esc(statusText || '')}</div></div>
         <div class="field-row"><span class="field-name">Người báo cáo</span><div class="field-value">${esc(creator)}</div></div>
@@ -8953,8 +8969,10 @@ function renderSoLieuTmDetailModalHtml(p){
         <div class="field-row"><span class="field-name">Thời gian sửa</span><div class="field-value">${esc(dateTimeViColon(editedAt || ''))}</div></div>
       </div>
       <h3 class="sub-title">II. Báo cáo số liệu Truyền máu 24h</h3>
+      <div class="tm-section-note">Chú thích: Số liệu 24h là số liệu của ngày được chọn.</div>
       <div class="list-card data-card">${renderSoLieuTmDetailReportViewHtml(p.soLieuTm || {})}</div>
       <h3 class="sub-title">III. Kho máu</h3>
+      <div class="tm-section-note">Chú thích: Tồn kho máu là số lượng còn lại tại thời điểm báo cáo.</div>
       <div class="list-card data-card">${renderSoLieuTmKhoMauDetailViewHtml(p.soLieuTm || {})}</div>
       <div class="btn-row sign-bottom-small"><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
     </div>`;
@@ -9090,13 +9108,14 @@ window.editPhieu = async function(phieuID, btn){
             <h3 class="section-title">I. Thông tin phiếu</h3>
             <div class="grid">
               <div class="col-3"><label>Loại phiếu</label><input class="equal-control" readonly value="${displayLoaiPhieuAttr(p.loaiPhieuGoc || p.loaiPhieu || '')}"></div>
-              <div class="col-3"><label>Ngày báo cáo</label><input id="editDate" class="equal-control date-vi-input" type="date" value="${escAttr(p.ngayTruc || '')}"></div>
+              <div class="col-3"><label>Số liệu 24h ngày</label><input id="editDate" class="equal-control date-vi-input" type="date" value="${escAttr(p.ngayTruc || '')}"></div>
               <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="editDept" class="equal-control">${deptOptions(p.khoaPhong)}</select></div>
               <div class="col-3"><label>Người báo cáo</label><input class="equal-control" readonly value="${escAttr(p.nguoiThucHienTen || '')}"></div>
             </div>
           </div>
           <div class="card" style="box-shadow:none">
             <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
+            <div class="tm-section-note">Chú thích: Số liệu 24h là số liệu của ngày được chọn.</div>
             <div class="grid">
               <div class="col-12">
                 <div class="tm-sl-form">
@@ -11966,13 +11985,14 @@ window.openSoLieuTmStatsAdd = function(date, dept){
       <div class="card" style="box-shadow:none">
         <h3 class="section-title">I. Thông tin</h3>
         <div class="grid">
-          <div class="col-3"><label>Ngày báo cáo</label><input class="equal-control" readonly value="${escAttr(dateVi(date))}"></div>
+          <div class="col-3"><label>Số liệu 24h ngày</label><input class="equal-control" readonly value="${escAttr(dateVi(date))}"></div>
           <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><input class="equal-control" readonly value="${escAttr(targetDept || '')}"></div>
           <div class="col-3"><label>Trạng thái</label><input class="equal-control" readonly value="Chỉ thống kê"></div>
         </div>
       </div>
       <div class="card" style="box-shadow:none">
         <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
+        <div class="tm-section-note">Chú thích: Số liệu 24h là số liệu của ngày được chọn.</div>
         <div class="tm-sl-form">
           <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
             <div class="tm-sl-field"><label>XN Nội</label><input id="statsSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
