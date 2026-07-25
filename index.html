@@ -1,4 +1,4 @@
-<!-- VERSION: 299.203 | index: 299 | Code.gs: 203 | INDEX-299.220726-PHIEU-NOTE-FONT -->
+<!-- VERSION: 300.203 | index: 300 | Code.gs: 203 | INDEX-300.220726-HEADER-UNIT-BY-DEPT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5227,7 +5227,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-299.220726-PHIEU-NOTE-FONT';
+const APP_VERSION = 'INDEX-300.220726-HEADER-UNIT-BY-DEPT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5588,12 +5588,20 @@ function setBootStatus(text){
   if(el && text) el.textContent = text;
 }
 
+function getHeaderUnitTitleByDept(dept){
+  const deptText = norm(dept || '');
+  return deptText.includes('ninh binh')
+    ? 'Khoa Huyết học và Truyền máu'
+    : 'Viện Huyết học và Truyền máu Bạch Mai';
+}
+
 function updateUserHeader(){
   const userNameEl = $('#userName');
   const brandTitleEl = $('#brandTitle');
   const brandSubEl = $('#brandSub');
+  const userDept = state.user?.khoaPhong || state.user?.phongLamViec || '';
   if(userNameEl) userNameEl.textContent = state.user?.tenNhanVien || 'Đang khôi phục phiên';
-  if(brandTitleEl) brandTitleEl.textContent = 'Trung tâm Huyết học và Truyền máu';
+  if(brandTitleEl) brandTitleEl.textContent = getHeaderUnitTitleByDept(userDept);
   if(brandSubEl) brandSubEl.textContent = 'Khoa/phòng: ' + (state.user?.khoaPhong || '');
 }
 
