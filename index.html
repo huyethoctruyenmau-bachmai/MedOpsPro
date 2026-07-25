@@ -1,4 +1,4 @@
-<!-- VERSION: 302.204 | index: 302 | Code.gs: 204 | INDEX-302.220726-TM24H-DATE-NOTES -->
+<!-- VERSION: 304.205 | index: 304 | Code.gs: 205 | INDEX-304.220726-DEPT-ALIAS-ADMIN-FULL -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5228,7 +5228,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-302.220726-TM24H-DATE-NOTES';
+const APP_VERSION = 'INDEX-304.220726-DEPT-ALIAS-ADMIN-FULL';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5786,7 +5786,7 @@ async function withInlineBusy(el, busyText, fn){
 function renderCreateTab(){
   const today = todayIso();
   const now = toDatetimeLocal(hanoiNowIso());
-  const allowTm = isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
+  const allowTm = isSystemAdminAccount(state.user) || isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
   const tmOptions = allowTm ? `
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>` : '';
@@ -14166,8 +14166,12 @@ function normalizeDeptFeatureName(value){
 function isXnhhCsNinhBinhDept(value){
   const n = normalizeDeptFeatureName(value);
   return n.includes('xnhh cs ninh binh')
+    || (n.includes('xnhh') && n.includes('ninh binh'))
     || n.includes('xet nghiem huyet hoc cs ninh binh')
-    || n.includes('xet nghiem huyet hoc co so ninh binh');
+    || n.includes('xet nghiem huyet hoc co so ninh binh')
+    || n.includes('xet nghiem hh tm cs ninh binh')
+    || ((n.includes('xet nghiem') || n.includes('xn')) && n.includes('hh tm') && n.includes('ninh binh'))
+    || (n.includes('xet nghiem huyet hoc') && n.includes('ninh binh'));
 }
 
 function isTruyenMauDept(value){
