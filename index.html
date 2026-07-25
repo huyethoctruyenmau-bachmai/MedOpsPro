@@ -1,4 +1,4 @@
-<!-- VERSION: 297.203 | index: 297 | Code.gs: 203 | INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS -->
+<!-- VERSION: 298.203 | index: 298 | Code.gs: 203 | INDEX-298.220726-PHIEU-NOTE-TEXT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5149,7 +5149,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS</p>
+      <p class="login-version">Version: INDEX-298.220726-PHIEU-NOTE-TEXT</p>
     </div>
   </div>
 
@@ -5158,7 +5158,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS</div>
+    <div class="login-loading-version">Version: INDEX-298.220726-PHIEU-NOTE-TEXT</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5202,7 +5202,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS</div>
+    <div class="app-version">Version: INDEX-298.220726-PHIEU-NOTE-TEXT</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5227,7 +5227,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-297.220726-ACCOUNT-GOOGLE-BUTTONS';
+const APP_VERSION = 'INDEX-298.220726-PHIEU-NOTE-TEXT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5927,8 +5927,8 @@ function renderCreateTab(){
 }
 
 function getCreateLoaiNote(loai){
-  if(loai === LOAI_BAN_GIAO) return 'Chú thích: Dùng cho bộ phận làm việc giờ hành chính bàn giao cho tua trực.';
-  if(loai === LOAI_BAO_CAO) return 'Chú thích: Dùng để báo cáo tình hình tua trực.';
+  if(loai === LOAI_BAN_GIAO) return 'Chú thích: Dùng cho bộ phận hành chính bàn giao công việc cho tua trực.';
+  if(loai === LOAI_BAO_CAO) return 'Chú thích: Dùng để báo cáo hoạt động và bàn giao công việc của tua trực.';
   if(loai === LOAI_BAO_CAO_KHO_MAU) return 'Chú thích: Chỉ dùng cho Quản lý kho máu.';
   if(isLoaiSoLieuTm(loai)) return 'Chú thích: Dùng để báo cáo số liệu xét nghiệm - truyền máu 24h và tồn kho máu.';
   if(loai === LOAI_TM_XU_TRI) return 'Chú thích: Dùng để khai báo bệnh nhân cần xử trí chuyên môn khoa Truyền máu.';
