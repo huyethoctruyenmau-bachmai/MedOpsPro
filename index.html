@@ -1,4 +1,4 @@
-<!-- VERSION: 312.208 | index: 312 | Code.gs: 208 | INDEX-312.260726-NOI-KIEM-BO-HON-HOP -->
+<!-- VERSION: 313.209 | index: 313 | Code.gs: 209 | INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5314,6 +5314,55 @@
       .nk-create-actions .btn{min-height:44px}
     }
 
+
+    /* ===== NỘI KIỂM 313: DS GOOGLE MATERIAL + XEM PHIẾU CUỘN NGANG ===== */
+    .nk-section-audit{display:flex;justify-content:flex-end;gap:18px;flex-wrap:wrap;margin:-1px 0 5px;padding:3px 6px;border:1px solid #dfe1e5;border-top:0;background:#f8f9fa;color:#5f6368;font-family:Arial,sans-serif;font-size:11px;line-height:1.35}
+    .nk-google-table-wrap{position:relative;width:100%;overflow:auto;-webkit-overflow-scrolling:touch;border:1px solid #dadce0;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(60,64,67,.08)}
+    .nk-google-table{width:max-content;min-width:1880px;border-collapse:separate;border-spacing:0;background:#fff;color:#202124;font-family:Arial,sans-serif;font-size:13px;line-height:1.45}
+    .nk-google-table th,.nk-google-table td{padding:11px 12px;border:0;border-bottom:1px solid #e8eaed;vertical-align:top;text-align:left;background:#fff}
+    .nk-google-table thead th{position:sticky;top:0;z-index:4;background:#f8f9fa;color:#3c4043;font-size:12.5px;font-weight:600;white-space:nowrap;box-shadow:inset 0 -1px 0 #dadce0}
+    .nk-google-table tbody tr:hover td{background:#f8f9fa}
+    .nk-google-table tbody tr:last-child td{border-bottom:0}
+    .nk-google-table .nk-sticky-date{position:sticky;left:0;z-index:3;width:108px;min-width:108px;max-width:108px;text-align:center;background:#fff}
+    .nk-google-table .nk-sticky-dept{position:sticky;left:108px;z-index:3;width:190px;min-width:190px;max-width:190px;background:#fff;box-shadow:2px 0 0 rgba(218,220,224,.8)}
+    .nk-google-table thead .nk-sticky-date,.nk-google-table thead .nk-sticky-dept{z-index:6;background:#f8f9fa}
+    .nk-google-table tbody tr:hover .nk-sticky-date,.nk-google-table tbody tr:hover .nk-sticky-dept{background:#f8f9fa}
+    .nk-list-section{min-width:245px;max-width:315px}
+    .nk-list-p3{min-width:315px;max-width:360px}
+    .nk-list-p4{min-width:290px;max-width:335px}
+    .nk-list-p5{min-width:240px;max-width:300px;white-space:normal;word-break:break-word}
+    .nk-list-people{min-width:175px;max-width:220px;white-space:normal}
+    .nk-list-time{min-width:168px;white-space:nowrap}
+    .nk-list-actions{min-width:132px;white-space:nowrap}
+    .nk-list-method-line{display:block;min-height:24px;margin:0 0 3px;white-space:nowrap}
+    .nk-list-method-line:last-child{margin-bottom:0}
+    .nk-list-method-name{font-weight:600;color:#202124}
+    .nk-list-lot{color:#5f6368;font-variant-numeric:tabular-nums}
+    .nk-list-empty{color:#9aa0a6}
+    .nk-list-date{font-weight:600;color:#202124}
+    .nk-list-sub{margin-top:2px;color:#5f6368;font-size:11.5px;font-weight:400}
+    .nk-google-table .nk-status{padding:2px 7px;font-size:11px;line-height:1.35;vertical-align:middle}
+    .nk-google-table .nk-table-actions{justify-content:flex-start;gap:4px}
+    .nk-google-table .nk-table-actions .btn{height:30px;min-height:30px;padding:0 10px;border-radius:6px}
+    .nk-view-mode .nk-paper-scroll{overflow-x:auto!important;overflow-y:visible!important;touch-action:pan-x pan-y!important;-webkit-overflow-scrolling:touch!important}
+    .nk-view-mode .nk-paper{width:1180px!important;min-width:1180px!important;max-width:none!important}
+    @media(max-width:760px){
+      .nk-google-table{min-width:1880px;font-size:12px}
+      .nk-google-table th,.nk-google-table td{padding:9px 10px}
+      .nk-google-table .nk-sticky-date{width:96px;min-width:96px;max-width:96px}
+      .nk-google-table .nk-sticky-dept{left:96px;width:165px;min-width:165px;max-width:165px}
+      .nk-view-mode .nk-paper-scroll{overflow-x:auto!important;touch-action:pan-x pan-y!important}
+      .nk-view-mode .nk-paper{width:1120px!important;min-width:1120px!important;max-width:none!important;padding:10px 8px 7px!important}
+      .nk-view-mode .nk-paper-header{grid-template-columns:1fr 1.55fr .8fr!important;gap:6px!important}
+      .nk-view-mode .nk-paper-org,.nk-view-mode .nk-paper-date{font-size:12px!important}
+      .nk-view-mode .nk-paper-title{font-size:16px!important}
+      .nk-view-mode .nk-paper-section-label{font-size:13px!important}
+      .nk-view-mode .nk-paper-table{font-size:11px!important;line-height:1.2!important}
+      .nk-view-mode .nk-paper-table th,.nk-view-mode .nk-paper-table td{padding:3px!important}
+      .nk-view-mode .nk-paper-lot-lines,.nk-view-mode .nk-paper-lot-value,.nk-view-mode .nk-paper-value,.nk-view-mode .nk-paper-performer-value{font-size:10.5px!important}
+      .nk-view-mode .nk-paper-other-view{font-size:13px!important;line-height:28px!important;min-height:84px!important;height:auto!important;background-size:5px 28px!important}
+      .nk-section-audit{justify-content:flex-start;font-size:10px}
+    }
 </style>
 </head>
 <body>
@@ -5359,7 +5408,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-312.260726-NOI-KIEM-BO-HON-HOP</p>
+      <p class="login-version">Version: INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM</p>
     </div>
   </div>
 
@@ -5368,7 +5417,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-312.260726-NOI-KIEM-BO-HON-HOP</div>
+    <div class="login-loading-version">Version: INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5412,7 +5461,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-312.260726-NOI-KIEM-BO-HON-HOP</div>
+    <div class="app-version">Version: INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5437,7 +5486,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-312.260726-NOI-KIEM-BO-HON-HOP';
+const APP_VERSION = 'INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5487,6 +5536,7 @@ const LOAI_TM_TDKMM = 'Khai báo tác dụng không mong muốn liên quan truy�
 const LOAI_NOI_KIEM_TM = 'Kết quả nội kiểm Truyền máu';
 const NK_EVAL_DAT = 'DAT';
 const NK_EVAL_KHONG_DAT = 'KHONG_DAT';
+const NK_SECTIONS = ['PHAN_1','PHAN_2','PHAN_3','PHAN_4','PHAN_5'];
 const STATUS_CHUA = 'Chưa hoàn thành';
 const STATUS_DA = 'Đã hoàn thành';
 const LOAI_GIAO_BAN_THUONG_TRUC = 'Giao ban thường trực';
@@ -6158,7 +6208,7 @@ function getCreateLoaiNote(loai){
   if(isLoaiSoLieuTm(loai)) return 'Chú thích: Dùng để báo cáo số liệu xét nghiệm - truyền máu 24h và tồn kho máu.';
   if(loai === LOAI_TM_XU_TRI) return 'Chú thích: Dùng để khai báo bệnh nhân cần xử trí chuyên môn khoa Truyền máu.';
   if(loai === LOAI_TM_TDKMM) return 'Chú thích: Dùng để khai báo tác dụng không mong muốn liên quan truyền máu.';
-  if(loai === LOAI_NOI_KIEM_TM) return 'Chú thích: Lưu vết kết quả nội kiểm Truyền máu. Đánh giá mặc định là Đạt và có thể chuyển sang Không đạt.';
+  if(loai === LOAI_NOI_KIEM_TM) return 'Chú thích: Dùng để báo cáo kết quả nội kiểm Truyền máu.';
   return '';
 }
 
@@ -9248,15 +9298,32 @@ function nkPaperTableIV(prefix, cross, dept, readonly){
   <tr><th colspan="3">Đánh giá</th><td>${nkPaperEvalInline(prefix,'CrossNeutral',readonly&&!nkPaperGroupActive(neutral)?'':nkDefaultEval(neutral.danhGia),readonly)}</td><td>${nkPaperEvalInline(prefix,'CrossTm30',readonly&&!nkPaperGroupActive(tm30)?'':nkDefaultEval(tm30.danhGia),readonly)}</td><td>${nkPaperEvalInline(prefix,'CrossTm31',readonly&&!nkPaperGroupActive(tm31)?'':nkDefaultEval(tm31.danhGia),readonly)}</td></tr></tbody></table>`;
 }
 
+function nkSectionAuditHtml(meta){
+  if(!meta || !meta.exists) return '';
+  const created = [meta.thoiDiemGhiNhan, meta.nguoiGhiNhan].filter(Boolean).join(' – ');
+  const updated = [meta.thoiDiemCapNhat, meta.nguoiCapNhat].filter(Boolean).join(' – ');
+  const showUpdated = updated && updated !== created;
+  return `<div class="nk-section-audit"><span><strong>Thời gian ghi nhận:</strong> ${esc(created || '—')}</span>${showUpdated ? `<span><strong>Cập nhật cuối:</strong> ${esc(updated)}</span>` : ''}</div>`;
+}
+
 function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
   const d=data||{}, tube=d.aboRhOngNghiem||{}, gel=d.aboRhGelcard||{}, coombs=d.coombsKtbt||{}, cross=d.cheoHoaHop||{};
   const readonly=!!meta.readonly;
+  const editMode=!!meta.editMode;
+  const permissions=meta.sectionPermissions||{};
+  const sectionMeta=meta.sectionMeta||{};
+  const isSectionReadonly=phan => readonly || (editMode && permissions[phan] !== true);
+  const hasEditable=!readonly && (!editMode || Object.values(permissions).some(Boolean));
   const parts=nkPaperDateParts(meta.ngayNoiKiem || (prefix==='nkCreate' ? getDateInputIso('createDate') : ''));
   const org=nkPaperOrgHeader(dept);
-  return `<div class="nk-form" data-prefix="${escAttr(prefix)}">${readonly?'':`<datalist id="nkReactionValues"><option value="-"><option value="Dương tính yếu"><option value="1+"><option value="2+"><option value="3+"><option value="4+"></datalist>`}<div class="nk-paper-scroll"><div class="nk-paper">
+  const audit=phan => readonly ? nkSectionAuditHtml(sectionMeta[phan]) : '';
+  return `<div class="nk-form${readonly ? ' nk-view-mode' : ''}" data-prefix="${escAttr(prefix)}">${hasEditable?`<datalist id="nkReactionValues"><option value="-"><option value="Dương tính yếu"><option value="1+"><option value="2+"><option value="3+"><option value="4+"></datalist>`:''}<div class="nk-paper-scroll"><div class="nk-paper">
     <div class="nk-paper-header"><div class="nk-paper-org">${esc(org.hospital)}<br>${esc(org.unit)}</div><div class="nk-paper-title">PHIẾU THEO DÕI KẾT QUẢ NỘI KIỂM</div><div class="nk-paper-date">NĂM <span class="nk-paper-year">${esc(parts.year)}</span><br><span class="nk-paper-date-line">Ngày <span class="nk-paper-day">${esc(parts.day)}</span> tháng <span class="nk-paper-month">${esc(parts.month)}</span></span></div></div>
-    ${nkPaperTableI(prefix,tube,dept,readonly)}${nkPaperTableII(prefix,gel,dept,readonly)}${nkPaperTableIII(prefix,coombs,dept,readonly)}${nkPaperTableIV(prefix,cross,dept,readonly)}
-    <div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div>${readonly?`<div class="nk-paper-other-view">${esc(d.xetNghiemKhac||'')}</div>`:`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}
+    <div data-nk-section="PHAN_1">${nkPaperTableI(prefix,tube,dept,isSectionReadonly('PHAN_1'))}${audit('PHAN_1')}</div>
+    <div data-nk-section="PHAN_2">${nkPaperTableII(prefix,gel,dept,isSectionReadonly('PHAN_2'))}${audit('PHAN_2')}</div>
+    <div data-nk-section="PHAN_3">${nkPaperTableIII(prefix,coombs,dept,isSectionReadonly('PHAN_3'))}${audit('PHAN_3')}</div>
+    <div data-nk-section="PHAN_4">${nkPaperTableIV(prefix,cross,dept,isSectionReadonly('PHAN_4'))}${audit('PHAN_4')}</div>
+    <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div>${isSectionReadonly('PHAN_5')?`<div class="nk-paper-other-view">${esc(d.xetNghiemKhac||'')}</div>`:`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}${audit('PHAN_5')}</div>
     <div class="nk-paper-footer"><div>BM.08.QL.30</div><div>Trang 2 / 2<br>Phiên bản BM: 2.3.3</div><div>Ngày ban hành BM: 01/08/2024</div></div>
   </div></div></div>`;
 }
@@ -9306,14 +9373,50 @@ async function nkLoadPreviousLotDefaults(prefix, dept){
   }
 }
 
+const nkCreateTouchedSections = new Set();
+let nkPendingCreateRequestId = '';
+
+function nkBindCreateSectionTracking(){
+  const root=document.getElementById('noiKiemTmBlock');
+  if(!root || root.dataset.nkSectionTrackingBound==='1') return;
+  root.dataset.nkSectionTrackingBound='1';
+  const mark=event=>{
+    const target=event.target;
+    if(!target || !target.closest) return;
+    const section=target.closest('[data-nk-section]')?.dataset?.nkSection;
+    if(section) nkCreateTouchedSections.add(section);
+  };
+  root.addEventListener('input',mark,true);
+  root.addEventListener('change',mark,true);
+}
+
+function nkNewRequestId(){
+  if(globalThis.crypto?.randomUUID) return globalThis.crypto.randomUUID();
+  return `NK-${Date.now()}-${Math.random().toString(36).slice(2,12)}`;
+}
+
+function nkDetectActiveSections(data){
+  const d=data||{}, tube=d.aboRhOngNghiem||{};
+  const out=[];
+  if(nkActiveGroup(tube.huyetThanhMau)||nkActiveGroup(tube.hongCauMau)) out.push('PHAN_1');
+  if(nkActiveGroup(d.aboRhGelcard)) out.push('PHAN_2');
+  if(nkActiveGroup(d.coombsKtbt)) out.push('PHAN_3');
+  if(nkActiveGroup(d.cheoHoaHop)) out.push('PHAN_4');
+  if(nkText(d.xetNghiemKhac)) out.push('PHAN_5');
+  return out;
+}
+
 function renderNoiKiemTmCreateForm(){
   const box=$('#noiKiemTmBlock');
   if(!box) return;
   const dept=$('#createDept')?.value||state.user?.khoaPhong||'';
+  nkCreateTouchedSections.clear();
+  nkPendingCreateRequestId='';
   box.innerHTML=`${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}<div class="btn-row nk-create-actions"><button id="createNoiKiemTmBtn" class="btn primary">Tạo phiếu</button></div>`;
   $('#createNoiKiemTmBtn')?.addEventListener('click',submitCreateNoiKiemTm);
   const dateInput=$('#createDate');
   if(dateInput && !dateInput.dataset.nkPaperSyncBound){dateInput.dataset.nkPaperSyncBound='1';dateInput.addEventListener('change',updateNoiKiemTmPaperDateHeader);dateInput.addEventListener('input',updateNoiKiemTmPaperDateHeader);}
+  nkBindCreateSectionTracking();
   scheduleViDatePickerEnhance();
   nkLoadPreviousLotDefaults('nkCreate', dept);
 }
@@ -9362,7 +9465,8 @@ function nkClearUnusedLotGroup(group, clearPerformer=false){
   if(clearPerformer) group.nguoiThucHien = [];
 }
 
-function nkPruneUnusedLotDefaults(data){
+function nkPruneUnusedLotDefaults(data, preserveSections=[]){
+  const preserve=new Set((preserveSections||[]).map(x=>String(x||'').toUpperCase()));
   const d = data || {};
   const tube = d.aboRhOngNghiem || {};
   const serum = tube.huyetThanhMau || {};
@@ -9371,9 +9475,11 @@ function nkPruneUnusedLotDefaults(data){
   const serumActive = nkRowsContainData(serum.benhPham, ['maBenhPham','a','b','ab','d','nhomMau']);
   const redActive = nkRowsContainData(red.benhPham, ['maBenhPham','a','b','nhomMau']);
   const gelActive = nkRowsContainData(gel.benhPham, ['maBenhPham','a','b','d','ctrl','hcmA1','hcmB','nhomMau']);
-  if(!serumActive) nkClearUnusedLotGroup(serum, true);
-  if(!redActive) nkClearUnusedLotGroup(red, true);
-  if(!gelActive) nkClearUnusedLotGroup(gel, true);
+  if(!preserve.has('PHAN_1')){
+    if(!serumActive) nkClearUnusedLotGroup(serum, true);
+    if(!redActive) nkClearUnusedLotGroup(red, true);
+  }
+  if(!preserve.has('PHAN_2') && !gelActive) nkClearUnusedLotGroup(gel, true);
 
   const coombs = d.coombsKtbt || {};
   const matrix = coombs.gelcardAhgMatrix || {};
@@ -9382,13 +9488,15 @@ function nkPruneUnusedLotDefaults(data){
   const matrixActive = !!(nkText(matrix.chungDuong) || nkText(matrix.chungAm));
   const tm30Active = !!(nkText(tm30.chungDuong) || nkText(tm30.chungAm));
   const tm31Active = !!(nkText(tm31.chungDuong) || nkText(tm31.chungAm));
-  if(!matrixActive) nkClearUnusedLotGroup(matrix);
-  if(!tm30Active) nkClearUnusedLotGroup(tm30);
-  if(!tm31Active) nkClearUnusedLotGroup(tm31);
-  if(!matrixActive && !tm30Active && !tm31Active){
-    nkClearUnusedLotGroup(coombs.antiDIgG);
-    nkClearUnusedLotGroup(coombs.hcPanel);
-    coombs.nguoiThucHien = [];
+  if(!preserve.has('PHAN_3')){
+    if(!matrixActive) nkClearUnusedLotGroup(matrix);
+    if(!tm30Active) nkClearUnusedLotGroup(tm30);
+    if(!tm31Active) nkClearUnusedLotGroup(tm31);
+    if(!matrixActive && !tm30Active && !tm31Active){
+      nkClearUnusedLotGroup(coombs.antiDIgG);
+      nkClearUnusedLotGroup(coombs.hcPanel);
+      coombs.nguoiThucHien = [];
+    }
   }
 
   const cross = d.cheoHoaHop || {};
@@ -9397,20 +9505,22 @@ function nkPruneUnusedLotDefaults(data){
   const neutralActive = nkRowsContainData(crossRows, ['neutralMatrix']);
   const crossTm30Active = nkRowsContainData(crossRows, ['tm30']);
   const crossTm31Active = nkRowsContainData(crossRows, ['tm31']);
-  if(!neutralActive) nkClearUnusedLotGroup(cross.gelcardNeutralMatrix);
-  if(!crossTm30Active) nkClearUnusedLotGroup(cross.gelcardTm30);
-  if(!crossTm31Active) nkClearUnusedLotGroup(cross.gelcardTm31);
-  if(!crossActive) cross.nguoiThucHien = [];
+  if(!preserve.has('PHAN_4')){
+    if(!neutralActive) nkClearUnusedLotGroup(cross.gelcardNeutralMatrix);
+    if(!crossTm30Active) nkClearUnusedLotGroup(cross.gelcardTm30);
+    if(!crossTm31Active) nkClearUnusedLotGroup(cross.gelcardTm31);
+    if(!crossActive) cross.nguoiThucHien = [];
+  }
   return d;
 }
 
-function collectNoiKiemTmData(prefix){
+function collectNoiKiemTmData(prefix, preserveSections=[]){
   const serumRows=nkCollectTubeRows(prefix,'Serum',true);
   const redRows=nkCollectTubeRows(prefix,'Red',false);
   const gelRows=nkCollectGelRows(prefix);
   const tubePerformers=nkPerformer(prefix,'Tube');
   const data = {
-    schemaVersion:3,
+    schemaVersion:4,
     aboRhOngNghiem:{
       huyetThanhMau:{lotNo:nkGet(prefix,'SerumLot'), hanSuDung:getDateInputIso(`${prefix}SerumHsd`), benhPham:serumRows, danhGia:nkAggregateRowEval(serumRows), nguoiThucHien:tubePerformers},
       hongCauMau:{lotNo:nkGet(prefix,'RedLot'), hanSuDung:getDateInputIso(`${prefix}RedHsd`), benhPham:redRows, danhGia:nkAggregateRowEval(redRows), nguoiThucHien:tubePerformers}
@@ -9433,7 +9543,7 @@ function collectNoiKiemTmData(prefix){
     },
     xetNghiemKhac:nkGet(prefix,'Other')
   };
-  return nkPruneUnusedLotDefaults(data);
+  return nkPruneUnusedLotDefaults(data,preserveSections);
 }
 
 function nkHasValue(value){
@@ -9485,13 +9595,25 @@ function validateNoiKiemTmClient(data){
 }
 
 async function submitCreateNoiKiemTm(){
-  const payload = {ngayNoiKiem:getDateInputIso('createDate'), khoaPhong:$('#createDept')?.value || '', data:collectNoiKiemTmData('nkCreate')};
-  if(!payload.ngayNoiKiem || !payload.khoaPhong) return toast('Vui lòng nhập ngày nội kiểm và khoa/phòng.');
-  try{ validateNoiKiemTmClient(payload.data); }catch(err){ return toast(err.message); }
-  await withButton($('#createNoiKiemTmBtn'), 'Đang tạo phiếu...', async () => {
-    await api('noiKiemTm_save', payload);
+  const touched=Array.from(nkCreateTouchedSections);
+  let data=collectNoiKiemTmData('nkCreate',touched);
+  const activeSections=Array.from(new Set([...nkDetectActiveSections(data),...touched])).filter(Boolean);
+  data=collectNoiKiemTmData('nkCreate',activeSections);
+  const payload={
+    ngayNoiKiem:getDateInputIso('createDate'),
+    khoaPhong:$('#createDept')?.value||'',
+    data,
+    activeSections,
+    requestId:nkPendingCreateRequestId||(nkPendingCreateRequestId=nkNewRequestId())
+  };
+  if(!payload.ngayNoiKiem||!payload.khoaPhong) return toast('Vui lòng nhập ngày nội kiểm và khoa/phòng.');
+  if(!activeSections.length) return toast('Vui lòng nhập ít nhất một nội dung kết quả nội kiểm.');
+  try{validateNoiKiemTmClient(payload.data);}catch(err){return toast(err.message);}
+  await withButton($('#createNoiKiemTmBtn'),'Đang ghi nhận...',async()=>{
+    await api('noiKiemTm_save',payload);
+    nkPendingCreateRequestId='';
     clearListCaches();
-    toast('Tạo phiếu thành công');
+    toast('Đã ghi nhận kết quả nội kiểm');
     renderCreateTab();
   });
 }
@@ -9502,15 +9624,41 @@ function nkStatusPill(value){
   return `<span class="nk-status ${cls}">${esc(text)}</span>`;
 }
 
+function nkListMethodLine(line){
+  const item=line||{};
+  const label=nkText(item.label);
+  const lot=nkText(item.lotNo);
+  const evaluation=nkText(item.danhGia);
+  if(!label) return '';
+  return `<div class="nk-list-method-line"><span class="nk-list-method-name">${esc(label)}</span>${lot?` <span class="nk-list-lot">(${esc(lot)})</span>`:''}${evaluation?`: ${nkStatusPill(evaluation)}`:''}</div>`;
+}
+
+function nkListSectionCell(lines,extraClass=''){
+  const source=nkArray(lines).filter(line=>nkText(line?.label));
+  if(!source.length) return `<td class="nk-list-section ${extraClass}"><span class="nk-list-empty">—</span></td>`;
+  return `<td class="nk-list-section ${extraClass}">${source.map(nkListMethodLine).join('')}</td>`;
+}
+
 function renderNoiKiemTmTable(items){
   if(!items.length) return `<div class="empty">Không có kết quả nội kiểm phù hợp.</div>`;
-  const rows = items.map(item => `<tr>
-    <td>${esc(dateVi(item.ngayNoiKiem))}</td><td>${esc(item.lanTrongNgay || '')}</td><td>${esc(formatDeptPlain(item.khoaPhong || ''))}</td>
-    <td>${nkStatusPill(item.danhGiaAboOngNghiem)}</td><td>${nkStatusPill(item.danhGiaAboGelcard)}</td><td>${nkStatusPill(item.danhGiaCoombsKtbt)}</td><td>${nkStatusPill(item.danhGiaCheoHoaHop)}</td><td>${nkStatusPill(item.danhGiaChung)}</td>
-    <td>${esc(item.nguoiThucHien || '')}</td><td>${esc(item.thoiDiemSua ? dateTimeViColon(item.thoiDiemSua) : dateTimeViColon(item.thoiDiemTao || ''))}</td>
-    <td><div class="nk-table-actions"><button class="btn secondary" onclick="openNoiKiemTm('${escAttr(item.id)}', this)">Xem</button>${item.canEdit ? `<button class="app-icon-btn" onclick="editNoiKiemTm('${escAttr(item.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : ''}${item.canDelete ? `<button class="app-icon-btn delete" onclick="deleteNoiKiemTm('${escAttr(item.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : ''}</div></td>
-  </tr>`).join('');
-  return `<div class="ds-toolbar"><p class="meta">Tổng: ${items.length} phiếu</p></div><div class="nk-table-wrap nk-list-wrap"><table class="nk-table nk-list-table"><thead><tr><th>Ngày</th><th>Lần</th><th>Đơn vị</th><th>ABO ống nghiệm</th><th>ABO gelcard</th><th>Coombs/KTBT</th><th>Chéo hòa hợp</th><th>Đánh giá chung</th><th>Người thực hiện</th><th>Cập nhật</th><th>Thao tác</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  const rows=items.map(item=>{
+    const summary=item.listSummary||{};
+    const recorded=nkText(item.thoiDiemTao);
+    const updated=nkText(item.thoiDiemSua);
+    return `<tr>
+      <td class="nk-sticky-date"><div class="nk-list-date">${esc(dateVi(item.ngayNoiKiem))}</div><div class="nk-list-sub">Lần ${esc(item.lanTrongNgay||'')}</div></td>
+      <td class="nk-sticky-dept">${esc(formatDeptPlain(item.khoaPhong||''))}</td>
+      ${nkListSectionCell(summary.phan1,'nk-list-p1')}
+      ${nkListSectionCell(summary.phan2,'nk-list-p2')}
+      ${nkListSectionCell(summary.phan3,'nk-list-p3')}
+      ${nkListSectionCell(summary.phan4,'nk-list-p4')}
+      ${nkListSectionCell(summary.phan5,'nk-list-p5')}
+      <td class="nk-list-people">${esc(item.nguoiThucHien||'—')}</td>
+      <td class="nk-list-time"><div>${esc(recorded||'—')}</div>${updated&&updated!==recorded?`<div class="nk-list-sub">Cập nhật: ${esc(updated)}</div>`:''}</td>
+      <td class="nk-list-actions"><div class="nk-table-actions"><button class="btn secondary" onclick="openNoiKiemTm('${escAttr(item.id)}',this)">Xem</button>${item.canEdit?`<button class="app-icon-btn" onclick="editNoiKiemTm('${escAttr(item.id)}',this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>`:''}${item.canDelete?`<button class="app-icon-btn delete" onclick="deleteNoiKiemTm('${escAttr(item.id)}',this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>`:''}</div></td>
+    </tr>`;
+  }).join('');
+  return `<div class="ds-toolbar"><p class="meta">Tổng: ${items.length} phiếu</p></div><div class="nk-table-wrap nk-list-wrap nk-google-table-wrap"><table class="nk-list-table nk-google-table"><thead><tr><th class="nk-sticky-date">Ngày/Lần</th><th class="nk-sticky-dept">Đơn vị</th><th>I. ABO–Rh ống nghiệm</th><th>II. ABO–Rh gelcard</th><th>III. Coombs/KTBT</th><th>IV. Chéo hòa hợp</th><th>V. XN khác</th><th>Người thực hiện</th><th>Ghi nhận</th><th>Thao tác</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function nkViewRows(title, rows, columns){
@@ -9533,7 +9681,7 @@ function nkViewReagent(title, group){
 
 function renderNoiKiemTmViewHtml(item){
   const d=item.data||{};
-  return `<div class="nk-view">${renderNoiKiemTmFormHtml('nkView',d,item.khoaPhong||'',{readonly:true,ngayNoiKiem:item.ngayNoiKiem||''})}<div class="nk-paper-audit"><div><strong>Mã phiếu:</strong> ${esc(item.id||'')} · <strong>Lần:</strong> ${esc(item.lanTrongNgay||'')} · <strong>Đánh giá chung:</strong> ${nkStatusPill(item.danhGiaChung)}</div><div>Người tạo: ${esc(item.nguoiTaoTen||'')} · ${esc(dateTimeViColon(item.thoiDiemTao||''))}</div>${item.thoiDiemSua?`<div>Sửa cuối: ${esc(item.nguoiSuaTen||'')} · ${esc(dateTimeViColon(item.thoiDiemSua))}</div>`:''}</div></div>`;
+  return `<div class="nk-view">${renderNoiKiemTmFormHtml('nkView',d,item.khoaPhong||'',{readonly:true,ngayNoiKiem:item.ngayNoiKiem||'',sectionMeta:item.sectionMeta||{}})}<div class="nk-paper-audit"><div><strong>Mã phiếu:</strong> ${esc(item.id||'')} · <strong>Lần:</strong> ${esc(item.lanTrongNgay||'')} · <strong>Đánh giá chung:</strong> ${nkStatusPill(item.danhGiaChung)}</div><div><strong>Ghi nhận đầu:</strong> ${esc(item.thoiDiemTao||'—')}</div>${item.thoiDiemSua?`<div><strong>Cập nhật cuối:</strong> ${esc(item.thoiDiemSua)}${item.nguoiSuaTen?` – ${esc(item.nguoiSuaTen)}`:''}</div>`:''}</div></div>`;
 }
 
 window.openNoiKiemTm = async function(id, btn){
@@ -9550,21 +9698,23 @@ window.editNoiKiemTm = async function(id, btn){
   const run = async () => {
     const res = await api('noiKiemTm_get', {id});
     const item = res.data?.item || {};
-    openModal(`<div class="modal-card nk-modal"><div class="modal-head"><div class="modal-title">Sửa kết quả nội kiểm Truyền máu</div><button class="close-btn" onclick="closeModal()">×</button></div><div class="nk-edit-meta"><div><label>Ngày nội kiểm</label><input class="equal-control" readonly value="${escAttr(dateVi(item.ngayNoiKiem || ''))}"></div><div><label>Đơn vị</label><input class="equal-control" readonly value="${escAttr(item.khoaPhong || '')}"></div><div><label>Lần trong ngày</label><input class="equal-control" readonly value="${escAttr(item.lanTrongNgay || '')}"></div></div>${renderNoiKiemTmFormHtml('nkEdit', item.data || {}, item.khoaPhong || '', {ngayNoiKiem:item.ngayNoiKiem || ''})}<div class="btn-row"><button id="saveNoiKiemTmEditBtn" class="btn primary">Lưu cập nhật</button><button class="btn secondary" onclick="closeModal()">Đóng</button></div></div>`);
+    const permissions=item.sectionPermissions||{};
+    const editableSections=Object.keys(permissions).filter(key=>permissions[key]);
+    openModal(`<div class="modal-card nk-modal"><div class="modal-head"><div class="modal-title">Sửa kết quả nội kiểm Truyền máu</div><button class="close-btn" onclick="closeModal()">×</button></div><div class="nk-edit-meta"><div><label>Ngày nội kiểm</label><input class="equal-control" readonly value="${escAttr(dateVi(item.ngayNoiKiem||''))}"></div><div><label>Đơn vị</label><input class="equal-control" readonly value="${escAttr(item.khoaPhong||'')}"></div><div><label>Lần trong ngày</label><input class="equal-control" readonly value="${escAttr(item.lanTrongNgay||'')}"></div></div>${renderNoiKiemTmFormHtml('nkEdit',item.data||{},item.khoaPhong||'',{ngayNoiKiem:item.ngayNoiKiem||'',editMode:true,sectionPermissions:permissions,sectionMeta:item.sectionMeta||{}})}<div class="btn-row">${editableSections.length?'<button id="saveNoiKiemTmEditBtn" class="btn primary">Lưu cập nhật</button>':''}<button class="btn secondary" onclick="closeModal()">Đóng</button></div></div>`);
     scheduleViDatePickerEnhance();
-    $('#saveNoiKiemTmEditBtn')?.addEventListener('click', async () => {
-      const data = collectNoiKiemTmData('nkEdit');
-      try{ validateNoiKiemTmClient(data); }catch(err){ return toast(err.message); }
-      await withButton($('#saveNoiKiemTmEditBtn'), 'Đang lưu...', async () => {
-        await api('noiKiemTm_update', {id, data});
+    $('#saveNoiKiemTmEditBtn')?.addEventListener('click',async()=>{
+      const data=collectNoiKiemTmData('nkEdit',editableSections);
+      try{validateNoiKiemTmClient(data);}catch(err){return toast(err.message);}
+      await withButton($('#saveNoiKiemTmEditBtn'),'Đang lưu...',async()=>{
+        await api('noiKiemTm_update',{id,data,sections:editableSections});
         closeModal();
         await loadDsPhieuList(true);
         toast('Đã cập nhật phiếu');
       });
     });
   };
-  if(btn) return withButton(btn, 'Đang mở...', run);
-  try{ await run(); }catch(err){ toast(err.message); }
+  if(btn) return withButton(btn,'Đang mở...',run);
+  try{await run();}catch(err){toast(err.message);}
 };
 
 window.deleteNoiKiemTm = async function(id, btn){
