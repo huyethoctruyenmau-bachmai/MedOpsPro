@@ -1,4 +1,4 @@
-<!-- VERSION: 320.211 | index: 320 | Code.gs: 211 | INDEX-320.280726-NOI-KIEM-PHAN5-PERFORMER-IN-LINE-AUTO -->
+<!-- VERSION: 321.212 | index: 321 | Code.gs: 212 | INDEX-321.280726-NOI-KIEM-PHAN5-TWO-COLUMN-TABLE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5208,10 +5208,11 @@
     .nk-paper-eval-inline{display:flex;align-items:center;justify-content:center;gap:12px;min-height:30px;flex-wrap:nowrap}
     .nk-paper-eval-inline .nk-paper-radio-label{margin:0}
     .nk-paper-eval-label{font-weight:700}
+    .nk-paper-table-v{table-layout:fixed}
+    .nk-paper-table-v .nk-paper-other-content-cell{padding:0!important;vertical-align:top}
+    .nk-paper-table-v .nk-paper-other-performer-cell{padding:4px 3px!important;vertical-align:top;text-align:center}
     .nk-paper-other-wrap{
       position:relative;
-      display:grid;
-      grid-template-columns:minmax(0,1fr);
       min-height:90px;
       overflow:visible;
       background-color:#fff;
@@ -5220,7 +5221,7 @@
       background-position:0 0;
     }
     .nk-paper-other,.nk-paper-other-view{
-      grid-area:1 / 1;
+      display:block;
       width:100%;
       min-height:90px;
       padding:0 5px!important;
@@ -5233,29 +5234,21 @@
       background:transparent!important;
       background-image:none!important;
     }
-    .nk-paper-other-wrap.has-content .nk-paper-other,
-    .nk-paper-other-wrap.has-content .nk-paper-other-view{padding-bottom:32px!important}
     .nk-paper-other{height:90px;resize:vertical;outline:0}
     .nk-paper-other:focus{background-color:rgba(255,253,240,.82)!important}
     .nk-paper-other-view{white-space:pre-wrap}
     .nk-paper-other-performer-row{
-      grid-area:1 / 1;
-      align-self:end;
-      justify-self:end;
-      z-index:2;
-      display:flex;
-      justify-content:flex-end;
-      align-items:flex-start;
-      width:min(430px,48%);
+      display:block;
+      width:100%;
       min-width:0;
-      margin:0 3px 2px 0;
+      margin:0;
       padding:0;
       border:0;
-      background:rgba(255,255,255,.96);
+      background:transparent;
     }
     .nk-paper-other-performer-row.is-hidden{display:none!important}
     .nk-paper-other-performer-box{width:100%;min-width:0}
-    .nk-paper-other-performer-label{padding:0 0 2px;font-size:14px;font-weight:700;text-align:center}
+    .nk-paper-other-performer-label{padding:0 0 4px;font-size:14px;font-weight:700;text-align:center}
     .nk-paper-other-performer-control{min-width:0}
     .nk-paper-other-performer-control .nk-performer-editor{max-width:none}
     .nk-paper-other-performer-control .nk-paper-performer-value{min-height:30px}
@@ -5337,8 +5330,8 @@
       .nk-paper-check-view.is-checked::after{left:0;top:-5px;font-size:18px;line-height:16px}
       .nk-paper-other-wrap{min-height:66px;background-image:radial-gradient(circle at 2px 21px,#555 1px,transparent 1.2px);background-size:5px 22px}
       .nk-paper-other,.nk-paper-other-view{min-height:66px;height:66px;padding:0 3px!important;font-size:10px;line-height:22px!important}
-      .nk-paper-other-wrap.has-content .nk-paper-other,.nk-paper-other-wrap.has-content .nk-paper-other-view{padding-bottom:23px!important}
-      .nk-paper-other-performer-row{width:58%;margin:0 1px 1px 0;padding:0}
+      .nk-paper-table-v .nk-paper-other-performer-cell{padding:2px 1px!important}
+      .nk-paper-other-performer-row{width:100%;margin:0;padding:0}
       .nk-paper-other-performer-box{width:100%;min-width:0}
       .nk-paper-other-performer-label{padding:0 0 1px;font-size:clamp(6.5px,1.8vw,9px)}
       .nk-paper-other-performer-control .nk-performer-editor{max-width:none}
@@ -5526,7 +5519,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-320.280726-NOI-KIEM-PHAN5-PERFORMER-IN-LINE-AUTO';
+const APP_VERSION = 'INDEX-321.280726-NOI-KIEM-PHAN5-TWO-COLUMN-TABLE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -9368,7 +9361,7 @@ function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
     <div data-nk-section="PHAN_2">${nkPaperTableII(prefix,gel,dept,isSectionReadonly('PHAN_2'))}${audit('PHAN_2')}</div>
     <div data-nk-section="PHAN_3">${nkPaperTableIII(prefix,coombs,dept,isSectionReadonly('PHAN_3'))}${audit('PHAN_3')}</div>
     <div data-nk-section="PHAN_4">${nkPaperTableIV(prefix,cross,dept,isSectionReadonly('PHAN_4'))}${audit('PHAN_4')}</div>
-    <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div><div class="nk-paper-other-wrap${hasOtherContent?' has-content':''}">${isSectionReadonly('PHAN_5')?`<div class="nk-paper-other-view">${esc(d.xetNghiemKhac||'')}</div>`:`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}<div class="nk-paper-other-performer-row${hasOtherContent?'':' is-hidden'}"><div class="nk-paper-other-performer-box"><div class="nk-paper-other-performer-label">Người thực hiện</div><div class="nk-paper-other-performer-control">${nkPaperPerformerSelect(prefix,'Other',(isSectionReadonly('PHAN_5')&&!hasOtherContent)?[]:otherPerformers,dept,isSectionReadonly('PHAN_5'))}</div></div></div></div>${audit('PHAN_5')}</div>
+    <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div><table class="nk-paper-table nk-paper-table-v"><colgroup><col style="width:82%"><col style="width:18%"></colgroup><tbody><tr><td class="nk-paper-other-content-cell"><div class="nk-paper-other-wrap${hasOtherContent?' has-content':''}">${isSectionReadonly('PHAN_5')?`<div class="nk-paper-other-view">${esc(d.xetNghiemKhac||'')}</div>`:`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}</div></td><td class="nk-paper-other-performer-cell"><div class="nk-paper-other-performer-row${hasOtherContent?'':' is-hidden'}"><div class="nk-paper-other-performer-box"><div class="nk-paper-other-performer-label">Người thực hiện</div><div class="nk-paper-other-performer-control">${nkPaperPerformerSelect(prefix,'Other',(isSectionReadonly('PHAN_5')&&!hasOtherContent)?[]:otherPerformers,dept,isSectionReadonly('PHAN_5'))}</div></div></div></td></tr></tbody></table>${audit('PHAN_5')}</div>
     <div class="nk-paper-footer"><div>BM.08.QL.30</div><div>Trang 2 / 2<br>Phiên bản BM: 2.3.3</div><div>Ngày ban hành BM: 01/08/2024</div></div>
   </div></div></div>`;
 }
@@ -9383,7 +9376,8 @@ function updateNoiKiemTmPaperDateHeader(){
 function nkSyncOtherPerformerVisibility(input){
   const field=input?.matches?.('.nk-paper-other') ? input : input?.querySelector?.('.nk-paper-other');
   const wrap=field?.closest?.('.nk-paper-other-wrap');
-  const performer=wrap?.querySelector?.('.nk-paper-other-performer-row');
+  const section=field?.closest?.('[data-nk-section="PHAN_5"]');
+  const performer=section?.querySelector?.('.nk-paper-other-performer-row');
   if(!field || !wrap || !performer) return;
   const visible=!!nkText(field.value);
   wrap.classList.toggle('has-content',visible);
