@@ -1,4 +1,4 @@
-<!-- VERSION: 316.210 | index: 316 | Code.gs: 210 | INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX -->
+<!-- VERSION: 318.211 | index: 318 | Code.gs: 211 | INDEX-318.280726-NOI-KIEM-PHAN5-PERFORMERS -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5226,6 +5226,11 @@
     .nk-paper-other{height:90px;resize:vertical;outline:0}
     .nk-paper-other:focus{background-color:#fffdf0}
     .nk-paper-other-view{white-space:pre-wrap}
+    .nk-paper-other-performer-row{display:grid;grid-template-columns:145px minmax(0,1fr);gap:8px;align-items:start;margin-top:3px;padding:4px 3px 2px;border-top:1px solid #666}
+    .nk-paper-other-performer-label{padding-top:6px;font-size:14px;font-weight:700;text-align:center}
+    .nk-paper-other-performer-control{min-width:0}
+    .nk-paper-other-performer-control .nk-performer-editor{max-width:360px}
+    .nk-paper-other-performer-control .nk-paper-performer-value{min-height:30px}
     .nk-paper-footer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:end;margin-top:4px;font-size:12.5px;line-height:1.2;color:#333}
     .nk-paper-footer>div:nth-child(2){text-align:center}
     .nk-paper-footer>div:nth-child(3){text-align:right}
@@ -5303,6 +5308,9 @@
       .nk-paper-check-view{width:14px;height:14px;flex-basis:14px}
       .nk-paper-check-view.is-checked::after{left:0;top:-5px;font-size:18px;line-height:16px}
       .nk-paper-other,.nk-paper-other-view{min-height:66px;height:66px;padding:0 3px!important;font-size:10px;line-height:22px!important;background-image:radial-gradient(circle at 2px 21px,#555 1px,transparent 1.2px);background-size:5px 22px}
+      .nk-paper-other-performer-row{grid-template-columns:70px minmax(0,1fr);gap:3px;margin-top:2px;padding:2px 1px 1px}
+      .nk-paper-other-performer-label{padding-top:4px;font-size:clamp(6.5px,1.8vw,9px)}
+      .nk-paper-other-performer-control .nk-performer-editor{max-width:none}
       .nk-paper-footer{gap:3px;font-size:clamp(6px,1.6vw,8px)}
       .nk-paper .vi-date-wrap{min-width:0!important;height:16px!important;min-height:16px!important;max-height:16px!important}
       .nk-paper .vi-date-wrap .vi-date-display{height:16px!important;min-height:16px!important;max-height:16px!important;padding:0 1px!important;font-size:clamp(6.5px,1.75vw,9px)!important;line-height:14px!important}
@@ -5409,7 +5417,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX</p>
+      <p class="login-version">Version: INDEX-318.280726-NOI-KIEM-PHAN5-PERFORMERS</p>
     </div>
   </div>
 
@@ -5418,7 +5426,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX</div>
+    <div class="login-loading-version">Version: INDEX-318.280726-NOI-KIEM-PHAN5-PERFORMERS</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5462,7 +5470,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX</div>
+    <div class="app-version">Version: INDEX-318.280726-NOI-KIEM-PHAN5-PERFORMERS</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5487,7 +5495,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX';
+const APP_VERSION = 'INDEX-318.280726-NOI-KIEM-PHAN5-PERFORMERS';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6046,7 +6054,7 @@ async function withInlineBusy(el, busyText, fn){
 /* ================= TẠO PHIẾU ================= */
 
 // ===== MODULE: JS_CREATE_PHIEU_START =====
-function renderCreateTab(){
+function renderCreateTab(preferredLoai = ''){
   const today = todayIso();
   const now = toDatetimeLocal(hanoiNowIso());
   const allowTm = isSystemAdminAccount(state.user) || isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
@@ -6177,6 +6185,11 @@ function renderCreateTab(){
       </div>
     </div>
   `;
+
+  const createLoaiEl = $('#createLoai');
+  if(preferredLoai && createLoaiEl && Array.from(createLoaiEl.options).some(o => o.value === preferredLoai)){
+    createLoaiEl.value = preferredLoai;
+  }
 
   state.selectedStaff = [];
   state.selectedStaffCandidate = null;
@@ -7218,7 +7231,7 @@ async function submitCreatePhieu(){
       await api('createPhieu', payload);
       clearListCaches();
       toast('Tạo phiếu thành công');
-      renderCreateTab();
+      renderCreateTab(loai);
     });
   }
 
@@ -7234,7 +7247,7 @@ async function submitCreatePhieu(){
       await api('createPhieu', payload);
       clearListCaches();
       toast('Tạo phiếu thành công');
-      renderCreateTab();
+      renderCreateTab(loai);
     });
   }
 
@@ -7259,7 +7272,7 @@ async function submitCreatePhieu(){
     const res = await api('createPhieu', payload);
     clearListCaches();
     toast('Tạo phiếu thành công');
-    renderCreateTab();
+    renderCreateTab(loai);
   });
 }
 
@@ -8049,7 +8062,7 @@ async function submitCreateTmPhieu(loai){
     const res = await api('createTmPhieu', payload);
     clearListCaches();
     toast('Tạo phiếu thành công');
-    renderCreateTab();
+    renderCreateTab(loai);
   });
 }
 
@@ -9241,7 +9254,7 @@ function nkPaperOrgHeader(dept){
 
 function nkPaperHasValue(value){
   if(Array.isArray(value)) return value.some(nkPaperHasValue);
-  if(value && typeof value === 'object') return Object.keys(value).some(key => !['danhGia','nguoiThucHien','schemaVersion'].includes(key) && nkPaperHasValue(value[key]));
+  if(value && typeof value === 'object') return Object.keys(value).some(key => !['danhGia','nguoiThucHien','xetNghiemKhacNguoiThucHien','schemaVersion'].includes(key) && nkPaperHasValue(value[key]));
   return nkText(value) !== '';
 }
 
@@ -9308,7 +9321,7 @@ function nkSectionAuditHtml(meta){
 }
 
 function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
-  const d=data||{}, tube=d.aboRhOngNghiem||{}, gel=d.aboRhGelcard||{}, coombs=d.coombsKtbt||{}, cross=d.cheoHoaHop||{};
+  const d=data||{}, tube=d.aboRhOngNghiem||{}, gel=d.aboRhGelcard||{}, coombs=d.coombsKtbt||{}, cross=d.cheoHoaHop||{}, otherPerformers=d.xetNghiemKhacNguoiThucHien||[];
   const readonly=!!meta.readonly;
   const editMode=!!meta.editMode;
   const permissions=meta.sectionPermissions||{};
@@ -9324,7 +9337,7 @@ function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
     <div data-nk-section="PHAN_2">${nkPaperTableII(prefix,gel,dept,isSectionReadonly('PHAN_2'))}${audit('PHAN_2')}</div>
     <div data-nk-section="PHAN_3">${nkPaperTableIII(prefix,coombs,dept,isSectionReadonly('PHAN_3'))}${audit('PHAN_3')}</div>
     <div data-nk-section="PHAN_4">${nkPaperTableIV(prefix,cross,dept,isSectionReadonly('PHAN_4'))}${audit('PHAN_4')}</div>
-    <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div>${isSectionReadonly('PHAN_5')?`<div class="nk-paper-other-view">${esc(d.xetNghiemKhac||'')}</div>`:`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}${audit('PHAN_5')}</div>
+    <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div>${isSectionReadonly('PHAN_5')?`<div class="nk-paper-other-view">${esc(d.xetNghiemKhac||'')}</div>`:`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}<div class="nk-paper-other-performer-row"><div class="nk-paper-other-performer-label">Người thực hiện</div><div class="nk-paper-other-performer-control">${nkPaperPerformerSelect(prefix,'Other',(isSectionReadonly('PHAN_5')&&!nkText(d.xetNghiemKhac))?[]:otherPerformers,dept,isSectionReadonly('PHAN_5'))}</div></div>${audit('PHAN_5')}</div>
     <div class="nk-paper-footer"><div>BM.08.QL.30</div><div>Trang 2 / 2<br>Phiên bản BM: 2.3.3</div><div>Ngày ban hành BM: 01/08/2024</div></div>
   </div></div></div>`;
 }
@@ -9512,6 +9525,7 @@ function nkPruneUnusedLotDefaults(data, preserveSections=[]){
     if(!crossTm31Active) nkClearUnusedLotGroup(cross.gelcardTm31);
     if(!crossActive) cross.nguoiThucHien = [];
   }
+  if(!preserve.has('PHAN_5') && !nkText(d.xetNghiemKhac)) d.xetNghiemKhacNguoiThucHien = [];
   return d;
 }
 
@@ -9521,7 +9535,7 @@ function collectNoiKiemTmData(prefix, preserveSections=[]){
   const gelRows=nkCollectGelRows(prefix);
   const tubePerformers=nkPerformer(prefix,'Tube');
   const data = {
-    schemaVersion:4,
+    schemaVersion:5,
     aboRhOngNghiem:{
       huyetThanhMau:{lotNo:nkGet(prefix,'SerumLot'), hanSuDung:getDateInputIso(`${prefix}SerumHsd`), benhPham:serumRows, danhGia:nkAggregateRowEval(serumRows), nguoiThucHien:tubePerformers},
       hongCauMau:{lotNo:nkGet(prefix,'RedLot'), hanSuDung:getDateInputIso(`${prefix}RedHsd`), benhPham:redRows, danhGia:nkAggregateRowEval(redRows), nguoiThucHien:tubePerformers}
@@ -9542,14 +9556,15 @@ function collectNoiKiemTmData(prefix, preserveSections=[]){
       benhPham:nkCollectCrossRows(prefix),
       nguoiThucHien:nkPerformer(prefix,'Cross')
     },
-    xetNghiemKhac:nkGet(prefix,'Other')
+    xetNghiemKhac:nkGet(prefix,'Other'),
+    xetNghiemKhacNguoiThucHien:nkPerformer(prefix,'Other')
   };
   return nkPruneUnusedLotDefaults(data,preserveSections);
 }
 
 function nkHasValue(value){
   if(Array.isArray(value)) return value.some(nkHasValue);
-  if(value && typeof value === 'object') return Object.keys(value).some(k => !['danhGia','nguoiThucHien','schemaVersion'].includes(k) && nkHasValue(value[k]));
+  if(value && typeof value === 'object') return Object.keys(value).some(k => !['danhGia','nguoiThucHien','xetNghiemKhacNguoiThucHien','schemaVersion'].includes(k) && nkHasValue(value[k]));
   return nkText(value) !== '';
 }
 
@@ -9590,7 +9605,10 @@ function validateNoiKiemTmClient(data){
     if(rows.some(r => nkText(r.tm30))) requireLotHsd(cross.gelcardTm30 || {}, 'Gelcard Neutral Ortho Vision TM.30 của Chéo hòa hợp', false);
     if(rows.some(r => nkText(r.tm31))) requireLotHsd(cross.gelcardTm31 || {}, 'Gelcard Neutral Ortho Vision TM.31 của Chéo hòa hợp', false);
   }
-  if(nkText(data.xetNghiemKhac)) active.push('Xét nghiệm khác');
+  if(nkText(data.xetNghiemKhac)){
+    active.push('Xét nghiệm khác');
+    if(!hasPerformer(data.xetNghiemKhacNguoiThucHien)) throw new Error('Vui lòng chọn người thực hiện tại Xét nghiệm khác.');
+  }
   if(!active.length) throw new Error('Vui lòng nhập ít nhất một nội dung kết quả nội kiểm.');
   return true;
 }
@@ -9615,7 +9633,7 @@ async function submitCreateNoiKiemTm(){
     nkPendingCreateRequestId='';
     clearListCaches();
     toast('Đã ghi nhận kết quả nội kiểm');
-    renderCreateTab();
+    renderCreateTab(LOAI_NOI_KIEM_TM);
   });
 }
 
