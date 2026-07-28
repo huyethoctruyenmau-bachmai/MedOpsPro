@@ -1,4 +1,4 @@
-<!-- VERSION: 313.209 | index: 313 | Code.gs: 209 | INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM -->
+<!-- VERSION: 316.210 | index: 316 | Code.gs: 210 | INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5229,9 +5229,9 @@
     .nk-paper-footer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:end;margin-top:4px;font-size:12.5px;line-height:1.2;color:#333}
     .nk-paper-footer>div:nth-child(2){text-align:center}
     .nk-paper-footer>div:nth-child(3){text-align:right}
-    .nk-paper .vi-date-wrap{display:inline-block!important;flex:1 1 auto!important;width:auto!important;min-width:55px!important}
-    .nk-paper .vi-date-wrap .vi-date-display{display:block!important;width:100%!important;height:21px!important;min-height:21px!important;padding:0 2px!important;border:0!important;border-bottom:1px dotted #555!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;font-family:"Times New Roman",Times,serif!important;font-size:13.5px!important;line-height:20px!important;text-align:left!important;color:#111!important;cursor:pointer!important}
-    .nk-paper .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;opacity:0!important;cursor:pointer!important}
+    .nk-paper .vi-date-wrap{position:relative!important;display:inline-block!important;flex:1 1 auto!important;width:auto!important;min-width:55px!important;height:21px!important;min-height:21px!important;max-height:21px!important;align-self:center!important;overflow:hidden!important;pointer-events:none!important}
+    .nk-paper .vi-date-wrap .vi-date-display{display:block!important;width:100%!important;height:21px!important;min-height:21px!important;max-height:21px!important;padding:0 2px!important;border:0!important;border-bottom:1px dotted #555!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;font-family:"Times New Roman",Times,serif!important;font-size:13.5px!important;line-height:20px!important;text-align:left!important;color:#111!important;cursor:pointer!important;pointer-events:auto!important}
+    .nk-paper .vi-date-wrap input.vi-date-native{position:absolute!important;left:0!important;right:0!important;top:0!important;bottom:auto!important;width:100%!important;height:21px!important;min-height:21px!important;max-height:21px!important;margin:0!important;padding:0!important;opacity:0!important;cursor:pointer!important;pointer-events:none!important}
     .nk-paper .vi-date-wrap::after{display:none!important}
     .nk-paper-audit{max-width:1320px;margin:8px auto 0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fafafa;color:var(--muted);font-size:13px;line-height:1.5}
     .nk-create-actions{max-width:1320px;margin:10px auto 0}
@@ -5304,8 +5304,9 @@
       .nk-paper-check-view.is-checked::after{left:0;top:-5px;font-size:18px;line-height:16px}
       .nk-paper-other,.nk-paper-other-view{min-height:66px;height:66px;padding:0 3px!important;font-size:10px;line-height:22px!important;background-image:radial-gradient(circle at 2px 21px,#555 1px,transparent 1.2px);background-size:5px 22px}
       .nk-paper-footer{gap:3px;font-size:clamp(6px,1.6vw,8px)}
-      .nk-paper .vi-date-wrap{min-width:0!important}
-      .nk-paper .vi-date-wrap .vi-date-display{height:16px!important;min-height:16px!important;padding:0 1px!important;font-size:clamp(6.5px,1.75vw,9px)!important;line-height:14px!important}
+      .nk-paper .vi-date-wrap{min-width:0!important;height:16px!important;min-height:16px!important;max-height:16px!important}
+      .nk-paper .vi-date-wrap .vi-date-display{height:16px!important;min-height:16px!important;max-height:16px!important;padding:0 1px!important;font-size:clamp(6.5px,1.75vw,9px)!important;line-height:14px!important}
+      .nk-paper .vi-date-wrap input.vi-date-native{height:16px!important;min-height:16px!important;max-height:16px!important}
       .nk-modal{width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;overflow-x:hidden!important}
       .nk-modal .modal-head{position:sticky;top:0;z-index:5;background:#fff}
       .nk-table-actions{justify-content:flex-start}
@@ -5408,7 +5409,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM</p>
+      <p class="login-version">Version: INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX</p>
     </div>
   </div>
 
@@ -5417,7 +5418,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM</div>
+    <div class="login-loading-version">Version: INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX</div>
   </div>
 
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
@@ -5461,7 +5462,7 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM</div>
+    <div class="app-version">Version: INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX</div>
   </div>
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
@@ -5486,7 +5487,7 @@
 ========================================================= */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-313.280726-NOI-KIEM-THEO-PHAN-THEO-NAM';
+const APP_VERSION = 'INDEX-316.280726-NOI-KIEM-CHEO-HOA-HOP-PERFORMER-FIX';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -9282,7 +9283,7 @@ function nkPaperTableIII(prefix, coombs, dept, readonly){
   const matrix=coombs.gelcardAhgMatrix||{}, tm30=coombs.gelcardTm30||{}, tm31=coombs.gelcardTm31||{};
   return `<div class="nk-paper-section-label">III.&nbsp; Xét nghiệm Coombs, Sàng lọc KTBT, Định danh KTBT</div>
   <table class="nk-paper-table nk-paper-table-iii"><colgroup><col style="width:12.5%"><col style="width:12.5%"><col span="6" style="width:10%"><col style="width:14%"></colgroup><tbody>
-  <tr><th rowspan="3"><div class="nk-paper-group-title">Anti D<br>(Loại IgG)</div>${nkPaperLotLines(prefix,'AntiD',coombs.antiDIgG||{},readonly)}</th><th rowspan="3"><div class="nk-paper-group-title">HC Panel VIII</div>${nkPaperLotLines(prefix,'Panel',coombs.hcPanel||{},readonly)}</th><th colspan="2"><div class="nk-paper-method-title">Gelcard AHG - Matrix</div>${nkPaperLotLines(prefix,'Matrix',matrix,readonly)}</th><th colspan="2"><div class="nk-paper-method-title">Gelcard Neutral Ortho vision (TM.30)</div>${nkPaperLotLines(prefix,'Tm30',tm30,readonly)}</th><th colspan="2"><div class="nk-paper-method-title">Gelcard Neutral Ortho vision (TM.31)</div>${nkPaperLotLines(prefix,'Tm31',tm31,readonly)}</th><th rowspan="2">Người<br>thực hiện</th></tr>
+  <tr><th rowspan="3"><div class="nk-paper-group-title">Anti D<br>(Loại IgG)</div>${nkPaperLotLines(prefix,'AntiD',coombs.antiDIgG||{},readonly)}</th><th rowspan="3"><div class="nk-paper-group-title">HC Panel VIII</div>${nkPaperLotLines(prefix,'Panel',coombs.hcPanel||{},readonly)}</th><th colspan="2"><div class="nk-paper-method-title">Gelcard AHG - Matrix</div>${nkPaperLotLines(prefix,'Matrix',matrix,readonly)}</th><th colspan="2"><div class="nk-paper-method-title">Gelcard AHG Ortho vision (TM.30)</div>${nkPaperLotLines(prefix,'Tm30',tm30,readonly)}</th><th colspan="2"><div class="nk-paper-method-title">Gelcard AHG Ortho vision (TM.31)</div>${nkPaperLotLines(prefix,'Tm31',tm31,readonly)}</th><th rowspan="2">Người<br>thực hiện</th></tr>
   <tr><th>Chứng dương</th><th>Chứng âm</th><th>Chứng dương</th><th>Chứng âm</th><th>Chứng dương</th><th>Chứng âm</th></tr>
   <tr><td>${nkReactionInput(`${prefix}MatrixChungDuong`,matrix.chungDuong||'','',readonly)}</td><td>${nkReactionInput(`${prefix}MatrixChungAm`,matrix.chungAm||'','',readonly)}</td><td>${nkReactionInput(`${prefix}Tm30ChungDuong`,tm30.chungDuong||'','',readonly)}</td><td>${nkReactionInput(`${prefix}Tm30ChungAm`,tm30.chungAm||'','',readonly)}</td><td>${nkReactionInput(`${prefix}Tm31ChungDuong`,tm31.chungDuong||'','',readonly)}</td><td>${nkReactionInput(`${prefix}Tm31ChungAm`,tm31.chungAm||'','',readonly)}</td><td class="nk-paper-performer" rowspan="2">${nkPaperPerformerSelect(prefix,'Coombs',readonly&&!nkPaperGroupActive(coombs)?{}:coombs.nguoiThucHien,dept,readonly)}</td></tr>
   <tr><th colspan="2">Đánh giá</th><td colspan="2">${nkPaperEvalInline(prefix,'Matrix',readonly&&!nkPaperGroupActive(matrix)?'':nkDefaultEval(matrix.danhGia),readonly)}</td><td colspan="2">${nkPaperEvalInline(prefix,'Tm30',readonly&&!nkPaperGroupActive(tm30)?'':nkDefaultEval(tm30.danhGia),readonly)}</td><td colspan="2">${nkPaperEvalInline(prefix,'Tm31',readonly&&!nkPaperGroupActive(tm31)?'':nkDefaultEval(tm31.danhGia),readonly)}</td></tr></tbody></table>`;
@@ -9563,11 +9564,11 @@ function nkActiveGroup(group){
 function validateNoiKiemTmClient(data){
   const active = [];
   const hasPerformer = value => nkNormalizePerformerList(value, false).length > 0;
-  const requireLotHsd = (group, label) => {
+  const requireLotHsd = (group, label, requirePerformer=true) => {
     if(!nkActiveGroup(group)) return;
     active.push(label);
     if(!nkText(group.lotNo) || !nkText(group.hanSuDung)) throw new Error(`Vui lòng nhập đầy đủ Số Lot.No và Hạn sử dụng tại ${label}.`);
-    if(!hasPerformer(group.nguoiThucHien)) throw new Error(`Vui lòng chọn người thực hiện tại ${label}.`);
+    if(requirePerformer && !hasPerformer(group.nguoiThucHien)) throw new Error(`Vui lòng chọn người thực hiện tại ${label}.`);
   };
   const serum = data.aboRhOngNghiem?.huyetThanhMau || {};
   const red = data.aboRhOngNghiem?.hongCauMau || {};
@@ -9585,9 +9586,9 @@ function validateNoiKiemTmClient(data){
     active.push('Chéo hòa hợp');
     if(!hasPerformer(cross.nguoiThucHien)) throw new Error('Vui lòng chọn người thực hiện tại Chéo hòa hợp.');
     const rows = nkArray(cross.benhPham);
-    if(rows.some(r => nkText(r.neutralMatrix))) requireLotHsd(cross.gelcardNeutralMatrix || {}, 'Gelcard Neutral Matrix của Chéo hòa hợp');
-    if(rows.some(r => nkText(r.tm30))) requireLotHsd(cross.gelcardTm30 || {}, 'Gelcard Neutral Ortho Vision TM.30 của Chéo hòa hợp');
-    if(rows.some(r => nkText(r.tm31))) requireLotHsd(cross.gelcardTm31 || {}, 'Gelcard Neutral Ortho Vision TM.31 của Chéo hòa hợp');
+    if(rows.some(r => nkText(r.neutralMatrix))) requireLotHsd(cross.gelcardNeutralMatrix || {}, 'Gelcard Neutral Matrix của Chéo hòa hợp', false);
+    if(rows.some(r => nkText(r.tm30))) requireLotHsd(cross.gelcardTm30 || {}, 'Gelcard Neutral Ortho Vision TM.30 của Chéo hòa hợp', false);
+    if(rows.some(r => nkText(r.tm31))) requireLotHsd(cross.gelcardTm31 || {}, 'Gelcard Neutral Ortho Vision TM.31 của Chéo hòa hợp', false);
   }
   if(nkText(data.xetNghiemKhac)) active.push('Xét nghiệm khác');
   if(!active.length) throw new Error('Vui lòng nhập ít nhất một nội dung kết quả nội kiểm.');
