@@ -1,4 +1,4 @@
-<!-- VERSION: 322.212 | index: 322 | Code.gs: 212 | INDEX-322.280726-NOI-KIEM-DS-DONVI-BORDER -->
+<!-- VERSION: 323.212 | index: 323 | Code.gs: 212 | INDEX-323.280726-MODULE-PHASE1-NO-BEHAVIOR-CHANGE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -17,13 +17,16 @@
   <meta name="apple-mobile-web-app-title" content="MedOps Pro">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <!-- =========================================================
-    INDEX CHUẨN HÓA 1 FILE - SỔ TRỰC/GIAO BAN
+    INDEX 1 FILE - TỔ CHỨC MODULE PHỤC VỤ TÁCH SRC/DIST SAU NÀY
+    Giai đoạn 1: lập ranh giới module, không thay đổi hành vi ứng dụng.
     Quy ước bảo trì:
-    1) Vẫn giữ một file index.html để anh chỉ cần copy/thay một file khi sửa frontend.
-    2) Không tách thành nhiều file CSS/JS ở giai đoạn hiện tại.
-    3) Các vùng CSS/JS được đánh dấu MODULE để khi sửa chỉ động đúng vùng liên quan.
-    4) Không đổi ID HTML, tên hàm JS, tên biến quan trọng nếu không có yêu cầu riêng.
-    5) Nếu lần sau chỉ sửa giao diện: ưu tiên chỉ xuất lại index.html.text.
+    1) Vẫn giữ một file index.html để triển khai và sửa nhỏ thuận tiện.
+    2) Không đổi thứ tự CSS, DOM, ID/class, tên hàm public hoặc action API.
+    3) CSS/HTML/JS cũ được giữ nguyên vị trí; chỉ thêm START/END và bản đồ phụ thuộc.
+    4) Code mới dùng window.MedOps, state riêng, root riêng và event chỉ bind một lần.
+    5) Module cũ được chuyển dần theo điểm chạm; luôn giữ hàm cầu nối tương thích.
+    6) Mục tiêu tách sau này: src/features/* -> build -> dist/index.html.
+    7) Không tự chuyển framework hoặc tách file khi chưa được xác nhận.
   ========================================================== -->
   <style>
     /* =========================================================
@@ -193,6 +196,8 @@
     .staff-suggest .staff-code{font-weight:700;color:var(--wine-dark)}
     .staff-suggest .staff-role{color:var(--g-muted);font-size:12.5px}
 
+    /* ===== MODULE: CSS_BASE_THEME_END ===== */
+
     /* ===== MODULE: CSS_TM_PHIEU_START ===== */
     .tm-report-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:2px}
     .tm-report-group{grid-column:span 12;border:1px solid var(--g-line);border-radius:10px;background:#fff;padding:10px}
@@ -240,6 +245,8 @@
     .manual-eq-inline .btn{min-height:30px;padding:0 10px}
     .tm-doc-view{white-space:pre-wrap;font-size:15px;line-height:1.65;color:var(--text);font-family:inherit}.tm-doc-view strong{font-weight:700}.tm-detail-card .field-name{font-weight:700;color:var(--muted)}.tm-detail-card .field-value{font-size:14px;line-height:1.45;white-space:pre-wrap}.tm-detail-card .tm-major-field .field-name{color:var(--wine-dark);font-weight:700;font-style:italic}.tm-view-table{min-width:420px;table-layout:fixed;font-size:13.5px}.tm-view-table th:nth-child(1),.tm-view-table td:nth-child(1){width:40px}.tm-view-table th:nth-child(2),.tm-view-table td:nth-child(2){width:170px;max-width:170px}.tm-view-table th:nth-child(3),.tm-view-table td:nth-child(3),.tm-view-table th:nth-child(4),.tm-view-table td:nth-child(4),.tm-view-table th:nth-child(5),.tm-view-table td:nth-child(5){width:70px;text-align:center}.phieu-inline .field-value.has-table{white-space:normal}.phieu-inline .field-value.has-table .tm-equip-wrap{margin:0}
     .locked-chip{padding-right:10px}
+    /* ===== MODULE: CSS_TM_PHIEU_END ===== */
+
     /* ===== MODULE: CSS_MODAL_COMMON_START ===== */
     .modal{
       position:fixed;inset:0;z-index:50;background:rgba(24,4,12,.56);display:flex;align-items:flex-start;justify-content:center;padding-top:8px;
@@ -251,6 +258,8 @@
     .close-btn:hover{background:#f1f3f4}
     .full-modal{align-items:stretch}
     .full-modal .modal-card{width:100%;max-width:none;height:100vh;max-height:100vh;border-radius:0;margin:0;padding-top:max(14px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}@supports (height: 100dvh){.full-modal .modal-card{height:100dvh;max-height:100dvh}}
+
+    /* ===== MODULE: CSS_MODAL_COMMON_END ===== */
 
     /* ===== MODULE: CSS_ACCOUNT_PWA_START ===== */
     .boot-screen{min-height:100%;display:grid;place-items:center;padding:24px;background:#f8f1f4;color:var(--g-text)}
@@ -352,6 +361,8 @@
     .gb-choice-main{font-weight:700;color:var(--wine-dark);font-size:14.5px;line-height:1.35}
     .gb-choice-sub{color:var(--muted);font-size:13px;line-height:1.35;margin-top:2px}
 
+
+    /* ===== MODULE: CSS_ACCOUNT_PWA_END ===== */
 
     /* ===== MODULE: CSS_DS_PHIEU_FILTER_START ===== */
     #tab-list .filter-grid{grid-template-columns:repeat(6,minmax(0,1fr));}
@@ -596,6 +607,8 @@
     }
 
   
+    /* ===== MODULE: CSS_DS_PHIEU_FILTER_END ===== */
+
     /* ===== MODULE: CSS_HOP_GIAO_BAN_START ===== */
     .gb-create-choice{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
     .gb-pdf-frame{width:100%;height:calc(100dvh - 150px);min-height:420px;border:1px solid var(--g-line);border-radius:12px;background:#fff}
@@ -647,6 +660,8 @@
       display:block;width:100%;max-width:980px;height:auto;background:#fff;
       box-shadow:0 1px 8px rgba(15,23,42,.18);border-radius:2px;
     }
+    /* ===== MODULE: CSS_HOP_GIAO_BAN_END ===== */
+
     /* ===== MODULE: CSS_PDF_VIEWER_WATERMARK_START ===== */
     .protected-view{position:relative;user-select:none;-webkit-user-select:none}
     .pdf-modal.protected-view{overflow:hidden}
@@ -697,6 +712,8 @@
       .pdf-loading-box{margin:12px;font-size:14px}
     }
 
+
+    /* ===== MODULE: CSS_PDF_VIEWER_WATERMARK_END ===== */
 
     /* ===== MODULE: CSS_PDF_TEMPLATE_SIGNATURE_START ===== */
     .template-config-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -832,6 +849,10 @@
     }
 
 
+    /* ===== MODULE: CSS_PDF_TEMPLATE_SIGNATURE_END ===== */
+
+    /* ===== MODULE: CSS_LEGACY_PATCHES_START ===== */
+    /* Các patch được giữ nguyên thứ tự để không làm đổi cascade hiện tại. */
     /* ===== ACCOUNT PATCH 87: VERSION LOGIN + DESKTOP FIXED LEFT + MOBILE INFO FIRST ===== */
     .login-author .login-version{display:none!important;margin-top:7px!important;font-size:12px!important;color:#777!important}
     @media (min-width:900px){
@@ -5397,10 +5418,12 @@
       .nk-view-mode .nk-paper-other-view{font-size:13px!important;line-height:28px!important;min-height:84px!important;height:auto!important;background-size:5px 28px!important}
       .nk-section-audit{justify-content:flex-start;font-size:10px}
     }
+    /* ===== MODULE: CSS_LEGACY_PATCHES_END ===== */
 </style>
 </head>
 <body>
 <!-- ===== MODULE: HTML_BODY_SHELL_START - boot/login/app/modal roots ===== -->
+  <!-- ===== MODULE: HTML_BOOT_START ===== -->
   <div id="bootScreen" class="boot-screen hidden">
     <div class="boot-box">
       <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><div class="brand-logo-safe"><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div></div>
@@ -5408,7 +5431,9 @@
       <p class="boot-sub">Đang khôi phục phiên đăng nhập</p>
     </div>
   </div>
+  <!-- ===== MODULE: HTML_BOOT_END ===== -->
 
+  <!-- ===== MODULE: HTML_LOGIN_START ===== -->
   <div id="loginScreen" class="login-screen hidden">
     <div class="login-hero">
       <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div>
@@ -5442,18 +5467,22 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-320.280726-NOI-KIEM-PHAN5-PERFORMER-IN-LINE-AUTO</p>
+      <p class="login-version">Version: INDEX-323.280726-MODULE-PHASE1-NO-BEHAVIOR-CHANGE</p>
     </div>
   </div>
+  <!-- ===== MODULE: HTML_LOGIN_END ===== -->
 
+  <!-- ===== MODULE: HTML_LOGIN_LOADING_START ===== -->
   <div id="loginLoadingOverlay" class="login-loading-overlay">
     <div class="login-loading-logo"><img src="./LOGO%20BVBM%20KO%20NEN.png?v=90.050626-LOADING-LOGO-NEN-TRONG-SUOT" alt="Logo Bệnh viện Bạch Mai"></div>
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-320.280726-NOI-KIEM-PHAN5-PERFORMER-IN-LINE-AUTO</div>
+    <div class="login-loading-version">Version: INDEX-323.280726-MODULE-PHASE1-NO-BEHAVIOR-CHANGE</div>
   </div>
+  <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
+  <!-- ===== MODULE: HTML_APP_ACTION_OVERLAY_START ===== -->
   <div id="appActionOverlay" class="app-action-overlay hidden" aria-live="polite" aria-busy="true">
     <div class="app-action-card">
       <span class="app-action-spinner" aria-hidden="true"></span>
@@ -5461,7 +5490,9 @@
       <div id="appActionSub" class="app-action-sub">Vui lòng chờ trong giây lát</div>
     </div>
   </div>
+  <!-- ===== MODULE: HTML_APP_ACTION_OVERLAY_END ===== -->
 
+  <!-- ===== MODULE: HTML_APP_SHELL_START ===== -->
   <div id="app" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
@@ -5495,13 +5526,17 @@
       <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-320.280726-NOI-KIEM-PHAN5-PERFORMER-IN-LINE-AUTO</div>
+    <div class="app-version">Version: INDEX-323.280726-MODULE-PHASE1-NO-BEHAVIOR-CHANGE</div>
   </div>
+  <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
+
+  <!-- ===== MODULE: HTML_SHARED_ROOTS_START ===== -->
   <datalist id="deptList"></datalist>
   <datalist id="staffDatalist"></datalist>
   <div id="modalRoot"></div>
   <div id="toast" class="toast hidden"></div>
   <div id="secureBlackout" class="secure-blackout hidden">Nội dung được bảo vệ</div>
+  <!-- ===== MODULE: HTML_SHARED_ROOTS_END ===== -->
 
 <!-- ===== MODULE: JAVASCRIPT_SINGLE_FILE_START ===== -->
 <script>
@@ -5517,10 +5552,48 @@
   JS_PDF_VIEWER          : tab PDF, xem PDF trong app, watermark, tải file
   JS_ACCOUNT             : tài khoản, chữ ký cá nhân, đổi mật khẩu, cấu hình
   Quy ước sửa code: lần sau sửa tính năng nào thì chỉ sửa trong vùng module tương ứng.
+  Lộ trình tách file: CORE/SHARED giữ API công khai; FEATURE chỉ thao tác root của chính nó.
 ========================================================= */
 
+/* ===== MODULE: JS_MEDOPS_NAMESPACE_START ===== */
+window.MedOps = window.MedOps || (() => {
+  const modules = Object.create(null);
+  const services = Object.create(null);
+  const meta = {
+    frontendVersion: '323.212',
+    architecturePhase: 'single-file-module-phase-1',
+    buildTarget: 'dist/index.html'
+  };
+
+  function registerModule(name, moduleApi){
+    const key = String(name || '').trim();
+    if(!key) throw new Error('Tên module không hợp lệ.');
+    if(modules[key] && modules[key] !== moduleApi){
+      throw new Error(`Module đã được đăng ký: ${key}`);
+    }
+    modules[key] = moduleApi || {};
+    return modules[key];
+  }
+
+  function registerService(name, serviceApi){
+    const key = String(name || '').trim();
+    if(!key) throw new Error('Tên service không hợp lệ.');
+    if(services[key] && services[key] !== serviceApi){
+      throw new Error(`Service đã được đăng ký: ${key}`);
+    }
+    services[key] = serviceApi || {};
+    return services[key];
+  }
+
+  function getModule(name){ return modules[String(name || '').trim()] || null; }
+  function getService(name){ return services[String(name || '').trim()] || null; }
+
+  return { meta, modules, services, registerModule, registerService, getModule, getService };
+})();
+/* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
+
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-322.280726-NOI-KIEM-DS-DONVI-BORDER';
+const APP_VERSION = 'INDEX-323.280726-MODULE-PHASE1-NO-BEHAVIOR-CHANGE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6018,6 +6091,8 @@ function switchTab(tab){
 
 /* ================= API ================= */
 
+// ===== MODULE: JS_CONFIG_STATE_END =====
+
 // ===== MODULE: JS_API_START =====
 async function api(action, payload={}, opts={}){
   const token = opts.token || state.token || '';
@@ -6077,6 +6152,8 @@ async function withInlineBusy(el, busyText, fn){
 }
 
 /* ================= TẠO PHIẾU ================= */
+
+// ===== MODULE: JS_API_END =====
 
 // ===== MODULE: JS_CREATE_PHIEU_START =====
 function renderCreateTab(preferredLoai = ''){
@@ -6722,6 +6799,8 @@ function renderBanGiaoTaiSanInput(useConfiguredEquipment){
   `;
   bindCreateEquipmentEvents();
 }
+
+// ===== MODULE: JS_CREATE_PHIEU_END =====
 
 // ===== MODULE: JS_TM_PHIEU_START =====
 function renderTmCreateEquipmentRow(it, idx, manual){
@@ -9872,6 +9951,8 @@ function sortPhieuByCreatedDesc(items){
   });
 }
 
+// ===== MODULE: JS_TM_PHIEU_END =====
+
 // ===== MODULE: JS_DS_PHIEU_START =====
 function isHandoverTabAllowedPhieu(p){
   const loai = p?.loaiPhieuGoc || p?.loaiPhieu || '';
@@ -10615,6 +10696,8 @@ function getGiaoBanFilters(){
   };
 }
 
+// ===== MODULE: JS_DS_PHIEU_END =====
+
 // ===== MODULE: JS_HOP_GIAO_BAN_START =====
 function formatGiaoBanPdfDownloadDateTime(value){
   const s = String(value || '').trim();
@@ -11042,6 +11125,8 @@ function bindGiaoBanPreviewAutoRefresh(){
   });
 }
 
+// ===== MODULE: JS_HOP_GIAO_BAN_END =====
+
 // ===== MODULE: JS_GIAO_BAN_MODAL_START =====
 function renderGiaoBanModal(){
   const g = state.currentGiaoBan;
@@ -11174,6 +11259,8 @@ function renderGiaoBanModal(){
   setTimeout(() => { $$('textarea').forEach(autoGrow); setupSignaturePad(); normalizeChairInput(); syncSignModeWithChair(); scheduleViDatePickerEnhance(); loadTmAttachmentImages(document.getElementById('modalRoot') || document); }, 0);
 }
 
+
+// ===== MODULE: JS_GIAO_BAN_MODAL_END =====
 
 // ===== MODULE: JS_BIEN_BAN_HOP_MODAL_START =====
 function renderGiaoBanDotXuatModal(){
@@ -12776,6 +12863,8 @@ async function submitChuTriSignature(btn, systemSign){
 
 /* ================= PDF ================= */
 
+// ===== MODULE: JS_BIEN_BAN_HOP_MODAL_END =====
+
 // ===== MODULE: JS_PDF_TAB_START =====
 function renderPdfTab(){
   const allowTm = isSystemAdminAccount(state.user) || isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
@@ -13410,6 +13499,8 @@ function accountInfoFallback(){
     isAdmin: !!u.isAdmin
   };
 }
+
+// ===== MODULE: JS_PDF_TAB_END =====
 
 // ===== MODULE: JS_ACCOUNT_START =====
 function renderAccountTab(){
@@ -14385,6 +14476,8 @@ async function previewPdfTemplate(type, btn){
     openGiaoBanPdf(url, 'Xem mẫu ' + type);
   });
 }
+
+// ===== MODULE: JS_ACCOUNT_END =====
 
 // ===== MODULE: JS_PDF_VIEWER_START =====
 async function openPdfTemplateEditor(type, btn){
@@ -15832,6 +15925,8 @@ function shortText(s, max){
   return esc(t.length > max ? t.slice(0,max) + '...' : t);
 }
 
+// ===== MODULE: JS_PDF_VIEWER_END =====
+
 // ===== MODULE: JS_UTILS_START =====
 function norm(s){
   return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim();
@@ -15843,6 +15938,9 @@ function esc(s){
 
 function escAttr(s){ return esc(s).replace(/`/g,'&#096;'); }
 function jsArg(s){ return JSON.stringify(String(s ?? '')).replace(/</g,'\u003C').replace(/>/g,'\u003E').replace(/&/g,'\u0026'); }
+// ===== MODULE: JS_UTILS_END =====
+
+// ===== MODULE: JS_LEGACY_PATCHES_START =====
 // ===== MODULE: JS_ALL_END =====
 
 /* ===== PATCH 197 JS: TDKMM dynamic other tests ===== */
@@ -15861,7 +15959,9 @@ window.removeTdkmmOtherLabRow = function(btn){
   if(row) row.remove();
 };
 
+// ===== MODULE: JS_LEGACY_PATCHES_END =====
 </script>
+<!-- ===== MODULE: JAVASCRIPT_SINGLE_FILE_END ===== -->
 <!-- ===== MODULE: HTML_BODY_SHELL_END ===== -->
 </body>
 </html>
