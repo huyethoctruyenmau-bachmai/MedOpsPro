@@ -1,4 +1,4 @@
-<!-- VERSION: 332.217 | index: 332 | Code.gs: 217 | INDEX-332.300726-NKTM-WIDE-SCROLL -->
+<!-- VERSION: 333.218 | index: 333 | Code.gs: 218 | INDEX-333.300726-LABO-TM24H -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5842,7 +5842,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '332.217',
+    frontendVersion: '333.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5875,7 +5875,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-332.300726-NKTM-WIDE-SCROLL';
+const APP_VERSION = 'INDEX-333.300726-LABO-TM24H';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6985,13 +6985,14 @@ function renderCreateTab(preferredLoai = ''){
   const today = todayIso();
   const now = toDatetimeLocal(hanoiNowIso());
   const allowTm = isSystemAdminAccount(state.user) || isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
+  const allowTm24h = canUseTm24hReportClient(state.user);
   const tmOptions = allowTm ? `
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>
             <option>${LOAI_NOI_KIEM_TM}</option>` : '';
   const bloodStockReportOption = allowTm ? `
             <option value="${LOAI_BAO_CAO_KHO_MAU}">Báo cáo kho máu</option>` : '';
-  const tmDailyStatsOption = allowTm ? `
+  const tmDailyStatsOption = allowTm24h ? `
             <option value="${LOAI_BAO_CAO_SO_LIEU_TM}">Báo cáo số liệu Truyền máu 24h</option>` : '';
   $('#tab-create').innerHTML = `
     <div class="card create-left-card">
@@ -13533,11 +13534,12 @@ async function submitChuTriSignature(btn, systemSign){
 // ===== MODULE: JS_PDF_TAB_START =====
 function renderPdfTab(){
   const allowTm = isSystemAdminAccount(state.user) || isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
+  const allowTm24h = canUseTm24hReportClient(state.user);
   const tmOptions = allowTm ? `
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>
             <option>${LOAI_NOI_KIEM_TM}</option>` : '';
-  const bloodStockPdfOption = allowTm ? `<option>${LOAI_BAO_CAO_KHO_MAU}</option><option>${LOAI_BAO_CAO_SO_LIEU_TM}</option>` : '';
+  const bloodStockPdfOption = `${allowTm ? `<option>${LOAI_BAO_CAO_KHO_MAU}</option>` : ''}${allowTm24h ? `<option>${LOAI_BAO_CAO_SO_LIEU_TM}</option>` : ''}`;
   $('#tab-pdf').innerHTML = `
     <div class="card">
       <h2 class="section-title">DS phiếu</h2>
@@ -16085,6 +16087,14 @@ function isXnhhCsNinhBinhDept(value){
 function isTruyenMauDept(value){
   const n = normalizeDeptFeatureName(value);
   return n.includes('truyen mau') || isXnhhCsNinhBinhDept(n);
+}
+
+function canUseTm24hReportClient(user){
+  const u = user || state.user || {};
+  const scopeGroup = String(state.permissionScope?.group || '').trim().toUpperCase();
+  return isSystemAdminAccount(u)
+    || isTruyenMauDept(u.khoaPhong || u.phongLamViec || '')
+    || scopeGroup === 'LABO';
 }
 
 function defaultTmEquipmentConfig(){
