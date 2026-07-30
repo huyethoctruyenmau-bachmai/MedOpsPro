@@ -1,4 +1,4 @@
-<!-- VERSION: 333.218 | index: 333 | Code.gs: 218 | INDEX-333.300726-LABO-TM24H -->
+<!-- VERSION: 334.218 | index: 334 | Code.gs: 218 | INDEX-334.310726-NKTM-SYNC-WIDTH -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5407,7 +5407,7 @@
       .nk-google-table .nk-sticky-date{width:96px;min-width:96px;max-width:96px}
       .nk-google-table .nk-sticky-dept{left:96px;width:165px;min-width:165px;max-width:165px}
       .nk-view-mode .nk-paper-scroll{overflow-x:auto!important;touch-action:pan-x pan-y!important}
-      .nk-view-mode .nk-paper{width:1120px!important;min-width:1120px!important;max-width:none!important;padding:10px 8px 7px!important}
+      .nk-view-mode .nk-paper{width:var(--nk-common-table-width,1320px)!important;min-width:var(--nk-common-table-width,1320px)!important;max-width:none!important;padding:10px 8px 7px!important}
       .nk-view-mode .nk-paper-header{grid-template-columns:1fr 1.55fr .8fr!important;gap:6px!important}
       .nk-view-mode .nk-paper-org,.nk-view-mode .nk-paper-date{font-size:12px!important}
       .nk-view-mode .nk-paper-title{font-size:16px!important}
@@ -5443,8 +5443,8 @@
       border-radius:10px;
     }
     .nk-form:not(.nk-view-mode) .nk-paper{
-      width:max-content!important;
-      min-width:1320px!important;
+      width:var(--nk-common-table-width,1320px)!important;
+      min-width:var(--nk-common-table-width,1320px)!important;
       max-width:none!important;
     }
     .nk-form:not(.nk-view-mode) .nk-paper-table-iii .nk-paper-lot-line{
@@ -5468,8 +5468,8 @@
         overflow:visible!important;
       }
       .nk-form:not(.nk-view-mode) .nk-paper{
-        width:max-content!important;
-        min-width:1320px!important;
+        width:var(--nk-common-table-width,1320px)!important;
+        min-width:var(--nk-common-table-width,1320px)!important;
         max-width:none!important;
         padding:10px 8px 7px!important;
       }
@@ -5526,7 +5526,7 @@
     #noiKiemTmConfigRoot .nkcfg-section-note{padding:10px 12px;background:#f8f9fa;border:1px solid #e8eaed;border-radius:8px;color:#5f6368;font-size:13px;margin-bottom:14px}
     #noiKiemTmConfigRoot .nkcfg-editing{border-color:#1a73e8;box-shadow:0 0 0 2px rgba(26,115,232,.1)}
     .nk-paper-config-empty{margin:4px 0 8px;padding:9px 12px;border:1px dashed #b8bdc4;border-radius:6px;background:#fafafa;color:#5f6368;font:13px Arial,sans-serif;text-align:center}
-    .nk-paper-subtable{margin-bottom:5px}
+    .nk-paper-subtable{width:var(--nk-common-table-width,1320px);min-width:var(--nk-common-table-width,1320px);margin-bottom:5px}
     @media(max-width:760px){
       #noiKiemTmConfigRoot .nkcfg-body{padding:12px}
       #noiKiemTmConfigRoot .nkcfg-grid{grid-template-columns:minmax(0,1fr)}
@@ -5842,7 +5842,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '333.218',
+    frontendVersion: '334.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5875,7 +5875,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-333.300726-LABO-TM24H';
+const APP_VERSION = 'INDEX-334.310726-NKTM-SYNC-WIDTH';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10198,7 +10198,18 @@ function nkPaperRowEval(row, group, readonly=false){
   return nkDefaultEval((row || {}).danhGia || (group || {}).danhGia);
 }
 
-function nkPaperTableI(prefix, tube, dept, readonly){
+function nkPaperCommonTableWidth(data){
+  const d=data||{};
+  const p3Items=nkConfiguredSource(d.coombsKtbt?.items,'PHAN_3');
+  const p3Reagents=p3Items.filter(x=>x.loaiKetQua==='REAGENT').length;
+  const p3Cards=p3Items.length-p3Reagents;
+  const p4Methods=nkConfiguredSource(d.cheoHoaHop?.methods,'PHAN_4').length;
+  const p3Width=96+(p3Reagents*190)+(p3Cards*216)+176;
+  const p4Width=56+(164*2)+(p4Methods*216)+176;
+  return Math.max(1320,p3Width,p4Width);
+}
+
+function nkPaperTableI(prefix, tube, dept, readonly, tableWidth=1320){
   const serum = tube.huyetThanhMau || {};
   const red = tube.hongCauMau || {};
   const sRows = [0,1].map(i => nkArray(serum.benhPham)[i] || {});
@@ -10206,7 +10217,7 @@ function nkPaperTableI(prefix, tube, dept, readonly){
   const sharedPerformers = nkMergePerformerLists(serum.nguoiThucHien, red.nguoiThucHien);
   const performerCell = nkPaperPerformerSelect(prefix,'Tube',(readonly && !nkPaperGroupActive(serum) && !nkPaperGroupActive(red)) ? [] : sharedPerformers,dept,readonly);
   return `<div class="nk-paper-section-label">I.&nbsp; Nhóm máu hệ ABO – Rh(D) bằng phương pháp ống nghiệm:</div>
-  <table class="nk-paper-table nk-paper-table-i"><colgroup><col style="width:3%"><col style="width:9%"><col span="4" style="width:4.5%"><col style="width:5.5%"><col span="2" style="width:5%"><col style="width:9%"><col span="2" style="width:6.5%"><col style="width:5.5%"><col span="2" style="width:5%"><col style="width:14%"></colgroup>
+  <table class="nk-paper-table nk-paper-table-i" style="width:${tableWidth}px;min-width:${tableWidth}px"><colgroup><col style="width:3%"><col style="width:9%"><col span="4" style="width:4.5%"><col style="width:5.5%"><col span="2" style="width:5%"><col style="width:9%"><col span="2" style="width:6.5%"><col style="width:5.5%"><col span="2" style="width:5%"><col style="width:14%"></colgroup>
     <tbody><tr><th rowspan="2">Stt</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="4"><div class="nk-paper-group-title">Huyết thanh mẫu</div>${nkPaperLotLines(prefix,'Serum',serum,readonly)}</th><th rowspan="2">Nhóm<br>máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="2"><div class="nk-paper-group-title">Hồng cầu mẫu</div>${nkPaperLotLines(prefix,'Red',red,readonly)}</th><th rowspan="2">Nhóm<br>máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Người<br>thực hiện</th></tr>
     <tr><th>A</th><th>B</th><th>AB</th><th>D</th><th>Đạt</th><th>Không<br>đạt</th><th>A</th><th>B</th><th>Đạt</th><th>Không<br>đạt</th></tr>
     ${[0,1].map(idx => { const s=sRows[idx], r=rRows[idx], se=nkPaperRowEval(s,serum,readonly), re=nkPaperRowEval(r,red,readonly); return `<tr><td>${idx+1}</td><td>${nkPaperInput(`${prefix}SerumRow${idx}Ma`,s.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}A`,s.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}B`,s.b||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}AB`,s.ab||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}D`,s.d||'','',readonly)}</td><td>${nkPaperInput(`${prefix}SerumRow${idx}Nhom`,s.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`SerumRow${idx}`,NK_EVAL_DAT,se,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`SerumRow${idx}`,NK_EVAL_KHONG_DAT,se,readonly)}</td><td>${nkPaperInput(`${prefix}RedRow${idx}Ma`,r.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}RedRow${idx}A`,r.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}RedRow${idx}B`,r.b||'','',readonly)}</td><td>${nkPaperInput(`${prefix}RedRow${idx}Nhom`,r.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`RedRow${idx}`,NK_EVAL_DAT,re,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`RedRow${idx}`,NK_EVAL_KHONG_DAT,re,readonly)}</td>${idx===0?`<td class="nk-paper-performer" rowspan="2">${performerCell}</td>`:''}</tr>`; }).join('')}</tbody>
@@ -10230,31 +10241,31 @@ function nkPaperConfiguredTitleHtml(value){
   return match ? `${esc(match[1])}<br>${esc(match[2])}` : esc(title);
 }
 
-function nkPaperTableII(prefix, gel, dept, readonly){
+function nkPaperTableII(prefix, gel, dept, readonly, tableWidth=1320){
   const methods=nkConfiguredSource(gel?.methods,'PHAN_2');
   if(!methods.length)return `<div class="nk-paper-section-label">II.&nbsp; Nhóm máu hệ ABO – Rh(D) bằng phương pháp gelcard:</div>${nkConfigEmptyHtml('PHAN_2',readonly,dept)}`;
   return `<div class="nk-paper-section-label">II.&nbsp; Nhóm máu hệ ABO – Rh(D) bằng phương pháp gelcard:</div>${methods.map(method=>{
     const id=nkText(method.configItemId||method.id),token=nkRegisterConfigSnapshot(prefix,method),rows=[0,1].map(i=>nkArray(method.benhPham)[i]||{}),key=`P2${token}`;
-    return `<div class="nk-paper-subtable" data-nk-p2-item data-config-id="${escAttr(id)}"><table class="nk-paper-table nk-paper-table-ii"><colgroup><col style="width:4%"><col style="width:14%"><col span="6" style="width:7.1%"><col style="width:9%"><col span="2" style="width:7%"><col style="width:14%"></colgroup><tbody><tr><th rowspan="2">Stt</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="6"><div class="nk-paper-group-title">${esc(method.tenHienThi||'')}</div>${nkPaperLotLines(prefix,key,method,readonly)}</th><th rowspan="2">Nhóm máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Người<br>thực hiện</th></tr><tr><th>A</th><th>B</th><th>D</th><th>Ctrl</th><th>HCM-A1</th><th>HCM-B</th><th>Đạt</th><th>Không đạt</th></tr>${rows.map((r,idx)=>{const ev=nkPaperRowEval(r,method,readonly);return `<tr><td>${idx+1}</td><td>${nkPaperInput(`${prefix}${key}Row${idx}Ma`,r.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}A`,r.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}B`,r.b||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}D`,r.d||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}Ctrl`,r.ctrl||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}HcmA1`,r.hcmA1||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}HcmB`,r.hcmB||'','',readonly)}</td><td>${nkPaperInput(`${prefix}${key}Row${idx}Nhom`,r.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`${key}Row${idx}`,NK_EVAL_DAT,ev,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`${key}Row${idx}`,NK_EVAL_KHONG_DAT,ev,readonly)}</td>${idx===0?`<td class="nk-paper-performer" rowspan="2">${nkPaperPerformerSelect(prefix,key,readonly&&!nkPaperGroupActive(method)?{}:method.nguoiThucHien,dept,readonly)}</td>`:''}</tr>`;}).join('')}</tbody></table></div>`;}).join('')}`;
+    return `<div class="nk-paper-subtable" data-nk-p2-item data-config-id="${escAttr(id)}"><table class="nk-paper-table nk-paper-table-ii" style="width:${tableWidth}px;min-width:${tableWidth}px"><colgroup><col style="width:4%"><col style="width:14%"><col span="6" style="width:7.1%"><col style="width:9%"><col span="2" style="width:7%"><col style="width:14%"></colgroup><tbody><tr><th rowspan="2">Stt</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="6"><div class="nk-paper-group-title">${esc(method.tenHienThi||'')}</div>${nkPaperLotLines(prefix,key,method,readonly)}</th><th rowspan="2">Nhóm máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Người<br>thực hiện</th></tr><tr><th>A</th><th>B</th><th>D</th><th>Ctrl</th><th>HCM-A1</th><th>HCM-B</th><th>Đạt</th><th>Không đạt</th></tr>${rows.map((r,idx)=>{const ev=nkPaperRowEval(r,method,readonly);return `<tr><td>${idx+1}</td><td>${nkPaperInput(`${prefix}${key}Row${idx}Ma`,r.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}A`,r.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}B`,r.b||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}D`,r.d||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}Ctrl`,r.ctrl||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}HcmA1`,r.hcmA1||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}HcmB`,r.hcmB||'','',readonly)}</td><td>${nkPaperInput(`${prefix}${key}Row${idx}Nhom`,r.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`${key}Row${idx}`,NK_EVAL_DAT,ev,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`${key}Row${idx}`,NK_EVAL_KHONG_DAT,ev,readonly)}</td>${idx===0?`<td class="nk-paper-performer" rowspan="2">${nkPaperPerformerSelect(prefix,key,readonly&&!nkPaperGroupActive(method)?{}:method.nguoiThucHien,dept,readonly)}</td>`:''}</tr>`;}).join('')}</tbody></table></div>`;}).join('')}`;
 }
 
-function nkPaperTableIII(prefix, coombs, dept, readonly){
+function nkPaperTableIII(prefix, coombs, dept, readonly, tableWidth=1320){
   const items=nkConfiguredSource(coombs?.items,'PHAN_3');
   if(!items.length)return `<div class="nk-paper-section-label">III.&nbsp; Xét nghiệm Coombs, Sàng lọc KTBT, Định danh KTBT</div>${nkConfigEmptyHtml('PHAN_3',readonly,dept)}`;
   const reagents=items.filter(x=>x.loaiKetQua==='REAGENT'),cards=items.filter(x=>x.loaiKetQua!=='REAGENT');
   items.forEach(x=>nkRegisterConfigSnapshot(prefix,x));
   const firstWidth=96,reagentWidth=190,cardSubWidth=108,performerWidth=176;
-  const tableWidth=Math.max(1320,firstWidth+(reagents.length*reagentWidth)+(cards.length*cardSubWidth*2)+performerWidth);
+  tableWidth=Math.max(1320,Number(tableWidth)||1320);
   const cols=`<col style="width:${firstWidth}px">${reagents.map(()=>`<col style="width:${reagentWidth}px">`).join('')}${cards.map(()=>`<col style="width:${cardSubWidth}px"><col style="width:${cardSubWidth}px">`).join('')}<col style="width:${performerWidth}px">`;
   return `<div class="nk-paper-section-label">III.&nbsp; Xét nghiệm Coombs, Sàng lọc KTBT, Định danh KTBT</div><div data-nk-p3-wrap><table class="nk-paper-table nk-paper-table-iii" style="width:${tableWidth}px;min-width:${tableWidth}px"><colgroup>${cols}</colgroup><tbody><tr><th rowspan="3">Nội dung</th>${reagents.map(x=>{const t=nkConfigToken(x.configItemId);return `<th rowspan="3" data-nk-p3-item data-config-id="${escAttr(x.configItemId)}"><div class="nk-paper-group-title">${nkPaperConfiguredTitleHtml(x.tenHienThi||'')}</div>${nkPaperLotLines(prefix,`P3${t}`,x,readonly)}</th>`;}).join('')}${cards.map(x=>{const t=nkConfigToken(x.configItemId);return `<th colspan="2" data-nk-p3-item data-config-id="${escAttr(x.configItemId)}"><div class="nk-paper-method-title">${esc(x.tenHienThi||'')}</div>${nkPaperLotLines(prefix,`P3${t}`,x,readonly)}</th>`;}).join('')}<th rowspan="2">Người<br>thực hiện</th></tr><tr>${cards.map(()=>'<th>Chứng dương</th><th>Chứng âm</th>').join('')}</tr><tr>${cards.map(x=>{const t=nkConfigToken(x.configItemId);return `<td>${nkReactionInput(`${prefix}P3${t}ChungDuong`,x.chungDuong||'','',readonly)}</td><td>${nkReactionInput(`${prefix}P3${t}ChungAm`,x.chungAm||'','',readonly)}</td>`;}).join('')}<td class="nk-paper-performer" rowspan="2">${nkPaperPerformerSelect(prefix,'Coombs',readonly&&!nkPaperGroupActive(coombs)?{}:coombs.nguoiThucHien,dept,readonly)}</td></tr><tr><th>Đánh giá</th>${reagents.map(()=>'<td></td>').join('')}${cards.map(x=>{const t=nkConfigToken(x.configItemId);return `<td colspan="2">${nkPaperEvalInline(prefix,`P3${t}`,readonly&&!nkPaperGroupActive(x)?'':nkDefaultEval(x.danhGia),readonly)}</td>`;}).join('')}</tr></tbody></table></div>`;
 }
 
-function nkPaperTableIV(prefix,cross,dept,readonly){
+function nkPaperTableIV(prefix,cross,dept,readonly,tableWidth=1320){
   const methods=nkConfiguredSource(cross?.methods,'PHAN_4');
   if(!methods.length)return `<div class="nk-paper-section-label">IV.&nbsp; Xét nghiệm chéo hòa hợp phát máu</div>${nkConfigEmptyHtml('PHAN_4',readonly,dept)}`;
   methods.forEach(x=>nkRegisterConfigSnapshot(prefix,x));const rows=[0,1].map(i=>nkArray(cross.benhPham)[i]||{});
   const sttWidth=56,specimenWidth=164,methodWidth=216,performerWidth=176;
-  const tableWidth=Math.max(1320,sttWidth+(specimenWidth*2)+(methods.length*methodWidth)+performerWidth);
+  tableWidth=Math.max(1320,Number(tableWidth)||1320);
   return `<div class="nk-paper-section-label">IV.&nbsp; Xét nghiệm chéo hòa hợp phát máu</div><div data-nk-p4-wrap><table class="nk-paper-table nk-paper-table-iv" style="width:${tableWidth}px;min-width:${tableWidth}px"><colgroup><col style="width:${sttWidth}px"><col style="width:${specimenWidth}px"><col style="width:${specimenWidth}px">${methods.map(()=>`<col style="width:${methodWidth}px">`).join('')}<col style="width:${performerWidth}px"></colgroup><tbody><tr><th>Stt</th><th>Mã<br>bệnh phẩm 1</th><th>Mã<br>bệnh phẩm 2</th>${methods.map(x=>{const t=nkConfigToken(x.configItemId);return `<th data-nk-p4-item data-config-id="${escAttr(x.configItemId)}"><div class="nk-paper-method-title">${esc(x.tenHienThi||'')}</div>${nkPaperLotLines(prefix,`P4${t}`,x,readonly)}</th>`;}).join('')}<th>Người<br>thực hiện</th></tr>${rows.map((r,idx)=>`<tr><td>${idx+1}</td><td>${nkPaperInput(`${prefix}P4Row${idx}Ma1`,r.maBenhPham1||'',{readonly})}</td><td>${nkPaperInput(`${prefix}P4Row${idx}Ma2`,r.maBenhPham2||'',{readonly})}</td>${methods.map(x=>{const t=nkConfigToken(x.configItemId);return `<td>${nkReactionInput(`${prefix}P4Row${idx}_${t}`,(r.ketQua||{})[x.configItemId]||'','',readonly)}</td>`;}).join('')}${idx===0?`<td class="nk-paper-performer" rowspan="3">${nkPaperPerformerSelect(prefix,'Cross',readonly&&!nkPaperGroupActive(cross)?{}:cross.nguoiThucHien,dept,readonly)}</td>`:''}</tr>`).join('')}<tr><th colspan="3">Đánh giá</th>${methods.map(x=>{const t=nkConfigToken(x.configItemId);return `<td>${nkPaperEvalInline(prefix,`P4${t}`,readonly&&!nkPaperGroupActive(x)?'':nkDefaultEval(x.danhGia),readonly)}</td>`;}).join('')}</tr></tbody></table></div>`;
 }
 
@@ -10269,6 +10280,7 @@ function nkSectionAuditHtml(meta){
 function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
   nkRenderedConfigSnapshots[prefix]={};
   const d=data||{}, tube=d.aboRhOngNghiem||{}, gel=d.aboRhGelcard||{}, coombs=d.coombsKtbt||{}, cross=d.cheoHoaHop||{}, otherPerformers=d.xetNghiemKhacNguoiThucHien||[], hasOtherContent=!!nkText(d.xetNghiemKhac);
+  const commonTableWidth=nkPaperCommonTableWidth(d);
   const readonly=!!meta.readonly;
   const editMode=!!meta.editMode;
   const permissions=meta.sectionPermissions||{};
@@ -10278,13 +10290,13 @@ function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
   const parts=nkPaperDateParts(meta.ngayNoiKiem || (prefix==='nkCreate' ? getDateInputIso('createDate') : ''));
   const org=nkPaperOrgHeader(dept);
   const audit=phan => readonly ? nkSectionAuditHtml(sectionMeta[phan]) : '';
-  return `<div class="nk-form${readonly ? ' nk-view-mode' : ''}" data-prefix="${escAttr(prefix)}">${hasEditable?`<datalist id="nkReactionValues"><option value="-"><option value="Dương tính yếu"><option value="1+"><option value="2+"><option value="3+"><option value="4+"></datalist>`:''}<div class="nk-paper-scroll"><div class="nk-paper">
+  return `<div class="nk-form${readonly ? ' nk-view-mode' : ''}" data-prefix="${escAttr(prefix)}">${hasEditable?`<datalist id="nkReactionValues"><option value="-"><option value="Dương tính yếu"><option value="1+"><option value="2+"><option value="3+"><option value="4+"></datalist>`:''}<div class="nk-paper-scroll"><div class="nk-paper" style="--nk-common-table-width:${commonTableWidth}px;width:${commonTableWidth}px;min-width:${commonTableWidth}px">
     <div class="nk-paper-header"><div class="nk-paper-org">${esc(org.hospital)}<br>${esc(org.unit)}</div><div class="nk-paper-title">PHIẾU THEO DÕI KẾT QUẢ NỘI KIỂM</div><div class="nk-paper-date">NĂM <span class="nk-paper-year">${esc(parts.year)}</span><br><span class="nk-paper-date-line">Ngày <span class="nk-paper-day">${esc(parts.day)}</span> tháng <span class="nk-paper-month">${esc(parts.month)}</span></span></div></div>
-    <div data-nk-section="PHAN_1">${nkPaperTableI(prefix,tube,dept,isSectionReadonly('PHAN_1'))}${audit('PHAN_1')}</div>
-    <div data-nk-section="PHAN_2">${nkPaperTableII(prefix,gel,dept,isSectionReadonly('PHAN_2'))}${audit('PHAN_2')}</div>
-    <div data-nk-section="PHAN_3">${nkPaperTableIII(prefix,coombs,dept,isSectionReadonly('PHAN_3'))}${audit('PHAN_3')}</div>
-    <div data-nk-section="PHAN_4">${nkPaperTableIV(prefix,cross,dept,isSectionReadonly('PHAN_4'))}${audit('PHAN_4')}</div>
-    <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div><table class="nk-paper-table nk-paper-table-v"><colgroup><col style="width:82%"><col style="width:18%"></colgroup><tbody><tr><td class="nk-paper-other-content-cell"><div class="nk-paper-other-wrap${hasOtherContent?' has-content':''}">${isSectionReadonly('PHAN_5')?`<div class="nk-paper-other-view">${esc(d.xetNghiemKhac||'')}</div>`:`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}</div></td><td class="nk-paper-other-performer-cell"><div class="nk-paper-other-performer-row${hasOtherContent?'':' is-hidden'}"><div class="nk-paper-other-performer-box"><div class="nk-paper-other-performer-label">Người thực hiện</div><div class="nk-paper-other-performer-control">${nkPaperPerformerSelect(prefix,'Other',(isSectionReadonly('PHAN_5')&&!hasOtherContent)?[]:otherPerformers,dept,isSectionReadonly('PHAN_5'))}</div></div></div></td></tr></tbody></table>${audit('PHAN_5')}</div>
+    <div data-nk-section="PHAN_1">${nkPaperTableI(prefix,tube,dept,isSectionReadonly('PHAN_1'),commonTableWidth)}${audit('PHAN_1')}</div>
+    <div data-nk-section="PHAN_2">${nkPaperTableII(prefix,gel,dept,isSectionReadonly('PHAN_2'),commonTableWidth)}${audit('PHAN_2')}</div>
+    <div data-nk-section="PHAN_3">${nkPaperTableIII(prefix,coombs,dept,isSectionReadonly('PHAN_3'),commonTableWidth)}${audit('PHAN_3')}</div>
+    <div data-nk-section="PHAN_4">${nkPaperTableIV(prefix,cross,dept,isSectionReadonly('PHAN_4'),commonTableWidth)}${audit('PHAN_4')}</div>
+    <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div><table class="nk-paper-table nk-paper-table-v" style="width:${commonTableWidth}px;min-width:${commonTableWidth}px"><colgroup><col style="width:82%"><col style="width:18%"></colgroup><tbody><tr><td class="nk-paper-other-content-cell"><div class="nk-paper-other-wrap${hasOtherContent?' has-content':''}">${isSectionReadonly('PHAN_5')?`<div class="nk-paper-other-view">${esc(d.xetNghiemKhac||'')}</div>`:`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}</div></td><td class="nk-paper-other-performer-cell"><div class="nk-paper-other-performer-row${hasOtherContent?'':' is-hidden'}"><div class="nk-paper-other-performer-box"><div class="nk-paper-other-performer-label">Người thực hiện</div><div class="nk-paper-other-performer-control">${nkPaperPerformerSelect(prefix,'Other',(isSectionReadonly('PHAN_5')&&!hasOtherContent)?[]:otherPerformers,dept,isSectionReadonly('PHAN_5'))}</div></div></div></td></tr></tbody></table>${audit('PHAN_5')}</div>
     <div class="nk-paper-footer"><div>BM.08.QL.30</div><div>Trang 2 / 2<br>Phiên bản BM: 2.3.3</div><div>Ngày ban hành BM: 01/08/2024</div></div>
   </div></div></div>`;
 }
