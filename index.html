@@ -1,4 +1,4 @@
-<!-- VERSION: 324.214 | index: 324 | Code.gs: 214 | INDEX-324.280726-NKTM-DYNAMIC-CONFIG -->
+<!-- VERSION: 326.215 | index: 326 | Code.gs: 215 | INDEX-326.300726-HOME-4-ZONES-SETTINGS-CENTER -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5459,6 +5459,172 @@
     }
     /* ===== NOI_KIEM_TM_CONFIG: END ===== */
 
+
+
+    /* ===== MODULE: CSS_APP_NAVIGATION_WORKSPACES_START ===== */
+    #app.medops-nav-v2 .user-name-btn{max-width:40vw;border:0;background:transparent;color:#fff;padding:4px 5px;border-radius:7px;font:400 12.5px Arial,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+    #app.medops-nav-v2 .user-name-btn:hover{background:rgba(255,255,255,.14)}
+    #app.medops-nav-v2 .home-shell,
+    #app.medops-nav-v2 .work-shell,
+    #app.medops-nav-v2 .apps-shell,
+    #app.medops-nav-v2 .technical-shell{font-family:Arial,sans-serif;color:#202124}
+    #app.medops-nav-v2 .workspace-page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+    #app.medops-nav-v2 .workspace-page-title{margin:0;color:#202124;font-size:24px;font-weight:700;line-height:1.25}
+    #app.medops-nav-v2 .workspace-page-sub{margin:5px 0 0;color:#5f6368;font-size:14px;line-height:1.45}
+    #app.medops-nav-v2 .home-hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.7fr);gap:14px;align-items:stretch;margin-bottom:14px}
+    #app.medops-nav-v2 .home-welcome{background:#fff;border:1px solid #dadce0;border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(60,64,67,.08)}
+    #app.medops-nav-v2 .home-welcome-label{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#5f6368}
+    #app.medops-nav-v2 .home-welcome-name{margin:7px 0 4px;font-size:25px;font-weight:700;color:#202124}
+    #app.medops-nav-v2 .home-welcome-unit{font-size:14px;color:#5f6368;line-height:1.45}
+    #app.medops-nav-v2 .home-status-card{background:#f8f9fa;border:1px solid #dadce0;border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:center}
+    #app.medops-nav-v2 .home-status-title{font-size:14px;font-weight:700;color:#3c4043}
+    #app.medops-nav-v2 .home-status-text{margin-top:6px;font-size:13px;line-height:1.45;color:#5f6368}
+    #app.medops-nav-v2 .workspace-section{margin-bottom:18px}
+    #app.medops-nav-v2 .workspace-section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+    #app.medops-nav-v2 .workspace-section-title{margin:0;font-size:17px;font-weight:700;color:#3c4043}
+    #app.medops-nav-v2 .workspace-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    #app.medops-nav-v2 .workspace-grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    #app.medops-nav-v2 .workspace-card{min-width:0;background:#fff;border:1px solid #dadce0;border-radius:12px;padding:15px;text-align:left;box-shadow:0 1px 2px rgba(60,64,67,.08);transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}
+    #app.medops-nav-v2 button.workspace-card{cursor:pointer;color:inherit;font:inherit}
+    #app.medops-nav-v2 button.workspace-card:hover{border-color:#a8c7fa;box-shadow:0 3px 10px rgba(60,64,67,.15);transform:translateY(-1px)}
+    #app.medops-nav-v2 button.workspace-card:focus-visible{outline:3px solid rgba(26,115,232,.22);outline-offset:2px}
+    #app.medops-nav-v2 .workspace-card.disabled{background:#f8f9fa;box-shadow:none;opacity:.72;cursor:default}
+    #app.medops-nav-v2 .workspace-card-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#e8f0fe;color:#1967d2;margin-bottom:12px}
+    #app.medops-nav-v2 .workspace-card-icon .icon2d{width:24px;height:24px;stroke:currentColor}
+    #app.medops-nav-v2 .workspace-card-title{font-size:15px;font-weight:700;color:#202124;line-height:1.35}
+    #app.medops-nav-v2 .workspace-card-text{margin-top:5px;color:#5f6368;font-size:13px;line-height:1.42}
+    #app.medops-nav-v2 .workspace-card-note{display:inline-flex;margin-top:10px;padding:4px 8px;border-radius:999px;background:#f1f3f4;color:#5f6368;font-size:11px;font-weight:700}
+    #app.medops-nav-v2 .workspace-card-note.ready{background:#e6f4ea;color:#137333}
+    #app.medops-nav-v2 .technical-layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:14px;min-height:calc(100vh - var(--header-h) - var(--tabbar-h) - 52px)}
+    #app.medops-nav-v2 .technical-menu{background:#fff;border:1px solid #dadce0;border-radius:12px;padding:9px;height:max-content;position:sticky;top:0}
+    #app.medops-nav-v2 .technical-menu-title{padding:9px 10px 8px;font-size:12px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.05em}
+    #app.medops-nav-v2 .technical-menu-btn{width:100%;min-height:42px;border:0;background:transparent;border-radius:9px;padding:9px 10px;display:flex;align-items:center;gap:9px;text-align:left;color:#3c4043;font:600 13.5px Arial,sans-serif;cursor:pointer}
+    #app.medops-nav-v2 .technical-menu-btn:hover{background:#f1f3f4}
+    #app.medops-nav-v2 .technical-menu-btn.active{background:#e8f0fe;color:#1967d2}
+    #app.medops-nav-v2 .technical-menu-btn .icon2d{width:19px;height:19px;stroke:currentColor;flex:0 0 auto}
+    #app.medops-nav-v2 .technical-content{min-width:0}
+    #app.medops-nav-v2 .technical-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    #app.medops-nav-v2 .technical-back{display:inline-flex;align-items:center;gap:7px;border:1px solid #dadce0;background:#fff;border-radius:9px;min-height:38px;padding:0 12px;color:#3c4043;font:600 13px Arial,sans-serif;cursor:pointer}
+    #app.medops-nav-v2 .technical-back:hover{background:#f8f9fa}
+    #app.medops-nav-v2 .technical-placeholder{background:#fff;border:1px dashed #bdc1c6;border-radius:12px;padding:24px;text-align:center;color:#5f6368}
+    #app.medops-nav-v2 .technical-config-host{min-width:0}
+    #app.medops-nav-v2 .technical-config-host #noiKiemTmConfigRoot{margin:0}
+    #app.medops-nav-v2 .work-feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    #app.medops-nav-v2 .app-version{display:none}
+    #app.medops-nav-v2.show-account-version .app-version{display:block}
+    #app.medops-nav-v2 .tabbar .tab-btn[data-tab="home"]{order:1!important}
+    #app.medops-nav-v2 .tabbar .tab-btn[data-tab="create"]{order:2!important}
+    #app.medops-nav-v2 .tabbar .tab-btn[data-tab="work"]{order:3!important}
+    #app.medops-nav-v2 .tabbar .tab-btn[data-tab="pdf"]{order:4!important}
+    #app.medops-nav-v2 .tabbar .tab-btn[data-tab="apps"]{order:5!important}
+    @media (max-width:899px){
+      #app.medops-nav-v2 .home-hero{grid-template-columns:minmax(0,1fr)}
+      #app.medops-nav-v2 .workspace-grid,#app.medops-nav-v2 .workspace-grid.cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+      #app.medops-nav-v2 .technical-layout{display:block;min-height:0}
+      #app.medops-nav-v2 .technical-menu{position:relative;display:flex;overflow-x:auto;gap:6px;margin-bottom:12px;padding:7px;-webkit-overflow-scrolling:touch}
+      #app.medops-nav-v2 .technical-menu-title{display:none}
+      #app.medops-nav-v2 .technical-menu-btn{width:auto;min-width:max-content;padding:8px 11px}
+    }
+    @media (max-width:560px){
+      #app.medops-nav-v2 .workspace-page-title{font-size:21px}
+      #app.medops-nav-v2 .home-welcome-name{font-size:22px}
+      #app.medops-nav-v2 .workspace-grid,#app.medops-nav-v2 .workspace-grid.cols-3,#app.medops-nav-v2 .work-feature-grid{grid-template-columns:minmax(0,1fr)}
+      #app.medops-nav-v2 .workspace-card{padding:14px}
+    }
+
+
+    /* HOME 4 VÙNG + CÀI ĐẶT TẬP TRUNG */
+    #app.medops-nav-v3 .home-shell{display:grid;gap:18px}
+    #app.medops-nav-v3 .workspace-section{margin:0}
+    #app.medops-nav-v3 .workspace-section-head{min-height:36px;margin-bottom:10px}
+    #app.medops-nav-v3 .workspace-section-title{font-size:18px;color:#202124}
+    #app.medops-nav-v3 .workspace-section-action{border:0;background:transparent;color:#1967d2;border-radius:8px;padding:7px 9px;font:600 13px Arial,sans-serif;cursor:pointer}
+    #app.medops-nav-v3 .workspace-section-action:hover{background:#e8f0fe}
+    #app.medops-nav-v3 .workspace-card{position:relative;display:flex;flex-direction:column;min-height:152px}
+    #app.medops-nav-v3 .workspace-card-icon{flex:0 0 auto}
+    #app.medops-nav-v3 .workspace-card-title,#app.medops-nav-v3 .workspace-card-text,#app.medops-nav-v3 .workspace-card-note{display:block}
+    #app.medops-nav-v3 .workspace-card-arrow{position:absolute;right:14px;top:17px;color:#80868b;font-size:21px;line-height:1}
+    #app.medops-nav-v3 .home-favorite-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    #app.medops-nav-v3 .home-menu-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    #app.medops-nav-v3 .home-work-list{background:#fff;border:1px solid #dadce0;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(60,64,67,.08)}
+    #app.medops-nav-v3 .home-work-item{width:100%;border:0;border-bottom:1px solid #eceff1;background:#fff;padding:12px 14px;display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:11px;align-items:center;text-align:left;color:#202124;font:inherit;cursor:pointer}
+    #app.medops-nav-v3 .home-work-item:last-child{border-bottom:0}
+    #app.medops-nav-v3 .home-work-item:hover{background:#f8f9fa}
+    #app.medops-nav-v3 .home-work-icon{width:38px;height:38px;border-radius:10px;background:#f1f3f4;color:#5f6368;display:grid;place-items:center}
+    #app.medops-nav-v3 .home-work-icon .icon2d{width:21px;height:21px;stroke:currentColor}
+    #app.medops-nav-v3 .home-work-title{font-weight:700;font-size:14px}
+    #app.medops-nav-v3 .home-work-sub{margin-top:3px;color:#5f6368;font-size:12.5px;line-height:1.35}
+    #app.medops-nav-v3 .home-work-state{font-size:12px;font-weight:700;color:#1967d2;white-space:nowrap}
+    #app.medops-nav-v3 .home-dashboard-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    #app.medops-nav-v3 .home-kpi{background:#fff;border:1px solid #dadce0;border-radius:12px;padding:15px;box-shadow:0 1px 2px rgba(60,64,67,.08)}
+    #app.medops-nav-v3 .home-kpi-label{color:#5f6368;font-size:12.5px;line-height:1.35}
+    #app.medops-nav-v3 .home-kpi-value{margin-top:7px;font-size:25px;font-weight:700;color:#202124}
+    #app.medops-nav-v3 .home-kpi-note{margin-top:5px;color:#80868b;font-size:11.5px}
+    #app.medops-nav-v3 .settings-shell{font-family:Arial,sans-serif;color:#202124}
+    #app.medops-nav-v3 .settings-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:14px;align-items:start}
+    #app.medops-nav-v3 .settings-menu{position:sticky;top:0;background:#fff;border:1px solid #dadce0;border-radius:12px;padding:9px;box-shadow:0 1px 2px rgba(60,64,67,.08)}
+    #app.medops-nav-v3 .settings-menu-title{padding:9px 10px;font-size:12px;font-weight:700;color:#5f6368;text-transform:uppercase;letter-spacing:.05em}
+    #app.medops-nav-v3 .settings-group-btn{width:100%;min-height:44px;border:0;background:transparent;border-radius:9px;padding:9px 10px;display:flex;align-items:center;gap:10px;text-align:left;color:#3c4043;font:600 13.5px Arial,sans-serif;cursor:pointer}
+    #app.medops-nav-v3 .settings-group-btn:hover{background:#f1f3f4}
+    #app.medops-nav-v3 .settings-group-btn.active{background:#e8f0fe;color:#1967d2}
+    #app.medops-nav-v3 .settings-group-btn .icon2d{width:19px;height:19px;stroke:currentColor}
+    #app.medops-nav-v3 .settings-content{min-width:0}
+    #app.medops-nav-v3 .settings-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    #app.medops-nav-v3 .settings-section-card{min-height:116px}
+    #app.medops-nav-v3 .settings-back{margin-bottom:12px}
+    #app.medops-nav-v3 .favorite-picker-list{display:grid;gap:8px;margin-top:12px}
+    #app.medops-nav-v3 .favorite-picker-row{display:grid;grid-template-columns:auto 38px minmax(0,1fr);gap:10px;align-items:center;border:1px solid #e8eaed;border-radius:10px;padding:10px 12px;background:#fff}
+    #app.medops-nav-v3 .favorite-picker-row input{width:18px;height:18px;margin:0}
+    #app.medops-nav-v3 .favorite-picker-icon{width:36px;height:36px;border-radius:10px;background:#e8f0fe;color:#1967d2;display:grid;place-items:center}
+    #app.medops-nav-v3 .favorite-picker-icon .icon2d{width:20px;height:20px;stroke:currentColor}
+    #app.medops-nav-v3 .favorite-picker-title{font-size:14px;font-weight:700}
+    #app.medops-nav-v3 .favorite-picker-sub{margin-top:2px;font-size:12px;color:#5f6368}
+    #app.medops-nav-v3 .home-card-config-list{display:grid;gap:12px}
+    #app.medops-nav-v3 .home-card-config-item{border:1px solid #dadce0;border-radius:12px;padding:14px;background:#fff}
+    #app.medops-nav-v3 .home-card-config-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    #app.medops-nav-v3 .home-card-config-head .workspace-card-icon{margin:0;width:38px;height:38px;border-radius:10px}
+    #app.medops-nav-v3 .home-card-config-id{font-size:11px;color:#80868b}
+    #app.medops-nav-v3 .home-card-config-grid{display:grid;grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr) auto;gap:10px;align-items:end}
+    #app.medops-nav-v3 .home-card-config-grid textarea{min-height:68px}
+    #app.medops-nav-v3 .desktop-nav-toggle{display:none}
+    @media(min-width:900px){
+      #app.medops-nav-v3{--desktop-nav-w:216px}
+      #app.medops-nav-v3.nav-collapsed{--desktop-nav-w:76px}
+      #app.medops-nav-v3 .main{left:var(--desktop-nav-w);right:0;bottom:0;transition:left .16s ease}
+      #app.medops-nav-v3 .tabbar{top:var(--header-h);bottom:0;left:0;right:auto;width:var(--desktop-nav-w);height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:5px;padding:10px 9px 12px;background:#fff;border-top:0;border-right:1px solid #dadce0;box-shadow:none;transition:width .16s ease}
+      #app.medops-nav-v3 .tabbar .tab-btn{order:initial!important;width:100%;min-height:44px;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;padding:0 12px;border-radius:10px;font-size:13.5px;text-align:left;color:#3c4043}
+      #app.medops-nav-v3 .tabbar .tab-btn .ico{width:24px;min-width:24px;height:24px;display:grid;place-items:center}
+      #app.medops-nav-v3 .tabbar .tab-btn.active{background:#e8f0fe;color:#1967d2;font-weight:700}
+      #app.medops-nav-v3 .tabbar .tab-btn:hover{background:#f1f3f4}
+      #app.medops-nav-v3 .tabbar .tab-btn.active:hover{background:#e8f0fe}
+      #app.medops-nav-v3 .desktop-nav-toggle{display:flex;width:100%;min-height:38px;border:0;background:transparent;border-radius:9px;align-items:center;justify-content:flex-end;gap:8px;padding:0 10px;color:#5f6368;font:600 12px Arial,sans-serif;cursor:pointer;margin-bottom:3px}
+      #app.medops-nav-v3 .desktop-nav-toggle:hover{background:#f1f3f4}
+      #app.medops-nav-v3 .desktop-nav-toggle-symbol{font-size:20px;line-height:1}
+      #app.medops-nav-v3.nav-collapsed .desktop-nav-toggle{justify-content:center;padding:0}
+      #app.medops-nav-v3.nav-collapsed .desktop-nav-toggle-label,
+      #app.medops-nav-v3.nav-collapsed .tabbar .tab-btn > span:last-child{display:none}
+      #app.medops-nav-v3.nav-collapsed .tabbar .tab-btn{justify-content:center;padding:0}
+      #app.medops-nav-v3.nav-collapsed .tabbar .tab-btn .ico{margin:0}
+      #app.medops-nav-v3 .app-version{display:none!important}
+    }
+    @media(max-width:899px){
+      #app.medops-nav-v3 .home-favorite-grid,#app.medops-nav-v3 .home-menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      #app.medops-nav-v3 .home-dashboard-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      #app.medops-nav-v3 .settings-layout{grid-template-columns:minmax(0,1fr)}
+      #app.medops-nav-v3 .settings-menu{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+      #app.medops-nav-v3 .settings-menu-title{grid-column:1/-1}
+      #app.medops-nav-v3 .settings-card-grid{grid-template-columns:minmax(0,1fr)}
+      #app.medops-nav-v3 .home-card-config-grid{grid-template-columns:minmax(0,1fr)}
+    }
+    @media(max-width:520px){
+      #app.medops-nav-v3 .workspace-card{min-height:142px;padding:13px}
+      #app.medops-nav-v3 .home-work-item{grid-template-columns:36px minmax(0,1fr)}
+      #app.medops-nav-v3 .home-work-state{grid-column:2}
+      #app.medops-nav-v3 .settings-menu{grid-template-columns:minmax(0,1fr)}
+    }
+
+    /* ===== MODULE: CSS_APP_NAVIGATION_WORKSPACES_END ===== */
+
     /* ===== MODULE: CSS_LEGACY_PATCHES_END ===== */
 </style>
 </head>
@@ -5508,7 +5674,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-324.280726-NKTM-DYNAMIC-CONFIG</p>
+      <p class="login-version">Version: INDEX-326.300726-HOME-4-ZONES-SETTINGS-CENTER</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -5519,7 +5685,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-324.280726-NKTM-DYNAMIC-CONFIG</div>
+    <div class="login-loading-version">Version: INDEX-326.300726-HOME-4-ZONES-SETTINGS-CENTER</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -5534,7 +5700,7 @@
   <!-- ===== MODULE: HTML_APP_ACTION_OVERLAY_END ===== -->
 
   <!-- ===== MODULE: HTML_APP_SHELL_START ===== -->
-  <div id="app" class="app-shell hidden">
+  <div id="app" class="app-shell medops-nav-v2 medops-nav-v3 hidden">
     <header class="topbar">
       <div class="brand">
         <img class="brand-logo-plain" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async">
@@ -5544,30 +5710,35 @@
         </div>
       </div>
       <div class="userbox">
-        <strong id="userName">...</strong>
+        <button id="userName" class="user-name-btn" type="button" data-app-action="open-account" data-view="info" title="Mở tài khoản">...</button>
         <button id="logoutBtn" class="logout-icon" title="Đăng xuất" aria-label="Đăng xuất"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></button>
       </div>
     </header>
 
     <main id="main" class="main">
       <div class="content-wide">
-        <section id="tab-create" class="tab-panel"></section>
+        <section id="tab-home" class="tab-panel"></section>
+        <section id="tab-create" class="tab-panel hidden"></section>
+        <section id="tab-work" class="tab-panel hidden"></section>
         <section id="tab-list" class="tab-panel hidden"></section>
         <section id="tab-meeting" class="tab-panel hidden"></section>
         <section id="tab-pdf" class="tab-panel hidden"></section>
+        <section id="tab-apps" class="tab-panel hidden"></section>
+        <section id="tab-technical" class="tab-panel hidden"></section>
         <section id="tab-account" class="tab-panel hidden"></section>
         <section id="tab-settings" class="tab-panel hidden"></section>
       </div>
     </main>
 
-    <nav class="tabbar">
-      <button id="accountTabBtn" class="tab-btn" data-tab="account"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/></svg></span><span>Tài khoản</span></button>
-      <button class="tab-btn active" data-tab="create"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span><span>Tạo phiếu</span></button>
-      <button class="tab-btn" data-tab="list"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h6"/><path d="M14.5 4.5l5 5L10 19l-5.5 1.5L6 15l8.5-10.5Z"/><path d="M13 6l5 5"/></svg></span><span>Bàn giao trực</span></button>
-      <button class="tab-btn" data-tab="meeting"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="2.1"/><circle cx="5.8" cy="9.3" r="1.9"/><circle cx="18.2" cy="9.3" r="1.9"/><path d="M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1"/><path d="M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><path d="M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9"/><ellipse cx="12" cy="16.6" rx="6.3" ry="2.2"/><path d="M12 18.8v2.2M8.7 21h6.6"/></svg></span><span>Họp/GB</span></button>
-      <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
+    <nav class="tabbar" aria-label="Điều hướng chính">
+      <button id="desktopNavToggle" class="desktop-nav-toggle" type="button" data-app-action="toggle-desktop-nav" aria-label="Thu gọn menu" title="Thu gọn menu"><span class="desktop-nav-toggle-label">Thu gọn</span><span class="desktop-nav-toggle-symbol">‹</span></button>
+      <button class="tab-btn active" data-tab="home"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V21h13V10.5"/><path d="M9.5 21v-6h5v6"/></svg></span><span>Trang chủ</span></button>
+      <button class="tab-btn" data-tab="create"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span><span>Tạo phiếu</span></button>
+      <button class="tab-btn" data-tab="work"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V4h8v2M3 11h18M10 15h4"/></svg></span><span>Công việc</span></button>
+      <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
+      <button class="tab-btn" data-tab="apps"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><span>Menu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-324.280726-NKTM-DYNAMIC-CONFIG</div>
+    <div class="app-version">Version: INDEX-326.300726-HOME-4-ZONES-SETTINGS-CENTER</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -5587,6 +5758,8 @@
   JS_UTILS               : hàm tiện ích định dạng, ngày giờ, escape HTML, debounce
   JS_API                 : fetch tới Google Apps Script Web App /exec
   JS_APP_CORE            : boot app, tab, toast, modal, render khung chung
+  JS_APP_NAVIGATION      : Home 4 vùng, Công việc, Menu, workspace Quản lý kỹ thuật
+  JS_SETTINGS_CENTER     : Cài đặt tập trung: cá nhân, nghiệp vụ, giao diện, hệ thống
   JS_CREATE_PHIEU        : tab Tạo phiếu, báo cáo/bàn giao, phiếu Truyền máu
   JS_DS_PHIEU            : tab DS phiếu, lọc danh sách, xem/sửa/xóa, xuất Excel
   JS_HOP_GIAO_BAN        : tab Họp, giao ban thường trực, biên bản họp, ký xác nhận
@@ -5601,7 +5774,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '324.214',
+    frontendVersion: '326.215',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5634,7 +5807,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-324.280726-NKTM-DYNAMIC-CONFIG';
+const APP_VERSION = 'INDEX-326.300726-HOME-4-ZONES-SETTINGS-CENTER';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5762,6 +5935,9 @@ const state = {
   accountInfo: null,
   accountOptions: {listPhongBan: [], listViTriTruc: [], listChucDanh: []},
   appSetup: {},
+  homeConfig: {user:{favoriteCardIds:['create','handover','meeting','list'],sectionOrder:['favorites','work','menu','dashboard']},cardOverrides:{},canConfigureCards:false},
+  permissionScope: {},
+  allowedFormTypes: [],
   permissions: {canExportExcel:false, canConfigExcelExport:false},
   excelExportAllowedUsers: [],
   excelExportCandidate: null,
@@ -5776,7 +5952,10 @@ const state = {
   pendingThuKyGiaoBanID: '',
   selectedStaff: [],
   selectedStaffCandidate: null,
-  activeTab: 'create',
+  activeTab: 'home',
+  technicalPage: 'overview',
+  settingsGroup: 'personal',
+  settingsSection: 'favorites',
   cache: {
     phieu: { key:'', time:0, data:null },
     giaoBan: { key:'', time:0, data:null }
@@ -5929,6 +6108,7 @@ function bindGlobalEvents(){
   $('#forgotPasswordLink')?.addEventListener('click', e => { e.preventDefault(); withInlineBusy(e.currentTarget, 'Đang mở...', openForgotPasswordModal); });
   $('#logoutBtn').addEventListener('click', logout);
   $$('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+  AppNavigationModule.init();
   bindChairSuggestDelegates();
   document.addEventListener('input', e => {
     if(e.target.matches('textarea')) autoGrow(e.target);
@@ -5986,6 +6166,8 @@ async function logout(){
   state.currentTmPhieus = [];
   state.accountInfo = null;
   state.accountSetupOpen = false;
+  state.activeTab = 'home';
+  state.technicalPage = 'overview';
   clearListCaches();
   hideLoginLoading();
   showLogin();
@@ -6028,9 +6210,10 @@ function showApp(){
   $('#bootScreen').classList.add('hidden');
   $('#loginScreen').classList.add('hidden');
   $('#app').classList.remove('hidden');
+  applyDesktopNavState_();
   updateUserHeader();
-  renderCreateTab();
-  renderAccountTab();
+  renderAllTabsSkeleton();
+  switchTab('home');
 }
 
 async function loadInitData(opts={}){
@@ -6053,6 +6236,9 @@ async function loadInitData(opts={}){
     state.accountInfo = res.data.accountInfo || state.accountInfo || null;
     state.accountOptions = res.data.accountOptions || state.accountOptions || {listPhongBan: [], listViTriTruc: [], listChucDanh: []};
     state.appSetup = res.data.appSetup || state.appSetup || {};
+    state.homeConfig = res.data.homeConfig || state.homeConfig;
+    state.permissionScope = res.data.permissionScope || state.permissionScope || {};
+    state.allowedFormTypes = res.data.loaiPhieu || state.allowedFormTypes || [];
     state.permissions = res.data.permissions || state.permissions || {canExportExcel:false, canConfigExcelExport:false};
     state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || null;
     state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || [];
@@ -6060,6 +6246,11 @@ async function loadInitData(opts={}){
     if(opts.fromLogin) showLoginLoading(78, 'Đang dựng giao diện...');
     if(opts.fromBoot) showLoginLoading(78, 'Đang dựng giao diện...');
     refreshDatalists();
+    renderHomeTab();
+    renderWorkTab();
+    renderAppsTab();
+    renderTechnicalTab();
+    renderSettingsTab();
     renderCreateTab();
     renderListTab();
     renderMeetingTab();
@@ -6119,6 +6310,11 @@ function setDefaultFilters(){
 }
 
 function renderAllTabsSkeleton(){
+  renderHomeTab();
+  renderWorkTab();
+  renderAppsTab();
+  renderTechnicalTab();
+  renderSettingsTab();
   renderCreateTab();
   renderListTab();
   renderMeetingTab();
@@ -6127,15 +6323,22 @@ function renderAllTabsSkeleton(){
 }
 
 function switchTab(tab){
+  const target = document.getElementById(`tab-${tab}`);
+  if(!target) return;
   state.activeTab = tab;
+  const primaryTab = (tab === 'list' || tab === 'meeting') ? 'work' : ((tab === 'account' || tab === 'settings' || tab === 'technical') ? 'apps' : tab);
   const appShell = $('#app');
   if(appShell) appShell.classList.toggle('show-account-version', tab === 'account');
-  $$('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  $$('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === primaryTab));
   $$('.tab-panel').forEach(p => p.classList.add('hidden'));
-  $(`#tab-${tab}`).classList.remove('hidden');
+  target.classList.remove('hidden');
+  if(tab === 'home') renderHomeTab();
+  if(tab === 'work') renderWorkTab();
+  if(tab === 'apps') renderAppsTab();
+  if(tab === 'technical') renderTechnicalTab();
+  if(tab === 'settings') renderSettingsTab();
   if(tab === 'account') renderAccountTab();
   $('#main').scrollTop = 0;
-
 }
 
 /* ================= API ================= */
@@ -6203,6 +6406,427 @@ async function withInlineBusy(el, busyText, fn){
 /* ================= TẠO PHIẾU ================= */
 
 // ===== MODULE: JS_API_END =====
+
+
+// ===== MODULE: JS_APP_NAVIGATION_WORKSPACES_START =====
+function applyDesktopNavState_(){
+  const app = document.getElementById('app');
+  if(!app) return;
+  let collapsed = false;
+  try{ collapsed = localStorage.getItem('MEDOPS_DESKTOP_NAV_COLLAPSED') === '1'; }catch(e){}
+  app.classList.toggle('nav-collapsed', collapsed);
+  const btn = document.getElementById('desktopNavToggle');
+  if(btn){
+    btn.setAttribute('aria-label', collapsed ? 'Mở rộng menu' : 'Thu gọn menu');
+    btn.setAttribute('title', collapsed ? 'Mở rộng menu' : 'Thu gọn menu');
+    const label = btn.querySelector('.desktop-nav-toggle-label');
+    const symbol = btn.querySelector('.desktop-nav-toggle-symbol');
+    if(label) label.textContent = collapsed ? 'Mở rộng' : 'Thu gọn';
+    if(symbol) symbol.textContent = collapsed ? '›' : '‹';
+  }
+}
+
+function toggleDesktopNav_(){
+  const app = document.getElementById('app');
+  if(!app) return;
+  const collapsed = !app.classList.contains('nav-collapsed');
+  try{ localStorage.setItem('MEDOPS_DESKTOP_NAV_COLLAPSED', collapsed ? '1' : '0'); }catch(e){}
+  applyDesktopNavState_();
+}
+
+const AppNavigationModule = (() => {
+  let bound = false;
+
+  function init(){
+    if(bound) return;
+    const app = document.getElementById('app');
+    if(!app) return;
+    app.addEventListener('click', handleClick);
+    bound = true;
+  }
+
+  function handleClick(event){
+    const button = event.target.closest('[data-app-action]');
+    if(!button || !document.getElementById('app')?.contains(button)) return;
+    const action = button.dataset.appAction || '';
+    if(action === 'toggle-desktop-nav'){
+      toggleDesktopNav_();
+      return;
+    }
+    if(action === 'open-tab'){
+      switchTab(button.dataset.target || 'home');
+      return;
+    }
+    if(action === 'open-technical'){
+      state.technicalPage = button.dataset.page || 'overview';
+      switchTab('technical');
+      return;
+    }
+    if(action === 'open-settings'){
+      state.settingsGroup = button.dataset.group || 'personal';
+      state.settingsSection = button.dataset.section || '';
+      switchTab('settings');
+      return;
+    }
+    if(action === 'settings-group'){
+      state.settingsGroup = button.dataset.group || 'personal';
+      state.settingsSection = '';
+      renderSettingsTab();
+      document.getElementById('main')?.scrollTo({top:0,behavior:'auto'});
+      return;
+    }
+    if(action === 'settings-section'){
+      state.settingsGroup = button.dataset.group || state.settingsGroup || 'personal';
+      state.settingsSection = button.dataset.section || '';
+      renderSettingsTab();
+      document.getElementById('main')?.scrollTo({top:0,behavior:'auto'});
+      return;
+    }
+    if(action === 'customize-favorites'){
+      openHomeFavoritesCustomizer();
+      return;
+    }
+    if(action === 'technical-page'){
+      state.technicalPage = button.dataset.page || 'overview';
+      renderTechnicalTab();
+      document.getElementById('main')?.scrollTo({top:0,behavior:'auto'});
+      return;
+    }
+    if(action === 'open-account'){
+      state.accountView = button.dataset.view || 'info';
+      if(state.accountView !== 'setup') state.accountSetupSection = '';
+      switchTab('account');
+      return;
+    }
+  }
+
+  return {init};
+})();
+
+function workspaceCardHtml({cardId='',icon='file',title='',text='',action='',target='',page='',view='',group='',section='',note='',ready=false,disabled=false}){
+  if(cardId){
+    const meta = getHomeCardDisplay_(cardId);
+    icon = meta.icon || icon;
+    title = meta.title || title;
+    text = meta.description || text;
+  }
+  const attrs = disabled ? 'aria-disabled="true"' : `data-app-action="${escAttr(action)}"${target ? ` data-target="${escAttr(target)}"` : ''}${page ? ` data-page="${escAttr(page)}"` : ''}${view ? ` data-view="${escAttr(view)}"` : ''}${group ? ` data-group="${escAttr(group)}"` : ''}${section ? ` data-section="${escAttr(section)}"` : ''}`;
+  const tag = disabled ? 'div' : 'button type="button"';
+  return `<${tag} class="workspace-card${disabled ? ' disabled' : ''}" ${attrs}${cardId ? ` data-card-id="${escAttr(cardId)}"` : ''}>
+    <span class="workspace-card-icon">${icon2d(icon)}</span>
+    <span class="workspace-card-title">${esc(title)}</span>
+    <span class="workspace-card-text">${esc(text)}</span>
+    ${note ? `<span class="workspace-card-note${ready ? ' ready' : ''}">${esc(note)}</span>` : ''}
+    ${disabled ? '' : '<span class="workspace-card-arrow">›</span>'}
+  </${disabled ? 'div' : 'button'}>`;
+}
+
+const HOME_CARD_CATALOG = [
+  {id:'create',icon:'plus',title:'Tạo phiếu',description:'Tạo mới phiếu nghiệp vụ và phiếu Nội kiểm Truyền máu.',action:'open-tab',target:'create',favorite:true},
+  {id:'handover',icon:'clipboard',title:'Bàn giao trực',description:'Mở danh sách bàn giao và báo cáo thường trực.',action:'open-tab',target:'list',favorite:true},
+  {id:'meeting',icon:'meeting',title:'Họp/Giao ban',description:'Tạo và quản lý giao ban thường trực, biên bản họp.',action:'open-tab',target:'meeting',favorite:true},
+  {id:'list',icon:'file',title:'Danh sách phiếu',description:'Tra cứu hồ sơ, lọc dữ liệu và xuất theo quyền.',action:'open-tab',target:'pdf',favorite:true},
+  {id:'technical',icon:'equipment',title:'Quản lý kỹ thuật',description:'Thiết bị, hóa chất–vật tư, phương pháp và bảo đảm chất lượng.',action:'open-technical',page:'overview',menu:true},
+  {id:'quality',icon:'shield',title:'Quản lý chất lượng',description:'Rủi ro, sự không phù hợp, CAPA, đánh giá và chỉ số chất lượng.',disabled:true,menu:true},
+  {id:'materials',icon:'inventory',title:'Hóa chất–Vật tư–Kho',description:'Danh mục, LOT, xuất nhập tồn, đánh giá chất lượng và cảnh báo.',disabled:true,menu:true},
+  {id:'personnel',icon:'school',title:'Nhân sự–Đào tạo',description:'Năng lực, trao quyền, kế hoạch và hồ sơ đào tạo.',disabled:true,menu:true},
+  {id:'reports',icon:'analytics',title:'Báo cáo',description:'Tra cứu, thống kê và xuất báo cáo theo phạm vi quyền.',action:'open-tab',target:'pdf',menu:true},
+  {id:'settings',icon:'settings',title:'Cài đặt',description:'Cá nhân, nghiệp vụ, giao diện và hệ thống trong một nơi.',action:'open-settings',group:'personal',menu:true}
+];
+
+function getHomeCardDefinition_(cardId){
+  return HOME_CARD_CATALOG.find(card => card.id === cardId) || null;
+}
+
+function getHomeCardDisplay_(cardId){
+  const card = getHomeCardDefinition_(cardId) || {id:cardId,icon:'file',title:cardId,description:''};
+  const custom = state.homeConfig?.cardOverrides?.[cardId] || {};
+  return Object.assign({}, card, {
+    title: String(custom.title || card.title || ''),
+    description: String(custom.description || card.description || '')
+  });
+}
+
+function getFavoriteCardIds_(){
+  const ids = state.homeConfig?.user?.favoriteCardIds;
+  const allowed = HOME_CARD_CATALOG.filter(card => card.favorite || !card.disabled).map(card => card.id);
+  const source = Array.isArray(ids) && ids.length ? ids : ['create','handover','meeting','list'];
+  const out = [];
+  source.forEach(id => { if(allowed.includes(id) && !out.includes(id)) out.push(id); });
+  return (out.length ? out : ['create','handover','meeting','list']).slice(0,8);
+}
+
+function homeCardHtml_(cardId, options={}){
+  const card = getHomeCardDisplay_(cardId);
+  return workspaceCardHtml(Object.assign({}, card, options, {cardId}));
+}
+
+function renderHomeWorkItems_(){
+  const rows = [
+    {icon:'clipboard',title:'Bàn giao và báo cáo trực',sub:'Mở danh sách để xem hồ sơ cần tiếp tục xử lý.',action:'open-tab',target:'list',state:'Mở danh sách'},
+    {icon:'meeting',title:'Họp/Giao ban',sub:'Mở giao ban thường trực, biên bản họp và ký xác nhận.',action:'open-tab',target:'meeting',state:'Mở công việc'},
+    {icon:'file',title:'Tra cứu hồ sơ',sub:'Tìm phiếu theo thời gian, khoa/phòng và trạng thái.',action:'open-tab',target:'pdf',state:'Tra cứu'}
+  ];
+  return `<div class="home-work-list">${rows.map(row => `<button type="button" class="home-work-item" data-app-action="${row.action}" data-target="${row.target}"><span class="home-work-icon">${icon2d(row.icon)}</span><span><span class="home-work-title">${esc(row.title)}</span><span class="home-work-sub">${esc(row.sub)}</span></span><span class="home-work-state">${esc(row.state)}</span></button>`).join('')}</div>`;
+}
+
+function renderHomeDashboard_(){
+  const deptCount = Array.isArray(state.khoaPhong) ? state.khoaPhong.length : 0;
+  const formCount = Array.isArray(state.allowedFormTypes) ? state.allowedFormTypes.length : 0;
+  const scope = state.permissionScope?.group || (canOpenAdminSettings() ? 'TOÀN QUYỀN' : 'THEO KHOA/PHÒNG');
+  const exportText = canCurrentUserExportExcel() ? 'Có' : 'Không';
+  const items = [
+    ['Khoa/phòng được truy cập', String(deptCount), 'Theo phạm vi tài khoản'],
+    ['Loại phiếu được phép', String(formCount), 'Theo quyền hiện tại'],
+    ['Phạm vi dữ liệu', scope, 'Backend kiểm soát'],
+    ['Quyền xuất Excel', exportText, 'Theo cấu hình hệ thống']
+  ];
+  return `<div class="home-dashboard-grid">${items.map(item => `<div class="home-kpi"><div class="home-kpi-label">${esc(item[0])}</div><div class="home-kpi-value">${esc(item[1])}</div><div class="home-kpi-note">${esc(item[2])}</div></div>`).join('')}</div>`;
+}
+
+function renderHomeTab(){
+  const root = document.getElementById('tab-home');
+  if(!root) return;
+  const favoriteIds = getFavoriteCardIds_();
+  const menuCards = HOME_CARD_CATALOG.filter(card => card.menu);
+  root.innerHTML = `<div class="home-shell">
+    <section class="workspace-section">
+      <div class="workspace-section-head"><h2 class="workspace-section-title">Chức năng yêu thích</h2><button type="button" class="workspace-section-action" data-app-action="customize-favorites">Tùy chỉnh</button></div>
+      <div class="workspace-grid home-favorite-grid">${favoriteIds.map(id => homeCardHtml_(id,{note:'Yêu thích',ready:true})).join('')}</div>
+    </section>
+    <section class="workspace-section">
+      <div class="workspace-section-head"><h2 class="workspace-section-title">Công việc của tôi</h2><button type="button" class="workspace-section-action" data-app-action="open-tab" data-target="work">Xem tất cả</button></div>
+      ${renderHomeWorkItems_()}
+    </section>
+    <section class="workspace-section">
+      <div class="workspace-section-head"><h2 class="workspace-section-title">Menu</h2></div>
+      <div class="workspace-grid home-menu-grid">${menuCards.map(card => homeCardHtml_(card.id,{note:card.disabled?'Phát triển sau':'Mở phân hệ',ready:!card.disabled})).join('')}</div>
+    </section>
+    <section class="workspace-section">
+      <div class="workspace-section-head"><h2 class="workspace-section-title">Dashboard</h2></div>
+      ${renderHomeDashboard_()}
+    </section>
+  </div>`;
+}
+
+function renderWorkTab(){
+  const root = document.getElementById('tab-work');
+  if(!root) return;
+  root.innerHTML = `<div class="work-shell">
+    <div class="workspace-page-head"><div><h1 class="workspace-page-title">Công việc của tôi</h1><p class="workspace-page-sub">Tập trung các nghiệp vụ cần thực hiện, theo dõi hoặc xác nhận.</p></div></div>
+    ${renderHomeWorkItems_()}
+  </div>`;
+}
+
+function renderAppsTab(){
+  const root = document.getElementById('tab-apps');
+  if(!root) return;
+  const menuCards = HOME_CARD_CATALOG.filter(card => card.menu);
+  root.innerHTML = `<div class="apps-shell">
+    <div class="workspace-page-head"><div><h1 class="workspace-page-title">Menu</h1><p class="workspace-page-sub">Các phân hệ hiển thị theo quyền tài khoản.</p></div></div>
+    <div class="workspace-grid home-menu-grid">${menuCards.map(card => homeCardHtml_(card.id,{note:card.disabled?'Phát triển sau':'Mở phân hệ',ready:!card.disabled})).join('')}</div>
+  </div>`;
+}
+
+function favoritePickerHtml_(){
+  const selected = getFavoriteCardIds_();
+  const cards = HOME_CARD_CATALOG.filter(card => card.favorite || !card.disabled);
+  return `<div class="favorite-picker-list">${cards.map(card => { const meta=getHomeCardDisplay_(card.id); return `<label class="favorite-picker-row"><input type="checkbox" name="homeFavoriteCard" value="${escAttr(card.id)}" ${selected.includes(card.id)?'checked':''}><span class="favorite-picker-icon">${icon2d(meta.icon)}</span><span><span class="favorite-picker-title">${esc(meta.title)}</span><span class="favorite-picker-sub">${esc(meta.description)}</span></span></label>`; }).join('')}</div>`;
+}
+
+function openHomeFavoritesCustomizer(){
+  openModal(`<div class="modal-card"><div class="modal-head"><div class="modal-title">Chức năng yêu thích</div><button class="close-btn" onclick="closeModal()">×</button></div><p class="meta" style="margin-top:10px">Chọn tối đa 8 chức năng. Thay đổi được lưu theo tài khoản.</p>${favoritePickerHtml_()}<div class="btn-row"><button type="button" class="btn secondary" onclick="closeModal()">Hủy</button><button id="saveHomeFavoritesBtn" type="button" class="btn primary" onclick="saveHomeFavorites(this)">Lưu yêu thích</button></div></div>`);
+}
+
+async function saveHomeFavorites(btn){
+  const scope = btn?.closest('.modal-card, .settings-content') || document;
+  const ids = Array.from(scope.querySelectorAll('input[name="homeFavoriteCard"]:checked')).map(el => el.value).slice(0,8);
+  if(!ids.length){ toast('Vui lòng chọn ít nhất một chức năng.'); return; }
+  await withButton(btn,'Đang lưu...',async()=>{
+    const res = await api('saveMyHomeConfig',{favoriteCardIds:ids,sectionOrder:['favorites','work','menu','dashboard']});
+    state.homeConfig = res.data || state.homeConfig;
+    if(btn?.closest('.modal-card')) closeModal();
+    renderHomeTab();
+    if(state.activeTab === 'settings') renderSettingsTab();
+    toast('Đã lưu chức năng yêu thích.');
+  });
+}
+
+
+/* ===== MODULE: JS_SETTINGS_CENTER_START ===== */
+function openSettingsPage(group, section){
+  state.settingsGroup = group || 'personal';
+  state.settingsSection = section || '';
+  switchTab('settings');
+}
+
+function settingsGroups_(){
+  const groups = [
+    {id:'personal',icon:'user',label:'Cá nhân'},
+    {id:'business',icon:'briefcase',label:'Nghiệp vụ'}
+  ];
+  if(canOpenAdminSettings()) groups.push({id:'interface',icon:'apps',label:'Giao diện'},{id:'system',icon:'settings',label:'Hệ thống'});
+  return groups;
+}
+
+function settingsSections_(group){
+  if(group === 'personal') return [
+    {id:'favorites',icon:'star',title:'Chức năng yêu thích',text:'Chọn và sắp xếp các lối tắt trên Home.'},
+    {id:'account',icon:'user',title:'Thông tin tài khoản',text:'Xem và cập nhật thông tin cá nhân.'},
+    {id:'signature',icon:'signature',title:'Chữ ký cá nhân',text:'Tạo, tải lên hoặc cập nhật chữ ký hệ thống.'},
+    {id:'password',icon:'key',title:'Mật khẩu',text:'Đổi mật khẩu của tài khoản đang đăng nhập.'}
+  ];
+  if(group === 'business'){
+    const out=[];
+    if(hasEquipmentSettingsAccess()) out.push({id:'equipment',icon:'equipment',title:'Trang thiết bị bàn giao',text:'Cấu hình danh mục thiết bị cố định theo khoa/phòng.'});
+    if(canManageNoiKiemTmConfig()) out.push({id:'noiKiemTmConfig',icon:'shield',title:'Nội kiểm Truyền máu',text:'Thiết bị, vật tư–hóa chất và cấu hình Phần II, III, IV.'});
+    if(!out.length) out.push({id:'business-empty',icon:'briefcase',title:'Chưa có quyền cấu hình nghiệp vụ',text:'Liên hệ quản trị để được cấp quyền phù hợp.',disabled:true});
+    return out;
+  }
+  if(group === 'interface') return [
+    {id:'homeCards',icon:'apps',title:'Card Home',text:'Sửa tên hiển thị và mô tả ngắn của card toàn hệ thống.'}
+  ];
+  if(group === 'system') return [
+    {id:'accountManagement',icon:'user',title:'Quản lý tài khoản',text:'Tài khoản, vai trò và phân quyền sẽ được phát triển ở giai đoạn tiếp theo.'},
+    {id:'templates',icon:'file',title:'Mẫu phiếu',text:'Mẫu Word/Google Docs dùng cho PDF.'},
+    {id:'global',icon:'puzzle',title:'Biến toàn cục',text:'Nội dung và định dạng khối PDF.'},
+    {id:'variables',icon:'book',title:'Bảng biến mẫu',text:'Danh sách biến dùng trong template.'},
+    {id:'excel',icon:'analytics',title:'Xuất Excel',text:'Phân quyền xuất Excel và lịch sử xuất.'},
+    {id:'info',icon:'link',title:'Thông tin chung',text:'Thông tin ứng dụng và tài nguyên liên quan.'}
+  ];
+  return [];
+}
+
+function renderSettingsTab(){
+  const root = document.getElementById('tab-settings');
+  if(!root) return;
+  const groups = settingsGroups_();
+  if(!groups.some(g=>g.id===state.settingsGroup)) state.settingsGroup='personal';
+  const group = state.settingsGroup || 'personal';
+  const section = state.settingsSection || '';
+  const groupLabel = groups.find(g=>g.id===group)?.label || 'Cài đặt';
+  root.innerHTML = `<div class="settings-shell"><div class="workspace-page-head"><div><h1 class="workspace-page-title">Cài đặt</h1><p class="workspace-page-sub">Tất cả thiết lập cá nhân, nghiệp vụ, giao diện và hệ thống được quản lý tập trung tại đây.</p></div></div><div class="settings-layout"><aside class="settings-menu"><div class="settings-menu-title">Nhóm cài đặt</div>${groups.map(g=>`<button type="button" class="settings-group-btn ${group===g.id?'active':''}" data-app-action="settings-group" data-group="${g.id}">${icon2d(g.icon)}<span>${esc(g.label)}</span></button>`).join('')}</aside><div class="settings-content">${section ? renderSettingsSectionContent_(group,section) : `<div class="workspace-page-head"><div><h2 class="workspace-page-title" style="font-size:20px">${esc(groupLabel)}</h2></div></div><div class="settings-card-grid">${settingsSections_(group).map(s=>workspaceCardHtml({icon:s.icon,title:s.title,text:s.text,action:s.disabled?'':'settings-section',group,section:s.id,disabled:!!s.disabled,note:s.disabled?'Không có quyền':'Mở cài đặt',ready:!s.disabled})).join('')}</div>`}</div></div></div>`;
+  bindSettingsSection_(group,section);
+}
+
+function renderSettingsSectionContent_(group,section){
+  const title = settingsSections_(group).find(s=>s.id===section)?.title || 'Cài đặt';
+  let body='';
+  if(section==='favorites') body=`<div class="card"><h2 class="section-title">Chức năng yêu thích</h2><p class="meta">Chọn tối đa 8 chức năng hiển thị ở Vùng 1 trên Home.</p>${favoritePickerHtml_()}<div class="btn-row"><button id="settingsSaveFavoritesBtn" type="button" class="btn primary">Lưu yêu thích</button></div></div>`;
+  else if(section==='account') body=renderAccountInfoPanel(accountInfoFallback(),canOpenAdminSettings()) + `<div class="btn-row"><button type="button" class="btn primary" onclick="openEditAccountModal()">Sửa thông tin tài khoản</button></div>`;
+  else if(section==='signature') body=renderAccountSetupSectionHtml('signature');
+  else if(section==='password') body=renderAccountPasswordPanel(canOpenAdminSettings());
+  else if(section==='equipment') body=renderAccountSetupSectionHtml('equipment');
+  else if(section==='noiKiemTmConfig') body=renderAccountSetupSectionHtml('noiKiemTmConfig');
+  else if(section==='homeCards') body=renderHomeCardConfigSection_();
+  else if(section==='accountManagement') body=renderAccountManagementPlaceholder_();
+  else if(['templates','global','variables','excel','info'].includes(section)) body=renderAccountSetupSectionHtml(section);
+  else body='<div class="technical-placeholder">Nội dung chưa được triển khai.</div>';
+  return `<button type="button" class="technical-back settings-back" data-app-action="settings-group" data-group="${escAttr(group)}">← ${esc(settingsGroups_().find(g=>g.id===group)?.label || 'Cài đặt')}</button><div class="workspace-page-head"><div><h2 class="workspace-page-title" style="font-size:20px">${esc(title)}</h2></div></div>${body}`;
+}
+
+function bindSettingsSection_(group,section){
+  if(!section) return;
+  if(section==='favorites') document.getElementById('settingsSaveFavoritesBtn')?.addEventListener('click',e=>saveHomeFavorites(e.currentTarget));
+  else if(section==='account'){ if(!state.accountInfo&&state.token) loadAccountInfoSilently(); }
+  else if(section==='password') bindAccountPanel('password');
+  else if(section==='homeCards') bindHomeCardConfigSection_();
+  else if(['signature','equipment','noiKiemTmConfig','templates','global','variables','excel','info'].includes(section)) bindAccountSetupSection(section);
+}
+
+function renderHomeCardConfigSection_(){
+  if(!canOpenAdminSettings()) return '<div class="empty">Chỉ Admin tổng được sửa nội dung card Home.</div>';
+  return `<div class="card"><h2 class="section-title">Card Home</h2><p class="meta">Chỉ thay đổi tên hiển thị và mô tả. CardId, icon, route, quyền và logic được giữ nguyên.</p><div class="home-card-config-list">${HOME_CARD_CATALOG.map(card=>{const meta=getHomeCardDisplay_(card.id);return `<div class="home-card-config-item" data-home-card-config="${escAttr(card.id)}"><div class="home-card-config-head"><span class="workspace-card-icon">${icon2d(card.icon)}</span><div><strong>${esc(card.title)}</strong><div class="home-card-config-id">CardId: ${esc(card.id)}</div></div></div><div class="home-card-config-grid"><div><label>Tên hiển thị</label><input data-field="title" maxlength="60" value="${escAttr(meta.title)}"></div><div><label>Mô tả ngắn</label><textarea data-field="description" maxlength="160">${esc(meta.description)}</textarea></div><button type="button" class="btn primary" data-save-home-card="${escAttr(card.id)}">Lưu</button></div></div>`}).join('')}</div></div>`;
+}
+
+function bindHomeCardConfigSection_(){
+  document.querySelectorAll('[data-save-home-card]').forEach(btn=>btn.addEventListener('click',()=>saveHomeCardConfig_(btn.dataset.saveHomeCard,btn)));
+}
+
+async function saveHomeCardConfig_(cardId,btn){
+  const item=document.querySelector(`[data-home-card-config="${CSS.escape(cardId)}"]`);
+  if(!item) return;
+  const title=item.querySelector('[data-field="title"]')?.value||'';
+  const description=item.querySelector('[data-field="description"]')?.value||'';
+  await withButton(btn,'Đang lưu...',async()=>{
+    const res=await api('saveHomeCardConfig',{cardId,title,description});
+    state.homeConfig=res.data||state.homeConfig;
+    renderHomeTab();
+    renderAppsTab();
+    renderSettingsTab();
+    toast('Đã lưu nội dung card Home.');
+  });
+}
+
+function renderAccountManagementPlaceholder_(){
+  if(!canOpenAdminSettings()) return '<div class="empty">Chỉ Admin tổng được mở Quản lý tài khoản.</div>';
+  const total=Array.isArray(state.personnel)?state.personnel.length:0;
+  return `<div class="card"><h2 class="section-title">Quản lý tài khoản</h2><div class="home-dashboard-grid" style="margin:12px 0"><div class="home-kpi"><div class="home-kpi-label">Tài khoản hiện có</div><div class="home-kpi-value">${total}</div><div class="home-kpi-note">Dữ liệu nhân sự dùng chung</div></div></div><p class="meta">Khung quản lý tập trung đã được đặt đúng vị trí. Chức năng thêm, sửa, ngừng/xóa tài khoản và ma trận phân quyền tính năng–khoa/phòng–loại phiếu sẽ được triển khai riêng ở Giai đoạn 2 để không thay đổi cấu trúc file nhân sự dùng chung trong bản giao diện này.</p><button type="button" class="btn secondary" onclick="openSettingsPage('personal','password')">Mở đổi/reset mật khẩu hiện có</button></div>`;
+}
+/* ===== MODULE: JS_SETTINGS_CENTER_END ===== */
+
+function technicalMenuItems_(){
+  return [
+    ['overview','history','Tổng quan'],
+    ['equipment','equipment','Trang thiết bị'],
+    ['materials','puzzle','Hóa chất–vật tư'],
+    ['inventory','clipboard','Kho'],
+    ['methods','book','Phương pháp xét nghiệm'],
+    ['quality','shield','Bảo đảm chất lượng'],
+    ['environment','building','Môi trường–hạ tầng'],
+    ['suppliers','briefcase','Nhà cung cấp'],
+    ['reports','file','Báo cáo kỹ thuật']
+  ];
+}
+
+function technicalMenuHtml_(active){
+  return `<aside class="technical-menu"><div class="technical-menu-title">Quản lý kỹ thuật</div>${technicalMenuItems_().map(([key,icon,label]) => `<button type="button" class="technical-menu-btn ${active===key||active.startsWith(key+'-')?'active':''}" data-app-action="technical-page" data-page="${escAttr(key)}">${icon2d(icon)}<span>${esc(label)}</span></button>`).join('')}</aside>`;
+}
+
+function technicalPageContent_(page){
+  if(page === 'overview'){
+    return `<div class="workspace-page-head"><div><h1 class="workspace-page-title">Tổng quan kỹ thuật</h1><p class="workspace-page-sub">Khung quản lý kỹ thuật theo khoa/phòng. Các trang chi tiết sẽ được phát triển từng giai đoạn.</p></div></div>
+      <div class="workspace-grid cols-3">
+        ${workspaceCardHtml({icon:'equipment',title:'Trang thiết bị',text:'Danh mục, lý lịch, hồ sơ thực hiện, tài liệu và lịch sử thiết bị.',action:'technical-page',page:'equipment',note:'Khung nền',ready:true})}
+        ${workspaceCardHtml({icon:'puzzle',title:'Hóa chất–vật tư',text:'Danh mục, LOT, đánh giá chất lượng, tài liệu/MSDS và tồn kho.',action:'technical-page',page:'materials',note:'Khung nền',ready:true})}
+        ${workspaceCardHtml({icon:'shield',title:'Bảo đảm chất lượng',text:'Nội kiểm, ngoại kiểm, so sánh và hồ sơ xử lý kết quả không đạt.',action:'technical-page',page:'quality',note:'Có Nội kiểm TM',ready:true})}
+      </div>`;
+  }
+  if(page === 'quality'){
+    return `<div class="workspace-page-head"><div><h1 class="workspace-page-title">Bảo đảm chất lượng</h1><p class="workspace-page-sub">Các hoạt động bảo đảm giá trị kết quả xét nghiệm.</p></div></div>
+      <div class="workspace-grid cols-3">
+        ${workspaceCardHtml({icon:'shield',title:'Nội kiểm Truyền máu',text:'Tạo phiếu, xem danh sách và quản lý một cấu hình chính thức.',action:'technical-page',page:'quality-nktm',note:'Đang sử dụng',ready:true})}
+        ${workspaceCardHtml({icon:'history',title:'Ngoại kiểm',text:'Chương trình, đợt mẫu, kết quả, đánh giá và CAPA.',disabled:true,note:'Phát triển sau'})}
+        ${workspaceCardHtml({icon:'link',title:'So sánh kết quả',text:'So sánh liên thiết bị, liên phương pháp và liên cơ sở.',disabled:true,note:'Phát triển sau'})}
+      </div>`;
+  }
+  if(page === 'quality-nktm'){
+    return `<div class="technical-toolbar"><button type="button" class="technical-back" data-app-action="technical-page" data-page="quality">← Bảo đảm chất lượng</button></div>
+      <div class="workspace-page-head"><div><h1 class="workspace-page-title">Nội kiểm Truyền máu</h1><p class="workspace-page-sub">Một vị trí chính thức cho nghiệp vụ và cấu hình Nội kiểm Truyền máu.</p></div></div>
+      <div class="workspace-grid cols-3">
+        ${workspaceCardHtml({icon:'plus',title:'Tạo phiếu Nội kiểm TM',text:'Mở Tạo phiếu và chọn loại phiếu Kết quả nội kiểm Truyền máu.',action:'open-tab',target:'create',note:'Sử dụng ngay',ready:true})}
+        ${workspaceCardHtml({icon:'file',title:'Danh sách phiếu',text:'Mở DS phiếu để tra cứu và xem bảng kết quả Nội kiểm TM.',action:'open-tab',target:'pdf',note:'Sử dụng ngay',ready:true})}
+        ${canManageNoiKiemTmConfig() ? workspaceCardHtml({icon:'settings',title:'Cài đặt Nội kiểm TM',text:'Mở đúng trang cấu hình tập trung trong mục Cài đặt.',action:'open-settings',group:'business',section:'noiKiemTmConfig',note:'Cài đặt tập trung',ready:true}) : workspaceCardHtml({icon:'settings',title:'Cài đặt Nội kiểm TM',text:'Tài khoản chưa có quyền cấu hình khoa/phòng.',disabled:true,note:'Không có quyền'})}
+      </div>`;
+  }
+  if(page === 'quality-nktm-config'){
+    return `<div class="technical-toolbar"><button type="button" class="technical-back" data-app-action="technical-page" data-page="quality-nktm">← Nội kiểm Truyền máu</button></div><div class="workspace-page-head"><div><h1 class="workspace-page-title">Cài đặt Nội kiểm Truyền máu</h1><p class="workspace-page-sub">Toàn bộ cấu hình đã được tập trung trong mục Cài đặt.</p></div></div>${workspaceCardHtml({icon:'settings',title:'Mở Cài đặt Nội kiểm TM',text:'Cài đặt thiết bị, vật tư–hóa chất và nội dung Phần II, III, IV.',action:'open-settings',group:'business',section:'noiKiemTmConfig',note:'Vị trí chính thức',ready:true})}`;
+  }
+  const names = {equipment:'Trang thiết bị',materials:'Hóa chất–thuốc thử–vật tư',inventory:'Kho',methods:'Phương pháp xét nghiệm',environment:'Môi trường–hạ tầng',suppliers:'Nhà cung cấp',reports:'Báo cáo kỹ thuật'};
+  return `<div class="workspace-page-head"><div><h1 class="workspace-page-title">${esc(names[page] || 'Quản lý kỹ thuật')}</h1><p class="workspace-page-sub">Khung chức năng đã được định vị để phát triển chi tiết ở giai đoạn tiếp theo.</p></div></div><div class="technical-placeholder">Chưa triển khai nội dung chi tiết. Cấu trúc điều hướng và vị trí module đã sẵn sàng.</div>`;
+}
+
+function renderTechnicalTab(){
+  const root = document.getElementById('tab-technical');
+  if(!root) return;
+  const page = state.technicalPage || 'overview';
+  const menuActive = page.startsWith('quality') ? 'quality' : page;
+  root.innerHTML = `<div class="technical-shell">
+    <div class="technical-toolbar"><button type="button" class="technical-back" data-app-action="open-tab" data-target="apps">← Ứng dụng</button></div>
+    <div class="technical-layout">${technicalMenuHtml_(menuActive)}<main class="technical-content">${technicalPageContent_(page)}</main></div>
+  </div>`;
+}
+// ===== MODULE: JS_APP_NAVIGATION_WORKSPACES_END =====
 
 // ===== MODULE: JS_CREATE_PHIEU_START =====
 function renderCreateTab(preferredLoai = ''){
@@ -11783,7 +12407,7 @@ async function saveProfileSignatureFromPad(btn){
     toast('Đã lưu chữ ký hệ thống.');
     closeFullSignatureModal();
     state.afterProfileSignRole = '';
-    if(state.activeTab === 'account') renderSettingsTab();
+    if(state.activeTab === 'account' || state.activeTab === 'settings') refreshSettingsUi_();
     if(afterRole === 'thuKy') return submitThuKySignature(null, true);
     if(afterRole === 'chuTri') return submitChuTriSignature(null, true);
   };
@@ -12423,7 +13047,7 @@ async function saveUploadedProfileSignature(btn){
       await refreshMySignatureSilently();
       closeSignatureUploadModal();
       state.afterProfileSignRole = '';
-      if(state.activeTab === 'account') renderSettingsTab();
+      if(state.activeTab === 'account' || state.activeTab === 'settings') refreshSettingsUi_();
       toast('Đã lưu chữ ký.');
       if(afterRole === 'thuKy') return submitThuKySignature(null, true);
       if(afterRole === 'chuTri') return submitChuTriSignature(null, true);
@@ -13317,7 +13941,7 @@ window.exportTmExcel = window.exportDsPhieuExcel;
 /* ================= ACCOUNT ================= */
 
 
-const ICON_2D_PATHS = {"user": "<circle cx=\"12\" cy=\"7\" r=\"3.5\"/><path d=\"M5 21a7 7 0 0 1 14 0\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "clipboard": "<path d=\"M9 4h6l1 2h3v15H5V6h3l1-2Z\"/><path d=\"M9 10h6M9 14h6M9 18h4\"/>", "meeting": "<circle cx=\"12\" cy=\"6\" r=\"2.1\"/><circle cx=\"5.8\" cy=\"9.3\" r=\"1.9\"/><circle cx=\"18.2\" cy=\"9.3\" r=\"1.9\"/><path d=\"M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1\"/><path d=\"M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9\"/><path d=\"M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9\"/><ellipse cx=\"12\" cy=\"16.6\" rx=\"6.3\" ry=\"2.2\"/><path d=\"M12 18.8v2.2M8.7 21h6.6\"/>", "file": "<path d=\"M7 3h7l4 4v14H7V3Z\"/><path d=\"M14 3v5h5M10 12h6M10 16h6\"/>", "eye": "<path d=\"M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "eye-off": "<path d=\"M3 3l18 18\"/><path d=\"M10.6 10.6a3 3 0 0 0 3.8 3.8\"/><path d=\"M9.5 5.7A9.8 9.8 0 0 1 12 5.4c6 0 9.5 6.6 9.5 6.6a16 16 0 0 1-3.1 4.1\"/><path d=\"M6.1 6.6C3.8 8.3 2.5 12 2.5 12a16.1 16.1 0 0 0 6.4 6\"/>", "edit": "<path d=\"M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z\"/><path d=\"M13.5 8.5l3 3\"/>", "key": "<circle cx=\"7.5\" cy=\"14.5\" r=\"3.5\"/><path d=\"M11 14.5h10M16 14.5v3M19 14.5v2\"/>", "settings": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a7 7 0 0 0-1.8-1L14.4 3h-4.8l-.3 3.1a7 7 0 0 0-1.8 1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7 7 0 0 0 1.8 1l.3 3.1h4.8l.3-3.1a7 7 0 0 0 1.8-1l2.4 1 2-3.4-2-1.5c.1-.3.1-.7.1-1Z\"/>", "logout": "<path d=\"M10 4H5v16h5\"/><path d=\"M14 16l4-4-4-4M18 12H9\"/>", "id": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"11\" r=\"2\"/><path d=\"M6 16a3 3 0 0 1 6 0M14 10h4M14 14h4\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M4 9h16\"/>", "mail": "<rect x=\"4\" y=\"6\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M4 8l8 5 8-5\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M9 7V5h6v2M3 12h18\"/>", "building": "<path d=\"M5 21V4h14v17\"/><path d=\"M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2M3 21h18\"/>", "map": "<path d=\"M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/>", "shield": "<path d=\"M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3Z\"/><path d=\"M9 12l2 2 4-5\"/>", "signature": "<path d=\"M4 17c2.5-5 5-5 5-2 0 2-2 3-3 3 3 0 5-6 8-6 2 0 1 4 3 4 1.5 0 2.5-2 3-3\"/><path d=\"M4 21h16\"/>", "equipment": "<rect x=\"5\" y=\"7\" width=\"14\" height=\"11\" rx=\"2\"/><path d=\"M8 7V5h8v2M9 12h2M13 12h2M9 16h6\"/>", "puzzle": "<path d=\"M8 3h4v3a2 2 0 1 0 0 4v3h3a2 2 0 1 1 0 4h-3v4H8v-4H5a2 2 0 1 1 0-4h3v-3a2 2 0 1 0 0-4V3Z\"/>", "book": "<path d=\"M4 5a3 3 0 0 1 3-2h13v16H7a3 3 0 0 0-3 2V5Z\"/><path d=\"M4 5v16M8 7h8M8 11h8\"/>", "history": "<path d=\"M3 12a9 9 0 1 0 3-6.7\"/><path d=\"M3 4v5h5\"/><path d=\"M12 7v5l3 2\"/>", "link": "<path d=\"M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1.2 1.2\"/><path d=\"M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1.2-1.2\"/>"};
+const ICON_2D_PATHS = {"user":"<circle cx=\"12\" cy=\"7\" r=\"3.5\"/><path d=\"M5 21a7 7 0 0 1 14 0\"/>","plus":"<path d=\"M12 5v14M5 12h14\"/>","clipboard":"<path d=\"M9 4h6l1 2h3v15H5V6h3l1-2Z\"/><path d=\"M9 10h6M9 14h6M9 18h4\"/>","meeting":"<circle cx=\"12\" cy=\"6\" r=\"2.1\"/><circle cx=\"5.8\" cy=\"9.3\" r=\"1.9\"/><circle cx=\"18.2\" cy=\"9.3\" r=\"1.9\"/><path d=\"M8.6 13.2c.8-1.4 2-2.1 3.4-2.1s2.6.7 3.4 2.1\"/><path d=\"M2.8 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9\"/><path d=\"M15.2 15.7c.4-1.9 1.5-2.9 3-2.9s2.6 1 3 2.9\"/><ellipse cx=\"12\" cy=\"16.6\" rx=\"6.3\" ry=\"2.2\"/><path d=\"M12 18.8v2.2M8.7 21h6.6\"/>","file":"<path d=\"M7 3h7l4 4v14H7V3Z\"/><path d=\"M14 3v5h5M10 12h6M10 16h6\"/>","eye":"<path d=\"M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>","eye-off":"<path d=\"M3 3l18 18\"/><path d=\"M10.6 10.6a3 3 0 0 0 3.8 3.8\"/><path d=\"M9.5 5.7A9.8 9.8 0 0 1 12 5.4c6 0 9.5 6.6 9.5 6.6a16 16 0 0 1-3.1 4.1\"/><path d=\"M6.1 6.6C3.8 8.3 2.5 12 2.5 12a16.1 16.1 0 0 0 6.4 6\"/>","edit":"<path d=\"M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z\"/><path d=\"M13.5 8.5l3 3\"/>","key":"<circle cx=\"7.5\" cy=\"14.5\" r=\"3.5\"/><path d=\"M11 14.5h10M16 14.5v3M19 14.5v2\"/>","settings":"<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a7 7 0 0 0-1.8-1L14.4 3h-4.8l-.3 3.1a7 7 0 0 0-1.8 1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7 7 0 0 0 1.8 1l.3 3.1h4.8l.3-3.1a7 7 0 0 0 1.8-1l2.4 1 2-3.4-2-1.5c.1-.3.1-.7.1-1Z\"/>","logout":"<path d=\"M10 4H5v16h5\"/><path d=\"M14 16l4-4-4-4M18 12H9\"/>","id":"<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"11\" r=\"2\"/><path d=\"M6 16a3 3 0 0 1 6 0M14 10h4M14 14h4\"/>","calendar":"<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M4 9h16\"/>","mail":"<rect x=\"4\" y=\"6\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M4 8l8 5 8-5\"/>","briefcase":"<rect x=\"3\" y=\"7\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M9 7V5h6v2M3 12h18\"/>","building":"<path d=\"M5 21V4h14v17\"/><path d=\"M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2M3 21h18\"/>","map":"<path d=\"M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/>","shield":"<path d=\"M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3Z\"/><path d=\"M9 12l2 2 4-5\"/>","signature":"<path d=\"M4 17c2.5-5 5-5 5-2 0 2-2 3-3 3 3 0 5-6 8-6 2 0 1 4 3 4 1.5 0 2.5-2 3-3\"/><path d=\"M4 21h16\"/>","equipment":"<rect x=\"5\" y=\"7\" width=\"14\" height=\"11\" rx=\"2\"/><path d=\"M8 7V5h8v2M9 12h2M13 12h2M9 16h6\"/>","puzzle":"<path d=\"M8 3h4v3a2 2 0 1 0 0 4v3h3a2 2 0 1 1 0 4h-3v4H8v-4H5a2 2 0 1 1 0-4h3v-3a2 2 0 1 0 0-4V3Z\"/>","book":"<path d=\"M4 5a3 3 0 0 1 3-2h13v16H7a3 3 0 0 0-3 2V5Z\"/><path d=\"M4 5v16M8 7h8M8 11h8\"/>","history":"<path d=\"M3 12a9 9 0 1 0 3-6.7\"/><path d=\"M3 4v5h5\"/><path d=\"M12 7v5l3 2\"/>","link":"<path d=\"M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1.2 1.2\"/><path d=\"M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1.2-1.2\"/>","star":"<path d=\"m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2-4.5-4.4 6.2-.9L12 3Z\"/>","tasks":"<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2\"/><path d=\"m8 9 1.5 1.5L12 8M8 15l1.5 1.5L12 14M14 9h3M14 15h3\"/>","apps":"<rect x=\"4\" y=\"4\" width=\"6\" height=\"6\" rx=\"1\"/><rect x=\"14\" y=\"4\" width=\"6\" height=\"6\" rx=\"1\"/><rect x=\"4\" y=\"14\" width=\"6\" height=\"6\" rx=\"1\"/><rect x=\"14\" y=\"14\" width=\"6\" height=\"6\" rx=\"1\"/>","analytics":"<path d=\"M4 20V10M10 20V4M16 20v-7M22 20H2\"/>","inventory":"<path d=\"M4 7h16v13H4V7Z\"/><path d=\"M3 4h18v3H3V4ZM9 11h6\"/>","science":"<path d=\"M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3\"/><path d=\"M8 15h8\"/>","school":"<path d=\"m3 10 9-5 9 5-9 5-9-5Z\"/><path d=\"M7 13v4c3 2 7 2 10 0v-4M21 10v6\"/>","bell":"<path d=\"M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4\"/>","home":"<path d=\"M3 11.5 12 4l9 7.5\"/><path d=\"M5.5 10.5V21h13V10.5\"/><path d=\"M9.5 21v-6h5v6\"/>"};
 function icon2d(name){
   const path = ICON_2D_PATHS[name] || ICON_2D_PATHS.file || '';
   return `<svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${path}</svg>`;
@@ -13393,10 +14017,7 @@ function renderAccountTab(){
   const menuHtml = `
     <div class="account-menu">
       ${!isMobile ? accountMenuButton('info', 'user', 'Thông tin tài khoản', view) : ''}
-      ${accountMenuButton('edit', 'edit', 'Sửa thông tin tài khoản', view)}
-      ${accountMenuButton('password', 'key', isAdmin ? 'Đổi / reset mật khẩu' : 'Đổi mật khẩu', view)}
-      ${accountMenuButton('setup', 'settings', 'Cài đặt', view)}
-      ${setupButtons}
+      <button class="btn secondary account-menu-btn" type="button" onclick="openSettingsPage('personal','account')"><span class="btn-icon">${icon2d('settings')}</span><span class="btn-label">Cài đặt</span></button>
       <button class="btn secondary account-menu-btn account-logout-btn" type="button" onclick="logout()"><span class="btn-icon">${icon2d('logout')}</span><span class="btn-label">Đăng xuất</span></button>
     </div>`;
 
@@ -13601,7 +14222,7 @@ function getAllowedAccountSetupItems_(){
     items.push(['equipment','equipment','Cấu hình trang thiết bị']);
   }
   if(canManageNoiKiemTmConfig()){
-    items.push(['noiKiemTmConfig','science','Cấu hình Nội kiểm TM']);
+    items.push(['noiKiemTmConfig','shield','Cấu hình Nội kiểm TM']);
   }
   if(canOpenAdminSettings()){
     items.push(
@@ -13931,17 +14552,23 @@ const NoiKiemTmConfigModule = (() => {
 /* ================= SETTINGS ================= */
 
 
-function getSettingsRenderRoot(){
-  return document.getElementById('accountSetupModalContent') || document.getElementById('accountSetupContent') || document.getElementById('tab-settings');
-}
-
-function renderSettingsTab(){
-  const root = getSettingsRenderRoot();
-  if(!root) return;
+function renderLegacyAccountSetup_(){
+  const root = document.getElementById('accountSetupModalContent') || document.getElementById('accountSetupContent');
+  if(!root) return false;
   const section = state.accountSetupSection || 'signature';
   root.innerHTML = renderAccountSetupSectionHtml(section);
   bindAccountSetupSection(section);
   setTimeout(() => $$('textarea').forEach(autoGrow), 0);
+  return true;
+}
+
+function refreshSettingsUi_(){
+  if(state.activeTab === 'settings'){
+    renderSettingsTab();
+    return;
+  }
+  if(renderLegacyAccountSetup_()) return;
+  if(state.activeTab === 'account') renderAccountTab();
 }
 
 function renderAccountSetupSectionHtml(section){
@@ -14278,7 +14905,7 @@ async function loadMySignature(btn){
   await withButton(btn, 'Đang tải...', async () => {
     const res = await api('getMySignature', {});
     state.mySignature = normalizeSignatureState(res.data?.signature || null);
-    renderSettingsTab();
+    refreshSettingsUi_();
     toast('Đã tải lại chữ ký cá nhân.');
   });
 }
@@ -14295,7 +14922,7 @@ async function deleteMySignature(btn){
   await withButton(btn, 'Đang xóa...', async () => {
     const res = await api('deleteMySignature', {});
     state.mySignature = normalizeSignatureState(res.data?.signature || null);
-    renderSettingsTab();
+    refreshSettingsUi_();
     toast('Đã xóa chữ ký hệ thống.');
   });
 }
@@ -14393,7 +15020,7 @@ async function uploadPdfTemplate(type, btn){
     state.pdfTemplateConfig = res.data.config;
     state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || state.pdfContentTemplates;
     state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || state.pdfTemplateVariables;
-    renderSettingsTab();
+    refreshSettingsUi_();
     const check = res.data.check || {};
     toast(check.configured ? `Đã upload và nhận diện biến trong mẫu ${type}.` : `Đã upload ${type}. Hãy bấm Mở để sửa và copy biến từ bảng chú thích vào mẫu.`);
   });
@@ -14406,7 +15033,7 @@ async function testPdfTemplate(type, btn){
       state.pdfTemplateConfig = res.data.config;
       state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || state.pdfContentTemplates;
       state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || state.pdfTemplateVariables;
-      renderSettingsTab();
+      refreshSettingsUi_();
     }
     const check = res.data.check || {};
     toast(check.configured ? `Mẫu ${type} đã sẵn sàng dùng (${check.mode}).` : `Mẫu ${type} chưa có biến dữ liệu.`);
@@ -14484,7 +15111,7 @@ async function loadPdfContentTemplateConfig(btn){
   await withButton(btn, 'Đang tải...', async () => {
     const res = await api('getPdfContentTemplateConfig', {});
     state.pdfContentTemplates = res.data;
-    renderSettingsTab();
+    refreshSettingsUi_();
     toast('Đã tải lại cấu hình nội dung PDF.');
   });
 }
@@ -14529,7 +15156,7 @@ function renderSettingEquipmentRow(it, idx){
 }
 
 function bindSettingsEquipmentEvents(){
-  $('#equipmentDeptSelect')?.addEventListener('change', async e => { await loadEquipmentConfigForDept(e.target.value); renderSettingsTab(); });
+  $('#equipmentDeptSelect')?.addEventListener('change', async e => { await loadEquipmentConfigForDept(e.target.value); refreshSettingsUi_(); });
   $$(`#tmEquipmentSettingsBody input[type="number"]`).forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
   $('#addTmEquipmentBtn')?.addEventListener('click', addSettingTmEquipmentRow);
   $('#resetTmEquipmentBtn')?.addEventListener('click', resetDefaultTmEquipmentConfig);
@@ -14564,7 +15191,7 @@ function resetDefaultTmEquipmentConfig(){
   if(!confirm(msg)) return;
   state.tmEquipmentConfig = isTM ? defaultTmEquipmentConfig() : [];
   state.tmEquipmentConfigHasConfig = isTM;
-  renderSettingsTab();
+  refreshSettingsUi_();
 }
 
 function refreshSettingEquipmentStt(){
@@ -14601,7 +15228,7 @@ async function saveTmEquipmentConfig(btn){
     state.equipmentConfigDept = res.data.khoaPhong || dept;
     setCachedEquipmentEntryForDept(state.equipmentConfigDept, state.tmEquipmentConfig, state.tmEquipmentConfigHasConfig);
     toast(res.message || ('Đã lưu cấu hình thiết bị cho ' + (dept || 'khoa/phòng hiện tại')));
-    renderSettingsTab();
+    refreshSettingsUi_();
     renderCreateTab();
   });
 }
