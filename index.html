@@ -1,4 +1,4 @@
-<!-- VERSION: 328.215 | index: 328 | Code.gs: 215 | INDEX-328.300726-TABBAR-KY-NHAN -->
+<!-- VERSION: 329.216 | index: 329 | Code.gs: 216 | INDEX-329.300726-HOME-KY-NHAN-SIGNATURE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5665,7 +5665,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-328.300726-TABBAR-KY-NHAN</p>
+      <p class="login-version">Version: INDEX-329.300726-HOME-KY-NHAN-SIGNATURE</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -5676,7 +5676,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-328.300726-TABBAR-KY-NHAN</div>
+    <div class="login-loading-version">Version: INDEX-329.300726-HOME-KY-NHAN-SIGNATURE</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -5724,11 +5724,11 @@
     <nav class="tabbar" aria-label="Điều hướng chính">
       <button class="tab-btn active" data-tab="home"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V21h13V10.5"/><path d="M9.5 21v-6h5v6"/></svg></span><span>Trang chủ</span></button>
       <button class="tab-btn" data-tab="create"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span><span>Tạo phiếu</span></button>
-      <button class="tab-btn" data-tab="list"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 12l2 2 4-4"/></svg></span><span>Ký nhận</span></button>
+      <button class="tab-btn" data-tab="list"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="m15.5 5.5 3 3"/><path d="M4 20h4l10.7-10.7a2.12 2.12 0 0 0-3-3L5 17v3Z"/><path d="M3 21h18"/><path d="M10 17.5c1.2-1 2.2-1 3.2 0s2 .9 3.1 0 2.3-.9 4 .2"/></svg></span><span>Ký nhận</span></button>
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
       <button class="tab-btn" data-tab="apps"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><span>Menu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-328.300726-TABBAR-KY-NHAN</div>
+    <div class="app-version">Version: INDEX-329.300726-HOME-KY-NHAN-SIGNATURE</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -5764,7 +5764,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '328.215',
+    frontendVersion: '329.216',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5797,7 +5797,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-328.300726-TABBAR-KY-NHAN';
+const APP_VERSION = 'INDEX-329.300726-HOME-KY-NHAN-SIGNATURE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6580,7 +6580,7 @@ function workspaceCardHtml({cardId='',icon='file',title='',text='',action='',tar
 
 const HOME_CARD_CATALOG = [
   {id:'create',icon:'plus',title:'Tạo phiếu',description:'Tạo mới phiếu nghiệp vụ và phiếu Nội kiểm Truyền máu.',action:'open-tab',target:'create',favorite:true},
-  {id:'handover',icon:'clipboard',title:'Bàn giao trực',description:'Mở danh sách bàn giao và báo cáo thường trực.',action:'open-tab',target:'list',favorite:true},
+  {id:'handover',icon:'signature',title:'Ký nhận',description:'Ký nhận bàn giao và báo cáo thường trực.',action:'open-tab',target:'list',favorite:true},
   {id:'meeting',icon:'meeting',title:'Họp/Giao ban',description:'Tạo và quản lý giao ban thường trực, biên bản họp.',action:'open-tab',target:'meeting',favorite:true},
   {id:'list',icon:'file',title:'Danh sách phiếu',description:'Tra cứu hồ sơ, lọc dữ liệu và xuất theo quyền.',action:'open-tab',target:'pdf',favorite:true},
   {id:'technical',icon:'technical',title:'Quản lý kỹ thuật',description:'Thiết bị, hóa chất–vật tư, phương pháp và bảo đảm chất lượng.',action:'open-technical',page:'overview',menu:true},
@@ -6620,7 +6620,7 @@ function homeCardHtml_(cardId, options={}){
 
 function renderHomeWorkItems_(){
   const rows = [
-    {icon:'clipboard',title:'Bàn giao và báo cáo trực',sub:'Mở danh sách để xem hồ sơ cần tiếp tục xử lý.',action:'open-tab',target:'list',state:'Mở danh sách'},
+    {icon:'signature',title:'Ký nhận bàn giao',sub:'Mở danh sách bàn giao và báo cáo thường trực cần tiếp tục xử lý.',action:'open-tab',target:'list',state:'Mở danh sách'},
     {icon:'meeting',title:'Họp/Giao ban',sub:'Mở giao ban thường trực, biên bản họp và ký xác nhận.',action:'open-tab',target:'meeting',state:'Mở công việc'},
     {icon:'file',title:'Tra cứu hồ sơ',sub:'Tìm phiếu theo thời gian, khoa/phòng và trạng thái.',action:'open-tab',target:'pdf',state:'Tra cứu'}
   ];
