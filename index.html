@@ -1,4 +1,4 @@
-<!-- VERSION: 334.218 | index: 334 | Code.gs: 218 | INDEX-334.310726-NKTM-SYNC-WIDTH -->
+<!-- VERSION: 335.218 | index: 335 | Code.gs: 218 | INDEX-335.030826-NKTM-PRELOAD-SAVE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5419,6 +5419,18 @@
       .nk-section-audit{justify-content:flex-start;font-size:10px}
     }
 
+    /* ===== NỘI KIỂM 335: TOOLBAR LÀM MỚI + TRẠNG THÁI TẠO PHIẾU ===== */
+    #noiKiemTmBlock .nk-create-toolbar{display:flex;align-items:center;justify-content:flex-start;gap:10px;margin:0 0 8px 0;min-height:38px}
+    #noiKiemTmBlock .nk-create-refresh{width:38px;height:38px;min-width:38px;border:1px solid #dadce0;border-radius:50%;background:#fff;color:#1a73e8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 2px rgba(60,64,67,.08);transition:background .15s,border-color .15s,transform .15s}
+    #noiKiemTmBlock .nk-create-refresh:hover{background:#f1f6ff;border-color:#aecbfa}
+    #noiKiemTmBlock .nk-create-refresh:active{transform:rotate(-20deg)}
+    #noiKiemTmBlock .nk-create-refresh:disabled{opacity:.55;cursor:wait;transform:none}
+    #noiKiemTmBlock .nk-create-refresh svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    #noiKiemTmBlock .nk-create-status{flex:1;min-width:0;font:13px Arial,sans-serif;color:#5f6368}
+    #noiKiemTmBlock .nk-create-status.is-error{color:#b3261e;font-weight:600}
+    #noiKiemTmBlock .nk-create-status.is-success{color:#137333;font-weight:600}
+    #noiKiemTmBlock .nk-create-actions{position:sticky;left:0;width:max-content;min-width:180px;margin-top:10px}
+
     /* ===== NỘI KIỂM 332: TẠO PHIẾU KHỔ RỘNG + CUỘN NGANG ===== */
     .nk-form:not(.nk-view-mode) .nk-paper-scroll{
       overflow-x:auto!important;
@@ -5842,7 +5854,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '334.218',
+    frontendVersion: '335.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5875,7 +5887,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-334.310726-NKTM-SYNC-WIDTH';
+const APP_VERSION = 'INDEX-335.030826-NKTM-PRELOAD-SAVE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -5995,6 +6007,8 @@ const state = {
   noiKiemTmConfig: {khoaPhong:'',devices:[],supplies:[],mappings:[],loaded:false},
   noiKiemTmConfigDeptContext: '',
   noiKiemTmRuntimeConfigMap: {},
+  noiKiemTmCreateCache: {},
+  noiKiemTmCreatePreloadPromises: {},
   pdfTemplateConfig: null,
   pdfContentTemplates: null,
   pdfTemplateVariables: [],
@@ -6311,6 +6325,7 @@ async function loadInitData(opts={}){
     state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || null;
     state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || [];
     state.initLoaded = true;
+    const nkCreatePreloadTask = preloadNoiKiemTmCreateData(nkDefaultCreateDept(), {force:false}).catch(()=>null);
     if(opts.fromLogin) showLoginLoading(78, 'Đang dựng giao diện...');
     if(opts.fromBoot) showLoginLoading(78, 'Đang dựng giao diện...');
     refreshDatalists();
@@ -6327,7 +6342,9 @@ async function loadInitData(opts={}){
     setDefaultFilters();
     if(opts.fromLogin){
       showLoginLoading(88, 'Đang tải dữ liệu...');
-      await preloadStartupLists();
+      await Promise.allSettled([preloadStartupLists(), nkCreatePreloadTask]);
+    }else{
+      await Promise.allSettled([nkCreatePreloadTask]);
     }
     return true;
   }catch(err){
@@ -10369,9 +10386,101 @@ function nkDetectActiveSections(data){
   return out;
 }
 
-async function renderNoiKiemTmCreateForm(){
-  const box=$('#noiKiemTmBlock');if(!box)return;const dept=$('#createDept')?.value||state.user?.khoaPhong||'';state.noiKiemTmConfigDeptContext=dept;const requestId=++nkCreateRenderRequestId;nkCreateTouchedSections.clear();nkPendingCreateRequestId='';box.innerHTML='<div class="empty">Đang tải cấu hình Nội kiểm TM...</div>';
-  try{const response=await api('noiKiemTm_defaults',{khoaPhong:dept});if(requestId!==nkCreateRenderRequestId)return;state.noiKiemTmConfig=Object.assign({loaded:true},response.data?.config||{khoaPhong:dept,devices:[],supplies:[],mappings:[]});state.noiKiemTmRuntimeConfigMap[dept]=state.noiKiemTmConfig;box.innerHTML=`${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}<div class="btn-row nk-create-actions"><button id="createNoiKiemTmBtn" class="btn primary">Tạo phiếu</button></div>`;$('#createNoiKiemTmBtn')?.addEventListener('click',submitCreateNoiKiemTm);const dateInput=$('#createDate');if(dateInput&&!dateInput.dataset.nkPaperSyncBound){dateInput.dataset.nkPaperSyncBound='1';dateInput.addEventListener('change',updateNoiKiemTmPaperDateHeader);dateInput.addEventListener('input',updateNoiKiemTmPaperDateHeader);}nkBindCreateSectionTracking();nkBindOtherPerformerVisibility(box);scheduleViDatePickerEnhance();nkApplyRuntimeDefaults('nkCreate',response.data?.defaults||{});}catch(err){if(requestId===nkCreateRenderRequestId)box.innerHTML=`<div class="empty">${esc(err.message)}</div>`;}
+function nkDefaultCreateDept(){
+  const candidates=[
+    state.user?.khoaPhong,
+    state.user?.phongLamViec,
+    ...(state.khoaPhong||[])
+  ].map(x=>String(x||'').trim()).filter(Boolean);
+  return candidates.find(isTruyenMauDept) || '';
+}
+
+function nkCreateCacheKey(dept){return norm(dept||'');}
+
+async function preloadNoiKiemTmCreateData(dept,{force=false}={}){
+  const value=String(dept||'').trim();
+  if(!value || !isTruyenMauDept(value)) return null;
+  const key=nkCreateCacheKey(value);
+  if(!force && state.noiKiemTmCreateCache[key]) return state.noiKiemTmCreateCache[key];
+  if(!force && state.noiKiemTmCreatePreloadPromises[key]) return state.noiKiemTmCreatePreloadPromises[key];
+  const task=api('noiKiemTm_defaults',{khoaPhong:value}).then(response=>{
+    const entry={
+      khoaPhong:value,
+      config:Object.assign({loaded:true},response.data?.config||{khoaPhong:value,devices:[],supplies:[],mappings:[]}),
+      defaults:response.data?.defaults||{},
+      loadedAt:Date.now()
+    };
+    state.noiKiemTmCreateCache[key]=entry;
+    state.noiKiemTmRuntimeConfigMap[value]=entry.config;
+    return entry;
+  }).finally(()=>{delete state.noiKiemTmCreatePreloadPromises[key];});
+  state.noiKiemTmCreatePreloadPromises[key]=task;
+  return task;
+}
+
+function nkCreateToolbarHtml(message='',type=''){
+  const cls=type?` is-${type}`:'';
+  return `<div class="nk-create-toolbar"><button id="refreshNoiKiemTmBtn" type="button" class="nk-create-refresh" title="Làm mới biểu mẫu" aria-label="Làm mới biểu mẫu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M18.5 9A7 7 0 0 0 6.2 6.2L4 8"></path><path d="M5.5 15A7 7 0 0 0 17.8 17.8L20 16"></path></svg></button><div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div></div>`;
+}
+
+function nkSetCreateStatus(message='',type=''){
+  const el=document.getElementById('nkCreateStatus');
+  if(!el) return;
+  el.textContent=message||'';
+  el.className=`nk-create-status${type?` is-${type}`:''}`;
+}
+
+function nkBindCreateForm(entry,dept){
+  const box=$('#noiKiemTmBlock');
+  if(!box || !entry) return;
+  state.noiKiemTmConfig=entry.config;
+  state.noiKiemTmRuntimeConfigMap[dept]=entry.config;
+  box.innerHTML=`${nkCreateToolbarHtml()}${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}<div class="btn-row nk-create-actions"><button id="createNoiKiemTmBtn" type="button" class="btn primary">Tạo phiếu</button></div>`;
+  $('#createNoiKiemTmBtn')?.addEventListener('click',submitCreateNoiKiemTm);
+  $('#refreshNoiKiemTmBtn')?.addEventListener('click',()=>renderNoiKiemTmCreateForm({force:true}));
+  const dateInput=$('#createDate');
+  if(dateInput&&!dateInput.dataset.nkPaperSyncBound){
+    dateInput.dataset.nkPaperSyncBound='1';
+    dateInput.addEventListener('change',updateNoiKiemTmPaperDateHeader);
+    dateInput.addEventListener('input',updateNoiKiemTmPaperDateHeader);
+  }
+  nkBindCreateSectionTracking();
+  nkBindOtherPerformerVisibility(box);
+  scheduleViDatePickerEnhance();
+  nkApplyRuntimeDefaults('nkCreate',entry.defaults||{});
+}
+
+async function renderNoiKiemTmCreateForm(options={}){
+  const box=$('#noiKiemTmBlock');
+  if(!box) return;
+  const dept=$('#createDept')?.value||state.user?.khoaPhong||'';
+  state.noiKiemTmConfigDeptContext=dept;
+  const requestId=++nkCreateRenderRequestId;
+  nkCreateTouchedSections.clear();
+  nkPendingCreateRequestId='';
+  const force=!!options.force;
+  const key=nkCreateCacheKey(dept);
+  const cached=!force?state.noiKiemTmCreateCache[key]:null;
+  if(cached){
+    nkBindCreateForm(cached,dept);
+    return;
+  }
+  box.innerHTML=`${nkCreateToolbarHtml('Đang tải biểu mẫu...')}<div class="empty">Đang tải cấu hình Nội kiểm TM...</div>`;
+  $('#refreshNoiKiemTmBtn')?.addEventListener('click',()=>renderNoiKiemTmCreateForm({force:true}));
+  const refreshBtn=$('#refreshNoiKiemTmBtn');
+  if(refreshBtn) refreshBtn.disabled=true;
+  try{
+    const entry=await preloadNoiKiemTmCreateData(dept,{force});
+    if(requestId!==nkCreateRenderRequestId) return;
+    if(!entry) throw new Error('Không xác định được khoa/phòng áp dụng Nội kiểm Truyền máu.');
+    nkBindCreateForm(entry,dept);
+    if(force) nkSetCreateStatus('Đã làm mới biểu mẫu.','success');
+  }catch(err){
+    if(requestId===nkCreateRenderRequestId){
+      box.innerHTML=`${nkCreateToolbarHtml(err.message||'Không tải được biểu mẫu.','error')}<div class="empty">${esc(err.message||'Không tải được biểu mẫu.')}</div>`;
+      $('#refreshNoiKiemTmBtn')?.addEventListener('click',()=>renderNoiKiemTmCreateForm({force:true}));
+    }
+  }
 }
 
 function nkGet(prefix, id){ return nkText(document.getElementById(`${prefix}${id}`)?.value || ''); }
@@ -10418,28 +10527,57 @@ function nkActiveGroup(group){
 
 function validateNoiKiemTmClient(data){const active=[],hasPerformer=v=>nkNormalizePerformerList(v,false).length>0,req=(g,label,performers)=>{if(!nkActiveGroup(g))return;active.push(label);if(!nkText(g.lotNo)||!nkText(g.hanSuDung))throw new Error(`Vui lòng nhập đầy đủ Số Lot.No và Hạn sử dụng tại ${label}.`);if(performers&&!hasPerformer(performers))throw new Error(`Vui lòng chọn người thực hiện tại ${label}.`);};const serum=data.aboRhOngNghiem?.huyetThanhMau||{},red=data.aboRhOngNghiem?.hongCauMau||{};req(serum,'Huyết thanh mẫu',serum.nguoiThucHien);req(red,'Hồng cầu mẫu',red.nguoiThucHien);nkArray(data.aboRhGelcard?.methods).forEach(m=>req(m,m.tenHienThi||'Phần II',m.nguoiThucHien));const coombs=data.coombsKtbt||{};nkArray(coombs.items).forEach(x=>req(x,x.tenHienThi||'Phần III',null));if(nkArray(coombs.items).some(nkDynamicItemActive)&&!hasPerformer(coombs.nguoiThucHien))throw new Error('Vui lòng chọn người thực hiện tại Coombs/KTBT.');const cross=data.cheoHoaHop||{},rows=nkArray(cross.benhPham);nkArray(cross.methods).forEach(m=>{if(rows.some(r=>nkText((r.ketQua||{})[m.configItemId])))req(m,m.tenHienThi||'Phần IV',null);});if(nkArray(cross.methods).length&&!hasPerformer(cross.nguoiThucHien))throw new Error('Vui lòng chọn người thực hiện tại Chéo hòa hợp.');if(nkText(data.xetNghiemKhac)){active.push('Xét nghiệm khác');if(!hasPerformer(data.xetNghiemKhacNguoiThucHien))throw new Error('Vui lòng chọn người thực hiện tại Xét nghiệm khác.');}if(!active.length)throw new Error('Vui lòng nhập ít nhất một nội dung kết quả nội kiểm.');return true;}
 
-async function submitCreateNoiKiemTm(){
-  const touched=Array.from(nkCreateTouchedSections);
-  let data=collectNoiKiemTmData('nkCreate',touched);
-  const activeSections=Array.from(new Set([...nkDetectActiveSections(data),...touched])).filter(Boolean);
-  data=collectNoiKiemTmData('nkCreate',activeSections);
-  const payload={
-    ngayNoiKiem:getDateInputIso('createDate'),
-    khoaPhong:$('#createDept')?.value||'',
-    data,
-    activeSections,
-    requestId:nkPendingCreateRequestId||(nkPendingCreateRequestId=nkNewRequestId())
-  };
-  if(!payload.ngayNoiKiem||!payload.khoaPhong) return toast('Vui lòng nhập ngày nội kiểm và khoa/phòng.');
-  if(!activeSections.length) return toast('Vui lòng nhập ít nhất một nội dung kết quả nội kiểm.');
-  try{validateNoiKiemTmClient(payload.data);}catch(err){return toast(err.message);}
-  await withButton($('#createNoiKiemTmBtn'),'Đang ghi nhận...',async()=>{
-    await api('noiKiemTm_save',payload);
+async function submitCreateNoiKiemTm(event){
+  event?.preventDefault?.();
+  const button=$('#createNoiKiemTmBtn');
+  if(!button || button.disabled) return;
+  nkSetCreateStatus('Đang kiểm tra dữ liệu...');
+  let payload;
+  try{
+    const touched=Array.from(nkCreateTouchedSections);
+    let data=collectNoiKiemTmData('nkCreate',touched);
+    const activeSections=Array.from(new Set([...nkDetectActiveSections(data),...touched])).filter(Boolean);
+    data=collectNoiKiemTmData('nkCreate',activeSections);
+    payload={
+      ngayNoiKiem:getDateInputIso('createDate'),
+      khoaPhong:$('#createDept')?.value||'',
+      data,
+      activeSections,
+      requestId:nkPendingCreateRequestId||(nkPendingCreateRequestId=nkNewRequestId())
+    };
+    if(!payload.ngayNoiKiem||!payload.khoaPhong) throw new Error('Vui lòng nhập ngày nội kiểm và khoa/phòng.');
+    if(!activeSections.length) throw new Error('Vui lòng nhập ít nhất một nội dung kết quả nội kiểm.');
+    validateNoiKiemTmClient(payload.data);
+  }catch(err){
+    const message=err?.message||'Dữ liệu phiếu chưa hợp lệ.';
+    nkSetCreateStatus(message,'error');
+    toast(message);
+    return;
+  }
+
+  const old=button.innerHTML;
+  button.disabled=true;
+  button.innerHTML='<span class="loading-dot"></span>Đang ghi nhận...';
+  nkSetCreateStatus('Đang ghi nhận kết quả lên hệ thống...');
+  try{
+    const response=await api('noiKiemTm_save',payload);
     nkPendingCreateRequestId='';
     clearListCaches();
-    toast('Đã ghi nhận kết quả nội kiểm');
-    renderCreateTab(LOAI_NOI_KIEM_TM);
-  });
+    const key=nkCreateCacheKey(payload.khoaPhong);
+    delete state.noiKiemTmCreateCache[key];
+    toast(response.message||'Đã ghi nhận kết quả nội kiểm');
+    await renderNoiKiemTmCreateForm({force:true});
+    nkSetCreateStatus('Đã tạo phiếu và làm mới biểu mẫu.','success');
+  }catch(err){
+    const message=err?.message||'Không tạo được phiếu nội kiểm.';
+    nkSetCreateStatus(message,'error');
+    toast(message);
+  }finally{
+    if(document.body.contains(button)){
+      button.disabled=false;
+      button.innerHTML=old;
+    }
+  }
 }
 
 function nkStatusPill(value){
