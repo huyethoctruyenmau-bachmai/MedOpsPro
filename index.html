@@ -1,4 +1,4 @@
-<!-- VERSION: 336.218 | index: 336 | Code.gs: 218 | INDEX-336.030826-NKTM-SAVE-FIT-ALIGN -->
+<!-- VERSION: 337.218 | index: 337 | Code.gs: 218 | INDEX-337.030826-NKTM-COLOR-PRINT-VIEW -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5186,6 +5186,11 @@
     .nk-paper-select{height:auto;min-height:36px;white-space:normal;text-align-last:center;padding:2px;font-size:14px}
     .nk-paper-value{min-height:25px;display:flex;align-items:center;justify-content:center;padding:2px 3px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px}
     .nk-paper-lot-value{display:inline-block;min-width:35px;border-bottom:1px dotted #555;padding:0 2px;font-style:normal;text-align:left}
+    .nk-paper-lot-number .nk-paper-lot-input,
+    .nk-paper-lot-number .nk-paper-lot-value{color:#1a73e8!important;font-weight:700!important}
+    .nk-blood-group-cell,
+    .nk-blood-group-cell .nk-paper-input,
+    .nk-blood-group-cell .nk-paper-value{color:#d93025!important;font-weight:700!important}
     .nk-paper-performer{padding:2px!important}
     .nk-performer-editor{display:flex;flex-direction:column;gap:3px;width:100%;min-width:0;pointer-events:auto!important}
     .nk-performer-row{display:grid;grid-template-columns:18px minmax(0,1fr) 25px;gap:2px;align-items:center;min-width:0}
@@ -5399,13 +5404,32 @@
     .nk-google-table .nk-status{padding:2px 7px;font-size:11px;line-height:1.35;vertical-align:middle}
     .nk-google-table .nk-table-actions{justify-content:flex-start;gap:4px}
     .nk-google-table .nk-table-actions .btn{height:30px;min-height:30px;padding:0 10px;border-radius:6px}
+    .nk-google-table .nk-select-col{width:46px;min-width:46px;max-width:46px;text-align:center;padding-left:8px;padding-right:8px}
+    .nk-google-table .nk-select-checkbox{width:18px;height:18px;min-height:18px;margin:0;accent-color:#1a73e8;cursor:pointer}
+    .nk-selectable-table .nk-select-col{position:sticky;left:0;z-index:5;background:#fff}
+    .nk-selectable-table thead .nk-select-col{z-index:7;background:#f8f9fa}
+    .nk-selectable-table tbody tr:hover .nk-select-col{background:#f8f9fa}
+    .nk-selectable-table .nk-sticky-date{left:46px}
+    .nk-selectable-table .nk-sticky-dept{left:154px}
+    .nk-print-selected-btn{display:inline-flex;align-items:center;gap:7px}
+    .nk-print-selected-btn svg,.nk-modal-print-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .nk-modal-head-actions{display:flex;align-items:center;gap:8px}
+    .nk-modal-print-btn{width:38px;height:38px;min-width:38px;border:1px solid #dadce0;border-radius:10px;background:#fff;color:#1a73e8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+    .nk-modal-print-btn:hover{background:#f1f6ff;border-color:#aecbfa}
+    .modal-card.nk-modal.nk-view-modal{width:calc(100vw - 24px);max-width:calc(100vw - 24px);overflow-x:hidden}
+    .nk-view-modal .nk-view{width:100%;min-width:0;overflow:hidden}
+    .nk-view-modal .nk-paper-scroll{width:100%;max-width:100%;overflow-x:auto!important;overflow-y:visible!important}
+    .nk-view-modal .nk-paper-audit{width:100%;box-sizing:border-box;margin-top:10px}
     .nk-view-mode .nk-paper-scroll{overflow-x:auto!important;overflow-y:visible!important;touch-action:pan-x pan-y!important;-webkit-overflow-scrolling:touch!important}
-    .nk-view-mode .nk-paper{width:1180px!important;min-width:1180px!important;max-width:none!important}
+    .nk-view-mode .nk-paper{width:var(--nk-paper-outer-width,1348px)!important;min-width:var(--nk-paper-outer-width,1348px)!important;max-width:none!important}
     @media(max-width:760px){
       .nk-google-table{min-width:1880px;font-size:12px}
       .nk-google-table th,.nk-google-table td{padding:9px 10px}
       .nk-google-table .nk-sticky-date{width:96px;min-width:96px;max-width:96px}
       .nk-google-table .nk-sticky-dept{left:96px;width:165px;min-width:165px;max-width:165px}
+      .nk-selectable-table .nk-select-col{width:42px;min-width:42px;max-width:42px}
+      .nk-selectable-table .nk-sticky-date{left:42px}
+      .nk-selectable-table .nk-sticky-dept{left:138px}
       .nk-view-mode .nk-paper-scroll{overflow-x:auto!important;touch-action:pan-x pan-y!important}
       .nk-view-mode .nk-paper{width:var(--nk-paper-outer-width,1348px)!important;min-width:var(--nk-paper-outer-width,1348px)!important;max-width:none!important;padding:10px 8px 7px!important}
       .nk-view-mode .nk-paper-header{grid-template-columns:1fr 1.55fr .8fr!important;gap:6px!important}
@@ -5859,7 +5883,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '336.218',
+    frontendVersion: '337.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5892,7 +5916,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-336.030826-NKTM-SAVE-FIT-ALIGN';
+const APP_VERSION = 'INDEX-337.030826-NKTM-COLOR-PRINT-VIEW';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6015,6 +6039,8 @@ const state = {
   noiKiemTmCreateCache: {},
   noiKiemTmCreatePreloadPromises: {},
   noiKiemTmCreateFitMode: false,
+  noiKiemTmListItems: [],
+  noiKiemTmSelectedIds: new Set(),
   pdfTemplateConfig: null,
   pdfContentTemplates: null,
   pdfTemplateVariables: [],
@@ -10115,7 +10141,7 @@ function nkPaperLotLines(prefix, key, data={}, readonly=false){
   const group = data || {};
   const lot = readonly ? `<span class="nk-paper-lot-value">${esc(group.lotNo || '')}</span>` : nkPaperInput(`${prefix}${key}Lot`, group.lotNo || '', {lot:true});
   const hsd = nkPaperDateField(`${prefix}${key}Hsd`, group.hanSuDung || '', readonly);
-  return `<div class="nk-paper-lot-lines"><div class="nk-paper-lot-line"><span class="nk-paper-lot-label">Số Lot.No:</span>${lot}</div><div class="nk-paper-lot-line"><span class="nk-paper-lot-label">HSD:</span>${hsd}</div></div>`;
+  return `<div class="nk-paper-lot-lines"><div class="nk-paper-lot-line"><span class="nk-paper-lot-label">Số Lot.No:</span><span class="nk-paper-lot-number">${lot}</span></div><div class="nk-paper-lot-line"><span class="nk-paper-lot-label">HSD:</span>${hsd}</div></div>`;
 }
 
 function nkPaperEvalChoice(prefix, key, choice, current, readonly=false, text=''){
@@ -10241,9 +10267,9 @@ function nkPaperTableI(prefix, tube, dept, readonly, tableWidth=1320){
   const performerCell = nkPaperPerformerSelect(prefix,'Tube',(readonly && !nkPaperGroupActive(serum) && !nkPaperGroupActive(red)) ? [] : sharedPerformers,dept,readonly);
   return `<div class="nk-paper-section-label">I.&nbsp; Nhóm máu hệ ABO – Rh(D) bằng phương pháp ống nghiệm:</div>
   <table class="nk-paper-table nk-paper-table-i" style="width:${tableWidth}px;min-width:${tableWidth}px"><colgroup><col style="width:3%"><col style="width:9%"><col span="4" style="width:4.5%"><col style="width:5.5%"><col span="2" style="width:5%"><col style="width:9%"><col span="2" style="width:6.5%"><col style="width:5.5%"><col span="2" style="width:5%"><col style="width:14%"></colgroup>
-    <tbody><tr><th rowspan="2">Stt</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="4"><div class="nk-paper-group-title">Huyết thanh mẫu</div>${nkPaperLotLines(prefix,'Serum',serum,readonly)}</th><th rowspan="2">Nhóm<br>máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="2"><div class="nk-paper-group-title">Hồng cầu mẫu</div>${nkPaperLotLines(prefix,'Red',red,readonly)}</th><th rowspan="2">Nhóm<br>máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Người<br>thực hiện</th></tr>
+    <tbody><tr><th rowspan="2">Stt</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="4"><div class="nk-paper-group-title">Huyết thanh mẫu</div>${nkPaperLotLines(prefix,'Serum',serum,readonly)}</th><th class="nk-blood-group-cell" rowspan="2">Nhóm<br>máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="2"><div class="nk-paper-group-title">Hồng cầu mẫu</div>${nkPaperLotLines(prefix,'Red',red,readonly)}</th><th class="nk-blood-group-cell" rowspan="2">Nhóm<br>máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Người<br>thực hiện</th></tr>
     <tr><th>A</th><th>B</th><th>AB</th><th>D</th><th>Đạt</th><th>Không<br>đạt</th><th>A</th><th>B</th><th>Đạt</th><th>Không<br>đạt</th></tr>
-    ${[0,1].map(idx => { const s=sRows[idx], r=rRows[idx], se=nkPaperRowEval(s,serum,readonly), re=nkPaperRowEval(r,red,readonly); return `<tr><td>${idx+1}</td><td>${nkPaperInput(`${prefix}SerumRow${idx}Ma`,s.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}A`,s.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}B`,s.b||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}AB`,s.ab||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}D`,s.d||'','',readonly)}</td><td>${nkPaperInput(`${prefix}SerumRow${idx}Nhom`,s.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`SerumRow${idx}`,NK_EVAL_DAT,se,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`SerumRow${idx}`,NK_EVAL_KHONG_DAT,se,readonly)}</td><td>${nkPaperInput(`${prefix}RedRow${idx}Ma`,r.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}RedRow${idx}A`,r.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}RedRow${idx}B`,r.b||'','',readonly)}</td><td>${nkPaperInput(`${prefix}RedRow${idx}Nhom`,r.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`RedRow${idx}`,NK_EVAL_DAT,re,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`RedRow${idx}`,NK_EVAL_KHONG_DAT,re,readonly)}</td>${idx===0?`<td class="nk-paper-performer" rowspan="2">${performerCell}</td>`:''}</tr>`; }).join('')}</tbody>
+    ${[0,1].map(idx => { const s=sRows[idx], r=rRows[idx], se=nkPaperRowEval(s,serum,readonly), re=nkPaperRowEval(r,red,readonly); return `<tr><td>${idx+1}</td><td>${nkPaperInput(`${prefix}SerumRow${idx}Ma`,s.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}A`,s.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}B`,s.b||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}AB`,s.ab||'','',readonly)}</td><td>${nkReactionInput(`${prefix}SerumRow${idx}D`,s.d||'','',readonly)}</td><td class="nk-blood-group-cell">${nkPaperInput(`${prefix}SerumRow${idx}Nhom`,s.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`SerumRow${idx}`,NK_EVAL_DAT,se,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`SerumRow${idx}`,NK_EVAL_KHONG_DAT,se,readonly)}</td><td>${nkPaperInput(`${prefix}RedRow${idx}Ma`,r.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}RedRow${idx}A`,r.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}RedRow${idx}B`,r.b||'','',readonly)}</td><td class="nk-blood-group-cell">${nkPaperInput(`${prefix}RedRow${idx}Nhom`,r.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`RedRow${idx}`,NK_EVAL_DAT,re,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`RedRow${idx}`,NK_EVAL_KHONG_DAT,re,readonly)}</td>${idx===0?`<td class="nk-paper-performer" rowspan="2">${performerCell}</td>`:''}</tr>`; }).join('')}</tbody>
   </table>`;
 }
 
@@ -10269,7 +10295,7 @@ function nkPaperTableII(prefix, gel, dept, readonly, tableWidth=1320){
   if(!methods.length)return `<div class="nk-paper-section-label">II.&nbsp; Nhóm máu hệ ABO – Rh(D) bằng phương pháp gelcard:</div>${nkConfigEmptyHtml('PHAN_2',readonly,dept)}`;
   return `<div class="nk-paper-section-label">II.&nbsp; Nhóm máu hệ ABO – Rh(D) bằng phương pháp gelcard:</div>${methods.map(method=>{
     const id=nkText(method.configItemId||method.id),token=nkRegisterConfigSnapshot(prefix,method),rows=[0,1].map(i=>nkArray(method.benhPham)[i]||{}),key=`P2${token}`;
-    return `<div class="nk-paper-subtable" data-nk-p2-item data-config-id="${escAttr(id)}"><table class="nk-paper-table nk-paper-table-ii" style="width:${tableWidth}px;min-width:${tableWidth}px"><colgroup><col style="width:4%"><col style="width:14%"><col span="6" style="width:7.1%"><col style="width:9%"><col span="2" style="width:7%"><col style="width:14%"></colgroup><tbody><tr><th rowspan="2">Stt</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="6"><div class="nk-paper-group-title">${esc(method.tenHienThi||'')}</div>${nkPaperLotLines(prefix,key,method,readonly)}</th><th rowspan="2">Nhóm máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Người<br>thực hiện</th></tr><tr><th>A</th><th>B</th><th>D</th><th>Ctrl</th><th>HCM-A1</th><th>HCM-B</th><th>Đạt</th><th>Không đạt</th></tr>${rows.map((r,idx)=>{const ev=nkPaperRowEval(r,method,readonly);return `<tr><td>${idx+1}</td><td>${nkPaperInput(`${prefix}${key}Row${idx}Ma`,r.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}A`,r.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}B`,r.b||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}D`,r.d||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}Ctrl`,r.ctrl||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}HcmA1`,r.hcmA1||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}HcmB`,r.hcmB||'','',readonly)}</td><td>${nkPaperInput(`${prefix}${key}Row${idx}Nhom`,r.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`${key}Row${idx}`,NK_EVAL_DAT,ev,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`${key}Row${idx}`,NK_EVAL_KHONG_DAT,ev,readonly)}</td>${idx===0?`<td class="nk-paper-performer" rowspan="2">${nkPaperPerformerSelect(prefix,key,readonly&&!nkPaperGroupActive(method)?{}:method.nguoiThucHien,dept,readonly)}</td>`:''}</tr>`;}).join('')}</tbody></table></div>`;}).join('')}`;
+    return `<div class="nk-paper-subtable" data-nk-p2-item data-config-id="${escAttr(id)}"><table class="nk-paper-table nk-paper-table-ii" style="width:${tableWidth}px;min-width:${tableWidth}px"><colgroup><col style="width:4%"><col style="width:14%"><col span="6" style="width:7.1%"><col style="width:9%"><col span="2" style="width:7%"><col style="width:14%"></colgroup><tbody><tr><th rowspan="2">Stt</th><th rowspan="2">Mã<br>bệnh phẩm</th><th colspan="6"><div class="nk-paper-group-title">${esc(method.tenHienThi||'')}</div>${nkPaperLotLines(prefix,key,method,readonly)}</th><th class="nk-blood-group-cell" rowspan="2">Nhóm máu</th><th colspan="2">Đánh giá</th><th rowspan="2">Người<br>thực hiện</th></tr><tr><th>A</th><th>B</th><th>D</th><th>Ctrl</th><th>HCM-A1</th><th>HCM-B</th><th>Đạt</th><th>Không đạt</th></tr>${rows.map((r,idx)=>{const ev=nkPaperRowEval(r,method,readonly);return `<tr><td>${idx+1}</td><td>${nkPaperInput(`${prefix}${key}Row${idx}Ma`,r.maBenhPham||'',{readonly})}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}A`,r.a||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}B`,r.b||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}D`,r.d||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}Ctrl`,r.ctrl||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}HcmA1`,r.hcmA1||'','',readonly)}</td><td>${nkReactionInput(`${prefix}${key}Row${idx}HcmB`,r.hcmB||'','',readonly)}</td><td class="nk-blood-group-cell">${nkPaperInput(`${prefix}${key}Row${idx}Nhom`,r.nhomMau||'',{readonly})}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`${key}Row${idx}`,NK_EVAL_DAT,ev,readonly)}</td><td class="nk-paper-eval-cell">${nkPaperEvalChoice(prefix,`${key}Row${idx}`,NK_EVAL_KHONG_DAT,ev,readonly)}</td>${idx===0?`<td class="nk-paper-performer" rowspan="2">${nkPaperPerformerSelect(prefix,key,readonly&&!nkPaperGroupActive(method)?{}:method.nguoiThucHien,dept,readonly)}</td>`:''}</tr>`;}).join('')}</tbody></table></div>`;}).join('')}`;
 }
 
 function nkPaperTableIII(prefix, coombs, dept, readonly, tableWidth=1320){
@@ -10625,7 +10651,7 @@ async function submitCreateNoiKiemTm(event){
     delete state.noiKiemTmCreateCache[key];
     toast(response.message||'Đã ghi nhận kết quả nội kiểm');
     await renderNoiKiemTmCreateForm({force:true});
-    nkSetCreateStatus('Đã tạo phiếu và làm mới biểu mẫu.','success');
+    nkSetCreateStatus('');
   }catch(err){
     const message=err?.message||'Không tạo được phiếu nội kiểm.';
     nkSetCreateStatus(message,'error');
@@ -10659,13 +10685,136 @@ function nkListSectionCell(lines,extraClass=''){
   return `<td class="nk-list-section ${extraClass}">${source.map(nkListMethodLine).join('')}</td>`;
 }
 
+function nkPrintIconSvg(){
+  return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><path d="M6 14h12v7H6z"></path><path d="M18 12h.01"></path></svg>`;
+}
+
+function nkNormalizeSelectedIds(items){
+  const allowed=new Set(nkArray(items).map(x=>nkText(x.id)).filter(Boolean));
+  const next=new Set();
+  state.noiKiemTmSelectedIds.forEach(id=>{if(allowed.has(id))next.add(id);});
+  state.noiKiemTmSelectedIds=next;
+}
+
+function nkUpdateSelectionUi(root=document){
+  const listRoot=root?.querySelector ? root : document;
+  const selectedCount=state.noiKiemTmSelectedIds.size;
+  const button=listRoot.querySelector('#nkPrintSelectedBtn')||document.getElementById('nkPrintSelectedBtn');
+  if(button){
+    button.disabled=selectedCount===0;
+    const countEl=button.querySelector('[data-nk-print-count]');
+    if(countEl) countEl.textContent=selectedCount?` (${selectedCount})`:'';
+  }
+  const boxes=Array.from(listRoot.querySelectorAll?.('.nk-row-select')||[]);
+  const master=listRoot.querySelector?.('#nkSelectAll');
+  if(master){
+    master.checked=boxes.length>0&&boxes.every(x=>x.checked);
+    master.indeterminate=boxes.some(x=>x.checked)&&!master.checked;
+  }
+}
+
+function bindNoiKiemTmListSelection(root=document.getElementById('pdfListBox')){
+  if(!root||root.dataset.nkSelectBound==='1') return;
+  root.dataset.nkSelectBound='1';
+  root.addEventListener('change',event=>{
+    const target=event.target;
+    if(target?.id==='nkSelectAll'){
+      root.querySelectorAll('.nk-row-select').forEach(box=>{
+        box.checked=target.checked;
+        const id=nkText(box.dataset.id);
+        if(target.checked) state.noiKiemTmSelectedIds.add(id);
+        else state.noiKiemTmSelectedIds.delete(id);
+      });
+      nkUpdateSelectionUi(root);
+      return;
+    }
+    if(target?.classList?.contains('nk-row-select')){
+      const id=nkText(target.dataset.id);
+      if(target.checked) state.noiKiemTmSelectedIds.add(id);
+      else state.noiKiemTmSelectedIds.delete(id);
+      nkUpdateSelectionUi(root);
+    }
+  });
+  root.addEventListener('click',event=>{
+    const button=event.target.closest?.('#nkPrintSelectedBtn');
+    if(button) printSelectedNoiKiemTm(button);
+  });
+  nkUpdateSelectionUi(root);
+}
+
+function nkPrintStylesHtml(){
+  return Array.from(document.querySelectorAll('style,link[rel="stylesheet"]')).map(node=>node.outerHTML).join('\n');
+}
+
+function nkPrintPageHtml(item,index){
+  const d=item.data||{};
+  const paperWidth=nkPaperCommonTableWidth(d)+28;
+  const scale=Math.min(1,1040/Math.max(1,paperWidth));
+  return `<section class="nk-print-page" style="--nk-print-scale:${scale}">${renderNoiKiemTmFormHtml(`nkPrint${index}`,d,item.khoaPhong||'',{readonly:true,ngayNoiKiem:item.ngayNoiKiem||'',sectionMeta:item.sectionMeta||{}})}</section>`;
+}
+
+function nkWritePrintWindow(printWindow,items){
+  const pages=nkArray(items).map(nkPrintPageHtml).join('');
+  const html=`<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>In phiếu Nội kiểm Truyền máu</title>${nkPrintStylesHtml()}<style>
+  @page{size:A4 landscape;margin:7mm}
+  html,body{margin:0!important;padding:0!important;background:#fff!important}
+  body{font-family:Arial,sans-serif}
+  .nk-print-page{page-break-after:always;break-after:page;overflow:visible}
+  .nk-print-page:last-child{page-break-after:auto;break-after:auto}
+  .nk-print-page .nk-form{width:auto!important;max-width:none!important}
+  .nk-print-page .nk-paper-scroll{overflow:visible!important;width:auto!important;max-width:none!important;padding:0!important}
+  .nk-print-page .nk-paper{zoom:var(--nk-print-scale,1);margin:0!important;box-shadow:none!important;border-color:#444!important}
+  .nk-print-page .nk-section-audit{font-size:9px!important}
+  .nk-print-page input,.nk-print-page select,.nk-print-page textarea{color:#000!important}
+  </style></head><body>${pages}<script>window.addEventListener('load',()=>{setTimeout(()=>{window.focus();window.print();},250)});<\/script></body></html>`;
+  printWindow.document.open();
+  printWindow.document.write(html);
+  printWindow.document.close();
+}
+
+function printNoiKiemTmItem(item){
+  const printWindow=window.open('','_blank');
+  if(!printWindow){toast('Trình duyệt đang chặn cửa sổ in. Vui lòng cho phép cửa sổ bật lên.');return;}
+  nkWritePrintWindow(printWindow,[item]);
+}
+
+async function printSelectedNoiKiemTm(button){
+  const ids=Array.from(state.noiKiemTmSelectedIds);
+  if(!ids.length){toast('Vui lòng chọn ít nhất một phiếu để in.');return;}
+  const printWindow=window.open('','_blank');
+  if(!printWindow){toast('Trình duyệt đang chặn cửa sổ in. Vui lòng cho phép cửa sổ bật lên.');return;}
+  printWindow.document.write('<!doctype html><html><body style="font:16px Arial;padding:24px">Đang chuẩn bị phiếu in...</body></html>');
+  printWindow.document.close();
+  const old=button?.innerHTML;
+  if(button){button.disabled=true;button.innerHTML=`${nkPrintIconSvg()} Đang chuẩn bị...`;}
+  try{
+    const results=await Promise.all(ids.map(id=>api('noiKiemTm_get',{id})));
+    const items=results.map(res=>res.data?.item||{}).filter(x=>x.id);
+    if(!items.length) throw new Error('Không tải được dữ liệu phiếu đã chọn.');
+    nkWritePrintWindow(printWindow,items);
+  }catch(err){
+    try{printWindow.close();}catch(_e){}
+    toast(err.message||'Không chuẩn bị được phiếu in.');
+  }finally{
+    if(button&&document.body.contains(button)){
+      button.disabled=state.noiKiemTmSelectedIds.size===0;
+      button.innerHTML=old;
+      nkUpdateSelectionUi(document.getElementById('pdfListBox')||document);
+    }
+  }
+}
+
 function renderNoiKiemTmTable(items){
+  state.noiKiemTmListItems=nkArray(items);
+  nkNormalizeSelectedIds(state.noiKiemTmListItems);
   if(!items.length) return `<div class="empty">Không có kết quả nội kiểm phù hợp.</div>`;
   const rows=items.map(item=>{
     const summary=item.listSummary||{};
     const recorded=nkText(item.thoiDiemTao);
     const updated=nkText(item.thoiDiemSua);
+    const checked=state.noiKiemTmSelectedIds.has(nkText(item.id));
     return `<tr>
+      <td class="nk-select-col"><input class="nk-select-checkbox nk-row-select" type="checkbox" data-id="${escAttr(item.id)}" ${checked?'checked':''} aria-label="Chọn phiếu ${escAttr(item.id)}"></td>
       <td class="nk-sticky-date"><div class="nk-list-date">${esc(dateVi(item.ngayNoiKiem))}</div><div class="nk-list-sub">Lần ${esc(item.lanTrongNgay||'')}</div></td>
       <td class="nk-sticky-dept">${esc(formatDeptPlain(item.khoaPhong||''))}</td>
       ${nkListSectionCell(summary.phan1,'nk-list-p1')}
@@ -10678,7 +10827,8 @@ function renderNoiKiemTmTable(items){
       <td class="nk-list-actions"><div class="nk-table-actions"><button class="btn secondary" onclick="openNoiKiemTm('${escAttr(item.id)}',this)">Xem</button>${item.canEdit?`<button class="app-icon-btn" onclick="editNoiKiemTm('${escAttr(item.id)}',this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>`:''}${item.canDelete?`<button class="app-icon-btn delete" onclick="deleteNoiKiemTm('${escAttr(item.id)}',this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>`:''}</div></td>
     </tr>`;
   }).join('');
-  return `<div class="ds-toolbar"><p class="meta">Tổng: ${items.length} phiếu</p></div><div class="nk-table-wrap nk-list-wrap nk-google-table-wrap"><table class="nk-list-table nk-google-table"><thead><tr><th class="nk-sticky-date">Ngày/Lần</th><th class="nk-sticky-dept">Đơn vị</th><th>I. ABO–Rh ống nghiệm</th><th>II. ABO–Rh gelcard</th><th>III. Coombs/KTBT</th><th>IV. Chéo hòa hợp</th><th>V. XN khác</th><th>Người thực hiện</th><th>Ghi nhận</th><th>Thao tác</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  const selectedCount=state.noiKiemTmSelectedIds.size;
+  return `<div class="ds-toolbar"><p class="meta">Tổng: ${items.length} phiếu</p><div class="ds-toolbar-actions"><button id="nkPrintSelectedBtn" type="button" class="btn secondary nk-print-selected-btn" ${selectedCount?'':'disabled'}>${nkPrintIconSvg()} In phiếu<span data-nk-print-count>${selectedCount?` (${selectedCount})`:''}</span></button></div></div><div class="nk-table-wrap nk-list-wrap nk-google-table-wrap"><table class="nk-list-table nk-google-table nk-selectable-table"><thead><tr><th class="nk-select-col"><input id="nkSelectAll" class="nk-select-checkbox" type="checkbox" aria-label="Chọn tất cả phiếu"></th><th class="nk-sticky-date">Ngày/Lần</th><th class="nk-sticky-dept">Đơn vị</th><th>I. ABO–Rh ống nghiệm</th><th>II. ABO–Rh gelcard</th><th>III. Coombs/KTBT</th><th>IV. Chéo hòa hợp</th><th>V. XN khác</th><th>Người thực hiện</th><th>Ghi nhận</th><th>Thao tác</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function nkViewRows(title, rows, columns){
@@ -10708,7 +10858,8 @@ window.openNoiKiemTm = async function(id, btn){
   const run = async () => {
     const res = await api('noiKiemTm_get', {id});
     const item = res.data?.item || {};
-    openModal(`<div class="modal-card nk-modal"><div class="modal-head"><div class="modal-title">Kết quả nội kiểm Truyền máu</div><button class="close-btn" onclick="closeModal()">×</button></div>${renderNoiKiemTmViewHtml(item)}<div class="btn-row"><button class="btn secondary" onclick="closeModal()">Đóng</button></div></div>`);
+    openModal(`<div class="modal-card nk-modal nk-view-modal"><div class="modal-head"><div class="modal-title">Kết quả nội kiểm Truyền máu</div><div class="nk-modal-head-actions"><button id="printNoiKiemTmViewBtn" type="button" class="nk-modal-print-btn" title="In phiếu" aria-label="In phiếu">${nkPrintIconSvg()}</button><button class="close-btn" onclick="closeModal()">×</button></div></div>${renderNoiKiemTmViewHtml(item)}<div class="btn-row"><button class="btn secondary" onclick="closeModal()">Đóng</button></div></div>`);
+    document.getElementById('printNoiKiemTmViewBtn')?.addEventListener('click',()=>printNoiKiemTmItem(item));
   };
   if(btn) return withButton(btn, 'Đang mở...', run);
   try{ await run(); }catch(err){ toast(err.message); }
@@ -13786,6 +13937,7 @@ async function loadDsPhieuList(showRequiredToast=false){
     if(isNoiKiemMode){
       const nkRes = await api('noiKiemTm_list', payload);
       box.innerHTML = renderNoiKiemTmTable(sortDsPhieuByCreatedDesc(nkRes.data?.items || []));
+      bindNoiKiemTmListSelection(box);
       return;
     }
     const res = await api('searchHoSo', payload);
