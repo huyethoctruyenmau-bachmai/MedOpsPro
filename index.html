@@ -1,4 +1,4 @@
-<!-- VERSION: 342.218 | index: 342 | Code.gs: 218 | INDEX-342.030826-NKTM-STICKY-PRINT-ROWS -->
+<!-- VERSION: 343.218 | index: 343 | Code.gs: 218 | INDEX-343.030826-NKTM-TOOLBAR-HOST -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -2573,6 +2573,12 @@
     }
 
     @media (max-width:899px){
+      .nk-create-toolbar-host{
+        top:calc(var(--header-h) + var(--tabbar-h));
+        margin:0 0 10px;
+        padding:8px 10px;
+        border-radius:10px;
+      }
       #tab-create:not(.hidden){
         display:block!important;
         height:auto!important;
@@ -5308,8 +5314,8 @@
     .nk-paper .vi-date-wrap::after{display:none!important}
     .nk-paper-audit{max-width:1320px;margin:8px auto 0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fafafa;color:var(--muted);font-size:13px;line-height:1.5}
     .nk-create-actions{max-width:1320px;margin:10px auto 0}
-    #noiKiemTmBlock .nk-create-submit{height:38px;min-height:38px;min-width:118px;margin-left:auto;padding:0 18px;border-radius:8px;white-space:nowrap}
-    #noiKiemTmBlock .nk-create-toolbar .nk-create-status{flex:1 1 auto}
+    .nk-create-toolbar-host .nk-create-submit{height:38px;min-height:38px;min-width:118px;margin-left:auto;padding:0 18px;border-radius:8px;white-space:nowrap}
+    .nk-create-toolbar-host .nk-create-toolbar .nk-create-status{flex:1 1 auto}
     .nk-status{display:inline-flex;align-items:center;justify-content:center;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
     .nk-status-good{background:#e6f4ea;color:#137333}
     .nk-status-bad{background:#fce8e6;color:#b3261e}
@@ -5467,31 +5473,39 @@
     }
 
     /* ===== NỘI KIỂM 335: TOOLBAR LÀM MỚI + TRẠNG THÁI TẠO PHIẾU ===== */
-    #noiKiemTmBlock .nk-create-toolbar{
+    .nk-create-toolbar-host{
       position:sticky;
       top:0;
-      z-index:35;
+      z-index:45;
+      margin:-12px -12px 10px;
+      padding:8px 12px;
+      background:var(--bg);
+      border-bottom:1px solid #e6d6dc;
+      box-shadow:0 5px 12px rgba(74,7,31,.08);
+    }
+    .nk-create-toolbar-host.hidden{display:none!important}
+    .nk-create-toolbar-host .nk-create-toolbar{
       display:flex;
       align-items:center;
       justify-content:flex-start;
       gap:10px;
-      min-height:54px;
-      margin:-8px -8px 8px;
-      padding:8px 10px;
-      background:rgba(255,255,255,.98);
-      border-bottom:1px solid #ead9df;
-      box-shadow:0 4px 10px rgba(74,7,31,.06);
-      backdrop-filter:blur(8px);
+      min-height:38px;
+      margin:0;
+      padding:0;
+      background:transparent;
+      border:0;
+      box-shadow:none;
+      backdrop-filter:none;
     }
-    #noiKiemTmBlock .nk-create-refresh{width:38px;height:38px;min-width:38px;border:1px solid #dadce0;border-radius:50%;background:#fff;color:#1a73e8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 2px rgba(60,64,67,.08);transition:background .15s,border-color .15s,transform .15s}
-    #noiKiemTmBlock .nk-create-refresh:hover{background:#f1f6ff;border-color:#aecbfa}
-    #noiKiemTmBlock .nk-create-refresh:active{transform:rotate(-20deg)}
-    #noiKiemTmBlock .nk-create-refresh:disabled{opacity:.55;cursor:wait;transform:none}
-    #noiKiemTmBlock .nk-create-refresh svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-    #noiKiemTmBlock .nk-create-fit.is-active{background:#e8f0fe;border-color:#8ab4f8;color:#174ea6}
-    #noiKiemTmBlock .nk-create-status{flex:1;min-width:0;font:13px Arial,sans-serif;color:#5f6368}
-    #noiKiemTmBlock .nk-create-status.is-error{color:#b3261e;font-weight:600}
-    #noiKiemTmBlock .nk-create-status.is-success{color:#137333;font-weight:600}
+    .nk-create-toolbar-host .nk-create-refresh{width:38px;height:38px;min-width:38px;border:1px solid #dadce0;border-radius:50%;background:#fff;color:#1a73e8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 2px rgba(60,64,67,.08);transition:background .15s,border-color .15s,transform .15s}
+    .nk-create-toolbar-host .nk-create-refresh:hover{background:#f1f6ff;border-color:#aecbfa}
+    .nk-create-toolbar-host .nk-create-refresh:active{transform:rotate(-20deg)}
+    .nk-create-toolbar-host .nk-create-refresh:disabled{opacity:.55;cursor:wait;transform:none}
+    .nk-create-toolbar-host .nk-create-refresh svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .nk-create-toolbar-host .nk-create-fit.is-active{background:#e8f0fe;border-color:#8ab4f8;color:#174ea6}
+    .nk-create-toolbar-host .nk-create-status{flex:1;min-width:0;font:13px Arial,sans-serif;color:#5f6368}
+    .nk-create-toolbar-host .nk-create-status.is-error{color:#b3261e;font-weight:600}
+    .nk-create-toolbar-host .nk-create-status.is-success{color:#137333;font-weight:600}
     #noiKiemTmBlock .nk-create-actions{position:sticky;left:0;width:max-content;min-width:180px;margin-top:10px}
 
     /* ===== NỘI KIỂM 332: TẠO PHIẾU KHỔ RỘNG + CUỘN NGANG ===== */
@@ -5921,7 +5935,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '342.218',
+    frontendVersion: '343.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5954,7 +5968,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-342.030826-NKTM-STICKY-PRINT-ROWS';
+const APP_VERSION = 'INDEX-343.030826-NKTM-TOOLBAR-HOST';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -7110,6 +7124,7 @@ function renderCreateTab(preferredLoai = ''){
     </div>
 
     <div id="createContentBox">
+      <div id="noiKiemTmToolbarHost" class="nk-create-toolbar-host hidden"></div>
       <div id="tmPhieuBlock" class="card hidden"></div>
       <div id="noiKiemTmBlock" class="card hidden"></div>
 
@@ -7277,6 +7292,7 @@ function updateCreateFormNumbering(){
   $('#regularPhieuBlock')?.classList.toggle('hidden', isTmPhieu || isBloodStockReport || isTmDailyStats || isNoiKiemTm);
   $('#tmPhieuBlock')?.classList.toggle('hidden', !isTmPhieu);
   $('#noiKiemTmBlock')?.classList.toggle('hidden', !isNoiKiemTm);
+  $('#noiKiemTmToolbarHost')?.classList.toggle('hidden', !isNoiKiemTm);
   const createDateInput = $('#createDate');
   const createDateDefaultKey = (isReport || isTmDailyStats) ? 'report-yesterday' : 'today';
   if(createDateInput && createDateInput.dataset.defaultByLoai !== createDateDefaultKey){
@@ -10608,10 +10624,13 @@ function nkBindCreateToolbar(){
 
 function nkBindCreateForm(entry,dept){
   const box=$('#noiKiemTmBlock');
-  if(!box || !entry) return;
+  const toolbarHost=$('#noiKiemTmToolbarHost');
+  if(!box || !toolbarHost || !entry) return;
   state.noiKiemTmConfig=entry.config;
   state.noiKiemTmRuntimeConfigMap[dept]=entry.config;
-  box.innerHTML=`${nkCreateToolbarHtml()}${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}`;
+  toolbarHost.innerHTML=nkCreateToolbarHtml();
+  toolbarHost.classList.remove('hidden');
+  box.innerHTML=renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')});
   $('#createNoiKiemTmBtn')?.addEventListener('click',submitCreateNoiKiemTm);
   nkBindCreateToolbar();
   const dateInput=$('#createDate');
@@ -10629,7 +10648,8 @@ function nkBindCreateForm(entry,dept){
 
 async function renderNoiKiemTmCreateForm(options={}){
   const box=$('#noiKiemTmBlock');
-  if(!box) return;
+  const toolbarHost=$('#noiKiemTmToolbarHost');
+  if(!box || !toolbarHost) return;
   const dept=$('#createDept')?.value||state.user?.khoaPhong||'';
   state.noiKiemTmConfigDeptContext=dept;
   const requestId=++nkCreateRenderRequestId;
@@ -10642,7 +10662,9 @@ async function renderNoiKiemTmCreateForm(options={}){
     nkBindCreateForm(cached,dept);
     return;
   }
-  box.innerHTML=`${nkCreateToolbarHtml('Đang tải biểu mẫu...','',false)}<div class="empty">Đang tải cấu hình Nội kiểm TM...</div>`;
+  toolbarHost.innerHTML=nkCreateToolbarHtml('Đang tải biểu mẫu...','',false);
+  toolbarHost.classList.remove('hidden');
+  box.innerHTML='<div class="empty">Đang tải cấu hình Nội kiểm TM...</div>';
   nkBindCreateToolbar();
   const refreshBtn=$('#refreshNoiKiemTmBtn');
   if(refreshBtn) refreshBtn.disabled=true;
@@ -10654,7 +10676,9 @@ async function renderNoiKiemTmCreateForm(options={}){
     if(force) nkSetCreateStatus('Đã làm mới biểu mẫu.','success');
   }catch(err){
     if(requestId===nkCreateRenderRequestId){
-      box.innerHTML=`${nkCreateToolbarHtml(err.message||'Không tải được biểu mẫu.','error',false)}<div class="empty">${esc(err.message||'Không tải được biểu mẫu.')}</div>`;
+      toolbarHost.innerHTML=nkCreateToolbarHtml(err.message||'Không tải được biểu mẫu.','error',false);
+      toolbarHost.classList.remove('hidden');
+      box.innerHTML=`<div class="empty">${esc(err.message||'Không tải được biểu mẫu.')}</div>`;
       nkBindCreateToolbar();
     }
   }
