@@ -1,4 +1,4 @@
-<!-- VERSION: 343.218 | index: 343 | Code.gs: 218 | INDEX-343.030826-NKTM-TOOLBAR-HOST -->
+<!-- VERSION: 345.218 | index: 345 | Code.gs: 218 | INDEX-345.030826-NKTM-ACTION-ROW -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -293,7 +293,7 @@
     .login-loading-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;transition:opacity .3s ease;text-align:center;color:#202124;background-image:radial-gradient(circle at 15% 50%,rgba(0,91,170,.1) 0%,rgba(0,91,170,0) 25%),radial-gradient(circle at 85% 30%,rgba(32,201,151,.1) 0%,rgba(32,201,151,0) 20%),radial-gradient(circle at 25% 80%,rgba(0,91,170,.05) 0%,rgba(0,91,170,0) 20%);animation:float-particles 20s linear infinite}
     .login-loading-logo{position:relative;width:300px;height:300px;margin-bottom:25px;overflow:hidden;border-radius:15px;background:transparent}
     .login-loading-logo img{width:100%;height:100%;display:block;object-fit:contain}.login-loading-logo::after{content:"";position:absolute;top:0;left:-150%;width:100%;height:100%;background:linear-gradient(to right,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);transform:skewX(-25deg);animation:shimmer-fixed 2.5s infinite cubic-bezier(.4,0,.2,1)}
-    .login-loading-text{font-size:20px;font-weight:bold;color:#333;margin:0 0 10px}.login-loading-progress{font-size:24px;font-weight:bold;color:#005baa;min-height:28px}.login-loading-sub{font-size:13px;color:#5f6368;margin-top:6px}.login-loading-version{position:absolute;left:0;right:0;bottom:18px;padding:0 16px;color:#777;font-size:12px;line-height:1.4;text-align:center}
+    .login-loading-text{font-size:20px;font-weight:bold;color:#333;margin:0}.login-loading-progress,.login-loading-sub,.login-loading-version{display:none!important}
     .app-action-overlay{position:fixed;inset:0;z-index:100900;background:rgba(255,255,255,.86);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:var(--g-text);backdrop-filter:blur(2px)}
     .app-action-card{width:min(360px,92vw);border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 18px 50px rgba(60,64,67,.22);padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:10px}
     .app-action-spinner{width:42px;height:42px;border:4px solid #e8eaed;border-top-color:var(--wine);border-radius:50%;animation:app-spin .8s linear infinite}
@@ -2575,9 +2575,21 @@
     @media (max-width:899px){
       .nk-create-toolbar-host{
         top:calc(var(--header-h) + var(--tabbar-h));
+        min-height:50px;
         margin:0 0 10px;
-        padding:8px 10px;
-        border-radius:10px;
+        padding:5px 0;
+        background:var(--bg);
+        border-radius:0;
+      }
+      .nk-create-toolbar-host .nk-create-toolbar{
+        gap:8px;
+      }
+      .nk-create-toolbar-host .nk-create-status{
+        font-size:12px;
+      }
+      .nk-create-toolbar-host .nk-create-submit{
+        min-width:104px;
+        padding:0 13px;
       }
       #tab-create:not(.hidden){
         display:block!important;
@@ -5314,8 +5326,8 @@
     .nk-paper .vi-date-wrap::after{display:none!important}
     .nk-paper-audit{max-width:1320px;margin:8px auto 0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fafafa;color:var(--muted);font-size:13px;line-height:1.5}
     .nk-create-actions{max-width:1320px;margin:10px auto 0}
-    .nk-create-toolbar-host .nk-create-submit{height:38px;min-height:38px;min-width:118px;margin-left:auto;padding:0 18px;border-radius:8px;white-space:nowrap}
-    .nk-create-toolbar-host .nk-create-toolbar .nk-create-status{flex:1 1 auto}
+    .nk-create-toolbar-host .nk-create-submit{height:40px;min-height:40px;min-width:118px;margin-left:0;padding:0 18px;border-radius:8px;white-space:nowrap;box-shadow:0 3px 8px rgba(60,64,67,.18)}
+    .nk-create-toolbar-host .nk-create-toolbar .nk-create-status{flex:1 1 auto;min-width:0}
     .nk-status{display:inline-flex;align-items:center;justify-content:center;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
     .nk-status-good{background:#e6f4ea;color:#137333}
     .nk-status-bad{background:#fce8e6;color:#b3261e}
@@ -5477,19 +5489,24 @@
       position:sticky;
       top:0;
       z-index:45;
-      margin:-12px -12px 10px;
-      padding:8px 12px;
-      background:var(--bg);
-      border-bottom:1px solid #e6d6dc;
-      box-shadow:0 5px 12px rgba(74,7,31,.08);
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      min-height:52px;
+      margin:0 0 10px;
+      padding:6px 0;
+      background:var(--card);
+      border:0;
+      box-shadow:none;
     }
     .nk-create-toolbar-host.hidden{display:none!important}
     .nk-create-toolbar-host .nk-create-toolbar{
+      width:100%;
       display:flex;
       align-items:center;
-      justify-content:flex-start;
+      justify-content:flex-end;
       gap:10px;
-      min-height:38px;
+      min-height:40px;
       margin:0;
       padding:0;
       background:transparent;
@@ -5497,7 +5514,14 @@
       box-shadow:none;
       backdrop-filter:none;
     }
-    .nk-create-toolbar-host .nk-create-refresh{width:38px;height:38px;min-width:38px;border:1px solid #dadce0;border-radius:50%;background:#fff;color:#1a73e8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 2px rgba(60,64,67,.08);transition:background .15s,border-color .15s,transform .15s}
+    .nk-create-toolbar-host .nk-create-status{
+      margin-right:auto;
+      padding-left:2px;
+    }
+    .nk-create-toolbar-host .nk-create-status:empty{
+      display:none;
+    }
+    .nk-create-toolbar-host .nk-create-refresh{width:40px;height:40px;min-width:40px;border:1px solid #dadce0;border-radius:8px;background:#fff;color:#1a73e8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 5px rgba(60,64,67,.12);transition:background .15s,border-color .15s,transform .15s}
     .nk-create-toolbar-host .nk-create-refresh:hover{background:#f1f6ff;border-color:#aecbfa}
     .nk-create-toolbar-host .nk-create-refresh:active{transform:rotate(-20deg)}
     .nk-create-toolbar-host .nk-create-refresh:disabled{opacity:.55;cursor:wait;transform:none}
@@ -5796,8 +5820,8 @@
   <div id="bootScreen" class="boot-screen hidden">
     <div class="boot-box">
       <div class="login-logo logo-frame"><span class="logo-fallback">BM</span><div class="brand-logo-safe"><img class="logo-img" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentElement.classList.add('logo-loaded')" onerror="this.style.display='none';this.parentElement.classList.remove('logo-loaded')"></div></div>
-      <p class="boot-title">Đang mở MedOps Pro</p>
-      <p class="boot-sub">Đang khôi phục phiên đăng nhập</p>
+      <p class="boot-title">Đang tải dữ liệu...</p>
+      <p class="boot-sub hidden" aria-hidden="true"></p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_BOOT_END ===== -->
@@ -5935,7 +5959,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '343.218',
+    frontendVersion: '345.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5968,7 +5992,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-343.030826-NKTM-TOOLBAR-HOST';
+const APP_VERSION = 'INDEX-345.030826-NKTM-ACTION-ROW';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6352,9 +6376,9 @@ function showLogin(){
   if(pw) pw.value = '';
 }
 
-function setBootStatus(text){
-  const el = $('#bootScreen .boot-sub');
-  if(el && text) el.textContent = text;
+function setBootStatus(){
+  const title = $('#bootScreen .boot-title');
+  if(title) title.textContent = 'Đang tải dữ liệu...';
 }
 
 function getHeaderUnitTitleByDept(dept){
@@ -10547,7 +10571,7 @@ async function preloadNoiKiemTmCreateData(dept,{force=false}={}){
 function nkCreateToolbarHtml(message='',type='',canSubmit=true){
   const cls=type?` is-${type}`:'';
   const fitActive=state.noiKiemTmCreateFitMode?' is-active':'';
-  return `<div class="nk-create-toolbar"><button id="refreshNoiKiemTmBtn" type="button" class="nk-create-refresh" title="Làm mới biểu mẫu" aria-label="Làm mới biểu mẫu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M18.5 9A7 7 0 0 0 6.2 6.2L4 8"></path><path d="M5.5 15A7 7 0 0 0 17.8 17.8L20 16"></path></svg></button><button id="fitNoiKiemTmBtn" type="button" class="nk-create-refresh nk-create-fit${fitActive}" title="${state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình'}" aria-label="${state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5"></path><path d="M16 3h5v5"></path><path d="M3 16v5h5"></path><path d="M21 16v5h-5"></path><path d="M9 9h6v6H9z"></path></svg></button><div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div><button id="createNoiKiemTmBtn" type="button" class="btn primary nk-create-submit" ${canSubmit?'':'disabled'}>Tạo phiếu</button></div>`;
+  return `<div class="nk-create-toolbar"><div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div><button id="refreshNoiKiemTmBtn" type="button" class="nk-create-refresh" title="Làm mới biểu mẫu" aria-label="Làm mới biểu mẫu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M18.5 9A7 7 0 0 0 6.2 6.2L4 8"></path><path d="M5.5 15A7 7 0 0 0 17.8 17.8L20 16"></path></svg></button><button id="fitNoiKiemTmBtn" type="button" class="nk-create-refresh nk-create-fit${fitActive}" title="${state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình'}" aria-label="${state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5"></path><path d="M16 3h5v5"></path><path d="M3 16v5h5"></path><path d="M21 16v5h-5"></path><path d="M9 9h6v6H9z"></path></svg></button><button id="createNoiKiemTmBtn" type="button" class="btn primary nk-create-submit" ${canSubmit?'':'disabled'}>Tạo phiếu</button></div>`;
 }
 
 function nkSetCreateStatus(message='',type=''){
@@ -14613,8 +14637,10 @@ function icon2d(name){
 function showLoginLoading(progress=0, text='Đang tải dữ liệu...'){
   const overlay = $('#loginLoadingOverlay');
   if(!overlay) return;
-  $('#loginLoadingText').textContent = text || 'Đang tải dữ liệu...';
-  $('#loginLoadingProgress').textContent = Math.max(0, Math.min(100, Number(progress) || 0)) + '%';
+  const loadingText = $('#loginLoadingText');
+  if(loadingText) loadingText.textContent = 'Đang tải dữ liệu...';
+  const loadingProgress = $('#loginLoadingProgress');
+  if(loadingProgress) loadingProgress.textContent = '';
   overlay.classList.remove('hidden');
 }
 
