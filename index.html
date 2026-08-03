@@ -1,4 +1,4 @@
-<!-- VERSION: 341.218 | index: 341 | Code.gs: 218 | INDEX-341.030826-NKTM-COLS-FIT-FIX -->
+<!-- VERSION: 342.218 | index: 342 | Code.gs: 218 | INDEX-342.030826-NKTM-STICKY-PRINT-ROWS -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5174,6 +5174,14 @@
     .nk-paper-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14.5px;line-height:1.15;margin:0 0 4px}
     .nk-paper-table th,.nk-paper-table td{border:1px solid #4e4e4e;padding:2px 3px;text-align:center;vertical-align:middle;color:#111;background:#fff;cursor:default;min-width:0;overflow-wrap:anywhere;word-break:normal}
     .nk-paper-table th{font-weight:700}
+    .nk-paper-table-i tbody>tr,
+    .nk-paper-table-ii tbody>tr,
+    .nk-paper-table-iii tbody>tr,
+    .nk-paper-table-iv tbody>tr{height:34px}
+    .nk-paper-table-i tbody>tr:first-child,
+    .nk-paper-table-ii tbody>tr:first-child,
+    .nk-paper-table-iii tbody>tr:first-child,
+    .nk-paper-table-iv tbody>tr:first-child{height:56px}
     .nk-paper-table .nk-paper-group-title{font-size:15px;line-height:1.12}
     .nk-paper-table .nk-paper-method-title{font-size:14px;line-height:1.12}
     .nk-paper-lot-lines{display:block;margin-top:1px;font-size:13.5px;font-weight:400;font-style:italic;line-height:1.15;text-align:left;padding:0 3px}
@@ -5459,7 +5467,22 @@
     }
 
     /* ===== NỘI KIỂM 335: TOOLBAR LÀM MỚI + TRẠNG THÁI TẠO PHIẾU ===== */
-    #noiKiemTmBlock .nk-create-toolbar{display:flex;align-items:center;justify-content:flex-start;gap:10px;margin:0 0 8px 0;min-height:38px}
+    #noiKiemTmBlock .nk-create-toolbar{
+      position:sticky;
+      top:0;
+      z-index:35;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:10px;
+      min-height:54px;
+      margin:-8px -8px 8px;
+      padding:8px 10px;
+      background:rgba(255,255,255,.98);
+      border-bottom:1px solid #ead9df;
+      box-shadow:0 4px 10px rgba(74,7,31,.06);
+      backdrop-filter:blur(8px);
+    }
     #noiKiemTmBlock .nk-create-refresh{width:38px;height:38px;min-width:38px;border:1px solid #dadce0;border-radius:50%;background:#fff;color:#1a73e8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 2px rgba(60,64,67,.08);transition:background .15s,border-color .15s,transform .15s}
     #noiKiemTmBlock .nk-create-refresh:hover{background:#f1f6ff;border-color:#aecbfa}
     #noiKiemTmBlock .nk-create-refresh:active{transform:rotate(-20deg)}
@@ -5898,7 +5921,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '341.218',
+    frontendVersion: '342.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5931,7 +5954,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-341.030826-NKTM-COLS-FIT-FIX';
+const APP_VERSION = 'INDEX-342.030826-NKTM-STICKY-PRINT-ROWS';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10822,22 +10845,40 @@ function nkPrintStylesHtml(){
 
 function nkPrintPageHtml(item,index){
   const d=item.data||{};
-  const paperWidth=nkPaperCommonTableWidth(d)+28;
-  const scale=Math.min(1,1040/Math.max(1,paperWidth));
+  const paperWidth=nkPaperCommonTableWidth(d);
+  const scale=Math.min(1,1096/Math.max(1,paperWidth));
   return `<section class="nk-print-page" style="--nk-print-scale:${scale}">${renderNoiKiemTmFormHtml(`nkPrint${index}`,d,item.khoaPhong||'',{readonly:true,ngayNoiKiem:item.ngayNoiKiem||'',sectionMeta:item.sectionMeta||{}})}</section>`;
 }
 
 function nkWritePrintWindow(printWindow,items){
   const pages=nkArray(items).map(nkPrintPageHtml).join('');
   const html=`<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>In phiếu Nội kiểm Truyền máu</title>${nkPrintStylesHtml()}<style>
-  @page{size:A4 landscape;margin:7mm}
-  html,body{margin:0!important;padding:0!important;background:#fff!important}
+  @page{size:297mm 210mm;margin:3mm}
+  html,body{width:100%!important;margin:0!important;padding:0!important;background:#fff!important}
   body{font-family:Arial,sans-serif}
-  .nk-print-page{page-break-after:always;break-after:page;overflow:visible}
+  .nk-print-page{width:291mm;margin:0 auto;page-break-after:always;break-after:page;overflow:visible}
   .nk-print-page:last-child{page-break-after:auto;break-after:auto}
   .nk-print-page .nk-form{width:auto!important;max-width:none!important}
-  .nk-print-page .nk-paper-scroll{overflow:visible!important;width:auto!important;max-width:none!important;padding:0!important}
-  .nk-print-page .nk-paper{zoom:var(--nk-print-scale,1);margin:0!important;box-shadow:none!important;border-color:#444!important}
+  .nk-print-page .nk-paper-scroll{overflow:visible!important;width:auto!important;max-width:none!important;padding:0!important;margin:0!important}
+  .nk-print-page .nk-paper{
+    width:var(--nk-common-table-width,1320px)!important;
+    min-width:var(--nk-common-table-width,1320px)!important;
+    zoom:var(--nk-print-scale,1);
+    margin:0 auto!important;
+    padding:0!important;
+    box-shadow:none!important;
+    border:0!important;
+  }
+  .nk-print-page .nk-paper-table-i tbody>tr,
+  .nk-print-page .nk-paper-table-ii tbody>tr,
+  .nk-print-page .nk-paper-table-iii tbody>tr,
+  .nk-print-page .nk-paper-table-iv tbody>tr{height:30px!important}
+  .nk-print-page .nk-paper-table-i tbody>tr:first-child,
+  .nk-print-page .nk-paper-table-ii tbody>tr:first-child,
+  .nk-print-page .nk-paper-table-iii tbody>tr:first-child,
+  .nk-print-page .nk-paper-table-iv tbody>tr:first-child{height:50px!important}
+  .nk-print-page .nk-paper-table th,
+  .nk-print-page .nk-paper-table td{padding-top:2px!important;padding-bottom:2px!important}
   .nk-print-page .nk-section-audit{font-size:9px!important}
   .nk-print-page input,.nk-print-page select,.nk-print-page textarea{color:#000!important}
   </style></head><body>${pages}<script>window.addEventListener('load',()=>{setTimeout(()=>{window.focus();window.print();},250)});<\/script></body></html>`;
