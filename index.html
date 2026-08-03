@@ -1,4 +1,4 @@
-<!-- VERSION: 335.218 | index: 335 | Code.gs: 218 | INDEX-335.030826-NKTM-PRELOAD-SAVE -->
+<!-- VERSION: 336.218 | index: 336 | Code.gs: 218 | INDEX-336.030826-NKTM-SAVE-FIT-ALIGN -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5407,7 +5407,7 @@
       .nk-google-table .nk-sticky-date{width:96px;min-width:96px;max-width:96px}
       .nk-google-table .nk-sticky-dept{left:96px;width:165px;min-width:165px;max-width:165px}
       .nk-view-mode .nk-paper-scroll{overflow-x:auto!important;touch-action:pan-x pan-y!important}
-      .nk-view-mode .nk-paper{width:var(--nk-common-table-width,1320px)!important;min-width:var(--nk-common-table-width,1320px)!important;max-width:none!important;padding:10px 8px 7px!important}
+      .nk-view-mode .nk-paper{width:var(--nk-paper-outer-width,1348px)!important;min-width:var(--nk-paper-outer-width,1348px)!important;max-width:none!important;padding:10px 8px 7px!important}
       .nk-view-mode .nk-paper-header{grid-template-columns:1fr 1.55fr .8fr!important;gap:6px!important}
       .nk-view-mode .nk-paper-org,.nk-view-mode .nk-paper-date{font-size:12px!important}
       .nk-view-mode .nk-paper-title{font-size:16px!important}
@@ -5426,6 +5426,7 @@
     #noiKiemTmBlock .nk-create-refresh:active{transform:rotate(-20deg)}
     #noiKiemTmBlock .nk-create-refresh:disabled{opacity:.55;cursor:wait;transform:none}
     #noiKiemTmBlock .nk-create-refresh svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    #noiKiemTmBlock .nk-create-fit.is-active{background:#e8f0fe;border-color:#8ab4f8;color:#174ea6}
     #noiKiemTmBlock .nk-create-status{flex:1;min-width:0;font:13px Arial,sans-serif;color:#5f6368}
     #noiKiemTmBlock .nk-create-status.is-error{color:#b3261e;font-weight:600}
     #noiKiemTmBlock .nk-create-status.is-success{color:#137333;font-weight:600}
@@ -5455,8 +5456,8 @@
       border-radius:10px;
     }
     .nk-form:not(.nk-view-mode) .nk-paper{
-      width:var(--nk-common-table-width,1320px)!important;
-      min-width:var(--nk-common-table-width,1320px)!important;
+      width:var(--nk-paper-outer-width,1348px)!important;
+      min-width:var(--nk-paper-outer-width,1348px)!important;
       max-width:none!important;
     }
     .nk-form:not(.nk-view-mode) .nk-paper-table-iii .nk-paper-lot-line{
@@ -5480,8 +5481,8 @@
         overflow:visible!important;
       }
       .nk-form:not(.nk-view-mode) .nk-paper{
-        width:var(--nk-common-table-width,1320px)!important;
-        min-width:var(--nk-common-table-width,1320px)!important;
+        width:var(--nk-paper-outer-width,1348px)!important;
+        min-width:var(--nk-paper-outer-width,1348px)!important;
         max-width:none!important;
         padding:10px 8px 7px!important;
       }
@@ -5538,7 +5539,11 @@
     #noiKiemTmConfigRoot .nkcfg-section-note{padding:10px 12px;background:#f8f9fa;border:1px solid #e8eaed;border-radius:8px;color:#5f6368;font-size:13px;margin-bottom:14px}
     #noiKiemTmConfigRoot .nkcfg-editing{border-color:#1a73e8;box-shadow:0 0 0 2px rgba(26,115,232,.1)}
     .nk-paper-config-empty{margin:4px 0 8px;padding:9px 12px;border:1px dashed #b8bdc4;border-radius:6px;background:#fafafa;color:#5f6368;font:13px Arial,sans-serif;text-align:center}
-    .nk-paper-subtable{width:var(--nk-common-table-width,1320px);min-width:var(--nk-common-table-width,1320px);margin-bottom:5px}
+    .nk-paper-subtable{width:var(--nk-common-table-width,1320px)!important;min-width:var(--nk-common-table-width,1320px)!important;max-width:var(--nk-common-table-width,1320px)!important;margin-bottom:5px}
+    .nk-paper-subtable>.nk-paper-table{width:100%!important;min-width:100%!important;max-width:100%!important}
+    .nk-paper>[data-nk-section]{width:var(--nk-common-table-width,1320px)!important;min-width:var(--nk-common-table-width,1320px)!important;max-width:var(--nk-common-table-width,1320px)!important}
+    .nk-paper>[data-nk-section]>.nk-paper-table{width:100%!important;min-width:100%!important;max-width:100%!important}
+    .nk-paper .nk-paper-table{box-sizing:border-box!important}
     @media(max-width:760px){
       #noiKiemTmConfigRoot .nkcfg-body{padding:12px}
       #noiKiemTmConfigRoot .nkcfg-grid{grid-template-columns:minmax(0,1fr)}
@@ -5854,7 +5859,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '335.218',
+    frontendVersion: '336.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -5887,7 +5892,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-335.030826-NKTM-PRELOAD-SAVE';
+const APP_VERSION = 'INDEX-336.030826-NKTM-SAVE-FIT-ALIGN';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6009,6 +6014,7 @@ const state = {
   noiKiemTmRuntimeConfigMap: {},
   noiKiemTmCreateCache: {},
   noiKiemTmCreatePreloadPromises: {},
+  noiKiemTmCreateFitMode: false,
   pdfTemplateConfig: null,
   pdfContentTemplates: null,
   pdfTemplateVariables: [],
@@ -10298,6 +10304,7 @@ function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
   nkRenderedConfigSnapshots[prefix]={};
   const d=data||{}, tube=d.aboRhOngNghiem||{}, gel=d.aboRhGelcard||{}, coombs=d.coombsKtbt||{}, cross=d.cheoHoaHop||{}, otherPerformers=d.xetNghiemKhacNguoiThucHien||[], hasOtherContent=!!nkText(d.xetNghiemKhac);
   const commonTableWidth=nkPaperCommonTableWidth(d);
+  const paperOuterWidth=commonTableWidth+28;
   const readonly=!!meta.readonly;
   const editMode=!!meta.editMode;
   const permissions=meta.sectionPermissions||{};
@@ -10307,7 +10314,7 @@ function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
   const parts=nkPaperDateParts(meta.ngayNoiKiem || (prefix==='nkCreate' ? getDateInputIso('createDate') : ''));
   const org=nkPaperOrgHeader(dept);
   const audit=phan => readonly ? nkSectionAuditHtml(sectionMeta[phan]) : '';
-  return `<div class="nk-form${readonly ? ' nk-view-mode' : ''}" data-prefix="${escAttr(prefix)}">${hasEditable?`<datalist id="nkReactionValues"><option value="-"><option value="Dương tính yếu"><option value="1+"><option value="2+"><option value="3+"><option value="4+"></datalist>`:''}<div class="nk-paper-scroll"><div class="nk-paper" style="--nk-common-table-width:${commonTableWidth}px;width:${commonTableWidth}px;min-width:${commonTableWidth}px">
+  return `<div class="nk-form${readonly ? ' nk-view-mode' : ''}" data-prefix="${escAttr(prefix)}">${hasEditable?`<datalist id="nkReactionValues"><option value="-"><option value="Dương tính yếu"><option value="1+"><option value="2+"><option value="3+"><option value="4+"></datalist>`:''}<div class="nk-paper-scroll"><div class="nk-paper" style="--nk-common-table-width:${commonTableWidth}px;--nk-paper-outer-width:${paperOuterWidth}px;width:${paperOuterWidth}px;min-width:${paperOuterWidth}px">
     <div class="nk-paper-header"><div class="nk-paper-org">${esc(org.hospital)}<br>${esc(org.unit)}</div><div class="nk-paper-title">PHIẾU THEO DÕI KẾT QUẢ NỘI KIỂM</div><div class="nk-paper-date">NĂM <span class="nk-paper-year">${esc(parts.year)}</span><br><span class="nk-paper-date-line">Ngày <span class="nk-paper-day">${esc(parts.day)}</span> tháng <span class="nk-paper-month">${esc(parts.month)}</span></span></div></div>
     <div data-nk-section="PHAN_1">${nkPaperTableI(prefix,tube,dept,isSectionReadonly('PHAN_1'),commonTableWidth)}${audit('PHAN_1')}</div>
     <div data-nk-section="PHAN_2">${nkPaperTableII(prefix,gel,dept,isSectionReadonly('PHAN_2'),commonTableWidth)}${audit('PHAN_2')}</div>
@@ -10420,7 +10427,8 @@ async function preloadNoiKiemTmCreateData(dept,{force=false}={}){
 
 function nkCreateToolbarHtml(message='',type=''){
   const cls=type?` is-${type}`:'';
-  return `<div class="nk-create-toolbar"><button id="refreshNoiKiemTmBtn" type="button" class="nk-create-refresh" title="Làm mới biểu mẫu" aria-label="Làm mới biểu mẫu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M18.5 9A7 7 0 0 0 6.2 6.2L4 8"></path><path d="M5.5 15A7 7 0 0 0 17.8 17.8L20 16"></path></svg></button><div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div></div>`;
+  const fitActive=state.noiKiemTmCreateFitMode?' is-active':'';
+  return `<div class="nk-create-toolbar"><button id="refreshNoiKiemTmBtn" type="button" class="nk-create-refresh" title="Làm mới biểu mẫu" aria-label="Làm mới biểu mẫu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M18.5 9A7 7 0 0 0 6.2 6.2L4 8"></path><path d="M5.5 15A7 7 0 0 0 17.8 17.8L20 16"></path></svg></button><button id="fitNoiKiemTmBtn" type="button" class="nk-create-refresh nk-create-fit${fitActive}" title="${state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình'}" aria-label="${state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5"></path><path d="M16 3h5v5"></path><path d="M3 16v5h5"></path><path d="M21 16v5h-5"></path><path d="M9 9h6v6H9z"></path></svg></button><div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div></div>`;
 }
 
 function nkSetCreateStatus(message='',type=''){
@@ -10430,6 +10438,51 @@ function nkSetCreateStatus(message='',type=''){
   el.className=`nk-create-status${type?` is-${type}`:''}`;
 }
 
+function nkApplyCreateFitMode(enabled=state.noiKiemTmCreateFitMode){
+  state.noiKiemTmCreateFitMode=!!enabled;
+  const box=document.getElementById('noiKiemTmBlock');
+  const scroll=box?.querySelector('.nk-paper-scroll');
+  const paper=scroll?.querySelector('.nk-paper');
+  const button=document.getElementById('fitNoiKiemTmBtn');
+  if(button){
+    button.classList.toggle('is-active',state.noiKiemTmCreateFitMode);
+    button.title=state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình';
+    button.setAttribute('aria-label',button.title);
+  }
+  if(!scroll||!paper) return;
+  if(!state.noiKiemTmCreateFitMode){
+    paper.style.removeProperty('transform');
+    paper.style.removeProperty('transform-origin');
+    paper.style.removeProperty('margin');
+    scroll.style.removeProperty('height');
+    scroll.style.removeProperty('overflow-x');
+    return;
+  }
+  requestAnimationFrame(()=>{
+    const available=Math.max(240,scroll.clientWidth-4);
+    const natural=Math.max(paper.scrollWidth,paper.offsetWidth,1);
+    const scale=Math.min(1,available/natural);
+    paper.style.setProperty('transform',`scale(${scale})`);
+    paper.style.setProperty('transform-origin','top left');
+    paper.style.setProperty('margin','0');
+    scroll.style.setProperty('height',`${Math.ceil(paper.scrollHeight*scale)+6}px`);
+    scroll.style.setProperty('overflow-x','hidden','important');
+  });
+}
+
+function nkToggleCreateFitMode(){
+  nkApplyCreateFitMode(!state.noiKiemTmCreateFitMode);
+}
+
+function nkBindCreateToolbar(){
+  $('#refreshNoiKiemTmBtn')?.addEventListener('click',()=>renderNoiKiemTmCreateForm({force:true}));
+  $('#fitNoiKiemTmBtn')?.addEventListener('click',nkToggleCreateFitMode);
+  if(!window.__nkCreateFitResizeBound){
+    window.__nkCreateFitResizeBound=true;
+    window.addEventListener('resize',()=>{if(state.noiKiemTmCreateFitMode)nkApplyCreateFitMode(true);});
+  }
+}
+
 function nkBindCreateForm(entry,dept){
   const box=$('#noiKiemTmBlock');
   if(!box || !entry) return;
@@ -10437,7 +10490,7 @@ function nkBindCreateForm(entry,dept){
   state.noiKiemTmRuntimeConfigMap[dept]=entry.config;
   box.innerHTML=`${nkCreateToolbarHtml()}${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}<div class="btn-row nk-create-actions"><button id="createNoiKiemTmBtn" type="button" class="btn primary">Tạo phiếu</button></div>`;
   $('#createNoiKiemTmBtn')?.addEventListener('click',submitCreateNoiKiemTm);
-  $('#refreshNoiKiemTmBtn')?.addEventListener('click',()=>renderNoiKiemTmCreateForm({force:true}));
+  nkBindCreateToolbar();
   const dateInput=$('#createDate');
   if(dateInput&&!dateInput.dataset.nkPaperSyncBound){
     dateInput.dataset.nkPaperSyncBound='1';
@@ -10448,6 +10501,7 @@ function nkBindCreateForm(entry,dept){
   nkBindOtherPerformerVisibility(box);
   scheduleViDatePickerEnhance();
   nkApplyRuntimeDefaults('nkCreate',entry.defaults||{});
+  if(state.noiKiemTmCreateFitMode) requestAnimationFrame(()=>nkApplyCreateFitMode(true));
 }
 
 async function renderNoiKiemTmCreateForm(options={}){
@@ -10466,7 +10520,7 @@ async function renderNoiKiemTmCreateForm(options={}){
     return;
   }
   box.innerHTML=`${nkCreateToolbarHtml('Đang tải biểu mẫu...')}<div class="empty">Đang tải cấu hình Nội kiểm TM...</div>`;
-  $('#refreshNoiKiemTmBtn')?.addEventListener('click',()=>renderNoiKiemTmCreateForm({force:true}));
+  nkBindCreateToolbar();
   const refreshBtn=$('#refreshNoiKiemTmBtn');
   if(refreshBtn) refreshBtn.disabled=true;
   try{
@@ -10478,7 +10532,7 @@ async function renderNoiKiemTmCreateForm(options={}){
   }catch(err){
     if(requestId===nkCreateRenderRequestId){
       box.innerHTML=`${nkCreateToolbarHtml(err.message||'Không tải được biểu mẫu.','error')}<div class="empty">${esc(err.message||'Không tải được biểu mẫu.')}</div>`;
-      $('#refreshNoiKiemTmBtn')?.addEventListener('click',()=>renderNoiKiemTmCreateForm({force:true}));
+      nkBindCreateToolbar();
     }
   }
 }
@@ -10502,6 +10556,10 @@ function nkDynamicItemActive(item){const x=item||{};if(nkText(x.chungDuong)||nkT
 function nkCollectConfiguredPartII(prefix){const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);return Array.from(form?.querySelectorAll(`[data-nk-p2-item]`)||[]).map(el=>{const id=el.dataset.configId,snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id)),t=nkConfigToken(id),rows=[0,1].map(idx=>({maBenhPham:nkGet(prefix,`P2${t}Row${idx}Ma`),a:nkGet(prefix,`P2${t}Row${idx}A`),b:nkGet(prefix,`P2${t}Row${idx}B`),d:nkGet(prefix,`P2${t}Row${idx}D`),ctrl:nkGet(prefix,`P2${t}Row${idx}Ctrl`),hcmA1:nkGet(prefix,`P2${t}Row${idx}HcmA1`),hcmB:nkGet(prefix,`P2${t}Row${idx}HcmB`),nhomMau:nkGet(prefix,`P2${t}Row${idx}Nhom`),danhGia:nkEval(prefix,`P2${t}Row${idx}`)}));return {...snap,lotNo:nkGet(prefix,`P2${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P2${t}Hsd`),benhPham:rows,danhGia:nkAggregateRowEval(rows),nguoiThucHien:nkPerformer(prefix,`P2${t}`)};}).filter(nkDynamicItemActive);}
 function nkCollectConfiguredPartIII(prefix){const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);const all=Array.from(form?.querySelectorAll(`[data-nk-p3-item]`)||[]).map(el=>{const id=el.dataset.configId,snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id)),t=nkConfigToken(id);return {...snap,lotNo:nkGet(prefix,`P3${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P3${t}Hsd`),chungDuong:snap.loaiKetQua==='REAGENT'?'':nkGet(prefix,`P3${t}ChungDuong`),chungAm:snap.loaiKetQua==='REAGENT'?'':nkGet(prefix,`P3${t}ChungAm`),danhGia:snap.loaiKetQua==='REAGENT'?NK_EVAL_DAT:nkEval(prefix,`P3${t}`)};});const cardActive=all.some(x=>x.loaiKetQua!=='REAGENT'&&nkDynamicItemActive(x));return all.filter(x=>x.loaiKetQua==='REAGENT'?(cardActive&&(nkText(x.lotNo)||nkText(x.hanSuDung))):nkDynamicItemActive(x));}
 function nkCollectConfiguredPartIV(prefix){const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);const methods=Array.from(form?.querySelectorAll(`[data-nk-p4-item]`)||[]).map(el=>{const id=el.dataset.configId,snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id)),t=nkConfigToken(id);return {...snap,lotNo:nkGet(prefix,`P4${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P4${t}Hsd`),danhGia:nkEval(prefix,`P4${t}`)};});const rows=[0,1].map(idx=>{const ketQua={};methods.forEach(m=>{const v=nkGet(prefix,`P4Row${idx}_${nkConfigToken(m.configItemId)}`);if(v)ketQua[m.configItemId]=v;});return {maBenhPham1:nkGet(prefix,`P4Row${idx}Ma1`),maBenhPham2:nkGet(prefix,`P4Row${idx}Ma2`),ketQua};});const activeIds=new Set();rows.forEach(r=>Object.keys(r.ketQua||{}).forEach(id=>activeIds.add(id)));return {methods:methods.filter(m=>activeIds.has(m.configItemId)),benhPham:rows,nguoiThucHien:nkPerformer(prefix,'Cross')};}
+
+function nkRowHasContent(row){
+  return nkHasValue(row||{});
+}
 
 function nkAggregateRowEval(rows, fallback=NK_EVAL_DAT){
   const active=nkArray(rows).filter(nkRowHasContent);
