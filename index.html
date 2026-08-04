@@ -1,4 +1,4 @@
-<!-- VERSION: 349.218 | index: 349 | Code.gs: 218 | INDEX-349.040826-NKTM-ACTION-HEADER -->
+<!-- VERSION: 350.219 | index: 350 | Code.gs: 219 | INDEX-350.040826-NKTM-SNAPSHOT-COMPAT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5788,6 +5788,180 @@
       }
     }
 
+
+    /* ===== NỘI KIỂM 350: THANH NÚT, XN KHÁC, DS PHIẾU, XEM THEO NGÀY ===== */
+    .nk-create-toolbar-host .nk-create-toolbar{
+      display:flex!important;
+      align-items:center!important;
+      justify-content:flex-start!important;
+      gap:10px!important;
+    }
+    .nk-create-toolbar-left{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex:0 0 auto;
+    }
+    .nk-create-toolbar-host .nk-create-status{
+      flex:1 1 auto!important;
+      min-width:0;
+      margin:0!important;
+      padding:0 4px!important;
+    }
+    .nk-create-toolbar-host .nk-create-submit{
+      flex:0 0 auto;
+      margin-left:auto!important;
+    }
+    .nk-create-toolbar-heading,
+    .nk-create-toolbar-actions,
+    .nk-create-toolbar-title{
+      display:none!important;
+    }
+
+    .nk-paper-other-wrap{
+      min-height:76px!important;
+      padding:5px!important;
+      background:#fff!important;
+      background-image:none!important;
+    }
+    .nk-paper-other,
+    .nk-paper-other-view{
+      min-height:66px!important;
+      height:66px!important;
+      padding:7px 8px!important;
+      border:1px solid #dadce0!important;
+      border-radius:6px!important;
+      background:#fafafa!important;
+      background-image:none!important;
+      font-family:Arial,sans-serif!important;
+      font-size:13px!important;
+      line-height:1.45!important;
+      color:#202124!important;
+      box-sizing:border-box!important;
+    }
+    .nk-paper-other:focus{
+      border-color:#8ab4f8!important;
+      background:#fff!important;
+      box-shadow:0 0 0 2px rgba(26,115,232,.10)!important;
+    }
+    .nk-paper-other-empty{
+      display:block!important;
+      min-height:66px!important;
+      background:#fafafa!important;
+    }
+    .nk-paper-other-empty span{
+      display:none!important;
+    }
+
+    .nk-google-table{
+      min-width:3050px!important;
+      table-layout:auto!important;
+    }
+    .nk-list-section{
+      white-space:normal!important;
+      overflow-wrap:anywhere!important;
+      word-break:break-word!important;
+      vertical-align:top!important;
+    }
+    .nk-list-p1,.nk-list-p2{
+      width:340px!important;
+      min-width:340px!important;
+      max-width:340px!important;
+    }
+    .nk-list-p3,.nk-list-p4{
+      width:420px!important;
+      min-width:420px!important;
+      max-width:420px!important;
+    }
+    .nk-list-p5{
+      width:360px!important;
+      min-width:360px!important;
+      max-width:360px!important;
+    }
+    .nk-list-method-line{
+      display:block!important;
+      min-height:0!important;
+      margin:0 0 6px!important;
+      white-space:normal!important;
+      overflow-wrap:anywhere!important;
+      word-break:break-word!important;
+      line-height:1.45!important;
+    }
+    .nk-list-method-line:last-child{
+      margin-bottom:0!important;
+    }
+    .nk-list-method-name,
+    .nk-list-lot{
+      white-space:normal!important;
+      overflow-wrap:anywhere!important;
+      word-break:break-word!important;
+    }
+    .nk-list-people{
+      width:190px!important;
+      min-width:190px!important;
+      max-width:190px!important;
+      white-space:normal!important;
+      overflow-wrap:anywhere!important;
+    }
+    .nk-list-time{
+      width:190px!important;
+      min-width:190px!important;
+      max-width:190px!important;
+      white-space:normal!important;
+    }
+    .nk-list-actions{
+      width:220px!important;
+      min-width:220px!important;
+      max-width:220px!important;
+      white-space:normal!important;
+    }
+    .nk-list-actions .nk-table-actions{
+      display:flex!important;
+      align-items:center!important;
+      flex-wrap:wrap!important;
+      gap:6px!important;
+    }
+
+    .nk-day-view-item{
+      width:100%;
+    }
+    .nk-day-view-item + .nk-day-view-item{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:2px solid #dadce0;
+    }
+    .nk-view-round-label{
+      width:max-content;
+      margin:0 0 8px;
+      padding:5px 10px;
+      border-radius:999px;
+      background:#e8f0fe;
+      color:#174ea6;
+      font:700 13px Arial,sans-serif;
+    }
+
+    @media(max-width:760px){
+      .nk-create-toolbar-host .nk-create-toolbar{
+        flex-wrap:nowrap!important;
+      }
+      .nk-create-toolbar-host .nk-create-status{
+        font-size:11px!important;
+      }
+      .nk-create-toolbar-host .nk-create-submit{
+        min-width:102px!important;
+        padding:0 12px!important;
+      }
+      .nk-paper-other-wrap{
+        min-height:62px!important;
+      }
+      .nk-paper-other,
+      .nk-paper-other-view,
+      .nk-paper-other-empty{
+        min-height:54px!important;
+        height:54px!important;
+      }
+    }
+
     /* ===== NỘI KIỂM 332: TẠO PHIẾU KHỔ RỘNG + CUỘN NGANG ===== */
     .nk-form:not(.nk-view-mode) .nk-paper-scroll{
       overflow-x:auto!important;
@@ -6215,7 +6389,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '349.218',
+    frontendVersion: '350.219',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6248,7 +6422,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-349.040826-NKTM-ACTION-HEADER';
+const APP_VERSION = 'INDEX-350.040826-NKTM-SNAPSHOT-COMPAT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10571,7 +10745,7 @@ function nkPaperOrgHeader(dept){
 
 function nkPaperHasValue(value){
   if(Array.isArray(value)) return value.some(nkPaperHasValue);
-  if(value && typeof value === 'object') return Object.keys(value).some(key => !['danhGia','nguoiThucHien','xetNghiemKhacNguoiThucHien','schemaVersion','configItemId','vatTuId','thietBiId','tenVatTu','tenThietBi','maThietBi','tenHienThi','loaiKetQua','thuTu','batBuoc'].includes(key) && nkPaperHasValue(value[key]));
+  if(value && typeof value === 'object') return Object.keys(value).some(key => !['danhGia','nguoiThucHien','xetNghiemKhacNguoiThucHien','schemaVersion','layoutSnapshotVersion','configItemId','vatTuId','thietBiId','tenVatTu','tenThietBi','maThietBi','tenHienThi','loaiKetQua','thuTu','batBuoc'].includes(key) && nkPaperHasValue(value[key]));
   return nkText(value) !== '';
 }
 
@@ -10703,8 +10877,7 @@ function nkSectionAuditHtml(meta){
 
 function nkPaperOtherReadonlyHtml(value){
   const content=nkText(value);
-  if(content) return `<div class="nk-paper-other-view">${esc(content)}</div>`;
-  return `<div class="nk-paper-other-view nk-paper-other-empty"><span></span><span></span><span></span></div>`;
+  return `<div class="nk-paper-other-view${content?' has-content':' nk-paper-other-empty'}">${content?esc(content):''}</div>`;
 }
 
 function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
@@ -10837,28 +11010,19 @@ function nkCreateToolbarHtml(message='',type='',canSubmit=true){
   const fitActive=state.noiKiemTmCreateFitMode?' is-active':'';
   const fitLabel=state.noiKiemTmCreateFitMode?'Kích thước thật':'Co vừa màn hình';
   return `<div class="nk-create-toolbar">
-    <div class="nk-create-toolbar-heading">
-      <span class="nk-create-toolbar-heading-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M7 3h10v3h2a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2V3Z"></path><path d="M9 3h6v4H9z"></path><path d="M8 12h8"></path><path d="M8 16h5"></path></svg>
-      </span>
-      <div class="nk-create-toolbar-copy">
-        <div class="nk-create-toolbar-title">TẠO PHIẾU NỘI KIỂM TRUYỀN MÁU</div>
-        <div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div>
-      </div>
-    </div>
-    <div class="nk-create-toolbar-actions">
-      <button id="refreshNoiKiemTmBtn" type="button" class="btn nk-create-view-new" title="Xem mới" aria-label="Xem mới">
+    <div class="nk-create-toolbar-left">
+      <button id="refreshNoiKiemTmBtn" type="button" class="nk-create-icon-action" title="Xem mới" aria-label="Xem mới">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M18.5 9A7 7 0 0 0 6.2 6.2L4 8"></path><path d="M5.5 15A7 7 0 0 0 17.8 17.8L20 16"></path></svg>
-        <span>Xem mới</span>
       </button>
       <button id="fitNoiKiemTmBtn" type="button" class="nk-create-icon-action nk-create-fit${fitActive}" title="${fitLabel}" aria-label="${fitLabel}">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5"></path><path d="M16 3h5v5"></path><path d="M3 16v5h5"></path><path d="M21 16v5h-5"></path><path d="M9 9h6v6H9z"></path></svg>
       </button>
-      <button id="createNoiKiemTmBtn" type="button" class="btn primary nk-create-submit" ${canSubmit?'':'disabled'}>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
-        <span>Tạo phiếu</span>
-      </button>
     </div>
+    <div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div>
+    <button id="createNoiKiemTmBtn" type="button" class="btn primary nk-create-submit" ${canSubmit?'':'disabled'}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+      <span>Tạo phiếu</span>
+    </button>
   </div>`;
 }
 
@@ -11012,9 +11176,60 @@ function nkCollectTubeRows(prefix, key, serum){
 }
 
 function nkDynamicItemActive(item){const x=item||{};if(nkText(x.chungDuong)||nkText(x.chungAm))return true;if(nkArray(x.benhPham).some(r=>Object.keys(r||{}).some(k=>k!=='danhGia'&&nkText(r[k]))))return true;return false;}
-function nkCollectConfiguredPartII(prefix){const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);return Array.from(form?.querySelectorAll(`[data-nk-p2-item]`)||[]).map(el=>{const id=el.dataset.configId,snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id)),t=nkConfigToken(id),rows=[0,1].map(idx=>({maBenhPham:nkGet(prefix,`P2${t}Row${idx}Ma`),a:nkGet(prefix,`P2${t}Row${idx}A`),b:nkGet(prefix,`P2${t}Row${idx}B`),d:nkGet(prefix,`P2${t}Row${idx}D`),ctrl:nkGet(prefix,`P2${t}Row${idx}Ctrl`),hcmA1:nkGet(prefix,`P2${t}Row${idx}HcmA1`),hcmB:nkGet(prefix,`P2${t}Row${idx}HcmB`),nhomMau:nkGet(prefix,`P2${t}Row${idx}Nhom`),danhGia:nkEval(prefix,`P2${t}Row${idx}`)}));return {...snap,lotNo:nkGet(prefix,`P2${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P2${t}Hsd`),benhPham:rows,danhGia:nkAggregateRowEval(rows),nguoiThucHien:nkPerformer(prefix,`P2${t}`)};}).filter(nkDynamicItemActive);}
-function nkCollectConfiguredPartIII(prefix){const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);const all=Array.from(form?.querySelectorAll(`[data-nk-p3-item]`)||[]).map(el=>{const id=el.dataset.configId,snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id)),t=nkConfigToken(id);return {...snap,lotNo:nkGet(prefix,`P3${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P3${t}Hsd`),chungDuong:snap.loaiKetQua==='REAGENT'?'':nkGet(prefix,`P3${t}ChungDuong`),chungAm:snap.loaiKetQua==='REAGENT'?'':nkGet(prefix,`P3${t}ChungAm`),danhGia:snap.loaiKetQua==='REAGENT'?NK_EVAL_DAT:nkEval(prefix,`P3${t}`)};});const cardActive=all.some(x=>x.loaiKetQua!=='REAGENT'&&nkDynamicItemActive(x));return all.filter(x=>x.loaiKetQua==='REAGENT'?(cardActive&&(nkText(x.lotNo)||nkText(x.hanSuDung))):nkDynamicItemActive(x));}
-function nkCollectConfiguredPartIV(prefix){const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);const methods=Array.from(form?.querySelectorAll(`[data-nk-p4-item]`)||[]).map(el=>{const id=el.dataset.configId,snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id)),t=nkConfigToken(id);return {...snap,lotNo:nkGet(prefix,`P4${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P4${t}Hsd`),danhGia:nkEval(prefix,`P4${t}`)};});const rows=[0,1].map(idx=>{const ketQua={};methods.forEach(m=>{const v=nkGet(prefix,`P4Row${idx}_${nkConfigToken(m.configItemId)}`);if(v)ketQua[m.configItemId]=v;});return {maBenhPham1:nkGet(prefix,`P4Row${idx}Ma1`),maBenhPham2:nkGet(prefix,`P4Row${idx}Ma2`),ketQua};});const activeIds=new Set();rows.forEach(r=>Object.keys(r.ketQua||{}).forEach(id=>activeIds.add(id)));return {methods:methods.filter(m=>activeIds.has(m.configItemId)),benhPham:rows,nguoiThucHien:nkPerformer(prefix,'Cross')};}
+function nkCollectConfiguredPartII(prefix,preserveLayout=false){
+  const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);
+  const items=Array.from(form?.querySelectorAll(`[data-nk-p2-item]`)||[]).map(el=>{
+    const id=el.dataset.configId;
+    const snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id));
+    const t=nkConfigToken(id);
+    const rows=[0,1].map(idx=>({
+      maBenhPham:nkGet(prefix,`P2${t}Row${idx}Ma`),
+      a:nkGet(prefix,`P2${t}Row${idx}A`),
+      b:nkGet(prefix,`P2${t}Row${idx}B`),
+      d:nkGet(prefix,`P2${t}Row${idx}D`),
+      ctrl:nkGet(prefix,`P2${t}Row${idx}Ctrl`),
+      hcmA1:nkGet(prefix,`P2${t}Row${idx}HcmA1`),
+      hcmB:nkGet(prefix,`P2${t}Row${idx}HcmB`),
+      nhomMau:nkGet(prefix,`P2${t}Row${idx}Nhom`),
+      danhGia:nkEval(prefix,`P2${t}Row${idx}`)
+    }));
+    return {...snap,lotNo:nkGet(prefix,`P2${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P2${t}Hsd`),benhPham:rows,danhGia:nkAggregateRowEval(rows),nguoiThucHien:nkPerformer(prefix,`P2${t}`)};
+  });
+  return preserveLayout?items:items.filter(nkDynamicItemActive);
+}
+function nkCollectConfiguredPartIII(prefix,preserveLayout=false){
+  const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);
+  const all=Array.from(form?.querySelectorAll(`[data-nk-p3-item]`)||[]).map(el=>{
+    const id=el.dataset.configId;
+    const snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id));
+    const t=nkConfigToken(id);
+    return {...snap,lotNo:nkGet(prefix,`P3${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P3${t}Hsd`),chungDuong:snap.loaiKetQua==='REAGENT'?'':nkGet(prefix,`P3${t}ChungDuong`),chungAm:snap.loaiKetQua==='REAGENT'?'':nkGet(prefix,`P3${t}ChungAm`),danhGia:snap.loaiKetQua==='REAGENT'?NK_EVAL_DAT:nkEval(prefix,`P3${t}`)};
+  });
+  if(preserveLayout) return all;
+  const cardActive=all.some(x=>x.loaiKetQua!=='REAGENT'&&nkDynamicItemActive(x));
+  return all.filter(x=>x.loaiKetQua==='REAGENT'?(cardActive&&(nkText(x.lotNo)||nkText(x.hanSuDung))):nkDynamicItemActive(x));
+}
+function nkCollectConfiguredPartIV(prefix,preserveLayout=false){
+  const form=document.querySelector(`.nk-form[data-prefix="${prefix}"]`);
+  const methods=Array.from(form?.querySelectorAll(`[data-nk-p4-item]`)||[]).map(el=>{
+    const id=el.dataset.configId;
+    const snap=nkSnapshotPayload(nkGetRenderedSnapshot(prefix,id));
+    const t=nkConfigToken(id);
+    return {...snap,lotNo:nkGet(prefix,`P4${t}Lot`),hanSuDung:getDateInputIso(`${prefix}P4${t}Hsd`),danhGia:nkEval(prefix,`P4${t}`)};
+  });
+  const rows=[0,1].map(idx=>{
+    const ketQua={};
+    methods.forEach(m=>{
+      const v=nkGet(prefix,`P4Row${idx}_${nkConfigToken(m.configItemId)}`);
+      if(v) ketQua[m.configItemId]=v;
+    });
+    return {maBenhPham1:nkGet(prefix,`P4Row${idx}Ma1`),maBenhPham2:nkGet(prefix,`P4Row${idx}Ma2`),ketQua};
+  });
+  if(preserveLayout) return {methods,benhPham:rows,nguoiThucHien:nkPerformer(prefix,'Cross')};
+  const activeIds=new Set();
+  rows.forEach(r=>Object.keys(r.ketQua||{}).forEach(id=>activeIds.add(id)));
+  return {methods:methods.filter(m=>activeIds.has(m.configItemId)),benhPham:rows,nguoiThucHien:nkPerformer(prefix,'Cross')};
+}
 
 function nkRowHasContent(row){
   return nkHasValue(row||{});
@@ -11026,11 +11241,32 @@ function nkAggregateRowEval(rows, fallback=NK_EVAL_DAT){
   return active.some(r=>nkDefaultEval(r.danhGia)===NK_EVAL_KHONG_DAT) ? NK_EVAL_KHONG_DAT : NK_EVAL_DAT;
 }
 
-function collectNoiKiemTmData(prefix,preserveSections=[]){const serumRows=nkCollectTubeRows(prefix,'Serum',true),redRows=nkCollectTubeRows(prefix,'Red',false),tubePerformers=nkPerformer(prefix,'Tube'),cross=nkCollectConfiguredPartIV(prefix);const serumActive=serumRows.some(r=>['maBenhPham','a','b','ab','d','nhomMau'].some(k=>nkText(r[k]))),redActive=redRows.some(r=>['maBenhPham','a','b','nhomMau'].some(k=>nkText(r[k])));return {schemaVersion:6,aboRhOngNghiem:{huyetThanhMau:{lotNo:serumActive?nkGet(prefix,'SerumLot'):'',hanSuDung:serumActive?getDateInputIso(`${prefix}SerumHsd`):'',benhPham:serumRows,danhGia:nkAggregateRowEval(serumRows),nguoiThucHien:serumActive?tubePerformers:[]},hongCauMau:{lotNo:redActive?nkGet(prefix,'RedLot'):'',hanSuDung:redActive?getDateInputIso(`${prefix}RedHsd`):'',benhPham:redRows,danhGia:nkAggregateRowEval(redRows),nguoiThucHien:redActive?tubePerformers:[]}},aboRhGelcard:{methods:nkCollectConfiguredPartII(prefix)},coombsKtbt:{items:nkCollectConfiguredPartIII(prefix),nguoiThucHien:nkPerformer(prefix,'Coombs')},cheoHoaHop:cross,xetNghiemKhac:nkGet(prefix,'Other'),xetNghiemKhacNguoiThucHien:nkPerformer(prefix,'Other')};}
+function collectNoiKiemTmData(prefix,preserveSections=[]){
+  const preserve=new Set(nkArray(preserveSections).map(x=>nkText(x).toUpperCase()));
+  const serumRows=nkCollectTubeRows(prefix,'Serum',true);
+  const redRows=nkCollectTubeRows(prefix,'Red',false);
+  const tubePerformers=nkPerformer(prefix,'Tube');
+  const cross=nkCollectConfiguredPartIV(prefix,preserve.has('PHAN_4'));
+  const serumActive=serumRows.some(r=>['maBenhPham','a','b','ab','d','nhomMau'].some(k=>nkText(r[k])));
+  const redActive=redRows.some(r=>['maBenhPham','a','b','nhomMau'].some(k=>nkText(r[k])));
+  return {
+    schemaVersion:7,
+    layoutSnapshotVersion:1,
+    aboRhOngNghiem:{
+      huyetThanhMau:{lotNo:serumActive?nkGet(prefix,'SerumLot'):'',hanSuDung:serumActive?getDateInputIso(`${prefix}SerumHsd`):'',benhPham:serumRows,danhGia:nkAggregateRowEval(serumRows),nguoiThucHien:serumActive?tubePerformers:[]},
+      hongCauMau:{lotNo:redActive?nkGet(prefix,'RedLot'):'',hanSuDung:redActive?getDateInputIso(`${prefix}RedHsd`):'',benhPham:redRows,danhGia:nkAggregateRowEval(redRows),nguoiThucHien:redActive?tubePerformers:[]}
+    },
+    aboRhGelcard:{methods:nkCollectConfiguredPartII(prefix,preserve.has('PHAN_2'))},
+    coombsKtbt:{items:nkCollectConfiguredPartIII(prefix,preserve.has('PHAN_3')),nguoiThucHien:nkPerformer(prefix,'Coombs')},
+    cheoHoaHop:cross,
+    xetNghiemKhac:nkGet(prefix,'Other'),
+    xetNghiemKhacNguoiThucHien:nkPerformer(prefix,'Other')
+  };
+}
 
 function nkHasValue(value){
   if(Array.isArray(value)) return value.some(nkHasValue);
-  if(value && typeof value === 'object') return Object.keys(value).some(k => !['danhGia','nguoiThucHien','xetNghiemKhacNguoiThucHien','schemaVersion','configItemId','vatTuId','thietBiId','tenVatTu','tenThietBi','maThietBi','tenHienThi','loaiKetQua','thuTu','batBuoc'].includes(k) && nkHasValue(value[k]));
+  if(value && typeof value === 'object') return Object.keys(value).some(k => !['danhGia','nguoiThucHien','xetNghiemKhacNguoiThucHien','schemaVersion','layoutSnapshotVersion','configItemId','vatTuId','thietBiId','tenVatTu','tenThietBi','maThietBi','tenHienThi','loaiKetQua','thuTu','batBuoc'].includes(k) && nkHasValue(value[k]));
   return nkText(value) !== '';
 }
 
@@ -11180,7 +11416,7 @@ function nkPrintStylesHtml(){
 }
 
 function nkPrintPageHtml(item,index){
-  const d=item.data||{};
+  const d=item.viewData||item.data||{};
   const paperWidth=nkPaperCommonTableWidth(d,true);
   const scale=Math.min(1,1096/Math.max(1,paperWidth));
   return `<section class="nk-print-page" style="--nk-print-scale:${scale}">${renderNoiKiemTmFormHtml(`nkPrint${index}`,d,item.khoaPhong||'',{readonly:true,ngayNoiKiem:item.ngayNoiKiem||'',sectionMeta:item.sectionMeta||{}})}</section>`;
@@ -11242,8 +11478,9 @@ function printNoiKiemTmItem(item){
 }
 
 async function printSelectedNoiKiemTm(button){
-  const ids=Array.from(state.noiKiemTmSelectedIds);
-  if(!ids.length){toast('Vui lòng chọn ít nhất một phiếu để in.');return;}
+  const selectedIds=Array.from(state.noiKiemTmSelectedIds);
+  if(!selectedIds.length){toast('Vui lòng chọn ít nhất một phiếu để in.');return;}
+  const ids=Array.from(new Set(selectedIds.flatMap(nkNoiKiemTmSameDayIds)));
   const printWindow=window.open('','_blank');
   if(!printWindow){toast('Trình duyệt đang chặn cửa sổ in. Vui lòng cho phép cửa sổ bật lên.');return;}
   printWindow.document.write('<!doctype html><html><body style="font:16px Arial;padding:24px">Đang chuẩn bị phiếu in...</body></html>');
@@ -11313,8 +11550,54 @@ function nkViewReagent(title, group){
 }
 
 function renderNoiKiemTmViewHtml(item){
-  const d=item.data||{};
+  const d=item.viewData||item.data||{};
   return `<div class="nk-view">${renderNoiKiemTmFormHtml('nkView',d,item.khoaPhong||'',{readonly:true,ngayNoiKiem:item.ngayNoiKiem||'',sectionMeta:item.sectionMeta||{}})}</div>`;
+}
+
+function nkNoiKiemTmDayKey(item){
+  return `${nkText(item?.ngayNoiKiem)}|${norm(item?.khoaPhong||'')}`;
+}
+
+function nkNoiKiemTmSameDayIds(id){
+  const source=nkArray(state.noiKiemTmListItems);
+  const current=source.find(item=>eqText(item.id,id));
+  if(!current) return [nkText(id)].filter(Boolean);
+  const key=nkNoiKiemTmDayKey(current);
+  return source
+    .filter(item=>nkNoiKiemTmDayKey(item)===key)
+    .sort((a,b)=>(Number(a.lanTrongNgay||0)||0)-(Number(b.lanTrongNgay||0)||0))
+    .map(item=>nkText(item.id))
+    .filter(Boolean);
+}
+
+async function nkLoadNoiKiemTmViewItems(ids){
+  const unique=Array.from(new Set(nkArray(ids).map(nkText).filter(Boolean)));
+  const items=[];
+  for(const phieuId of unique){
+    const cached=state.noiKiemTmViewCache[phieuId];
+    let item=cached&&Date.now()-cached.cachedAt<60000?cached.item:null;
+    if(!item){
+      const res=await api('noiKiemTm_get',{id:phieuId},{timeoutMs:60000});
+      item=res.data?.item||{};
+      if(!item.id) throw new Error('Không tải được dữ liệu phiếu.');
+      state.noiKiemTmViewCache[phieuId]={item,cachedAt:Date.now()};
+    }
+    items.push(item);
+  }
+  return items.sort((a,b)=>(Number(a.lanTrongNgay||0)||0)-(Number(b.lanTrongNgay||0)||0));
+}
+
+function renderNoiKiemTmDayViewHtml(items){
+  return nkArray(items).map((item,index)=>{
+    const showRound=items.length>1;
+    return `<section class="nk-day-view-item">${showRound?`<div class="nk-view-round-label">Lần ${esc(item.lanTrongNgay||index+1)}</div>`:''}${renderNoiKiemTmViewHtml(item)}</section>`;
+  }).join('');
+}
+
+function printNoiKiemTmItems(items){
+  const printWindow=window.open('','_blank');
+  if(!printWindow){toast('Trình duyệt đang chặn cửa sổ in. Vui lòng cho phép cửa sổ bật lên.');return;}
+  nkWritePrintWindow(printWindow,nkArray(items));
 }
 
 window.openNoiKiemTm = async function(id, btn){
@@ -11330,19 +11613,12 @@ window.openNoiKiemTm = async function(id, btn){
   }
 
   try{
-    const cached=state.noiKiemTmViewCache[phieuId];
-    let item=cached&&Date.now()-cached.cachedAt<60000?cached.item:null;
-    if(!item){
-      const res=await api('noiKiemTm_get',{id:phieuId},{timeoutMs:60000});
-      item=res.data?.item||{};
-      if(!item.id) throw new Error('Không tải được dữ liệu phiếu.');
-      state.noiKiemTmViewCache[phieuId]={item,cachedAt:Date.now()};
-    }
-
+    const ids=nkNoiKiemTmSameDayIds(phieuId);
+    const items=await nkLoadNoiKiemTmViewItems(ids);
     await new Promise(resolve=>requestAnimationFrame(()=>resolve()));
-    const viewHtml=renderNoiKiemTmViewHtml(item);
+    const viewHtml=renderNoiKiemTmDayViewHtml(items);
     openModal(`<div class="modal-card nk-modal nk-view-modal"><div class="modal-head"><div class="modal-title">Xem phiếu Nội kiểm Truyền máu</div><div class="nk-modal-head-actions"><button id="printNoiKiemTmViewBtn" type="button" class="nk-modal-print-btn" title="In phiếu" aria-label="In phiếu">${nkPrintIconSvg()}</button><button class="close-btn" onclick="closeModal()">×</button></div></div>${viewHtml}<div class="btn-row"><button class="btn secondary" onclick="closeModal()">Đóng</button></div></div>`);
-    document.getElementById('printNoiKiemTmViewBtn')?.addEventListener('click',()=>printNoiKiemTmItem(item));
+    document.getElementById('printNoiKiemTmViewBtn')?.addEventListener('click',()=>printNoiKiemTmItems(items));
   }catch(err){
     toast(err.message||'Không mở được phiếu.');
   }finally{
