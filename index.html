@@ -1,4 +1,4 @@
-<!-- VERSION: 350.219 | index: 350 | Code.gs: 219 | INDEX-350.040826-NKTM-SNAPSHOT-COMPAT -->
+<!-- VERSION: 352.219 | index: 352 | Code.gs: 219 | INDEX-352.040826-NKTM-MERGE-DAY -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5962,6 +5962,126 @@
       }
     }
 
+
+    /* ===== NỘI KIỂM 351: XÉT NGHIỆM KHÁC KHÔNG KHUNG ĐEN + TỰ GIÃN ===== */
+    .nk-paper-table-v{
+      border:0!important;
+      border-collapse:separate!important;
+      border-spacing:0!important;
+      background:transparent!important;
+    }
+    .nk-paper-table-v tbody,
+    .nk-paper-table-v tr{
+      height:auto!important;
+      border:0!important;
+      background:transparent!important;
+    }
+    .nk-paper-table-v td{
+      height:auto!important;
+      border:0!important;
+      background:transparent!important;
+    }
+    .nk-paper-table-v .nk-paper-other-content-cell{
+      padding:0!important;
+      border:0!important;
+      vertical-align:top!important;
+    }
+    .nk-paper-table-v .nk-paper-other-performer-cell{
+      padding:5px 4px!important;
+      border:0!important;
+      border-left:1px solid #dadce0!important;
+      vertical-align:top!important;
+      background:#fff!important;
+    }
+    .nk-paper-other-wrap{
+      min-height:76px!important;
+      height:auto!important;
+      overflow:visible!important;
+      padding:5px!important;
+      border:0!important;
+      background:#fff!important;
+      background-image:none!important;
+      box-sizing:border-box!important;
+    }
+    .nk-paper-other,
+    .nk-paper-other-view{
+      display:block!important;
+      width:100%!important;
+      min-height:66px!important;
+      height:auto!important;
+      padding:8px 10px!important;
+      border:1px solid #dadce0!important;
+      border-radius:6px!important;
+      background:#fafafa!important;
+      background-image:none!important;
+      box-sizing:border-box!important;
+      color:#111!important;
+      font-family:"Times New Roman",Times,serif!important;
+      font-size:15px!important;
+      line-height:1.35!important;
+      text-align:left!important;
+      white-space:pre-wrap!important;
+      overflow-wrap:anywhere!important;
+      word-break:break-word!important;
+    }
+    .nk-paper-other{
+      overflow:hidden!important;
+      resize:none!important;
+      outline:0!important;
+    }
+    .nk-paper-other:focus{
+      border-color:#8ab4f8!important;
+      background:#fff!important;
+      box-shadow:0 0 0 2px rgba(26,115,232,.10)!important;
+    }
+    .nk-paper-other-view{
+      overflow:visible!important;
+    }
+    .nk-paper-other-empty{
+      min-height:66px!important;
+      height:auto!important;
+      background:#fafafa!important;
+    }
+    .nk-paper-other-empty span{
+      display:none!important;
+    }
+    .nk-view-mode .nk-paper-other-view,
+    .nk-print-page .nk-paper-other-view{
+      text-align:left!important;
+      font-family:"Times New Roman",Times,serif!important;
+      height:auto!important;
+      min-height:66px!important;
+      overflow:visible!important;
+    }
+    .nk-print-page .nk-paper-table-v,
+    .nk-print-page .nk-paper-table-v tr,
+    .nk-print-page .nk-paper-table-v td{
+      border:0!important;
+      height:auto!important;
+    }
+    .nk-print-page .nk-paper-table-v .nk-paper-other-performer-cell{
+      border-left:1px solid #dadce0!important;
+    }
+
+
+    /* ===== NỘI KIỂM 352: GỘP CÁC LẦN TRONG NGÀY VÀO MỘT FORM ===== */
+    .nk-performer-audit-entry{
+      display:block;
+    }
+    .nk-performer-audit-entry + .nk-performer-audit-entry{
+      margin-top:5px;
+      padding-top:5px;
+      border-top:1px dotted #9aa0a6;
+    }
+    .nk-day-view-item{
+      width:100%;
+    }
+    .nk-day-view-item + .nk-day-view-item{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:2px solid #dadce0;
+    }
+
     /* ===== NỘI KIỂM 332: TẠO PHIẾU KHỔ RỘNG + CUỘN NGANG ===== */
     .nk-form:not(.nk-view-mode) .nk-paper-scroll{
       overflow-x:auto!important;
@@ -6389,7 +6509,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '350.219',
+    frontendVersion: '352.219',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6422,7 +6542,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-350.040826-NKTM-SNAPSHOT-COMPAT';
+const APP_VERSION = 'INDEX-352.040826-NKTM-MERGE-DAY';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10870,9 +10990,18 @@ function nkAuditDateTimeText(value){
 
 function nkSectionAuditHtml(meta){
   if(!meta || !meta.exists) return '';
-  const creator=nkText(meta.nguoiGhiNhan||'');
-  const createdAt=nkAuditDateTimeText(meta.thoiDiemGhiNhan||'');
-  return `<div class="nk-performer-audit"><div>Người tạo: ${esc(creator||'—')}</div>${createdAt?`<div>${esc(createdAt)}</div>`:''}</div>`;
+  const entries=nkArray(meta.entries).length?meta.entries:[meta];
+  const seen=new Set();
+  const html=entries.map(entry=>{
+    const creator=nkText(entry?.nguoiGhiNhan||'');
+    const createdAt=nkAuditDateTimeText(entry?.thoiDiemGhiNhan||'');
+    const key=norm(`${creator}|${createdAt}`);
+    if(!creator&&!createdAt) return '';
+    if(seen.has(key)) return '';
+    seen.add(key);
+    return `<div class="nk-performer-audit-entry"><div>Người tạo: ${esc(creator||'—')}</div>${createdAt?`<div>${esc(createdAt)}</div>`:''}</div>`;
+  }).filter(Boolean).join('');
+  return html?`<div class="nk-performer-audit">${html}</div>`:'';
 }
 
 function nkPaperOtherReadonlyHtml(value){
@@ -10912,12 +11041,19 @@ function updateNoiKiemTmPaperDateHeader(){
   document.querySelectorAll('#noiKiemTmBlock .nk-paper-month').forEach(el=>el.textContent=parts.month);
 }
 
+function nkAutoResizeOtherField(field){
+  if(!field || field.tagName!=='TEXTAREA') return;
+  field.style.height='auto';
+  field.style.height=`${Math.max(66,field.scrollHeight||0)}px`;
+}
+
 function nkSyncOtherPerformerVisibility(input){
   const field=input?.matches?.('.nk-paper-other') ? input : input?.querySelector?.('.nk-paper-other');
   const wrap=field?.closest?.('.nk-paper-other-wrap');
   const section=field?.closest?.('[data-nk-section="PHAN_5"]');
   const performer=section?.querySelector?.('.nk-paper-other-performer-row');
   if(!field || !wrap || !performer) return;
+  nkAutoResizeOtherField(field);
   const visible=!!nkText(field.value);
   wrap.classList.toggle('has-content',visible);
   performer.classList.toggle('is-hidden',!visible);
@@ -11491,7 +11627,7 @@ async function printSelectedNoiKiemTm(button){
     const results=await Promise.all(ids.map(id=>api('noiKiemTm_get',{id})));
     const items=results.map(res=>res.data?.item||{}).filter(x=>x.id);
     if(!items.length) throw new Error('Không tải được dữ liệu phiếu đã chọn.');
-    nkWritePrintWindow(printWindow,items);
+    nkWritePrintWindow(printWindow,nkMergeNoiKiemTmItemsByDay(items));
   }catch(err){
     try{printWindow.close();}catch(_e){}
     toast(err.message||'Không chuẩn bị được phiếu in.');
@@ -11587,17 +11723,325 @@ async function nkLoadNoiKiemTmViewItems(ids){
   return items.sort((a,b)=>(Number(a.lanTrongNgay||0)||0)-(Number(b.lanTrongNgay||0)||0));
 }
 
+function nkMergeClone(value){
+  try{return JSON.parse(JSON.stringify(value??null));}
+  catch(_err){return value??null;}
+}
+
+function nkMergeScalar(current,incoming){
+  return nkText(current)!==''?current:incoming;
+}
+
+function nkMergeRow(target,source,fields){
+  const out=nkMergeClone(target||{})||{};
+  const src=source||{};
+  const beforeActive=fields.some(key=>nkText(out[key])!=='');
+  const sourceActive=fields.some(key=>nkText(src[key])!=='');
+  fields.forEach(key=>{
+    if(nkText(out[key])===''&&nkText(src[key])!=='') out[key]=src[key];
+  });
+  if(!beforeActive&&sourceActive&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  else if(nkText(out.danhGia)===''&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  return out;
+}
+
+function nkMergeRowsByIndex(targetRows,sourceRows,fields,minRows=0){
+  const left=nkArray(targetRows);
+  const right=nkArray(sourceRows);
+  const length=Math.max(minRows,left.length,right.length);
+  return Array.from({length},(_,index)=>nkMergeRow(left[index]||{},right[index]||{},fields));
+}
+
+function nkMergeConfigItemIndex(items,item){
+  const list=nkArray(items);
+  const source=item||{};
+  const sourceId=nkText(source.configItemId||source.id);
+  if(sourceId){
+    const exact=list.findIndex(candidate=>eqText(candidate?.configItemId||candidate?.id,sourceId));
+    if(exact>=0) return exact;
+  }
+
+  const sourceType=norm(source.loaiKetQua||'');
+  const sourceSupply=nkText(source.vatTuId);
+  const sourceDevice=nkText(source.thietBiId);
+  if(sourceSupply){
+    const supplyIndex=list.findIndex(candidate=>{
+      const sameSupply=eqText(candidate?.vatTuId,sourceSupply);
+      const sameDevice=eqText(candidate?.thietBiId||'',sourceDevice||'');
+      const sameType=!sourceType||norm(candidate?.loaiKetQua||'')===sourceType;
+      return sameSupply&&sameDevice&&sameType;
+    });
+    if(supplyIndex>=0) return supplyIndex;
+  }
+
+  const sourceName=norm([source.tenHienThi,source.tenVatTu,source.maThietBi,source.tenThietBi].filter(Boolean).join('|'));
+  if(sourceName){
+    return list.findIndex(candidate=>{
+      const candidateName=norm([candidate?.tenHienThi,candidate?.tenVatTu,candidate?.maThietBi,candidate?.tenThietBi].filter(Boolean).join('|'));
+      const sameType=!sourceType||norm(candidate?.loaiKetQua||'')===sourceType;
+      return candidateName===sourceName&&sameType;
+    });
+  }
+  return -1;
+}
+
+function nkMergeConfigMetadata(target,source){
+  const out=nkMergeClone(target||{})||{};
+  const src=source||{};
+  ['configItemId','vatTuId','thietBiId','tenVatTu','tenThietBi','maThietBi','tenHienThi','loaiKetQua'].forEach(key=>{
+    if(nkText(out[key])===''&&nkText(src[key])!=='') out[key]=src[key];
+  });
+  if(!Number(out.thuTu||0)&&Number(src.thuTu||0)) out.thuTu=Number(src.thuTu||0);
+  if(typeof out.batBuoc!=='boolean'&&typeof src.batBuoc==='boolean') out.batBuoc=src.batBuoc;
+  return out;
+}
+
+function nkMergeTubeGroup(target,source,rowFields){
+  const out=nkMergeClone(target||{})||{};
+  const src=source||{};
+  const beforeActive=nkPaperGroupActive(out);
+  const sourceActive=nkPaperGroupActive(src);
+  out.lotNo=nkMergeScalar(out.lotNo,src.lotNo);
+  out.hanSuDung=nkMergeScalar(out.hanSuDung,src.hanSuDung);
+  out.benhPham=nkMergeRowsByIndex(out.benhPham,src.benhPham,rowFields,2);
+  out.nguoiThucHien=nkMergePerformerLists(out.nguoiThucHien,src.nguoiThucHien);
+  if(!beforeActive&&sourceActive&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  else if(nkText(out.danhGia)===''&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  return out;
+}
+
+function nkMergePartIIItem(target,source){
+  let out=nkMergeConfigMetadata(target,source);
+  const src=source||{};
+  const beforeActive=nkPaperGroupActive(out);
+  const sourceActive=nkPaperGroupActive(src);
+  out.lotNo=nkMergeScalar(out.lotNo,src.lotNo);
+  out.hanSuDung=nkMergeScalar(out.hanSuDung,src.hanSuDung);
+  out.benhPham=nkMergeRowsByIndex(
+    out.benhPham,
+    src.benhPham,
+    ['maBenhPham','a','b','d','ctrl','hcmA1','hcmB','nhomMau'],
+    2
+  );
+  out.nguoiThucHien=nkMergePerformerLists(out.nguoiThucHien,src.nguoiThucHien);
+  if(!beforeActive&&sourceActive&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  else if(nkText(out.danhGia)===''&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  return out;
+}
+
+function nkMergePartIIIItem(target,source){
+  let out=nkMergeConfigMetadata(target,source);
+  const src=source||{};
+  const beforeActive=nkPaperGroupActive(out);
+  const sourceActive=nkPaperGroupActive(src);
+  out.lotNo=nkMergeScalar(out.lotNo,src.lotNo);
+  out.hanSuDung=nkMergeScalar(out.hanSuDung,src.hanSuDung);
+  out.chungDuong=nkMergeScalar(out.chungDuong,src.chungDuong);
+  out.chungAm=nkMergeScalar(out.chungAm,src.chungAm);
+  if(!beforeActive&&sourceActive&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  else if(nkText(out.danhGia)===''&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  return out;
+}
+
+function nkMergePartIVMethod(target,source){
+  let out=nkMergeConfigMetadata(target,source);
+  const src=source||{};
+  const beforeActive=nkPaperGroupActive(out);
+  const sourceActive=nkPaperGroupActive(src);
+  out.lotNo=nkMergeScalar(out.lotNo,src.lotNo);
+  out.hanSuDung=nkMergeScalar(out.hanSuDung,src.hanSuDung);
+  if(!beforeActive&&sourceActive&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  else if(nkText(out.danhGia)===''&&nkText(src.danhGia)!=='') out.danhGia=src.danhGia;
+  return out;
+}
+
+function nkMergeConfiguredItems(targetItems,sourceItems,mergeItem){
+  const merged=nkArray(targetItems).map(nkMergeClone);
+  const idMap={};
+  nkArray(sourceItems).forEach(source=>{
+    const sourceId=nkText(source?.configItemId||source?.id);
+    const index=nkMergeConfigItemIndex(merged,source);
+    if(index<0){
+      const copy=nkMergeClone(source)||{};
+      merged.push(copy);
+      const targetId=nkText(copy.configItemId||copy.id);
+      if(sourceId&&targetId) idMap[sourceId]=targetId;
+      return;
+    }
+    merged[index]=mergeItem(merged[index],source);
+    const targetId=nkText(merged[index]?.configItemId||merged[index]?.id);
+    if(sourceId&&targetId) idMap[sourceId]=targetId;
+  });
+  merged.sort((a,b)=>(Number(a?.thuTu||0)||0)-(Number(b?.thuTu||0)||0));
+  return {items:merged,idMap};
+}
+
+function nkMergeCrossRows(targetRows,sourceRows,idMap){
+  const left=nkArray(targetRows);
+  const right=nkArray(sourceRows);
+  const length=Math.max(2,left.length,right.length);
+  return Array.from({length},(_,index)=>{
+    const current=nkMergeClone(left[index]||{})||{};
+    const incoming=right[index]||{};
+    current.maBenhPham1=nkMergeScalar(current.maBenhPham1,incoming.maBenhPham1);
+    current.maBenhPham2=nkMergeScalar(current.maBenhPham2,incoming.maBenhPham2);
+    current.ketQua=current.ketQua&&typeof current.ketQua==='object'?current.ketQua:{};
+    Object.keys(incoming.ketQua||{}).forEach(sourceId=>{
+      const targetId=idMap[sourceId]||sourceId;
+      if(nkText(current.ketQua[targetId])===''&&nkText(incoming.ketQua[sourceId])!==''){
+        current.ketQua[targetId]=incoming.ketQua[sourceId];
+      }
+    });
+    return current;
+  });
+}
+
+function nkMergeOtherText(current,incoming){
+  const left=nkText(current);
+  const right=nkText(incoming);
+  if(!left) return right;
+  if(!right||norm(left)===norm(right)) return left;
+  const existing=left.split(/\n{2,}/).map(nkText).filter(Boolean);
+  if(existing.some(value=>norm(value)===norm(right))) return left;
+  return `${left}\n\n${right}`;
+}
+
+function nkMergeSectionMeta(items){
+  const merged={};
+  nkArray(items).forEach(item=>{
+    Object.keys(item?.sectionMeta||{}).forEach(phan=>{
+      const meta=item.sectionMeta[phan];
+      if(!meta?.exists) return;
+      if(!merged[phan]) merged[phan]={exists:true,entries:[]};
+      const entries=nkArray(meta.entries).length?meta.entries:[meta];
+      entries.forEach(entry=>{
+        const key=norm(`${entry?.nguoiGhiNhan||''}|${entry?.thoiDiemGhiNhan||''}`);
+        const duplicated=merged[phan].entries.some(saved=>norm(`${saved?.nguoiGhiNhan||''}|${saved?.thoiDiemGhiNhan||''}`)===key);
+        if(!duplicated) merged[phan].entries.push(nkMergeClone(entry));
+      });
+    });
+  });
+  return merged;
+}
+
+function nkMergeNoiKiemTmDayData(targetData,sourceData){
+  const out=nkMergeClone(targetData||{})||{};
+  const src=sourceData||{};
+
+  out.schemaVersion=Math.max(Number(out.schemaVersion||0)||0,Number(src.schemaVersion||0)||0);
+  out.layoutSnapshotVersion=Math.max(Number(out.layoutSnapshotVersion||0)||0,Number(src.layoutSnapshotVersion||0)||0);
+
+  out.aboRhOngNghiem=out.aboRhOngNghiem||{};
+  const sourceTube=src.aboRhOngNghiem||{};
+  out.aboRhOngNghiem.huyetThanhMau=nkMergeTubeGroup(
+    out.aboRhOngNghiem.huyetThanhMau,
+    sourceTube.huyetThanhMau,
+    ['maBenhPham','a','b','ab','d','nhomMau']
+  );
+  out.aboRhOngNghiem.hongCauMau=nkMergeTubeGroup(
+    out.aboRhOngNghiem.hongCauMau,
+    sourceTube.hongCauMau,
+    ['maBenhPham','a','b','nhomMau']
+  );
+
+  out.aboRhGelcard=out.aboRhGelcard||{};
+  const p2=nkMergeConfiguredItems(
+    out.aboRhGelcard.methods,
+    src.aboRhGelcard?.methods,
+    nkMergePartIIItem
+  );
+  out.aboRhGelcard.methods=p2.items;
+
+  out.coombsKtbt=out.coombsKtbt||{};
+  const p3=nkMergeConfiguredItems(
+    out.coombsKtbt.items,
+    src.coombsKtbt?.items,
+    nkMergePartIIIItem
+  );
+  out.coombsKtbt.items=p3.items;
+  out.coombsKtbt.nguoiThucHien=nkMergePerformerLists(
+    out.coombsKtbt.nguoiThucHien,
+    src.coombsKtbt?.nguoiThucHien
+  );
+
+  out.cheoHoaHop=out.cheoHoaHop||{};
+  const p4=nkMergeConfiguredItems(
+    out.cheoHoaHop.methods,
+    src.cheoHoaHop?.methods,
+    nkMergePartIVMethod
+  );
+  out.cheoHoaHop.methods=p4.items;
+  out.cheoHoaHop.benhPham=nkMergeCrossRows(
+    out.cheoHoaHop.benhPham,
+    src.cheoHoaHop?.benhPham,
+    p4.idMap
+  );
+  out.cheoHoaHop.nguoiThucHien=nkMergePerformerLists(
+    out.cheoHoaHop.nguoiThucHien,
+    src.cheoHoaHop?.nguoiThucHien
+  );
+
+  out.xetNghiemKhac=nkMergeOtherText(out.xetNghiemKhac,src.xetNghiemKhac);
+  out.xetNghiemKhacNguoiThucHien=nkMergePerformerLists(
+    out.xetNghiemKhacNguoiThucHien,
+    src.xetNghiemKhacNguoiThucHien
+  );
+  return out;
+}
+
+function nkMergeNoiKiemTmDayItems(items){
+  const source=nkArray(items)
+    .filter(item=>item&&item.id)
+    .slice()
+    .sort((a,b)=>{
+      const roundDiff=(Number(a.lanTrongNgay||0)||0)-(Number(b.lanTrongNgay||0)||0);
+      return roundDiff||nkText(a.createdAt||a.thoiDiemTao).localeCompare(nkText(b.createdAt||b.thoiDiemTao));
+    });
+  if(!source.length) return null;
+
+  const composite=nkMergeClone(source[0])||{};
+  let mergedData={};
+  source.forEach(item=>{
+    mergedData=nkMergeNoiKiemTmDayData(mergedData,item.viewData||item.data||{});
+  });
+
+  composite.id=source.map(item=>nkText(item.id)).filter(Boolean).join('|');
+  composite.viewData=mergedData;
+  composite.data=mergedData;
+  composite.sectionMeta=nkMergeSectionMeta(source);
+  composite.lanTrongNgay=source.map(item=>nkText(item.lanTrongNgay)).filter(Boolean).join(', ');
+  composite.sourceItems=source;
+  composite.isDailyComposite=source.length>1;
+  composite.thoiDiemTao=nkText(source[0].thoiDiemTao);
+  composite.thoiDiemSua=nkText(source[source.length-1].thoiDiemSua||source[source.length-1].thoiDiemTao);
+  composite.nguoiThucHien=Array.from(new Set(
+    source.flatMap(item=>nkText(item.nguoiThucHien).split(',').map(nkText).filter(Boolean))
+  )).join(', ');
+  return composite;
+}
+
+function nkMergeNoiKiemTmItemsByDay(items){
+  const groups=new Map();
+  nkArray(items).forEach(item=>{
+    const key=nkNoiKiemTmDayKey(item);
+    if(!groups.has(key)) groups.set(key,[]);
+    groups.get(key).push(item);
+  });
+  return Array.from(groups.values())
+    .map(nkMergeNoiKiemTmDayItems)
+    .filter(Boolean)
+    .sort((a,b)=>nkText(a.ngayNoiKiem).localeCompare(nkText(b.ngayNoiKiem))||norm(a.khoaPhong).localeCompare(norm(b.khoaPhong)));
+}
+
 function renderNoiKiemTmDayViewHtml(items){
-  return nkArray(items).map((item,index)=>{
-    const showRound=items.length>1;
-    return `<section class="nk-day-view-item">${showRound?`<div class="nk-view-round-label">Lần ${esc(item.lanTrongNgay||index+1)}</div>`:''}${renderNoiKiemTmViewHtml(item)}</section>`;
-  }).join('');
+  const composites=nkMergeNoiKiemTmItemsByDay(items);
+  return composites.map(item=>`<section class="nk-day-view-item">${renderNoiKiemTmViewHtml(item)}</section>`).join('');
 }
 
 function printNoiKiemTmItems(items){
   const printWindow=window.open('','_blank');
   if(!printWindow){toast('Trình duyệt đang chặn cửa sổ in. Vui lòng cho phép cửa sổ bật lên.');return;}
-  nkWritePrintWindow(printWindow,nkArray(items));
+  nkWritePrintWindow(printWindow,nkMergeNoiKiemTmItemsByDay(items));
 }
 
 window.openNoiKiemTm = async function(id, btn){
