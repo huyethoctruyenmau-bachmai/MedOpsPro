@@ -1,4 +1,4 @@
-<!-- VERSION: 348.218 | index: 348 | Code.gs: 218 | INDEX-348.040826-NKTM-VIEW-SNAPSHOT -->
+<!-- VERSION: 349.218 | index: 349 | Code.gs: 218 | INDEX-349.040826-NKTM-ACTION-HEADER -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5544,6 +5544,250 @@
     .nk-create-toolbar-host .nk-create-status.is-success{color:#137333;font-weight:600}
     #noiKiemTmBlock .nk-create-actions{position:sticky;left:0;width:max-content;min-width:180px;margin-top:10px}
 
+
+    /* ===== NỘI KIỂM 349: HÀNG TIÊU ĐỀ + CỤM NÚT GIỐNG APP THAM CHIẾU ===== */
+    .nk-create-toolbar-host{
+      position:relative!important;
+      top:auto!important;
+      z-index:20;
+      width:100%;
+      flex:0 0 auto;
+      min-height:auto;
+      margin:0 0 10px!important;
+      padding:0 0 9px!important;
+      background:transparent!important;
+      border:0!important;
+      border-bottom:2px solid #eef3fb!important;
+      border-radius:0!important;
+      box-shadow:none!important;
+      overflow:visible!important;
+    }
+    .nk-create-toolbar-host .nk-create-toolbar{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      min-height:44px;
+      margin:0;
+      padding:0;
+      background:transparent!important;
+      border:0;
+      box-shadow:none;
+    }
+    .nk-create-toolbar-heading{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      flex:1 1 auto;
+    }
+    .nk-create-toolbar-heading-icon{
+      width:34px;
+      height:34px;
+      min-width:34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:#e8f0fe;
+      color:var(--g-blue);
+    }
+    .nk-create-toolbar-heading-icon svg{
+      width:19px;
+      height:19px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .nk-create-toolbar-copy{
+      min-width:0;
+    }
+    .nk-create-toolbar-title{
+      color:var(--g-blue);
+      font-size:20px;
+      line-height:1.2;
+      font-weight:700;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .nk-create-toolbar-host .nk-create-status{
+      display:block;
+      min-height:0;
+      margin-top:3px;
+      padding:0;
+      color:var(--g-muted);
+      font:13px Arial,sans-serif;
+      line-height:1.25;
+    }
+    .nk-create-toolbar-host .nk-create-status:empty{
+      display:none;
+    }
+    .nk-create-toolbar-host .nk-create-status.is-error{
+      color:var(--g-danger);
+      font-weight:600;
+    }
+    .nk-create-toolbar-host .nk-create-status.is-success{
+      color:var(--g-ok);
+      font-weight:600;
+    }
+    .nk-create-toolbar-actions{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      flex:0 0 auto;
+      margin-left:auto;
+    }
+    .nk-create-toolbar-actions .btn{
+      width:auto!important;
+      margin:0!important;
+    }
+    .nk-create-view-new{
+      height:40px;
+      min-height:40px;
+      padding:0 15px!important;
+      border:0!important;
+      border-radius:8px!important;
+      background:linear-gradient(135deg,#43a047,#2e7d32)!important;
+      color:#fff!important;
+      font-weight:700!important;
+      box-shadow:0 4px 8px rgba(46,125,50,.24)!important;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      gap:8px!important;
+    }
+    .nk-create-view-new:hover{
+      background:linear-gradient(135deg,#2e7d32,#1b5e20)!important;
+      transform:translateY(-1px);
+    }
+    .nk-create-view-new svg,
+    .nk-create-submit svg,
+    .nk-create-icon-action svg{
+      width:19px;
+      height:19px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .nk-create-icon-action{
+      width:40px;
+      height:40px;
+      min-width:40px;
+      min-height:40px;
+      margin:0;
+      padding:0;
+      border:0;
+      border-radius:8px;
+      background:transparent;
+      color:var(--g-blue);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:none;
+      transition:transform .15s ease,color .15s ease,background .15s ease;
+    }
+    .nk-create-icon-action:hover{
+      color:var(--g-blue-hover);
+      background:#e8f0fe;
+      transform:scale(1.08);
+    }
+    .nk-create-icon-action.is-active{
+      color:#174ea6;
+      background:#dbe8fd;
+    }
+    .nk-create-submit{
+      height:40px!important;
+      min-height:40px!important;
+      min-width:118px!important;
+      margin:0!important;
+      padding:0 17px!important;
+      border-radius:8px!important;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      gap:8px!important;
+      box-shadow:0 4px 9px rgba(26,115,232,.25)!important;
+      white-space:nowrap;
+    }
+
+    @media (min-width:900px){
+      #createContentBox.nk-create-mode{
+        display:flex!important;
+        flex-direction:column!important;
+        height:100%!important;
+        max-height:100%!important;
+        min-height:0!important;
+        overflow:hidden!important;
+        padding:12px!important;
+      }
+      #createContentBox.nk-create-mode > #noiKiemTmToolbarHost{
+        flex:0 0 auto!important;
+      }
+      #createContentBox.nk-create-mode > #noiKiemTmBlock{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        overflow:auto!important;
+        margin:0!important;
+        padding:8px!important;
+        border:1px solid var(--g-line)!important;
+        border-radius:10px!important;
+        background:#fff!important;
+        box-shadow:inset 0 0 8px rgba(60,64,67,.04)!important;
+      }
+    }
+
+    @media (max-width:899px){
+      #createContentBox.nk-create-mode{
+        display:block!important;
+        height:auto!important;
+        max-height:none!important;
+        overflow:visible!important;
+      }
+      #createContentBox.nk-create-mode > #noiKiemTmToolbarHost{
+        position:sticky!important;
+        top:calc(var(--header-h) + var(--tabbar-h))!important;
+        z-index:45!important;
+        padding:8px 0!important;
+        background:var(--bg)!important;
+      }
+      #createContentBox.nk-create-mode > #noiKiemTmBlock{
+        overflow:visible!important;
+      }
+      .nk-create-toolbar-host .nk-create-toolbar{
+        align-items:flex-start;
+        flex-wrap:wrap;
+      }
+      .nk-create-toolbar-heading{
+        width:100%;
+        flex:1 0 100%;
+      }
+      .nk-create-toolbar-title{
+        font-size:16px;
+        white-space:normal;
+      }
+      .nk-create-toolbar-actions{
+        width:100%;
+        justify-content:flex-end;
+        gap:8px;
+      }
+      .nk-create-view-new{
+        padding:0 12px!important;
+      }
+      .nk-create-submit{
+        min-width:108px!important;
+        padding:0 13px!important;
+      }
+    }
+
     /* ===== NỘI KIỂM 332: TẠO PHIẾU KHỔ RỘNG + CUỘN NGANG ===== */
     .nk-form:not(.nk-view-mode) .nk-paper-scroll{
       overflow-x:auto!important;
@@ -5971,7 +6215,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '348.218',
+    frontendVersion: '349.218',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6004,7 +6248,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-348.040826-NKTM-VIEW-SNAPSHOT';
+const APP_VERSION = 'INDEX-349.040826-NKTM-ACTION-HEADER';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -7331,6 +7575,7 @@ function updateCreateFormNumbering(){
   $('#tmPhieuBlock')?.classList.toggle('hidden', !isTmPhieu);
   $('#noiKiemTmBlock')?.classList.toggle('hidden', !isNoiKiemTm);
   $('#noiKiemTmToolbarHost')?.classList.toggle('hidden', !isNoiKiemTm);
+  $('#createContentBox')?.classList.toggle('nk-create-mode', isNoiKiemTm);
   const createDateInput = $('#createDate');
   const createDateDefaultKey = (isReport || isTmDailyStats) ? 'report-yesterday' : 'today';
   if(createDateInput && createDateInput.dataset.defaultByLoai !== createDateDefaultKey){
@@ -10590,7 +10835,31 @@ async function preloadNoiKiemTmCreateData(dept,{force=false}={}){
 function nkCreateToolbarHtml(message='',type='',canSubmit=true){
   const cls=type?` is-${type}`:'';
   const fitActive=state.noiKiemTmCreateFitMode?' is-active':'';
-  return `<div class="nk-create-toolbar"><button id="refreshNoiKiemTmBtn" type="button" class="nk-create-refresh" title="Xem mới" aria-label="Xem mới"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M18.5 9A7 7 0 0 0 6.2 6.2L4 8"></path><path d="M5.5 15A7 7 0 0 0 17.8 17.8L20 16"></path></svg></button><button id="fitNoiKiemTmBtn" type="button" class="nk-create-refresh nk-create-fit${fitActive}" title="${state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình'}" aria-label="${state.noiKiemTmCreateFitMode?'Xem kích thước thật':'Co vừa màn hình'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5"></path><path d="M16 3h5v5"></path><path d="M3 16v5h5"></path><path d="M21 16v5h-5"></path><path d="M9 9h6v6H9z"></path></svg></button><div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div><button id="createNoiKiemTmBtn" type="button" class="btn primary nk-create-submit" ${canSubmit?'':'disabled'}>Tạo phiếu</button></div>`;
+  const fitLabel=state.noiKiemTmCreateFitMode?'Kích thước thật':'Co vừa màn hình';
+  return `<div class="nk-create-toolbar">
+    <div class="nk-create-toolbar-heading">
+      <span class="nk-create-toolbar-heading-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 3h10v3h2a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2V3Z"></path><path d="M9 3h6v4H9z"></path><path d="M8 12h8"></path><path d="M8 16h5"></path></svg>
+      </span>
+      <div class="nk-create-toolbar-copy">
+        <div class="nk-create-toolbar-title">TẠO PHIẾU NỘI KIỂM TRUYỀN MÁU</div>
+        <div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div>
+      </div>
+    </div>
+    <div class="nk-create-toolbar-actions">
+      <button id="refreshNoiKiemTmBtn" type="button" class="btn nk-create-view-new" title="Xem mới" aria-label="Xem mới">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M18.5 9A7 7 0 0 0 6.2 6.2L4 8"></path><path d="M5.5 15A7 7 0 0 0 17.8 17.8L20 16"></path></svg>
+        <span>Xem mới</span>
+      </button>
+      <button id="fitNoiKiemTmBtn" type="button" class="nk-create-icon-action nk-create-fit${fitActive}" title="${fitLabel}" aria-label="${fitLabel}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5"></path><path d="M16 3h5v5"></path><path d="M3 16v5h5"></path><path d="M21 16v5h-5"></path><path d="M9 9h6v6H9z"></path></svg>
+      </button>
+      <button id="createNoiKiemTmBtn" type="button" class="btn primary nk-create-submit" ${canSubmit?'':'disabled'}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+        <span>Tạo phiếu</span>
+      </button>
+    </div>
+  </div>`;
 }
 
 function nkSetCreateStatus(message='',type=''){
