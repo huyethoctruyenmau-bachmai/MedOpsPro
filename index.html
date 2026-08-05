@@ -1,4 +1,4 @@
-<!-- VERSION: 355.221 | index: 355 | Code.gs: 221 | INDEX-355.050826-GIAOBAN-WEEKDAY -->
+<!-- VERSION: 357.221 | index: 357 | Code.gs: 221 | INDEX-357.050826-HANDOVER-WEEKDAY-TITLE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6549,7 +6549,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '354.220',
+    frontendVersion: '357.221',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6582,7 +6582,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-355.050826-GIAOBAN-WEEKDAY';
+const APP_VERSION = 'INDEX-357.050826-HANDOVER-WEEKDAY-TITLE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10891,6 +10891,23 @@ function nkCreatorTimeText(value){
   return nkAuditDateTimeText(raw)||raw;
 }
 
+function nkSectionAuditHtml(meta){
+  if(!meta || !meta.exists) return '';
+  const entries=nkArray(meta.entries).length?meta.entries:[meta];
+  const seen=new Set();
+  const html=entries.map(entry=>{
+    const creator=nkText(entry?.nguoiGhiNhan||entry?.createdByName||entry?.tenNhanVien||'');
+    const createdAt=nkAuditDateTimeText(entry?.thoiDiemGhiNhan||entry?.createdAtRaw||entry?.thoiDiemTao||'');
+    const key=norm(`${creator}|${createdAt}`);
+    if(!creator&&!createdAt) return '';
+    if(seen.has(key)) return '';
+    seen.add(key);
+    return `<div class="nk-performer-audit-entry"><div>Người tạo: ${esc(creator||'—')}</div>${createdAt?`<div>${esc(createdAt)}</div>`:''}</div>`;
+  }).filter(Boolean).join('');
+  return html?`<div class="nk-performer-audit">${html}</div>`:'';
+}
+
+
 function nkCreatorColumnHtml(items,sectionMeta,readonly=false){
   const groups=new Map();
   nkArray(items).forEach((item,index)=>{
@@ -12379,13 +12396,14 @@ function renderPhieuList(items, note=''){
     const isDone = (p.trangThaiBanGiao === STATUS_DA) || (p.trangThai === STATUS_DA);
     const handoverNo = p.loaiPhieuGoc === LOAI_BAO_CAO ? '3' : '2';
     const isReportCard = (p.loaiPhieuGoc || p.loaiPhieu) === LOAI_BAO_CAO;
+    const handoverDateTitle=weekdayDateLongVi(p.ngayTruc);
     const title = isBloodStockCard
-      ? `Báo cáo kho máu - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
+      ? `Báo cáo kho máu - ${formatDeptPlain(p.khoaPhong)} - ${handoverDateTitle}`
       : (isSoLieuTmCard
-        ? `Báo cáo số liệu Truyền máu 24h - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
+        ? `Báo cáo số liệu Truyền máu 24h - ${formatDeptPlain(p.khoaPhong)} - ${handoverDateTitle}`
         : (isReportCard
-          ? `Báo cáo/ Bàn giao trực - ${formatDeptPlain(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`
-          : `Bàn giao trực - ${formatKhoaTitle(p.khoaPhong)} - ${dateVi(p.ngayTruc)}`));
+          ? `Báo cáo/ Bàn giao trực - ${formatKhoaTitle(p.khoaPhong)} - ${handoverDateTitle}`
+          : `Bàn giao trực - ${formatKhoaTitle(p.khoaPhong)} - ${handoverDateTitle}`));
     const detailHtml = isBloodStockCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Nội dung báo cáo</span><div class="field-value">${esc(p.noiDungBaoCaoKhoMau || '')}</div></div></div>` : (isSoLieuTmCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Số liệu</span><div class="field-value">${renderSoLieuTmSummaryHtml(p.soLieuTm || {})}</div></div></div>` : (!isDone ? `
       <div class="phieu-inline">
         <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
@@ -18427,6 +18445,20 @@ function weekdayDateTimeVi(value,includeNgay=false){
   if(!dateTimeText) return '';
   const weekday=weekdayLabelFromViDateText(dateTimeText);
   return weekday ? `${weekday}, ${includeNgay?'ngày ':''}${dateTimeText}` : dateTimeText;
+}
+
+function weekdayLabelLongFromViDateText(text){
+  const m=String(text||'').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if(!m) return '';
+  const day=new Date(Date.UTC(Number(m[3]),Number(m[2])-1,Number(m[1]))).getUTCDay();
+  return ['Chủ nhật','Thứ hai','Thứ ba','Thứ tư','Thứ năm','Thứ sáu','Thứ bảy'][day]||'';
+}
+
+function weekdayDateLongVi(value){
+  const dateText=dateVi(value);
+  if(!dateText) return '';
+  const weekday=weekdayLabelLongFromViDateText(dateText);
+  return weekday ? `${weekday}, ${dateText}` : dateText;
 }
 
 
