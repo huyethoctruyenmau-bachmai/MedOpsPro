@@ -1,4 +1,4 @@
-<!-- VERSION: 354.220 | index: 354 | Code.gs: 220 | INDEX-354.050826-NKTM-EVALUATOR-MOBILE -->
+<!-- VERSION: 355.221 | index: 355 | Code.gs: 221 | INDEX-355.050826-GIAOBAN-WEEKDAY -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6582,7 +6582,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-354.050826-NKTM-EVALUATOR-MOBILE';
+const APP_VERSION = 'INDEX-355.050826-GIAOBAN-WEEKDAY';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -13140,7 +13140,7 @@ function renderGiaoBanList(items, note=''){
   });
   box.innerHTML = noteHtml + sortedItems.map(g => {
     const loai = g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC;
-    const title = `${loai} - ${formatDeptPlain(g.khoaPhong)} - ${dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan)}`;
+    const title = `${loai} - ${formatDeptPlain(g.khoaPhong)} - ${weekdayDateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan,false)}`;
     const pdfTitle = buildGiaoBanPdfDownloadTitle(g);
     const isDotXuat = isBienBanHopLoai(loai);
     const creator = g.nguoiTaoTen ? `<div class="meta">Người tạo phiên: ${esc(g.nguoiTaoTen)}${g.createdAt ? ' · Tạo lúc: ' + dateTimeVi(g.createdAt) : ''}</div>` : '';
@@ -13245,7 +13245,7 @@ window.createGiaoBanFromDialog = async function(forceCreate, btn){
 
 function showGiaoBanChoiceDialog(sessions, payload){
   const rows = sessions.map((g, idx) => {
-    const title = `${g.loaiGiaoBan || payload.loaiGiaoBan} - ${formatDeptPlain(g.khoaPhong)} - ${dateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan)}`;
+    const title = `${g.loaiGiaoBan || payload.loaiGiaoBan} - ${formatDeptPlain(g.khoaPhong)} - ${weekdayDateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan,false)}`;
     return `<label class="gb-choice-item">
       <input type="radio" name="oldGbChoice" value="${escAttr(g.giaoBanID)}" ${idx === 0 ? 'checked' : ''}>
       <span><span class="gb-choice-main">${esc(title)}</span><span class="gb-choice-sub" style="margin-left:12px">(${esc(g.trangThai || '')})${g.lyDoGiaoBan ? ' · ' + esc(g.lyDoGiaoBan) : ''}</span></span>
@@ -13413,7 +13413,7 @@ function getGiaoBanPreviewSnapshot(isDotXuat){
     isDotXuat: !!isDotXuat,
     isTM,
     loaiGiaoBan: g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC,
-    thoiGian: dateTimeVi(fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()),
+    thoiGian: weekdayDateTimeVi(fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso(),true),
     khoaPhong: $('#gbDotDept')?.value || g.khoaPhong || state.user?.khoaPhong || '',
     thuKy: g.nguoiTaoTen || state.user?.tenNhanVien || '',
     chuTri: $('#gbChuTriInput')?.value || g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '',
@@ -13455,7 +13455,7 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
   }
   const regularReports = (d.reports || []).filter(isClientBaoCaoReport);
   const reports = regularReports.length ? regularReports.map((r, idx) => [
-    pvLine('gb-pv-num gb-pv-date', `Ngày ${dateVi(r.ngayTruc)}`),
+    pvLine('gb-pv-num gb-pv-date', weekdayDateVi(r.ngayTruc,true)),
     pvLine('gb-pv-sub','1.1. Nhân viên trực'),
     pvLine('gb-pv-detail', pvHtml(renderStaffBulletNameList(r.nhanVienThuongTruc) || 'Chưa nhập')),
     pvLine('gb-pv-sub','1.2. Dữ liệu trực'),
@@ -13538,7 +13538,7 @@ function renderGiaoBanModal(){
   const sortedReports = sortReportsByDateAsc((state.currentReports || []).filter(isClientBaoCaoReport));
   const reportsHtml = sortedReports.length ? sortedReports.map(r => `
     <div class="report-day">
-      <div class="report-day-title report-date-title">Ngày ${dateVi(r.ngayTruc)}</div>
+      <div class="report-day-title report-date-title">${weekdayDateVi(r.ngayTruc,true)}</div>
       <div class="report-item"><div class="report-label">1.1. Nhân viên trực</div><div class="report-value">${esc(renderStaffBulletNameList(r.nhanVienThuongTruc) || 'Chưa nhập')}</div></div>
       <div class="report-item"><div class="report-label">1.2. Dữ liệu trực</div><div class="report-compact-value">${formatSoLieuTrucCompact(r.soLieuTruc)}</div></div>
       <div class="report-item"><div class="report-label">1.3. Chuyên môn</div><div class="report-value">${renderBaoCaoChuyenMonGiaoBanHtml(r)}</div></div>
@@ -13832,7 +13832,7 @@ window.updateGiaoBanTimeNow = function(){
     input.value = toDatetimeLocal(now);
     updateViDateDisplay(input);
   }
-  if(text){ if('value' in text) text.value = dateTimeVi(now); else text.textContent = dateTimeVi(now); }
+  if(text){ const formatted=weekdayDateTimeVi(now,true); if('value' in text) text.value = formatted; else text.textContent = formatted; }
   if(state.currentGiaoBan){
     state.currentGiaoBan.thoiGianGiaoBan = now;
     state.currentGiaoBan.thoiGianGiaoBanHienThi = now;
@@ -15691,6 +15691,14 @@ function dsPhieuTitle(x){
     if(x.title) return x.title;
     const dept = formatDeptPlain(x.khoaPhong || '');
     return [dsLoaiPhieuTitle(loai), day, dept].filter(Boolean).join(' - ');
+  }
+  if(x.source === 'GIAO_BAN'){
+    const meetingTime=x.thoiGianGiaoBan||x.thoiDiemTao||x.createdAt||dsPhieuDate(x);
+    return [
+      dsLoaiPhieuTitle(loai),
+      formatDeptPlain(x.khoaPhong||''),
+      weekdayDateTimeVi(meetingTime,false)
+    ].filter(Boolean).join(' - ');
   }
   return x.title || [dsLoaiPhieuTitle(loai), day, formatDeptPlain(x.khoaPhong || '')].filter(Boolean).join(' - ');
 }
@@ -18264,9 +18272,18 @@ function updateViDateDisplay(input){
   const wrap = input.parentElement;
   const display = wrap.querySelector('.vi-date-display');
   if(!display) return;
-  if(input.type === 'date') display.value = input.value ? dateVi(input.value) : '';
-  else if(input.type === 'datetime-local') display.value = input.value ? dateTimeInputVi(input.value) : '';
-  display.placeholder = input.type === 'datetime-local' ? 'dd/mm/yyyy HH:mm' : 'dd/mm/yyyy';
+  if(input.type === 'date'){
+    display.value = input.value ? dateVi(input.value) : '';
+  }else if(input.type === 'datetime-local'){
+    display.value = input.value
+      ? (input.id==='gbTime'
+          ? weekdayDateTimeVi(input.value,true).replace('h',':')
+          : dateTimeInputVi(input.value))
+      : '';
+  }
+  display.placeholder = input.type === 'datetime-local'
+    ? (input.id==='gbTime' ? 'Thứ, ngày dd/mm/yyyy HH:mm' : 'dd/mm/yyyy HH:mm')
+    : 'dd/mm/yyyy';
   display.disabled = !!input.disabled;
   wrap.classList.toggle('is-disabled', !!input.disabled);
 }
@@ -18389,6 +18406,27 @@ function dateTimeVi(value){
     return `${p.day}/${p.month}/${p.year} ${p.hour}h${p.minute}`;
   }
   return s;
+}
+
+function weekdayLabelFromViDateText(text){
+  const m=String(text||'').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if(!m) return '';
+  const day=new Date(Date.UTC(Number(m[3]),Number(m[2])-1,Number(m[1]))).getUTCDay();
+  return ['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'][day]||'';
+}
+
+function weekdayDateVi(value,includeNgay=false){
+  const dateText=dateVi(value);
+  if(!dateText) return '';
+  const weekday=weekdayLabelFromViDateText(dateText);
+  return weekday ? `${weekday}, ${includeNgay?'ngày ':''}${dateText}` : dateText;
+}
+
+function weekdayDateTimeVi(value,includeNgay=false){
+  const dateTimeText=dateTimeVi(value);
+  if(!dateTimeText) return '';
+  const weekday=weekdayLabelFromViDateText(dateTimeText);
+  return weekday ? `${weekday}, ${includeNgay?'ngày ':''}${dateTimeText}` : dateTimeText;
 }
 
 
