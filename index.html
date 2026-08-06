@@ -1,4 +1,4 @@
-<!-- VERSION: 369.227 | index: 369 | Code.gs: 227 | INDEX-369.060826-NKTM-COLUMN-OWNERSHIP -->
+<!-- VERSION: 370.227 | index: 370 | Code.gs: 227 | INDEX-370.060826-NKTM-PRINT-ONE-RECORD-PER-PAGE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6645,7 +6645,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '369.227',
+    frontendVersion: '370.227',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6678,7 +6678,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-369.060826-NKTM-COLUMN-OWNERSHIP';
+const APP_VERSION = 'INDEX-370.060826-NKTM-PRINT-ONE-RECORD-PER-PAGE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -12316,20 +12316,41 @@ function printNoiKiemTmItem(item){
 }
 
 async function printSelectedNoiKiemTm(button){
-  const selectedIds=Array.from(state.noiKiemTmSelectedIds);
+  const selectedIds=Array.from(state.noiKiemTmSelectedIds).map(nkText).filter(Boolean);
   if(!selectedIds.length){toast('Vui lòng chọn ít nhất một phiếu để in.');return;}
-  const ids=Array.from(new Set(selectedIds.flatMap(nkNoiKiemTmSameDayIds)));
+
+  // Giữ đúng thứ tự đang hiển thị trong bảng.
+  const selectedSet=new Set(selectedIds);
+  const listOrder=nkArray(state.noiKiemTmListItems)
+    .map(item=>nkText(item?.id))
+    .filter(id=>id&&selectedSet.has(id));
+  const ids=[
+    ...listOrder,
+    ...selectedIds.filter(id=>!listOrder.includes(id))
+  ];
+
   const printWindow=window.open('','_blank');
   if(!printWindow){toast('Trình duyệt đang chặn cửa sổ in. Vui lòng cho phép cửa sổ bật lên.');return;}
   printWindow.document.write('<!doctype html><html><body style="font:16px Arial;padding:24px">Đang chuẩn bị phiếu in...</body></html>');
   printWindow.document.close();
+
   const old=button?.innerHTML;
-  if(button){button.disabled=true;button.innerHTML=`${nkPrintIconSvg()} Đang chuẩn bị...`;}
+  if(button){
+    button.disabled=true;
+    button.innerHTML=`${nkPrintIconSvg()} Đang chuẩn bị...`;
+  }
+
   try{
     const results=await Promise.all(ids.map(id=>api('noiKiemTm_get',{id})));
-    const items=results.map(res=>res.data?.item||{}).filter(x=>x.id);
+    const items=results
+      .map(res=>res.data?.item||{})
+      .filter(item=>item.id)
+      .map(nkApplyLegacyEvaluatorFallbackItem);
+
     if(!items.length) throw new Error('Không tải được dữ liệu phiếu đã chọn.');
-    nkWritePrintWindow(printWindow,nkMergeNoiKiemTmItemsByDay(items));
+
+    // Không gộp theo ngày: mỗi dòng được tích chọn là một trang riêng.
+    nkWritePrintWindow(printWindow,items);
   }catch(err){
     try{printWindow.close();}catch(_e){}
     toast(err.message||'Không chuẩn bị được phiếu in.');
