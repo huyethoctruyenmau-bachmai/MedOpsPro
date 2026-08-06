@@ -1,4 +1,4 @@
-<!-- VERSION: 363.223 | index: 363 | Code.gs: 223 | INDEX-363.060826-NKTM-CROSSMATCH-SUGGESTIONS -->
+<!-- VERSION: 366.224 | index: 366 | Code.gs: 224 | INDEX-366.060826-NKTM-LIST-EVALUATOR-CREATOR -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6132,6 +6132,41 @@
       color:#9aa0a6!important;
     }
 
+
+    /* ===== NỘI KIỂM 366: DS PHIẾU - ĐÁNH GIÁ + NGƯỜI ĐÁNH GIÁ ===== */
+    .nk-list-p3,
+    .nk-list-p4{
+      width:max-content!important;
+      min-width:520px!important;
+      max-width:none!important;
+    }
+    .nk-list-method-line.nk-list-evaluated-line{
+      display:flex!important;
+      width:max-content!important;
+      min-width:max-content!important;
+      align-items:center!important;
+      flex-wrap:nowrap!important;
+      white-space:nowrap!important;
+      overflow-wrap:normal!important;
+      word-break:normal!important;
+      gap:0!important;
+    }
+    .nk-list-evaluated-line .nk-list-method-name,
+    .nk-list-evaluated-line .nk-list-lot,
+    .nk-list-evaluated-line .nk-status,
+    .nk-list-evaluated-line .nk-list-evaluator{
+      flex:0 0 auto!important;
+      white-space:nowrap!important;
+      overflow-wrap:normal!important;
+      word-break:normal!important;
+    }
+    .nk-list-evaluator{
+      margin-left:4px;
+      color:#3c4043;
+      font-style:italic;
+      font-weight:400;
+    }
+
     /* ===== NỘI KIỂM 332: TẠO PHIẾU KHỔ RỘNG + CUỘN NGANG ===== */
     .nk-form:not(.nk-view-mode) .nk-paper-scroll{
       overflow-x:auto!important;
@@ -6559,7 +6594,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '363.223',
+    frontendVersion: '366.224',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6592,7 +6627,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-363.060826-NKTM-CROSSMATCH-SUGGESTIONS';
+const APP_VERSION = 'INDEX-366.060826-NKTM-LIST-EVALUATOR-CREATOR';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -11826,8 +11861,10 @@ function nkListMethodLine(line){
   const label=nkText(item.label);
   const lot=nkText(item.lotNo);
   const evaluation=nkText(item.danhGia);
+  const evaluator=nkText(item.nguoiDanhGia);
   if(!label) return '';
-  return `<div class="nk-list-method-line"><span class="nk-list-method-name">${esc(label)}</span>${lot?` <span class="nk-list-lot">(${esc(lot)})</span>`:''}${evaluation?`: ${nkStatusPill(evaluation)}`:''}</div>`;
+  const evaluatedClass=evaluation?' nk-list-evaluated-line':'';
+  return `<div class="nk-list-method-line${evaluatedClass}"><span class="nk-list-method-name">${esc(label)}</span>${lot?` <span class="nk-list-lot">(${esc(lot)})</span>`:''}${evaluation?`: ${nkStatusPill(evaluation)}${evaluator?` <span class="nk-list-evaluator">- ${esc(evaluator)}</span>`:''}`:''}</div>`;
 }
 
 function nkListSectionCell(lines,extraClass=''){
@@ -11908,9 +11945,40 @@ function nkWritePrintWindow(printWindow,items){
   const pages=nkArray(items).map(nkPrintPageHtml).join('');
   const html=`<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>In phiếu Nội kiểm Truyền máu</title>${nkPrintStylesHtml()}<style>
   @page{size:297mm 210mm;margin:3mm}
-  html,body{width:100%!important;margin:0!important;padding:0!important;background:#fff!important}
-  body{font-family:Arial,sans-serif}
-  .nk-print-page{width:291mm;margin:0 auto;page-break-after:always;break-after:page;overflow:visible}
+  html,body{
+    position:static!important;
+    inset:auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+    overscroll-behavior:auto!important;
+    background:#fff!important;
+  }
+  body{
+    display:block!important;
+    font-family:Arial,sans-serif;
+    touch-action:auto!important;
+  }
+  .nk-print-page{
+    display:block!important;
+    position:relative!important;
+    width:291mm;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:0 auto;
+    overflow:visible!important;
+    page-break-before:auto;
+    page-break-after:always;
+    page-break-inside:avoid;
+    break-before:auto;
+    break-after:page;
+    break-inside:avoid-page;
+  }
   .nk-print-page:last-child{page-break-after:auto;break-after:auto}
   .nk-print-page .nk-form{width:auto!important;max-width:none!important}
   .nk-print-page .nk-paper-scroll{overflow:visible!important;width:auto!important;max-width:none!important;padding:0!important;margin:0!important}
@@ -11947,7 +12015,23 @@ function nkWritePrintWindow(printWindow,items){
   .nk-print-page .nk-paper-table td{padding-top:2px!important;padding-bottom:2px!important}
   .nk-print-page .nk-section-audit{font-size:9px!important}
   .nk-print-page input,.nk-print-page select,.nk-print-page textarea{color:#000!important}
-  </style></head><body>${pages}<script>window.addEventListener('load',()=>{setTimeout(()=>{window.focus();window.print();},250)});<\/script></body></html>`;
+  </style></head><body>${pages}<script>
+  window.addEventListener('load',()=>{
+    const waitForPages=()=>{
+      const pages=Array.from(document.querySelectorAll('.nk-print-page'));
+      const ready=pages.length>0&&pages.every(page=>page.getBoundingClientRect().height>0);
+      if(!ready){
+        requestAnimationFrame(waitForPages);
+        return;
+      }
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        window.focus();
+        window.print();
+      }));
+    };
+    waitForPages();
+  });
+<\/script></body></html>`;
   printWindow.document.open();
   printWindow.document.write(html);
   printWindow.document.close();
@@ -11993,7 +12077,6 @@ function renderNoiKiemTmTable(items){
   const rows=items.map(item=>{
     const summary=item.listSummary||{};
     const recorded=nkText(item.thoiDiemTao);
-    const updated=nkText(item.thoiDiemSua);
     const checked=state.noiKiemTmSelectedIds.has(nkText(item.id));
     return `<tr>
       <td class="nk-select-col"><input class="nk-select-checkbox nk-row-select" type="checkbox" data-id="${escAttr(item.id)}" ${checked?'checked':''} aria-label="Chọn phiếu ${escAttr(item.id)}"></td>
@@ -12004,13 +12087,13 @@ function renderNoiKiemTmTable(items){
       ${nkListSectionCell(summary.phan3,'nk-list-p3')}
       ${nkListSectionCell(summary.phan4,'nk-list-p4')}
       ${nkListSectionCell(summary.phan5,'nk-list-p5')}
-      <td class="nk-list-people">${esc(item.nguoiThucHien||'—')}</td>
-      <td class="nk-list-time"><div>${esc(recorded||'—')}</div>${updated&&updated!==recorded?`<div class="nk-list-sub">Cập nhật: ${esc(updated)}</div>`:''}</td>
+      <td class="nk-list-people">${esc(item.nguoiTaoTen||'—')}</td>
+      <td class="nk-list-time">${esc(recorded?dateTimeVi(recorded):'—')}</td>
       <td class="nk-list-actions"><div class="nk-table-actions"><button class="btn secondary" onclick="openNoiKiemTm('${escAttr(item.id)}',this)">Xem phiếu</button>${item.canEdit?`<button class="app-icon-btn" onclick="editNoiKiemTm('${escAttr(item.id)}',this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>`:''}${item.canDelete?`<button class="app-icon-btn delete" onclick="deleteNoiKiemTm('${escAttr(item.id)}',this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>`:''}</div></td>
     </tr>`;
   }).join('');
   const selectedCount=state.noiKiemTmSelectedIds.size;
-  return `<div class="ds-toolbar"><p class="meta">Tổng: ${items.length} phiếu</p><div class="ds-toolbar-actions"><button id="nkPrintSelectedBtn" type="button" class="btn secondary nk-print-selected-btn" ${selectedCount?'':'disabled'}>${nkPrintIconSvg()} In phiếu<span data-nk-print-count>${selectedCount?` (${selectedCount})`:''}</span></button></div></div><div class="nk-table-wrap nk-list-wrap nk-google-table-wrap"><table class="nk-list-table nk-google-table nk-selectable-table"><thead><tr><th class="nk-select-col"><input id="nkSelectAll" class="nk-select-checkbox" type="checkbox" aria-label="Chọn tất cả phiếu"></th><th class="nk-sticky-date">Ngày/Lần</th><th class="nk-sticky-dept">Đơn vị</th><th>I. ABO–Rh ống nghiệm</th><th>II. ABO–Rh gelcard</th><th>III. Coombs/KTBT</th><th>IV. Chéo hòa hợp</th><th>V. XN khác</th><th>Người thực hiện</th><th>Ghi nhận</th><th>Thao tác</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  return `<div class="ds-toolbar"><p class="meta">Tổng: ${items.length} phiếu</p><div class="ds-toolbar-actions"><button id="nkPrintSelectedBtn" type="button" class="btn secondary nk-print-selected-btn" ${selectedCount?'':'disabled'}>${nkPrintIconSvg()} In phiếu<span data-nk-print-count>${selectedCount?` (${selectedCount})`:''}</span></button></div></div><div class="nk-table-wrap nk-list-wrap nk-google-table-wrap"><table class="nk-list-table nk-google-table nk-selectable-table"><thead><tr><th class="nk-select-col"><input id="nkSelectAll" class="nk-select-checkbox" type="checkbox" aria-label="Chọn tất cả phiếu"></th><th class="nk-sticky-date">Ngày/Lần</th><th class="nk-sticky-dept">Đơn vị</th><th>I. ABO–Rh ống nghiệm</th><th>II. ABO–Rh gelcard</th><th>III. Coombs/KTBT</th><th>IV. Chéo hòa hợp</th><th>V. XN khác</th><th>Người tạo phiếu</th><th>TG tạo phiếu</th><th>Thao tác</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function nkViewRows(title, rows, columns){
