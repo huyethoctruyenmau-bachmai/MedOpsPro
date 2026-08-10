@@ -1,4 +1,4 @@
-<!-- VERSION: 376.228 | index: 376 | Code.gs: 228 | INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX -->
+<!-- VERSION: 377.229 | index: 377 | Code.gs: 229 | INDEX-377.100826-TM24H-DEPT-FORMS -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5027,10 +5027,14 @@
 .tm-sl-stats-table .tm-sl-total-row td{color:#1a73e8;font-weight:700}
 .tm-sl-total-fields label{display:block;font-size:12px;color:var(--g-muted);margin-bottom:3px}
 .tm-sl-row-xn{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tm-sl-special-group{display:flex;flex-direction:column;gap:8px}
+.tm-sl-special-pair{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tm-sl-special-single{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 @media(max-width:760px){
   #tmDailyStatsBlock .tm-sl-row-main.tm-sl-row-xn{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   #tmDailyStatsBlock .tm-sl-row-main.tm-sl-row-xn .tm-sl-field:first-child{grid-column:auto!important}
 }
+@media(max-width:520px){.tm-sl-special-pair,.tm-sl-special-single{grid-template-columns:1fr}}
 
 /* ===== TM24H Kho máu ===== */
 .tm-sl-section-title{font-weight:700;color:#1f2937;margin:4px 0 2px;font-size:15px}
@@ -6512,7 +6516,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX</p>
+      <p class="login-version">Version: INDEX-377.100826-TM24H-DEPT-FORMS</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6523,7 +6527,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX</div>
+    <div class="login-loading-version">Version: INDEX-377.100826-TM24H-DEPT-FORMS</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6577,7 +6581,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX</div>
+    <div class="app-version">Version: INDEX-377.100826-TM24H-DEPT-FORMS</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6646,7 +6650,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX';
+const APP_VERSION = 'INDEX-377.100826-TM24H-DEPT-FORMS';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6695,7 +6699,8 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVs
 const LOAI_BAN_GIAO = 'Bàn giao thường trực';
 const LOAI_BAO_CAO = 'Báo cáo thường trực';
 const LOAI_BAO_CAO_KHO_MAU = 'Báo cáo kho máu';
-const LOAI_BAO_CAO_SO_LIEU_TM = 'Báo cáo số liệu Truyền máu 24h';
+const LOAI_BAO_CAO_SO_LIEU_TM = 'Báo cáo số liệu Xét nghiệm - Truyền máu 24h';
+const LOAI_BAO_CAO_SO_LIEU_TM_CU_24H = 'Báo cáo số liệu Truyền máu 24h';
 const LOAI_BAO_CAO_SO_LIEU_TM_CU = 'Báo cáo số liệu Truyền máu';
 const LOAI_TM_XU_TRI = 'Khai báo xử trí chuyên môn Truyền máu';
 const LOAI_TM_TDKMM = 'Khai báo tác dụng không mong muốn liên quan truyền máu';
@@ -6720,13 +6725,14 @@ function isBienBanHopLoai(loai){
 }
 
 function isLoaiSoLieuTm(loai){
-  return eqText(loai, LOAI_BAO_CAO_SO_LIEU_TM) || eqText(loai, LOAI_BAO_CAO_SO_LIEU_TM_CU);
+  return eqText(loai, LOAI_BAO_CAO_SO_LIEU_TM) || eqText(loai, LOAI_BAO_CAO_SO_LIEU_TM_CU_24H) || eqText(loai, LOAI_BAO_CAO_SO_LIEU_TM_CU);
 }
 
 function displayLoaiPhieuLabel(loai){
   const text = String(loai || '');
   if(eqText(text, LOAI_BAN_GIAO)) return 'Bàn giao trực';
   if(eqText(text, LOAI_BAO_CAO)) return 'Báo cáo trực';
+  if(isLoaiSoLieuTm(text)) return LOAI_BAO_CAO_SO_LIEU_TM;
   return text
     .replaceAll(LOAI_BAN_GIAO, 'Bàn giao trực')
     .replaceAll(LOAI_BAO_CAO, 'Báo cáo trực');
@@ -7780,7 +7786,7 @@ function renderCreateTab(preferredLoai = ''){
   const bloodStockReportOption = allowTm ? `
             <option value="${LOAI_BAO_CAO_KHO_MAU}">Báo cáo kho máu</option>` : '';
   const tmDailyStatsOption = allowTm24h ? `
-            <option value="${LOAI_BAO_CAO_SO_LIEU_TM}">Báo cáo số liệu Truyền máu 24h</option>` : '';
+            <option value="${LOAI_BAO_CAO_SO_LIEU_TM}">${LOAI_BAO_CAO_SO_LIEU_TM}</option>` : '';
   $('#tab-create').innerHTML = `
     <div class="card create-left-card">
       <div class="create-info-title-row">
@@ -7862,20 +7868,8 @@ function renderCreateTab(preferredLoai = ''){
       </div>
 
       <div id="tmDailyStatsBlock" class="card hidden">
-        <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-        <div class="tm-sl-form">
-          <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
-            <div class="tm-sl-field"><label>XN Nội</label><input id="tmSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-            <div class="tm-sl-field"><label>XN Ngoại</label><input id="tmSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          </div>
-          <div class="tm-sl-row tm-sl-row-cp">
-            <div class="tm-sl-field"><label>KHC</label><input id="tmSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-            <div class="tm-sl-field"><label>CP</label><input id="tmSlCp" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-            <div class="tm-sl-field"><label>Tổng</label><input id="tmSlTongSoDonVi" class="equal-control tm-sl-input tm-total" readonly value="0"></div>
-          </div>
-          <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
-          ${renderSoLieuTmKhoMauForm('tmSl')}
-        </div>
+        <h3 id="tmDailyStatsTitle" class="section-title">II. Báo cáo số liệu Xét nghiệm - Truyền máu 24h</h3>
+        <div id="tmDailyStatsFormHost"></div>
         <div class="btn-row">
           <button id="createSoLieuTmBtn" class="btn primary">Tạo phiếu</button>
         </div>
@@ -7942,7 +7936,7 @@ function getCreateLoaiNote(loai){
   if(loai === LOAI_BAN_GIAO) return 'Chú thích: Dùng cho bộ phận hành chính bàn giao công việc cho tua trực.';
   if(loai === LOAI_BAO_CAO) return 'Chú thích: Dùng để báo cáo hoạt động và bàn giao công việc của tua trực.';
   if(loai === LOAI_BAO_CAO_KHO_MAU) return 'Chú thích: Chỉ dùng cho Quản lý kho máu.';
-  if(isLoaiSoLieuTm(loai)) return 'Chú thích: Dùng để báo cáo số liệu xét nghiệm - truyền máu 24h và tồn kho máu.';
+  if(isLoaiSoLieuTm(loai)) return 'Chú thích: Dùng để báo cáo số liệu xét nghiệm 24h; nội dung hiển thị theo khoa/phòng.';
   if(loai === LOAI_TM_XU_TRI) return 'Chú thích: Dùng để khai báo bệnh nhân cần xử trí chuyên môn khoa Truyền máu.';
   if(loai === LOAI_TM_TDKMM) return 'Chú thích: Dùng để khai báo tác dụng không mong muốn liên quan truyền máu.';
   if(loai === LOAI_NOI_KIEM_TM) return 'Chú thích: Dùng để báo cáo kết quả nội kiểm Truyền máu.';
@@ -8006,8 +8000,13 @@ function updateCreateFormNumbering(){
     return;
   }
   if(isTmDailyStats){
-    const cpKhacBox = $('#tmSlCpKhacRows');
-    if(cpKhacBox && !cpKhacBox.children.length) cpKhacBox.innerHTML = renderSoLieuTmCpKhacRows('tmSl', []);
+    const host = $('#tmDailyStatsFormHost');
+    const renderKey = `${soLieuTmDeptVariantClient(createDeptValue)}|${normalizeDeptFeatureName(createDeptValue)}`;
+    if(host && host.dataset.renderKey !== renderKey){
+      host.innerHTML = renderSoLieuTmFormBodyClient('tmSl', createDeptValue, {});
+      host.dataset.renderKey = renderKey;
+    }
+    if($('#tmDailyStatsTitle')) $('#tmDailyStatsTitle').textContent = soLieuTmSectionTitleClient(createDeptValue);
     bindSoLieuTmFormEvents('tmSl');
     return;
   }
@@ -8488,6 +8487,10 @@ function soLieuTmInputIds(prefix='tmSl'){
     dv1: prefix + 'Dv1', dv2: prefix + 'Dv2', tongDv: prefix + 'TongDv',
     khc: prefix + 'Khc', cp: prefix + 'Cp',
     htt: prefix + 'Htt', tua: prefix + 'Tua', ktc: prefix + 'Ktc', ktcGt: prefix + 'KtcGt', kbc: prefix + 'Kbc',
+    dongMauTong: prefix + 'DongMauTong', dongMauTyc: prefix + 'DongMauTyc',
+    teBaoTong: prefix + 'TeBaoTong', teBaoTyc: prefix + 'TeBaoTyc',
+    diTruyenTong: prefix + 'DiTruyenTong', diTruyenTyc: prefix + 'DiTruyenTyc',
+    chuyenGuiHaNoiTong: prefix + 'ChuyenGuiHaNoiTong',
     tongSoDonVi: prefix + 'TongSoDonVi', cpKhacRows: prefix + 'CpKhacRows', totalWarn: prefix + 'TotalWarn'
   };
 }
@@ -8599,9 +8602,14 @@ function collectSoLieuTmKhoMau(prefix='tmSl'){
 function bindSoLieuTmKhoMauFormEvents(prefix='tmSl'){
   SO_LIEU_TM_KHO_FIELDS.forEach(f => {
     const el = document.getElementById(soLieuTmKhoInputId(prefix, f.key));
-    if(el) el.addEventListener('input', () => cleanIntegerInput(el));
+    if(el && el.dataset.tm24hKhoBound !== '1'){
+      el.dataset.tm24hKhoBound = '1';
+      el.addEventListener('input', () => cleanIntegerInput(el));
+    }
   });
   $$(`#${soLieuTmKhoCpKhacRowsId(prefix)} .tm-kho-cp-khac-qty`).forEach(el => {
+    if(el.dataset.tm24hKhoBound === '1') return;
+    el.dataset.tm24hKhoBound = '1';
     el.addEventListener('input', () => cleanIntegerInput(el));
   });
   const ta = document.getElementById(soLieuTmKhoVanDeId(prefix));
@@ -8773,6 +8781,10 @@ function normalizeSoLieuTmClient(data={}){
     xnNoi:n(data.xnNoi), xnNgoai:n(data.xnNgoai),
     dv1:0, dv2:0, tongDv:0,
     khc:n(data.khc), cp: data.cp === undefined || data.cp === null || data.cp === '' ? legacyCp : n(data.cp),
+    dongMauTong:n(data.dongMauTong), dongMauTyc:n(data.dongMauTyc),
+    teBaoTong:n(data.teBaoTong), teBaoTyc:n(data.teBaoTyc),
+    diTruyenTong:n(data.diTruyenTong), diTruyenTyc:n(data.diTruyenTyc),
+    chuyenGuiHaNoiTong:n(data.chuyenGuiHaNoiTong),
     htt:0, tua:0, ktc:0, ktcGt:0, kbc:0,
     cpKhac: [], cpKhacTong:0,
     khoMau: normalizeSoLieuTmKhoMauClient(data.khoMau || {}),
@@ -8781,6 +8793,70 @@ function normalizeSoLieuTmClient(data={}){
   out.tongSoDonVi = out.khc + out.cp;
   out.tong = out.tongSoDonVi;
   return out;
+}
+
+function renderSoLieuTmSpecialPairClient(prefix, title, totalKey, tycKey, data){
+  const ids = soLieuTmInputIds(prefix);
+  return `<div class="tm-sl-special-group">
+    <div class="tm-sl-subtitle">${esc(title)}</div>
+    <div class="tm-sl-row tm-sl-special-pair">
+      <div class="tm-sl-field"><label>Tổng số mẫu</label><input id="${escAttr(ids[totalKey])}" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(data[totalKey] || 0)}"></div>
+      <div class="tm-sl-field"><label>Tổng số mẫu TYC</label><input id="${escAttr(ids[tycKey])}" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(data[tycKey] || 0)}"></div>
+    </div>
+  </div>`;
+}
+
+function renderSoLieuTmFormBodyClient(prefix='tmSl', khoaPhong='', data={}){
+  const d = normalizeSoLieuTmClient(data || {});
+  const ids = soLieuTmInputIds(prefix);
+  const variant = soLieuTmDeptVariantClient(khoaPhong);
+  if(variant === 'NB'){
+    return `<div class="tm-sl-form" data-tm24h-variant="NB">
+      ${renderSoLieuTmSpecialPairClient(prefix, '1. Xét nghiệm Đông máu', 'dongMauTong', 'dongMauTyc', d)}
+      ${renderSoLieuTmSpecialPairClient(prefix, '2. Xét nghiệm Tế Bào', 'teBaoTong', 'teBaoTyc', d)}
+      <div class="tm-sl-special-group">
+        <div class="tm-sl-subtitle">3. Xét nghiệm Truyền máu - Phát máu</div>
+        <div class="tm-sl-row tm-sl-special-pair">
+          <div class="tm-sl-field"><label>Xét nghiệm Nội</label><input id="${escAttr(ids.xnNoi)}" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
+          <div class="tm-sl-field"><label>Xét nghiệm Ngoại</label><input id="${escAttr(ids.xnNgoai)}" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNgoai)}"></div>
+        </div>
+        <div class="tm-sl-row tm-sl-row-cp">
+          <div class="tm-sl-field"><label>KHC</label><input id="${escAttr(ids.khc)}" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.khc)}"></div>
+          <div class="tm-sl-field"><label>CP</label><input id="${escAttr(ids.cp)}" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.cp)}"></div>
+          <div class="tm-sl-field"><label>Tổng</label><input id="${escAttr(ids.tongSoDonVi)}" class="equal-control tm-sl-input tm-total" readonly value="${escAttr(d.tongSoDonVi)}"></div>
+        </div>
+      </div>
+      <div class="tm-sl-special-group">
+        <div class="tm-sl-subtitle">4. Chuyển gửi cơ sở Hà Nội</div>
+        <div class="tm-sl-row tm-sl-special-single">
+          <div class="tm-sl-field"><label>Tổng số mẫu</label><input id="${escAttr(ids.chuyenGuiHaNoiTong)}" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.chuyenGuiHaNoiTong)}"></div>
+        </div>
+      </div>
+      <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
+      ${renderSoLieuTmKhoMauForm(prefix, d.khoMau)}
+    </div>`;
+  }
+  if(variant === 'XNHH'){
+    return `<div class="tm-sl-form" data-tm24h-variant="XNHH">
+      ${renderSoLieuTmSpecialPairClient(prefix, '1. Xét nghiệm Đông máu', 'dongMauTong', 'dongMauTyc', d)}
+      ${renderSoLieuTmSpecialPairClient(prefix, '2. Xét nghiệm Tế Bào', 'teBaoTong', 'teBaoTyc', d)}
+      ${renderSoLieuTmSpecialPairClient(prefix, '3. Xét nghiệm Di truyền', 'diTruyenTong', 'diTruyenTyc', d)}
+      <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
+    </div>`;
+  }
+  return `<div class="tm-sl-form" data-tm24h-variant="DEFAULT">
+    <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
+      <div class="tm-sl-field"><label>XN Nội</label><input id="${escAttr(ids.xnNoi)}" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
+      <div class="tm-sl-field"><label>XN Ngoại</label><input id="${escAttr(ids.xnNgoai)}" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNgoai)}"></div>
+    </div>
+    <div class="tm-sl-row tm-sl-row-cp">
+      <div class="tm-sl-field"><label>KHC</label><input id="${escAttr(ids.khc)}" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.khc)}"></div>
+      <div class="tm-sl-field"><label>CP</label><input id="${escAttr(ids.cp)}" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.cp)}"></div>
+      <div class="tm-sl-field"><label>Tổng</label><input id="${escAttr(ids.tongSoDonVi)}" class="equal-control tm-sl-input tm-total" readonly value="${escAttr(d.tongSoDonVi)}"></div>
+    </div>
+    <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
+    ${renderSoLieuTmKhoMauForm(prefix, d.khoMau)}
+  </div>`;
 }
 
 function renderSoLieuTmCpKhacRows(prefix='tmSl', items=[]){
@@ -8815,9 +8891,10 @@ window.removeSoLieuTmCpKhacRow = function(btn, prefix='tmSl'){
 
 function bindSoLieuTmFormEvents(prefix='tmSl'){
   const ids = soLieuTmInputIds(prefix);
-  ['xnNoi','xnNgoai','khc','cp'].forEach(k => {
+  ['xnNoi','xnNgoai','khc','cp','dongMauTong','dongMauTyc','teBaoTong','teBaoTyc','diTruyenTong','diTruyenTyc','chuyenGuiHaNoiTong'].forEach(k => {
     const el = document.getElementById(ids[k]);
-    if(el && el.type === 'number'){
+    if(el && el.type === 'number' && el.dataset.tm24hBound !== '1'){
+      el.dataset.tm24hBound = '1';
       el.addEventListener('input', () => { cleanIntegerInput(el); updateSoLieuTmTotals(prefix); });
     }
   });
@@ -8854,9 +8931,10 @@ function collectSoLieuTmCpKhac(prefix='tmSl'){
 
 
 
-function collectSoLieuTm(prefix='tmSl'){
+function collectSoLieuTm(prefix='tmSl', khoaPhong=''){
   updateSoLieuTmTotals(prefix);
   const ids = soLieuTmInputIds(prefix);
+  const variant = soLieuTmDeptVariantClient(khoaPhong);
   return normalizeSoLieuTmClient({
     tongSoBn:0,
     xnNoi:getIntValue(ids.xnNoi),
@@ -8865,13 +8943,20 @@ function collectSoLieuTm(prefix='tmSl'){
     dv2:0,
     khc:getIntValue(ids.khc),
     cp:getIntValue(ids.cp),
+    dongMauTong:getIntValue(ids.dongMauTong),
+    dongMauTyc:getIntValue(ids.dongMauTyc),
+    teBaoTong:getIntValue(ids.teBaoTong),
+    teBaoTyc:getIntValue(ids.teBaoTyc),
+    diTruyenTong:getIntValue(ids.diTruyenTong),
+    diTruyenTyc:getIntValue(ids.diTruyenTyc),
+    chuyenGuiHaNoiTong:getIntValue(ids.chuyenGuiHaNoiTong),
     htt:0,
     tua:0,
     ktc:0,
     ktcGt:0,
     kbc:0,
     cpKhac: [],
-    khoMau: collectSoLieuTmKhoMau(prefix)
+    khoMau: variant === 'XNHH' ? {} : collectSoLieuTmKhoMau(prefix)
   });
 }
 
@@ -8883,29 +8968,61 @@ function renderSoLieuTmCpKhacTextClient(data){
 
 
 
-function renderSoLieuTmSummaryHtml(data){
+function renderSoLieuTmSummaryHtml(data, khoaPhong=''){
   const d = normalizeSoLieuTmClient(data || {});
+  const variant = soLieuTmDeptVariantClient(khoaPhong);
+  if(variant === 'NB'){
+    return `<div class="tm-sl-summary">
+      <div><strong>Đông máu:</strong> Tổng ${esc(d.dongMauTong)} · TYC ${esc(d.dongMauTyc)}</div>
+      <div><strong>Tế Bào:</strong> Tổng ${esc(d.teBaoTong)} · TYC ${esc(d.teBaoTyc)}</div>
+      <div><strong>Truyền máu - Phát máu:</strong> XN Nội ${esc(d.xnNoi)} · XN Ngoại ${esc(d.xnNgoai)} · KHC ${esc(d.khc)} · CP ${esc(d.cp)} · Tổng ${esc(d.tongSoDonVi)}</div>
+      <div><strong>Chuyển gửi cơ sở Hà Nội:</strong> ${esc(d.chuyenGuiHaNoiTong)}</div>
+    </div>`;
+  }
+  if(variant === 'XNHH'){
+    return `<div class="tm-sl-summary">
+      <div><strong>Đông máu:</strong> Tổng ${esc(d.dongMauTong)} · TYC ${esc(d.dongMauTyc)}</div>
+      <div><strong>Tế Bào:</strong> Tổng ${esc(d.teBaoTong)} · TYC ${esc(d.teBaoTyc)}</div>
+      <div><strong>Di truyền:</strong> Tổng ${esc(d.diTruyenTong)} · TYC ${esc(d.diTruyenTyc)}</div>
+    </div>`;
+  }
   return `<div class="tm-sl-summary"><div><strong>XN Nội:</strong> ${esc(d.xnNoi)} &nbsp;&nbsp; <strong>XN Ngoại:</strong> ${esc(d.xnNgoai)}</div><div><strong>KHC:</strong> ${esc(d.khc)} &nbsp;&nbsp; <strong>CP:</strong> ${esc(d.cp)} &nbsp;&nbsp; <strong>Tổng:</strong> ${esc(d.tongSoDonVi)}</div></div>`;
 }
 
-
-function renderSoLieuTmGiaoBanHtml(rows){
-  const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
-  if(!list.length) return `<div class="empty">Chưa có phiếu Báo cáo số liệu Truyền máu 24h phù hợp.</div>`;
-  return list.map(r => {
-    const d = normalizeSoLieuTmClient(r.soLieuTm || {});
-    return `<div class="tm-sl-gb-day gb-section-content"><div class="tm-sl-gb-line"><span class="gb-pv-date"><strong>${esc(dateVi(r.ngayTruc))}:</strong></span>&nbsp;&nbsp; XN Nội: ${esc(d.xnNoi)} &nbsp;&nbsp;&nbsp; XN Ngoại: ${esc(d.xnNgoai)} &nbsp;&nbsp;&nbsp; KHC: ${esc(d.khc)} &nbsp;&nbsp;&nbsp; CP: ${esc(d.cp)} &nbsp;&nbsp;&nbsp; Tổng: ${esc(d.tongSoDonVi)}</div></div>`;
-  }).join('');
+function renderSoLieuTmGiaoBanDayClient(r, khoaPhong='', preview=false){
+  const d = normalizeSoLieuTmClient(r.soLieuTm || {});
+  const variant = soLieuTmDeptVariantClient(khoaPhong || r.khoaPhong || '');
+  const dateHtml = `<span class="gb-pv-date"><strong>${esc(dateVi(r.ngayTruc))}:</strong></span>`;
+  if(variant === 'NB'){
+    const lines = [
+      '1. Xét nghiệm Đông máu — Tổng số mẫu: ' + esc(d.dongMauTong) + ' · Tổng số mẫu TYC: ' + esc(d.dongMauTyc),
+      '2. Xét nghiệm Tế Bào — Tổng số mẫu: ' + esc(d.teBaoTong) + ' · Tổng số mẫu TYC: ' + esc(d.teBaoTyc),
+      '3. Xét nghiệm Truyền máu - Phát máu — Xét nghiệm Nội: ' + esc(d.xnNoi) + ' · Xét nghiệm Ngoại: ' + esc(d.xnNgoai) + ' · KHC: ' + esc(d.khc) + ' · CP: ' + esc(d.cp) + ' · Tổng: ' + esc(d.tongSoDonVi),
+      '4. Chuyển gửi cơ sở Hà Nội — Tổng số mẫu: ' + esc(d.chuyenGuiHaNoiTong)
+    ];
+    return `${dateHtml}<br>${lines.join('<br>')}`;
+  }
+  if(variant === 'XNHH'){
+    const lines = [
+      '1. Xét nghiệm Đông máu — Tổng số mẫu: ' + esc(d.dongMauTong) + ' · Tổng số mẫu TYC: ' + esc(d.dongMauTyc),
+      '2. Xét nghiệm Tế Bào — Tổng số mẫu: ' + esc(d.teBaoTong) + ' · Tổng số mẫu TYC: ' + esc(d.teBaoTyc),
+      '3. Xét nghiệm Di truyền — Tổng số mẫu: ' + esc(d.diTruyenTong) + ' · Tổng số mẫu TYC: ' + esc(d.diTruyenTyc)
+    ];
+    return `${dateHtml}<br>${lines.join('<br>')}`;
+  }
+  return `${dateHtml}&nbsp;&nbsp; XN Nội: ${esc(d.xnNoi)} &nbsp;&nbsp;&nbsp; XN Ngoại: ${esc(d.xnNgoai)} &nbsp;&nbsp;&nbsp; KHC: ${esc(d.khc)} &nbsp;&nbsp;&nbsp; CP: ${esc(d.cp)} &nbsp;&nbsp;&nbsp; Tổng: ${esc(d.tongSoDonVi)}`;
 }
 
-
-function renderSoLieuTmGiaoBanPreviewHtml(rows){
+function renderSoLieuTmGiaoBanHtml(rows, khoaPhong=''){
   const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
-  if(!list.length) return 'Chưa có phiếu Báo cáo số liệu Truyền máu 24h phù hợp.';
-  return list.map(r => {
-    const d = normalizeSoLieuTmClient(r.soLieuTm || {});
-    return `<span class="gb-pv-date"><strong>${esc(dateVi(r.ngayTruc))}:</strong></span>&nbsp;&nbsp; XN Nội: ${esc(d.xnNoi)} &nbsp;&nbsp;&nbsp; XN Ngoại: ${esc(d.xnNgoai)} &nbsp;&nbsp;&nbsp; KHC: ${esc(d.khc)} &nbsp;&nbsp;&nbsp; CP: ${esc(d.cp)} &nbsp;&nbsp;&nbsp; Tổng: ${esc(d.tongSoDonVi)}`;
-  }).join('<br>');
+  if(!list.length) return `<div class="empty">Chưa có phiếu ${esc(soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm 24h' : LOAI_BAO_CAO_SO_LIEU_TM)} phù hợp.</div>`;
+  return list.map(r => `<div class="tm-sl-gb-day gb-section-content"><div class="tm-sl-gb-line">${renderSoLieuTmGiaoBanDayClient(r, khoaPhong, false)}</div></div>`).join('');
+}
+
+function renderSoLieuTmGiaoBanPreviewHtml(rows, khoaPhong=''){
+  const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
+  if(!list.length) return `Chưa có phiếu ${soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm 24h' : LOAI_BAO_CAO_SO_LIEU_TM} phù hợp.`;
+  return list.map(r => renderSoLieuTmGiaoBanDayClient(r, khoaPhong, true)).join('<br>');
 }
 
 function collectSoLieuTruc(){
@@ -8969,7 +9086,7 @@ async function submitCreatePhieu(){
       loaiPhieu: loai,
       ngayTruc: getDateInputIso('createDate'),
       khoaPhong: $('#createDept').value,
-      soLieuTm: collectSoLieuTm('tmSl')
+      soLieuTm: collectSoLieuTm('tmSl', $('#createDept').value)
     };
     if(!payload.ngayTruc || !payload.khoaPhong) return toast('Vui lòng nhập ngày báo cáo và khoa/phòng.');
     return withButton($('#createSoLieuTmBtn'), 'Đang tạo phiếu...', async () => {
@@ -12680,11 +12797,11 @@ function renderPhieuList(items, note=''){
     const title = isBloodStockCard
       ? `Báo cáo kho máu - ${formatDeptPlain(p.khoaPhong)} - ${handoverDateTitle}`
       : (isSoLieuTmCard
-        ? `Báo cáo số liệu Truyền máu 24h - ${formatDeptPlain(p.khoaPhong)} - ${handoverDateTitle}`
+        ? `${LOAI_BAO_CAO_SO_LIEU_TM} - ${formatDeptPlain(p.khoaPhong)} - ${handoverDateTitle}`
         : (isReportCard
           ? `Báo cáo/ Bàn giao trực - ${formatKhoaTitle(p.khoaPhong)} - ${handoverDateTitle}`
           : `Bàn giao trực - ${formatKhoaTitle(p.khoaPhong)} - ${handoverDateTitle}`));
-    const detailHtml = isBloodStockCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Nội dung báo cáo</span><div class="field-value">${esc(p.noiDungBaoCaoKhoMau || '')}</div></div></div>` : (isSoLieuTmCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Số liệu</span><div class="field-value">${renderSoLieuTmSummaryHtml(p.soLieuTm || {})}</div></div></div>` : (!isDone ? `
+    const detailHtml = isBloodStockCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Nội dung báo cáo</span><div class="field-value">${esc(p.noiDungBaoCaoKhoMau || '')}</div></div></div>` : (isSoLieuTmCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Số liệu</span><div class="field-value">${renderSoLieuTmSummaryHtml(p.soLieuTm || {}, p.khoaPhong || '')}</div></div></div>` : (!isDone ? `
       <div class="phieu-inline">
         <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
@@ -12728,8 +12845,24 @@ function renderReadonlyMiniField(label, value){
   return `<div class="tm-sl-field tm-readonly-field"><label>${esc(label)}</label><input class="equal-control" readonly value="${escAttr(value ?? '')}"></div>`;
 }
 
-function renderSoLieuTmDetailReportViewHtml(data){
+function renderSoLieuTmDetailReportViewHtml(data, khoaPhong=''){
   const d = normalizeSoLieuTmClient(data || {});
+  const variant = soLieuTmDeptVariantClient(khoaPhong);
+  if(variant === 'NB'){
+    return `<div class="tm-sl-form tm-sl-view-detail">
+      <div class="tm-sl-special-group"><div class="tm-sl-subtitle">1. Xét nghiệm Đông máu</div><div class="tm-sl-row tm-sl-special-pair">${renderReadonlyMiniField('Tổng số mẫu', d.dongMauTong)}${renderReadonlyMiniField('Tổng số mẫu TYC', d.dongMauTyc)}</div></div>
+      <div class="tm-sl-special-group"><div class="tm-sl-subtitle">2. Xét nghiệm Tế Bào</div><div class="tm-sl-row tm-sl-special-pair">${renderReadonlyMiniField('Tổng số mẫu', d.teBaoTong)}${renderReadonlyMiniField('Tổng số mẫu TYC', d.teBaoTyc)}</div></div>
+      <div class="tm-sl-special-group"><div class="tm-sl-subtitle">3. Xét nghiệm Truyền máu - Phát máu</div><div class="tm-sl-row tm-sl-special-pair">${renderReadonlyMiniField('Xét nghiệm Nội', d.xnNoi)}${renderReadonlyMiniField('Xét nghiệm Ngoại', d.xnNgoai)}</div><div class="tm-sl-row tm-sl-row-cp">${renderReadonlyMiniField('KHC', d.khc)}${renderReadonlyMiniField('CP', d.cp)}${renderReadonlyMiniField('Tổng', d.tongSoDonVi)}</div></div>
+      <div class="tm-sl-special-group"><div class="tm-sl-subtitle">4. Chuyển gửi cơ sở Hà Nội</div><div class="tm-sl-row tm-sl-special-single">${renderReadonlyMiniField('Tổng số mẫu', d.chuyenGuiHaNoiTong)}</div></div>
+    </div>`;
+  }
+  if(variant === 'XNHH'){
+    return `<div class="tm-sl-form tm-sl-view-detail">
+      <div class="tm-sl-special-group"><div class="tm-sl-subtitle">1. Xét nghiệm Đông máu</div><div class="tm-sl-row tm-sl-special-pair">${renderReadonlyMiniField('Tổng số mẫu', d.dongMauTong)}${renderReadonlyMiniField('Tổng số mẫu TYC', d.dongMauTyc)}</div></div>
+      <div class="tm-sl-special-group"><div class="tm-sl-subtitle">2. Xét nghiệm Tế Bào</div><div class="tm-sl-row tm-sl-special-pair">${renderReadonlyMiniField('Tổng số mẫu', d.teBaoTong)}${renderReadonlyMiniField('Tổng số mẫu TYC', d.teBaoTyc)}</div></div>
+      <div class="tm-sl-special-group"><div class="tm-sl-subtitle">3. Xét nghiệm Di truyền</div><div class="tm-sl-row tm-sl-special-pair">${renderReadonlyMiniField('Tổng số mẫu', d.diTruyenTong)}${renderReadonlyMiniField('Tổng số mẫu TYC', d.diTruyenTyc)}</div></div>
+    </div>`;
+  }
   return `<div class="tm-sl-form tm-sl-view-detail">
     <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
       ${renderReadonlyMiniField('XN Nội', d.xnNoi)}
@@ -12787,11 +12920,10 @@ function renderSoLieuTmDetailModalHtml(p){
         <div class="field-row"><span class="field-name">Người sửa</span><div class="field-value">${esc(editor)}</div></div>
         <div class="field-row"><span class="field-name">Thời gian sửa</span><div class="field-value">${esc(dateTimeViColon(editedAt || ''))}</div></div>
       </div>
-      <h3 class="sub-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-      <div class="list-card data-card">${renderSoLieuTmDetailReportViewHtml(p.soLieuTm || {})}</div>
+      <h3 class="sub-title">${esc(soLieuTmSectionTitleClient(p.khoaPhong || ''))}</h3>
+      <div class="list-card data-card">${renderSoLieuTmDetailReportViewHtml(p.soLieuTm || {}, p.khoaPhong || '')}</div>
       <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
-      <h3 class="sub-title">III. Kho máu</h3>
-      <div class="list-card data-card">${renderSoLieuTmKhoMauDetailViewHtml(p.soLieuTm || {})}</div>
+      ${soLieuTmDeptVariantClient(p.khoaPhong || '') === 'XNHH' ? '' : `<h3 class="sub-title">III. Kho máu</h3><div class="list-card data-card">${renderSoLieuTmKhoMauDetailViewHtml(p.soLieuTm || {})}</div>`}
       <div class="btn-row sign-bottom-small"><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
     </div>`;
 }
@@ -12932,29 +13064,28 @@ window.editPhieu = async function(phieuID, btn){
             </div>
           </div>
           <div class="card" style="box-shadow:none">
-            <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-            <div class="grid">
-              <div class="col-12">
-                <div class="tm-sl-form">
-                  <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
-                    <div class="tm-sl-field"><label>XN Nội</label><input id="editSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
-                    <div class="tm-sl-field"><label>XN Ngoại</label><input id="editSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNgoai)}"></div>
-                  </div>
-                  <div class="tm-sl-row tm-sl-row-cp">
-                    <div class="tm-sl-field"><label>KHC</label><input id="editSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.khc)}"></div>
-                    <div class="tm-sl-field"><label>CP</label><input id="editSlCp" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.cp)}"></div>
-                    <div class="tm-sl-field"><label>Tổng</label><input id="editSlTongSoDonVi" class="equal-control tm-sl-input tm-total" readonly value="${escAttr(d.tongSoDonVi)}"></div>
-                  </div>
-                  <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
-                  ${renderSoLieuTmKhoMauForm('editSl', d.khoMau)}
-                </div>
-              </div>
-            </div>
+            <h3 id="editSoLieuTmTitle" class="section-title">${esc(soLieuTmSectionTitleClient(p.khoaPhong || ''))}</h3>
+            <div id="editSoLieuTmFormHost">${renderSoLieuTmFormBodyClient('editSl', p.khoaPhong || '', d)}</div>
           </div>
           <div class="btn-row"><button class="btn primary" onclick="saveEditPhieu('${escAttr(p.phieuID)}', this)">Lưu cập nhật</button><button class="btn secondary" onclick="closeModal()">Đóng</button></div>
         </div>
       `);
       bindSoLieuTmFormEvents('editSl');
+      const editDeptEl = $('#editDept');
+      if(editDeptEl){
+        editDeptEl.dataset.tm24hPrevDept = p.khoaPhong || editDeptEl.value || '';
+        editDeptEl.addEventListener('change', () => {
+          const prevDept = editDeptEl.dataset.tm24hPrevDept || p.khoaPhong || '';
+          const currentData = collectSoLieuTm('editSl', prevDept);
+          const newDept = editDeptEl.value || '';
+          const host = $('#editSoLieuTmFormHost');
+          if(host) host.innerHTML = renderSoLieuTmFormBodyClient('editSl', newDept, currentData);
+          if($('#editSoLieuTmTitle')) $('#editSoLieuTmTitle').textContent = soLieuTmSectionTitleClient(newDept);
+          editDeptEl.dataset.tm24hPrevDept = newDept;
+          bindSoLieuTmFormEvents('editSl');
+          setTimeout(() => $$('textarea').forEach(autoGrow), 0);
+        });
+      }
       setTimeout(() => { $$('textarea').forEach(autoGrow); scheduleViDatePickerEnhance(); }, 0);
       return;
     }
@@ -13301,7 +13432,7 @@ window.saveEditPhieu = async function(phieuID, btn){
     nhanVienThuongTruc: state.selectedStaff,
     soLieuTruc: $('#editSoLieuTrucBox') ? collectEditSoLieuTruc() : '',
     noiDungBaoCaoKhoMau: $('#editBaoCaoKhoMauNoiDung')?.value || '',
-    soLieuTm: $('#editSlXnNoi') ? collectSoLieuTm('editSl') : {},
+    soLieuTm: $('#editSoLieuTmFormHost') ? collectSoLieuTm('editSl', $('#editDept')?.value || '') : {},
     baoCaoChuyenMon: collectEditBaoCaoChuyenMon(),
     baoCaoChuyenMonChiTiet: collectBaoCaoChuyenMonChiTiet('editBaoCaoChuyenMonBox'),
     baoCaoVanDeKhac: $('#editBaoCaoKhac')?.value || '',
@@ -13311,7 +13442,7 @@ window.saveEditPhieu = async function(phieuID, btn){
     thoiGianBanGiao: $('#editTGBG') ? getDateTimeInputSql('editTGBG') : ''
   };
   const task = async () => {
-    const isTm24hStatsEdit = !!document.getElementById('editSlXnNoi');
+    const isTm24hStatsEdit = !!document.getElementById('editSoLieuTmFormHost');
     const res = await api('updatePhieu', payload);
     clearListCaches();
     if(state.activeTab === 'list') state.refreshPhieuListOnClose = true;
@@ -13869,7 +14000,7 @@ window.gbRefreshGiaoBanSection = async function(section, btn){
     tmXuTri:'Bệnh nhân cần xử trí chuyên môn',
     tmTdkmm:'Tác dụng không mong muốn liên quan đến truyền máu',
     khoMau:'Kho máu',
-    soLieuTm24h:'Số liệu xét nghiệm - truyền máu 24h'
+    soLieuTm24h:'Báo cáo số liệu Xét nghiệm - Truyền máu 24h'
   };
   if(!labels[section]) return;
 
@@ -13908,7 +14039,7 @@ window.gbRefreshGiaoBanSection = async function(section, btn){
     } else if(section === 'soLieuTm24h') {
       cache.soLieuReports = freshReports;
       const box = $('#gbSoLieuTm24hSectionContent');
-      if(box) box.innerHTML = renderSoLieuTmGiaoBanHtml(cache.soLieuReports);
+      if(box) box.innerHTML = renderSoLieuTmGiaoBanHtml(cache.soLieuReports, state.currentGiaoBan?.khoaPhong || '');
     }
 
     refreshGiaoBanStructuredPreview();
@@ -14087,8 +14218,8 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
     pvLine('gb-pv-roman','III. Nội dung giao ban khác'),
     pvLine('gb-pv-num','1. Kho máu'),
     pvLine('gb-pv-detail', renderGiaoBanKhoMauHtml(d.khoReports || [], d.khoMauKhac) || 'Chưa có dữ liệu kho máu phù hợp.'),
-    pvLine('gb-pv-num','2. Số liệu xét nghiệm - truyền máu 24h'),
-    pvLine('gb-pv-detail', renderSoLieuTmGiaoBanPreviewHtml(d.soLieuReports || [])),
+    pvLine('gb-pv-num','2. Báo cáo số liệu Xét nghiệm - Truyền máu 24h'),
+    pvLine('gb-pv-detail', renderSoLieuTmGiaoBanPreviewHtml(d.soLieuReports || [], d.khoaPhong || '')),
     pvLine('gb-pv-num','3. Thông báo'),
     pvLine('gb-pv-detail', pvHtml(d.thongBao)),
     pvLine('gb-pv-num','4. Nội dung khác'),
@@ -14222,8 +14353,8 @@ function renderGiaoBanModal(){
         <div class="list-card">
           <div id="gbKhoMauSectionContent">${renderGiaoBanKhoMauHtml(sectionData.khoReports || [], sectionData.khoMauKhac || '') || '<div class="empty">Chưa có dữ liệu kho máu phù hợp.</div>'}</div>
         </div>
-        <div class="gb-sub-label gb-refresh-title-row" style="margin-top:12px"><span>2. Số liệu xét nghiệm - truyền máu 24h</span>${canRefreshSource ? gbSectionRefreshButtonHtml('soLieuTm24h','Số liệu xét nghiệm - truyền máu 24h') : ''}</div>
-        <div id="gbSoLieuTm24hSectionContent">${renderSoLieuTmGiaoBanHtml(sectionData.soLieuReports || [])}</div>
+        <div class="gb-sub-label gb-refresh-title-row" style="margin-top:12px"><span>2. Báo cáo số liệu Xét nghiệm - Truyền máu 24h</span>${canRefreshSource ? gbSectionRefreshButtonHtml('soLieuTm24h','Báo cáo số liệu Xét nghiệm - Truyền máu 24h') : ''}</div>
+        <div id="gbSoLieuTm24hSectionContent">${renderSoLieuTmGiaoBanHtml(sectionData.soLieuReports || [], g.khoaPhong || '')}</div>
         <div class="grid" style="margin-top:10px">
           <div class="col-12"><label class="gb-sub-label" for="gbThongBao">3. Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
           <div class="col-12"><label class="gb-sub-label" for="gbNoiDungKhac">4. Nội dung khác</label><textarea id="gbNoiDungKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.noiDungKhac || '')}</textarea></div>
@@ -16014,6 +16145,7 @@ function soLieuTmStatsDateIso(x){
 }
 
 function soLieuTmStatusValue(x){
+  if(isXetNghiemHuyetHocDept(x?.khoaPhong || x?.KhoaPhong || '')) return 'stat_only';
   return String(x?.soLieuTmStatus || x?.tm24hStatus || '').trim();
 }
 
@@ -16060,6 +16192,12 @@ function isoDateRangeClient(from, to){
 
 
 function buildSoLieuTmStatsRows(items, payload={}){
+  const valueKeys = [
+    'xnNoi','xnNgoai','khc','cp','tongSoDonVi',
+    'dongMauTong','dongMauTyc','teBaoTong','teBaoTyc',
+    'diTruyenTong','diTruyenTyc','chuyenGuiHaNoiTong'
+  ];
+  const emptyValues = () => valueKeys.reduce((acc, k) => { acc[k] = 0; return acc; }, {});
   const map = new Map();
   (items || []).forEach(x => {
     const iso = soLieuTmStatsDateIso(x);
@@ -16068,7 +16206,7 @@ function buildSoLieuTmStatsRows(items, payload={}){
     if(!map.has(iso)){
       map.set(iso, {
         date: iso, exists: true, count: 0, phieuID: x.phieuID || x.id || '',
-        xnNoi:0, xnNgoai:0, khc:0, cp:0, tongSoDonVi:0,
+        ...emptyValues(),
         status: soLieuTmStatusValue(x),
         statusLabel: soLieuTmStatusLabel(soLieuTmStatusValue(x)),
         nguoiBaoCao: x.nguoiTao || x.nguoiTaoTen || x.nguoiThucHienTen || '',
@@ -16081,7 +16219,7 @@ function buildSoLieuTmStatsRows(items, payload={}){
     row.exists = true;
     row.count += 1;
     if(!row.phieuID) row.phieuID = x.phieuID || x.id || '';
-    ['xnNoi','xnNgoai','khc','cp','tongSoDonVi'].forEach(k => row[k] += Number(d[k] || 0));
+    valueKeys.forEach(k => row[k] += Number(d[k] || 0));
     row.status = row.count > 1 ? 'multiple' : (soLieuTmStatusValue(x) || row.status);
     row.statusLabel = row.count > 1 ? `Nhiều phiếu (${row.count})` : soLieuTmStatusLabel(row.status);
     row.nguoiBaoCao = row.nguoiBaoCao || x.nguoiTao || x.nguoiTaoTen || x.nguoiThucHienTen || '';
@@ -16093,7 +16231,7 @@ function buildSoLieuTmStatsRows(items, payload={}){
   if(dates.length){
     return dates.map(date => map.get(date) || {
       date, exists:false, count:0, phieuID:'',
-      xnNoi:0, xnNgoai:0, khc:0, cp:0, tongSoDonVi:0,
+      ...emptyValues(),
       status:'missing', statusLabel:'Chưa có',
       nguoiBaoCao:'', thoiGianBaoCao:'', nguoiSua:'', thoiGianSua:''
     });
@@ -16101,14 +16239,40 @@ function buildSoLieuTmStatsRows(items, payload={}){
   return Array.from(map.values()).sort((a,b) => String(a.date).localeCompare(String(b.date)));
 }
 
-
 function sumSoLieuTmStatsRows(rows){
+  const valueKeys = [
+    'xnNoi','xnNgoai','khc','cp','tongSoDonVi',
+    'dongMauTong','dongMauTyc','teBaoTong','teBaoTyc',
+    'diTruyenTong','diTruyenTyc','chuyenGuiHaNoiTong'
+  ];
+  const init = valueKeys.reduce((acc, k) => { acc[k] = 0; return acc; }, {});
   return (rows || []).reduce((acc, r) => {
-    ['xnNoi','xnNgoai','khc','cp','tongSoDonVi'].forEach(k => acc[k] += Number(r[k] || 0));
+    valueKeys.forEach(k => acc[k] += Number(r[k] || 0));
     return acc;
-  }, {xnNoi:0, xnNgoai:0, khc:0, cp:0, tongSoDonVi:0});
+  }, init);
 }
 
+function soLieuTmStatsColumnsClient(khoaPhong=''){
+  const variant = soLieuTmDeptVariantClient(khoaPhong);
+  if(variant === 'NB'){
+    return [
+      ['dongMauTong','Đông máu - Tổng'], ['dongMauTyc','Đông máu - TYC'],
+      ['teBaoTong','Tế Bào - Tổng'], ['teBaoTyc','Tế Bào - TYC'],
+      ['xnNoi','XN Nội'], ['xnNgoai','XN Ngoại'], ['khc','KHC'], ['cp','CP'], ['tongSoDonVi','Tổng'],
+      ['chuyenGuiHaNoiTong','Chuyển gửi HN']
+    ];
+  }
+  if(variant === 'XNHH'){
+    return [
+      ['dongMauTong','Đông máu - Tổng'], ['dongMauTyc','Đông máu - TYC'],
+      ['teBaoTong','Tế Bào - Tổng'], ['teBaoTyc','Tế Bào - TYC'],
+      ['diTruyenTong','Di truyền - Tổng'], ['diTruyenTyc','Di truyền - TYC']
+    ];
+  }
+  return [
+    ['xnNoi','XN Nội'], ['xnNgoai','XN Ngoại'], ['khc','KHC'], ['cp','CP'], ['tongSoDonVi','Tổng']
+  ];
+}
 
 function renderSoLieuTmStatsPanel(items, payload){
   const rows = buildSoLieuTmStatsRows(items, payload || {});
@@ -16123,6 +16287,7 @@ function renderSoLieuTmStatsPanel(items, payload){
   const period = [dateVi(payload.fromDate), dateVi(payload.toDate)].filter(Boolean).join(' - ');
   const rawDept = payload.khoaPhong || state.user?.khoaPhong || '';
   const dept = rawDept && rawDept !== 'Tất cả' ? rawDept : (state.user?.khoaPhong || '');
+  const valueColumns = soLieuTmStatsColumnsClient(dept);
   const htmlRows = rows.map(r => {
     const action = canManage
       ? (r.exists && r.phieuID
@@ -16132,10 +16297,10 @@ function renderSoLieuTmStatsPanel(items, payload){
     const viewBtn = r.exists && r.phieuID
       ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="view" data-phieu-id="${escAttr(r.phieuID)}">Xem phiếu</button>`
       : '';
+    const valuesHtml = valueColumns.map(([key]) => `<td>${esc(r[key] || 0)}</td>`).join('');
     return `<tr class="${r.exists ? '' : 'tm-sl-missing-row'}">
       <td><strong>${esc(dateVi(r.date))}</strong></td>
-      <td>${esc(r.xnNoi)}</td><td>${esc(r.xnNgoai)}</td>
-      <td>${esc(r.khc)}</td><td>${esc(r.cp)}</td><td>${esc(r.tongSoDonVi)}</td>
+      ${valuesHtml}
       <td>${esc(r.nguoiBaoCao || '')}</td><td>${esc(dateTimeViColon(r.thoiGianBaoCao || ''))}</td>
       <td>${esc(r.nguoiSua || '')}</td><td>${esc(dateTimeViColon(r.thoiGianSua || ''))}</td>
       <td>${esc(r.statusLabel || '')}</td>
@@ -16143,11 +16308,12 @@ function renderSoLieuTmStatsPanel(items, payload){
       <td>${viewBtn}</td>
     </tr>`;
   }).join('');
-  const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td><td>${total.xnNoi}</td><td>${total.xnNgoai}</td><td>${total.khc}</td><td>${total.cp}</td><td>${total.tongSoDonVi}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
+  const totalValueCells = valueColumns.map(([key]) => `<td>${esc(total[key] || 0)}</td>`).join('');
+  const totalRow = `<tr class="tm-sl-total-row"><td><strong>Tổng cộng</strong></td>${totalValueCells}<td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
+  const valueHeaders = valueColumns.map(([, label]) => `<th>${esc(label)}</th>`).join('');
   return `<div class="ds-toolbar"><p class="meta">Tổng hợp ${rows.length} ngày${period ? ` · ${period}` : ''}</p><div class="ds-toolbar-actions">${exportBtn}${historyBtn}</div></div>
-    <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th><th>XN Nội</th><th>XN Ngoại</th><th>KHC</th><th>CP</th><th>Tổng</th><th>Người báo cáo</th><th>Thời gian báo cáo</th><th>Người sửa</th><th>Thời gian sửa</th><th>Trạng thái</th><th>Thêm/Sửa</th><th>Xem phiếu</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
+    <div class="tm-sl-stats-wrap"><table class="tm-sl-stats-table"><thead><tr><th>Ngày</th>${valueHeaders}<th>Người báo cáo</th><th>Thời gian báo cáo</th><th>Người sửa</th><th>Thời gian sửa</th><th>Trạng thái</th><th>Thêm/Sửa</th><th>Xem phiếu</th></tr></thead><tbody>${htmlRows}${totalRow}</tbody></table></div>`;
 }
-
 
 function bindSoLieuTmStatsPanelEvents(root){
   const box = root || document.getElementById('pdfListBox');
@@ -16183,7 +16349,7 @@ window.openSoLieuTmStatsAdd = function(date, dept){
   const d = normalizeSoLieuTmClient({});
   openModal(`
     <div class="modal-card">
-      <div class="modal-head"><div class="modal-title">Thêm số liệu Truyền máu 24h</div><button class="close-btn" onclick="closeModal()">×</button></div>
+      <div class="modal-head"><div class="modal-title">Thêm Báo cáo số liệu Xét nghiệm - Truyền máu 24h</div><button class="close-btn" onclick="closeModal()">×</button></div>
       <div class="card" style="box-shadow:none">
         <h3 class="section-title">I. Thông tin</h3>
         <div class="grid">
@@ -16193,20 +16359,8 @@ window.openSoLieuTmStatsAdd = function(date, dept){
         </div>
       </div>
       <div class="card" style="box-shadow:none">
-        <h3 class="section-title">II. Báo cáo số liệu Truyền máu 24h</h3>
-        <div class="tm-sl-form">
-          <div class="tm-sl-row tm-sl-row-main tm-sl-row-xn">
-            <div class="tm-sl-field"><label>XN Nội</label><input id="statsSlXnNoi" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNoi)}"></div>
-            <div class="tm-sl-field"><label>XN Ngoại</label><input id="statsSlXnNgoai" class="equal-control tm-sl-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnNgoai)}"></div>
-          </div>
-          <div class="tm-sl-row tm-sl-row-cp">
-            <div class="tm-sl-field"><label>KHC</label><input id="statsSlKhc" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.khc)}"></div>
-            <div class="tm-sl-field"><label>CP</label><input id="statsSlCp" class="equal-control tm-sl-input tm-sl-cp" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.cp)}"></div>
-            <div class="tm-sl-field"><label>Tổng</label><input id="statsSlTongSoDonVi" class="equal-control tm-sl-input tm-total" readonly value="0"></div>
-          </div>
-          <div class="tm-section-note">*Số liệu 24h là số liệu của ngày được chọn.</div>
-          ${renderSoLieuTmKhoMauForm('statsSl')}
-        </div>
+        <h3 class="section-title">${esc(soLieuTmSectionTitleClient(targetDept))}</h3>
+        <div id="statsSoLieuTmFormHost">${renderSoLieuTmFormBodyClient('statsSl', targetDept, d)}</div>
       </div>
       <div class="btn-row"><button id="statsSlSaveBtn" class="btn primary" type="button" data-stats-save="1" data-date="${escAttr(date || '')}" data-dept="${escAttr(targetDept || '')}">Lưu</button><button class="btn secondary" type="button" onclick="closeModal()">Đóng</button></div>
     </div>
@@ -16228,7 +16382,7 @@ window.saveSoLieuTmStatsAdd = async function(date, dept, btn){
       loaiPhieu: LOAI_BAO_CAO_SO_LIEU_TM,
       ngayTruc: reportDate,
       khoaPhong: targetDept,
-      soLieuTm: collectSoLieuTm('statsSl'),
+      soLieuTm: collectSoLieuTm('statsSl', targetDept),
       tm24hStatus: 'stat_only',
       fromStats: true
     };
@@ -16288,7 +16442,7 @@ function dsLoaiPhieuTitle(loai){
   if(eqText(loai, LOAI_TM_TDKMM)) return 'Tác dụng không mong muốn liên quan TM';
   if(eqText(loai, LOAI_BAN_GIAO) || eqText(loai, LOAI_BAO_CAO)) return displayLoaiPhieuLabel(loai);
   if(eqText(loai, LOAI_BAO_CAO_KHO_MAU)) return 'Báo cáo kho máu';
-  if(isLoaiSoLieuTm(loai)) return 'Báo cáo số liệu Truyền máu 24h';
+  if(isLoaiSoLieuTm(loai)) return LOAI_BAO_CAO_SO_LIEU_TM;
   return displayLoaiPhieuLabel(loai);
 }
 
@@ -16394,7 +16548,7 @@ function renderDsPhieuCard(x){
   const historyBtn = tdkmmPdfHistoryIconHtml(x);
   const bn = dsBnMetaHtml(x);
   const creator = dsCreatorMetaHtml(x);
-  const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : (x.source === 'PHIEU' && isLoaiSoLieuTm(loai) ? renderSoLieuTmSummaryHtml(x.soLieuTm || {}) : ((x.source === 'PHIEU' && eqText(loai, LOAI_BAO_CAO_KHO_MAU) && x.noiDungBaoCaoKhoMau) ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Nội dung</span><div class="field-value">${esc(x.noiDungBaoCaoKhoMau)}</div></div></div>` : ''));
+  const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : (x.source === 'PHIEU' && isLoaiSoLieuTm(loai) ? renderSoLieuTmSummaryHtml(x.soLieuTm || {}, x.khoaPhong || '') : ((x.source === 'PHIEU' && eqText(loai, LOAI_BAO_CAO_KHO_MAU) && x.noiDungBaoCaoKhoMau) ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Nội dung</span><div class="field-value">${esc(x.noiDungBaoCaoKhoMau)}</div></div></div>` : ''));
   return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(displayLoaiPhieuLabel(title || x.title || x.loaiPhieu || ''))}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${historyBtn}${editBtn}${deleteBtn}${statusPill(x.trangThai || '')}</div></div></div>`;
 }
 
@@ -18688,6 +18842,26 @@ function isXnhhCsNinhBinhDept(value){
     || n.includes('xet nghiem hh tm cs ninh binh')
     || ((n.includes('xet nghiem') || n.includes('xn')) && n.includes('hh tm') && n.includes('ninh binh'))
     || (n.includes('xet nghiem huyet hoc') && n.includes('ninh binh'));
+}
+
+function isXetNghiemHuyetHocDept(value){
+  if(isXnhhCsNinhBinhDept(value)) return false;
+  const n = normalizeDeptFeatureName(value);
+  return n === 'xet nghiem huyet hoc'
+    || n === 'khoa xet nghiem huyet hoc'
+    || n.endsWith(' xet nghiem huyet hoc');
+}
+
+function soLieuTmDeptVariantClient(value){
+  if(isXnhhCsNinhBinhDept(value)) return 'NB';
+  if(isXetNghiemHuyetHocDept(value)) return 'XNHH';
+  return 'DEFAULT';
+}
+
+function soLieuTmSectionTitleClient(value){
+  return soLieuTmDeptVariantClient(value) === 'XNHH'
+    ? 'II. Báo cáo số liệu Xét nghiệm 24h'
+    : 'II. Báo cáo số liệu Xét nghiệm - Truyền máu 24h';
 }
 
 function isTruyenMauDept(value){
