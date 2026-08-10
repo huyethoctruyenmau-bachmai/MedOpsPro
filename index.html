@@ -1,4 +1,4 @@
-<!-- VERSION: 373.228 | index: 373 | Code.gs: 228 | INDEX-373.100826-GIAOBAN-PDF-VIEW-ERROR-RETRY -->
+<!-- VERSION: 375.228 | index: 375 | Code.gs: 228 | INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -343,6 +343,8 @@
     .phieu-main-actions,.phieu-icon-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
     .phieu-actions.single{display:flex}
     .phieu-actions .btn{width:auto!important;min-width:0;min-height:32px;height:32px;padding:0 13px;font-size:13.5px;border-radius:4px;flex:0 0 auto}
+    /* ===== PATCH 374: HỌP/GIAO BAN - NÚT XEM PHIẾU LUÔN NHẬN CLICK ===== */
+    #giaoBanListBox .gb-list-view-btn{position:relative;z-index:2;pointer-events:auto!important;touch-action:manipulation}
     .app-icon-btn{width:32px;height:32px;min-width:32px;border:0;background:transparent;color:var(--g-muted);border-radius:50%;display:grid;place-items:center;padding:0;line-height:1;box-shadow:none}
     .app-icon-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     .app-icon-btn:hover{background:#f8f1f4;color:var(--wine)}
@@ -6510,7 +6512,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-373.100826-GIAOBAN-PDF-VIEW-ERROR-RETRY</p>
+      <p class="login-version">Version: INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6521,7 +6523,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-373.100826-GIAOBAN-PDF-VIEW-ERROR-RETRY</div>
+    <div class="login-loading-version">Version: INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6575,7 +6577,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-373.100826-GIAOBAN-PDF-VIEW-ERROR-RETRY</div>
+    <div class="app-version">Version: INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6644,7 +6646,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-373.100826-GIAOBAN-PDF-VIEW-ERROR-RETRY';
+const APP_VERSION = 'INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -13445,17 +13447,8 @@ function renderGiaoBanList(items, note=''){
       : `${creator}<div class="meta">Khoảng báo cáo: ${dateVi(g.tuNgayBaoCao)} - ${dateVi(g.denNgayBaoCao)}</div>`;
     const deleteBtn = g.canDelete ? `<button class="app-icon-btn delete" onclick="deleteGiaoBan('${escAttr(g.giaoBanID)}', this)" title="Xóa phiên giao ban" aria-label="Xóa phiên giao ban">${iconTrash()}</button>` : '';
     const done = g.trangThai === STATUS_DA;
-    const pdfDownload = g.pdfGiaoBanUrl ? pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, pdfTitle, 'GIAO_BAN', g.giaoBanID) : '';
-    const pdfStatus = String(g.pdfStatus || '').toUpperCase();
-    const pdfStateText = done
-      ? (pdfStatus === 'ERROR'
-          ? '<span class="meta">PDF lỗi - nhấn Xem phiếu để xem nguyên nhân.</span>'
-          : (pdfStatus === 'PROCESSING'
-              ? '<span class="meta">PDF đang được tạo.</span>'
-              : (!g.pdfGiaoBanUrl ? '<span class="meta">PDF chưa được tạo.</span>' : '')))
-      : '';
     const mainActions = done
-      ? `<button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById('${escAttr(g.giaoBanID)}', ${jsArg(pdfTitle)}, this)">Xem phiếu</button>${pdfStateText}`
+      ? `<button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(g.giaoBanID)}, ${jsArg(pdfTitle)}, this)">Xem phiếu</button>`
       : `<button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}', this)">Xem phiếu</button>`;
     return `
       <div class="list-card phieu-card">
@@ -13467,7 +13460,7 @@ function renderGiaoBanList(items, note=''){
         </div>
         <div class="phieu-actions">
           <div class="phieu-main-actions">${mainActions}</div>
-          <div class="phieu-icon-actions">${pdfDownload}${deleteBtn}${statusPill(g.trangThai)}</div>
+          <div class="phieu-icon-actions">${deleteBtn}${statusPill(g.trangThai)}</div>
         </div>
       </div>`;
   }).join('');
@@ -14386,8 +14379,7 @@ function renderGiaoBanFinishBlock(g){
         <div class="meta">Chủ trì: ${esc(g.chuTriTen || g.nguoiChuTriTuDo || '')}</div>
         ${g.thoiDiemThuKyKy ? `<div class="meta">Thư ký ký: ${dateTimeVi(g.thoiDiemThuKyKy)}</div>` : ''}
         <div class="meta">Thời điểm ký chủ trì: ${dateTimeVi(g.thoiDiemChuTriKy)}</div>
-        <div class="btn-row"><button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(g.giaoBanID || '')}, ${jsArg(buildGiaoBanPdfDownloadTitle(g))}, this)">Xem phiếu</button>${g.pdfGiaoBanUrl ? pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, buildGiaoBanPdfDownloadTitle(g), 'GIAO_BAN', g.giaoBanID || '') : ''}</div>
-        ${!g.pdfGiaoBanUrl ? `<div class="empty">${String(g.pdfStatus || '').toUpperCase() === 'ERROR' ? 'PDF tạo lỗi. Nhấn Xem phiếu để xem nguyên nhân và tạo lại.' : (String(g.pdfStatus || '').toUpperCase() === 'PROCESSING' ? 'PDF đang được tạo.' : 'PDF chưa được tạo.')}</div>` : ''}
+        <div class="btn-row"><button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(g.giaoBanID || '')}, ${jsArg(buildGiaoBanPdfDownloadTitle(g))}, this)">Xem phiếu</button></div>
       </div>`;
   }
 
@@ -15906,8 +15898,9 @@ async function submitChuTriSignature(btn, systemSign){
     toast('Đã ký. PDF đang được tạo.');
 
     if(state.activeTab !== 'meeting') switchTab('meeting');
-    setTimeout(() => { try{ loadGiaoBanList(true); }catch(_e){} }, 0);
+    // Phát lệnh tạo PDF trước, rồi mới tải danh sách để trạng thái vừa ký ưu tiên hiện "Đang tạo PDF".
     requestGiaoBanPdfAfterSign(giaoBanID);
+    setTimeout(() => { try{ loadGiaoBanList(true); }catch(_e){} }, 80);
   };
   if(btn) return withButton(btn, 'Đang ký...', task);
   try{ await task(); }catch(err){ toast(err.message); }
@@ -18161,7 +18154,7 @@ function renderGiaoBanPdfCommandModal(giaoBanID, title, message, options={}){
       </div>
       ${error ? `
         <div style="padding:16px 18px 8px">
-          <div style="font-weight:700;margin-bottom:6px">Không tạo được PDF</div>
+          <div style="font-weight:700;margin-bottom:6px">Không thể tạo file PDF phiếu giao ban</div>
           <div class="field-row" style="align-items:flex-start;margin-bottom:10px">
             <span class="field-name">Nguyên nhân</span>
             <div class="field-value" style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(guidance.reason)}</div>
@@ -18173,7 +18166,7 @@ function renderGiaoBanPdfCommandModal(giaoBanID, title, message, options={}){
         </div>` : `
         <div class="loading" style="min-height:110px;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px">
           ${options.noSpinner ? '' : '<span class="loading-dot"></span>'}
-          <span id="gbPdfCommandMessage">${esc(message || 'PDF đang được tạo, vui lòng chờ trong giây lát.')}</span>
+          <span id="gbPdfCommandMessage">${esc(message || 'Đang tạo file PDF phiếu giao ban, vui lòng chờ trong giây lát.')}</span>
         </div>`}
       <div class="btn-row">
         ${viewUrl ? `${pdfViewButtonHtml(viewUrl, title || 'Phiếu giao ban', 'Xem PDF')}` : ''}
@@ -18186,7 +18179,7 @@ function renderGiaoBanPdfCommandModal(giaoBanID, title, message, options={}){
 
 function setGiaoBanPdfCommandMessage(message){
   const el = document.getElementById('gbPdfCommandMessage');
-  if(el) el.textContent = message || 'PDF đang được tạo, vui lòng chờ trong giây lát.';
+  if(el) el.textContent = message || 'Đang tạo file PDF phiếu giao ban, vui lòng chờ trong giây lát.';
 }
 
 function isGiaoBanPdfCommandModalOpen(giaoBanID){
@@ -18212,27 +18205,29 @@ function refreshVisibleGiaoBanListsAfterPdfCommand(){
 function requestGiaoBanPdfFromViewer(giaoBanID, title='Phiếu giao ban'){
   const id = String(giaoBanID || '').trim();
   if(!id) return;
-  renderGiaoBanPdfCommandModal(id, title, 'Đã gửi lệnh tạo PDF. Bạn có thể đóng cửa sổ này và tiếp tục thao tác trong app.');
+  renderGiaoBanPdfCommandModal(
+    id,
+    title,
+    'Đang tạo file PDF phiếu giao ban, vui lòng chờ trong giây lát.',
+    {noSpinner:false}
+  );
 
+  // Chạy theo đúng lệnh người dùng nhưng không bắt người dùng chờ kết quả.
+  // Thành công: chỉ cập nhật danh sách âm thầm; lần bấm Xem tiếp theo sẽ mở PDF.
+  // Thất bại: nếu hộp trạng thái vẫn đang mở thì hiển thị nguyên nhân/cách xử trí.
   api('exportGiaoBanPdf', {giaoBanID:id}, {timeoutMs:180000, keepalive:true})
     .then(res => {
       refreshVisibleGiaoBanListsAfterPdfCommand();
       const status = res?.data || {};
-      const s = String(status.status || status.pdfStatus || '').toUpperCase();
-      if(!isGiaoBanPdfCommandModalOpen(id)) return;
-      if(s === 'READY' && status.url){
-        renderGiaoBanPdfCommandModal(id, title, 'PDF đã được tạo xong.', {noSpinner:true, viewUrl:status.url});
-        return;
-      }
-      if(s === 'ERROR'){
-        renderGiaoBanPdfCommandModal(id, title, status.lastError || 'Không tạo được PDF giao ban.', {
+      const st = String(status.status || status.pdfStatus || '').toUpperCase();
+      if(st === 'ERROR' && isGiaoBanPdfCommandModalOpen(id)){
+        const errorText = status.lastError || 'Không tạo được PDF giao ban.';
+        renderGiaoBanPdfCommandModal(id, title, errorText, {
           error:true,
           retry:true,
-          errorText:status.lastError || 'Không tạo được PDF giao ban.'
+          errorText
         });
-        return;
       }
-      renderGiaoBanPdfCommandModal(id, title, 'PDF đang được tạo, vui lòng chờ trong giây lát.', {noSpinner:false});
     })
     .catch(err => {
       refreshVisibleGiaoBanListsAfterPdfCommand();
@@ -18266,7 +18261,7 @@ window.openSignedGiaoBanPdfById = async function(giaoBanID, title='Phiếu giao 
       renderGiaoBanPdfCommandModal(
         id,
         title,
-        'PDF đang được tạo, vui lòng chờ trong giây lát. Bạn có thể đóng cửa sổ này và tiếp tục thao tác trong app.'
+        'Đang tạo file PDF phiếu giao ban, vui lòng chờ trong giây lát.'
       );
       return;
     }
@@ -18277,7 +18272,7 @@ window.openSignedGiaoBanPdfById = async function(giaoBanID, title='Phiếu giao 
       return;
     }
 
-    // PENDING/chưa có PDF: chỉ tạo khi người dùng chủ động bấm Xem phiếu.
+    // PENDING: lệnh Xem phiếu là yêu cầu chủ động để tạo PDF nếu tiến trình chưa được khởi chạy.
     requestGiaoBanPdfFromViewer(id, title);
   }catch(err){
     const errorText = err?.message || 'Không kiểm tra được trạng thái PDF.';
