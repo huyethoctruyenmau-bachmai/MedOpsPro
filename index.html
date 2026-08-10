@@ -1,4 +1,4 @@
-<!-- VERSION: 371.227 | index: 371 | Code.gs: 227 | INDEX-371.100826-GIAOBAN-DATE-GUARD -->
+<!-- VERSION: 372.228 | index: 372 | Code.gs: 228 | INDEX-372.100826-GIAOBAN-FAST-SIGN-PDF-COMMAND -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6510,7 +6510,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-371.100826-GIAOBAN-DATE-GUARD</p>
+      <p class="login-version">Version: INDEX-372.100826-GIAOBAN-FAST-SIGN-PDF-COMMAND</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6521,7 +6521,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-371.100826-GIAOBAN-DATE-GUARD</div>
+    <div class="login-loading-version">Version: INDEX-372.100826-GIAOBAN-FAST-SIGN-PDF-COMMAND</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6575,7 +6575,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-371.100826-GIAOBAN-DATE-GUARD</div>
+    <div class="app-version">Version: INDEX-372.100826-GIAOBAN-FAST-SIGN-PDF-COMMAND</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6644,7 +6644,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-371.100826-GIAOBAN-DATE-GUARD';
+const APP_VERSION = 'INDEX-372.100826-GIAOBAN-FAST-SIGN-PDF-COMMAND';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6809,6 +6809,8 @@ const state = {
   currentGiaoBan: null,
   giaoBanDateGuardStoredDate: '',
   giaoBanDateGuardAcceptedTime: '',
+  giaoBanDateGuardChecking: false,
+  giaoBanDateGuardPromise: null,
   currentReports: [],
   currentTmPhieus: [],
   currentTdkmmCleanPdfPhieuTMID: '',
@@ -7213,7 +7215,8 @@ async function api(action, payload={}, opts={}){
       method:'POST',
       headers:{'Content-Type':'text/plain;charset=utf-8'},
       body,
-      signal: controller.signal
+      signal: controller.signal,
+      keepalive: !!opts.keepalive
     });
   }catch(err){
     if(err && err.name === 'AbortError'){
@@ -13442,10 +13445,12 @@ function renderGiaoBanList(items, note=''){
       : `${creator}<div class="meta">Khoảng báo cáo: ${dateVi(g.tuNgayBaoCao)} - ${dateVi(g.denNgayBaoCao)}</div>`;
     const deleteBtn = g.canDelete ? `<button class="app-icon-btn delete" onclick="deleteGiaoBan('${escAttr(g.giaoBanID)}', this)" title="Xóa phiên giao ban" aria-label="Xóa phiên giao ban">${iconTrash()}</button>` : '';
     const done = g.trangThai === STATUS_DA;
-    const pdfBtn = g.pdfGiaoBanUrl ? pdfViewButtonHtml(g.pdfGiaoBanUrl, pdfTitle, 'Xem PDF') : '';
     const pdfDownload = g.pdfGiaoBanUrl ? pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, pdfTitle, 'GIAO_BAN', g.giaoBanID) : '';
+    const pdfStateText = !g.pdfGiaoBanUrl && done
+      ? (String(g.pdfStatus || '').toUpperCase() === 'ERROR' ? '<span class="meta">PDF chưa tạo thành công.</span>' : '<span class="meta">PDF đang được chuẩn bị.</span>')
+      : '';
     const mainActions = done
-      ? `${pdfBtn}${g.pdfGiaoBanUrl ? '' : '<span class="meta">Chưa có file PDF đã ký.</span>'}`
+      ? `${g.pdfGiaoBanUrl ? pdfViewButtonHtml(g.pdfGiaoBanUrl, pdfTitle, 'Xem phiếu') : `<button class="btn secondary" onclick="openSignedGiaoBanPdfById('${escAttr(g.giaoBanID)}', ${jsArg(pdfTitle)}, this)">Xem phiếu</button>`}${pdfStateText}`
       : `<button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}', this)">Xem phiếu</button>`;
     return `
       <div class="list-card phieu-card">
@@ -13618,6 +13623,33 @@ function gbInitGiaoBanDateGuardState(g){
   const time = item.thoiGianGiaoBanHienThi || item.thoiGianGiaoBan || hanoiNowIso();
   state.giaoBanDateGuardAcceptedTime = time;
   state.giaoBanDateGuardStoredDate = item.isVirtual ? '' : (item.ngayGiaoBan || String(time || '').slice(0,10) || '');
+  state.giaoBanDateGuardChecking = false;
+  state.giaoBanDateGuardPromise = null;
+}
+
+function gbSetDateCheckBusy(busy){
+  state.giaoBanDateGuardChecking = !!busy;
+  const root = document.getElementById('modalRoot');
+  if(!root) return;
+  root.classList.toggle('gb-date-checking', !!busy);
+  const selectors = [
+    'button[onclick*="finishGiaoBan"]',
+    'button[onclick*="handleSignClick"]',
+    'button[onclick*="saveGiaoBanDraft"]',
+    '.gb-section-refresh-icon'
+  ];
+  root.querySelectorAll(selectors.join(',')).forEach(btn => {
+    if(busy){
+      if(!btn.hasAttribute('data-gb-date-prev-disabled')) btn.setAttribute('data-gb-date-prev-disabled', btn.disabled ? '1' : '0');
+      btn.disabled = true;
+    }else{
+      const prev = btn.getAttribute('data-gb-date-prev-disabled');
+      if(prev !== null){
+        btn.disabled = prev === '1';
+        btn.removeAttribute('data-gb-date-prev-disabled');
+      }
+    }
+  });
 }
 
 function gbRestoreAcceptedGiaoBanTime(input){
@@ -13676,35 +13708,68 @@ async function gbValidateGiaoBanDateChangeClient(targetTime){
 async function gbHandleGiaoBanTimeChanged(input, options={}){
   const g = state.currentGiaoBan;
   if(!g || !input) return false;
-  const targetTime = fromDatetimeLocal(input.value || '') || g.thoiGianGiaoBan || hanoiNowIso();
-  const acceptedBefore = state.giaoBanDateGuardAcceptedTime || g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || targetTime;
-  const oldDate = String(acceptedBefore || '').slice(0,10);
-  const newDate = String(targetTime || '').slice(0,10);
 
-  if(newDate !== oldDate){
-    try{
-      const checked = await gbValidateGiaoBanDateChangeClient(targetTime);
-      if(!checked.ok){
-        gbRestoreAcceptedGiaoBanTime(input);
-        toast(checked.message);
-        return false;
-      }
-    }catch(err){
-      gbRestoreAcceptedGiaoBanTime(input);
-      toast(`Không thể kiểm tra ngày giao ban. ${err?.message || 'Vui lòng thử lại.'}`.trim());
-      return false;
-    }
+  if(state.giaoBanDateGuardPromise){
+    try{ await state.giaoBanDateGuardPromise; }catch(_e){}
   }
 
-  state.giaoBanDateGuardAcceptedTime = targetTime;
-  g.thoiGianGiaoBan = targetTime;
-  g.thoiGianGiaoBanHienThi = targetTime;
-  g.ngayGiaoBan = newDate || g.ngayGiaoBan || todayIso();
-  updateViDateDisplay(input);
-  buildGiaoBanPreview();
+  const task = (async () => {
+    const targetTime = fromDatetimeLocal(input.value || '') || g.thoiGianGiaoBan || hanoiNowIso();
+    const acceptedBefore = state.giaoBanDateGuardAcceptedTime || g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || targetTime;
+    const oldDate = String(acceptedBefore || '').slice(0,10);
+    const newDate = String(targetTime || '').slice(0,10);
 
-  if(newDate !== oldDate && !options.silentDateNotice){
-    toast('Ngày giao ban đã thay đổi. Dữ liệu tổng hợp chưa tự cập nhật; hãy bấm Cập nhật tại các mục cần lấy lại dữ liệu.');
+    if(newDate !== oldDate){
+      try{
+        const checked = await gbValidateGiaoBanDateChangeClient(targetTime);
+        if(!checked.ok){
+          gbRestoreAcceptedGiaoBanTime(input);
+          toast(checked.message);
+          return false;
+        }
+      }catch(err){
+        gbRestoreAcceptedGiaoBanTime(input);
+        toast(`Không thể kiểm tra ngày giao ban. ${err?.message || 'Vui lòng thử lại.'}`.trim());
+        return false;
+      }
+    }
+
+    state.giaoBanDateGuardAcceptedTime = targetTime;
+    g.thoiGianGiaoBan = targetTime;
+    g.thoiGianGiaoBanHienThi = targetTime;
+    g.ngayGiaoBan = newDate || g.ngayGiaoBan || todayIso();
+    updateViDateDisplay(input);
+    buildGiaoBanPreview();
+
+    if(newDate !== oldDate && !options.silentDateNotice){
+      toast('Ngày giao ban đã thay đổi. Dữ liệu tổng hợp chưa tự cập nhật; hãy bấm Cập nhật tại các mục cần lấy lại dữ liệu.');
+    }
+    return true;
+  })();
+
+  state.giaoBanDateGuardPromise = task;
+  gbSetDateCheckBusy(true);
+  try{
+    return await task;
+  }finally{
+    if(state.giaoBanDateGuardPromise === task){
+      state.giaoBanDateGuardPromise = null;
+      gbSetDateCheckBusy(false);
+    }
+  }
+}
+
+async function gbEnsureGiaoBanDateReadyBeforeAction(){
+  const input = $('#gbTime');
+  if(!state.currentGiaoBan || !input) return true;
+  if(state.giaoBanDateGuardPromise){
+    const ok = await state.giaoBanDateGuardPromise;
+    if(!ok) return false;
+  }
+  const selectedTime = fromDatetimeLocal(input.value || '') || state.giaoBanDateGuardAcceptedTime || state.currentGiaoBan.thoiGianGiaoBan || hanoiNowIso();
+  const accepted = state.giaoBanDateGuardAcceptedTime || '';
+  if(String(selectedTime || '') !== String(accepted || '')){
+    return await gbHandleGiaoBanTimeChanged(input);
   }
   return true;
 }
@@ -13778,7 +13843,8 @@ function gbRenderBaoCaoThuongTrucHtml(sourceReports){
 async function gbFetchFreshGiaoBanSourceData(){
   const g = state.currentGiaoBan || {};
   if(!g.giaoBanID) throw new Error('Không tìm thấy phiên giao ban hiện tại.');
-  const selectedTime = fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBan || g.thoiGianGiaoBanHienThi || hanoiNowIso();
+  if(!await gbEnsureGiaoBanDateReadyBeforeAction()) throw new Error('Ngày giao ban chưa được xác nhận.');
+  const selectedTime = state.giaoBanDateGuardAcceptedTime || g.thoiGianGiaoBan || g.thoiGianGiaoBanHienThi || hanoiNowIso();
   if(g.isVirtual){
     const res = await api('createGiaoBan', {
       khoaPhong: g.khoaPhong || state.user?.khoaPhong || '',
@@ -14315,7 +14381,7 @@ function renderGiaoBanFinishBlock(g){
         <div class="meta">Chủ trì: ${esc(g.chuTriTen || g.nguoiChuTriTuDo || '')}</div>
         ${g.thoiDiemThuKyKy ? `<div class="meta">Thư ký ký: ${dateTimeVi(g.thoiDiemThuKyKy)}</div>` : ''}
         <div class="meta">Thời điểm ký chủ trì: ${dateTimeVi(g.thoiDiemChuTriKy)}</div>
-        ${g.pdfGiaoBanUrl ? `<div class="btn-row">${pdfViewButtonHtml(g.pdfGiaoBanUrl, buildGiaoBanPdfDownloadTitle(g), 'Xem PDF đã ký')}${pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, buildGiaoBanPdfDownloadTitle(g), 'GIAO_BAN', g.giaoBanID || '')}</div>` : '<div class="empty">Chưa có file PDF đã ký.</div>'}
+        ${g.pdfGiaoBanUrl ? `<div class="btn-row">${pdfViewButtonHtml(g.pdfGiaoBanUrl, buildGiaoBanPdfDownloadTitle(g), 'Xem PDF đã ký')}${pdfDownloadIconButtonHtml(g.pdfGiaoBanUrl, buildGiaoBanPdfDownloadTitle(g), 'GIAO_BAN', g.giaoBanID || '')}</div>` : `<div class="btn-row"><button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(g.giaoBanID || '')}, ${jsArg(buildGiaoBanPdfDownloadTitle(g))}, this)">Xem phiếu</button></div><div class="empty">PDF đang được chuẩn bị hoặc chưa được tạo.</div>`}
       </div>`;
   }
 
@@ -14597,6 +14663,7 @@ function getSignatureRoleTitle(role){
 }
 
 window.handleSignClick = async function(role, btn){
+  if(!await gbEnsureGiaoBanDateReadyBeforeAction()) return;
   normalizeChairInput();
   const mode = getSelectedHinhThucKy(role);
   if(mode === HINH_THUC_KY_TAY){
@@ -15511,7 +15578,7 @@ async function saveUploadedProfileSignature(btn){
 function syncCurrentGiaoBanDraftFromForm(){
   const g = state.currentGiaoBan;
   if(!g) return null;
-  const time = fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBan || hanoiNowIso();
+  const time = state.giaoBanDateGuardAcceptedTime || fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBan || hanoiNowIso();
   const chair = resolveChairFromInput($('#gbChuTriInput')?.value || g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '');
   g.thoiGianGiaoBan = time;
   g.thoiGianGiaoBanHienThi = time;
@@ -15549,10 +15616,10 @@ function collectGiaoBanPayload(){
   const payload = {
     giaoBanID: g.giaoBanID,
     isVirtual: !!g.isVirtual,
-    ngayGiaoBan: g.ngayGiaoBan || todayIso(),
+    ngayGiaoBan: String(state.giaoBanDateGuardAcceptedTime || g.ngayGiaoBan || todayIso()).slice(0,10),
     danhSachPhieuID: (state.currentReports || []).map(r => r.phieuID).filter(Boolean).join(','),
     loaiGiaoBan: g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC,
-    thoiGianGiaoBan: fromDatetimeLocal($('#gbTime').value),
+    thoiGianGiaoBan: state.giaoBanDateGuardAcceptedTime || g.thoiGianGiaoBan || fromDatetimeLocal($('#gbTime').value),
     nghi: $('#gbNghi')?.value || '',
     khoMauKHC: $('#khoKHC')?.value || g.khoMauKHC || '',
     khoMauHTT: $('#khoHTT')?.value || g.khoMauHTT || '',
@@ -15587,6 +15654,7 @@ function collectGiaoBanPayload(){
 
 window.saveGiaoBanDraft = async function(btn){
   const task = async () => {
+    if(!await gbEnsureGiaoBanDateReadyBeforeAction()) return;
     showAppActionOverlay('Đang lưu nháp...');
     try{
       const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
@@ -15623,6 +15691,7 @@ async function reloadGiaoBanListOrThrow(){
 }
 
 async function saveGiaoBanDraftThenExit(){
+  if(!await gbEnsureGiaoBanDateReadyBeforeAction()) return;
   showAppActionOverlay('Đang lưu nháp...');
   try{
     const res = await api('saveGiaoBanDraft', collectGiaoBanPayload());
@@ -15687,6 +15756,7 @@ async function canChairSignBySystem(btn){
 }
 
 window.finishGiaoBan = async function(btn){
+  if(!await gbEnsureGiaoBanDateReadyBeforeAction()) return;
   const mode = getSelectedHinhThucKy('chuTri');
   if(mode === HINH_THUC_KY_TAY){
     openFullSignatureForRole('chuTri', btn);
@@ -15695,7 +15765,7 @@ window.finishGiaoBan = async function(btn){
   if(!await canChairSignBySystem(btn)) return;
   const ok = await showConfirmDialog({
     title:'Xác nhận kết thúc giao ban',
-    message:'Sau khi xác nhận, phiên giao ban sẽ hoàn thành và hệ thống sẽ xuất PDF giao ban. Với giao ban thường trực, các báo cáo được gộp sẽ bị khóa.\nBạn xác nhận ký kết thúc giao ban?',
+    message:'Sau khi xác nhận, phiên giao ban sẽ hoàn thành và các báo cáo được gộp sẽ bị khóa. PDF sẽ được tạo riêng ngay sau khi ký, bạn không phải chờ PDF hoàn tất.\nBạn xác nhận ký kết thúc giao ban?',
     confirmText:'Ký kết thúc',
     cancelText:'Hủy',
     danger:false
@@ -15754,6 +15824,7 @@ async function returnToGiaoBanListAfterFinish(){
 
 async function submitThuKySignature(btn, systemSign){
   const task = async () => {
+    if(!await gbEnsureGiaoBanDateReadyBeforeAction()) return;
     const g = state.currentGiaoBan || {};
     const chairBeforeSign = resolveChairFromInput($('#gbChuTriInput')?.value || g.chuTriTen || g.nguoiChuTriTuDo || '');
     const mode = systemSign ? HINH_THUC_KY_HE_THONG : getSelectedHinhThucKy('thuKy');
@@ -15791,8 +15862,25 @@ async function submitThuKySignature(btn, systemSign){
   try{ await task(); }catch(err){ toast(err.message); }
 }
 
+function requestGiaoBanPdfAfterSign(giaoBanID){
+  const id = String(giaoBanID || '').trim();
+  if(!id) return;
+  // Request riêng, không await: người dùng không phải chờ tạo PDF.
+  api('exportGiaoBanPdf', {giaoBanID:id}, {timeoutMs:180000, keepalive:true})
+    .then(() => {
+      clearListCaches();
+      if(state.activeTab === 'meeting' && document.getElementById('giaoBanListBox')) loadGiaoBanList(true);
+      if(state.activeTab === 'pdf' && document.getElementById('pdfListBox')) loadDsPhieuList(false);
+    })
+    .catch(() => {
+      // Không toast nền. Khi người dùng bấm Xem phiếu, app sẽ báo trạng thái và cho tạo lại theo lệnh.
+      clearListCaches();
+    });
+}
+
 async function submitChuTriSignature(btn, systemSign){
   const task = async () => {
+    if(!await gbEnsureGiaoBanDateReadyBeforeAction()) return;
     const payload = collectGiaoBanPayload();
     const mode = systemSign ? HINH_THUC_KY_HE_THONG : getSelectedHinhThucKy('chuTri');
     if(mode === HINH_THUC_KY_HE_THONG && !await canChairSignBySystem(btn)) return;
@@ -15800,22 +15888,22 @@ async function submitChuTriSignature(btn, systemSign){
     payload.hinhThucKyChuTri = mode;
     if(mode === HINH_THUC_KY_TAY) payload.chuKyChuTriDataUrl = getSignatureDataUrl();
 
-    showAppActionOverlay(getGiaoBanFinishBusyText());
-    try{
-      const res = await api('finishGiaoBan', payload);
-      state.currentGiaoBan = res.data.giaoBan;
-      resetPendingThuKySignature('');
-      state.refreshGiaoBanListOnClose = false;
-      clearListCaches();
-      await reloadGiaoBanListOrThrow();
-      toast('Đã ký');
-      closeFullSignatureModal();
-      closeModal();
-    }finally{
-      hideAppActionOverlay();
-    }
+    const res = await api('finishGiaoBan', payload, {timeoutMs:45000});
+    state.currentGiaoBan = res.data.giaoBan;
+    const giaoBanID = state.currentGiaoBan?.giaoBanID || payload.giaoBanID || '';
+    resetPendingThuKySignature('');
+    state.refreshGiaoBanListOnClose = false;
+    clearListCaches();
+
+    closeFullSignatureModal();
+    closeModal();
+    toast('Đã ký. PDF đang được tạo.');
+
+    if(state.activeTab !== 'meeting') switchTab('meeting');
+    setTimeout(() => { try{ loadGiaoBanList(true); }catch(_e){} }, 0);
+    requestGiaoBanPdfAfterSign(giaoBanID);
   };
-  if(btn) return withButton(btn, getGiaoBanFinishBusyText().replace(/^Đang /,'').replace(/\.\.\.$/, '...'), task);
+  if(btn) return withButton(btn, 'Đang ký...', task);
   try{ await task(); }catch(err){ toast(err.message); }
 }
 
@@ -16289,11 +16377,19 @@ function renderDsPhieuCard(x){
   const title = dsPhieuTitle(x);
   const loai = x.loaiPhieu || x.type || '';
   const isTdkmm = isTm && eqText(loai, LOAI_TM_TDKMM);
-  const isGiaoBanDraft = x.source === 'GIAO_BAN' && !x.pdfUrl;
-  const pdfBtn = (!isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
+  const isGiaoBan = x.source === 'GIAO_BAN';
+  const isGiaoBanDone = isGiaoBan && eqText(x.trangThai || '', STATUS_DA);
+  const isGiaoBanDraft = isGiaoBan && !isGiaoBanDone;
+  const pdfBtn = (!isGiaoBan && !isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
   const detailBtn = isTdkmm
     ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
-    : (isGiaoBanDraft ? `<button class="btn secondary" onclick="openGiaoBan(${jsArg(x.id)}, ${jsArg(x.khoaPhong || '')}, this)">Xem phiếu</button>` : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '')));
+    : (isGiaoBanDone
+        ? (x.pdfUrl
+            ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'Giao ban', 'Xem phiếu')
+            : `<button class="btn secondary" onclick="openSignedGiaoBanPdfById(${jsArg(x.id)}, ${jsArg(title || x.loaiPhieu || 'Giao ban')}, this)">Xem phiếu</button>`)
+        : (isGiaoBanDraft
+            ? `<button class="btn secondary" onclick="openGiaoBan(${jsArg(x.id)}, ${jsArg(x.khoaPhong || '')}, this)">Xem phiếu</button>`
+            : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : ''))));
   const editBtn = isTm && x.canEdit
     ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>`
     : (x.source === 'PHIEU' && x.canEdit ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '');
@@ -17988,6 +18084,123 @@ function closePdfViewer(){
   closeModal();
 }
 
+
+function renderGiaoBanPdfCommandModal(giaoBanID, title, message, options={}){
+  const error = !!options.error;
+  const retry = !!options.retry;
+  const checking = !!options.checking;
+  openModal(`
+    <div class="modal-card" style="max-width:520px">
+      <div class="modal-head">
+        <div class="modal-title">${esc(title || 'Phiếu giao ban')}</div>
+        <button class="close-btn" onclick="closeModal()">×</button>
+      </div>
+      <div class="loading" style="min-height:110px;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center">
+        ${error ? '' : '<span class="loading-dot"></span>'}
+        <span id="gbPdfCommandMessage">${esc(message || 'PDF đang được tạo, vui lòng chờ trong giây lát.')}</span>
+      </div>
+      ${(error || retry || checking) ? `<div class="btn-row">
+        ${retry ? `<button class="btn primary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(giaoBanID)}, ${jsArg(title || 'Phiếu giao ban')}, this)">Tạo lại PDF</button>` : ''}
+        ${checking ? `<button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(giaoBanID)}, ${jsArg(title || 'Phiếu giao ban')}, this)">Kiểm tra lại</button>` : ''}
+        <button class="btn secondary" type="button" onclick="closeModal()">Đóng</button>
+      </div>` : ''}
+    </div>
+  `);
+}
+
+function setGiaoBanPdfCommandMessage(message){
+  const el = document.getElementById('gbPdfCommandMessage');
+  if(el) el.textContent = message || 'PDF đang được tạo, vui lòng chờ trong giây lát.';
+}
+
+function delayMs(ms){
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getGiaoBanPdfStatusClient(giaoBanID){
+  const res = await api('giaoBan_getPdfStatus', {giaoBanID});
+  return res.data || {};
+}
+
+async function waitForGiaoBanPdfReady(giaoBanID, title, maxWaitMs=45000){
+  const started = Date.now();
+  while(Date.now() - started < maxWaitMs){
+    await delayMs(2200);
+    const status = await getGiaoBanPdfStatusClient(giaoBanID);
+    const s = String(status.status || status.pdfStatus || '').toUpperCase();
+    if(s === 'READY' && status.url){
+      await openGiaoBanPdf(status.url, title || 'Phiếu giao ban');
+      return true;
+    }
+    if(s === 'ERROR'){
+      renderGiaoBanPdfCommandModal(
+        giaoBanID,
+        title,
+        status.lastError ? `PDF chưa được tạo thành công: ${status.lastError}` : 'PDF chưa được tạo thành công.',
+        {error:true, retry:true}
+      );
+      return false;
+    }
+    setGiaoBanPdfCommandMessage('PDF đang được tạo, vui lòng chờ trong giây lát.');
+  }
+  renderGiaoBanPdfCommandModal(
+    giaoBanID,
+    title,
+    'PDF vẫn đang được tạo. Bạn có thể đóng cửa sổ này và kiểm tra lại sau.',
+    {checking:true}
+  );
+  return false;
+}
+
+window.openSignedGiaoBanPdfById = async function(giaoBanID, title='Phiếu giao ban', btn){
+  const id = String(giaoBanID || '').trim();
+  if(!id) return toast('Không tìm thấy mã phiên giao ban.');
+  renderGiaoBanPdfCommandModal(id, title, 'Đang kiểm tra PDF...');
+  try{
+    let status = await getGiaoBanPdfStatusClient(id);
+    let s = String(status.status || status.pdfStatus || '').toUpperCase();
+
+    if(s === 'READY' && status.url){
+      await openGiaoBanPdf(status.url, title);
+      return;
+    }
+
+    if(s === 'PROCESSING'){
+      setGiaoBanPdfCommandMessage('PDF đang được tạo, vui lòng chờ trong giây lát.');
+      await waitForGiaoBanPdfReady(id, title);
+      return;
+    }
+
+    setGiaoBanPdfCommandMessage(s === 'ERROR' ? 'PDF chưa tạo thành công. Đang tạo lại theo yêu cầu...' : 'Đang tạo PDF, vui lòng chờ trong giây lát...');
+    const res = await api('exportGiaoBanPdf', {giaoBanID:id}, {timeoutMs:180000});
+    status = res.data || {};
+    s = String(status.status || status.pdfStatus || '').toUpperCase();
+
+    if(s === 'READY' && status.url){
+      clearListCaches();
+      await openGiaoBanPdf(status.url, title);
+      return;
+    }
+    if(s === 'PROCESSING'){
+      await waitForGiaoBanPdfReady(id, title);
+      return;
+    }
+
+    renderGiaoBanPdfCommandModal(
+      id,
+      title,
+      status.lastError ? `PDF chưa được tạo thành công: ${status.lastError}` : 'PDF chưa được tạo thành công.',
+      {error:true, retry:true}
+    );
+  }catch(err){
+    renderGiaoBanPdfCommandModal(
+      id,
+      title,
+      `PDF chưa được tạo thành công. ${err?.message || 'Vui lòng thử lại.'}`,
+      {error:true, retry:true}
+    );
+  }
+}
 
 function pdfViewButtonHtml(url, title='PDF', label='Xem PDF'){
   return `<button class="btn secondary js-pdf-view" type="button" data-pdf-url="${escAttr(url || '')}" data-pdf-title="${escAttr(title || 'PDF')}">${esc(label || 'Xem PDF')}</button>`;
