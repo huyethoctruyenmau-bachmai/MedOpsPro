@@ -1,4 +1,4 @@
-<!-- VERSION: 368.225 | index: 368 | Code.gs: 225 | INDEX-368.100826-TABBAR-MEETING -->
+<!-- VERSION: 369.225 | index: 369 | Code.gs: 225 | INDEX-369.100826-GIAOBAN-SECTION-REFRESH -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -625,6 +625,14 @@
     }
     .gb-time-refresh-icon:hover{background:#f8fbff}
     .gb-time-refresh-icon svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+    /* ===== START 369: GIAO BAN - UPDATE TUNG MUC ===== */
+    .gb-refresh-title-row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+    .gb-refresh-title-row > span{min-width:0}
+    .gb-sub-label.gb-refresh-title-row{display:flex}
+    .gb-section-refresh-icon{flex:0 0 30px}
+    .gb-section-refresh-icon.is-loading svg{animation:app-spin .8s linear infinite}
+    /* ===== END 369: GIAO BAN - UPDATE TUNG MUC ===== */
 
   
     .pdf-modal{
@@ -6502,7 +6510,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-368.100826-TABBAR-MEETING</p>
+      <p class="login-version">Version: INDEX-369.100826-GIAOBAN-SECTION-REFRESH</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6513,7 +6521,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-368.100826-TABBAR-MEETING</div>
+    <div class="login-loading-version">Version: INDEX-369.100826-GIAOBAN-SECTION-REFRESH</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6567,7 +6575,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-368.100826-TABBAR-MEETING</div>
+    <div class="app-version">Version: INDEX-369.100826-GIAOBAN-SECTION-REFRESH</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6603,7 +6611,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '367.225',
+    frontendVersion: '369.225',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6636,7 +6644,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-368.100826-TABBAR-MEETING';
+const APP_VERSION = 'INDEX-369.100826-GIAOBAN-SECTION-REFRESH';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10274,7 +10282,7 @@ function tmReportItemHtml(label, value){
   return `<div class="report-item ${isPatientTitle ? 'tm-report-patient' : ''}"><div class="report-label">${esc(label)}</div><div class="report-value">${esc(v)}</div></div>`;
 }
 
-function renderTmXuTriGiaoBanCardHtml(items){
+function renderTmXuTriGiaoBanCardHtml(items, options={}){
   const arr = items || [];
   const body = arr.length ? arr.map((x, index) => {
     const d = x.data || {};
@@ -10306,21 +10314,23 @@ function renderTmXuTriGiaoBanCardHtml(items){
       ${renderTmAttachmentInlineHtml(d, 'Ảnh/tài liệu đính kèm')}
     `;
   }).join('') : '<div class="report-value">Không có bệnh nhân nào cần xử trí chuyên môn.</div>';
-  return `<div class="report-day"><div class="report-day-title">1. Bệnh nhân cần xử trí chuyên môn</div>${body}</div>`;
+  if(options.contentOnly) return body;
+  return `<div class="report-day"><div class="report-day-title gb-refresh-title-row"><span>1. Bệnh nhân cần xử trí chuyên môn</span>${options.refreshHtml || ''}</div><div id="gbTmXuTriSectionContent">${body}</div></div>`;
 }
-function renderTmTdkmmGiaoBanCardHtml(items){
+function renderTmTdkmmGiaoBanCardHtml(items, options={}){
   const arr = items || [];
   const body = arr.length ? arr.map((p, index) => {
     const d = p.data || {};
     const attachHtml = tmAttachmentItems(d).length ? renderTmAttachmentInlineHtml(d, 'g. Ảnh/tài liệu đính kèm') : '';
     return `<div class="report-item tm-report-patient"><div class="report-label">${esc(tmPatientNo(2, index))}</div><div class="report-value">${tdkmmGiaoBanSectionHtml(p, d, true)}</div></div>${attachHtml}`;
   }).join('') : '<div class="report-value">Không có bệnh nhân nào có tai biến liên quan đến truyền máu.</div>';
-  return `<div class="report-day"><div class="report-day-title">2. Tác dụng không mong muốn liên quan đến truyền máu</div>${body}</div>`;
+  if(options.contentOnly) return body;
+  return `<div class="report-day"><div class="report-day-title gb-refresh-title-row"><span>2. Tác dụng không mong muốn liên quan đến truyền máu</span>${options.refreshHtml || ''}</div><div id="gbTmTdkmmSectionContent">${body}</div></div>`;
 }
 
-function renderTmGiaoBanSummaryCardHtml(items){
+function renderTmGiaoBanSummaryCardHtml(items, options={}){
   const g = getTmGiaoBanGroups(items);
-  return renderTmXuTriGiaoBanCardHtml(g.xuTri) + renderTmTdkmmGiaoBanCardHtml(g.tdkmm);
+  return renderTmXuTriGiaoBanCardHtml(g.xuTri, {refreshHtml:options.xuTriRefreshHtml || ''}) + renderTmTdkmmGiaoBanCardHtml(g.tdkmm, {refreshHtml:options.tdkmmRefreshHtml || ''});
 }
 
 function renderTmGiaoBanSummaryPreviewHtml(items, headingText){
@@ -13459,6 +13469,7 @@ window.openGiaoBan = async function(giaoBanID, khoaPhong, btn){
     if(state.currentGiaoBan) state.currentGiaoBan.loaiGiaoBan = selectedLoai;
     state.currentReports = isBienBanHopLoai(selectedLoai) ? [] : (res.data.reports || []);
     state.currentTmPhieus = isBienBanHopLoai(selectedLoai) ? [] : (res.data.tmPhieus || []);
+    gbResetGiaoBanSectionRefreshData();
     resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
     renderGiaoBanModal();
   };
@@ -13515,6 +13526,7 @@ window.createGiaoBanFromDialog = async function(forceCreate, btn){
     state.currentGiaoBan = res.data.giaoBan;
     state.currentReports = res.data.reports || [];
     state.currentTmPhieus = res.data.tmPhieus || [];
+    gbResetGiaoBanSectionRefreshData();
     resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
     closeModal();
     clearListCaches();
@@ -13564,6 +13576,7 @@ window.forceCreateGiaoBanFromChoice = async function(btn){
     state.currentGiaoBan = res.data.giaoBan;
     state.currentReports = res.data.reports || [];
     state.currentTmPhieus = res.data.tmPhieus || [];
+    gbResetGiaoBanSectionRefreshData();
     resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
     closeModal();
     clearListCaches();
@@ -13591,6 +13604,125 @@ window.deleteGiaoBan = async function(giaoBanID, btn){
   if(btn) return withButton(btn, 'Đang xóa...', task);
   try{ await task(); }catch(err){ toast(err.message); }
 }
+
+/* ===== MODULE: JS_GIAO_BAN_SECTION_REFRESH_START ===== */
+function gbResetGiaoBanSectionRefreshData(){
+  state.giaoBanSectionRefreshData = null;
+}
+
+function gbGetGiaoBanSectionRefreshData(){
+  const cache = state.giaoBanSectionRefreshData || {};
+  const baseReports = state.currentReports || [];
+  const baseTmGroups = getTmGiaoBanGroups(state.currentTmPhieus || []);
+  return {
+    reports: Array.isArray(cache.reports) ? cache.reports : baseReports,
+    khoReports: Array.isArray(cache.khoReports) ? cache.khoReports : baseReports,
+    soLieuReports: Array.isArray(cache.soLieuReports) ? cache.soLieuReports : baseReports,
+    tmXuTri: Array.isArray(cache.tmXuTri) ? cache.tmXuTri : baseTmGroups.xuTri,
+    tmTdkmm: Array.isArray(cache.tmTdkmm) ? cache.tmTdkmm : baseTmGroups.tdkmm,
+    khoMauKhac: Object.prototype.hasOwnProperty.call(cache, 'khoMauKhac')
+      ? cache.khoMauKhac
+      : (state.currentGiaoBan?.khoMauKhac || '')
+  };
+}
+
+function gbSectionRefreshButtonHtml(section, label){
+  return `<button class="gb-time-refresh-icon gb-section-refresh-icon" type="button" onclick="gbRefreshGiaoBanSection('${escAttr(section)}', this)" title="Cập nhật lại ${escAttr(label)}" aria-label="Cập nhật lại ${escAttr(label)}"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>`;
+}
+
+function gbRenderBaoCaoThuongTrucHtml(sourceReports){
+  const sortedReports = sortReportsByDateAsc((sourceReports || []).filter(isClientBaoCaoReport));
+  return sortedReports.length ? sortedReports.map(r => `
+    <div class="report-day">
+      <div class="report-day-title report-date-title">${weekdayDateVi(r.ngayTruc,true)}</div>
+      <div class="report-item"><div class="report-label">1.1. Nhân viên trực</div><div class="report-value">${esc(renderStaffBulletNameList(r.nhanVienThuongTruc) || 'Chưa nhập')}</div></div>
+      <div class="report-item"><div class="report-label">1.2. Dữ liệu trực</div><div class="report-compact-value">${formatSoLieuTrucCompact(r.soLieuTruc)}</div></div>
+      <div class="report-item"><div class="report-label">1.3. Chuyên môn</div><div class="report-value">${renderBaoCaoChuyenMonGiaoBanHtml(r)}</div></div>
+      <div class="report-item"><div class="report-label">1.4. Vấn đề khác</div><div class="report-value">${esc(r.baoCaoVanDeKhac || '')}</div></div>
+    </div>
+  `).join('') : `<div class="empty">Chưa có báo cáo thường trực chưa giao ban.</div>`;
+}
+
+async function gbFetchFreshGiaoBanSourceData(){
+  const g = state.currentGiaoBan || {};
+  if(!g.giaoBanID) throw new Error('Không tìm thấy phiên giao ban hiện tại.');
+  const selectedTime = fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBan || g.thoiGianGiaoBanHienThi || hanoiNowIso();
+  if(g.isVirtual){
+    const res = await api('createGiaoBan', {
+      khoaPhong: g.khoaPhong || state.user?.khoaPhong || '',
+      loaiGiaoBan: g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC,
+      thoiGianMoGiaoBan: selectedTime,
+      forceCreate: true
+    });
+    return res.data || {};
+  }
+  const res = await api('openGiaoBan', {giaoBanID:g.giaoBanID});
+  return res.data || {};
+}
+
+window.gbRefreshGiaoBanSection = async function(section, btn){
+  const g = state.currentGiaoBan;
+  if(!g || g.daKhoa || g.trangThai === STATUS_DA) return;
+  const labels = {
+    reports:'Báo cáo thường trực',
+    tmXuTri:'Bệnh nhân cần xử trí chuyên môn',
+    tmTdkmm:'Tác dụng không mong muốn liên quan đến truyền máu',
+    khoMau:'Kho máu',
+    soLieuTm24h:'Số liệu xét nghiệm - truyền máu 24h'
+  };
+  if(!labels[section]) return;
+
+  const cache = state.giaoBanSectionRefreshData || (state.giaoBanSectionRefreshData = {});
+  const wasDisabled = !!btn?.disabled;
+  if(btn){
+    btn.disabled = true;
+    btn.classList.add('is-loading');
+    btn.setAttribute('aria-busy','true');
+  }
+  try{
+    const fresh = await gbFetchFreshGiaoBanSourceData();
+    const freshReports = fresh.reports || [];
+    const freshTmPhieus = fresh.tmPhieus || [];
+    const freshTmGroups = getTmGiaoBanGroups(freshTmPhieus);
+
+    if(section === 'reports') {
+      cache.reports = freshReports;
+      const box = $('#gbReportsSectionContent');
+      if(box) box.innerHTML = gbRenderBaoCaoThuongTrucHtml(cache.reports);
+    } else if(section === 'tmXuTri') {
+      cache.tmXuTri = freshTmGroups.xuTri;
+      const box = $('#gbTmXuTriSectionContent');
+      if(box) box.innerHTML = renderTmXuTriGiaoBanCardHtml(cache.tmXuTri, {contentOnly:true});
+      loadTmAttachmentImages(document.getElementById('gbTmXuTriSectionContent') || document);
+    } else if(section === 'tmTdkmm') {
+      cache.tmTdkmm = freshTmGroups.tdkmm;
+      const box = $('#gbTmTdkmmSectionContent');
+      if(box) box.innerHTML = renderTmTdkmmGiaoBanCardHtml(cache.tmTdkmm, {contentOnly:true});
+      loadTmAttachmentImages(document.getElementById('gbTmTdkmmSectionContent') || document);
+    } else if(section === 'khoMau') {
+      cache.khoReports = freshReports;
+      cache.khoMauKhac = fresh.giaoBan?.khoMauKhac || '';
+      const box = $('#gbKhoMauSectionContent');
+      if(box) box.innerHTML = renderGiaoBanKhoMauHtml(cache.khoReports, cache.khoMauKhac) || '<div class="empty">Chưa có dữ liệu kho máu phù hợp.</div>';
+    } else if(section === 'soLieuTm24h') {
+      cache.soLieuReports = freshReports;
+      const box = $('#gbSoLieuTm24hSectionContent');
+      if(box) box.innerHTML = renderSoLieuTmGiaoBanHtml(cache.soLieuReports);
+    }
+
+    refreshGiaoBanStructuredPreview();
+    toast(`Đã cập nhật ${labels[section]}.`);
+  }catch(err){
+    toast(`Không thể cập nhật ${labels[section]}. ${err?.message || ''}`.trim());
+  }finally{
+    if(btn){
+      btn.classList.remove('is-loading');
+      btn.removeAttribute('aria-busy');
+      btn.disabled = wasDisabled;
+    }
+  }
+}
+/* ===== MODULE: JS_GIAO_BAN_SECTION_REFRESH_END ===== */
 
 
 function getLatestMauTonFromReports(sourceReports){
@@ -13688,7 +13820,8 @@ function pvCompactText(parts){ return parts.filter(x => x && String(x.value ?? '
 function pvLine(cls, html){ return `<div class="${cls}">${html}</div>`; }
 function getGiaoBanPreviewSnapshot(isDotXuat){
   const g = state.currentGiaoBan || {};
-  const sortedReports = sortReportsByDateAsc(state.currentReports || []);
+  const sectionData = gbGetGiaoBanSectionRefreshData();
+  const sortedReports = sortReportsByDateAsc(sectionData.reports || []);
   const isTM = isTruyenMauDept(g.khoaPhong || '');
   return {
     isDotXuat: !!isDotXuat,
@@ -13704,9 +13837,11 @@ function getGiaoBanPreviewSnapshot(isDotXuat){
     nghi: $('#gbNghi')?.value || g.nghi || '',
     nhanLuc: g.nhanLucTongHop || summarizeReportsStaff(sortedReports) || '',
     reports: sortedReports,
-    tmPhieus: state.currentTmPhieus || [],
+    tmPhieus: [].concat(sectionData.tmXuTri || [], sectionData.tmTdkmm || []),
+    khoReports: sortReportsByDateAsc(sectionData.khoReports || []),
+    soLieuReports: sortReportsByDateAsc(sectionData.soLieuReports || []),
     khoMau: '',
-    khoMauKhac: g.khoMauKhac || '',
+    khoMauKhac: sectionData.khoMauKhac || '',
     thongBao: $('#gbThongBao')?.value || g.thongBao || '',
     noiDungKhac: $('#gbNoiDungKhac')?.value || g.noiDungKhac || '',
     noiDungGiaoBanKhac: $('#gbNoiDungGiaoBanKhac')?.value || g.noiDungGiaoBanKhac || '',
@@ -13750,9 +13885,9 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
     renderTmGiaoBanSummaryPreviewHtml(d.tmPhieus || [], 'II. Xử trí chuyên môn và tác dụng không mong muốn liên quan đến truyền máu'),
     pvLine('gb-pv-roman','III. Nội dung giao ban khác'),
     pvLine('gb-pv-num','1. Kho máu'),
-    pvLine('gb-pv-detail', renderGiaoBanKhoMauHtml(d.reports || [], d.khoMauKhac) || 'Chưa có dữ liệu kho máu phù hợp.'),
+    pvLine('gb-pv-detail', renderGiaoBanKhoMauHtml(d.khoReports || [], d.khoMauKhac) || 'Chưa có dữ liệu kho máu phù hợp.'),
     pvLine('gb-pv-num','2. Số liệu xét nghiệm - truyền máu 24h'),
-    pvLine('gb-pv-detail', renderSoLieuTmGiaoBanPreviewHtml(d.reports || [])),
+    pvLine('gb-pv-detail', renderSoLieuTmGiaoBanPreviewHtml(d.soLieuReports || [])),
     pvLine('gb-pv-num','3. Thông báo'),
     pvLine('gb-pv-detail', pvHtml(d.thongBao)),
     pvLine('gb-pv-num','4. Nội dung khác'),
@@ -13816,18 +13951,13 @@ function renderGiaoBanModal(){
   const isDotXuat = isBienBanHopLoai(loai);
   if(isDotXuat) return renderGiaoBanDotXuatModal();
 
-  const sortedReports = sortReportsByDateAsc((state.currentReports || []).filter(isClientBaoCaoReport));
-  const reportsHtml = sortedReports.length ? sortedReports.map(r => `
-    <div class="report-day">
-      <div class="report-day-title report-date-title">${weekdayDateVi(r.ngayTruc,true)}</div>
-      <div class="report-item"><div class="report-label">1.1. Nhân viên trực</div><div class="report-value">${esc(renderStaffBulletNameList(r.nhanVienThuongTruc) || 'Chưa nhập')}</div></div>
-      <div class="report-item"><div class="report-label">1.2. Dữ liệu trực</div><div class="report-compact-value">${formatSoLieuTrucCompact(r.soLieuTruc)}</div></div>
-      <div class="report-item"><div class="report-label">1.3. Chuyên môn</div><div class="report-value">${renderBaoCaoChuyenMonGiaoBanHtml(r)}</div></div>
-      <div class="report-item"><div class="report-label">1.4. Vấn đề khác</div><div class="report-value">${esc(r.baoCaoVanDeKhac || '')}</div></div>
-    </div>
-  `).join('') : `<div class="empty">Chưa có báo cáo thường trực chưa giao ban.</div>`;
+  const sectionData = gbGetGiaoBanSectionRefreshData();
+  const sortedReports = sortReportsByDateAsc((sectionData.reports || []).filter(isClientBaoCaoReport));
+  const reportsHtml = gbRenderBaoCaoThuongTrucHtml(sectionData.reports || []);
 
   const isTM = isTruyenMauDept(g.khoaPhong || '');
+  const canRefreshSource = g.trangThai !== STATUS_DA && !g.daKhoa;
+  const tmSummaryItems = [].concat(sectionData.tmXuTri || [], sectionData.tmTdkmm || []);
   const latestMauTon = isTM ? getLatestMauTonFromReports(sortedReports) : null;
 
   const hanhChinhHtml = `
@@ -13855,13 +13985,16 @@ function renderGiaoBanModal(){
 
       ${isTM ? `
         <div class="gb-inner-section" style="margin-top:8px">
-          <h3 class="sub-title">I. Báo cáo thường trực</h3>
-          ${reportsHtml}
+          <h3 class="sub-title gb-refresh-title-row"><span>I. Báo cáo thường trực</span>${canRefreshSource ? gbSectionRefreshButtonHtml('reports','Báo cáo thường trực') : ''}</h3>
+          <div id="gbReportsSectionContent">${reportsHtml}</div>
         </div>
 
         <div class="gb-inner-section" style="border-top:1px solid var(--line);padding-top:10px;margin-top:12px">
           <h3 class="sub-title">II. Xử trí chuyên môn và tác dụng không mong muốn liên quan đến truyền máu</h3>
-          ${renderTmGiaoBanSummaryCardHtml(state.currentTmPhieus || [])}
+          ${renderTmGiaoBanSummaryCardHtml(tmSummaryItems, {
+            xuTriRefreshHtml: canRefreshSource ? gbSectionRefreshButtonHtml('tmXuTri','Bệnh nhân cần xử trí chuyên môn') : '',
+            tdkmmRefreshHtml: canRefreshSource ? gbSectionRefreshButtonHtml('tmTdkmm','Tác dụng không mong muốn liên quan đến truyền máu') : ''
+          })}
         </div>
       ` : `
         <div class="gb-inner-section" style="margin-top:8px">
@@ -13884,12 +14017,12 @@ function renderGiaoBanModal(){
     <div class="card gb-regular-card">
       ${isTM ? `
         <h3 class="sub-title" style="margin-top:0">III. Nội dung giao ban khác</h3>
-        <div class="gb-sub-label">1. Kho máu</div>
+        <div class="gb-sub-label gb-refresh-title-row"><span>1. Kho máu</span>${canRefreshSource ? gbSectionRefreshButtonHtml('khoMau','Kho máu') : ''}</div>
         <div class="list-card">
-          ${renderGiaoBanKhoMauHtml(state.currentReports || [], g.khoMauKhac || '') || '<div class="empty">Chưa có dữ liệu kho máu phù hợp.</div>'}
+          <div id="gbKhoMauSectionContent">${renderGiaoBanKhoMauHtml(sectionData.khoReports || [], sectionData.khoMauKhac || '') || '<div class="empty">Chưa có dữ liệu kho máu phù hợp.</div>'}</div>
         </div>
-        <div class="gb-sub-label" style="margin-top:12px">2. Số liệu xét nghiệm - truyền máu 24h</div>
-        ${renderSoLieuTmGiaoBanHtml(state.currentReports || [])}
+        <div class="gb-sub-label gb-refresh-title-row" style="margin-top:12px"><span>2. Số liệu xét nghiệm - truyền máu 24h</span>${canRefreshSource ? gbSectionRefreshButtonHtml('soLieuTm24h','Số liệu xét nghiệm - truyền máu 24h') : ''}</div>
+        <div id="gbSoLieuTm24hSectionContent">${renderSoLieuTmGiaoBanHtml(sectionData.soLieuReports || [])}</div>
         <div class="grid" style="margin-top:10px">
           <div class="col-12"><label class="gb-sub-label" for="gbThongBao">3. Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
           <div class="col-12"><label class="gb-sub-label" for="gbNoiDungKhac">4. Nội dung khác</label><textarea id="gbNoiDungKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.noiDungKhac || '')}</textarea></div>
@@ -18558,7 +18691,7 @@ function updateViDateDisplay(input){
   }else if(input.type === 'datetime-local'){
     display.value = input.value
       ? (input.id==='gbTime'
-          ? weekdayDateTimeVi(input.value,true).replace('h',':')
+          ? weekdayDateTimeVi(input.value,true).replace(/(\d{1,2})h(\d{2})$/, '$1:$2')
           : dateTimeInputVi(input.value))
       : '';
   }
