@@ -1,4 +1,4 @@
-<!-- VERSION: 378.230 | index: 378 | Code.gs: 230 | INDEX-378.100826-GB-FAST-LOAD -->
+<!-- VERSION: 379.231 | index: 379 | Code.gs: 231 | INDEX-379.100826-GB-NB-SPACING -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6516,7 +6516,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-378.100826-GB-FAST-LOAD</p>
+      <p class="login-version">Version: INDEX-379.100826-GB-NB-SPACING</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6527,7 +6527,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-378.100826-GB-FAST-LOAD</div>
+    <div class="login-loading-version">Version: INDEX-379.100826-GB-NB-SPACING</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6581,7 +6581,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-378.100826-GB-FAST-LOAD</div>
+    <div class="app-version">Version: INDEX-379.100826-GB-NB-SPACING</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6617,7 +6617,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '378.230',
+    frontendVersion: '379.231',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6650,7 +6650,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-378.100826-GB-FAST-LOAD';
+const APP_VERSION = 'INDEX-379.100826-GB-NB-SPACING';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -8994,11 +8994,12 @@ function renderSoLieuTmGiaoBanDayClient(r, khoaPhong='', preview=false){
   const variant = soLieuTmDeptVariantClient(khoaPhong || r.khoaPhong || '');
   const dateHtml = `<span class="gb-pv-date"><strong>${esc(dateVi(r.ngayTruc))}:</strong></span>`;
   if(variant === 'NB'){
+    const gap8 = '&nbsp;'.repeat(8);
     const lines = [
-      '1. Xét nghiệm Đông máu — Tổng số mẫu: ' + esc(d.dongMauTong) + ' · Tổng số mẫu TYC: ' + esc(d.dongMauTyc),
-      '2. Xét nghiệm Tế Bào — Tổng số mẫu: ' + esc(d.teBaoTong) + ' · Tổng số mẫu TYC: ' + esc(d.teBaoTyc),
-      '3. Xét nghiệm Truyền máu - Phát máu — Xét nghiệm Nội: ' + esc(d.xnNoi) + ' · Xét nghiệm Ngoại: ' + esc(d.xnNgoai) + ' · KHC: ' + esc(d.khc) + ' · CP: ' + esc(d.cp) + ' · Tổng: ' + esc(d.tongSoDonVi),
-      '4. Chuyển gửi cơ sở Hà Nội — Tổng số mẫu: ' + esc(d.chuyenGuiHaNoiTong)
+      '1. Xét nghiệm Đông máu: Tổng số mẫu: ' + esc(d.dongMauTong) + gap8 + 'Tổng số mẫu TYC: ' + esc(d.dongMauTyc),
+      '2. Xét nghiệm Tế Bào: Tổng số mẫu: ' + esc(d.teBaoTong) + gap8 + 'Tổng số mẫu TYC: ' + esc(d.teBaoTyc),
+      '3. Xét nghiệm Truyền máu - Phát máu: XN Nội: ' + esc(d.xnNoi) + gap8 + 'XN Ngoại: ' + esc(d.xnNgoai) + gap8 + 'KHC: ' + esc(d.khc) + gap8 + 'CP: ' + esc(d.cp) + gap8 + 'Tổng: ' + esc(d.tongSoDonVi),
+      '4. Chuyển gửi cơ sở Hà Nội: Tổng số mẫu: ' + esc(d.chuyenGuiHaNoiTong)
     ];
     return `${dateHtml}<br>${lines.join('<br>')}`;
   }
