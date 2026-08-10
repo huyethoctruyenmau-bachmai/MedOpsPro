@@ -1,4 +1,4 @@
-<!-- VERSION: 369.225 | index: 369 | Code.gs: 225 | INDEX-369.100826-GIAOBAN-SECTION-REFRESH -->
+<!-- VERSION: 370.226 | index: 370 | Code.gs: 226 | INDEX-370.100826-GIAOBAN-DRAFT-SNAPSHOT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6510,7 +6510,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-369.100826-GIAOBAN-SECTION-REFRESH</p>
+      <p class="login-version">Version: INDEX-370.100826-GIAOBAN-DRAFT-SNAPSHOT</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6521,7 +6521,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-369.100826-GIAOBAN-SECTION-REFRESH</div>
+    <div class="login-loading-version">Version: INDEX-370.100826-GIAOBAN-DRAFT-SNAPSHOT</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6575,7 +6575,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-369.100826-GIAOBAN-SECTION-REFRESH</div>
+    <div class="app-version">Version: INDEX-370.100826-GIAOBAN-DRAFT-SNAPSHOT</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6644,7 +6644,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-369.100826-GIAOBAN-SECTION-REFRESH';
+const APP_VERSION = 'INDEX-370.100826-GIAOBAN-DRAFT-SNAPSHOT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -13469,7 +13469,9 @@ window.openGiaoBan = async function(giaoBanID, khoaPhong, btn){
     if(state.currentGiaoBan) state.currentGiaoBan.loaiGiaoBan = selectedLoai;
     state.currentReports = isBienBanHopLoai(selectedLoai) ? [] : (res.data.reports || []);
     state.currentTmPhieus = isBienBanHopLoai(selectedLoai) ? [] : (res.data.tmPhieus || []);
-    gbResetGiaoBanSectionRefreshData();
+    if(isBienBanHopLoai(selectedLoai)) gbResetGiaoBanSectionRefreshData();
+    else if(res.data.sectionSnapshots) gbApplyGiaoBanSectionSnapshot(res.data.sectionSnapshots);
+    else gbResetGiaoBanSectionRefreshData();
     resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
     renderGiaoBanModal();
   };
@@ -13610,6 +13612,33 @@ function gbResetGiaoBanSectionRefreshData(){
   state.giaoBanSectionRefreshData = null;
 }
 
+function gbApplyGiaoBanSectionSnapshot(snapshot){
+  if(!snapshot || typeof snapshot !== 'object'){
+    gbResetGiaoBanSectionRefreshData();
+    return;
+  }
+  state.giaoBanSectionRefreshData = {
+    reports: Array.isArray(snapshot.reports) ? snapshot.reports : [],
+    khoReports: Array.isArray(snapshot.khoReports) ? snapshot.khoReports : [],
+    soLieuReports: Array.isArray(snapshot.soLieuReports) ? snapshot.soLieuReports : [],
+    tmXuTri: Array.isArray(snapshot.tmXuTri) ? snapshot.tmXuTri : [],
+    tmTdkmm: Array.isArray(snapshot.tmTdkmm) ? snapshot.tmTdkmm : [],
+    khoMauKhac: snapshot.khoMauKhac || ''
+  };
+}
+
+function gbBuildGiaoBanSectionSnapshotPayload(){
+  const sectionData = gbGetGiaoBanSectionRefreshData();
+  return {
+    reports: Array.isArray(sectionData.reports) ? sectionData.reports : [],
+    khoReports: Array.isArray(sectionData.khoReports) ? sectionData.khoReports : [],
+    soLieuReports: Array.isArray(sectionData.soLieuReports) ? sectionData.soLieuReports : [],
+    tmXuTri: Array.isArray(sectionData.tmXuTri) ? sectionData.tmXuTri : [],
+    tmTdkmm: Array.isArray(sectionData.tmTdkmm) ? sectionData.tmTdkmm : [],
+    khoMauKhac: sectionData.khoMauKhac || ''
+  };
+}
+
 function gbGetGiaoBanSectionRefreshData(){
   const cache = state.giaoBanSectionRefreshData || {};
   const baseReports = state.currentReports || [];
@@ -13656,7 +13685,7 @@ async function gbFetchFreshGiaoBanSourceData(){
     });
     return res.data || {};
   }
-  const res = await api('openGiaoBan', {giaoBanID:g.giaoBanID});
+  const res = await api('openGiaoBan', {giaoBanID:g.giaoBanID, refreshSource:true});
   return res.data || {};
 }
 
@@ -15442,6 +15471,9 @@ function collectGiaoBanPayload(){
     noiDungDotXuat: $('#gbNoiDungDotXuat')?.value || '',
     ketLuan: $('#gbKetLuan')?.value || ''
   };
+  if(!isBienBanHopLoai(payload.loaiGiaoBan)){
+    payload.giaoBanSectionSnapshots = gbBuildGiaoBanSectionSnapshotPayload();
+  }
   return payload;
 }
 
