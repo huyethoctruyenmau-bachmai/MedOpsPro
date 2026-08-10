@@ -1,4 +1,4 @@
-<!-- VERSION: 377.229 | index: 377 | Code.gs: 229 | INDEX-377.100826-TM24H-DEPT-FORMS -->
+<!-- VERSION: 378.230 | index: 378 | Code.gs: 230 | INDEX-378.100826-GB-FAST-LOAD -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6516,7 +6516,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-377.100826-TM24H-DEPT-FORMS</p>
+      <p class="login-version">Version: INDEX-378.100826-GB-FAST-LOAD</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6527,7 +6527,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-377.100826-TM24H-DEPT-FORMS</div>
+    <div class="login-loading-version">Version: INDEX-378.100826-GB-FAST-LOAD</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6581,7 +6581,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-377.100826-TM24H-DEPT-FORMS</div>
+    <div class="app-version">Version: INDEX-378.100826-GB-FAST-LOAD</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6617,7 +6617,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '369.225',
+    frontendVersion: '378.230',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6650,7 +6650,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-377.100826-TM24H-DEPT-FORMS';
+const APP_VERSION = 'INDEX-378.100826-GB-FAST-LOAD';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -13657,23 +13657,28 @@ window.createGiaoBanFromDialog = async function(forceCreate, btn){
   };
   state.pendingCreateGiaoBanPayload = payload;
   const task = async () => {
-    const res = await api('createGiaoBan', payload);
-    if(res.data?.needChoice){
-      showGiaoBanChoiceDialog(res.data.openSessions || [], payload);
-      return;
+    showAppActionOverlay('Đang tải dữ liệu giao ban...', 'Vui lòng chờ trong giây lát');
+    try{
+      const res = await api('createGiaoBan', payload);
+      if(res.data?.needChoice){
+        showGiaoBanChoiceDialog(res.data.openSessions || [], payload);
+        return;
+      }
+      state.currentGiaoBan = res.data.giaoBan;
+      gbInitGiaoBanDateGuardState(state.currentGiaoBan);
+      state.currentReports = res.data.reports || [];
+      state.currentTmPhieus = res.data.tmPhieus || [];
+      gbResetGiaoBanSectionRefreshData();
+      resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
+      closeModal();
+      clearListCaches();
+      renderGiaoBanModal();
+    } finally {
+      hideAppActionOverlay();
     }
-    state.currentGiaoBan = res.data.giaoBan;
-    gbInitGiaoBanDateGuardState(state.currentGiaoBan);
-    state.currentReports = res.data.reports || [];
-    state.currentTmPhieus = res.data.tmPhieus || [];
-    gbResetGiaoBanSectionRefreshData();
-    resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
-    closeModal();
-    clearListCaches();
-    renderGiaoBanModal();
   };
   if(btn) return withButton(btn, 'Đang tạo...', task);
-  try{ await task(); }catch(err){ toast(err.message); }
+  try{ await task(); }catch(err){ hideAppActionOverlay(); toast(err.message); }
 }
 
 function showGiaoBanChoiceDialog(sessions, payload){
@@ -13712,19 +13717,24 @@ window.forceCreateGiaoBanFromChoice = async function(btn){
   if(!payload) return toast('Không còn thông tin tạo phiên giao ban.');
   payload.forceCreate = true;
   const task = async () => {
-    const res = await api('createGiaoBan', payload);
-    state.currentGiaoBan = res.data.giaoBan;
-    gbInitGiaoBanDateGuardState(state.currentGiaoBan);
-    state.currentReports = res.data.reports || [];
-    state.currentTmPhieus = res.data.tmPhieus || [];
-    gbResetGiaoBanSectionRefreshData();
-    resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
-    closeModal();
-    clearListCaches();
-    renderGiaoBanModal();
+    showAppActionOverlay('Đang tải dữ liệu giao ban...', 'Vui lòng chờ trong giây lát');
+    try{
+      const res = await api('createGiaoBan', payload);
+      state.currentGiaoBan = res.data.giaoBan;
+      gbInitGiaoBanDateGuardState(state.currentGiaoBan);
+      state.currentReports = res.data.reports || [];
+      state.currentTmPhieus = res.data.tmPhieus || [];
+      gbResetGiaoBanSectionRefreshData();
+      resetPendingThuKySignature(state.currentGiaoBan?.giaoBanID || '');
+      closeModal();
+      clearListCaches();
+      renderGiaoBanModal();
+    } finally {
+      hideAppActionOverlay();
+    }
   };
   if(btn) return withButton(btn, 'Đang tạo...', task);
-  try{ await task(); }catch(err){ toast(err.message); }
+  try{ await task(); }catch(err){ hideAppActionOverlay(); toast(err.message); }
 }
 
 window.deleteGiaoBan = async function(giaoBanID, btn){
