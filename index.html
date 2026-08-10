@@ -1,4 +1,4 @@
-<!-- VERSION: 375.228 | index: 375 | Code.gs: 228 | INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE -->
+<!-- VERSION: 376.228 | index: 376 | Code.gs: 228 | INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6512,7 +6512,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE</p>
+      <p class="login-version">Version: INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6523,7 +6523,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE</div>
+    <div class="login-loading-version">Version: INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6577,7 +6577,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE</div>
+    <div class="app-version">Version: INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6646,7 +6646,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-375.100826-GIAOBAN-PDF-VIEW-SIMPLE';
+const APP_VERSION = 'INDEX-376.100826-GIAOBAN-PDF-VIEW-FIX';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -13448,7 +13448,7 @@ function renderGiaoBanList(items, note=''){
     const deleteBtn = g.canDelete ? `<button class="app-icon-btn delete" onclick="deleteGiaoBan('${escAttr(g.giaoBanID)}', this)" title="Xóa phiên giao ban" aria-label="Xóa phiên giao ban">${iconTrash()}</button>` : '';
     const done = g.trangThai === STATUS_DA;
     const mainActions = done
-      ? `<button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(g.giaoBanID)}, ${jsArg(pdfTitle)}, this)">Xem phiếu</button>`
+      ? `<button class="btn secondary gb-list-view-btn js-gb-view-pdf" type="button" data-gb-id="${escAttr(g.giaoBanID || '')}" data-pdf-title="${escAttr(pdfTitle || 'Phiếu giao ban')}">Xem phiếu</button>`
       : `<button class="btn secondary" onclick="openGiaoBan('${escAttr(g.giaoBanID)}','${escAttr(g.khoaPhong)}', this)">Xem phiếu</button>`;
     return `
       <div class="list-card phieu-card">
@@ -14379,7 +14379,7 @@ function renderGiaoBanFinishBlock(g){
         <div class="meta">Chủ trì: ${esc(g.chuTriTen || g.nguoiChuTriTuDo || '')}</div>
         ${g.thoiDiemThuKyKy ? `<div class="meta">Thư ký ký: ${dateTimeVi(g.thoiDiemThuKyKy)}</div>` : ''}
         <div class="meta">Thời điểm ký chủ trì: ${dateTimeVi(g.thoiDiemChuTriKy)}</div>
-        <div class="btn-row"><button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(g.giaoBanID || '')}, ${jsArg(buildGiaoBanPdfDownloadTitle(g))}, this)">Xem phiếu</button></div>
+        <div class="btn-row"><button class="btn secondary js-gb-view-pdf" type="button" data-gb-id="${escAttr(g.giaoBanID || '')}" data-pdf-title="${escAttr(buildGiaoBanPdfDownloadTitle(g))}">Xem phiếu</button></div>
       </div>`;
   }
 
@@ -16383,7 +16383,7 @@ function renderDsPhieuCard(x){
   const detailBtn = isTdkmm
     ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
     : (isGiaoBanDone
-        ? `<button class="btn secondary" type="button" onclick="openSignedGiaoBanPdfById(${jsArg(x.id)}, ${jsArg(title || x.loaiPhieu || 'Giao ban')}, this)">Xem phiếu</button>`
+        ? `<button class="btn secondary js-gb-view-pdf" type="button" data-gb-id="${escAttr(x.id || '')}" data-pdf-title="${escAttr(title || x.loaiPhieu || 'Giao ban')}">Xem phiếu</button>`
         : (isGiaoBanDraft
             ? `<button class="btn secondary" onclick="openGiaoBan(${jsArg(x.id)}, ${jsArg(x.khoaPhong || '')}, this)">Xem phiếu</button>`
             : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : ''))));
@@ -18623,6 +18623,15 @@ function isHorizontalScrollableAppTarget(el){
 
 
 document.addEventListener('click', function(e){
+  const gbBtn = e.target && e.target.closest ? e.target.closest('.js-gb-view-pdf') : null;
+  if(gbBtn){
+    e.preventDefault();
+    const id = gbBtn.dataset ? (gbBtn.dataset.gbId || '') : '';
+    const title = gbBtn.dataset ? (gbBtn.dataset.pdfTitle || 'Phiếu giao ban') : 'Phiếu giao ban';
+    window.openSignedGiaoBanPdfById(id, title, gbBtn);
+    return;
+  }
+
   const btn = e.target && e.target.closest ? e.target.closest('[data-pdf-url].js-pdf-view') : null;
   if(!btn) return;
   e.preventDefault();
