@@ -1,4 +1,4 @@
-<!-- VERSION: 382.234 | index: 382 | Code.gs: 234 | INDEX-382.140826-NKTM-SUPPLY-SHARED -->
+<!-- VERSION: 383.235 | index: 383 | Code.gs: 235 | INDEX-383.140826-NKTM-CONFIG-BATCH -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6296,6 +6296,13 @@
     #noiKiemTmConfigRoot .nkcfg-dept{max-width:480px}
     #noiKiemTmConfigRoot .nkcfg-section-note{padding:10px 12px;background:#f8f9fa;border:1px solid #e8eaed;border-radius:8px;color:#5f6368;font-size:13px;margin-bottom:14px}
     #noiKiemTmConfigRoot .nkcfg-editing{border-color:#1a73e8;box-shadow:0 0 0 2px rgba(26,115,232,.1)}
+    #noiKiemTmConfigRoot .nkcfg-commitbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding:10px 12px;border:1px solid #e8eaed;border-radius:9px;background:#f8f9fa}
+    #noiKiemTmConfigRoot .nkcfg-commitbar.dirty{background:#fff8e1;border-color:#f9ab00}
+    #noiKiemTmConfigRoot .nkcfg-dirty-note{font-size:13px;color:#5f6368}
+    #noiKiemTmConfigRoot .nkcfg-commitbar.dirty .nkcfg-dirty-note{color:#8a4b00;font-weight:700}
+    #noiKiemTmConfigRoot .nkcfg-pending-chip{display:inline-flex;align-items:center;margin-left:6px;padding:2px 7px;border-radius:999px;background:#fff3cd;color:#7a4d00;font-size:11px;font-weight:700;white-space:nowrap}
+    #noiKiemTmConfigRoot .nkcfg-table .nkcfg-row-pending{background:#fffdf5}
+    #noiKiemTmConfigRoot .nkcfg-row-actions{display:flex;gap:6px;flex-wrap:wrap}
     .nk-paper-config-empty{margin:4px 0 8px;padding:9px 12px;border:1px dashed #b8bdc4;border-radius:6px;background:#fafafa;color:#5f6368;font:13px Arial,sans-serif;text-align:center}
     .nk-paper-subtable{width:var(--nk-common-table-width,1320px)!important;min-width:var(--nk-common-table-width,1320px)!important;max-width:var(--nk-common-table-width,1320px)!important;margin-bottom:5px}
     .nk-paper-subtable>.nk-paper-table{width:100%!important;min-width:100%!important;max-width:100%!important}
@@ -6308,6 +6315,8 @@
       #noiKiemTmConfigRoot .nkcfg-col-2,#noiKiemTmConfigRoot .nkcfg-col-3,#noiKiemTmConfigRoot .nkcfg-col-4,#noiKiemTmConfigRoot .nkcfg-col-6,#noiKiemTmConfigRoot .nkcfg-col-12{grid-column:1/-1}
       #noiKiemTmConfigRoot .nkcfg-actions{justify-content:stretch}
       #noiKiemTmConfigRoot .nkcfg-actions .btn{flex:1 1 auto}
+      #noiKiemTmConfigRoot .nkcfg-commitbar{align-items:stretch;flex-direction:column}
+      #noiKiemTmConfigRoot .nkcfg-commitbar .btn{width:100%}
       #noiKiemTmConfigRoot .nkcfg-table{width:max-content;min-width:760px}
     }
     /* ===== NOI_KIEM_TM_CONFIG: END ===== */
@@ -6518,7 +6527,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-382.140826-NKTM-SUPPLY-SHARED</p>
+      <p class="login-version">Version: INDEX-383.140826-NKTM-CONFIG-BATCH</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6529,7 +6538,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-382.140826-NKTM-SUPPLY-SHARED</div>
+    <div class="login-loading-version">Version: INDEX-383.140826-NKTM-CONFIG-BATCH</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6583,7 +6592,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-382.140826-NKTM-SUPPLY-SHARED</div>
+    <div class="app-version">Version: INDEX-383.140826-NKTM-CONFIG-BATCH</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6619,7 +6628,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '382.234',
+    frontendVersion: '383.235',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6652,7 +6661,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-382.140826-NKTM-SUPPLY-SHARED';
+const APP_VERSION = 'INDEX-383.140826-NKTM-CONFIG-BATCH';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6967,7 +6976,14 @@ function bindGlobalEvents(){
   $('#registerAccountLink')?.addEventListener('click', e => { e.preventDefault(); withInlineBusy(e.currentTarget, 'Đang kiểm tra...', openRegisterAccountModal); });
   $('#forgotPasswordLink')?.addEventListener('click', e => { e.preventDefault(); withInlineBusy(e.currentTarget, 'Đang mở...', openForgotPasswordModal); });
   $('#logoutBtn').addEventListener('click', logout);
-  $$('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+  $$('.tab-btn').forEach(btn => btn.addEventListener('click', async () => {
+    if(state.activeTab === 'settings' && state.settingsSection === 'noiKiemTmConfig' && btn.dataset.tab !== 'settings' && NoiKiemTmConfigModule.hasPendingChanges()){
+      const ok = await NoiKiemTmConfigModule.confirmLeave();
+      if(!ok) return;
+      NoiKiemTmConfigModule.discardPending();
+    }
+    switchTab(btn.dataset.tab);
+  }));
   AppNavigationModule.init();
   bindChairSuggestDelegates();
   document.addEventListener('input', e => {
@@ -7285,10 +7301,23 @@ const AppNavigationModule = (() => {
     bound = true;
   }
 
-  function handleClick(event){
+  async function handleClick(event){
     const button = event.target.closest('[data-app-action]');
     if(!button || !document.getElementById('app')?.contains(button)) return;
     const action = button.dataset.appAction || '';
+    const leavingNkCfg = state.activeTab === 'settings' && state.settingsSection === 'noiKiemTmConfig' && (
+      (action === 'open-tab' && (button.dataset.target || 'home') !== 'settings') ||
+      action === 'open-technical' ||
+      (action === 'open-settings' && (button.dataset.section || '') !== 'noiKiemTmConfig') ||
+      action === 'settings-group' ||
+      (action === 'settings-section' && (button.dataset.section || '') !== 'noiKiemTmConfig')
+    );
+    if(leavingNkCfg && NoiKiemTmConfigModule.hasPendingChanges()){
+      event.preventDefault();
+      const ok = await NoiKiemTmConfigModule.confirmLeave();
+      if(!ok) return;
+      NoiKiemTmConfigModule.discardPending();
+    }
     if(action === 'open-tab'){
       switchTab(button.dataset.target || 'home');
       return;
@@ -17223,95 +17252,87 @@ async function submitForgotPassword(){
 
 /* ===== NOI_KIEM_TM_CONFIG: START ===== */
 const NoiKiemTmConfigModule = (() => {
-  const local={eventsBound:false,dept:'',editing:{device:'',supply:'',mapping:''}};
+  const local={eventsBound:false,beforeUnloadBound:false,dept:'',editing:{device:'',supply:'',mapping:''},drafts:{device:null,supply:null,mapping:null}};
   const activeStatus='Đang sử dụng';
+  const kinds=['device','supply','mapping'];
   function root(){return document.getElementById('noiKiemTmConfigRoot');}
+  function cloneItems(items){return (items||[]).map(x=>Object.assign({},x));}
+  function sourceList(kind){return kind==='device'?(state.noiKiemTmConfig?.devices||[]):kind==='supply'?(state.noiKiemTmConfig?.supplies||[]):(state.noiKiemTmConfig?.mappings||[]);}
+  function ensureDraft(kind){if(!local.drafts[kind]){const base=cloneItems(sourceList(kind));local.drafts[kind]={base,work:cloneItems(base)};}return local.drafts[kind];}
+  function resetDraft(kind){const base=cloneItems(sourceList(kind));local.drafts[kind]={base,work:cloneItems(base)};local.editing[kind]='';}
+  function workList(kind){return ensureDraft(kind).work;}
+  function isTempId(id){return String(id||'').startsWith('TMP_NKCFG_');}
+  function tempId(kind){return `TMP_NKCFG_${kind}_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;}
+  function comparable(kind,item){
+    const x=item||{};
+    if(kind==='device')return{tenThietBi:String(x.tenThietBi||'').trim(),hangModel:String(x.hangModel||'').trim(),maThietBi:String(x.maThietBi||'').trim(),trangThai:x.trangThai||activeStatus};
+    if(kind==='supply')return{nhom:String(x.nhom||'').trim(),tenVatTu:String(x.tenVatTu||'').trim(),hangSanXuat:String(x.hangSanXuat||'').trim(),trangThai:x.trangThai||activeStatus};
+    return{phan:x.phan||'',loaiKetQua:x.loaiKetQua||'',vatTuId:x.vatTuId||'',thietBiId:x.thietBiId||'',tenHienThi:String(x.tenHienThi||'').trim(),thuTu:Number(x.thuTu||1)||1,batBuoc:!!x.batBuoc,trangThai:x.trangThai||activeStatus};
+  }
+  function sameItem(kind,a,b){return JSON.stringify(comparable(kind,a))===JSON.stringify(comparable(kind,b));}
+  function changesFor(kind){
+    const d=ensureDraft(kind),baseMap=new Map(d.base.map(x=>[x.id,x])),workMap=new Map(d.work.filter(x=>!isTempId(x.id)).map(x=>[x.id,x]));
+    return{
+      added:d.work.filter(x=>isTempId(x.id)).map(x=>{const y=Object.assign({},x);delete y.id;return y;}),
+      updated:d.work.filter(x=>!isTempId(x.id)&&baseMap.has(x.id)&&!sameItem(kind,baseMap.get(x.id),x)).map(x=>Object.assign({},x)),
+      deleted:d.base.filter(x=>!workMap.has(x.id)).map(x=>x.id)
+    };
+  }
+  function dirtyCount(kind){const c=changesFor(kind);return c.added.length+c.updated.length+c.deleted.length;}
+  function isDirty(kind){return dirtyCount(kind)>0;}
+  function anyDirty(){return kinds.some(isDirty);}
   function allowedDepts(){
     const own=String(state.user?.khoaPhong||state.user?.phongLamViec||'').trim();
-    if(!canOpenAdminSettings()) return own?[own]:[];
+    if(!canOpenAdminSettings())return own?[own]:[];
     const source=[...(state.khoaPhong||[]),...(state.accountOptions?.listPhongBan||[]),own].map(x=>String(x||'').trim()).filter(Boolean);
     return Array.from(new Set(source)).filter(isTruyenMauDept);
   }
   function selectedDept(){
-    if(local.dept) return local.dept;
+    if(local.dept)return local.dept;
     const list=allowedDepts();
-    const preferred=[
-      state.noiKiemTmConfigDeptContext,
-      document.getElementById('createDept')?.value,
-      state.user?.khoaPhong,
-      state.user?.phongLamViec,
-      state.noiKiemTmConfig?.khoaPhong
-    ].map(x=>String(x||'').trim()).filter(Boolean);
-    for(const value of preferred){
-      const exact=list.find(x=>eqText(x,value));
-      if(exact) return exact;
-    }
+    const preferred=[state.noiKiemTmConfigDeptContext,document.getElementById('createDept')?.value,state.user?.khoaPhong,state.user?.phongLamViec,state.noiKiemTmConfig?.khoaPhong].map(x=>String(x||'').trim()).filter(Boolean);
+    for(const value of preferred){const exact=list.find(x=>eqText(x,value));if(exact)return exact;}
     return list[0]||'';
   }
   function statusChip(value){const active=eqText(value,activeStatus);return `<span class="nkcfg-chip ${active?'active':'stopped'}">${esc(active?activeStatus:'Ngừng sử dụng')}</span>`;}
+  function pendingChip(kind,item){if(isTempId(item?.id))return '<span class="nkcfg-pending-chip">Chưa lưu</span>';const base=ensureDraft(kind).base.find(x=>x.id===item?.id);return base&&!sameItem(kind,base,item)?'<span class="nkcfg-pending-chip">Đã sửa</span>':'';}
   function optionList(items,value,labelFn){return `<option value="">-- Chọn --</option>${(items||[]).map(x=>`<option value="${escAttr(x.id)}" ${x.id===value?'selected':''}>${esc(labelFn(x))}</option>`).join('')}`;}
   function deviceLabel(x){return [x.tenThietBi,x.maThietBi?`(${x.maThietBi})`:''].filter(Boolean).join(' ');}
   function supplyLabel(x){return [x.tenVatTu,x.nhom?`– ${x.nhom}`:''].filter(Boolean).join(' ');}
-  function mappingTypeOptions(phan,value){
-    if(phan==='PHAN_2') return `<option value="ABO_RH" selected>Card ABO–Rh(D)</option>`;
-    if(phan==='PHAN_4') return `<option value="CROSS_CARD" selected>Card chéo hòa hợp</option>`;
-    return `<option value="COOMBS_CARD" ${value!=='REAGENT'?'selected':''}>Card Coombs/KTBT</option><option value="REAGENT" ${value==='REAGENT'?'selected':''}>Vật tư/thuốc thử chỉ LOT-HSD</option>`;
-  }
-  function current(kind){
-    const id=local.editing[kind];
-    const list=kind==='device'?state.noiKiemTmConfig.devices:(kind==='supply'?state.noiKiemTmConfig.supplies:state.noiKiemTmConfig.mappings);
-    return (list||[]).find(x=>x.id===id)||{};
-  }
+  function mappingTypeOptions(phan,value){if(phan==='PHAN_2')return `<option value="ABO_RH" selected>Card ABO–Rh(D)</option>`;if(phan==='PHAN_4')return `<option value="CROSS_CARD" selected>Card chéo hòa hợp</option>`;return `<option value="COOMBS_CARD" ${value!=='REAGENT'?'selected':''}>Card Coombs/KTBT</option><option value="REAGENT" ${value==='REAGENT'?'selected':''}>Vật tư/thuốc thử chỉ LOT-HSD</option>`;}
+  function current(kind){const id=local.editing[kind];return workList(kind).find(x=>x.id===id)||{};}
+  function commitBar(kind){const dirty=isDirty(kind),count=dirtyCount(kind);return `<div class="nkcfg-commitbar ${dirty?'dirty':''}"><div class="nkcfg-dirty-note">${dirty?`Có ${count} thay đổi chưa cập nhật.`:'Không có thay đổi chưa cập nhật.'}</div><button class="btn primary" type="button" data-nkcfg-action="commit-${kind}" ${dirty?'':'disabled'}>Cập nhật</button></div>`;}
   function render(){
     const el=root();if(!el)return;
-    const cfg=state.noiKiemTmConfig||{devices:[],supplies:[],mappings:[]};
-    const dept=selectedDept();local.dept=dept;
-    const device=current('device'), supply=current('supply'), mapping=current('mapping');
-    const depts=allowedDepts();
+    const cfg=state.noiKiemTmConfig||{devices:[],supplies:[],mappings:[]};kinds.forEach(ensureDraft);
+    const dept=selectedDept();local.dept=dept;const device=current('device'),supply=current('supply'),mapping=current('mapping'),depts=allowedDepts();
     const deptControl=canOpenAdminSettings()&&depts.length>1?`<div class="nkcfg-dept"><label>Khoa/phòng đang cấu hình</label><select id="nkcfgDept">${depts.map(x=>`<option value="${escAttr(x)}" ${eqText(x,dept)?'selected':''}>${esc(x)}</option>`).join('')}</select><div class="nkcfg-section-note" style="margin-top:10px">Thiết bị và cấu hình ghép áp dụng riêng cho: <b>${esc(dept||'Chưa xác định')}</b>. Danh mục vật tư, hóa chất, thuốc thử ở Mục 2 dùng chung cho hai đơn vị.</div></div>`:`<div class="nkcfg-section-note">Thiết bị và cấu hình ghép áp dụng riêng cho: <b>${esc(dept||'Chưa xác định')}</b>. Danh mục vật tư, hóa chất, thuốc thử ở Mục 2 dùng chung cho Phòng Truyền máu và Xét nghiệm HH-TM CS Ninh Bình.</div>`;
-    el.innerHTML=`<div class="nkcfg-shell">
-      <div class="nkcfg-card"><div class="nkcfg-head"><div><div class="nkcfg-title">Cấu hình Nội kiểm Truyền máu</div><div class="nkcfg-sub">Thiết bị và cấu hình ghép tách riêng theo khoa/phòng; danh mục vật tư, hóa chất, thuốc thử dùng chung giữa hai đơn vị.</div></div><button class="btn secondary" type="button" data-nkcfg-action="reload">Tải lại</button></div><div class="nkcfg-body">${deptControl}</div></div>
-      ${renderDeviceCard(device,cfg.devices||[])}
-      ${renderSupplyCard(supply,cfg.supplies||[])}
-      ${renderMappingCard(mapping,cfg)}
-    </div>`;
+    el.innerHTML=`<div class="nkcfg-shell"><div class="nkcfg-card"><div class="nkcfg-head"><div><div class="nkcfg-title">Cấu hình Nội kiểm Truyền máu</div><div class="nkcfg-sub">Nhập/thay đổi tại từng phần, sau đó nhấn Cập nhật để lưu một lần xuống hệ thống.</div></div><button class="btn secondary" type="button" data-nkcfg-action="reload">Tải lại</button></div><div class="nkcfg-body">${deptControl}</div></div>${renderDeviceCard(device,workList('device'))}${renderSupplyCard(supply,workList('supply'))}${renderMappingCard(mapping,Object.assign({},cfg,{mappings:workList('mapping')}))}</div>`;
   }
-  function renderDeviceCard(item,items){return `<div class="nkcfg-card ${item.id?'nkcfg-editing':''}"><div class="nkcfg-head"><div><div class="nkcfg-title">1. Danh mục thiết bị Nội kiểm TM</div><div class="nkcfg-sub">Khai tên thiết bị, hãng/model và mã thiết bị nội bộ.</div></div></div><div class="nkcfg-body"><div class="nkcfg-grid"><input id="nkcfgDeviceId" type="hidden" value="${escAttr(item.id||'')}"><div class="nkcfg-col-4"><label>Tên thiết bị</label><input id="nkcfgDeviceName" value="${escAttr(item.tenThietBi||'')}"></div><div class="nkcfg-col-3"><label>Hãng/Model</label><input id="nkcfgDeviceModel" value="${escAttr(item.hangModel||'')}"></div><div class="nkcfg-col-2"><label>Mã thiết bị</label><input id="nkcfgDeviceCode" value="${escAttr(item.maThietBi||'')}"></div><div class="nkcfg-col-3"><label>Trạng thái</label><select id="nkcfgDeviceStatus"><option ${!eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Đang sử dụng</option><option ${eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Ngừng sử dụng</option></select></div><div class="nkcfg-col-12 nkcfg-actions"><button class="btn secondary" type="button" data-nkcfg-action="clear-device">Làm mới</button><button class="btn primary" type="button" data-nkcfg-action="save-device">${item.id?'Cập nhật':'Thêm thiết bị'}</button></div></div>${tableDevices(items)}</div></div>`;}
-  function tableDevices(items){if(!items.length)return '<div class="nkcfg-empty">Chưa khai báo thiết bị.</div>';return `<div class="nkcfg-table-wrap"><table class="nkcfg-table"><thead><tr><th>Thiết bị</th><th>Hãng/Model</th><th>Mã nội bộ</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>${items.map(x=>`<tr><td>${esc(x.tenThietBi)}</td><td>${esc(x.hangModel||'—')}</td><td>${esc(x.maThietBi||'—')}</td><td>${statusChip(x.trangThai)}</td><td><button class="btn secondary" type="button" data-nkcfg-action="edit-device" data-id="${escAttr(x.id)}">Sửa</button></td></tr>`).join('')}</tbody></table></div>`;}
-  function renderSupplyCard(item,items){return `<div class="nkcfg-card ${item.id?'nkcfg-editing':''}"><div class="nkcfg-head"><div><div class="nkcfg-title">2. Danh mục vật tư, hóa chất, thuốc thử</div><div class="nkcfg-sub">Danh mục dùng chung giữa Phòng Truyền máu và Xét nghiệm HH-TM CS Ninh Bình; khai một lần, cả hai đơn vị cùng sử dụng. LOT và HSD nhập tại phiếu.</div></div></div><div class="nkcfg-body"><div class="nkcfg-grid"><input id="nkcfgSupplyId" type="hidden" value="${escAttr(item.id||'')}"><div class="nkcfg-col-3"><label>Nhóm</label><select id="nkcfgSupplyGroup">${['Gelcard','Thuốc thử','Hồng cầu mẫu','Panel hồng cầu','Vật tư khác'].map(x=>`<option ${eqText(item.nhom||'Gelcard',x)?'selected':''}>${x}</option>`).join('')}</select></div><div class="nkcfg-col-4"><label>Tên vật tư/hóa chất</label><input id="nkcfgSupplyName" value="${escAttr(item.tenVatTu||'')}"></div><div class="nkcfg-col-3"><label>Hãng sản xuất</label><input id="nkcfgSupplyMaker" value="${escAttr(item.hangSanXuat||'')}"></div><div class="nkcfg-col-2"><label>Trạng thái</label><select id="nkcfgSupplyStatus"><option ${!eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Đang sử dụng</option><option ${eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Ngừng sử dụng</option></select></div><div class="nkcfg-col-12 nkcfg-actions"><button class="btn secondary" type="button" data-nkcfg-action="clear-supply">Làm mới</button><button class="btn primary" type="button" data-nkcfg-action="save-supply">${item.id?'Cập nhật':'Thêm vật tư/hóa chất'}</button></div></div>${tableSupplies(items)}</div></div>`;}
-  function tableSupplies(items){if(!items.length)return '<div class="nkcfg-empty">Chưa khai báo vật tư/hóa chất.</div>';return `<div class="nkcfg-table-wrap"><table class="nkcfg-table"><thead><tr><th>Nhóm</th><th>Tên</th><th>Hãng</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>${items.map(x=>`<tr><td>${esc(x.nhom||'')}</td><td>${esc(x.tenVatTu)}</td><td>${esc(x.hangSanXuat||'—')}</td><td>${statusChip(x.trangThai)}</td><td><button class="btn secondary" type="button" data-nkcfg-action="edit-supply" data-id="${escAttr(x.id)}">Sửa</button></td></tr>`).join('')}</tbody></table></div>`;}
-  function renderMappingCard(item,cfg){const phan=item.phan||'PHAN_2';const activeSup=(cfg.supplies||[]).filter(x=>eqText(x.trangThai,activeStatus)||x.id===item.vatTuId);const activeDev=(cfg.devices||[]).filter(x=>eqText(x.trangThai,activeStatus)||x.id===item.thietBiId);return `<div class="nkcfg-card ${item.id?'nkcfg-editing':''}"><div class="nkcfg-head"><div><div class="nkcfg-title">3. Ghép nội dung hiển thị trên phiếu</div><div class="nkcfg-sub">Chọn Phần II–IV, kiểu nội dung, vật tư/card và thiết bị; phiếu đã lưu vẫn giữ bản chụp lịch sử.</div></div></div><div class="nkcfg-body"><div class="nkcfg-grid"><input id="nkcfgMappingId" type="hidden" value="${escAttr(item.id||'')}"><div class="nkcfg-col-2"><label>Phần</label><select id="nkcfgMappingPart"><option value="PHAN_2" ${phan==='PHAN_2'?'selected':''}>Phần II</option><option value="PHAN_3" ${phan==='PHAN_3'?'selected':''}>Phần III</option><option value="PHAN_4" ${phan==='PHAN_4'?'selected':''}>Phần IV</option></select></div><div class="nkcfg-col-3"><label>Kiểu nội dung</label><select id="nkcfgMappingType">${mappingTypeOptions(phan,item.loaiKetQua||'')}</select></div><div class="nkcfg-col-3"><label>Vật tư/Card</label><select id="nkcfgMappingSupply">${optionList(activeSup,item.vatTuId,supplyLabel)}</select></div><div class="nkcfg-col-4"><label>Thiết bị (có thể để trống)</label><select id="nkcfgMappingDevice">${optionList(activeDev,item.thietBiId,deviceLabel)}</select></div><div class="nkcfg-col-6"><label>Tên hiển thị</label><input id="nkcfgMappingDisplay" data-nkcfg-auto-name="${item.id?'0':'1'}" value="${escAttr(item.tenHienThi||'')}"></div><div class="nkcfg-col-2"><label>Thứ tự</label><input id="nkcfgMappingOrder" type="number" min="1" value="${escAttr(item.thuTu||1)}"></div><div class="nkcfg-col-2"><label>Bắt buộc</label><select id="nkcfgMappingRequired"><option value="false" ${!item.batBuoc?'selected':''}>Không</option><option value="true" ${item.batBuoc?'selected':''}>Có</option></select></div><div class="nkcfg-col-2"><label>Trạng thái</label><select id="nkcfgMappingStatus"><option ${!eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Đang sử dụng</option><option ${eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Ngừng sử dụng</option></select></div><div class="nkcfg-col-12 nkcfg-actions"><button class="btn secondary" type="button" data-nkcfg-action="auto-name">Tự ghép tên</button><button class="btn secondary" type="button" data-nkcfg-action="clear-mapping">Làm mới</button><button class="btn primary" type="button" data-nkcfg-action="save-mapping">${item.id?'Cập nhật':'Thêm cấu hình'}</button></div></div>${tableMappings(cfg.mappings||[],cfg)}</div></div>`;}
-  function tableMappings(items,cfg){if(!items.length)return '<div class="nkcfg-empty">Chưa có nội dung hiển thị nào. Phiếu sẽ không tự hiển thị card/máy mặc định.</div>';const sm={};const dm={};(cfg.supplies||[]).forEach(x=>sm[x.id]=x);(cfg.devices||[]).forEach(x=>dm[x.id]=x);return `<div class="nkcfg-table-wrap"><table class="nkcfg-table"><thead><tr><th>Phần</th><th>Vật tư/Card</th><th>Thiết bị</th><th>Tên hiển thị</th><th>Thứ tự</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>${items.map(x=>`<tr><td>${esc(x.phan.replace('PHAN_','Phần '))}</td><td>${esc(sm[x.vatTuId]?.tenVatTu||'—')}</td><td>${esc(dm[x.thietBiId]?deviceLabel(dm[x.thietBiId]):'—')}</td><td>${esc(x.tenHienThi)}</td><td>${esc(x.thuTu||'')}</td><td>${statusChip(x.trangThai)}</td><td><button class="btn secondary" type="button" data-nkcfg-action="edit-mapping" data-id="${escAttr(x.id)}">Sửa</button></td></tr>`).join('')}</tbody></table></div>`;}
-  async function load(showToast=false){const el=root();if(el)el.innerHTML='<div class="card"><div class="empty">Đang tải cấu hình Nội kiểm TM...</div></div>';const res=await api('noiKiemTmConfig_load',{khoaPhong:selectedDept()});state.noiKiemTmConfig=Object.assign({loaded:true},res.data||{});local.dept=state.noiKiemTmConfig.khoaPhong||local.dept;local.editing={device:'',supply:'',mapping:''};render();if(showToast)toast('Đã tải cấu hình Nội kiểm TM.');}
+  function renderDeviceCard(item,items){return `<div class="nkcfg-card ${item.id?'nkcfg-editing':''}"><div class="nkcfg-head"><div><div class="nkcfg-title">1. Danh mục thiết bị Nội kiểm TM</div><div class="nkcfg-sub">Nhấn Thêm/Lưu thay đổi để đưa vào danh sách tạm; chỉ nút Cập nhật mới ghi xuống Sheet.</div></div></div><div class="nkcfg-body"><div class="nkcfg-grid"><input id="nkcfgDeviceId" type="hidden" value="${escAttr(item.id||'')}"><div class="nkcfg-col-4"><label>Tên thiết bị</label><input id="nkcfgDeviceName" value="${escAttr(item.tenThietBi||'')}"></div><div class="nkcfg-col-3"><label>Hãng/Model</label><input id="nkcfgDeviceModel" value="${escAttr(item.hangModel||'')}"></div><div class="nkcfg-col-2"><label>Mã thiết bị</label><input id="nkcfgDeviceCode" value="${escAttr(item.maThietBi||'')}"></div><div class="nkcfg-col-3"><label>Trạng thái</label><select id="nkcfgDeviceStatus"><option ${!eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Đang sử dụng</option><option ${eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Ngừng sử dụng</option></select></div><div class="nkcfg-col-12 nkcfg-actions"><button class="btn secondary" type="button" data-nkcfg-action="clear-device">Làm mới</button><button class="btn primary" type="button" data-nkcfg-action="stage-device">${item.id?'Lưu thay đổi':'Thêm thiết bị'}</button></div></div>${tableDevices(items)}${commitBar('device')}</div></div>`;}
+  function tableDevices(items){if(!items.length)return '<div class="nkcfg-empty">Chưa khai báo thiết bị.</div>';return `<div class="nkcfg-table-wrap"><table class="nkcfg-table"><thead><tr><th>Thiết bị</th><th>Hãng/Model</th><th>Mã nội bộ</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>${items.map(x=>{const mark=pendingChip('device',x);return `<tr class="${mark?'nkcfg-row-pending':''}"><td>${esc(x.tenThietBi)}${mark}</td><td>${esc(x.hangModel||'—')}</td><td>${esc(x.maThietBi||'—')}</td><td>${statusChip(x.trangThai)}</td><td><div class="nkcfg-row-actions"><button class="btn secondary" type="button" data-nkcfg-action="edit-device" data-id="${escAttr(x.id)}">Sửa</button><button class="btn secondary" type="button" data-nkcfg-action="delete-device" data-id="${escAttr(x.id)}">Xóa</button></div></td></tr>`;}).join('')}</tbody></table></div>`;}
+  function renderSupplyCard(item,items){return `<div class="nkcfg-card ${item.id?'nkcfg-editing':''}"><div class="nkcfg-head"><div><div class="nkcfg-title">2. Danh mục vật tư, hóa chất, thuốc thử</div><div class="nkcfg-sub">Danh mục dùng chung giữa Phòng Truyền máu và Xét nghiệm HH-TM CS Ninh Bình. Nhấn Cập nhật mới lưu xuống hệ thống.</div></div></div><div class="nkcfg-body"><div class="nkcfg-grid"><input id="nkcfgSupplyId" type="hidden" value="${escAttr(item.id||'')}"><div class="nkcfg-col-3"><label>Nhóm</label><select id="nkcfgSupplyGroup">${['Gelcard','Thuốc thử','Hồng cầu mẫu','Panel hồng cầu','Vật tư khác'].map(x=>`<option ${eqText(item.nhom||'Gelcard',x)?'selected':''}>${x}</option>`).join('')}</select></div><div class="nkcfg-col-4"><label>Tên vật tư/hóa chất</label><input id="nkcfgSupplyName" value="${escAttr(item.tenVatTu||'')}"></div><div class="nkcfg-col-3"><label>Hãng sản xuất</label><input id="nkcfgSupplyMaker" value="${escAttr(item.hangSanXuat||'')}"></div><div class="nkcfg-col-2"><label>Trạng thái</label><select id="nkcfgSupplyStatus"><option ${!eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Đang sử dụng</option><option ${eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Ngừng sử dụng</option></select></div><div class="nkcfg-col-12 nkcfg-actions"><button class="btn secondary" type="button" data-nkcfg-action="clear-supply">Làm mới</button><button class="btn primary" type="button" data-nkcfg-action="stage-supply">${item.id?'Lưu thay đổi':'Thêm vật tư/hóa chất'}</button></div></div>${tableSupplies(items)}${commitBar('supply')}</div></div>`;}
+  function tableSupplies(items){if(!items.length)return '<div class="nkcfg-empty">Chưa khai báo vật tư/hóa chất.</div>';return `<div class="nkcfg-table-wrap"><table class="nkcfg-table"><thead><tr><th>Nhóm</th><th>Tên</th><th>Hãng</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>${items.map(x=>{const mark=pendingChip('supply',x);return `<tr class="${mark?'nkcfg-row-pending':''}"><td>${esc(x.nhom||'')}</td><td>${esc(x.tenVatTu)}${mark}</td><td>${esc(x.hangSanXuat||'—')}</td><td>${statusChip(x.trangThai)}</td><td><div class="nkcfg-row-actions"><button class="btn secondary" type="button" data-nkcfg-action="edit-supply" data-id="${escAttr(x.id)}">Sửa</button><button class="btn secondary" type="button" data-nkcfg-action="delete-supply" data-id="${escAttr(x.id)}">Xóa</button></div></td></tr>`;}).join('')}</tbody></table></div>`;}
+  function renderMappingCard(item,cfg){const phan=item.phan||'PHAN_2',activeSup=(cfg.supplies||[]).filter(x=>eqText(x.trangThai,activeStatus)||x.id===item.vatTuId),activeDev=(cfg.devices||[]).filter(x=>eqText(x.trangThai,activeStatus)||x.id===item.thietBiId);return `<div class="nkcfg-card ${item.id?'nkcfg-editing':''}"><div class="nkcfg-head"><div><div class="nkcfg-title">3. Ghép nội dung hiển thị trên phiếu</div><div class="nkcfg-sub">Thiết bị/vật tư mới phải Cập nhật ở Mục 1/2 trước khi dùng để ghép. Các thay đổi tại đây chỉ lưu khi nhấn Cập nhật.</div></div></div><div class="nkcfg-body"><div class="nkcfg-grid"><input id="nkcfgMappingId" type="hidden" value="${escAttr(item.id||'')}"><div class="nkcfg-col-2"><label>Phần</label><select id="nkcfgMappingPart"><option value="PHAN_2" ${phan==='PHAN_2'?'selected':''}>Phần II</option><option value="PHAN_3" ${phan==='PHAN_3'?'selected':''}>Phần III</option><option value="PHAN_4" ${phan==='PHAN_4'?'selected':''}>Phần IV</option></select></div><div class="nkcfg-col-3"><label>Kiểu nội dung</label><select id="nkcfgMappingType">${mappingTypeOptions(phan,item.loaiKetQua||'')}</select></div><div class="nkcfg-col-3"><label>Vật tư/Card</label><select id="nkcfgMappingSupply">${optionList(activeSup,item.vatTuId,supplyLabel)}</select></div><div class="nkcfg-col-4"><label>Thiết bị (có thể để trống)</label><select id="nkcfgMappingDevice">${optionList(activeDev,item.thietBiId,deviceLabel)}</select></div><div class="nkcfg-col-6"><label>Tên hiển thị</label><input id="nkcfgMappingDisplay" data-nkcfg-auto-name="${item.id?'0':'1'}" value="${escAttr(item.tenHienThi||'')}"></div><div class="nkcfg-col-2"><label>Thứ tự</label><input id="nkcfgMappingOrder" type="number" min="1" value="${escAttr(item.thuTu||1)}"></div><div class="nkcfg-col-2"><label>Bắt buộc</label><select id="nkcfgMappingRequired"><option value="false" ${!item.batBuoc?'selected':''}>Không</option><option value="true" ${item.batBuoc?'selected':''}>Có</option></select></div><div class="nkcfg-col-2"><label>Trạng thái</label><select id="nkcfgMappingStatus"><option ${!eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Đang sử dụng</option><option ${eqText(item.trangThai,'Ngừng sử dụng')?'selected':''}>Ngừng sử dụng</option></select></div><div class="nkcfg-col-12 nkcfg-actions"><button class="btn secondary" type="button" data-nkcfg-action="auto-name">Tự ghép tên</button><button class="btn secondary" type="button" data-nkcfg-action="clear-mapping">Làm mới</button><button class="btn primary" type="button" data-nkcfg-action="stage-mapping">${item.id?'Lưu thay đổi':'Thêm cấu hình'}</button></div></div>${tableMappings(cfg.mappings||[],cfg)}${commitBar('mapping')}</div></div>`;}
+  function tableMappings(items,cfg){if(!items.length)return '<div class="nkcfg-empty">Chưa có nội dung hiển thị nào. Phiếu sẽ không tự hiển thị card/máy mặc định.</div>';const sm={},dm={};(cfg.supplies||[]).forEach(x=>sm[x.id]=x);(cfg.devices||[]).forEach(x=>dm[x.id]=x);return `<div class="nkcfg-table-wrap"><table class="nkcfg-table"><thead><tr><th>Phần</th><th>Vật tư/Card</th><th>Thiết bị</th><th>Tên hiển thị</th><th>Thứ tự</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>${items.map(x=>{const mark=pendingChip('mapping',x);return `<tr class="${mark?'nkcfg-row-pending':''}"><td>${esc(x.phan.replace('PHAN_','Phần '))}</td><td>${esc(sm[x.vatTuId]?.tenVatTu||'—')}</td><td>${esc(dm[x.thietBiId]?deviceLabel(dm[x.thietBiId]):'—')}</td><td>${esc(x.tenHienThi)}${mark}</td><td>${esc(x.thuTu||'')}</td><td>${statusChip(x.trangThai)}</td><td><div class="nkcfg-row-actions"><button class="btn secondary" type="button" data-nkcfg-action="edit-mapping" data-id="${escAttr(x.id)}">Sửa</button><button class="btn secondary" type="button" data-nkcfg-action="delete-mapping" data-id="${escAttr(x.id)}">Xóa</button></div></td></tr>`;}).join('')}</tbody></table></div>`;}
+  async function confirmDiscard(message='Bạn đang có thay đổi chưa cập nhật. Nếu rời khỏi mục này, các thay đổi sẽ bị mất.'){return showConfirmDialog({title:'Thay đổi chưa cập nhật',message,confirmText:'Bỏ thay đổi',cancelText:'Ở lại',danger:true});}
+  async function load(showToast=false,force=false){if(!force&&anyDirty()){const ok=await confirmDiscard('Bạn đang có thay đổi chưa cập nhật. Tải lại sẽ bỏ toàn bộ các thay đổi này.');if(!ok)return false;}const el=root();if(el)el.innerHTML='<div class="card"><div class="empty">Đang tải cấu hình Nội kiểm TM...</div></div>';const res=await api('noiKiemTmConfig_load',{khoaPhong:selectedDept()});state.noiKiemTmConfig=Object.assign({loaded:true},res.data||{});local.dept=state.noiKiemTmConfig.khoaPhong||local.dept;local.editing={device:'',supply:'',mapping:''};local.drafts={device:null,supply:null,mapping:null};render();if(showToast)toast('Đã tải cấu hình Nội kiểm TM.');return true;}
   function collect(kind){if(kind==='device')return{id:$('#nkcfgDeviceId')?.value||'',tenThietBi:$('#nkcfgDeviceName')?.value||'',hangModel:$('#nkcfgDeviceModel')?.value||'',maThietBi:$('#nkcfgDeviceCode')?.value||'',trangThai:$('#nkcfgDeviceStatus')?.value||activeStatus};if(kind==='supply')return{id:$('#nkcfgSupplyId')?.value||'',nhom:$('#nkcfgSupplyGroup')?.value||'',tenVatTu:$('#nkcfgSupplyName')?.value||'',hangSanXuat:$('#nkcfgSupplyMaker')?.value||'',trangThai:$('#nkcfgSupplyStatus')?.value||activeStatus};return{id:$('#nkcfgMappingId')?.value||'',phan:$('#nkcfgMappingPart')?.value||'',loaiKetQua:$('#nkcfgMappingType')?.value||'',vatTuId:$('#nkcfgMappingSupply')?.value||'',thietBiId:$('#nkcfgMappingDevice')?.value||'',tenHienThi:$('#nkcfgMappingDisplay')?.value||'',thuTu:$('#nkcfgMappingOrder')?.value||1,batBuoc:$('#nkcfgMappingRequired')?.value==='true',trangThai:$('#nkcfgMappingStatus')?.value||activeStatus};}
-  function defaultMappingDisplayName(){
-    const supply=(state.noiKiemTmConfig.supplies||[]).find(x=>x.id===$('#nkcfgMappingSupply')?.value);
-    const device=(state.noiKiemTmConfig.devices||[]).find(x=>x.id===$('#nkcfgMappingDevice')?.value);
-    const supplyName=String(supply?.tenVatTu||'').trim();
-    const model=String(device?.hangModel||'').trim();
-    const code=String(device?.maThietBi||'').trim();
-    const deviceText=[model,code?`(${code})`:''].filter(Boolean).join(' ');
-    if(supplyName&&model)return `${supplyName} - ${deviceText}`;
-    if(supplyName&&code)return `${supplyName} (${code})`;
-    return supplyName||deviceText||'';
-  }
-  function autoName(force=false){
-    const input=$('#nkcfgMappingDisplay');if(!input)return;
-    if(!force&&input.dataset.nkcfgAutoName==='0')return;
-    input.value=defaultMappingDisplayName();
-    input.dataset.nkcfgAutoName='1';
-  }
-  async function save(kind,button){const action=kind==='device'?'noiKiemTmConfig_saveDevice':kind==='supply'?'noiKiemTmConfig_saveSupply':'noiKiemTmConfig_saveMapping';const item=collect(kind);await withButton(button,'Đang lưu...',async()=>{const res=await api(action,{khoaPhong:selectedDept(),item});state.noiKiemTmConfig=Object.assign({loaded:true},res.data||{});state.noiKiemTmRuntimeConfigMap={};local.editing[kind]='';render();toast(res.message||'Đã lưu cấu hình.');});}
-  function handleClick(e){const btn=e.target.closest('[data-nkcfg-action]');if(!btn)return;const action=btn.dataset.nkcfgAction;if(action==='reload')return load(true);if(action.startsWith('edit-')){const kind=action.replace('edit-','');local.editing[kind]=btn.dataset.id||'';render();return;}if(action.startsWith('clear-')){local.editing[action.replace('clear-','')]='';render();return;}if(action==='auto-name')return autoName(true);if(action.startsWith('save-'))return save(action.replace('save-',''),btn);}
-  function handleChange(e){
-    if(e.target.id==='nkcfgDept'){local.dept=e.target.value;load();return;}
-    if(e.target.id==='nkcfgMappingPart'){const type=$('#nkcfgMappingType');if(type)type.innerHTML=mappingTypeOptions(e.target.value,type.value||'');return;}
-    if(e.target.id==='nkcfgMappingSupply'||e.target.id==='nkcfgMappingDevice')autoName(false);
-  }
+  function defaultMappingDisplayName(){const supply=(state.noiKiemTmConfig.supplies||[]).find(x=>x.id===$('#nkcfgMappingSupply')?.value),device=(state.noiKiemTmConfig.devices||[]).find(x=>x.id===$('#nkcfgMappingDevice')?.value),supplyName=String(supply?.tenVatTu||'').trim(),model=String(device?.hangModel||'').trim(),code=String(device?.maThietBi||'').trim(),deviceText=[model,code?`(${code})`:''].filter(Boolean).join(' ');if(supplyName&&model)return `${supplyName} - ${deviceText}`;if(supplyName&&code)return `${supplyName} (${code})`;return supplyName||deviceText||'';}
+  function autoName(force=false){const input=$('#nkcfgMappingDisplay');if(!input)return;if(!force&&input.dataset.nkcfgAutoName==='0')return;input.value=defaultMappingDisplayName();input.dataset.nkcfgAutoName='1';}
+  function localDuplicate(kind,item){const list=workList(kind).filter(x=>x.id!==item.id);if(kind==='device'){const code=norm(item.maThietBi||'');if(code&&list.some(x=>norm(x.maThietBi||'')===code))return 'Mã thiết bị đã có trong danh sách.';const key=[norm(item.tenThietBi),norm(item.hangModel),code].join('|');if(list.some(x=>[norm(x.tenThietBi),norm(x.hangModel),norm(x.maThietBi||'')].join('|')===key))return 'Thiết bị này đã có trong danh sách.';}if(kind==='supply'){const key=[norm(item.nhom),norm(item.tenVatTu),norm(item.hangSanXuat)].join('|');if(list.some(x=>[norm(x.nhom),norm(x.tenVatTu),norm(x.hangSanXuat)].join('|')===key))return 'Vật tư/hóa chất này đã có trong danh mục dùng chung.';}if(kind==='mapping'){const key=[item.phan,item.vatTuId,item.thietBiId||''].join('|');if(list.some(x=>[x.phan,x.vatTuId,x.thietBiId||''].join('|')===key))return 'Tổ hợp Phần + vật tư/card + thiết bị đã có trong danh sách.';}return '';}
+  function stage(kind){const item=collect(kind);if(kind==='device'&&!String(item.tenThietBi||'').trim())return toast('Vui lòng nhập tên thiết bị.');if(kind==='supply'&&!String(item.tenVatTu||'').trim())return toast('Vui lòng nhập tên vật tư/hóa chất.');if(kind==='mapping'&&(!item.vatTuId||!String(item.tenHienThi||'').trim()))return toast('Vui lòng chọn vật tư/hóa chất và nhập tên hiển thị.');const dup=localDuplicate(kind,item);if(dup)return toast(dup);const draft=ensureDraft(kind),idx=item.id?draft.work.findIndex(x=>x.id===item.id):-1;if(idx>=0)draft.work[idx]=Object.assign({},draft.work[idx],item);else{item.id=tempId(kind);draft.work.push(item);}local.editing[kind]='';render();toast('Đã cập nhật danh sách tạm. Nhấn Cập nhật để lưu xuống hệ thống.');}
+  async function removeLocal(kind,id){if(!id)return;if((kind==='device'||kind==='supply')&&workList('mapping').some(m=>(kind==='device'?m.thietBiId:m.vatTuId)===id))return toast('Mục này đang được dùng trong cấu hình ghép. Hãy xử lý cấu hình ghép trước.');const ok=await showConfirmDialog({title:'Xóa khỏi danh sách',message:'Mục này chỉ thực sự được xóa sau khi bạn nhấn Cập nhật.',confirmText:'Xóa',cancelText:'Hủy',danger:true});if(!ok)return;const draft=ensureDraft(kind);draft.work=draft.work.filter(x=>x.id!==id);if(local.editing[kind]===id)local.editing[kind]='';render();}
+  async function commit(kind,button){const changes=changesFor(kind);if(!changes.added.length&&!changes.updated.length&&!changes.deleted.length)return;await withButton(button,'Đang cập nhật...',async()=>{const res=await api('noiKiemTmConfig_applyBatch',{khoaPhong:selectedDept(),kind,changes});state.noiKiemTmConfig=Object.assign({loaded:true},res.data||{});state.noiKiemTmRuntimeConfigMap={};resetDraft(kind);render();toast(res.message||'Đã cập nhật cấu hình.');});}
+  async function handleClick(e){const btn=e.target.closest('[data-nkcfg-action]');if(!btn)return;const action=btn.dataset.nkcfgAction;if(action==='reload')return load(true);if(action.startsWith('edit-')){const kind=action.replace('edit-','');local.editing[kind]=btn.dataset.id||'';render();return;}if(action.startsWith('clear-')){local.editing[action.replace('clear-','')]='';render();return;}if(action==='auto-name')return autoName(true);if(action.startsWith('stage-'))return stage(action.replace('stage-',''));if(action.startsWith('delete-'))return removeLocal(action.replace('delete-',''),btn.dataset.id||'');if(action.startsWith('commit-'))return commit(action.replace('commit-',''),btn);}
+  async function handleChange(e){if(e.target.id==='nkcfgDept'){const next=e.target.value,old=local.dept;if(anyDirty()){const ok=await confirmDiscard();if(!ok){e.target.value=old;return;}local.drafts={device:null,supply:null,mapping:null};local.editing={device:'',supply:'',mapping:''};}local.dept=next;await load(false,true);return;}if(e.target.id==='nkcfgMappingPart'){const type=$('#nkcfgMappingType');if(type)type.innerHTML=mappingTypeOptions(e.target.value,type.value||'');return;}if(e.target.id==='nkcfgMappingSupply'||e.target.id==='nkcfgMappingDevice')autoName(false);}
   function handleInput(e){if(e.target.id==='nkcfgMappingDisplay')e.target.dataset.nkcfgAutoName='0';}
-  function bind(){const el=root();if(!el||el.dataset.nkcfgBound==='1')return;el.dataset.nkcfgBound='1';el.addEventListener('click',handleClick);el.addEventListener('change',handleChange);el.addEventListener('input',handleInput);}
-  async function init(){if(!canManageNoiKiemTmConfig()){const el=root();if(el)el.innerHTML='<div class="empty">Tài khoản không có quyền cấu hình Nội kiểm TM.</div>';return;}const context=String(state.noiKiemTmConfigDeptContext||'').trim();if(context){const match=allowedDepts().find(x=>eqText(x,context));if(match)local.dept=match;}bind();try{await load();}catch(err){const el=root();if(el)el.innerHTML=`<div class="empty">${esc(err.message)}</div>`;}}
-  return{init};
+  function beforeUnload(e){if(!anyDirty())return;e.preventDefault();e.returnValue='';}
+  function bind(){const el=root();if(!el||el.dataset.nkcfgBound==='1')return;el.dataset.nkcfgBound='1';el.addEventListener('click',handleClick);el.addEventListener('change',handleChange);el.addEventListener('input',handleInput);if(!local.beforeUnloadBound){window.addEventListener('beforeunload',beforeUnload);local.beforeUnloadBound=true;}}
+  async function init(){if(!canManageNoiKiemTmConfig()){const el=root();if(el)el.innerHTML='<div class="empty">Tài khoản không có quyền cấu hình Nội kiểm TM.</div>';return;}const context=String(state.noiKiemTmConfigDeptContext||'').trim();if(context){const match=allowedDepts().find(x=>eqText(x,context));if(match)local.dept=match;}bind();if(anyDirty()&&state.noiKiemTmConfig?.loaded){render();return;}try{await load(false,true);}catch(err){const el=root();if(el)el.innerHTML=`<div class="empty">${esc(err.message)}</div>`;}}
+  async function confirmLeave(){if(!anyDirty())return true;return confirmDiscard();}
+  function discardPending(){local.drafts={device:null,supply:null,mapping:null};local.editing={device:'',supply:'',mapping:''};}
+  return{init,hasPendingChanges:anyDirty,confirmLeave,discardPending};
 })();
 /* ===== NOI_KIEM_TM_CONFIG: END ===== */
 
