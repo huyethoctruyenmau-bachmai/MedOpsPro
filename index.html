@@ -1,4 +1,4 @@
-<!-- VERSION: 383.235 | index: 383 | Code.gs: 235 | INDEX-383.140826-NKTM-CONFIG-BATCH -->
+<!-- VERSION: 385.237 | index: 385 | Code.gs: 237 | INDEX-385.150826-TM24H-LABO-FORM-CONFIG -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -203,6 +203,7 @@
     .tm-report-group{grid-column:span 12;border:1px solid var(--g-line);border-radius:10px;background:#fff;padding:10px}
     .tm-report-title{font-weight:700;color:var(--wine-dark);margin-bottom:8px}
     .tm-inline-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+    .tm-inline-grid.tm-xn-shift-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     .tm-inline-grid.phat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     .tm-phat-total-bn{grid-column:1/-1}
     .tm-inline-grid.ton-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
@@ -485,6 +486,7 @@
       .userbox{max-width:38vw;right:10px;bottom:4px}
       .tab-btn{font-size:12px}.tab-btn .ico{font-size:20px}
       .tm-inline-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .tm-inline-grid.tm-xn-shift-grid{grid-template-columns:1fr}
       .tm-inline-grid.phat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     .tm-phat-total-bn{grid-column:1/-1}
       .tm-inline-grid.ton-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -6527,7 +6529,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-383.140826-NKTM-CONFIG-BATCH</p>
+      <p class="login-version">Version: INDEX-385.150826-TM24H-LABO-FORM-CONFIG</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6538,7 +6540,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-383.140826-NKTM-CONFIG-BATCH</div>
+    <div class="login-loading-version">Version: INDEX-385.150826-TM24H-LABO-FORM-CONFIG</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6592,7 +6594,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-383.140826-NKTM-CONFIG-BATCH</div>
+    <div class="app-version">Version: INDEX-385.150826-TM24H-LABO-FORM-CONFIG</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6628,7 +6630,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '383.235',
+    frontendVersion: '385.237',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6661,7 +6663,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-383.140826-NKTM-CONFIG-BATCH';
+const APP_VERSION = 'INDEX-385.150826-TM24H-LABO-FORM-CONFIG';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6802,6 +6804,7 @@ const state = {
   appSetup: {},
   homeConfig: {user:{favoriteCardIds:['create','handover','meeting','list'],sectionOrder:['favorites','work','menu','dashboard']},cardOverrides:{},canConfigureCards:false},
   permissionScope: {},
+  deptGroups: {labo:[], lamSang:[]},
   allowedFormTypes: [],
   permissions: {canExportExcel:false, canConfigExcelExport:false},
   excelExportAllowedUsers: [],
@@ -7113,6 +7116,7 @@ async function loadInitData(opts={}){
     state.appSetup = res.data.appSetup || state.appSetup || {};
     state.homeConfig = res.data.homeConfig || state.homeConfig;
     state.permissionScope = res.data.permissionScope || state.permissionScope || {};
+    state.deptGroups = res.data.deptGroups || state.deptGroups || {labo:[], lamSang:[]};
     state.allowedFormTypes = res.data.loaiPhieu || state.allowedFormTypes || [];
     state.permissions = res.data.permissions || state.permissions || {canExportExcel:false, canConfigExcelExport:false};
     state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || null;
@@ -7168,6 +7172,55 @@ function deptOptions(selected=''){
   const list = Array.from(new Set([selected, state.user?.khoaPhong, ...(state.khoaPhong || [])].filter(Boolean)));
   return list.map(x => `<option value="${escAttr(x)}" ${norm(x)===norm(selected) ? 'selected' : ''}>${esc(x)}</option>`).join('');
 }
+
+// ===== START TM24H_LABO_FORM_CONFIG =====
+function deptSameClient(a,b){
+  const na = normalizeDeptFeatureName(a || '');
+  const nb = normalizeDeptFeatureName(b || '');
+  return !!na && !!nb && na === nb;
+}
+
+function laboDepartmentsForCurrentUserClient(){
+  const labo = Array.isArray(state.deptGroups?.labo) ? state.deptGroups.labo : [];
+  const allowed = Array.isArray(state.khoaPhong) ? state.khoaPhong : [];
+  return Array.from(new Set(labo.filter(dept => allowed.some(a => deptSameClient(a, dept)))));
+}
+
+function createDeptOptionsForLoaiClient(loai, selected=''){
+  if(!isLoaiSoLieuTm(loai)) return deptOptions(selected);
+  const list = laboDepartmentsForCurrentUserClient();
+  const current = list.find(x => deptSameClient(x, selected))
+    || list.find(x => deptSameClient(x, state.user?.khoaPhong || state.user?.phongLamViec || ''))
+    || list[0]
+    || '';
+  return list.map(x => `<option value="${escAttr(x)}" ${deptSameClient(x,current) ? 'selected' : ''}>${esc(x)}</option>`).join('');
+}
+
+function syncCreateDeptOptionsForLoaiClient(loai){
+  const el = document.getElementById('createDept');
+  if(!el) return '';
+  const before = el.value || state.user?.khoaPhong || state.user?.phongLamViec || '';
+  el.innerHTML = createDeptOptionsForLoaiClient(loai, before);
+  const options = Array.from(el.options || []);
+  const keep = options.find(o => deptSameClient(o.value, before));
+  const own = options.find(o => deptSameClient(o.value, state.user?.khoaPhong || state.user?.phongLamViec || ''));
+  if(keep) el.value = keep.value;
+  else if(own) el.value = own.value;
+  else if(options.length) el.value = options[0].value;
+  return el.value || '';
+}
+
+function hasSoLieuTm24hFormConfigClient(khoaPhong){
+  const dept = String(khoaPhong || '').trim();
+  if(!dept) return false;
+  const variant = soLieuTmDeptVariantClient(dept);
+  return variant === 'NB' || variant === 'XNHH' || isTruyenMauDept(dept);
+}
+
+function tm24hMissingConfigHtmlClient(khoaPhong){
+  return `<div class="empty">Chưa có cấu hình phiếu ${esc(LOAI_BAO_CAO_SO_LIEU_TM)} cho khoa/phòng ${esc(khoaPhong || 'chưa xác định')}.</div>`;
+}
+// ===== END TM24H_LABO_FORM_CONFIG =====
 
 function refreshDeptSelectOptions(){
   ['createDept','filterDept','gbDept','pdfDept'].forEach(id => {
@@ -7990,6 +8043,7 @@ function updateCreateFormNumbering(){
   const isTmDailyStats = isLoaiSoLieuTm(loai);
   const isTmPhieu = isTmPhieuLoai(loai);
   const isNoiKiemTm = loai === LOAI_NOI_KIEM_TM;
+  syncCreateDeptOptionsForLoaiClient(loai);
   const createDeptEl = $('#createDept');
   if(createDeptEl){
     if(isNoiKiemTm){
@@ -8032,13 +8086,21 @@ function updateCreateFormNumbering(){
   }
   if(isTmDailyStats){
     const host = $('#tmDailyStatsFormHost');
-    const renderKey = `${soLieuTmDeptVariantClient(createDeptValue)}|${normalizeDeptFeatureName(createDeptValue)}`;
+    const hasConfig = hasSoLieuTm24hFormConfigClient(createDeptValue);
+    const renderKey = `${hasConfig ? 'CONFIGURED' : 'MISSING'}|${soLieuTmDeptVariantClient(createDeptValue)}|${normalizeDeptFeatureName(createDeptValue)}`;
     if(host && host.dataset.renderKey !== renderKey){
-      host.innerHTML = renderSoLieuTmFormBodyClient('tmSl', createDeptValue, {});
+      host.innerHTML = hasConfig
+        ? renderSoLieuTmFormBodyClient('tmSl', createDeptValue, {})
+        : tm24hMissingConfigHtmlClient(createDeptValue);
       host.dataset.renderKey = renderKey;
     }
     if($('#tmDailyStatsTitle')) $('#tmDailyStatsTitle').textContent = soLieuTmSectionTitleClient(createDeptValue);
-    bindSoLieuTmFormEvents('tmSl');
+    const createBtn = $('#createSoLieuTmBtn');
+    if(createBtn){
+      createBtn.disabled = !hasConfig;
+      createBtn.classList.toggle('hidden', !hasConfig);
+    }
+    if(hasConfig) bindSoLieuTmFormEvents('tmSl');
     return;
   }
   const n = isReport ? '3' : '2';
@@ -8401,10 +8463,19 @@ function renderSoLieuTrucInput(isTM){
     if(!$('#soLieuTruc')) box.innerHTML = `<textarea id="soLieuTruc" placeholder="Nhập số liệu trực"></textarea>`;
     return;
   }
+  const isNb = isXnhhCsNinhBinhDept($('#createDept')?.value || '');
   box.innerHTML = `
     <div class="tm-report-grid">
+      ${isNb ? `
       <div class="tm-report-group">
-        <div class="tm-report-title">Số liệu phát máu của tua trực</div>
+        <div class="tm-report-title">Số liệu xét nghiệm tua trực</div>
+        <div class="tm-inline-grid tm-xn-shift-grid">
+          <div><label>Tổng số mẫu Đông máu</label><input id="tmXnDongMauTong" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+          <div><label>Tổng số mẫu Tế bào</label><input id="tmXnTeBaoTong" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
+        </div>
+      </div>` : ''}
+      <div class="tm-report-group">
+        <div class="tm-report-title">${isNb ? 'Số liệu phát máu tua trực' : 'Số liệu phát máu của tua trực'}</div>
         <div class="tm-inline-grid phat-grid">
           <div class="tm-phat-total-bn"><label>Tổng số BN</label><input id="tmPhatTongBN" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
           <div><label>KHC</label><input id="tmPhatKHC" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
@@ -9058,18 +9129,28 @@ function renderSoLieuTmGiaoBanPreviewHtml(rows, khoaPhong=''){
 }
 
 function collectSoLieuTruc(){
-  const isTM = isTruyenMauDept($('#createDept')?.value || '') && $('#createLoai')?.value === LOAI_BAO_CAO;
+  const dept = $('#createDept')?.value || '';
+  const isTM = isTruyenMauDept(dept) && $('#createLoai')?.value === LOAI_BAO_CAO;
   if(!isTM) return $('#soLieuTruc')?.value || '';
   const khc = getIntValue('tmPhatKHC');
   const cp = getIntValue('tmPhatCP');
   const total = khc + cp;
-  return [
+  const lines = [];
+  if(isXnhhCsNinhBinhDept(dept)){
+    lines.push(
+      'Số liệu xét nghiệm tua trực:',
+      `- Tổng số mẫu Đông máu: ${getIntValue('tmXnDongMauTong')}`,
+      `- Tổng số mẫu Tế bào: ${getIntValue('tmXnTeBaoTong')}`
+    );
+  }
+  lines.push(
     'Phát máu:',
     `- Tổng số bệnh nhân: ${getIntValue('tmPhatTongBN')}`,
     `- KHC: ${khc}`,
     `- CP: ${cp}`,
     `- Tổng số: ${total}`
-  ].join('\n');
+  );
+  return lines.join('\n');
 }
 
 function collectBanGiaoTaiSan(){
@@ -9114,6 +9195,10 @@ async function submitCreatePhieu(){
   }
 
   if(isLoaiSoLieuTm(loai)){
+    const selectedDept = $('#createDept')?.value || '';
+    if(!hasSoLieuTm24hFormConfigClient(selectedDept)){
+      return toast(`Chưa có cấu hình phiếu ${LOAI_BAO_CAO_SO_LIEU_TM} cho khoa/phòng ${selectedDept || 'chưa xác định'}.`);
+    }
     const payload = {
       loaiPhieu: loai,
       ngayTruc: getDateInputIso('createDate'),
@@ -13317,17 +13402,19 @@ window.removeEditStaff = function(ma){
 
 
 function parseTmReportText(text){
-  const data = {phatKHC:'0', phatCP:'0', phatTongBN:'0'};
+  const data = {phatKHC:'0', phatCP:'0', phatTongBN:'0', xnDongMauTong:'0', xnTeBaoTong:'0'};
   let section = '';
   String(text || '').split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(line => {
     const n = norm(line.replace(/:$/, ''));
-    if(n === 'phat mau'){ section = 'phat'; return; }
+    if(n === 'phat mau' || n === 'so lieu phat mau tua truc' || n === 'so lieu phat mau cua tua truc'){ section = 'phat'; return; }
     if(n === 'mau ton' || n === 'kho mau'){ section = 'ton'; return; }
-    if(n.includes('xet nghiem')){ section = 'xn'; return; }
+    if(n === 'so lieu xet nghiem tua truc' || n.includes('xet nghiem')){ section = 'xn'; return; }
     const m = line.match(/^[-–]?\s*([^:]+):\s*(.*)$/);
     if(!m) return;
     const label = norm(m[1]);
     const val = m[2].trim();
+    if(section === 'xn' && label === 'tong so mau dong mau') data.xnDongMauTong = sanitizeIntText(val) || '0';
+    if(section === 'xn' && label === 'tong so mau te bao') data.xnTeBaoTong = sanitizeIntText(val) || '0';
     if(section === 'phat' && label === 'khc') data.phatKHC = sanitizeIntText(val) || '0';
     if(section === 'phat' && label === 'cp') data.phatCP = sanitizeIntText(val) || '0';
     if(section === 'phat' && (label === 'tong so benh nhan' || label === 'tong so bn')) data.phatTongBN = sanitizeIntText(val) || '0';
@@ -13337,14 +13424,24 @@ function parseTmReportText(text){
 
 
 function renderEditSoLieuTrucInput(p){
-  const isTM = isTruyenMauDept(p.khoaPhong || '');
+  const dept = p.khoaPhong || '';
+  const isTM = isTruyenMauDept(dept);
   if(!isTM) return `<textarea id="editSoLieu" placeholder="Nhập số liệu trực">${esc(p.soLieuTruc||'')}</textarea>`;
   const d = parseTmReportText(p.soLieuTruc || '');
   const tong = (parseInt(d.phatKHC || 0, 10) || 0) + (parseInt(d.phatCP || 0, 10) || 0);
+  const isNb = isXnhhCsNinhBinhDept(dept);
   return `
     <div class="tm-report-grid">
+      ${isNb ? `
       <div class="tm-report-group">
-        <div class="tm-report-title">Số liệu phát máu của tua trực</div>
+        <div class="tm-report-title">Số liệu xét nghiệm tua trực</div>
+        <div class="tm-inline-grid tm-xn-shift-grid">
+          <div><label>Tổng số mẫu Đông máu</label><input id="editTmXnDongMauTong" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnDongMauTong)}"></div>
+          <div><label>Tổng số mẫu Tế bào</label><input id="editTmXnTeBaoTong" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.xnTeBaoTong)}"></div>
+        </div>
+      </div>` : ''}
+      <div class="tm-report-group">
+        <div class="tm-report-title">${isNb ? 'Số liệu phát máu tua trực' : 'Số liệu phát máu của tua trực'}</div>
         <div class="tm-inline-grid phat-grid">
           <div class="tm-phat-total-bn"><label>Tổng số BN</label><input id="editTmPhatTongBN" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.phatTongBN)}"></div>
           <div><label>KHC</label><input id="editTmPhatKHC" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(d.phatKHC)}"></div>
@@ -13365,13 +13462,22 @@ function collectEditSoLieuTruc(){
   if(!$('#editTmPhatKHC')) return $('#editSoLieu')?.value || '';
   const khc = getIntValue('editTmPhatKHC');
   const cp = getIntValue('editTmPhatCP');
-  return [
+  const lines = [];
+  if($('#editTmXnDongMauTong') || $('#editTmXnTeBaoTong')){
+    lines.push(
+      'Số liệu xét nghiệm tua trực:',
+      `- Tổng số mẫu Đông máu: ${getIntValue('editTmXnDongMauTong')}`,
+      `- Tổng số mẫu Tế bào: ${getIntValue('editTmXnTeBaoTong')}`
+    );
+  }
+  lines.push(
     'Phát máu:',
     `- Tổng số bệnh nhân: ${getIntValue('editTmPhatTongBN')}`,
     `- KHC: ${khc}`,
     `- CP: ${cp}`,
     `- Tổng số: ${khc + cp}`
-  ].join('\n');
+  );
+  return lines.join('\n');
 }
 
 function renderEditBanGiaoTaiSanInput(p){
@@ -14149,20 +14255,25 @@ function formatSoLieuTrucCompact(text){
   const hasTmReport = /Phát máu|Phat mau/i.test(s);
   if(!hasTmReport) return esc(s).replace(/\n/g,'<br>');
 
-  let mauTonIdx = s.search(/Kho máu|Kho mau/i);
-  if(mauTonIdx < 0) mauTonIdx = s.search(/Máu tồn|Mau ton/i);
-  const phatIdx = s.search(/Phát máu|Phat mau/i);
-  const phatPart = phatIdx >= 0 ? s.slice(phatIdx, mauTonIdx > phatIdx ? mauTonIdx : undefined) : '';
-
+  const d = parseTmReportText(s);
+  const hasXnShift = /Số liệu xét nghiệm tua trực|So lieu xet nghiem tua truc/i.test(s);
   const gap = '     ';
-  const tongBn = parseReportMetricLine_(phatPart, 'Tổng số bệnh nhân') || parseReportMetricLine_(phatPart, 'Tong so benh nhan') || parseReportMetricLine_(phatPart, 'Tổng số BN') || parseReportMetricLine_(phatPart, 'Tong so BN');
-  const phat = phatPart ? [
-    `<div>- Phát máu:</div>`,
-    `<div>&nbsp;&nbsp;Tổng số BN: ${esc(tongBn || '')}</div>`,
-    `<div>&nbsp;&nbsp;KHC: ${esc(parseReportMetricLine_(phatPart, 'KHC') || '')}${gap}CP: ${esc(parseReportMetricLine_(phatPart, 'CP') || '')}${gap}Tổng số: ${esc(parseReportMetricLine_(phatPart, 'Tổng số') || parseReportMetricLine_(phatPart, 'Tong so') || '')}</div>`
-  ].join('') : '';
-
-  return phat || esc(s).replace(/\n/g,'<br>');
+  const phatTong = (parseInt(d.phatKHC || 0, 10) || 0) + (parseInt(d.phatCP || 0, 10) || 0);
+  const parts = [];
+  if(hasXnShift){
+    parts.push(
+      `<div><strong>Số liệu xét nghiệm tua trực</strong></div>`,
+      `<div>Tổng số mẫu Đông máu: ${esc(d.xnDongMauTong || '0')}${gap}Tổng số mẫu Tế bào: ${esc(d.xnTeBaoTong || '0')}</div>`,
+      `<div><strong>Số liệu phát máu tua trực</strong></div>`
+    );
+  }else{
+    parts.push(`<div>- Phát máu:</div>`);
+  }
+  parts.push(
+    `<div>&nbsp;&nbsp;Tổng số BN: ${esc(d.phatTongBN || '')}</div>`,
+    `<div>&nbsp;&nbsp;KHC: ${esc(d.phatKHC || '')}${gap}CP: ${esc(d.phatCP || '')}${gap}Tổng số: ${esc(String(phatTong))}</div>`
+  );
+  return parts.join('');
 }
 
 function sortReportsByDateAsc(reports){
@@ -18927,9 +19038,10 @@ function isTruyenMauDept(value){
 function canUseTm24hReportClient(user){
   const u = user || state.user || {};
   const scopeGroup = String(state.permissionScope?.group || '').trim().toUpperCase();
-  return isSystemAdminAccount(u)
-    || isTruyenMauDept(u.khoaPhong || u.phongLamViec || '')
-    || scopeGroup === 'LABO';
+  const labo = laboDepartmentsForCurrentUserClient();
+  if(scopeGroup === 'LABO') return labo.length > 0;
+  if(isSystemAdminAccount(u) || state.permissionScope?.canViewAllDepartments) return labo.length > 0;
+  return labo.some(dept => deptSameClient(dept, u.khoaPhong || u.phongLamViec || ''));
 }
 
 function defaultTmEquipmentConfig(){
