@@ -1,4 +1,4 @@
-<!-- VERSION: 386.238 | index: 386 | Code.gs: 238 | INDEX-386.150826-BAO-CAO-SO-LIEU-TRUC -->
+<!-- VERSION: 387.240 | index: 387 | Code.gs: 240 | INDEX-387.180826-XNHH-GIAO-BAN-24H -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6529,7 +6529,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-386.150826-BAO-CAO-SO-LIEU-TRUC</p>
+      <p class="login-version">Version: INDEX-387.180826-XNHH-GIAO-BAN-24H</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6540,7 +6540,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-386.150826-BAO-CAO-SO-LIEU-TRUC</div>
+    <div class="login-loading-version">Version: INDEX-387.180826-XNHH-GIAO-BAN-24H</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6594,7 +6594,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-386.150826-BAO-CAO-SO-LIEU-TRUC</div>
+    <div class="app-version">Version: INDEX-387.180826-XNHH-GIAO-BAN-24H</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6663,7 +6663,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-386.150826-BAO-CAO-SO-LIEU-TRUC';
+const APP_VERSION = 'INDEX-387.180826-XNHH-GIAO-BAN-24H';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -9125,13 +9125,13 @@ function renderSoLieuTmGiaoBanDayClient(r, khoaPhong='', preview=false){
 
 function renderSoLieuTmGiaoBanHtml(rows, khoaPhong=''){
   const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
-  if(!list.length) return `<div class="empty">Chưa có phiếu ${esc(soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm 24h' : LOAI_BAO_CAO_SO_LIEU_TM)} phù hợp.</div>`;
+  if(!list.length) return `<div class="empty">Chưa có phiếu ${esc(soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm - 24h' : LOAI_BAO_CAO_SO_LIEU_TM)} phù hợp.</div>`;
   return list.map(r => `<div class="tm-sl-gb-day gb-section-content"><div class="tm-sl-gb-line">${renderSoLieuTmGiaoBanDayClient(r, khoaPhong, false)}</div></div>`).join('');
 }
 
 function renderSoLieuTmGiaoBanPreviewHtml(rows, khoaPhong=''){
   const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
-  if(!list.length) return `Chưa có phiếu ${soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm 24h' : LOAI_BAO_CAO_SO_LIEU_TM} phù hợp.`;
+  if(!list.length) return `Chưa có phiếu ${soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm - 24h' : LOAI_BAO_CAO_SO_LIEU_TM} phù hợp.`;
   return list.map(r => renderSoLieuTmGiaoBanDayClient(r, khoaPhong, true)).join('<br>');
 }
 
@@ -14170,7 +14170,7 @@ window.gbRefreshGiaoBanSection = async function(section, btn){
     tmXuTri:'Bệnh nhân cần xử trí chuyên môn',
     tmTdkmm:'Tác dụng không mong muốn liên quan đến truyền máu',
     khoMau:'Kho máu',
-    soLieuTm24h:'Báo cáo số liệu Xét nghiệm - Truyền máu 24h'
+    soLieuTm24h:isXetNghiemHuyetHocDept(state.currentGiaoBan?.khoaPhong || '') ? 'Báo cáo số liệu Xét nghiệm - 24h' : 'Báo cáo số liệu Xét nghiệm - Truyền máu 24h'
   };
   if(!labels[section]) return;
 
@@ -14330,9 +14330,11 @@ function getGiaoBanPreviewSnapshot(isDotXuat){
   const sectionData = gbGetGiaoBanSectionRefreshData();
   const sortedReports = sortReportsByDateAsc(sectionData.reports || []);
   const isTM = isTruyenMauDept(g.khoaPhong || '');
+  const isXnHh = isXetNghiemHuyetHocDept(g.khoaPhong || '');
   return {
     isDotXuat: !!isDotXuat,
     isTM,
+    isXnHh,
     loaiGiaoBan: g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC,
     thoiGian: weekdayDateTimeVi(fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso(),true),
     khoaPhong: $('#gbDotDept')?.value || g.khoaPhong || state.user?.khoaPhong || '',
@@ -14399,6 +14401,14 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
     pvLine('gb-pv-detail', pvHtml(d.thongBao)),
     pvLine('gb-pv-num','4. Nội dung khác'),
     pvLine('gb-pv-detail', pvHtml(d.noiDungKhac))
+  ].join('') : d.isXnHh ? [
+    pvLine('gb-pv-roman','III. Nội dung giao ban khác'),
+    pvLine('gb-pv-num','1. Báo cáo số liệu Xét nghiệm - 24h'),
+    pvLine('gb-pv-detail', renderSoLieuTmGiaoBanPreviewHtml(d.soLieuReports || [], d.khoaPhong || '')),
+    pvLine('gb-pv-num','2. Thông báo'),
+    pvLine('gb-pv-detail', pvHtml(d.thongBao)),
+    pvLine('gb-pv-num','3. Nội dung khác'),
+    pvLine('gb-pv-detail', pvHtml(d.noiDungKhac))
   ].join('') : [
     pvLine('gb-pv-roman','III. Nội dung giao ban khác'),
     pvLine('gb-pv-detail', pvHtml(d.noiDungGiaoBanKhac))
@@ -14463,6 +14473,7 @@ function renderGiaoBanModal(){
   const reportsHtml = gbRenderBaoCaoThuongTrucHtml(sectionData.reports || []);
 
   const isTM = isTruyenMauDept(g.khoaPhong || '');
+  const isXnHh = isXetNghiemHuyetHocDept(g.khoaPhong || '');
   const canRefreshSource = g.trangThai !== STATUS_DA && !g.daKhoa;
   const tmSummaryItems = [].concat(sectionData.tmXuTri || [], sectionData.tmTdkmm || []);
   const latestMauTon = isTM ? getLatestMauTonFromReports(sortedReports) : null;
@@ -14533,6 +14544,14 @@ function renderGiaoBanModal(){
         <div class="grid" style="margin-top:10px">
           <div class="col-12"><label class="gb-sub-label" for="gbThongBao">3. Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
           <div class="col-12"><label class="gb-sub-label" for="gbNoiDungKhac">4. Nội dung khác</label><textarea id="gbNoiDungKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.noiDungKhac || '')}</textarea></div>
+        </div>
+      ` : isXnHh ? `
+        <h3 class="sub-title" style="margin-top:0">III. Nội dung giao ban khác</h3>
+        <div class="gb-sub-label gb-refresh-title-row"><span>1. Báo cáo số liệu Xét nghiệm - 24h</span>${canRefreshSource ? gbSectionRefreshButtonHtml('soLieuTm24h','Báo cáo số liệu Xét nghiệm - 24h') : ''}</div>
+        <div id="gbSoLieuTm24hSectionContent">${renderSoLieuTmGiaoBanHtml(sectionData.soLieuReports || [], g.khoaPhong || '')}</div>
+        <div class="grid" style="margin-top:10px">
+          <div class="col-12"><label class="gb-sub-label" for="gbThongBao">2. Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
+          <div class="col-12"><label class="gb-sub-label" for="gbNoiDungKhac">3. Nội dung khác</label><textarea id="gbNoiDungKhac" ${g.daKhoa ? 'readonly' : ''}>${esc(g.noiDungKhac || g.noiDungGiaoBanKhac || '')}</textarea></div>
         </div>
       ` : `
         <h3 class="sub-title" style="margin-top:0">III. Nội dung giao ban khác</h3>
