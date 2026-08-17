@@ -1,4 +1,4 @@
-<!-- VERSION: 390.242 | index: 390 | Code.gs: 242 | INDEX-390.180826-GB-NB-DULIEUTRUC-FORMAT -->
+<!-- VERSION: 391.244 | index: 391 | Code.gs: 244 | INDEX-391.180826-APP-HEADER-UNIT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6529,7 +6529,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-390.180826-GB-NB-DULIEUTRUC-FORMAT</p>
+      <p class="login-version">Version: INDEX-391.180826-APP-HEADER-UNIT</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6540,7 +6540,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-390.180826-GB-NB-DULIEUTRUC-FORMAT</div>
+    <div class="login-loading-version">Version: INDEX-391.180826-APP-HEADER-UNIT</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6560,8 +6560,8 @@
       <div class="brand">
         <img class="brand-logo-plain" src="./LOGO%20TRON%20BVBM.png?v=87.050626-ACCOUNT-MOBILE-INFO-TOP-SETUP-LEFT" alt="Logo Bệnh viện Bạch Mai" referrerpolicy="no-referrer" loading="eager" decoding="async">
         <div>
-          <div id="brandTitle" class="brand-title">Trung tâm Huyết học và Truyền máu</div>
-          <div id="brandSub" class="brand-sub">Khoa</div>
+          <div id="brandTitle" class="brand-title">Viện Huyết học và Truyền máu Bạch Mai</div>
+          <div id="brandSub" class="brand-sub">Khoa/phòng:</div>
         </div>
       </div>
       <div class="userbox">
@@ -6594,7 +6594,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-390.180826-GB-NB-DULIEUTRUC-FORMAT</div>
+    <div class="app-version">Version: INDEX-391.180826-APP-HEADER-UNIT</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6663,7 +6663,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-390.180826-GB-NB-DULIEUTRUC-FORMAT';
+const APP_VERSION = 'INDEX-391.180826-APP-HEADER-UNIT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -7070,10 +7070,7 @@ function setBootStatus(){
 }
 
 function getHeaderUnitTitleByDept(dept){
-  const deptText = norm(dept || '');
-  return deptText.includes('ninh binh')
-    ? 'Khoa Huyết học và Truyền máu'
-    : 'Viện Huyết học và Truyền máu Bạch Mai';
+  return 'Viện Huyết học và Truyền máu Bạch Mai';
 }
 
 function updateUserHeader(){
