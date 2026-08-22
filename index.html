@@ -1,4 +1,4 @@
-<!-- VERSION: 398.255 | index: 398 | Code.gs: 255 | INDEX-398.220826-NKTM-WORD-DOWNLOAD -->
+<!-- VERSION: 400.256 | index: 400 | Code.gs: 256 | INDEX-400.220826-NKTM-WORD-EDITABLE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5736,22 +5736,30 @@
       box-shadow:0 4px 9px rgba(26,115,232,.25)!important;
       white-space:nowrap;
     }
-    /* ===== NỘI KIỂM 398: TẢI WORD GIỮ NGUYÊN BỐ CỤC PHIẾU ===== */
+    /* ===== NỘI KIỂM 400: TẢI WORD EDITABLE - ICON GỌN ===== */
     .nk-create-word{
+      width:40px!important;
       height:40px!important;
+      min-width:40px!important;
       min-height:40px!important;
-      min-width:112px!important;
       margin:0 8px 0 0!important;
-      padding:0 14px!important;
+      padding:0!important;
+      border:0!important;
       border-radius:8px!important;
+      background:transparent!important;
+      color:var(--g-blue)!important;
       display:inline-flex!important;
       align-items:center!important;
       justify-content:center!important;
-      gap:7px!important;
+      gap:0!important;
+      box-shadow:none!important;
       white-space:nowrap!important;
-      flex:0 0 auto!important;
+      flex:0 0 40px!important;
     }
-    .nk-create-word svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .nk-create-word:hover{background:#e8f0fe!important;color:var(--g-blue-hover)!important}
+    .nk-create-word:disabled{background:transparent!important;opacity:.58!important}
+    .nk-create-word svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .nk-create-word .loading-dot,.nk-mobile-word-btn .loading-dot{border-color:#d2e3fc!important;border-top-color:var(--g-blue)!important}
 
     @media (min-width:900px){
       #createContentBox.nk-create-mode{
@@ -6146,7 +6154,14 @@
     .nk-create-mobile-status.is-success{color:#137333;font-weight:600}
     .nk-mobile-create-actions{display:none;margin-top:12px;padding:0 2px 8px;gap:8px}
     .nk-mobile-create-actions .btn{width:100%;min-height:46px;font-weight:700}
-    .nk-mobile-create-actions .nk-mobile-word-btn{background:#fff;color:var(--g-blue);border:1px solid var(--g-line)}
+    .nk-mobile-create-actions .nk-mobile-word-btn{
+      width:46px!important;min-width:46px!important;max-width:46px!important;flex:0 0 46px!important;
+      height:46px!important;min-height:46px!important;padding:0!important;border:0!important;border-radius:50%!important;
+      background:transparent!important;color:var(--g-blue)!important;box-shadow:none!important;display:inline-flex!important;
+      align-items:center!important;justify-content:center!important;
+    }
+    .nk-mobile-create-actions .nk-mobile-word-btn:hover{background:#e8f0fe!important;color:var(--g-blue-hover)!important}
+    .nk-mobile-create-actions .nk-mobile-word-btn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
     @media(max-width:760px){
       #createContentBox.nk-create-mode>#noiKiemTmToolbarHost{display:none!important}
@@ -6569,7 +6584,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-396.220826-NKTM-TITLE-TRUYEN-MAU</p>
+      <p class="login-version">Version: INDEX-400.220826-NKTM-WORD-EDITABLE</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6580,7 +6595,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-396.220826-NKTM-TITLE-TRUYEN-MAU</div>
+    <div class="login-loading-version">Version: INDEX-400.220826-NKTM-WORD-EDITABLE</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6634,7 +6649,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-396.220826-NKTM-TITLE-TRUYEN-MAU</div>
+    <div class="app-version">Version: INDEX-400.220826-NKTM-WORD-EDITABLE</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6703,7 +6718,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-393.220826-NKTM-UNIT-FOOTER';
+const APP_VERSION = 'INDEX-400.220826-NKTM-WORD-EDITABLE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -11941,9 +11956,8 @@ function nkCreateToolbarHtml(message='',type='',canSubmit=true){
       </button>
     </div>
     <div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div>
-    <button id="downloadNoiKiemTmWordBtn" type="button" class="btn secondary nk-create-word" ${canSubmit?'':'disabled'}>
+    <button id="downloadNoiKiemTmWordBtn" type="button" class="nk-create-word" title="Tải Word" aria-label="Tải Word" ${canSubmit?'':'disabled'}>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
-      <span>Tải Word</span>
     </button>
     <button id="createNoiKiemTmBtn" type="button" class="btn primary nk-create-submit" ${canSubmit?'':'disabled'}>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
@@ -12033,7 +12047,7 @@ function nkBindCreateForm(entry,dept){
   state.noiKiemTmRuntimeConfigMap[dept]=entry.config;
   toolbarHost.innerHTML=nkCreateToolbarHtml();
   toolbarHost.classList.remove('hidden');
-  box.innerHTML=`${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}<div class="nk-mobile-create-actions"><button id="downloadNoiKiemTmWordMobileBtn" type="button" class="btn secondary nk-mobile-word-btn">Tải Word</button><button id="createNoiKiemTmMobileBtn" type="button" class="btn primary">Tạo phiếu</button></div>`;
+  box.innerHTML=`${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}<div class="nk-mobile-create-actions"><button id="downloadNoiKiemTmWordMobileBtn" type="button" class="nk-mobile-word-btn" title="Tải Word" aria-label="Tải Word"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg></button><button id="createNoiKiemTmMobileBtn" type="button" class="btn primary">Tạo phiếu</button></div>`;
   $('#createNoiKiemTmBtn')?.addEventListener('click',submitCreateNoiKiemTm);
   $('#createNoiKiemTmMobileBtn')?.addEventListener('click',submitCreateNoiKiemTm);
   $('#downloadNoiKiemTmWordMobileBtn')?.addEventListener('click',downloadCurrentNoiKiemTmWord);
@@ -12315,76 +12329,101 @@ function nkWordFileDeptLabel(dept){
   return 'Khoa_Truyen_Mau';
 }
 
-function nkWordCaptureCss(){
-  const base=Array.from(document.querySelectorAll('style')).map(node=>node.textContent||'').join('\n');
-  return `${base}\n
-  html,body{position:static!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important}
-  body{display:block!important;font-family:Arial,sans-serif!important;touch-action:auto!important}
-  .nk-word-capture{display:block!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;background:#fff!important;overflow:visible!important}
-  .nk-word-capture .nk-form{width:auto!important;max-width:none!important;margin:0!important;padding:0!important}
-  .nk-word-capture .nk-paper-scroll{overflow:visible!important;width:auto!important;max-width:none!important;padding:0!important;margin:0!important}
-  .nk-word-capture .nk-paper{transform:none!important;transform-origin:top left!important;zoom:1!important;margin:0!important;box-shadow:none!important;background:#fff!important}
-  .nk-word-capture .nk-paper-header{overflow:visible!important}
-  .nk-word-capture input,.nk-word-capture select,.nk-word-capture textarea{color:#000!important}
+function nkWordEditableCss(){
+  return `
+  @page{size:A4 landscape;margin:4mm}
+  html,body{margin:0;padding:0;background:#fff;color:#111;font-family:"Times New Roman",Times,serif}
+  .nk-paper{width:100%;margin:0;padding:0;background:#fff;font-family:"Times New Roman",Times,serif;font-size:9pt;line-height:1.12}
+  .nk-word-header,.nk-word-footer{width:100%;border-collapse:collapse;table-layout:fixed;margin:0 0 4px}
+  .nk-word-header td{border:0;padding:0 4px;vertical-align:top}
+  .nk-word-header .org{width:34%;text-align:center;font-weight:700;font-size:10pt;line-height:1.25;text-transform:uppercase}
+  .nk-word-header .title{width:43%;text-align:center;font-weight:700;font-size:13pt;line-height:1.15;text-transform:uppercase}
+  .nk-word-header .date{width:23%;text-align:center;font-size:10pt;font-weight:700;line-height:1.25}
+  .nk-word-header .date-line{font-style:italic;font-weight:400;white-space:nowrap}
+  .nk-paper-section-label{font-size:10.5pt;font-weight:700;line-height:1.2;margin:3px 0 2px}
+  .nk-paper-subtable{margin:0 0 3px}
+  .nk-paper-table{width:100%!important;min-width:0!important;border-collapse:collapse;table-layout:fixed;font-size:8.5pt;line-height:1.08;margin:0 0 3px}
+  .nk-paper-table th,.nk-paper-table td{border:1px solid #555;padding:2px 3px;text-align:center;vertical-align:middle;color:#111;background:#fff;word-break:normal;overflow-wrap:anywhere}
+  .nk-paper-table th{font-weight:700}
+  .nk-paper-group-title{font-size:9pt;font-weight:700;line-height:1.08}
+  .nk-paper-method-title{font-size:8.5pt;font-weight:700;line-height:1.08}
+  .nk-paper-lot-lines{display:block;margin-top:1px;font-size:8pt;font-weight:400;font-style:italic;line-height:1.15;text-align:left}
+  .nk-paper-lot-line{display:block;min-height:12px}
+  .nk-paper-lot-label{display:inline-block;min-width:47px}
+  .nk-paper-lot-value{display:inline-block;min-width:40px;border-bottom:1px dotted #555;padding:0 2px;font-style:normal;text-align:left}
+  .nk-paper-lot-number .nk-paper-lot-value{color:#1a73e8;font-weight:700}
+  .nk-paper-value{min-height:17px;text-align:center;white-space:pre-wrap;font-size:8.5pt}
+  .nk-blood-group-cell .nk-paper-value{color:#d93025;font-weight:700}
+  .nk-paper-performer-value{display:block;text-align:left;font-size:8pt;line-height:1.2;padding:2px}
+  .nk-paper-evaluator{display:block;text-align:left;font-size:7.5pt;line-height:1.15;margin-top:2px}
+  .nk-paper-evaluator-label{font-weight:700}
+  .nk-paper-eval-inline,.nk-paper-radio-label{display:inline;font-size:8pt;font-weight:700;white-space:nowrap}
+  .nk-paper-radio-label+ .nk-paper-radio-label{margin-left:7px}
+  .nk-paper-other-view{min-height:42px;text-align:left;white-space:pre-wrap;padding:3px}
+  .nk-paper-other-performer-label{font-weight:700;text-align:center;margin-bottom:2px}
+  .nk-paper-other-performer-cell{width:12%}
+  .nk-paper-config-empty{font-size:8.5pt;border:1px solid #aaa;padding:4px;margin-bottom:3px}
+  .nk-section-audit,.nk-paper-audit,.nk-section-source-meta{font-size:7pt;line-height:1.1}
+  .nk-word-footer{margin-top:4px;font-family:"Times New Roman",Times,serif;font-size:9pt}
+  .nk-word-footer td{border:0;border-top:1px solid #555;padding:3px 2px 0}
+  .nk-word-footer .left{text-align:left}
+  .nk-word-footer .right{text-align:right}
   `;
 }
 
-function nkWordLoadImage(url){
-  return new Promise((resolve,reject)=>{
-    const img=new Image();
-    img.onload=()=>resolve(img);
-    img.onerror=()=>reject(new Error('Không dựng được ảnh phiếu để tạo Word.'));
-    img.src=url;
+function nkPrepareEditableWordPaperHtml(rawHtml,dept,day){
+  const host=document.createElement('div');
+  host.innerHTML=rawHtml;
+  const paper=host.querySelector('.nk-paper');
+  if(!paper) throw new Error('Không tìm thấy nội dung phiếu để tạo Word.');
+
+  // Word/Google Docs nhập HTML ổn định hơn với table thay vì CSS Grid.
+  const org=nkPaperOrgHeader(dept);
+  const parts=nkPaperDateParts(day);
+  const header=host.ownerDocument.createElement('table');
+  header.className='nk-word-header';
+  header.innerHTML=`<tbody><tr>
+    <td class="org">${esc(org.hospital)}<br>${esc(org.institute)}</td>
+    <td class="title">PHIẾU THEO DÕI KẾT QUẢ NỘI KIỂM TRUYỀN MÁU</td>
+    <td class="date"><div>${esc(org.unit)}</div><div class="date-line">Ngày ${esc(parts.day)} tháng ${esc(parts.month)} năm ${esc(parts.year)}</div></td>
+  </tr></tbody>`;
+  paper.querySelector('.nk-paper-header')?.replaceWith(header);
+
+  const footer=host.ownerDocument.createElement('table');
+  footer.className='nk-word-footer';
+  footer.innerHTML='<tbody><tr><td class="left">BM06.QL14</td><td class="right">Trang 1 / 1</td></tr></tbody>';
+  paper.querySelector('.nk-paper-footer')?.replaceWith(footer);
+
+  // Google Docs không nhập pseudo-element checkbox từ CSS; đổi thành ký tự Word editable.
+  paper.querySelectorAll('.nk-paper-check-view').forEach(node=>{
+    node.replaceWith(host.ownerDocument.createTextNode(node.classList.contains('is-checked')?'☑':'☐'));
   });
+
+  // Bỏ các cấu trúc chỉ phục vụ layout trình duyệt; giữ rowspan/colspan của bảng thật.
+  paper.querySelectorAll('colgroup').forEach(node=>node.remove());
+  paper.querySelectorAll('table').forEach(table=>{
+    table.removeAttribute('style');
+    table.removeAttribute('width');
+  });
+  paper.querySelectorAll('[style]').forEach(node=>{
+    if(!node.classList.contains('nk-paper')) node.removeAttribute('style');
+  });
+  paper.removeAttribute('style');
+
+  return paper.outerHTML;
 }
 
-async function nkRenderCurrentNoiKiemTmToPng(){
+function nkBuildCurrentNoiKiemTmEditableWordPayload(){
   const dept=$('#createDept')?.value||'';
   const day=getDateInputIso('createDate');
   if(!dept||!day) throw new Error('Vui lòng chọn đơn vị và ngày nội kiểm trước khi tải Word.');
-
   const preserve=['PHAN_1','PHAN_2','PHAN_3','PHAN_4','PHAN_5'];
   const currentData=collectNoiKiemTmData('nkCreate',preserve);
-  const paperWidth=nkPaperCommonTableWidth(currentData,true)+28;
-  const frame=document.createElement('iframe');
-  frame.setAttribute('aria-hidden','true');
-  frame.style.cssText=`position:fixed;left:-20000px;top:0;width:${Math.max(1400,paperWidth+80)}px;height:1800px;border:0;opacity:0;pointer-events:none;background:#fff;`;
-  document.body.appendChild(frame);
-  try{
-    const doc=frame.contentDocument||frame.contentWindow?.document;
-    if(!doc) throw new Error('Không khởi tạo được vùng dựng Word.');
-    const html=renderNoiKiemTmFormHtml('nkWordExport',currentData,dept,{readonly:true,ngayNoiKiem:day,sectionMeta:{}});
-    doc.open();
-    doc.write(`<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>${nkWordCaptureCss()}</style></head><body><div class="nk-word-capture">${html}</div></body></html>`);
-    doc.close();
-    await new Promise(resolve=>setTimeout(resolve,80));
-    await new Promise(resolve=>frame.contentWindow?.requestAnimationFrame?frame.contentWindow.requestAnimationFrame(()=>resolve()):resolve());
-    const paper=doc.querySelector('.nk-paper');
-    if(!paper) throw new Error('Không tìm thấy nội dung phiếu để tạo Word.');
-    const width=Math.max(1,Math.ceil(paper.scrollWidth||paper.getBoundingClientRect().width||paperWidth));
-    const height=Math.max(1,Math.ceil(paper.scrollHeight||paper.getBoundingClientRect().height||900));
-    const css=Array.from(doc.querySelectorAll('style')).map(node=>node.textContent||'').join('\n').replace(/]]>/g,']]]]><![CDATA[>');
-    const serialized=new XMLSerializer().serializeToString(paper);
-    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><foreignObject x="0" y="0" width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml"><style><![CDATA[${css}]]></style>${serialized}</div></foreignObject></svg>`;
-    const svgUrl=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));
-    try{
-      const img=await nkWordLoadImage(svgUrl);
-      const scale=Math.max(1,Math.min(2,6000/Math.max(width,height)));
-      const canvas=document.createElement('canvas');
-      canvas.width=Math.max(1,Math.round(width*scale));
-      canvas.height=Math.max(1,Math.round(height*scale));
-      const ctx=canvas.getContext('2d');
-      if(!ctx) throw new Error('Trình duyệt không hỗ trợ dựng ảnh Word.');
-      ctx.fillStyle='#fff';
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.drawImage(img,0,0,canvas.width,canvas.height);
-      return {dataUrl:canvas.toDataURL('image/png',1),pixelWidth:canvas.width,pixelHeight:canvas.height,dept,day};
-    }finally{
-      URL.revokeObjectURL(svgUrl);
-    }
-  }finally{
-    frame.remove();
-  }
+  const raw=renderNoiKiemTmFormHtml('nkWordEditable',currentData,dept,{readonly:true,ngayNoiKiem:day,sectionMeta:{}});
+  const paperHtml=nkPrepareEditableWordPaperHtml(raw,dept,day);
+  const htmlContent=`<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>${nkWordEditableCss()}</style></head><body>${paperHtml}</body></html>`;
+  if(htmlContent.length>1500000) throw new Error('Nội dung phiếu quá lớn để tạo Word. Vui lòng kiểm tra lại cấu hình biểu mẫu.');
+  return {dept,day,htmlContent};
 }
 
 async function downloadCurrentNoiKiemTmWord(event){
@@ -12392,21 +12431,19 @@ async function downloadCurrentNoiKiemTmWord(event){
   const buttons=['downloadNoiKiemTmWordBtn','downloadNoiKiemTmWordMobileBtn'].map(id=>document.getElementById(id)).filter(Boolean);
   if(buttons.some(button=>button.disabled)) return;
   const originals=buttons.map(button=>({button,html:button.innerHTML}));
-  buttons.forEach(button=>{button.disabled=true;button.innerHTML='<span class="loading-dot"></span>Đang tạo...';});
-  nkSetCreateStatus('Đang dựng bản Word theo đúng bố cục phiếu...');
+  buttons.forEach(button=>{button.disabled=true;button.innerHTML='<span class="loading-dot"></span>';});
+  nkSetCreateStatus('Đang tạo file Word có thể chỉnh sửa...');
   try{
-    const snapshot=await nkRenderCurrentNoiKiemTmToPng();
+    const payload=nkBuildCurrentNoiKiemTmEditableWordPayload();
     const response=await api('noiKiemTm_exportWord',{
-      khoaPhong:snapshot.dept,
-      ngayNoiKiem:snapshot.day,
-      imageDataUrl:snapshot.dataUrl,
-      pixelWidth:snapshot.pixelWidth,
-      pixelHeight:snapshot.pixelHeight
+      khoaPhong:payload.dept,
+      ngayNoiKiem:payload.day,
+      htmlContent:payload.htmlContent
     });
     const file=response.data||{};
     if(!file.base64) throw new Error('Backend không trả về dữ liệu file Word.');
-    downloadBase64File(file.fileName||`Noi_kiem_TM_${nkWordFileDeptLabel(snapshot.dept)}_${snapshot.day}.docx`,file.mimeType||'application/vnd.openxmlformats-officedocument.wordprocessingml.document',file.base64);
-    nkSetCreateStatus('Đã tạo bản Word.','success');
+    downloadBase64File(file.fileName||`Noi_kiem_TM_${nkWordFileDeptLabel(payload.dept)}_${payload.day}.docx`,file.mimeType||'application/vnd.openxmlformats-officedocument.wordprocessingml.document',file.base64);
+    nkSetCreateStatus('Đã tạo bản Word có thể chỉnh sửa.','success');
     toast(response.message||'Đã tải bản Word Nội kiểm Truyền máu.');
   }catch(err){
     const message=err?.message||'Không tạo được bản Word Nội kiểm Truyền máu.';
