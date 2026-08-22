@@ -1,4 +1,4 @@
-<!-- VERSION: 401.257 | index: 401 | Code.gs: 257 | INDEX-401.220826-NKTM-WORD-FIXED-GRID -->
+<!-- VERSION: 402.258 | index: 402 | Code.gs: 258 | INDEX-402.220826-NKTM-WORD-DOWNLOAD-SPINNER -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -12343,8 +12343,8 @@ async function downloadCurrentNoiKiemTmWord(event){
   const buttons=['downloadNoiKiemTmWordBtn','downloadNoiKiemTmWordMobileBtn'].map(id=>document.getElementById(id)).filter(Boolean);
   if(buttons.some(button=>button.disabled)) return;
   const originals=buttons.map(button=>({button,html:button.innerHTML}));
-  buttons.forEach(button=>{button.disabled=true;button.innerHTML='<span class="loading-dot"></span>';});
-  nkSetCreateStatus('Đang tạo file Word có thể chỉnh sửa...');
+  buttons.forEach(button=>{button.disabled=true;button.innerHTML='<span class="loading-dot" aria-hidden="true"></span>';});
+  nkSetCreateStatus('');
   try{
     const payload=nkBuildCurrentNoiKiemTmEditableWordPayload();
     const response=await api('noiKiemTm_exportWord',{
@@ -12355,8 +12355,6 @@ async function downloadCurrentNoiKiemTmWord(event){
     const file=response.data||{};
     if(!file.base64) throw new Error('Backend không trả về dữ liệu file Word.');
     downloadBase64File(file.fileName||`Noi_kiem_TM_${nkWordFileDeptLabel(payload.dept)}_${payload.day}.docx`,file.mimeType||'application/vnd.openxmlformats-officedocument.wordprocessingml.document',file.base64);
-    nkSetCreateStatus('Đã tạo bản Word có thể chỉnh sửa.','success');
-    toast(response.message||'Đã tải bản Word Nội kiểm Truyền máu.');
   }catch(err){
     const message=err?.message||'Không tạo được bản Word Nội kiểm Truyền máu.';
     nkSetCreateStatus(message,'error');
