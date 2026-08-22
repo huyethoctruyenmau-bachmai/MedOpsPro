@@ -1,4 +1,4 @@
-<!-- VERSION: 391.250 | index: 391 | Code.gs: 250 | INDEX-391.180826-APP-HEADER-UNIT -->
+<!-- VERSION: 393.253 | index: 393 | Code.gs: 253 | INDEX-393.220826-NKTM-UNIT-FOOTER -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5165,7 +5165,7 @@
       }
     }
 
-    /* ===== NỘI KIỂM TRUYỀN MÁU - BỐ CỤC GIỐNG SỔ BM.08.QL.30 ===== */
+    /* ===== NỘI KIỂM TRUYỀN MÁU - BIỂU MẪU BM06.QL14 ===== */
     .nk-form{display:block;min-width:0;max-width:100%}
     .nk-paper-scroll{
       display:block!important;
@@ -6432,6 +6432,27 @@
     #app.medops-nav-v3 .home-kpi-label{color:#5f6368;font-size:12.5px;line-height:1.35}
     #app.medops-nav-v3 .home-kpi-value{margin-top:7px;font-size:25px;font-weight:700;color:#202124}
     #app.medops-nav-v3 .home-kpi-note{margin-top:5px;color:#80868b;font-size:11.5px}
+    #app.medops-nav-v3 .home-kpi-action{width:100%;min-height:86px;text-align:left;cursor:pointer;font:inherit;color:#202124;transition:background .12s ease,border-color .12s ease,box-shadow .12s ease}
+    #app.medops-nav-v3 .home-kpi-action:hover{background:#f8fbff;border-color:#a8c7fa;box-shadow:0 1px 3px rgba(60,64,67,.14)}
+    #app.medops-nav-v3 .home-kpi-pending-line{display:block;font-size:14px;line-height:1.45;font-weight:600;color:#3c4043}
+    #app.medops-nav-v3 .home-kpi-pending-line strong{font-size:18px;color:#202124;white-space:nowrap}
+    .dashboard-handover-filter{display:grid;grid-template-columns:minmax(190px,1.2fr) repeat(2,minmax(150px,.7fr)) auto;gap:9px;align-items:end;margin:10px 0 14px}
+    .dashboard-handover-filter > div{min-width:0}
+    .dashboard-handover-list{border:1px solid var(--g-line);border-radius:12px;background:#fff;overflow:hidden}
+    .dashboard-handover-head,.dashboard-handover-row{display:grid;grid-template-columns:minmax(150px,.9fr) minmax(150px,1fr) minmax(150px,1fr) minmax(130px,.8fr) auto;gap:8px;align-items:center;padding:9px 10px}
+    .dashboard-handover-head{background:#f8f9fa;color:#5f6368;font-size:12.5px;font-weight:700;border-bottom:1px solid var(--g-line)}
+    .dashboard-handover-row{font-size:13.5px;color:#202124;border-bottom:1px solid #f1f3f4}
+    .dashboard-handover-row:last-child{border-bottom:0}
+    .dashboard-handover-row .btn{min-height:30px;height:30px;padding:0 10px;width:auto!important;white-space:nowrap}
+    @media(max-width:760px){
+      .dashboard-handover-filter{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .dashboard-handover-filter .dashboard-filter-dept,.dashboard-handover-filter .dashboard-filter-action{grid-column:1/-1}
+      .dashboard-handover-filter .dashboard-filter-action .btn{width:100%}
+      .dashboard-handover-head{display:none}
+      .dashboard-handover-row{grid-template-columns:1fr;gap:4px;padding:11px 12px}
+      .dashboard-handover-row > div::before{content:attr(data-label);display:block;color:#80868b;font-size:11.5px;font-weight:700;margin-bottom:1px}
+      .dashboard-handover-row .btn{width:100%!important;margin-top:4px}
+    }
     #app.medops-nav-v3 .settings-shell{font-family:Arial,sans-serif;color:#202124}
     #app.medops-nav-v3 .settings-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:14px;align-items:start}
     #app.medops-nav-v3 .settings-menu{position:sticky;top:0;background:#fff;border:1px solid #dadce0;border-radius:12px;padding:9px;box-shadow:0 1px 2px rgba(60,64,67,.08)}
@@ -6529,7 +6550,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-391.180826-APP-HEADER-UNIT</p>
+      <p class="login-version">Version: INDEX-393.220826-NKTM-UNIT-FOOTER</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6540,7 +6561,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-391.180826-APP-HEADER-UNIT</div>
+    <div class="login-loading-version">Version: INDEX-393.220826-NKTM-UNIT-FOOTER</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6594,7 +6615,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-391.180826-APP-HEADER-UNIT</div>
+    <div class="app-version">Version: INDEX-393.220826-NKTM-UNIT-FOOTER</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6663,7 +6684,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-391.180826-APP-HEADER-UNIT';
+const APP_VERSION = 'INDEX-393.220826-NKTM-UNIT-FOOTER';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6804,6 +6825,7 @@ const state = {
   accountOptions: {listPhongBan: [], listViTriTruc: [], listChucDanh: []},
   appSetup: {},
   homeConfig: {user:{favoriteCardIds:['create','handover','meeting','list'],sectionOrder:['favorites','work','menu','dashboard']},cardOverrides:{},canConfigureCards:false},
+  dashboardUnsignedHandover: {loaded:false,loading:false,count:0,items:[],filters:{fromDate:'',toDate:'',khoaPhong:''},departments:[],canSelectDept:false,error:''},
   permissionScope: {},
   deptGroups: {labo:[], lamSang:[]},
   allowedFormTypes: [],
@@ -7045,6 +7067,7 @@ async function logout(){
   state.currentReports = [];
   state.currentTmPhieus = [];
   state.accountInfo = null;
+  state.dashboardUnsignedHandover = {loaded:false,loading:false,count:0,items:[],filters:{fromDate:'',toDate:'',khoaPhong:''},departments:[],canSelectDept:false,error:''};
   state.accountSetupOpen = false;
   state.activeTab = 'home';
   state.technicalPage = 'overview';
@@ -7135,12 +7158,11 @@ async function loadInitData(opts={}){
     renderPdfTab();
     renderAccountTab();
     setDefaultFilters();
-    if(opts.fromLogin){
-      showLoginLoading(88, 'Đang tải dữ liệu...');
-      await Promise.allSettled([preloadStartupLists(), nkCreatePreloadTask]);
-    }else{
-      await Promise.allSettled([nkCreatePreloadTask]);
-    }
+    // Dashboard tải riêng ngay sau init nhưng không chặn luồng mở app.
+    // DS phiếu/Giao ban KHÔNG preload; chỉ tải khi người dùng nhấn Xem danh sách.
+    startDashboardUnsignedHandoverInitialLoad_();
+    if(opts.fromLogin) showLoginLoading(88, 'Đang chuẩn bị Tạo phiếu...');
+    await Promise.allSettled([nkCreatePreloadTask]);
     return true;
   }catch(err){
     hideLoginLoading();
@@ -7151,10 +7173,9 @@ async function loadInitData(opts={}){
 }
 
 async function preloadStartupLists(){
-  const tasks = [];
-  if(document.getElementById('phieuListBox')) tasks.push(loadPhieuList(true));
-  if(document.getElementById('giaoBanListBox')) tasks.push(loadGiaoBanList(true));
-  await Promise.allSettled(tasks);
+  // Giữ hàm tương thích nhưng không gọi ở startup từ 392.253.
+  // Danh sách phiếu/giao ban chỉ tải khi người dùng nhấn Xem danh sách.
+  return true;
 }
 
 function refreshDatalists(){
@@ -7418,6 +7439,10 @@ const AppNavigationModule = (() => {
       openHomeFavoritesCustomizer();
       return;
     }
+    if(action === 'open-dashboard-unsigned-handover'){
+      openDashboardUnsignedHandoverModal_();
+      return;
+    }
     if(action === 'technical-page'){
       state.technicalPage = button.dataset.page || 'overview';
       renderTechnicalTab();
@@ -7597,6 +7622,123 @@ function renderHomeWorkItems_(){
   return `<div class="home-work-list">${rows.map(row => `<button type="button" class="home-work-item" data-app-action="${row.action}" data-target="${row.target}"><span class="home-work-icon">${appCardIcon(row.icon,true)}</span><span><span class="home-work-title">${esc(row.title)}</span><span class="home-work-sub">${esc(row.sub)}</span></span><span class="home-work-state">${esc(row.state)}</span></button>`).join('')}</div>`;
 }
 
+// ===== START DASHBOARD_HANDOVER_PENDING 392.253 =====
+function dashboardUnsignedDefaultFilters_(){
+  return {
+    fromDate: addDaysIso(todayIso(), -14),
+    toDate: todayIso(),
+    khoaPhong: state.user?.khoaPhong || state.user?.phongLamViec || ''
+  };
+}
+
+function startDashboardUnsignedHandoverInitialLoad_(){
+  if(!state.token || !state.initLoaded) return;
+  const current = state.dashboardUnsignedHandover || {};
+  if(current.loading || current.loaded) return;
+  loadDashboardUnsignedHandovers_(dashboardUnsignedDefaultFilters_(), {initial:true}).catch(()=>null);
+}
+
+async function loadDashboardUnsignedHandovers_(filters, opts={}){
+  const dash = state.dashboardUnsignedHandover || {};
+  if(dash.loading) return false;
+  const applied = Object.assign({}, dashboardUnsignedDefaultFilters_(), filters || {});
+  dash.loading = true;
+  dash.error = '';
+  state.dashboardUnsignedHandover = dash;
+  renderHomeTab();
+  try{
+    const res = await api('dashboard_getUnsignedHandovers', applied);
+    state.dashboardUnsignedHandover = {
+      loaded:true,
+      loading:false,
+      count:Number(res.data?.count || 0),
+      items:Array.isArray(res.data?.items) ? res.data.items : [],
+      filters:Object.assign({}, res.data?.filters || applied),
+      departments:Array.isArray(res.data?.departments) ? res.data.departments : [],
+      canSelectDept:!!res.data?.canSelectDept,
+      error:''
+    };
+    renderHomeTab();
+    return true;
+  }catch(err){
+    state.dashboardUnsignedHandover = Object.assign({}, dash, {loaded:false,loading:false,error:err.message || 'Không tải được dữ liệu.'});
+    renderHomeTab();
+    if(!opts.initial) toast(err.message || 'Không tải được bàn giao chưa ký.');
+    return false;
+  }
+}
+
+function dashboardUnsignedCardHtml_(){
+  const dash = state.dashboardUnsignedHandover || {};
+  let value = '--';
+  if(dash.loading && !dash.loaded) value = 'Đang tải...';
+  else if(dash.loaded) value = `${Number(dash.count || 0)} phiếu`;
+  else if(dash.error) value = 'Không tải được';
+  return `<button type="button" class="home-kpi home-kpi-action" data-app-action="open-dashboard-unsigned-handover"><span class="home-kpi-pending-line">Bàn giao trực chưa ký xác nhận: <strong>${esc(value)}</strong></span></button>`;
+}
+
+function dashboardUnsignedModalListHtml_(items){
+  if(!Array.isArray(items) || !items.length) return `<div class="empty">Không có phiếu Bàn giao trực chưa ký xác nhận trong khoảng đã tải.</div>`;
+  return `<div class="dashboard-handover-list">
+    <div class="dashboard-handover-head"><div>Ngày giờ bàn giao</div><div>Người bàn giao</div><div>Người nhận</div><div>Trạng thái</div><div></div></div>
+    ${items.map(item => `<div class="dashboard-handover-row">
+      <div data-label="Ngày giờ bàn giao">${esc(item.thoiGianBanGiao || dateVi(item.ngayTruc || ''))}</div>
+      <div data-label="Người bàn giao">${esc(item.nguoiBanGiaoTen || item.nguoiBanGiaoMa || '')}</div>
+      <div data-label="Người nhận">${esc(item.nguoiNhanTen || 'Chưa ký nhận')}</div>
+      <div data-label="Trạng thái">Chưa ký xác nhận</div>
+      <div><button type="button" class="btn secondary" data-dashboard-phieu-id="${escAttr(item.phieuID || '')}">Xem phiếu</button></div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function openDashboardUnsignedHandoverModal_(){
+  const dash = state.dashboardUnsignedHandover || {};
+  const filters = Object.assign({}, dashboardUnsignedDefaultFilters_(), dash.filters || {});
+  const canSelectDept = !!dash.canSelectDept;
+  const departments = Array.isArray(dash.departments) && dash.departments.length
+    ? dash.departments
+    : [filters.khoaPhong].filter(Boolean);
+  const deptField = canSelectDept
+    ? `<select id="dashboardHandoverDept" class="equal-control">${departments.map(x => `<option value="${escAttr(x)}" ${deptSameClient(x,filters.khoaPhong)?'selected':''}>${esc(x)}</option>`).join('')}</select>`
+    : `<input id="dashboardHandoverDept" class="equal-control" type="text" readonly value="${escAttr(filters.khoaPhong || '')}">`;
+  const statusHtml = dash.loading && !dash.loaded
+    ? `<div class="loading">Đang tải bàn giao trực chưa ký xác nhận...</div>`
+    : (dash.error && !dash.loaded ? `<div class="empty">${esc(dash.error)}</div>` : dashboardUnsignedModalListHtml_(dash.items || []));
+
+  openModal(`<div class="modal-card"><div class="modal-head"><div class="modal-title">Bàn giao trực chưa ký xác nhận</div><button class="close-btn" onclick="closeModal()">×</button></div>
+    <div class="dashboard-handover-filter">
+      <div class="dashboard-filter-dept"><label>Khoa/Phòng</label>${deptField}</div>
+      <div><label>Từ ngày</label><input id="dashboardHandoverFrom" class="equal-control date-vi-input" type="date" value="${escAttr(filters.fromDate || '')}"></div>
+      <div><label>Đến ngày</label><input id="dashboardHandoverTo" class="equal-control date-vi-input" type="date" value="${escAttr(filters.toDate || '')}"></div>
+      <div class="dashboard-filter-action"><button id="dashboardHandoverRefreshBtn" type="button" class="btn primary">Làm mới</button></div>
+    </div>
+    <div id="dashboardHandoverDetailBox">${statusHtml}</div>
+    <div class="btn-row"><button type="button" class="btn secondary" onclick="closeModal()">Đóng</button></div>
+  </div>`);
+  scheduleViDatePickerEnhance();
+
+  document.getElementById('dashboardHandoverRefreshBtn')?.addEventListener('click', async event => {
+    const btn = event.currentTarget;
+    const nextFilters = {
+      khoaPhong: document.getElementById('dashboardHandoverDept')?.value || filters.khoaPhong || '',
+      fromDate: getDateInputIso('dashboardHandoverFrom') || filters.fromDate || addDaysIso(todayIso(), -14),
+      toDate: getDateInputIso('dashboardHandoverTo') || filters.toDate || todayIso()
+    };
+    await withButton(btn, 'Đang tải...', async () => {
+      const ok = await loadDashboardUnsignedHandovers_(nextFilters, {initial:false});
+      if(ok) openDashboardUnsignedHandoverModal_();
+    });
+  });
+
+  document.getElementById('dashboardHandoverDetailBox')?.addEventListener('click', event => {
+    const btn = event.target.closest('[data-dashboard-phieu-id]');
+    if(!btn) return;
+    const id = btn.dataset.dashboardPhieuId || '';
+    if(id) window.openPhieu(id, btn);
+  });
+}
+// ===== END DASHBOARD_HANDOVER_PENDING 392.253 =====
+
 function renderHomeDashboard_(){
   const deptCount = Array.isArray(state.khoaPhong) ? state.khoaPhong.length : 0;
   const formCount = Array.isArray(state.allowedFormTypes) ? state.allowedFormTypes.length : 0;
@@ -7608,7 +7750,7 @@ function renderHomeDashboard_(){
     ['Phạm vi dữ liệu', scope, 'Backend kiểm soát'],
     ['Quyền xuất Excel', exportText, 'Theo cấu hình hệ thống']
   ];
-  return `<div class="home-dashboard-grid">${items.map(item => `<div class="home-kpi"><div class="home-kpi-label">${esc(item[0])}</div><div class="home-kpi-value">${esc(item[1])}</div><div class="home-kpi-note">${esc(item[2])}</div></div>`).join('')}</div>`;
+  return `<div class="home-dashboard-grid">${dashboardUnsignedCardHtml_()}${items.map(item => `<div class="home-kpi"><div class="home-kpi-label">${esc(item[0])}</div><div class="home-kpi-value">${esc(item[1])}</div><div class="home-kpi-note">${esc(item[2])}</div></div>`).join('')}</div>`;
 }
 
 function renderHomeTab(){
@@ -11387,9 +11529,10 @@ function nkPaperDateParts(iso){
 }
 
 function nkPaperOrgHeader(dept){
-  return isXnhhCsNinhBinhDept(dept)
-    ? {hospital:'BỆNH VIỆN BẠCH MAI CƠ SỞ NINH BÌNH', unit:'KHOA HUYẾT HỌC VÀ TRUYỀN MÁU'}
-    : {hospital:'BỆNH VIỆN BẠCH MAI CƠ SỞ HÀ NỘI', unit:'VIỆN HUYẾT HỌC VÀ TRUYỀN MÁU BẠCH MAI'};
+  const targetDept = nkText(dept || state.user?.khoaPhong || state.user?.phongLamViec || '');
+  return isXnhhCsNinhBinhDept(targetDept)
+    ? {hospital:'VIỆN HUYẾT HỌC VÀ TRUYỀN MÁU BẠCH MAI', unit:'KHOA HUYẾT HỌC VÀ TRUYỀN MÁU CƠ SỞ NINH BÌNH'}
+    : {hospital:'VIỆN HUYẾT HỌC VÀ TRUYỀN MÁU BẠCH MAI', unit:'KHOA TRUYỀN MÁU'};
 }
 
 function nkPaperHasValue(value){
@@ -11547,7 +11690,7 @@ function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
     <div data-nk-section="PHAN_3">${nkPaperTableIII(prefix,coombs,dept,isSectionReadonly('PHAN_3'),commonTableWidth,sectionMeta.PHAN_3||null)}</div>
     <div data-nk-section="PHAN_4">${nkPaperTableIV(prefix,cross,dept,isSectionReadonly('PHAN_4'),commonTableWidth,sectionMeta.PHAN_4||null)}</div>
     <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div><table class="nk-paper-table nk-paper-table-v" style="width:${commonTableWidth}px;min-width:${commonTableWidth}px"><colgroup><col style="width:${Math.max(1,commonTableWidth-NK_PERFORMER_COL_WIDTH)}px"><col class="nk-paper-performer-col" style="width:${NK_PERFORMER_COL_WIDTH}px"></colgroup><tbody><tr><td class="nk-paper-other-content-cell"><div class="nk-paper-other-wrap${hasOtherContent?' has-content':''}">${isSectionReadonly('PHAN_5')?nkPaperOtherReadonlyHtml(d.xetNghiemKhac):`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}</div></td><td class="nk-paper-other-performer-cell"><div class="nk-paper-other-performer-row${hasOtherContent?'':' is-hidden'}"><div class="nk-paper-other-performer-box"><div class="nk-paper-other-performer-label">Người thực hiện</div><div class="nk-paper-other-performer-control">${nkPaperPerformerSelect(prefix,'Other',(isSectionReadonly('PHAN_5')&&!hasOtherContent)?[]:otherPerformers,dept,isSectionReadonly('PHAN_5'))}</div>${audit('PHAN_5')}</div></div></td></tr></tbody></table></div>
-    <div class="nk-paper-footer"><div>BM.08.QL.30</div><div>Trang 2 / 2<br>Phiên bản BM: 2.3.3</div><div>Ngày ban hành BM: 01/08/2024</div></div>
+    <div class="nk-paper-footer"><div>BM06.QL14</div><div>Trang 2 / 2<br>Phiên bản BM: 2.3.3</div><div>Ngày ban hành BM: 01/08/2024</div></div>
   </div></div></div>`;
 }
 
@@ -12851,10 +12994,10 @@ function renderListTab(){
             <option>Tất cả</option><option selected>${STATUS_CHUA}</option><option>${STATUS_DA}</option>
           </select>
         </div>
-        <div class="filter-action"><button id="loadPhieuBtn" class="btn primary equal-control">Tải danh sách</button></div>
+        <div class="filter-action"><button id="loadPhieuBtn" class="btn primary equal-control">Xem danh sách</button></div>
       </div>
     </div>
-    <div id="phieuListBox"></div>
+    <div id="phieuListBox"><div class="empty">Chọn bộ lọc và nhấn Xem danh sách.</div></div>
   `;
   $('#loadPhieuBtn').addEventListener('click', () => withButton($('#loadPhieuBtn'), 'Đang tải...', () => loadPhieuList(true)));
   setDefaultDateRange('filterFrom','filterTo',1);
@@ -13649,7 +13792,7 @@ function renderMeetingTab(){
         <div class="col-3 filter-action"><button id="createGbBtn" class="btn ok">Tạo phiên họp/giao ban</button></div>
       </div>
     </div>
-    <div id="giaoBanListBox"></div>
+    <div id="giaoBanListBox"><div class="empty">Chọn bộ lọc và nhấn Xem danh sách.</div></div>
   `;
   $('#loadGbBtn').addEventListener('click', () => withButton($('#loadGbBtn'), 'Đang tải...', () => loadGiaoBanList(true)));
   $('#createGbBtn').addEventListener('click', openCreateGiaoBanDialog);
