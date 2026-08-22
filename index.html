@@ -1,4 +1,4 @@
-<!-- VERSION: 397.254 | index: 397 | Code.gs: 254 | INDEX-397.220826-NKTM-DEPT-HEADER-FOOTER -->
+<!-- VERSION: 398.255 | index: 398 | Code.gs: 255 | INDEX-398.220826-NKTM-WORD-DOWNLOAD -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5736,6 +5736,22 @@
       box-shadow:0 4px 9px rgba(26,115,232,.25)!important;
       white-space:nowrap;
     }
+    /* ===== NỘI KIỂM 398: TẢI WORD GIỮ NGUYÊN BỐ CỤC PHIẾU ===== */
+    .nk-create-word{
+      height:40px!important;
+      min-height:40px!important;
+      min-width:112px!important;
+      margin:0 8px 0 0!important;
+      padding:0 14px!important;
+      border-radius:8px!important;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      gap:7px!important;
+      white-space:nowrap!important;
+      flex:0 0 auto!important;
+    }
+    .nk-create-word svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
     @media (min-width:900px){
       #createContentBox.nk-create-mode{
@@ -6128,14 +6144,16 @@
     .nk-create-mobile-status{display:none;margin:6px 0 0;font:12px Arial,sans-serif;color:#5f6368;line-height:1.35}
     .nk-create-mobile-status.is-error{color:#b3261e;font-weight:600}
     .nk-create-mobile-status.is-success{color:#137333;font-weight:600}
-    .nk-mobile-create-actions{display:none;margin-top:12px;padding:0 2px 8px}
+    .nk-mobile-create-actions{display:none;margin-top:12px;padding:0 2px 8px;gap:8px}
     .nk-mobile-create-actions .btn{width:100%;min-height:46px;font-weight:700}
+    .nk-mobile-create-actions .nk-mobile-word-btn{background:#fff;color:var(--g-blue);border:1px solid var(--g-line)}
 
     @media(max-width:760px){
       #createContentBox.nk-create-mode>#noiKiemTmToolbarHost{display:none!important}
       #tab-create .create-left-card .nk-mobile-refresh:not(.hidden){display:inline-flex!important}
       #tab-create .create-left-card .nk-create-mobile-status:not(.hidden){display:block!important}
-      #noiKiemTmBlock .nk-mobile-create-actions{display:block!important}
+      #noiKiemTmBlock .nk-mobile-create-actions{display:flex!important}
+      .nk-create-toolbar-host .nk-create-word{display:none!important}
       #fitNoiKiemTmBtn{display:none!important}
       .nk-paper-evaluator{align-items:flex-start;flex-direction:column;gap:3px}
       .nk-paper-evaluator .nk-evaluator-select{width:100%;font-size:12px}
@@ -11923,6 +11941,10 @@ function nkCreateToolbarHtml(message='',type='',canSubmit=true){
       </button>
     </div>
     <div id="nkCreateStatus" class="nk-create-status${cls}">${esc(message||'')}</div>
+    <button id="downloadNoiKiemTmWordBtn" type="button" class="btn secondary nk-create-word" ${canSubmit?'':'disabled'}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
+      <span>Tải Word</span>
+    </button>
     <button id="createNoiKiemTmBtn" type="button" class="btn primary nk-create-submit" ${canSubmit?'':'disabled'}>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
       <span>Tạo phiếu</span>
@@ -11996,6 +12018,7 @@ function nkToggleCreateFitMode(){
 function nkBindCreateToolbar(){
   $('#refreshNoiKiemTmBtn')?.addEventListener('click',()=>renderNoiKiemTmCreateForm({force:true}));
   $('#fitNoiKiemTmBtn')?.addEventListener('click',nkToggleCreateFitMode);
+  $('#downloadNoiKiemTmWordBtn')?.addEventListener('click',downloadCurrentNoiKiemTmWord);
   if(!window.__nkCreateFitResizeBound){
     window.__nkCreateFitResizeBound=true;
     window.addEventListener('resize',()=>{if(state.noiKiemTmCreateFitMode)nkApplyCreateFitMode(true);});
@@ -12010,9 +12033,10 @@ function nkBindCreateForm(entry,dept){
   state.noiKiemTmRuntimeConfigMap[dept]=entry.config;
   toolbarHost.innerHTML=nkCreateToolbarHtml();
   toolbarHost.classList.remove('hidden');
-  box.innerHTML=`${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}<div class="nk-mobile-create-actions"><button id="createNoiKiemTmMobileBtn" type="button" class="btn primary">Tạo phiếu</button></div>`;
+  box.innerHTML=`${renderNoiKiemTmFormHtml('nkCreate',{},dept,{ngayNoiKiem:getDateInputIso('createDate')})}<div class="nk-mobile-create-actions"><button id="downloadNoiKiemTmWordMobileBtn" type="button" class="btn secondary nk-mobile-word-btn">Tải Word</button><button id="createNoiKiemTmMobileBtn" type="button" class="btn primary">Tạo phiếu</button></div>`;
   $('#createNoiKiemTmBtn')?.addEventListener('click',submitCreateNoiKiemTm);
   $('#createNoiKiemTmMobileBtn')?.addEventListener('click',submitCreateNoiKiemTm);
+  $('#downloadNoiKiemTmWordMobileBtn')?.addEventListener('click',downloadCurrentNoiKiemTmWord);
   nkBindCreateToolbar();
   const dateInput=$('#createDate');
   if(dateInput&&!dateInput.dataset.nkPaperSyncBound){
@@ -12283,6 +12307,116 @@ async function submitCreateNoiKiemTm(event){
     });
   }
 }
+
+/* ===== NỘI KIỂM WORD EXPORT: START ===== */
+function nkWordFileDeptLabel(dept){
+  const n=norm(dept||'');
+  if(n.includes('ninh binh')) return 'Khoa_HH_TM_CS_Ninh_Binh';
+  return 'Khoa_Truyen_Mau';
+}
+
+function nkWordCaptureCss(){
+  const base=Array.from(document.querySelectorAll('style')).map(node=>node.textContent||'').join('\n');
+  return `${base}\n
+  html,body{position:static!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important}
+  body{display:block!important;font-family:Arial,sans-serif!important;touch-action:auto!important}
+  .nk-word-capture{display:block!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;background:#fff!important;overflow:visible!important}
+  .nk-word-capture .nk-form{width:auto!important;max-width:none!important;margin:0!important;padding:0!important}
+  .nk-word-capture .nk-paper-scroll{overflow:visible!important;width:auto!important;max-width:none!important;padding:0!important;margin:0!important}
+  .nk-word-capture .nk-paper{transform:none!important;transform-origin:top left!important;zoom:1!important;margin:0!important;box-shadow:none!important;background:#fff!important}
+  .nk-word-capture .nk-paper-header{overflow:visible!important}
+  .nk-word-capture input,.nk-word-capture select,.nk-word-capture textarea{color:#000!important}
+  `;
+}
+
+function nkWordLoadImage(url){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>resolve(img);
+    img.onerror=()=>reject(new Error('Không dựng được ảnh phiếu để tạo Word.'));
+    img.src=url;
+  });
+}
+
+async function nkRenderCurrentNoiKiemTmToPng(){
+  const dept=$('#createDept')?.value||'';
+  const day=getDateInputIso('createDate');
+  if(!dept||!day) throw new Error('Vui lòng chọn đơn vị và ngày nội kiểm trước khi tải Word.');
+
+  const preserve=['PHAN_1','PHAN_2','PHAN_3','PHAN_4','PHAN_5'];
+  const currentData=collectNoiKiemTmData('nkCreate',preserve);
+  const paperWidth=nkPaperCommonTableWidth(currentData,true)+28;
+  const frame=document.createElement('iframe');
+  frame.setAttribute('aria-hidden','true');
+  frame.style.cssText=`position:fixed;left:-20000px;top:0;width:${Math.max(1400,paperWidth+80)}px;height:1800px;border:0;opacity:0;pointer-events:none;background:#fff;`;
+  document.body.appendChild(frame);
+  try{
+    const doc=frame.contentDocument||frame.contentWindow?.document;
+    if(!doc) throw new Error('Không khởi tạo được vùng dựng Word.');
+    const html=renderNoiKiemTmFormHtml('nkWordExport',currentData,dept,{readonly:true,ngayNoiKiem:day,sectionMeta:{}});
+    doc.open();
+    doc.write(`<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>${nkWordCaptureCss()}</style></head><body><div class="nk-word-capture">${html}</div></body></html>`);
+    doc.close();
+    await new Promise(resolve=>setTimeout(resolve,80));
+    await new Promise(resolve=>frame.contentWindow?.requestAnimationFrame?frame.contentWindow.requestAnimationFrame(()=>resolve()):resolve());
+    const paper=doc.querySelector('.nk-paper');
+    if(!paper) throw new Error('Không tìm thấy nội dung phiếu để tạo Word.');
+    const width=Math.max(1,Math.ceil(paper.scrollWidth||paper.getBoundingClientRect().width||paperWidth));
+    const height=Math.max(1,Math.ceil(paper.scrollHeight||paper.getBoundingClientRect().height||900));
+    const css=Array.from(doc.querySelectorAll('style')).map(node=>node.textContent||'').join('\n').replace(/]]>/g,']]]]><![CDATA[>');
+    const serialized=new XMLSerializer().serializeToString(paper);
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><foreignObject x="0" y="0" width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml"><style><![CDATA[${css}]]></style>${serialized}</div></foreignObject></svg>`;
+    const svgUrl=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));
+    try{
+      const img=await nkWordLoadImage(svgUrl);
+      const scale=Math.max(1,Math.min(2,6000/Math.max(width,height)));
+      const canvas=document.createElement('canvas');
+      canvas.width=Math.max(1,Math.round(width*scale));
+      canvas.height=Math.max(1,Math.round(height*scale));
+      const ctx=canvas.getContext('2d');
+      if(!ctx) throw new Error('Trình duyệt không hỗ trợ dựng ảnh Word.');
+      ctx.fillStyle='#fff';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(img,0,0,canvas.width,canvas.height);
+      return {dataUrl:canvas.toDataURL('image/png',1),pixelWidth:canvas.width,pixelHeight:canvas.height,dept,day};
+    }finally{
+      URL.revokeObjectURL(svgUrl);
+    }
+  }finally{
+    frame.remove();
+  }
+}
+
+async function downloadCurrentNoiKiemTmWord(event){
+  event?.preventDefault?.();
+  const buttons=['downloadNoiKiemTmWordBtn','downloadNoiKiemTmWordMobileBtn'].map(id=>document.getElementById(id)).filter(Boolean);
+  if(buttons.some(button=>button.disabled)) return;
+  const originals=buttons.map(button=>({button,html:button.innerHTML}));
+  buttons.forEach(button=>{button.disabled=true;button.innerHTML='<span class="loading-dot"></span>Đang tạo...';});
+  nkSetCreateStatus('Đang dựng bản Word theo đúng bố cục phiếu...');
+  try{
+    const snapshot=await nkRenderCurrentNoiKiemTmToPng();
+    const response=await api('noiKiemTm_exportWord',{
+      khoaPhong:snapshot.dept,
+      ngayNoiKiem:snapshot.day,
+      imageDataUrl:snapshot.dataUrl,
+      pixelWidth:snapshot.pixelWidth,
+      pixelHeight:snapshot.pixelHeight
+    });
+    const file=response.data||{};
+    if(!file.base64) throw new Error('Backend không trả về dữ liệu file Word.');
+    downloadBase64File(file.fileName||`Noi_kiem_TM_${nkWordFileDeptLabel(snapshot.dept)}_${snapshot.day}.docx`,file.mimeType||'application/vnd.openxmlformats-officedocument.wordprocessingml.document',file.base64);
+    nkSetCreateStatus('Đã tạo bản Word.','success');
+    toast(response.message||'Đã tải bản Word Nội kiểm Truyền máu.');
+  }catch(err){
+    const message=err?.message||'Không tạo được bản Word Nội kiểm Truyền máu.';
+    nkSetCreateStatus(message,'error');
+    toast(message);
+  }finally{
+    originals.forEach(({button,html})=>{if(document.body.contains(button)){button.disabled=false;button.innerHTML=html;}});
+  }
+}
+/* ===== NỘI KIỂM WORD EXPORT: END ===== */
 
 function nkStatusPill(value){
   const text = nkText(value) || 'Chưa nhập';
