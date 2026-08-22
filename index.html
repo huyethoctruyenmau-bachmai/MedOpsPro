@@ -1,4 +1,4 @@
-<!-- VERSION: 400.256 | index: 400 | Code.gs: 256 | INDEX-400.220826-NKTM-WORD-EDITABLE -->
+<!-- VERSION: 401.257 | index: 401 | Code.gs: 257 | INDEX-401.220826-NKTM-WORD-FIXED-GRID -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6584,7 +6584,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-400.220826-NKTM-WORD-EDITABLE</p>
+      <p class="login-version">Version: INDEX-401.220826-NKTM-WORD-FIXED-GRID</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6595,7 +6595,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-400.220826-NKTM-WORD-EDITABLE</div>
+    <div class="login-loading-version">Version: INDEX-401.220826-NKTM-WORD-FIXED-GRID</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6649,7 +6649,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-400.220826-NKTM-WORD-EDITABLE</div>
+    <div class="app-version">Version: INDEX-401.220826-NKTM-WORD-FIXED-GRID</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6718,7 +6718,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-400.220826-NKTM-WORD-EDITABLE';
+const APP_VERSION = 'INDEX-401.220826-NKTM-WORD-FIXED-GRID';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -12329,101 +12329,13 @@ function nkWordFileDeptLabel(dept){
   return 'Khoa_Truyen_Mau';
 }
 
-function nkWordEditableCss(){
-  return `
-  @page{size:A4 landscape;margin:4mm}
-  html,body{margin:0;padding:0;background:#fff;color:#111;font-family:"Times New Roman",Times,serif}
-  .nk-paper{width:100%;margin:0;padding:0;background:#fff;font-family:"Times New Roman",Times,serif;font-size:9pt;line-height:1.12}
-  .nk-word-header,.nk-word-footer{width:100%;border-collapse:collapse;table-layout:fixed;margin:0 0 4px}
-  .nk-word-header td{border:0;padding:0 4px;vertical-align:top}
-  .nk-word-header .org{width:34%;text-align:center;font-weight:700;font-size:10pt;line-height:1.25;text-transform:uppercase}
-  .nk-word-header .title{width:43%;text-align:center;font-weight:700;font-size:13pt;line-height:1.15;text-transform:uppercase}
-  .nk-word-header .date{width:23%;text-align:center;font-size:10pt;font-weight:700;line-height:1.25}
-  .nk-word-header .date-line{font-style:italic;font-weight:400;white-space:nowrap}
-  .nk-paper-section-label{font-size:10.5pt;font-weight:700;line-height:1.2;margin:3px 0 2px}
-  .nk-paper-subtable{margin:0 0 3px}
-  .nk-paper-table{width:100%!important;min-width:0!important;border-collapse:collapse;table-layout:fixed;font-size:8.5pt;line-height:1.08;margin:0 0 3px}
-  .nk-paper-table th,.nk-paper-table td{border:1px solid #555;padding:2px 3px;text-align:center;vertical-align:middle;color:#111;background:#fff;word-break:normal;overflow-wrap:anywhere}
-  .nk-paper-table th{font-weight:700}
-  .nk-paper-group-title{font-size:9pt;font-weight:700;line-height:1.08}
-  .nk-paper-method-title{font-size:8.5pt;font-weight:700;line-height:1.08}
-  .nk-paper-lot-lines{display:block;margin-top:1px;font-size:8pt;font-weight:400;font-style:italic;line-height:1.15;text-align:left}
-  .nk-paper-lot-line{display:block;min-height:12px}
-  .nk-paper-lot-label{display:inline-block;min-width:47px}
-  .nk-paper-lot-value{display:inline-block;min-width:40px;border-bottom:1px dotted #555;padding:0 2px;font-style:normal;text-align:left}
-  .nk-paper-lot-number .nk-paper-lot-value{color:#1a73e8;font-weight:700}
-  .nk-paper-value{min-height:17px;text-align:center;white-space:pre-wrap;font-size:8.5pt}
-  .nk-blood-group-cell .nk-paper-value{color:#d93025;font-weight:700}
-  .nk-paper-performer-value{display:block;text-align:left;font-size:8pt;line-height:1.2;padding:2px}
-  .nk-paper-evaluator{display:block;text-align:left;font-size:7.5pt;line-height:1.15;margin-top:2px}
-  .nk-paper-evaluator-label{font-weight:700}
-  .nk-paper-eval-inline,.nk-paper-radio-label{display:inline;font-size:8pt;font-weight:700;white-space:nowrap}
-  .nk-paper-radio-label+ .nk-paper-radio-label{margin-left:7px}
-  .nk-paper-other-view{min-height:42px;text-align:left;white-space:pre-wrap;padding:3px}
-  .nk-paper-other-performer-label{font-weight:700;text-align:center;margin-bottom:2px}
-  .nk-paper-other-performer-cell{width:12%}
-  .nk-paper-config-empty{font-size:8.5pt;border:1px solid #aaa;padding:4px;margin-bottom:3px}
-  .nk-section-audit,.nk-paper-audit,.nk-section-source-meta{font-size:7pt;line-height:1.1}
-  .nk-word-footer{margin-top:4px;font-family:"Times New Roman",Times,serif;font-size:9pt}
-  .nk-word-footer td{border:0;border-top:1px solid #555;padding:3px 2px 0}
-  .nk-word-footer .left{text-align:left}
-  .nk-word-footer .right{text-align:right}
-  `;
-}
-
-function nkPrepareEditableWordPaperHtml(rawHtml,dept,day){
-  const host=document.createElement('div');
-  host.innerHTML=rawHtml;
-  const paper=host.querySelector('.nk-paper');
-  if(!paper) throw new Error('Không tìm thấy nội dung phiếu để tạo Word.');
-
-  // Word/Google Docs nhập HTML ổn định hơn với table thay vì CSS Grid.
-  const org=nkPaperOrgHeader(dept);
-  const parts=nkPaperDateParts(day);
-  const header=host.ownerDocument.createElement('table');
-  header.className='nk-word-header';
-  header.innerHTML=`<tbody><tr>
-    <td class="org">${esc(org.hospital)}<br>${esc(org.institute)}</td>
-    <td class="title">PHIẾU THEO DÕI KẾT QUẢ NỘI KIỂM TRUYỀN MÁU</td>
-    <td class="date"><div>${esc(org.unit)}</div><div class="date-line">Ngày ${esc(parts.day)} tháng ${esc(parts.month)} năm ${esc(parts.year)}</div></td>
-  </tr></tbody>`;
-  paper.querySelector('.nk-paper-header')?.replaceWith(header);
-
-  const footer=host.ownerDocument.createElement('table');
-  footer.className='nk-word-footer';
-  footer.innerHTML='<tbody><tr><td class="left">BM06.QL14</td><td class="right">Trang 1 / 1</td></tr></tbody>';
-  paper.querySelector('.nk-paper-footer')?.replaceWith(footer);
-
-  // Google Docs không nhập pseudo-element checkbox từ CSS; đổi thành ký tự Word editable.
-  paper.querySelectorAll('.nk-paper-check-view').forEach(node=>{
-    node.replaceWith(host.ownerDocument.createTextNode(node.classList.contains('is-checked')?'☑':'☐'));
-  });
-
-  // Bỏ các cấu trúc chỉ phục vụ layout trình duyệt; giữ rowspan/colspan của bảng thật.
-  paper.querySelectorAll('colgroup').forEach(node=>node.remove());
-  paper.querySelectorAll('table').forEach(table=>{
-    table.removeAttribute('style');
-    table.removeAttribute('width');
-  });
-  paper.querySelectorAll('[style]').forEach(node=>{
-    if(!node.classList.contains('nk-paper')) node.removeAttribute('style');
-  });
-  paper.removeAttribute('style');
-
-  return paper.outerHTML;
-}
-
 function nkBuildCurrentNoiKiemTmEditableWordPayload(){
   const dept=$('#createDept')?.value||'';
   const day=getDateInputIso('createDate');
   if(!dept||!day) throw new Error('Vui lòng chọn đơn vị và ngày nội kiểm trước khi tải Word.');
   const preserve=['PHAN_1','PHAN_2','PHAN_3','PHAN_4','PHAN_5'];
-  const currentData=collectNoiKiemTmData('nkCreate',preserve);
-  const raw=renderNoiKiemTmFormHtml('nkWordEditable',currentData,dept,{readonly:true,ngayNoiKiem:day,sectionMeta:{}});
-  const paperHtml=nkPrepareEditableWordPaperHtml(raw,dept,day);
-  const htmlContent=`<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>${nkWordEditableCss()}</style></head><body>${paperHtml}</body></html>`;
-  if(htmlContent.length>1500000) throw new Error('Nội dung phiếu quá lớn để tạo Word. Vui lòng kiểm tra lại cấu hình biểu mẫu.');
-  return {dept,day,htmlContent};
+  const data=collectNoiKiemTmData('nkCreate',preserve);
+  return {dept,day,data};
 }
 
 async function downloadCurrentNoiKiemTmWord(event){
@@ -12438,7 +12350,7 @@ async function downloadCurrentNoiKiemTmWord(event){
     const response=await api('noiKiemTm_exportWord',{
       khoaPhong:payload.dept,
       ngayNoiKiem:payload.day,
-      htmlContent:payload.htmlContent
+      data:payload.data
     });
     const file=response.data||{};
     if(!file.base64) throw new Error('Backend không trả về dữ liệu file Word.');
