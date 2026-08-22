@@ -1,4 +1,4 @@
-<!-- VERSION: 394.253 | index: 394 | Code.gs: 253 | INDEX-394.220826-NKTM-FOOTER-MINIMAL -->
+<!-- VERSION: 396.253 | index: 396 | Code.gs: 253 | INDEX-396.220826-NKTM-TITLE-TRUYEN-MAU -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5208,6 +5208,7 @@
     .nk-paper-title{text-align:center;font-size:20px;line-height:1.2;font-weight:700;text-transform:uppercase}
     .nk-paper-title-sub{font-size:17px}
     .nk-paper-date{text-align:center;font-size:15px;line-height:1.45;font-weight:700;padding-top:0;position:relative;top:-3px}
+    .nk-paper-unit{font-weight:700;text-transform:uppercase;line-height:1.35;margin-bottom:2px}
     .nk-paper-date-line{font-style:italic;font-weight:400;white-space:nowrap}
     .nk-paper-section-label{font-size:16px;font-weight:700;line-height:1.35;margin:4px 0 2px;cursor:default}
     .nk-paper-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14.5px;line-height:1.15;margin:0 0 4px}
@@ -6550,7 +6551,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-393.220826-NKTM-UNIT-FOOTER</p>
+      <p class="login-version">Version: INDEX-396.220826-NKTM-TITLE-TRUYEN-MAU</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6561,7 +6562,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-393.220826-NKTM-UNIT-FOOTER</div>
+    <div class="login-loading-version">Version: INDEX-396.220826-NKTM-TITLE-TRUYEN-MAU</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6615,7 +6616,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-393.220826-NKTM-UNIT-FOOTER</div>
+    <div class="app-version">Version: INDEX-396.220826-NKTM-TITLE-TRUYEN-MAU</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -11530,9 +11531,13 @@ function nkPaperDateParts(iso){
 
 function nkPaperOrgHeader(dept){
   const targetDept = nkText(dept || state.user?.khoaPhong || state.user?.phongLamViec || '');
-  return isXnhhCsNinhBinhDept(targetDept)
-    ? {hospital:'VIỆN HUYẾT HỌC VÀ TRUYỀN MÁU BẠCH MAI', unit:'KHOA HUYẾT HỌC VÀ TRUYỀN MÁU CƠ SỞ NINH BÌNH'}
-    : {hospital:'VIỆN HUYẾT HỌC VÀ TRUYỀN MÁU BẠCH MAI', unit:'KHOA TRUYỀN MÁU'};
+  return {
+    hospital:'BỆNH VIỆN BẠCH MAI',
+    institute:'VIỆN HUYẾT HỌC TRUYỀN MÁU BẠCH MAI',
+    unit:isXnhhCsNinhBinhDept(targetDept)
+      ? 'HUYẾT HỌC VÀ TRUYỀN MÁU CƠ SỞ NINH BÌNH'
+      : 'TRUYỀN MÁU'
+  };
 }
 
 function nkPaperHasValue(value){
@@ -11684,7 +11689,7 @@ function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
   const org=nkPaperOrgHeader(dept);
   const audit=phan => readonly ? nkSectionAuditHtml(sectionMeta[phan]) : '';
   return `<div class="nk-form${readonly ? ' nk-view-mode' : ''}" data-prefix="${escAttr(prefix)}">${hasEditable?`<datalist id="nkReactionValues"><option value="-"><option value="Dương tính yếu"><option value="1+"><option value="2+"><option value="3+"><option value="4+"></datalist><datalist id="nkCrossmatchValues"><option value="Hòa hợp"><option value="Không hòa hợp"></datalist>`:''}<div class="nk-paper-scroll"><div class="nk-paper" style="--nk-common-table-width:${commonTableWidth}px;--nk-paper-outer-width:${paperOuterWidth}px;width:${paperOuterWidth}px;min-width:${paperOuterWidth}px">
-    <div class="nk-paper-header"><div class="nk-paper-org">${esc(org.hospital)}<br>${esc(org.unit)}</div><div class="nk-paper-title">PHIẾU THEO DÕI KẾT QUẢ NỘI KIỂM</div><div class="nk-paper-date">NĂM <span class="nk-paper-year">${esc(parts.year)}</span><br><span class="nk-paper-date-line">Ngày <span class="nk-paper-day">${esc(parts.day)}</span> tháng <span class="nk-paper-month">${esc(parts.month)}</span></span></div></div>
+    <div class="nk-paper-header"><div class="nk-paper-org">${esc(org.hospital)}<br>${esc(org.institute)}</div><div class="nk-paper-title">PHIẾU THEO DÕI KẾT QUẢ NỘI KIỂM TRUYỀN MÁU</div><div class="nk-paper-date"><div class="nk-paper-unit">${esc(org.unit)}</div><span class="nk-paper-date-line">Ngày <span class="nk-paper-day">${esc(parts.day)}</span> tháng <span class="nk-paper-month">${esc(parts.month)}</span> năm <span class="nk-paper-year">${esc(parts.year)}</span></span></div></div>
     <div data-nk-section="PHAN_1">${nkPaperTableI(prefix,tube,dept,isSectionReadonly('PHAN_1'),commonTableWidth,audit('PHAN_1'))}</div>
     <div data-nk-section="PHAN_2">${nkPaperTableII(prefix,gel,dept,isSectionReadonly('PHAN_2'),commonTableWidth,audit('PHAN_2'))}</div>
     <div data-nk-section="PHAN_3">${nkPaperTableIII(prefix,coombs,dept,isSectionReadonly('PHAN_3'),commonTableWidth,sectionMeta.PHAN_3||null)}</div>
