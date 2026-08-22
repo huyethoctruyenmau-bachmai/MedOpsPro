@@ -1,4 +1,4 @@
-<!-- VERSION: 393.253 | index: 393 | Code.gs: 253 | INDEX-393.220826-NKTM-UNIT-FOOTER -->
+<!-- VERSION: 394.253 | index: 394 | Code.gs: 253 | INDEX-394.220826-NKTM-FOOTER-MINIMAL -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5338,9 +5338,9 @@
     .nk-paper-other-performer-control{min-width:0}
     .nk-paper-other-performer-control .nk-performer-editor{max-width:none}
     .nk-paper-other-performer-control .nk-paper-performer-value{min-height:30px}
-    .nk-paper-footer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:end;margin-top:4px;font-size:12.5px;line-height:1.2;color:#333}
-    .nk-paper-footer>div:nth-child(2){text-align:center}
-    .nk-paper-footer>div:nth-child(3){text-align:right}
+    .nk-paper-footer{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end;margin-top:4px;font-size:12.5px;line-height:1.2;color:#333}
+    .nk-paper-footer>div:first-child{text-align:left}
+    .nk-paper-footer>div:last-child{text-align:right}
     .nk-paper .vi-date-wrap{position:relative!important;display:inline-block!important;flex:1 1 auto!important;width:auto!important;min-width:55px!important;height:21px!important;min-height:21px!important;max-height:21px!important;align-self:center!important;overflow:hidden!important;pointer-events:none!important}
     .nk-paper .vi-date-wrap .vi-date-display{display:block!important;width:100%!important;height:21px!important;min-height:21px!important;max-height:21px!important;padding:0 2px!important;border:0!important;border-bottom:1px dotted #555!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;font-family:"Times New Roman",Times,serif!important;font-size:13.5px!important;line-height:20px!important;text-align:left!important;color:#111!important;cursor:pointer!important;pointer-events:auto!important}
     .nk-paper .vi-date-wrap input.vi-date-native{position:absolute!important;left:0!important;right:0!important;top:0!important;bottom:auto!important;width:100%!important;height:21px!important;min-height:21px!important;max-height:21px!important;margin:0!important;padding:0!important;opacity:0!important;cursor:pointer!important;pointer-events:none!important}
@@ -11690,7 +11690,7 @@ function renderNoiKiemTmFormHtml(prefix='nkCreate', data={}, dept='', meta={}){
     <div data-nk-section="PHAN_3">${nkPaperTableIII(prefix,coombs,dept,isSectionReadonly('PHAN_3'),commonTableWidth,sectionMeta.PHAN_3||null)}</div>
     <div data-nk-section="PHAN_4">${nkPaperTableIV(prefix,cross,dept,isSectionReadonly('PHAN_4'),commonTableWidth,sectionMeta.PHAN_4||null)}</div>
     <div data-nk-section="PHAN_5"><div class="nk-paper-section-label">V.&nbsp; Xét nghiệm khác</div><table class="nk-paper-table nk-paper-table-v" style="width:${commonTableWidth}px;min-width:${commonTableWidth}px"><colgroup><col style="width:${Math.max(1,commonTableWidth-NK_PERFORMER_COL_WIDTH)}px"><col class="nk-paper-performer-col" style="width:${NK_PERFORMER_COL_WIDTH}px"></colgroup><tbody><tr><td class="nk-paper-other-content-cell"><div class="nk-paper-other-wrap${hasOtherContent?' has-content':''}">${isSectionReadonly('PHAN_5')?nkPaperOtherReadonlyHtml(d.xetNghiemKhac):`<textarea id="${escAttr(prefix+'Other')}" class="nk-paper-other" placeholder="">${esc(d.xetNghiemKhac||'')}</textarea>`}</div></td><td class="nk-paper-other-performer-cell"><div class="nk-paper-other-performer-row${hasOtherContent?'':' is-hidden'}"><div class="nk-paper-other-performer-box"><div class="nk-paper-other-performer-label">Người thực hiện</div><div class="nk-paper-other-performer-control">${nkPaperPerformerSelect(prefix,'Other',(isSectionReadonly('PHAN_5')&&!hasOtherContent)?[]:otherPerformers,dept,isSectionReadonly('PHAN_5'))}</div>${audit('PHAN_5')}</div></div></td></tr></tbody></table></div>
-    <div class="nk-paper-footer"><div>BM06.QL14</div><div>Trang 2 / 2<br>Phiên bản BM: 2.3.3</div><div>Ngày ban hành BM: 01/08/2024</div></div>
+    <div class="nk-paper-footer"><div>BM06.QL14</div><div>Trang 1 / 1</div></div>
   </div></div></div>`;
 }
 
