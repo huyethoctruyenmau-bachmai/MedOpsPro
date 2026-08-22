@@ -1,4 +1,4 @@
-<!-- VERSION: 396.253 | index: 396 | Code.gs: 253 | INDEX-396.220826-NKTM-TITLE-TRUYEN-MAU -->
+<!-- VERSION: 397.254 | index: 397 | Code.gs: 254 | INDEX-397.220826-NKTM-DEPT-HEADER-FOOTER -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5339,7 +5339,7 @@
     .nk-paper-other-performer-control{min-width:0}
     .nk-paper-other-performer-control .nk-performer-editor{max-width:none}
     .nk-paper-other-performer-control .nk-paper-performer-value{min-height:30px}
-    .nk-paper-footer{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end;margin-top:4px;font-size:12.5px;line-height:1.2;color:#333}
+    .nk-paper-footer{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end;margin-top:5px;font-size:14px;line-height:1.25;color:#222}
     .nk-paper-footer>div:first-child{text-align:left}
     .nk-paper-footer>div:last-child{text-align:right}
     .nk-paper .vi-date-wrap{position:relative!important;display:inline-block!important;flex:1 1 auto!important;width:auto!important;min-width:55px!important;height:21px!important;min-height:21px!important;max-height:21px!important;align-self:center!important;overflow:hidden!important;pointer-events:none!important}
@@ -5424,7 +5424,7 @@
       .nk-paper-other-performer-box{width:100%;min-width:0}
       .nk-paper-other-performer-label{padding:0 0 1px;font-size:clamp(6.5px,1.8vw,9px)}
       .nk-paper-other-performer-control .nk-performer-editor{max-width:none}
-      .nk-paper-footer{gap:3px;font-size:clamp(6px,1.6vw,8px)}
+      .nk-paper-footer{gap:3px;font-size:clamp(9px,2.2vw,11px)}
       .nk-paper .vi-date-wrap{min-width:0!important;height:16px!important;min-height:16px!important;max-height:16px!important}
       .nk-paper .vi-date-wrap .vi-date-display{height:16px!important;min-height:16px!important;max-height:16px!important;padding:0 1px!important;font-size:clamp(6.5px,1.75vw,9px)!important;line-height:14px!important}
       .nk-paper .vi-date-wrap input.vi-date-native{height:16px!important;min-height:16px!important;max-height:16px!important}
@@ -6268,7 +6268,7 @@
       .nk-form:not(.nk-view-mode) .nk-paper-value{font-size:11px!important}
       .nk-form:not(.nk-view-mode) .nk-performer-row .nk-paper-select{font-size:10px!important}
       .nk-form:not(.nk-view-mode) .nk-paper-radio-label{font-size:10px!important;white-space:nowrap!important}
-      .nk-form:not(.nk-view-mode) .nk-paper-footer{font-size:10px!important}
+      .nk-form:not(.nk-view-mode) .nk-paper-footer{font-size:12px!important}
     }
 
 
@@ -7207,6 +7207,14 @@ function laboDepartmentsForCurrentUserClient(){
 }
 
 function createDeptOptionsForLoaiClient(loai, selected=''){
+  if(loai === LOAI_NOI_KIEM_TM){
+    const list = noiKiemTmAllowedDepartmentsClient();
+    const current = list.find(x => deptSameClient(x, selected))
+      || list.find(x => deptSameClient(x, state.user?.khoaPhong || state.user?.phongLamViec || ''))
+      || list[0]
+      || '';
+    return list.map(x => `<option value="${escAttr(x)}" ${deptSameClient(x,current) ? 'selected' : ''}>${esc(x)}</option>`).join('');
+  }
   if(!isLoaiSoLieuTm(loai)) return deptOptions(selected);
   const list = laboDepartmentsForCurrentUserClient();
   const current = list.find(x => deptSameClient(x, selected))
@@ -8003,11 +8011,12 @@ function renderCreateTab(preferredLoai = ''){
   const today = todayIso();
   const now = toDatetimeLocal(hanoiNowIso());
   const allowTm = isSystemAdminAccount(state.user) || isTruyenMauDept(state.user?.khoaPhong || state.user?.phongLamViec || '');
+  const allowNoiKiemTm = isSystemAdminAccount(state.user) || isNoiKiemTmAllowedDeptClient(state.user?.khoaPhong || state.user?.phongLamViec || '');
   const allowTm24h = canUseTm24hReportClient(state.user);
-  const tmOptions = allowTm ? `
+  const tmOptions = `${allowTm ? `
             <option>${LOAI_TM_XU_TRI}</option>
-            <option>${LOAI_TM_TDKMM}</option>
-            <option>${LOAI_NOI_KIEM_TM}</option>` : '';
+            <option>${LOAI_TM_TDKMM}</option>` : ''}${allowNoiKiemTm ? `
+            <option>${LOAI_NOI_KIEM_TM}</option>` : ''}`;
   const bloodStockReportOption = allowTm ? `
             <option value="${LOAI_BAO_CAO_KHO_MAU}">Báo cáo kho máu</option>` : '';
   const tmDailyStatsOption = allowTm24h ? `
@@ -8189,8 +8198,8 @@ function updateCreateFormNumbering(){
   if(createDeptEl){
     if(isNoiKiemTm){
       if(!isSystemAdminAccount(state.user)) createDeptEl.value = state.user?.khoaPhong || state.user?.phongLamViec || createDeptEl.value;
-      else if(!isTruyenMauDept(createDeptEl.value)){
-        const firstAllowed = Array.from(createDeptEl.options).find(o => isTruyenMauDept(o.value));
+      else if(!isNoiKiemTmAllowedDeptClient(createDeptEl.value)){
+        const firstAllowed = Array.from(createDeptEl.options).find(o => isNoiKiemTmAllowedDeptClient(o.value));
         if(firstAllowed) createDeptEl.value = firstAllowed.value;
       }
       createDeptEl.disabled = !isSystemAdminAccount(state.user);
@@ -11533,10 +11542,10 @@ function nkPaperOrgHeader(dept){
   const targetDept = nkText(dept || state.user?.khoaPhong || state.user?.phongLamViec || '');
   return {
     hospital:'BỆNH VIỆN BẠCH MAI',
-    institute:'VIỆN HUYẾT HỌC TRUYỀN MÁU BẠCH MAI',
+    institute:'VIỆN HUYẾT HỌC VÀ TRUYỀN MÁU BẠCH MAI',
     unit:isXnhhCsNinhBinhDept(targetDept)
-      ? 'HUYẾT HỌC VÀ TRUYỀN MÁU CƠ SỞ NINH BÌNH'
-      : 'TRUYỀN MÁU'
+      ? 'KHOA HH-TM CƠ SỞ NINH BÌNH'
+      : 'KHOA TRUYỀN MÁU'
   };
 }
 
@@ -19269,8 +19278,26 @@ function isXnhhCsNinhBinhDept(value){
     || n.includes('xet nghiem huyet hoc cs ninh binh')
     || n.includes('xet nghiem huyet hoc co so ninh binh')
     || n.includes('xet nghiem hh tm cs ninh binh')
+    || n.includes('khoa hh tm co so ninh binh')
+    || n.includes('khoa huyet hoc va truyen mau co so ninh binh')
+    || n.includes('huyet hoc va truyen mau co so ninh binh')
     || ((n.includes('xet nghiem') || n.includes('xn')) && n.includes('hh tm') && n.includes('ninh binh'))
     || (n.includes('xet nghiem huyet hoc') && n.includes('ninh binh'));
+}
+
+function isNoiKiemTmAllowedDeptClient(value){
+  if(isXnhhCsNinhBinhDept(value)) return true;
+  const n = normalizeDeptFeatureName(value);
+  return n === 'truyen mau' || n === 'phong truyen mau' || n === 'khoa truyen mau';
+}
+
+function noiKiemTmAllowedDepartmentsClient(){
+  const source = Array.from(new Set([
+    state.user?.khoaPhong,
+    state.user?.phongLamViec,
+    ...(Array.isArray(state.khoaPhong) ? state.khoaPhong : [])
+  ].filter(Boolean)));
+  return source.filter(isNoiKiemTmAllowedDeptClient);
 }
 
 function isXetNghiemHuyetHocDept(value){
