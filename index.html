@@ -1,4 +1,4 @@
-<!-- VERSION: 404.260 | index: 404 | Code.gs: 260 | INDEX-404.280926-GIAOBAN-SNAPSHOT-LOCK -->
+<!-- VERSION: 406.262 | index: 406 | Code.gs: 262 | INDEX-406.290926-KHOMAU-PERMISSION-TM24H-EDIT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6584,7 +6584,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-404.280926-GIAOBAN-SNAPSHOT-LOCK</p>
+      <p class="login-version">Version: INDEX-406.290926-KHOMAU-PERMISSION-TM24H-EDIT</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6595,7 +6595,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-404.280926-GIAOBAN-SNAPSHOT-LOCK</div>
+    <div class="login-loading-version">Version: INDEX-406.290926-KHOMAU-PERMISSION-TM24H-EDIT</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6649,7 +6649,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-404.280926-GIAOBAN-SNAPSHOT-LOCK</div>
+    <div class="app-version">Version: INDEX-406.290926-KHOMAU-PERMISSION-TM24H-EDIT</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6685,7 +6685,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '404.260',
+    frontendVersion: '406.262',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6718,7 +6718,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-404.280926-GIAOBAN-SNAPSHOT-LOCK';
+const APP_VERSION = 'INDEX-406.290926-KHOMAU-PERMISSION-TM24H-EDIT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6761,6 +6761,14 @@ function canCurrentUserExportExcel(){
 
 function canConfigExcelExport(){
   return !!(state.permissions && state.permissions.canConfigExcelExport) || canOpenAdminSettings();
+}
+
+function canCurrentUserCreateKhoMauReport(){
+  return !!(state.permissions && state.permissions.canCreateKhoMauReport);
+}
+
+function canConfigKhoMauReport(){
+  return !!(state.permissions && state.permissions.canConfigKhoMauReport) || canOpenAdminSettings();
 }
 const API_URL = 'https://script.google.com/macros/s/AKfycbxLHKUczat2WOH1R4W_YVVsUeBAmEuJ-4EjOEWNuBYXvX0oL4Dr6OhyO8f4lHPfn-8Nmg/exec';
 
@@ -6863,8 +6871,11 @@ const state = {
   permissionScope: {},
   deptGroups: {labo:[], lamSang:[]},
   allowedFormTypes: [],
-  permissions: {canExportExcel:false, canConfigExcelExport:false},
+  permissions: {canExportExcel:false, canConfigExcelExport:false, canCreateKhoMauReport:false, canConfigKhoMauReport:false},
   excelExportAllowedUsers: [],
+  khoMauCreateAllowedUsers: [],
+  khoMauCreateCandidate: null,
+  khoMauCreateConfigLoaded: false,
   excelExportCandidate: null,
   excelExportConfigLoaded: false,
   accountSetupOpen: false,
@@ -7173,7 +7184,7 @@ async function loadInitData(opts={}){
     state.permissionScope = res.data.permissionScope || state.permissionScope || {};
     state.deptGroups = res.data.deptGroups || state.deptGroups || {labo:[], lamSang:[]};
     state.allowedFormTypes = res.data.loaiPhieu || state.allowedFormTypes || [];
-    state.permissions = res.data.permissions || state.permissions || {canExportExcel:false, canConfigExcelExport:false};
+    state.permissions = res.data.permissions || state.permissions || {canExportExcel:false, canConfigExcelExport:false, canCreateKhoMauReport:false, canConfigKhoMauReport:false};
     state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || null;
     state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || [];
     state.initLoaded = true;
@@ -7903,6 +7914,7 @@ function settingsSections_(group){
     {id:'global',icon:'puzzle',title:'Biến toàn cục',text:'Nội dung và định dạng khối PDF.'},
     {id:'variables',icon:'book',title:'Bảng biến mẫu',text:'Danh sách biến dùng trong template.'},
     {id:'excel',icon:'analytics',title:'Xuất Excel',text:'Phân quyền xuất Excel và lịch sử xuất.'},
+    {id:'khoMauPermission',icon:'shield',title:'Báo cáo kho máu',text:'Phân quyền nhân viên được thấy và tạo phiếu Báo cáo kho máu.'},
     {id:'info',icon:'link',title:'Thông tin chung',text:'Thông tin ứng dụng và tài nguyên liên quan.'}
   ];
   return [];
@@ -8050,7 +8062,7 @@ function renderCreateTab(preferredLoai = ''){
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>` : ''}${allowNoiKiemTm ? `
             <option>${LOAI_NOI_KIEM_TM}</option>` : ''}`;
-  const bloodStockReportOption = allowTm ? `
+  const bloodStockReportOption = canCurrentUserCreateKhoMauReport() ? `
             <option value="${LOAI_BAO_CAO_KHO_MAU}">Báo cáo kho máu</option>` : '';
   const tmDailyStatsOption = allowTm24h ? `
             <option value="${LOAI_BAO_CAO_SO_LIEU_TM}">${LOAI_BAO_CAO_SO_LIEU_TM}</option>` : '';
@@ -14040,7 +14052,7 @@ function openCreateGiaoBanDialog(){
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn primary" onclick="createGiaoBanFromDialog(false, this)">Tạo phiên họp/giao ban</button>
+        <button class="btn primary" onclick="createGiaoBanFromDialog(true, this)">Tạo phiên họp/giao ban</button>
       </div>
       <p class="meta">Phiên mới chỉ được ghi nhận khi bạn bấm Lưu nháp hoặc Ký kết thúc giao ban.</p>
     </div>
@@ -14055,17 +14067,14 @@ window.createGiaoBanFromDialog = async function(forceCreate, btn){
     khoaPhong: dept,
     loaiGiaoBan: loai,
     thoiGianMoGiaoBan: hanoiNowIso(),
-    forceCreate: !!forceCreate
+    // Nút Tạo luôn tạo phiên mới. Phiên nháp cũ mở lại từ danh sách giao ban.
+    forceCreate: true
   };
   state.pendingCreateGiaoBanPayload = payload;
   const task = async () => {
     showAppActionOverlay('Đang tải dữ liệu giao ban...', 'Vui lòng chờ trong giây lát');
     try{
       const res = await api('createGiaoBan', payload);
-      if(res.data?.needChoice){
-        showGiaoBanChoiceDialog(res.data.openSessions || [], payload);
-        return;
-      }
       state.currentGiaoBan = res.data.giaoBan;
       gbInitGiaoBanDateGuardState(state.currentGiaoBan);
       state.currentReports = res.data.reports || [];
@@ -16870,7 +16879,7 @@ function soLieuTmStatsColumnsClient(khoaPhong=''){
 function renderSoLieuTmStatsPanel(items, payload){
   const rows = buildSoLieuTmStatsRows(items, payload || {});
   const canExcel = canExportDsPhieuExcel(payload);
-  const canManage = canManageSoLieuTmStats();
+  const canAddMissing = canManageSoLieuTmStats();
   const exportBtn = canExcel ? `<button class="btn secondary" type="button" onclick="exportDsPhieuExcel(this)">Xuất Excel</button>` : '';
   const historyBtn = canExcel ? `<button class="app-icon-btn" type="button" onclick="openExcelExportHistory(this)" title="Lịch sử xuất Excel" aria-label="Lịch sử xuất Excel">${icon2d('history')}</button>` : '';
   if(!rows.length){
@@ -16882,11 +16891,9 @@ function renderSoLieuTmStatsPanel(items, payload){
   const dept = rawDept && rawDept !== 'Tất cả' ? rawDept : (state.user?.khoaPhong || '');
   const valueColumns = soLieuTmStatsColumnsClient(dept);
   const htmlRows = rows.map(r => {
-    const action = canManage
-      ? (r.exists && r.phieuID
-        ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="edit" data-phieu-id="${escAttr(r.phieuID)}">Sửa</button>`
-        : `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="add" data-date="${escAttr(r.date)}" data-dept="${escAttr(dept)}">Thêm</button>`)
-      : '';
+    const action = r.exists && r.phieuID
+      ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="edit" data-phieu-id="${escAttr(r.phieuID)}">Sửa</button>`
+      : (canAddMissing ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="add" data-date="${escAttr(r.date)}" data-dept="${escAttr(dept)}">Thêm</button>` : '');
     const viewBtn = r.exists && r.phieuID
       ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="view" data-phieu-id="${escAttr(r.phieuID)}">Xem phiếu</button>`
       : '';
@@ -17585,6 +17592,7 @@ function getAllowedAccountSetupItems_(){
       ['global','puzzle','Cấu hình biến toàn cục'],
       ['variables','book','Bảng biến mẫu'],
       ['excel','file','Cấu hình xuất Excel'],
+      ['khoMauPermission','shield','Cấu hình Báo cáo kho máu'],
       ['info','link','Thông tin chung']
     );
   }
@@ -17629,6 +17637,7 @@ function accountSetupSectionTitle(section){
     global:'Cấu hình biến toàn cục',
     variables:'Bảng biến mẫu',
     excel:'Cấu hình xuất Excel',
+    khoMauPermission:'Cấu hình Báo cáo kho máu',
     info:'Thông tin chung'
   };
   return map[section] || 'Cài đặt';
@@ -17652,7 +17661,7 @@ async function loadAccountInfoSilently(){
     const res = await api('getAccountInfo', {});
     state.accountInfo = res.data.account || state.accountInfo;
     state.accountOptions = res.data.options || state.accountOptions;
-    state.permissions = res.data.permissions || state.permissions || {canExportExcel:false, canConfigExcelExport:false};
+    state.permissions = res.data.permissions || state.permissions || {canExportExcel:false, canConfigExcelExport:false, canCreateKhoMauReport:false, canConfigKhoMauReport:false};
     if(state.activeTab === 'account') renderAccountTab();
   }catch(e){}
 }
@@ -17965,6 +17974,7 @@ function renderAccountSetupSectionHtml(section){
   if(key === 'global') return renderPdfGlobalSettingsSection();
   if(key === 'variables') return renderPdfVariablesSettingsSection();
   if(key === 'excel') return renderExcelExportSettingsSection();
+  if(key === 'khoMauPermission') return renderKhoMauCreatePermissionSettingsSection();
   if(key === 'info') return renderGeneralInfoSettingsSection();
   return renderMySignatureSettingsCard();
 }
@@ -17975,6 +17985,7 @@ function bindAccountSetupSection(section){
   if(section === 'templates') return bindPdfTemplateEvents();
   if(section === 'global') return bindPdfContentEvents();
   if(section === 'excel') return bindExcelExportSettingsEvents();
+  if(section === 'khoMauPermission') return bindKhoMauCreatePermissionSettingsEvents();
   if(section === 'signature') return bindMySignatureEvents();
 }
 
@@ -18227,6 +18238,165 @@ async function saveExcelExportConfig(btn){
     toast('Đã lưu cấu hình xuất Excel.');
   });
 }
+
+
+function renderKhoMauCreatePermissionSettingsSection(){
+  if(!canConfigKhoMauReport()) return `<div class="empty">Chỉ admin tổng được cấu hình quyền tạo phiếu Báo cáo kho máu.</div>`;
+  const rows = (state.khoMauCreateAllowedUsers || []).map(p => {
+    const ma = p.maNhanVien || p.maNV || '';
+    const detail = [ma, p.khoaPhong || p.phongLamViec || '', p.chucDanh || p.chucVu || ''].filter(Boolean).join(' - ');
+    return `<span class="staff-chip">${esc(p.tenNhanVien || p.tenNV || ma)}${detail ? ` <span class="meta">(${esc(detail)})</span>` : ''}<button type="button" onclick="removeKhoMauCreateAllowedStaff('${escAttr(ma)}')">×</button></span>`;
+  }).join('');
+  return `
+    <div class="card">
+      <h2 class="section-title">Cấu hình Báo cáo kho máu</h2>
+      <p class="meta">Chỉ nhân viên có trong danh sách này mới thấy loại phiếu <b>Báo cáo kho máu</b> tại tab Tạo phiếu và backend mới cho phép tạo. Admin tổng chỉ có quyền cấu hình; muốn tạo phiếu cũng phải được thêm vào danh sách.</p>
+      <div class="excel-config-picker">
+        <label>Chọn nhân viên được quyền tạo Báo cáo kho máu</label>
+        <div class="staff-picker autocomplete-container">
+          <div class="staff-input-row">
+            <input id="khoMauStaffSearch" class="autocomplete-input" autocomplete="off" placeholder="Gõ tên hoặc mã nhân viên">
+            <button id="addKhoMauStaffBtn" class="btn secondary staff-add-btn" type="button" title="Thêm nhân viên" aria-label="Thêm nhân viên">+</button>
+          </div>
+          <div id="khoMauStaffSuggestBox" class="staff-suggest autocomplete-dropdown hidden"></div>
+        </div>
+        <div id="khoMauAllowedStaffList" class="staff-list">${rows || '<span class="meta">Chưa cấp quyền tạo Báo cáo kho máu cho nhân viên nào.</span>'}</div>
+      </div>
+      <div class="btn-row">
+        <button id="reloadKhoMauPermissionBtn" class="btn secondary" type="button">Tải lại</button>
+        <button id="saveKhoMauPermissionBtn" class="btn primary" type="button">Lưu cấu hình Báo cáo kho máu</button>
+      </div>
+    </div>`;
+}
+
+function bindKhoMauCreatePermissionSettingsEvents(){
+  if(!canConfigKhoMauReport()) return;
+  $('#addKhoMauStaffBtn')?.addEventListener('click', addKhoMauCreateAllowedStaff);
+  $('#khoMauStaffSearch')?.addEventListener('input', handleKhoMauStaffSearchInput);
+  $('#khoMauStaffSearch')?.addEventListener('focus', handleKhoMauStaffSearchInput);
+  $('#khoMauStaffSearch')?.addEventListener('keydown', handleKhoMauStaffSearchKeydown);
+  $('#reloadKhoMauPermissionBtn')?.addEventListener('click', () => loadKhoMauCreatePermissionConfig($('#reloadKhoMauPermissionBtn'), true));
+  $('#saveKhoMauPermissionBtn')?.addEventListener('click', () => saveKhoMauCreatePermissionConfig($('#saveKhoMauPermissionBtn')));
+  document.removeEventListener('click', closeKhoMauStaffSuggestOnOutsideClick);
+  document.addEventListener('click', closeKhoMauStaffSuggestOnOutsideClick);
+  if(!state.khoMauCreateConfigLoaded) loadKhoMauCreatePermissionConfig(null, false);
+}
+
+async function loadKhoMauCreatePermissionConfig(btn, showToast){
+  const task = async () => {
+    const res = await api('khoMau_getCreatePermissionConfig', {});
+    state.khoMauCreateAllowedUsers = res.data?.allowedUsers || [];
+    state.khoMauCreateConfigLoaded = true;
+    refreshKhoMauAllowedStaffList();
+    if(showToast) toast('Đã tải cấu hình Báo cáo kho máu.');
+  };
+  if(btn) return withButton(btn, 'Đang tải...', task);
+  try{ await task(); }catch(err){ toast(err.message); }
+}
+
+function handleKhoMauStaffSearchInput(){
+  const input = $('#khoMauStaffSearch');
+  const box = $('#khoMauStaffSuggestBox');
+  if(!input || !box) return;
+  const q = norm(input.value);
+  state.khoMauCreateCandidate = null;
+  if(!q){ hideAutocompleteBox(box); box.innerHTML = ''; return; }
+  const matched = state.personnel.filter(p => {
+    const hay = norm([employeeCodeForAutocomplete(p), employeeNameForAutocomplete(p), p.chucDanh, p.chucVu, p.khoaPhong].filter(Boolean).join(' '));
+    return hay.includes(q);
+  }).slice(0, 8);
+  renderEmployeeAutocompleteItems(box, matched, 'chooseKhoMauCreateStaffSuggestion');
+  showAutocompleteBox(input, box);
+  positionStaffSuggestBox(input, box);
+}
+
+function handleKhoMauStaffSearchKeydown(e){
+  const box = $('#khoMauStaffSuggestBox');
+  if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+    if(box && !box.classList.contains('hidden')){ e.preventDefault(); moveAutocompleteActive(box, e.key === 'ArrowDown' ? 1 : -1); }
+    return;
+  }
+  if(e.key === 'Enter'){
+    e.preventDefault();
+    if(box && !box.classList.contains('hidden') && getAutocompleteItems(box).length) chooseActiveAutocompleteItem(box);
+    addKhoMauCreateAllowedStaff();
+    return;
+  }
+  if(e.key === 'Escape') hideAutocompleteBox(box);
+}
+
+function closeKhoMauStaffSuggestOnOutsideClick(e){
+  const picker = e.target.closest('.staff-picker');
+  if(!picker) hideAutocompleteBox($('#khoMauStaffSuggestBox'));
+}
+
+window.chooseKhoMauCreateStaffSuggestion = function(ma){
+  const person = state.personnel.find(p => norm(p.maNhanVien) === norm(ma));
+  if(!person) return;
+  state.khoMauCreateCandidate = person;
+  const input = $('#khoMauStaffSearch');
+  if(input) input.value = person.tenNhanVien || '';
+  hideAutocompleteBox($('#khoMauStaffSuggestBox'));
+}
+
+function findKhoMauStaffFromInput(raw){
+  if(state.khoMauCreateCandidate) return state.khoMauCreateCandidate;
+  const q = norm(raw);
+  if(!q) return null;
+  return state.personnel.find(p => norm(p.maNhanVien) === q)
+    || state.personnel.find(p => norm(p.tenNhanVien) === q)
+    || state.personnel.find(p => norm([p.maNhanVien, p.tenNhanVien, p.chucDanh, p.khoaPhong].filter(Boolean).join(' ')).includes(q));
+}
+
+function addKhoMauCreateAllowedStaff(){
+  const raw = $('#khoMauStaffSearch')?.value.trim() || '';
+  if(!raw) return;
+  const person = findKhoMauStaffFromInput(raw);
+  if(!person) return toast('Không tìm thấy nhân viên trong danh sách. Vui lòng chọn từ gợi ý.');
+  if((state.khoMauCreateAllowedUsers || []).some(x => norm(x.maNhanVien) === norm(person.maNhanVien))) return toast('Nhân viên đã được cấp quyền tạo Báo cáo kho máu.');
+  state.khoMauCreateAllowedUsers = [...(state.khoMauCreateAllowedUsers || []), person];
+  state.khoMauCreateCandidate = null;
+  const input = $('#khoMauStaffSearch');
+  if(input) input.value = '';
+  hideAutocompleteBox($('#khoMauStaffSuggestBox'));
+  refreshKhoMauAllowedStaffList();
+}
+
+function refreshKhoMauAllowedStaffList(){
+  const box = $('#khoMauAllowedStaffList');
+  if(!box) return;
+  box.innerHTML = (state.khoMauCreateAllowedUsers || []).length ? state.khoMauCreateAllowedUsers.map(p => {
+    const ma = p.maNhanVien || p.maNV || '';
+    const detail = [ma, p.khoaPhong || p.phongLamViec || '', p.chucDanh || p.chucVu || ''].filter(Boolean).join(' - ');
+    return `<span class="staff-chip">${esc(p.tenNhanVien || p.tenNV || ma)}${detail ? ` <span class="meta">(${esc(detail)})</span>` : ''}<button type="button" onclick="removeKhoMauCreateAllowedStaff('${escAttr(ma)}')">×</button></span>`;
+  }).join('') : '<span class="meta">Chưa cấp quyền tạo Báo cáo kho máu cho nhân viên nào.</span>';
+}
+
+window.removeKhoMauCreateAllowedStaff = function(ma){
+  state.khoMauCreateAllowedUsers = (state.khoMauCreateAllowedUsers || []).filter(p => norm(p.maNhanVien || p.maNV || '') !== norm(ma));
+  refreshKhoMauAllowedStaffList();
+}
+
+async function saveKhoMauCreatePermissionConfig(btn){
+  const allowedUsers = (state.khoMauCreateAllowedUsers || []).map(p => ({maNhanVien:p.maNhanVien || p.maNV || ''})).filter(p => p.maNhanVien);
+  await withButton(btn, 'Đang lưu...', async () => {
+    const res = await api('khoMau_saveCreatePermissionConfig', {allowedUsers});
+    state.khoMauCreateAllowedUsers = res.data?.allowedUsers || state.khoMauCreateAllowedUsers || [];
+    state.khoMauCreateConfigLoaded = true;
+    const ownMa = norm(state.user?.maNhanVien || state.accountInfo?.maNhanVien || '');
+    const canCreate = !!ownMa && (state.khoMauCreateAllowedUsers || []).some(p => norm(p.maNhanVien || p.maNV || '') === ownMa);
+    state.permissions = Object.assign({}, state.permissions || {}, {canCreateKhoMauReport:canCreate, canConfigKhoMauReport:true});
+    if(canCreate){
+      if(!state.allowedFormTypes.includes(LOAI_BAO_CAO_KHO_MAU)) state.allowedFormTypes = [...state.allowedFormTypes, LOAI_BAO_CAO_KHO_MAU];
+    }else{
+      state.allowedFormTypes = (state.allowedFormTypes || []).filter(x => !eqText(x, LOAI_BAO_CAO_KHO_MAU));
+    }
+    refreshKhoMauAllowedStaffList();
+    if(state.activeTab === 'create') renderCreateTab();
+    toast('Đã lưu cấu hình Báo cáo kho máu.');
+  });
+}
+
 
 function renderGeneralInfoSettingsSection(){
   if(!canOpenAdminSettings()){
