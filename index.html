@@ -1,4 +1,4 @@
-<!-- VERSION: 408.263 | index: 408 | Code.gs: 263 | INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE -->
+<!-- VERSION: 409.264 | index: 409 | Code.gs: 264 | INDEX-409.011026-DS-PHIEU-OPT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6584,7 +6584,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE</p>
+      <p class="login-version">Version: INDEX-409.011026-DS-PHIEU-OPT</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6595,7 +6595,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE</div>
+    <div class="login-loading-version">Version: INDEX-409.011026-DS-PHIEU-OPT</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6649,7 +6649,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE</div>
+    <div class="app-version">Version: INDEX-409.011026-DS-PHIEU-OPT</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6685,7 +6685,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '408.263',
+    frontendVersion: '409.264',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6718,7 +6718,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE';
+const APP_VERSION = 'INDEX-409.011026-DS-PHIEU-OPT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6896,6 +6896,7 @@ const state = {
     phieu: { key:'', time:0, data:null },
     giaoBan: { key:'', time:0, data:null }
   },
+  dsPhieuPaging: { key:'', payload:null, items:[], nextCursor:'', hasMore:false },
   currentGiaoBan: null,
   giaoBanDateGuardStoredDate: '',
   giaoBanDateGuardAcceptedTime: '',
@@ -16673,6 +16674,38 @@ function renderPdfTab(){
 
 async function loadPdfList(){ return loadDsPhieuList(false); }
 
+function validateDsPhieuDateRangeClient(payload={}){
+  const from = String(payload.fromDate || '').slice(0,10);
+  const to = String(payload.toDate || '').slice(0,10);
+  if(from && to && from > to) throw new Error('Từ ngày không được lớn hơn Đến ngày.');
+  if(from && to){
+    const a = new Date(`${from}T00:00:00Z`).getTime();
+    const b = new Date(`${to}T00:00:00Z`).getTime();
+    if(!Number.isFinite(a) || !Number.isFinite(b)) throw new Error('Khoảng ngày không hợp lệ.');
+    const inclusiveDays = Math.floor((b - a) / 86400000) + 1;
+    if(inclusiveDays > 366) throw new Error('Mỗi lần xem danh sách tối đa 366 ngày. Vui lòng thu hẹp khoảng thời gian.');
+  }
+}
+
+function dsPhieuPagingKey(payload={}){
+  return JSON.stringify({
+    fromDate:payload.fromDate || '', toDate:payload.toDate || '', khoaPhong:payload.khoaPhong || '',
+    loaiHoSo:payload.loaiHoSo || '', trangThai:payload.trangThai || 'Tất cả', keyword:payload.keyword || ''
+  });
+}
+
+function renderDsPhieuPagedResults(payload, items, hasMore){
+  const box = $('#pdfListBox');
+  if(!box) return;
+  if(!items.length){ box.innerHTML = `<div class="empty">Không có phiếu phù hợp.</div>`; return; }
+  const canExcel = canExportDsPhieuExcel(payload);
+  const exportBtn = canExcel ? `<button class="btn secondary" onclick="exportDsPhieuExcel(this)">Xuất Excel</button>` : '';
+  const historyBtn = canExcel ? `<button class="app-icon-btn" onclick="openExcelExportHistory(this)" title="Lịch sử xuất Excel" aria-label="Lịch sử xuất Excel">${icon2d('history')}</button>` : '';
+  const countText = hasMore ? `Đã tải: ${items.length} phiếu` : `Tổng: ${items.length} phiếu`;
+  const moreBtn = hasMore ? `<div class="btn-row" style="justify-content:center;margin-top:12px"><button class="btn secondary" type="button" onclick="loadDsPhieuMore(this)">Xem thêm</button></div>` : '';
+  box.innerHTML = `<div class="ds-toolbar"><p class="meta">${countText}</p><div class="ds-toolbar-actions">${exportBtn}${historyBtn}</div></div>` + items.map(renderDsPhieuCard).join('') + moreBtn;
+}
+
 async function loadDsPhieuList(showRequiredToast=false){
   const box = $('#pdfListBox');
   const payload = getDsPhieuFilters();
@@ -16684,6 +16717,14 @@ async function loadDsPhieuList(showRequiredToast=false){
   const isStatsMode = isDsSoLieuTmStatsMode(payload);
   const isShiftStatsMode = isDsSoLieuTrucStatsMode(payload);
   const isNoiKiemMode = eqText(payload.loaiHoSo, LOAI_NOI_KIEM_TM);
+  if(!isNoiKiemMode && !isShiftStatsMode){
+    try{ validateDsPhieuDateRangeClient(payload); }catch(err){
+      box.innerHTML = `<div class="empty">${esc(err.message)}</div>`;
+      if(showRequiredToast) toast(err.message);
+      return;
+    }
+  }
+  state.dsPhieuPaging = {key:'', payload:null, items:[], nextCursor:'', hasMore:false};
   box.innerHTML = `<div class="loading">${(isStatsMode || isShiftStatsMode) ? 'Đang thống kê số liệu...' : (isNoiKiemMode ? 'Đang tải bảng kết quả nội kiểm...' : 'Đang tải danh sách phiếu...')}</div>`;
   try{
     if(isShiftStatsMode){
@@ -16697,7 +16738,8 @@ async function loadDsPhieuList(showRequiredToast=false){
       bindNoiKiemTmListSelection(box);
       return;
     }
-    const res = await api('searchHoSo', payload);
+    const requestPayload = isStatsMode ? payload : {...payload, pageSize:50};
+    const res = await api('searchHoSo', requestPayload);
     const rawItems = res.data.items || [];
     if(isStatsMode){
       box.innerHTML = renderSoLieuTmStatsPanel(rawItems, payload);
@@ -16705,13 +16747,37 @@ async function loadDsPhieuList(showRequiredToast=false){
       return;
     }
     const items = sortDsPhieuByCreatedDesc(rawItems);
-    if(!items.length){ box.innerHTML = `<div class="empty">Không có phiếu phù hợp.</div>`; return; }
-    const canExcel = canExportDsPhieuExcel(payload);
-    const exportBtn = canExcel ? `<button class="btn secondary" onclick="exportDsPhieuExcel(this)">Xuất Excel</button>` : '';
-    const historyBtn = canExcel ? `<button class="app-icon-btn" onclick="openExcelExportHistory(this)" title="Lịch sử xuất Excel" aria-label="Lịch sử xuất Excel">${icon2d('history')}</button>` : '';
-    box.innerHTML = `<div class="ds-toolbar"><p class="meta">Tổng: ${items.length} phiếu</p><div class="ds-toolbar-actions">${exportBtn}${historyBtn}</div></div>` + items.map(renderDsPhieuCard).join('');
+    state.dsPhieuPaging = {
+      key: dsPhieuPagingKey(payload), payload:{...payload}, items:items.slice(),
+      nextCursor:res.data?.nextCursor || '', hasMore:!!res.data?.hasMore
+    };
+    renderDsPhieuPagedResults(payload, items, state.dsPhieuPaging.hasMore);
   }catch(err){ box.innerHTML = `<div class="empty">${esc(err.message)}</div>`; }
 }
+
+window.loadDsPhieuMore = async function(btn){
+  const paging = state.dsPhieuPaging || {};
+  if(!paging.hasMore || !paging.nextCursor || !paging.payload) return;
+  const currentPayload = getDsPhieuFilters();
+  if(dsPhieuPagingKey(currentPayload) !== paging.key){
+    toast('Bộ lọc đã thay đổi. Vui lòng nhấn Xem danh sách để tải lại.');
+    return;
+  }
+  await withButton(btn, 'Đang tải...', async () => {
+    const res = await api('searchHoSo', {...paging.payload, pageSize:50, cursor:paging.nextCursor});
+    const more = sortDsPhieuByCreatedDesc(res.data?.items || []);
+    const seen = new Set((paging.items || []).map(x => `${x.source || ''}|${x.id || x.phieuID || x.phieuTMID || ''}`));
+    more.forEach(x => {
+      const key = `${x.source || ''}|${x.id || x.phieuID || x.phieuTMID || ''}`;
+      if(!seen.has(key)){ paging.items.push(x); seen.add(key); }
+    });
+    paging.items = sortDsPhieuByCreatedDesc(paging.items || []);
+    paging.nextCursor = res.data?.nextCursor || '';
+    paging.hasMore = !!res.data?.hasMore;
+    state.dsPhieuPaging = paging;
+    renderDsPhieuPagedResults(paging.payload, paging.items, paging.hasMore);
+  });
+};
 
 
 function isDsSoLieuTmStatsMode(filters){
@@ -16837,7 +16903,8 @@ function buildSoLieuTmStatsRows(items, payload={}){
         nguoiBaoCao: x.nguoiTao || x.nguoiTaoTen || x.nguoiThucHienTen || '',
         thoiGianBaoCao: x.thoiDiemTao || x.createdAt || '',
         nguoiSua: x.nguoiSua || x.soLieuTmEditedBy || '',
-        thoiGianSua: x.thoiDiemSua || x.soLieuTmEditedAt || ''
+        thoiGianSua: x.thoiDiemSua || x.soLieuTmEditedAt || '',
+        canViewInDs: !!x.canViewInDs
       });
     }
     const row = map.get(iso);
@@ -16851,6 +16918,7 @@ function buildSoLieuTmStatsRows(items, payload={}){
     row.thoiGianBaoCao = row.thoiGianBaoCao || x.thoiDiemTao || x.createdAt || '';
     row.nguoiSua = x.nguoiSua || row.nguoiSua || '';
     row.thoiGianSua = x.thoiDiemSua || row.thoiGianSua || '';
+    row.canViewInDs = row.canViewInDs || !!x.canViewInDs;
   });
   const dates = isoDateRangeClient(payload.fromDate, payload.toDate);
   if(dates.length){
@@ -16858,7 +16926,7 @@ function buildSoLieuTmStatsRows(items, payload={}){
       date, exists:false, count:0, phieuID:'',
       ...emptyValues(),
       status:'missing', statusLabel:'Chưa có',
-      nguoiBaoCao:'', thoiGianBaoCao:'', nguoiSua:'', thoiGianSua:''
+      nguoiBaoCao:'', thoiGianBaoCao:'', nguoiSua:'', thoiGianSua:'', canViewInDs:false
     });
   }
   return Array.from(map.values()).sort((a,b) => String(a.date).localeCompare(String(b.date)));
@@ -16917,7 +16985,7 @@ function renderSoLieuTmStatsPanel(items, payload){
     const action = r.exists && r.phieuID
       ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="edit" data-phieu-id="${escAttr(r.phieuID)}">Sửa</button>`
       : (canAddMissing ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="add" data-date="${escAttr(r.date)}" data-dept="${escAttr(dept)}">Thêm</button>` : '');
-    const viewBtn = r.exists && r.phieuID
+    const viewBtn = r.exists && r.phieuID && r.canViewInDs
       ? `<button class="btn secondary small js-tm24h-stats-action" type="button" data-stats-action="view" data-phieu-id="${escAttr(r.phieuID)}">Xem phiếu</button>`
       : '';
     const valuesHtml = valueColumns.map(([key]) => `<td>${esc(r[key] || 0)}</td>`).join('');
@@ -17188,6 +17256,24 @@ function dsCreatorMetaHtml(x){
   return parts.length ? `<div class="meta ds-card-meta">${esc(parts.join(' - '))}</div>` : '';
 }
 
+function dsBusinessSummaryHtml(x){
+  const loai = x?.loaiPhieu || x?.type || '';
+  if(x?.source === 'PHIEU' && eqText(loai, LOAI_BAN_GIAO)){
+    return `<div class="phieu-inline">
+      <div class="field-row"><span class="field-name">Chuyên môn</span><div class="field-value">${esc(x.banGiaoChuyenMon || '')}</div></div>
+      <div class="field-row"><span class="field-name">Vấn đề khác</span><div class="field-value">${esc(x.banGiaoVanDeKhac || '')}</div></div>
+    </div>`;
+  }
+  if(x?.source === 'GIAO_BAN' && eqText(loai, LOAI_GIAO_BAN_THUONG_TRUC)){
+    return `<div class="phieu-inline">
+      <div class="field-row"><span class="field-name">Thông báo</span><div class="field-value">${esc(x.thongBao || '')}</div></div>
+      <div class="field-row"><span class="field-name">Nội dung khác</span><div class="field-value">${esc(x.noiDungKhac || '')}</div></div>
+      <div class="field-row"><span class="field-name">Kết luận</span><div class="field-value">${esc(x.ketLuan || '')}</div></div>
+    </div>`;
+  }
+  return '';
+}
+
 async function previewGiaoBanDraftPdf(giaoBanID, title='', btn){
   // Giữ hàm cũ để tránh lỗi nếu trình duyệt còn cache onclick cũ, nhưng không tạo PDF preview nữa.
   return openGiaoBan(giaoBanID, '', btn);
@@ -17199,16 +17285,18 @@ function renderDsPhieuCard(x){
   const loai = x.loaiPhieu || x.type || '';
   const isTdkmm = isTm && eqText(loai, LOAI_TM_TDKMM);
   const isGiaoBan = x.source === 'GIAO_BAN';
-  const isGiaoBanDone = isGiaoBan && eqText(x.trangThai || '', STATUS_DA);
-  const isGiaoBanDraft = isGiaoBan && !isGiaoBanDone;
-  const pdfBtn = (!isGiaoBan && !isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
-  const detailBtn = isTdkmm
-    ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
-    : (isGiaoBanDone
-        ? `<button class="btn secondary js-gb-view-pdf" type="button" data-gb-id="${escAttr(x.id || '')}" data-pdf-title="${escAttr(title || x.loaiPhieu || 'Giao ban')}">Xem phiếu</button>`
-        : (isGiaoBanDraft
-            ? `<button class="btn secondary" onclick="openGiaoBan(${jsArg(x.id)}, ${jsArg(x.khoaPhong || '')}, this)">Xem phiếu</button>`
-            : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : ''))));
+  const completionStatus = x.completionStatus || x.trangThai || STATUS_CHUA;
+  const isCompleted = typeof x.isCompleted === 'boolean' ? x.isCompleted : eqText(completionStatus, STATUS_DA);
+  const canViewInDs = typeof x.canViewInDs === 'boolean' ? x.canViewInDs : isCompleted;
+  const pdfBtn = (canViewInDs && !isGiaoBan && !isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
+  let detailBtn = '';
+  if(canViewInDs){
+    detailBtn = isTdkmm
+      ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
+      : (isGiaoBan
+          ? `<button class="btn secondary js-gb-view-pdf" type="button" data-gb-id="${escAttr(x.id || '')}" data-pdf-title="${escAttr(title || x.loaiPhieu || 'Giao ban')}">Xem phiếu</button>`
+          : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '')));
+  }
   const editBtn = isTm && x.canEdit
     ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>`
     : (x.source === 'PHIEU' && x.canEdit ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '');
@@ -17216,8 +17304,10 @@ function renderDsPhieuCard(x){
   const historyBtn = tdkmmPdfHistoryIconHtml(x);
   const bn = dsBnMetaHtml(x);
   const creator = dsCreatorMetaHtml(x);
-  const summary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : (x.source === 'PHIEU' && isLoaiSoLieuTm(loai) ? renderSoLieuTmSummaryHtml(x.soLieuTm || {}, x.khoaPhong || '') : ((x.source === 'PHIEU' && eqText(loai, LOAI_BAO_CAO_KHO_MAU) && x.noiDungBaoCaoKhoMau) ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Nội dung</span><div class="field-value">${esc(x.noiDungBaoCaoKhoMau)}</div></div></div>` : ''));
-  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(displayLoaiPhieuLabel(title || x.title || x.loaiPhieu || ''))}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${historyBtn}${editBtn}${deleteBtn}${statusPill(x.trangThai || '')}</div></div></div>`;
+  const businessSummary = dsBusinessSummaryHtml(x);
+  const existingSummary = isTm && x.data ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Tóm tắt</span><div class="field-value">${esc(tmSummaryLine(x))}</div></div></div>` : (x.source === 'PHIEU' && isLoaiSoLieuTm(loai) ? renderSoLieuTmSummaryHtml(x.soLieuTm || {}, x.khoaPhong || '') : ((x.source === 'PHIEU' && eqText(loai, LOAI_BAO_CAO_KHO_MAU) && x.noiDungBaoCaoKhoMau) ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">Nội dung</span><div class="field-value">${esc(x.noiDungBaoCaoKhoMau)}</div></div></div>` : ''));
+  const summary = businessSummary + existingSummary;
+  return `<div class="list-card phieu-card"><div class="list-head"><div><div class="list-title">${esc(displayLoaiPhieuLabel(title || x.title || x.loaiPhieu || ''))}</div>${bn}${creator}</div></div>${summary}<div class="phieu-actions"><div class="phieu-main-actions">${detailBtn}${pdfBtn}</div><div class="phieu-icon-actions">${historyBtn}${editBtn}${deleteBtn}${statusPill(completionStatus)}</div></div></div>`;
 }
 
 
@@ -20069,6 +20159,7 @@ function formatDeptPlain(khoaPhong){
 function clearListCaches(){
   state.cache.phieu = {key:'', time:0, data:null};
   state.cache.giaoBan = {key:'', time:0, data:null};
+  state.dsPhieuPaging = {key:'', payload:null, items:[], nextCursor:'', hasMore:false};
 }
 
 function autoGrow(el){
