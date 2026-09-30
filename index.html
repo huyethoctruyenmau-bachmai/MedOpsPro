@@ -1,4 +1,4 @@
-<!-- VERSION: 407.263 | index: 407 | Code.gs: 263 | INDEX-407.300926-LOGIN-FLOW-OPT -->
+<!-- VERSION: 408.263 | index: 408 | Code.gs: 263 | INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -294,7 +294,7 @@
     .login-loading-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;transition:opacity .3s ease;text-align:center;color:#202124;background-image:radial-gradient(circle at 15% 50%,rgba(0,91,170,.1) 0%,rgba(0,91,170,0) 25%),radial-gradient(circle at 85% 30%,rgba(32,201,151,.1) 0%,rgba(32,201,151,0) 20%),radial-gradient(circle at 25% 80%,rgba(0,91,170,.05) 0%,rgba(0,91,170,0) 20%);animation:float-particles 20s linear infinite}
     .login-loading-logo{position:relative;width:300px;height:300px;margin-bottom:25px;overflow:hidden;border-radius:15px;background:transparent}
     .login-loading-logo img{width:100%;height:100%;display:block;object-fit:contain}.login-loading-logo::after{content:"";position:absolute;top:0;left:-150%;width:100%;height:100%;background:linear-gradient(to right,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);transform:skewX(-25deg);animation:shimmer-fixed 2.5s infinite cubic-bezier(.4,0,.2,1)}
-    .login-loading-text{font-size:20px;font-weight:bold;color:#333;margin:0 0 8px}.login-loading-progress,.login-loading-sub,.login-loading-version{display:none!important}
+    .login-loading-text{font-size:20px;font-weight:bold;color:#333;margin:0 0 8px}.login-loading-progress{display:block!important;font-size:24px;font-weight:bold;color:#005baa;min-height:28px}.login-loading-sub,.login-loading-version{display:none!important}
     .app-action-overlay{position:fixed;inset:0;z-index:100900;background:rgba(255,255,255,.86);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:var(--g-text);backdrop-filter:blur(2px)}
     .app-action-card{width:min(360px,92vw);border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 18px 50px rgba(60,64,67,.22);padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:10px}
     .app-action-spinner{width:42px;height:42px;border:4px solid #e8eaed;border-top-color:var(--wine);border-radius:50%;animation:app-spin .8s linear infinite}
@@ -6584,7 +6584,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-407.300926-LOGIN-FLOW-OPT</p>
+      <p class="login-version">Version: INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6595,7 +6595,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-407.300926-LOGIN-FLOW-OPT</div>
+    <div class="login-loading-version">Version: INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6649,7 +6649,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-407.300926-LOGIN-FLOW-OPT</div>
+    <div class="app-version">Version: INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6685,7 +6685,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '407.263',
+    frontendVersion: '408.263',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6718,7 +6718,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-407.300926-LOGIN-FLOW-OPT';
+const APP_VERSION = 'INDEX-408.300926-LOGIN-FLOW-OPT-LOADING-RESTORE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6992,10 +6992,11 @@ async function boot(){
   if(state.token){
     const bootToken = state.token;
     const bootGuard = state.sessionGuard;
-    showLoginLoading();
+    showLoginLoading(8);
     try{
       await loadInitData({fromBoot:true, throwError:true});
       if(state.isLoggingOut || state.sessionGuard !== bootGuard || state.token !== bootToken) return;
+      showLoginLoading(100);
       showApp();
       setTimeout(hideLoginLoading, 250);
     }catch(err){
@@ -7095,8 +7096,9 @@ async function login(){
       storeSession(state.token, state.user);
     }
 
-    showLoginLoading();
+    showLoginLoading(canRetryInit ? 45 : 12);
     await loadInitData({fromLogin:true, throwError:true});
+    showLoginLoading(100);
     showApp();
     setTimeout(hideLoginLoading, 250);
   }catch(err){
@@ -7186,7 +7188,8 @@ function showApp(){
 async function loadInitData(opts={}){
   if(state.initLoaded) return true;
   try{
-    if(opts.fromBoot || opts.fromLogin) showLoginLoading();
+    if(opts.fromBoot) showLoginLoading(35);
+    if(opts.fromLogin) showLoginLoading(55);
     const res = await api('getInitData', {});
     state.user = res.data.user || state.user;
     if(state.token && state.user) storeSession(state.token, state.user);
@@ -7210,6 +7213,7 @@ async function loadInitData(opts={}){
     state.pdfContentTemplates = state.pdfTemplateConfig?.contentTemplates || null;
     state.pdfTemplateVariables = state.pdfTemplateConfig?.variables || [];
     preloadNoiKiemTmCreateData(nkDefaultCreateDept(), {force:false}).catch(()=>null);
+    if(opts.fromBoot || opts.fromLogin) showLoginLoading(78);
     refreshDatalists();
     renderHomeTab();
     renderWorkTab();
@@ -7223,6 +7227,7 @@ async function loadInitData(opts={}){
     renderAccountTab();
     setDefaultFilters();
     state.initLoaded = true;
+    if(opts.fromLogin) showLoginLoading(88);
     // Dashboard tải riêng ngay sau init nhưng không chặn luồng mở app.
     // DS phiếu/Giao ban KHÔNG preload; chỉ tải khi người dùng nhấn Xem danh sách.
     startDashboardUnsignedHandoverInitialLoad_();
@@ -17322,11 +17327,16 @@ function icon2d(name){
   return `<svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${path}</svg>`;
 }
 
-function showLoginLoading(){
+function showLoginLoading(progress=0, text='Đang tải dữ liệu...'){
   const overlay = $('#loginLoadingOverlay');
   if(!overlay) return;
   const loadingText = $('#loginLoadingText');
   if(loadingText) loadingText.textContent = 'Đang tải dữ liệu...';
+  const loadingProgress = $('#loginLoadingProgress');
+  if(loadingProgress){
+    const percent = Math.max(0, Math.min(100, Math.round(Number(progress) || 0)));
+    loadingProgress.textContent = `${percent}%`;
+  }
   overlay.classList.remove('hidden');
 }
 
