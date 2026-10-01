@@ -1,4 +1,4 @@
-<!-- VERSION: 409.264 | index: 409 | Code.gs: 264 | INDEX-409.011026-DS-PHIEU-OPT -->
+<!-- VERSION: 410.265 | index: 410 | Code.gs: 265 | INDEX-410.011026-DS-PHIEU-CHUTRI -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6584,7 +6584,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-409.011026-DS-PHIEU-OPT</p>
+      <p class="login-version">Version: INDEX-410.011026-DS-PHIEU-CHUTRI</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6595,7 +6595,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-409.011026-DS-PHIEU-OPT</div>
+    <div class="login-loading-version">Version: INDEX-410.011026-DS-PHIEU-CHUTRI</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6649,7 +6649,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-409.011026-DS-PHIEU-OPT</div>
+    <div class="app-version">Version: INDEX-410.011026-DS-PHIEU-CHUTRI</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6718,7 +6718,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-409.011026-DS-PHIEU-OPT';
+const APP_VERSION = 'INDEX-410.011026-DS-PHIEU-CHUTRI';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -17266,6 +17266,7 @@ function dsBusinessSummaryHtml(x){
   }
   if(x?.source === 'GIAO_BAN' && eqText(loai, LOAI_GIAO_BAN_THUONG_TRUC)){
     return `<div class="phieu-inline">
+      <div class="field-row"><span class="field-name">Chủ trì</span><div class="field-value">${esc(x.chuTri || '')}</div></div>
       <div class="field-row"><span class="field-name">Thông báo</span><div class="field-value">${esc(x.thongBao || '')}</div></div>
       <div class="field-row"><span class="field-name">Nội dung khác</span><div class="field-value">${esc(x.noiDungKhac || '')}</div></div>
       <div class="field-row"><span class="field-name">Kết luận</span><div class="field-value">${esc(x.ketLuan || '')}</div></div>
