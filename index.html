@@ -1,4 +1,4 @@
-<!-- VERSION: 412.266 | index: 412 | Code.gs: 266 | INDEX-412.021026-MY-WORK-RECIPIENT-GB-LEAVE -->
+<!-- VERSION: 414.266 | index: 414 | Code.gs: 266 | INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6598,7 +6598,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-412.021026-MY-WORK-RECIPIENT-GB-LEAVE</p>
+      <p class="login-version">Version: INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6609,7 +6609,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-412.021026-MY-WORK-RECIPIENT-GB-LEAVE</div>
+    <div class="login-loading-version">Version: INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6663,7 +6663,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-412.021026-MY-WORK-RECIPIENT-GB-LEAVE</div>
+    <div class="app-version">Version: INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6732,7 +6732,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-412.021026-MY-WORK-RECIPIENT-GB-LEAVE';
+const APP_VERSION = 'INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -7728,7 +7728,11 @@ function renderHomeWorkItems_(){
   if(work.error && !work.loaded){
     return `<div class="home-work-list"><div class="home-work-empty">${esc(work.error)}</div></div>`;
   }
-  const html = rows.map(row => `<div class="home-work-item home-work-item-static">
+  const activeRows = rows.filter(row => row.count > 0);
+  if(!activeRows.length){
+    return `<div class="home-work-list"><div class="home-work-empty">Hiện chưa có phiếu nào cần bạn ký xác nhận.</div></div>`;
+  }
+  const html = activeRows.map(row => `<div class="home-work-item home-work-item-static">
     <span class="home-work-icon">${appCardIcon(row.icon,true)}</span>
     <span><span class="home-work-title">${esc(row.title)}</span><span class="home-work-sub">${row.count} ${esc(row.unit)} chưa ký</span></span>
     <button type="button" class="home-work-list-btn" onclick="openMyWorkList('${escAttr(row.group)}', this)">Danh sách</button>
@@ -8373,17 +8377,17 @@ function renderCreateTab(preferredLoai = ''){
             <label id="handoverLabel3">2.3 Vấn đề khác</label>
             <textarea id="banGiaoVanDeKhac">Không có gì đặc biệt</textarea>
           </div>
-          <div class="col-3">
-            <label id="handoverLabel4">2.4 Thời gian bàn giao</label>
-            <input id="thoiGianBanGiao" class="equal-control datetime-vi-input" type="datetime-local" value="${now}">
-          </div>
           <div class="col-9">
-            <label id="handoverLabel5">2.5 Người nhận bàn giao</label>
+            <label id="handoverLabel4">2.4 Người nhận bàn giao</label>
             <div class="staff-picker autocomplete-container">
               <input id="recipientSearch" class="autocomplete-input equal-control" autocomplete="off" placeholder="Gõ tên hoặc mã nhân viên">
               <div id="recipientSuggestBox" class="staff-suggest autocomplete-dropdown hidden"></div>
             </div>
             <div id="recipientSelected" class="staff-list"></div>
+          </div>
+          <div class="col-3">
+            <label id="handoverLabel5">2.5 Thời gian bàn giao</label>
+            <input id="thoiGianBanGiao" class="equal-control datetime-vi-input" type="datetime-local" value="${now}">
           </div>
         </div>
         <div class="btn-row">
@@ -8521,8 +8525,8 @@ function updateCreateFormNumbering(){
   if($('#handoverLabel1')) $('#handoverLabel1').textContent = `${n}.1 Tài sản, dụng cụ, thiết bị y tế`;
   if($('#handoverLabel2')) $('#handoverLabel2').textContent = `${n}.2 Chuyên môn`;
   if($('#handoverLabel3')) $('#handoverLabel3').textContent = `${n}.3 Vấn đề khác`;
-  if($('#handoverLabel4')) $('#handoverLabel4').textContent = `${n}.4 Thời gian bàn giao`;
-  if($('#handoverLabel5')) $('#handoverLabel5').textContent = `${n}.5 Người nhận bàn giao`;
+  if($('#handoverLabel4')) $('#handoverLabel4').textContent = `${n}.4 Người nhận bàn giao`;
+  if($('#handoverLabel5')) $('#handoverLabel5').textContent = `${n}.5 Thời gian bàn giao`;
   if(state.selectedRecipient && createDeptValue && !deptSameClient(state.selectedRecipient.khoaPhong || state.selectedRecipient.phongLamViec || '', createDeptValue)){
     state.selectedRecipient = null;
     state.selectedRecipientCandidate = null;
@@ -8815,7 +8819,7 @@ function renderSelectedRecipient(){
   const box = $('#recipientSelected');
   if(!box) return;
   const p = state.selectedRecipient;
-  box.innerHTML = p ? `<span class="staff-chip">${esc(employeeNameForAutocomplete(p))}<button type="button" onclick="clearSelectedRecipient()">×</button></span>` : `<span class="meta">Chưa chọn người nhận bàn giao.</span>`;
+  box.innerHTML = p ? `<span class="staff-chip">${esc(employeeNameForAutocomplete(p))}<button type="button" onclick="clearSelectedRecipient()">×</button></span>` : '';
 }
 
 window.clearSelectedRecipient = function(){
@@ -13517,8 +13521,8 @@ function renderPhieuList(items, note=''){
         ${renderKyNhanTaiSanField(p, handoverNo)}
         <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
-        <div class="field-row"><span class="field-name">${handoverNo}.4 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
-        <div class="field-row"><span class="field-name">${handoverNo}.5 Người nhận bàn giao</span><div class="field-value">${esc(p.nguoiNhanTen || 'Chưa chỉ định')}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.4 Người nhận bàn giao</span><div class="field-value">${esc(p.nguoiNhanTen || 'Chưa chỉ định')}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.5 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
       </div>` : ''));
     const signBtn = (!isBloodStockCard && !isSoLieuTmCard && p.canSignBanGiao) ? `<button class="btn ok" onclick="signBanGiao('${escAttr(p.phieuID)}', this)">Ký nhận bàn giao</button>` : '';
     const editBtn = p.canEdit ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(p.phieuID)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '';
@@ -13700,8 +13704,8 @@ function showPhieuModal(p, opts={}){
         <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
-        <div class="field-row"><span class="field-name">${handoverNo}.4 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
-        <div class="field-row"><span class="field-name">${handoverNo}.5 Người nhận bàn giao</span><div class="field-value">${esc(p.nguoiNhanTen || 'Chưa chỉ định')}${p.nguoiNhanChucDanh ? ' - ' + esc(p.nguoiNhanChucDanh) : ''}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.4 Người nhận bàn giao</span><div class="field-value">${esc(p.nguoiNhanTen || 'Chưa chỉ định')}${p.nguoiNhanChucDanh ? ' - ' + esc(p.nguoiNhanChucDanh) : ''}</div></div>
+        <div class="field-row"><span class="field-name">${handoverNo}.5 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
       </div>
       ${p.trangThaiBanGiao === STATUS_DA ? `
         <div class="list-card data-card">
@@ -13886,15 +13890,15 @@ window.editPhieu = async function(phieuID, btn){
               <div class="col-12"><label>${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</label><div id="editBanGiaoTaiSanBox">${renderEditBanGiaoTaiSanInput(p)}</div></div>
               <div class="col-12"><label>${handoverNo}.2 Chuyên môn</label><textarea id="editBGCM">${esc(p.banGiaoChuyenMon||'')}</textarea></div>
               <div class="col-12"><label>${handoverNo}.3 Vấn đề khác</label><textarea id="editBGKhac">${esc(p.banGiaoVanDeKhac||'')}</textarea></div>
-              <div class="col-3"><label>${handoverNo}.4 Thời gian bàn giao</label><input id="editTGBG" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(p.thoiGianBanGiao))}"></div>
               <div class="col-9">
-                <label>${handoverNo}.5 Người nhận bàn giao</label>
+                <label>${handoverNo}.4 Người nhận bàn giao</label>
                 <div class="staff-picker autocomplete-container">
                   <input id="editRecipientSearch" class="autocomplete-input equal-control" autocomplete="off" placeholder="Gõ tên hoặc mã nhân viên">
                   <div id="editRecipientSuggestBox" class="staff-suggest autocomplete-dropdown hidden"></div>
                 </div>
                 <div id="editRecipientSelected" class="staff-list"></div>
               </div>
+              <div class="col-3"><label>${handoverNo}.5 Thời gian bàn giao</label><input id="editTGBG" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(p.thoiGianBanGiao))}"></div>
             ` : `<div class="col-12"><div class="empty">Phần bàn giao đã ký nhận nên không được sửa. Nếu là phiếu Báo cáo thường trực, bạn vẫn có thể sửa phần báo cáo phía trên cho đến khi kết thúc giao ban.</div></div>`}
           </div>
         </div>
@@ -14079,7 +14083,7 @@ function renderEditRecipientSelected(){
   const box = $('#editRecipientSelected');
   if(!box) return;
   const p = state.editRecipient;
-  box.innerHTML = p ? `<span class="staff-chip">${esc(employeeNameForAutocomplete(p))}<button type="button" onclick="clearEditRecipient()">×</button></span>` : `<span class="meta">Chưa chọn người nhận bàn giao.</span>`;
+  box.innerHTML = p ? `<span class="staff-chip">${esc(employeeNameForAutocomplete(p))}<button type="button" onclick="clearEditRecipient()">×</button></span>` : '';
 }
 
 window.clearEditRecipient = function(){
