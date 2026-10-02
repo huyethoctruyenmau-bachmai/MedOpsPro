@@ -1,4 +1,4 @@
-<!-- VERSION: 417.268 | index: 417 | Code.gs: 268 | INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT -->
+<!-- VERSION: 418.268 | index: 418 | Code.gs: 268 | INDEX-418.021026-NB-POSITION-LABELS -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6639,7 +6639,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT</p>
+      <p class="login-version">Version: INDEX-418.021026-NB-POSITION-LABELS</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6650,7 +6650,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT</div>
+    <div class="login-loading-version">Version: INDEX-418.021026-NB-POSITION-LABELS</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6704,7 +6704,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT</div>
+    <div class="app-version">Version: INDEX-418.021026-NB-POSITION-LABELS</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6773,7 +6773,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT';
+const APP_VERSION = 'INDEX-418.021026-NB-POSITION-LABELS';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -9003,11 +9003,11 @@ function renderBaoCaoChuyenMonGiaoBanHtml(report={}){
 
 
 const BAN_GIAO_NB_CHUYEN_MON_FIELDS = [
-  {key:'traKQ', label:'Trả KQ'},
-  {key:'chayMay', label:'Chạy máy'},
-  {key:'coBanThuCong', label:'Cơ bản - thủ công'},
-  {key:'phatMau', label:'Phát máu'},
-  {key:'nhanBenhPham', label:'Nhận bệnh phẩm'}
+  {key:'traKQ', label:'Trả KQ', displayLabel:'Vị trí Trả KQ'},
+  {key:'chayMay', label:'Chạy máy', displayLabel:'Vị trí Chạy máy'},
+  {key:'coBanThuCong', label:'Cơ bản - thủ công', displayLabel:'Vị trí Cơ bản - thủ công'},
+  {key:'phatMau', label:'Phát máu', displayLabel:'Vị trí Phát máu'},
+  {key:'nhanBenhPham', label:'Nhận bệnh phẩm', displayLabel:'Vị trí Nhận bệnh phẩm'}
 ];
 
 function isNeutralHandoverProfessionalText(value=''){
@@ -9027,7 +9027,7 @@ function parseBanGiaoNbChuyenMonText(text=''){
     if(idx<0){ legacy.push(raw); return; }
     const label=norm(raw.slice(0,idx));
     const value=raw.slice(idx+1).trim();
-    const f=BAN_GIAO_NB_CHUYEN_MON_FIELDS.find(x => label===norm(x.label));
+    const f=BAN_GIAO_NB_CHUYEN_MON_FIELDS.find(x => label===norm(x.label) || label===norm(x.displayLabel));
     if(f) out[f.key]=value;
     else if(label==='noi dung cu' || label==='noi dung truoc day') legacy.push(value);
     else legacy.push(raw);
@@ -9058,9 +9058,9 @@ function buildBanGiaoNbChuyenMonSummary(detail={}, fallback=''){
   const d = normalizeBanGiaoNbChuyenMonDetail(detail, fallback);
   const lines = BAN_GIAO_NB_CHUYEN_MON_FIELDS
     .filter(f => String(d[f.key] || '').trim())
-    .map(f => `${f.label}: ${String(d[f.key] || '').trim()}`);
+    .map(f => `${f.displayLabel || f.label}: ${String(d[f.key] || '').trim()}`);
   if(!lines.length && d.legacyText) return d.legacyText;
-  if(d.legacyText) lines.push(`Nội dung cũ: ${d.legacyText}`);
+  if(d.legacyText) lines.push(`Vị trí khác: ${d.legacyText}`);
   if(lines.length) return lines.join('\n');
   return String(fallback || '').trim() || 'Không có gì đặc biệt';
 }
@@ -9069,12 +9069,12 @@ function banGiaoNbChuyenMonInputHtml(detail={}, prefix='banGiaoNbCM'){
   const d = normalizeBanGiaoNbChuyenMonDetail(detail);
   const fields = BAN_GIAO_NB_CHUYEN_MON_FIELDS.map((f, idx) => `
     <div class="${idx < 4 ? 'col-6' : 'col-12'}">
-      <label>${esc(f.label)}</label>
-      <textarea id="${escAttr(prefix + '_' + f.key)}" class="ban-giao-nb-cm-detail" data-key="${escAttr(f.key)}" placeholder="Nhập nội dung ${escAttr(f.label)}">${esc(d[f.key] || '')}</textarea>
+      <label>${esc(f.displayLabel || f.label)}</label>
+      <textarea id="${escAttr(prefix + '_' + f.key)}" class="ban-giao-nb-cm-detail" data-key="${escAttr(f.key)}" placeholder="Nhập nội dung ${escAttr((f.displayLabel || f.label).replace(/^Vị trí\s+/i, 'vị trí '))}">${esc(d[f.key] || '')}</textarea>
     </div>`).join('');
   const legacy = d.legacyText ? `
     <div class="col-12 ban-giao-nb-legacy">
-      <label>Nội dung chuyên môn cũ (giữ nguyên)</label>
+      <label>Vị trí khác</label>
       <textarea id="${escAttr(prefix + '_legacyText')}" class="ban-giao-nb-cm-legacy" readonly>${esc(d.legacyText)}</textarea>
     </div>` : '';
   return `<div class="grid ban-giao-nb-cm-grid" data-nb-structured="1">${fields}${legacy}</div>`;
