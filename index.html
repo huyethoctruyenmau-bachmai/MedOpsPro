@@ -1,4 +1,4 @@
-<!-- VERSION: 418.268 | index: 418 | Code.gs: 268 | INDEX-418.021026-NB-POSITION-LABELS -->
+<!-- VERSION: 420.268 | index: 420 | Code.gs: 268 | INDEX-420.021026-NB-POSITION-DISPLAY -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6639,7 +6639,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-418.021026-NB-POSITION-LABELS</p>
+      <p class="login-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6650,7 +6650,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-418.021026-NB-POSITION-LABELS</div>
+    <div class="login-loading-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6704,7 +6704,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-418.021026-NB-POSITION-LABELS</div>
+    <div class="app-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6773,7 +6773,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-418.021026-NB-POSITION-LABELS';
+const APP_VERSION = 'INDEX-420.021026-NB-POSITION-DISPLAY';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -9029,7 +9029,7 @@ function parseBanGiaoNbChuyenMonText(text=''){
     const value=raw.slice(idx+1).trim();
     const f=BAN_GIAO_NB_CHUYEN_MON_FIELDS.find(x => label===norm(x.label) || label===norm(x.displayLabel));
     if(f) out[f.key]=value;
-    else if(label==='noi dung cu' || label==='noi dung truoc day') legacy.push(value);
+    else if(label==='vi tri khac' || label==='noi dung cu' || label==='noi dung truoc day') legacy.push(value);
     else legacy.push(raw);
   });
   return {detail:out, legacyText:legacy.join('\n').trim()};
@@ -9065,19 +9065,42 @@ function buildBanGiaoNbChuyenMonSummary(detail={}, fallback=''){
   return String(fallback || '').trim() || 'Không có gì đặc biệt';
 }
 
+function isStructuredBanGiaoNbDisplay_(p={}){
+  const loai = p.loaiPhieuGoc || p.loaiPhieu || p.type || '';
+  return eqText(loai, LOAI_BAN_GIAO) && isXnhhCsNinhBinhDept(p.khoaPhong || '');
+}
+
+function renderBanGiaoChuyenMonDisplayRows_(p={}, sectionLabel='Chuyên môn'){
+  const text = String(p.banGiaoChuyenMon || '').trim();
+  if(!isStructuredBanGiaoNbDisplay_(p)){
+    return `<div class="field-row"><span class="field-name">${esc(sectionLabel)}</span><div class="field-value">${esc(text)}</div></div>`;
+  }
+  const d = normalizeBanGiaoNbChuyenMonDetail(p.banGiaoChuyenMonChiTiet || {}, text);
+  const rows = BAN_GIAO_NB_CHUYEN_MON_FIELDS
+    .filter(f => String(d[f.key] || '').trim())
+    .map(f => `<div class="field-row"><span class="field-name">${esc(f.displayLabel || f.label)}</span><div class="field-value">${esc(d[f.key])}</div></div>`);
+  if(String(d.legacyText || '').trim()){
+    rows.push(`<div class="field-row"><span class="field-name">Vị trí khác</span><div class="field-value">${esc(d.legacyText)}</div></div>`);
+  }
+  if(!rows.length){
+    return `<div class="field-row"><span class="field-name">${esc(sectionLabel)}</span><div class="field-value">Không có gì đặc biệt</div></div>`;
+  }
+  return `<div class="field-row"><span class="field-name">${esc(sectionLabel)}</span></div>${rows.join('')}`;
+}
+
 function banGiaoNbChuyenMonInputHtml(detail={}, prefix='banGiaoNbCM'){
   const d = normalizeBanGiaoNbChuyenMonDetail(detail);
-  const fields = BAN_GIAO_NB_CHUYEN_MON_FIELDS.map((f, idx) => `
-    <div class="${idx < 4 ? 'col-6' : 'col-12'}">
+  const fields = BAN_GIAO_NB_CHUYEN_MON_FIELDS.map(f => `
+    <div class="col-12">
       <label>${esc(f.displayLabel || f.label)}</label>
       <textarea id="${escAttr(prefix + '_' + f.key)}" class="ban-giao-nb-cm-detail" data-key="${escAttr(f.key)}" placeholder="Nhập nội dung ${escAttr((f.displayLabel || f.label).replace(/^Vị trí\s+/i, 'vị trí '))}">${esc(d[f.key] || '')}</textarea>
     </div>`).join('');
-  const legacy = d.legacyText ? `
+  const other = `
     <div class="col-12 ban-giao-nb-legacy">
       <label>Vị trí khác</label>
-      <textarea id="${escAttr(prefix + '_legacyText')}" class="ban-giao-nb-cm-legacy" readonly>${esc(d.legacyText)}</textarea>
-    </div>` : '';
-  return `<div class="grid ban-giao-nb-cm-grid" data-nb-structured="1">${fields}${legacy}</div>`;
+      <textarea id="${escAttr(prefix + '_legacyText')}" class="ban-giao-nb-cm-legacy" placeholder="Nhập nội dung vị trí khác">${esc(d.legacyText || '')}</textarea>
+    </div>`;
+  return `<div class="grid ban-giao-nb-cm-grid" data-nb-structured="1">${fields}${other}</div>`;
 }
 
 function collectBanGiaoNbChuyenMonDetail(boxId='banGiaoChuyenMonBox'){
@@ -13712,7 +13735,7 @@ function renderPhieuList(items, note=''){
     const detailHtml = isBloodStockCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Nội dung báo cáo</span><div class="field-value">${esc(p.noiDungBaoCaoKhoMau || '')}</div></div></div>` : (isSoLieuTmCard ? `<div class="phieu-inline"><div class="field-row"><span class="field-name">II. Số liệu</span><div class="field-value">${renderSoLieuTmSummaryHtml(p.soLieuTm || {}, p.khoaPhong || '')}</div></div></div>` : (!isDone ? `
       <div class="phieu-inline">
         ${renderKyNhanTaiSanField(p, handoverNo)}
-        <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
+        ${renderBanGiaoChuyenMonDisplayRows_(p, `${handoverNo}.2 Chuyên môn`)}
         <div class="field-row"><span class="field-name">${handoverNo}.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.4 Người nhận bàn giao</span><div class="field-value">${esc(p.nguoiNhanTen || 'Chưa chỉ định')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.5 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
@@ -13895,7 +13918,7 @@ function showPhieuModal(p, opts={}){
       <h3 class="sub-title">${handoverRoman}. Bàn giao trực</h3>
       <div class="list-card data-card">
         <div class="field-row"><span class="field-name">${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</span><div class="field-value has-table">${renderBanGiaoTaiSanValue(p.banGiaoTaiSan)}</div></div>
-        <div class="field-row"><span class="field-name">${handoverNo}.2 Chuyên môn</span><div class="field-value">${esc(p.banGiaoChuyenMon || '')}</div></div>
+        ${renderBanGiaoChuyenMonDisplayRows_(p, `${handoverNo}.2 Chuyên môn`)}
         <div class="field-row"><span class="field-name">${handoverNo}.3 Vấn đề khác</span><div class="field-value">${esc(p.banGiaoVanDeKhac || '')}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.4 Người nhận bàn giao</span><div class="field-value">${esc(p.nguoiNhanTen || 'Chưa chỉ định')}${p.nguoiNhanChucDanh ? ' - ' + esc(p.nguoiNhanChucDanh) : ''}</div></div>
         <div class="field-row"><span class="field-name">${handoverNo}.5 Thời gian bàn giao</span><div class="field-value">${dateTimeVi(p.thoiGianBanGiao)}</div></div>
@@ -18053,7 +18076,7 @@ function dsBusinessSummaryHtml(x){
   const loai = x?.loaiPhieu || x?.type || '';
   if(x?.source === 'PHIEU' && eqText(loai, LOAI_BAN_GIAO)){
     return `<div class="phieu-inline">
-      <div class="field-row"><span class="field-name">Chuyên môn</span><div class="field-value">${esc(x.banGiaoChuyenMon || '')}</div></div>
+      ${renderBanGiaoChuyenMonDisplayRows_(x, 'Chuyên môn')}
       <div class="field-row"><span class="field-name">Vấn đề khác</span><div class="field-value">${esc(x.banGiaoVanDeKhac || '')}</div></div>
     </div>`;
   }
