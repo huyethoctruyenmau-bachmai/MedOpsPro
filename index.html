@@ -1,4 +1,4 @@
-<!-- VERSION: 416.267 | index: 416 | Code.gs: 267 | INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT -->
+<!-- VERSION: 417.268 | index: 417 | Code.gs: 268 | INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6639,7 +6639,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT</p>
+      <p class="login-version">Version: INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6650,7 +6650,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT</div>
+    <div class="login-loading-version">Version: INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6704,7 +6704,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT</div>
+    <div class="app-version">Version: INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6773,7 +6773,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT';
+const APP_VERSION = 'INDEX-417.021026-PHIEU-UI-NB-HANDOVER-ACCOUNT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6833,6 +6833,7 @@ const LOAI_BAO_CAO_SO_LIEU_TRUC = 'Báo cáo số liệu trực';
 const LOAI_BAO_CAO_KHO_MAU = 'Báo cáo kho máu';
 const LOAI_BAO_CAO_SO_LIEU_TM = 'Báo cáo số liệu Xét nghiệm - Truyền máu 24h';
 const LOAI_BAO_CAO_SO_LIEU_TM_LABEL = 'Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h';
+const LOAI_BAO_CAO_SO_LIEU_TM_SECTION = 'Báo cáo số liệu Xét nghiệm - Truyền máu 24h';
 const LOAI_BAO_CAO_SO_LIEU_TM_CU_24H = 'Báo cáo số liệu Truyền máu 24h';
 const LOAI_BAO_CAO_SO_LIEU_TM_CU = 'Báo cáo số liệu Truyền máu';
 const LOAI_TM_XU_TRI = 'Khai báo xử trí chuyên môn Truyền máu';
@@ -8399,7 +8400,7 @@ function renderCreateTab(preferredLoai = ''){
       </div>
 
       <div id="tmDailyStatsBlock" class="card hidden">
-        <h3 id="tmDailyStatsTitle" class="section-title">II. Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h</h3>
+        <h3 id="tmDailyStatsTitle" class="section-title">II. Báo cáo số liệu Xét nghiệm - Truyền máu 24h</h3>
         <div id="tmDailyStatsFormHost"></div>
         <div class="btn-row">
           <button id="createSoLieuTmBtn" class="btn primary">Tạo phiếu</button>
@@ -8415,7 +8416,7 @@ function renderCreateTab(preferredLoai = ''){
           </div>
           <div class="col-12">
             <label id="handoverLabel2">2.2 Chuyên môn</label>
-            <textarea id="banGiaoChuyenMon">Không có gì đặc biệt</textarea>
+            <div id="banGiaoChuyenMonBox"><textarea id="banGiaoChuyenMon">Không có gì đặc biệt</textarea></div>
           </div>
           <div class="col-12">
             <label id="handoverLabel3">2.3 Vấn đề khác</label>
@@ -8580,7 +8581,8 @@ function updateCreateFormNumbering(){
   if(isReport) ensureLoginUserInStaff();
   const hasStructuredShiftStats = isReport && (isTM || isXetNghiemHuyetHocDept(createDeptValue));
   renderSoLieuTrucInput(hasStructuredShiftStats);
-  renderBaoCaoChuyenMonInput(isReport && isTM);
+  renderBaoCaoChuyenMonInput(false);
+  renderBanGiaoChuyenMonInput(loai, createDeptValue);
   renderBanGiaoTaiSanInput(hasConfiguredEquipmentForDept(createDeptValue));
   refreshStaffList();
   setTimeout(() => $$('textarea').forEach(autoGrow), 0);
@@ -8939,38 +8941,41 @@ function buildBaoCaoChuyenMonSummary(detail={}, fallback=''){
   return BAO_CAO_CHUYEN_MON_FIELDS.map(f => `${f.label}: ${d[f.key] || 'Không có'}`).join('\n');
 }
 
-function renderBaoCaoChuyenMonInput(isSplit){
+function renderBaoCaoChuyenMonInput(){
   const box = $('#baoCaoChuyenMonBox');
   if(!box) return;
   const currentDetail = collectBaoCaoChuyenMonChiTiet('baoCaoChuyenMonBox');
   const currentText = $('#baoCaoChuyenMon')?.value || '';
-  if(!isSplit){
-    if(!$('#baoCaoChuyenMon')) box.innerHTML = `<textarea id="baoCaoChuyenMon">${esc(buildBaoCaoChuyenMonSummary(currentDetail, currentText || 'Không có gì đặc biệt'))}</textarea>`;
-    return;
-  }
-  box.innerHTML = baoCaoChuyenMonDetailHtml(normalizeBaoCaoChuyenMonDetail(currentDetail, currentText), 'baoCaoCM');
+  if($('#baoCaoChuyenMon')) return;
+  const text = String(currentText || '').trim() || buildBaoCaoChuyenMonSummary(currentDetail, 'Không có gì đặc biệt');
+  box.innerHTML = `<textarea id="baoCaoChuyenMon">${esc(text || 'Không có gì đặc biệt')}</textarea>`;
 }
 
 function collectBaoCaoChuyenMon(){
-  if($('#baoCaoChuyenMonBox .bao-cao-cm-detail')) return buildBaoCaoChuyenMonSummary(collectBaoCaoChuyenMonChiTiet('baoCaoChuyenMonBox'));
   return $('#baoCaoChuyenMon')?.value || '';
 }
 
+function baoCaoChuyenMonSingleText(p={}){
+  const text = String(p.baoCaoChuyenMon || '').trim();
+  if(text) return text;
+  const detail = normalizeBaoCaoChuyenMonDetail(p.baoCaoChuyenMonChiTiet, '');
+  return hasBaoCaoChuyenMonDetail(detail) ? buildBaoCaoChuyenMonSummary(detail, '') : '';
+}
+
 function renderEditBaoCaoChuyenMonInput(p={}){
-  if(!isTruyenMauDept(p.khoaPhong || '')) return `<textarea id="editBaoCaoCM">${esc(p.baoCaoChuyenMon || '')}</textarea>`;
-  const detail = normalizeBaoCaoChuyenMonDetail(p.baoCaoChuyenMonChiTiet, p.baoCaoChuyenMon || '');
-  return `<div id="editBaoCaoChuyenMonBox">${baoCaoChuyenMonDetailHtml(detail, 'editBaoCaoCM')}</div>`;
+  return `<textarea id="editBaoCaoCM">${esc(baoCaoChuyenMonSingleText(p))}</textarea>`;
 }
 
 function collectEditBaoCaoChuyenMon(){
-  if($('#editBaoCaoChuyenMonBox .bao-cao-cm-detail')) return buildBaoCaoChuyenMonSummary(collectBaoCaoChuyenMonChiTiet('editBaoCaoChuyenMonBox'));
   return $('#editBaoCaoCM')?.value || '';
 }
 
 function renderBaoCaoChuyenMonView(detail={}, text=''){
-  const d = normalizeBaoCaoChuyenMonDetail(detail, text || '');
-  if(!hasBaoCaoChuyenMonDetail(d)) return esc(text || '');
-  return `<div class="report-compact-value">${BAO_CAO_CHUYEN_MON_FIELDS.map(f => `<div><strong>${esc(f.label)}:</strong> ${esc(d[f.key] || 'Không có')}</div>`).join('')}</div>`;
+  const raw = String(text || '').trim();
+  if(raw) return esc(raw).replace(/\n/g,'<br>');
+  const d = normalizeBaoCaoChuyenMonDetail(detail, '');
+  if(!hasBaoCaoChuyenMonDetail(d)) return '';
+  return esc(buildBaoCaoChuyenMonSummary(d, '')).replace(/\n/g,'<br>');
 }
 
 function isEmptyBaoCaoChuyenMonValue(value=''){
@@ -8988,20 +8993,162 @@ function splitBaoCaoChuyenMonLines(value=''){
 }
 
 function renderBaoCaoChuyenMonGiaoBanHtml(report={}){
-  const text = report.baoCaoChuyenMon || report.BaoCaoChuyenMon || '';
+  const text = String(report.baoCaoChuyenMon || report.BaoCaoChuyenMon || '').trim();
+  if(text) return esc(text).replace(/\n/g,'<br>');
   const detail = report.baoCaoChuyenMonChiTiet || report.BaoCaoChuyenMonChiTiet || report.BaoCaoChuyenMonChiTietJson || {};
-  const d = normalizeBaoCaoChuyenMonDetail(detail, text || '');
-  if(!hasBaoCaoChuyenMonDetail(d)) return esc(text || 'Không có gì đặc biệt').replace(/\n/g,'<br>');
-  const groups = BAO_CAO_CHUYEN_MON_FIELDS.map(f => {
-    const raw = d[f.key] || '';
-    if(isEmptyBaoCaoChuyenMonValue(raw)) return '';
-    const lines = splitBaoCaoChuyenMonLines(raw);
-    if(!lines.length) return '';
-    return `<div class="bao-cao-cm-view-group"><div class="bao-cao-cm-view-title">- ${esc(f.label)}:</div><div class="bao-cao-cm-view-lines">${lines.map(line => `<div class="bao-cao-cm-view-line">${esc(line)}</div>`).join('')}</div></div>`;
-  }).filter(Boolean).join('');
-  return groups || esc(text || 'Không có gì đặc biệt').replace(/\n/g,'<br>');
+  const d = normalizeBaoCaoChuyenMonDetail(detail, '');
+  if(!hasBaoCaoChuyenMonDetail(d)) return 'Không có gì đặc biệt';
+  return esc(buildBaoCaoChuyenMonSummary(d, '')).replace(/\n/g,'<br>');
 }
 
+
+const BAN_GIAO_NB_CHUYEN_MON_FIELDS = [
+  {key:'traKQ', label:'Trả KQ'},
+  {key:'chayMay', label:'Chạy máy'},
+  {key:'coBanThuCong', label:'Cơ bản - thủ công'},
+  {key:'phatMau', label:'Phát máu'},
+  {key:'nhanBenhPham', label:'Nhận bệnh phẩm'}
+];
+
+function isNeutralHandoverProfessionalText(value=''){
+  const n = norm(String(value || '').replace(/[.:]/g,' ').trim());
+  return !n || n === 'khong co gi dac biet' || n === 'khong co';
+}
+
+function parseBanGiaoNbChuyenMonText(text=''){
+  const out = {};
+  const source = String(text || '').replace(/\r/g,'').trim();
+  if(!source) return {detail:out, legacyText:''};
+  const legacy=[];
+  source.split(/\n+/).forEach(line => {
+    const raw=String(line||'').trim();
+    if(!raw) return;
+    const idx=raw.indexOf(':');
+    if(idx<0){ legacy.push(raw); return; }
+    const label=norm(raw.slice(0,idx));
+    const value=raw.slice(idx+1).trim();
+    const f=BAN_GIAO_NB_CHUYEN_MON_FIELDS.find(x => label===norm(x.label));
+    if(f) out[f.key]=value;
+    else if(label==='noi dung cu' || label==='noi dung truoc day') legacy.push(value);
+    else legacy.push(raw);
+  });
+  return {detail:out, legacyText:legacy.join('\n').trim()};
+}
+
+function normalizeBanGiaoNbChuyenMonDetail(data={}, fallbackText=''){
+  const src = data && typeof data === 'object' ? data : {};
+  const parsed = parseBanGiaoNbChuyenMonText(fallbackText || '');
+  const out = {};
+  BAN_GIAO_NB_CHUYEN_MON_FIELDS.forEach(f => {
+    out[f.key] = String(src[f.key] ?? parsed.detail[f.key] ?? '').trim();
+  });
+  const srcLegacy = String(src.legacyText || '').trim();
+  const parsedLegacy = String(parsed.legacyText || '').trim();
+  const rawFallback = String(fallbackText || '').trim();
+  const hasRecognized = BAN_GIAO_NB_CHUYEN_MON_FIELDS.some(f => String(parsed.detail[f.key] || '').trim());
+  out.legacyText = srcLegacy || parsedLegacy || ((!hasRecognized && !isNeutralHandoverProfessionalText(rawFallback)) ? rawFallback : '');
+  return out;
+}
+
+function hasBanGiaoNbChuyenMonDetail(detail={}){
+  return BAN_GIAO_NB_CHUYEN_MON_FIELDS.some(f => String(detail?.[f.key] || '').trim());
+}
+
+function buildBanGiaoNbChuyenMonSummary(detail={}, fallback=''){
+  const d = normalizeBanGiaoNbChuyenMonDetail(detail, fallback);
+  const lines = BAN_GIAO_NB_CHUYEN_MON_FIELDS
+    .filter(f => String(d[f.key] || '').trim())
+    .map(f => `${f.label}: ${String(d[f.key] || '').trim()}`);
+  if(!lines.length && d.legacyText) return d.legacyText;
+  if(d.legacyText) lines.push(`Nội dung cũ: ${d.legacyText}`);
+  if(lines.length) return lines.join('\n');
+  return String(fallback || '').trim() || 'Không có gì đặc biệt';
+}
+
+function banGiaoNbChuyenMonInputHtml(detail={}, prefix='banGiaoNbCM'){
+  const d = normalizeBanGiaoNbChuyenMonDetail(detail);
+  const fields = BAN_GIAO_NB_CHUYEN_MON_FIELDS.map((f, idx) => `
+    <div class="${idx < 4 ? 'col-6' : 'col-12'}">
+      <label>${esc(f.label)}</label>
+      <textarea id="${escAttr(prefix + '_' + f.key)}" class="ban-giao-nb-cm-detail" data-key="${escAttr(f.key)}" placeholder="Nhập nội dung ${escAttr(f.label)}">${esc(d[f.key] || '')}</textarea>
+    </div>`).join('');
+  const legacy = d.legacyText ? `
+    <div class="col-12 ban-giao-nb-legacy">
+      <label>Nội dung chuyên môn cũ (giữ nguyên)</label>
+      <textarea id="${escAttr(prefix + '_legacyText')}" class="ban-giao-nb-cm-legacy" readonly>${esc(d.legacyText)}</textarea>
+    </div>` : '';
+  return `<div class="grid ban-giao-nb-cm-grid" data-nb-structured="1">${fields}${legacy}</div>`;
+}
+
+function collectBanGiaoNbChuyenMonDetail(boxId='banGiaoChuyenMonBox'){
+  const box=document.getElementById(boxId);
+  if(!box || !box.querySelector('[data-nb-structured="1"]')) return null;
+  const out={};
+  BAN_GIAO_NB_CHUYEN_MON_FIELDS.forEach(f => out[f.key]='');
+  box.querySelectorAll('.ban-giao-nb-cm-detail[data-key]').forEach(el => { out[el.dataset.key]=(el.value||'').trim(); });
+  out.legacyText=(box.querySelector('.ban-giao-nb-cm-legacy')?.value || '').trim();
+  return out;
+}
+
+function renderBanGiaoChuyenMonInput(loai, dept){
+  const box=$('#banGiaoChuyenMonBox');
+  if(!box) return;
+  const existingDetail=collectBanGiaoNbChuyenMonDetail('banGiaoChuyenMonBox');
+  const existingText=$('#banGiaoChuyenMon')?.value || '';
+  const shouldSplit = loai===LOAI_BAN_GIAO && isXnhhCsNinhBinhDept(dept);
+  if(shouldSplit){
+    const d=normalizeBanGiaoNbChuyenMonDetail(existingDetail || {}, existingText);
+    box.innerHTML=banGiaoNbChuyenMonInputHtml(d,'banGiaoNbCM');
+  }else{
+    const text=existingDetail ? buildBanGiaoNbChuyenMonSummary(existingDetail, existingText) : existingText;
+    if(!$('#banGiaoChuyenMon')) box.innerHTML=`<textarea id="banGiaoChuyenMon">${esc(text || 'Không có gì đặc biệt')}</textarea>`;
+  }
+}
+
+function collectBanGiaoChuyenMon(){
+  const detail=collectBanGiaoNbChuyenMonDetail('banGiaoChuyenMonBox');
+  if(detail) return buildBanGiaoNbChuyenMonSummary(detail,'');
+  return $('#banGiaoChuyenMon')?.value || '';
+}
+
+function collectBanGiaoChuyenMonDetail(){
+  return collectBanGiaoNbChuyenMonDetail('banGiaoChuyenMonBox');
+}
+
+function renderEditBanGiaoChuyenMonInput(p={}){
+  const loai=p.loaiPhieuGoc || p.loaiPhieu || '';
+  if(loai===LOAI_BAN_GIAO && isXnhhCsNinhBinhDept(p.khoaPhong || '')){
+    const d=normalizeBanGiaoNbChuyenMonDetail(p.banGiaoChuyenMonChiTiet || {}, p.banGiaoChuyenMon || '');
+    return `<div id="editBanGiaoChuyenMonBox" data-loai-phieu="${escAttr(loai)}">${banGiaoNbChuyenMonInputHtml(d,'editBanGiaoNbCM')}</div>`;
+  }
+  return `<div id="editBanGiaoChuyenMonBox" data-loai-phieu="${escAttr(loai)}"><textarea id="editBGCM">${esc(p.banGiaoChuyenMon || '')}</textarea></div>`;
+}
+
+function syncEditBanGiaoChuyenMonByDept(){
+  const box=$('#editBanGiaoChuyenMonBox');
+  if(!box) return;
+  const loai=box.dataset.loaiPhieu || '';
+  const detail=collectBanGiaoNbChuyenMonDetail('editBanGiaoChuyenMonBox');
+  const text=$('#editBGCM')?.value || '';
+  const shouldSplit=loai===LOAI_BAN_GIAO && isXnhhCsNinhBinhDept($('#editDept')?.value || '');
+  if(shouldSplit){
+    const d=normalizeBanGiaoNbChuyenMonDetail(detail || {}, text);
+    box.innerHTML=banGiaoNbChuyenMonInputHtml(d,'editBanGiaoNbCM');
+  }else if(!$('#editBGCM')){
+    box.innerHTML=`<textarea id="editBGCM">${esc(detail ? buildBanGiaoNbChuyenMonSummary(detail,text) : text)}</textarea>`;
+  }
+  setTimeout(() => $$('#editBanGiaoChuyenMonBox textarea').forEach(autoGrow), 0);
+}
+
+function collectEditBanGiaoChuyenMon(){
+  const detail=collectBanGiaoNbChuyenMonDetail('editBanGiaoChuyenMonBox');
+  if(detail) return buildBanGiaoNbChuyenMonSummary(detail,'');
+  return $('#editBGCM')?.value || '';
+}
+
+function collectEditBanGiaoChuyenMonDetail(){
+  return collectBanGiaoNbChuyenMonDetail('editBanGiaoChuyenMonBox');
+}
 
 function renderSoLieuTrucInput(isStructured){
   const box = $('#soLieuTrucBox');
@@ -9789,7 +9936,8 @@ async function submitCreatePhieu(){
     baoCaoChuyenMonChiTiet: collectBaoCaoChuyenMonChiTiet('baoCaoChuyenMonBox'),
     baoCaoVanDeKhac: $('#baoCaoVanDeKhac')?.value || '',
     banGiaoTaiSan: collectBanGiaoTaiSan(),
-    banGiaoChuyenMon: $('#banGiaoChuyenMon').value,
+    banGiaoChuyenMon: collectBanGiaoChuyenMon(),
+    banGiaoChuyenMonChiTiet: collectBanGiaoChuyenMonDetail(),
     banGiaoVanDeKhac: $('#banGiaoVanDeKhac').value,
     thoiGianBanGiao: getDateTimeInputSql('thoiGianBanGiao'),
     nguoiNhanMa: state.selectedRecipient?.maNhanVien || state.selectedRecipient?.maNV || '',
@@ -10057,7 +10205,8 @@ function renderTmPhieuFormHtml(loai, data={}, prefix='tmCreate'){
 }
 
 function renderTmXuTriFormHtml(d={}, prefix='tmCreate'){
-  const vanDe = appSetupList('cacVanDeCanXuTri', []);
+  const vanDeConfig = appSetupList('cacVanDeCanXuTri', []);
+  const vanDe = ['Tối cấp', ...vanDeConfig.filter(x => norm(x) !== norm('Tối cấp'))];
   const abo = appSetupList('nhomMauHeABO', ['A','B','O','AB','Chưa xác định']);
   const rh = appSetupList('rhD', ['Dương','Âm','Yếu','Chưa xác định']);
   return `
@@ -13932,7 +14081,7 @@ window.editPhieu = async function(phieuID, btn){
           <div class="grid">
             ${p.trangThaiBanGiao !== STATUS_DA ? `
               <div class="col-12"><label>${handoverNo}.1 Tài sản, dụng cụ, thiết bị y tế</label><div id="editBanGiaoTaiSanBox">${renderEditBanGiaoTaiSanInput(p)}</div></div>
-              <div class="col-12"><label>${handoverNo}.2 Chuyên môn</label><textarea id="editBGCM">${esc(p.banGiaoChuyenMon||'')}</textarea></div>
+              <div class="col-12"><label>${handoverNo}.2 Chuyên môn</label>${renderEditBanGiaoChuyenMonInput(p)}</div>
               <div class="col-12"><label>${handoverNo}.3 Vấn đề khác</label><textarea id="editBGKhac">${esc(p.banGiaoVanDeKhac||'')}</textarea></div>
               <div class="col-9">
                 <label>${handoverNo}.4 Người nhận bàn giao</label>
@@ -13970,6 +14119,7 @@ function bindEditPhieuFormEvents(){
   $('#editRecipientSearch')?.addEventListener('input', handleEditRecipientSearchInput);
   $('#editRecipientSearch')?.addEventListener('focus', handleEditRecipientSearchInput);
   $('#editRecipientSearch')?.addEventListener('keydown', handleEditRecipientSearchKeydown);
+  $('#editDept')?.addEventListener('change', syncEditBanGiaoChuyenMonByDept);
   ['editTmPhatKHC','editTmPhatCP'].forEach(id => $('#'+id)?.addEventListener('input', updateEditTmPhatTong));
   $$(`#editSoLieuTrucBox input[type="number"]`).forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
   $$(`#editBanGiaoTaiSanBox input[type="number"]`).forEach(el => el.addEventListener('input', () => cleanIntegerInput(el)));
@@ -14295,15 +14445,19 @@ window.saveEditPhieu = async function(phieuID, btn){
     noiDungBaoCaoKhoMau: $('#editBaoCaoKhoMauNoiDung')?.value || '',
     soLieuTm: $('#editSoLieuTmFormHost') ? collectSoLieuTm('editSl', $('#editDept')?.value || '') : {},
     baoCaoChuyenMon: collectEditBaoCaoChuyenMon(),
-    baoCaoChuyenMonChiTiet: collectBaoCaoChuyenMonChiTiet('editBaoCaoChuyenMonBox'),
     baoCaoVanDeKhac: $('#editBaoCaoKhac')?.value || '',
     banGiaoTaiSan: $('#editBanGiaoTaiSanBox') ? collectEditBanGiaoTaiSan() : '',
-    banGiaoChuyenMon: $('#editBGCM')?.value || '',
+    banGiaoChuyenMon: collectEditBanGiaoChuyenMon(),
     banGiaoVanDeKhac: $('#editBGKhac')?.value || '',
     thoiGianBanGiao: $('#editTGBG') ? getDateTimeInputSql('editTGBG') : '',
     nguoiNhanMa: $('#editRecipientSelected') ? (state.editRecipient?.maNhanVien || state.editRecipient?.maNV || '') : undefined,
     nguoiNhanTen: $('#editRecipientSelected') ? (state.editRecipient?.tenNhanVien || state.editRecipient?.tenNV || state.editRecipient?.ten || '') : undefined
   };
+  const handoverDetail = collectEditBanGiaoChuyenMonDetail();
+  const handoverBox = $('#editBanGiaoChuyenMonBox');
+  if(handoverBox?.dataset.loaiPhieu === LOAI_BAN_GIAO) payload.banGiaoChuyenMonChiTiet = handoverDetail || {};
+  // Phiếu Báo cáo trực cũ có cấu trúc 5 ô chuyên môn: giữ nguyên dữ liệu legacy trong backend;
+  // UI mới chỉ sửa trường Chuyên môn hợp nhất, không gửi object rỗng để ghi đè dữ liệu cũ.
   const task = async () => {
     const isTm24hStatsEdit = !!document.getElementById('editSoLieuTmFormHost');
     const res = await api('updatePhieu', payload);
@@ -14942,7 +15096,7 @@ window.gbRefreshGiaoBanSection = async function(section, btn){
     tmXuTri:'Bệnh nhân cần xử trí chuyên môn',
     tmTdkmm:'Tác dụng không mong muốn liên quan đến truyền máu',
     khoMau:'Kho máu',
-    soLieuTm24h:isXetNghiemHuyetHocDept(state.currentGiaoBan?.khoaPhong || '') ? 'Báo cáo số liệu Xét nghiệm - 24h' : 'Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h'
+    soLieuTm24h:isXetNghiemHuyetHocDept(state.currentGiaoBan?.khoaPhong || '') ? 'Báo cáo số liệu Xét nghiệm - 24h' : LOAI_BAO_CAO_SO_LIEU_TM_SECTION
   };
   if(!labels[section]) return;
 
@@ -15166,7 +15320,7 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
     pvLine('gb-pv-roman','III. Nội dung giao ban khác'),
     pvLine('gb-pv-num','1. Kho máu'),
     pvLine('gb-pv-detail', renderGiaoBanKhoMauHtml(d.khoReports || [], d.khoMauKhac) || 'Chưa có dữ liệu kho máu phù hợp.'),
-    pvLine('gb-pv-num','2. Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h'),
+    pvLine('gb-pv-num','2. ' + LOAI_BAO_CAO_SO_LIEU_TM_SECTION),
     pvLine('gb-pv-detail', renderSoLieuTmGiaoBanPreviewHtml(d.soLieuReports || [], d.khoaPhong || '')),
     pvLine('gb-pv-num','3. Thông báo'),
     pvLine('gb-pv-detail', pvHtml(d.thongBao)),
@@ -15488,7 +15642,7 @@ function renderGiaoBanModal(){
         <div class="list-card">
           <div id="gbKhoMauSectionContent">${renderGiaoBanKhoMauHtml(sectionData.khoReports || [], sectionData.khoMauKhac || '') || '<div class="empty">Chưa có dữ liệu kho máu phù hợp.</div>'}</div>
         </div>
-        <div class="gb-sub-label gb-refresh-title-row" style="margin-top:12px"><span>2. Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h</span>${canRefreshSource ? gbSectionRefreshButtonHtml('soLieuTm24h','Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h') : ''}</div>
+        <div class="gb-sub-label gb-refresh-title-row" style="margin-top:12px"><span>2. ${esc(LOAI_BAO_CAO_SO_LIEU_TM_SECTION)}</span>${canRefreshSource ? gbSectionRefreshButtonHtml('soLieuTm24h',LOAI_BAO_CAO_SO_LIEU_TM_SECTION) : ''}</div>
         <div id="gbSoLieuTm24hSectionContent">${renderSoLieuTmGiaoBanHtml(sectionData.soLieuReports || [], g.khoaPhong || '')}</div>
         <div class="grid" style="margin-top:10px">
           <div class="col-12"><label class="gb-sub-label" for="gbThongBao">3. Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
@@ -18442,6 +18596,7 @@ function openEditAccountModal(){
 }
 
 async function saveAccountInfo(){
+  const oldDept = state.accountInfo?.khoaPhong || state.accountInfo?.phongLamViec || state.user?.khoaPhong || state.user?.phongLamViec || '';
   const payload = {
     ngaySinh: $('#editAccNgaySinh')?.value || '',
     email: $('#editAccEmail')?.value || '',
@@ -18454,6 +18609,14 @@ async function saveAccountInfo(){
     const res = await api('updateAccountInfo', payload);
     state.accountInfo = res.data.account || state.accountInfo;
     state.user = res.data.user || state.user;
+
+    const deptChanged = !deptSameClient(oldDept, payload.khoaPhong);
+    if(deptChanged){
+      closeModal();
+      toast('Khoa/phòng đã được cập nhật. Vui lòng đăng nhập lại để áp dụng quyền và phạm vi dữ liệu mới.');
+      await logout();
+      return;
+    }
 
     const currentMa = String(state.user?.maNhanVien || state.accountInfo?.maNhanVien || '').trim();
     if(currentMa && Array.isArray(state.personnel)){
@@ -20463,7 +20626,7 @@ function soLieuTmDeptVariantClient(value){
 function soLieuTmSectionTitleClient(value){
   return soLieuTmDeptVariantClient(value) === 'XNHH'
     ? 'II. Báo cáo số liệu Xét nghiệm 24h'
-    : 'II. Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h';
+    : 'II. Báo cáo số liệu Xét nghiệm - Truyền máu 24h';
 }
 
 function isTruyenMauDept(value){
