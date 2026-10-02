@@ -1,4 +1,4 @@
-<!-- VERSION: 414.266 | index: 414 | Code.gs: 266 | INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO -->
+<!-- VERSION: 415.267 | index: 415 | Code.gs: 267 | INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -187,6 +187,8 @@
     .equal-control{height:38px;min-height:38px;width:100%;display:block}
     .staff-picker{position:relative}
     .staff-input-row{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px;align-items:stretch}
+    .gb-leave-input-row{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(110px,.65fr) 42px}
+    @media(max-width:760px){.gb-leave-input-row{grid-template-columns:minmax(0,1fr) minmax(100px,.7fr) 42px}.gb-leave-input-row #gbLeaveSearch{grid-column:1 / -1}.gb-leave-input-row #gbLeaveReason{min-width:0}.gb-leave-input-row #gbLeaveTime{min-width:0}}
     .staff-add-btn{width:42px!important;min-width:42px;min-height:38px!important;padding:0!important;border-radius:8px;font-size:24px;line-height:1}
     .staff-suggest{position:absolute;left:0;right:48px;top:calc(100% + 4px);z-index:30;background:#fff;border:1px solid var(--g-line);border-radius:12px;box-shadow:0 8px 22px rgba(60,64,67,.18);overflow:hidden;max-height:238px;overflow-y:auto}
     .staff-suggest.hidden{display:none!important}
@@ -386,6 +388,8 @@
     html.desktop-date-ui .vi-date-wrap input.vi-date-native{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;opacity:0!important;z-index:2;cursor:pointer}
     html.desktop-date-ui .vi-date-wrap::after{content:"";position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;width:16px;height:16px;background:currentColor;opacity:.72;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='15' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 9h16'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='15' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 9h16'/%3E%3C/svg%3E") center/contain no-repeat}
     .vi-date-wrap.is-disabled .vi-date-display{background:#f8f9fa;color:var(--g-muted);cursor:not-allowed}
+    .vi-date-wrap.is-readonly .vi-date-display{background:#f8f9fa;color:var(--text);cursor:default}
+    .vi-date-wrap.is-readonly input.vi-date-native{pointer-events:none!important;cursor:default!important}
     #gbTime{cursor:pointer}
     #gbTime:disabled{cursor:not-allowed;background:#f8f9fa}
 
@@ -6598,7 +6602,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO</p>
+      <p class="login-version">Version: INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6609,7 +6613,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO</div>
+    <div class="login-loading-version">Version: INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6663,7 +6667,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO</div>
+    <div class="app-version">Version: INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6732,7 +6736,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-414.021026-HOME-MY-WORK-HIDE-ZERO';
+const APP_VERSION = 'INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6910,6 +6914,8 @@ const state = {
   editRecipientCandidate: null,
   gbLeaveSelections: [],
   gbLeaveCandidate: null,
+  gbLeaveReasonDraft: '',
+  gbLeaveTimeDraft: 'Cả ngày',
   gbLeaveLegacyText: '',
   gbLeaveContextId: '',
   activeTab: 'home',
@@ -15062,7 +15068,7 @@ function getGiaoBanPreviewSnapshot(isDotXuat){
     isTM,
     isXnHh,
     loaiGiaoBan: g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC,
-    thoiGian: weekdayDateTimeVi(fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso(),true),
+    thoiGian: weekdayDateTimeVi(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso(),true),
     khoaPhong: $('#gbDotDept')?.value || g.khoaPhong || state.user?.khoaPhong || '',
     thuKy: g.thuKyTen || g.nguoiTaoTen || state.user?.tenNhanVien || '',
     chuTri: $('#gbChuTriInput')?.value || g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '',
@@ -15070,6 +15076,7 @@ function getGiaoBanPreviewSnapshot(isDotXuat){
     lyDoGiaoBan: $('#gbLyDoGiaoBan')?.value || g.lyDoGiaoBan || '',
     noiDungDotXuat: $('#gbNoiDungDotXuat')?.value || g.noiDungDotXuat || '',
     nghi: collectGiaoBanLeaveText() || g.nghi || '',
+    nghiChiTiet: getGiaoBanLeaveStructuredData(),
     nhanLuc: summarizeReportsStaff(sortedReports) || g.nhanLucTongHop || '',
     reports: sortedReports,
     tmPhieus: [].concat(sectionData.tmXuTri || [], sectionData.tmTdkmm || []),
@@ -15174,47 +15181,82 @@ function refreshGiaoBanStructuredPreview(){
   box.innerHTML = renderGiaoBanStructuredPreviewHtml(isBienBanHopLoai(state.currentGiaoBan.loaiGiaoBan || ''));
 }
 
+function normalizeGiaoBanLeaveTimeClient(value){
+  const v = String(value || '').trim();
+  if(v === 'Sáng' || v === 'Chiều') return v;
+  return 'Cả ngày';
+}
+
 function prepareGiaoBanLeaveState(g){
-  const contextId = String(g?.giaoBanID || `virtual:${g?.ngayGiaoBan || ''}:${g?.khoaPhong || ''}`).trim();
-  const raw = String(g?.nghi || '').trim();
+  const contextId = `${String(g?.giaoBanID || `virtual:${g?.ngayGiaoBan || ''}:${g?.khoaPhong || ''}`).trim()}:${Number(g?.rowVersion || 0)}`;
+  if(state.gbLeaveContextId === contextId) return;
+  const structured = Array.isArray(g?.nghiChiTiet) ? g.nghiChiTiet : [];
   const selected = [];
-  const legacy = [];
   const seen = new Set();
-  const tokens = raw ? raw.split(/\r?\n|\s*;\s*/).map(x => x.trim()).filter(Boolean) : [];
-  tokens.forEach(token => {
-    const clean = token.replace(/^[-–•]\s*/, '').trim();
-    const q = norm(clean);
-    const person = (state.personnel || []).find(p => norm(employeeNameForAutocomplete(p)) === q || norm(employeeCodeForAutocomplete(p)) === q);
-    const ma = person ? employeeCodeForAutocomplete(person) : '';
-    if(person && ma && !seen.has(ma)){
-      selected.push(person);
-      seen.add(ma);
-    }else if(clean){
-      legacy.push(clean);
-    }
+  structured.forEach(item => {
+    const ma = String(item?.maNhanVien || '').trim();
+    const ten = String(item?.tenNhanVien || '').trim();
+    if(!ma || seen.has(ma)) return;
+    const person = (state.personnel || []).find(p => employeeCodeForAutocomplete(p) === ma) || {
+      maNhanVien: ma,
+      tenNhanVien: ten || ma
+    };
+    selected.push({
+      person,
+      maNhanVien: ma,
+      tenNhanVien: ten || employeeNameForAutocomplete(person),
+      lyDo: String(item?.lyDo || '').trim(),
+      thoiGianNghi: normalizeGiaoBanLeaveTimeClient(item?.thoiGianNghi)
+    });
+    seen.add(ma);
   });
+
+  // Dữ liệu cũ chỉ có field `nghi` được giữ nguyên 100% dưới dạng legacy text.
+  // Không tự chuyển dữ liệu lịch sử thành cấu trúc mới khi mở lại phiếu.
   state.gbLeaveSelections = selected;
   state.gbLeaveCandidate = null;
-  state.gbLeaveLegacyText = legacy.join('\n');
+  state.gbLeaveReasonDraft = '';
+  state.gbLeaveTimeDraft = 'Cả ngày';
+  state.gbLeaveLegacyText = String(g?.nghiLegacyText || (structured.length ? '' : (g?.nghi || '')) || '').trim();
   state.gbLeaveContextId = contextId;
 }
 
+function getGiaoBanLeaveStructuredData(){
+  return (state.gbLeaveSelections || []).map(item => ({
+    maNhanVien: String(item?.maNhanVien || employeeCodeForAutocomplete(item?.person) || '').trim(),
+    tenNhanVien: String(item?.tenNhanVien || employeeNameForAutocomplete(item?.person) || '').trim(),
+    lyDo: String(item?.lyDo || '').trim(),
+    thoiGianNghi: normalizeGiaoBanLeaveTimeClient(item?.thoiGianNghi)
+  })).filter(item => item.maNhanVien && item.tenNhanVien);
+}
+
+function formatGiaoBanLeaveEntry(item){
+  const ten = String(item?.tenNhanVien || employeeNameForAutocomplete(item?.person) || '').trim();
+  const lyDo = String(item?.lyDo || '').trim();
+  const thoiGian = normalizeGiaoBanLeaveTimeClient(item?.thoiGianNghi);
+  return [ten, lyDo, thoiGian].filter(Boolean).join(' - ');
+}
+
 function collectGiaoBanLeaveText(){
-  const names = (state.gbLeaveSelections || []).map(employeeNameForAutocomplete).filter(Boolean);
+  const structured = getGiaoBanLeaveStructuredData().map(formatGiaoBanLeaveEntry).filter(Boolean);
   const legacy = String(state.gbLeaveLegacyText || '').split(/\r?\n/).map(x => x.trim()).filter(Boolean);
-  return Array.from(new Set(names.concat(legacy))).join('\n');
+  return structured.concat(legacy).join('\n');
 }
 
 function renderGiaoBanLeavePickerHtml(g, locked){
-  const chips = (state.gbLeaveSelections || []).map(p => {
-    const ma = employeeCodeForAutocomplete(p);
-    return `<span class="staff-chip">${esc(employeeNameForAutocomplete(p))}${locked ? '' : `<button type="button" onclick="removeGiaoBanLeave('${escAttr(ma)}')">×</button>`}</span>`;
+  const chips = getGiaoBanLeaveStructuredData().map(item => {
+    const text = formatGiaoBanLeaveEntry(item);
+    return `<span class="staff-chip">${esc(text)}${locked ? '' : `<button type="button" onclick="removeGiaoBanLeave('${escAttr(item.maNhanVien)}')">×</button>`}</span>`;
   }).join('');
   const legacy = String(state.gbLeaveLegacyText || '').trim();
   const picker = locked ? '' : `
     <div class="staff-picker autocomplete-container">
-      <div class="staff-input-row">
+      <div class="staff-input-row gb-leave-input-row">
         <input id="gbLeaveSearch" class="autocomplete-input equal-control" autocomplete="off" placeholder="Gõ tên hoặc mã nhân viên">
+        <input id="gbLeaveReason" class="equal-control" autocomplete="off" placeholder="Lý do nghỉ" value="${escAttr(state.gbLeaveReasonDraft || '')}">
+        <select id="gbLeaveTime" class="equal-control" aria-label="Thời gian nghỉ">
+          ${['Cả ngày','Sáng','Chiều'].map(v => `<option value="${escAttr(v)}" ${normalizeGiaoBanLeaveTimeClient(state.gbLeaveTimeDraft) === v ? 'selected' : ''}>${esc(v)}</option>`).join('')}
+        </select>
         <button id="gbAddLeaveBtn" class="btn secondary staff-add-btn" type="button" title="Thêm người nghỉ" aria-label="Thêm người nghỉ">+</button>
       </div>
       <div id="gbLeaveSuggestBox" class="staff-suggest autocomplete-dropdown hidden"></div>
@@ -15243,7 +15285,6 @@ function handleGiaoBanLeaveSearchKeydown(e){
   if(e.key === 'Enter'){
     e.preventDefault();
     if(box && !box.classList.contains('hidden') && getAutocompleteItems(box).length) chooseActiveAutocompleteItem(box);
-    addGiaoBanLeave();
     return;
   }
   if(e.key === 'Escape') hideAutocompleteBox(box);
@@ -15259,6 +15300,8 @@ window.chooseGiaoBanLeaveSuggestion = function(ma){
 
 function addGiaoBanLeave(){
   const input = $('#gbLeaveSearch');
+  const reasonInput = $('#gbLeaveReason');
+  const timeSelect = $('#gbLeaveTime');
   const raw = String(input?.value || '').trim();
   const q = norm(raw);
   const person = state.gbLeaveCandidate
@@ -15266,18 +15309,32 @@ function addGiaoBanLeave(){
     || (state.personnel || []).find(p => norm(employeeNameForAutocomplete(p)) === q);
   if(!person) return toast('Không tìm thấy nhân viên trong danh sách. Vui lòng chọn từ gợi ý.');
   const ma = employeeCodeForAutocomplete(person);
-  if((state.gbLeaveSelections || []).some(p => employeeCodeForAutocomplete(p) === ma)) return toast('Nhân viên đã có trong danh sách nghỉ.');
-  state.gbLeaveSelections.push(person);
+  if((state.gbLeaveSelections || []).some(item => String(item?.maNhanVien || employeeCodeForAutocomplete(item?.person) || '') === ma)) return toast('Nhân viên đã có trong danh sách nghỉ.');
+  const lyDo = String(reasonInput?.value || '').trim();
+  if(!lyDo) return toast('Vui lòng nhập lý do nghỉ.');
+  const thoiGianNghi = normalizeGiaoBanLeaveTimeClient(timeSelect?.value || 'Cả ngày');
+  state.gbLeaveSelections.push({
+    person,
+    maNhanVien: ma,
+    tenNhanVien: employeeNameForAutocomplete(person),
+    lyDo,
+    thoiGianNghi
+  });
   state.gbLeaveCandidate = null;
-  if(input){ input.value=''; input.focus(); }
+  state.gbLeaveReasonDraft = '';
+  state.gbLeaveTimeDraft = 'Cả ngày';
+  if(input) input.value='';
+  if(reasonInput) reasonInput.value='';
+  if(timeSelect) timeSelect.value='Cả ngày';
   hideAutocompleteBox($('#gbLeaveSuggestBox'));
   refreshGiaoBanLeaveList();
   syncCurrentGiaoBanDraftFromForm();
   refreshGiaoBanStructuredPreview();
+  input?.focus();
 }
 
 window.removeGiaoBanLeave = function(ma){
-  state.gbLeaveSelections = (state.gbLeaveSelections || []).filter(p => employeeCodeForAutocomplete(p) !== ma);
+  state.gbLeaveSelections = (state.gbLeaveSelections || []).filter(item => String(item?.maNhanVien || employeeCodeForAutocomplete(item?.person) || '') !== String(ma || ''));
   refreshGiaoBanLeaveList();
   syncCurrentGiaoBanDraftFromForm();
   refreshGiaoBanStructuredPreview();
@@ -15286,8 +15343,9 @@ window.removeGiaoBanLeave = function(ma){
 function refreshGiaoBanLeaveList(){
   const box = $('#gbLeaveList');
   if(!box) return;
-  box.innerHTML = (state.gbLeaveSelections || []).length
-    ? state.gbLeaveSelections.map(p => `<span class="staff-chip">${esc(employeeNameForAutocomplete(p))}<button type="button" onclick="removeGiaoBanLeave('${escAttr(employeeCodeForAutocomplete(p))}')">×</button></span>`).join('')
+  const items = getGiaoBanLeaveStructuredData();
+  box.innerHTML = items.length
+    ? items.map(item => `<span class="staff-chip">${esc(formatGiaoBanLeaveEntry(item))}<button type="button" onclick="removeGiaoBanLeave('${escAttr(item.maNhanVien)}')">×</button></span>`).join('')
     : '<span class="meta">Chưa thêm người nghỉ.</span>';
 }
 
@@ -15296,6 +15354,8 @@ function bindGiaoBanLeavePicker(){
   $('#gbLeaveSearch')?.addEventListener('input', handleGiaoBanLeaveSearchInput);
   $('#gbLeaveSearch')?.addEventListener('focus', handleGiaoBanLeaveSearchInput);
   $('#gbLeaveSearch')?.addEventListener('keydown', handleGiaoBanLeaveSearchKeydown);
+  $('#gbLeaveReason')?.addEventListener('input', e => { state.gbLeaveReasonDraft = e.target.value || ''; });
+  $('#gbLeaveTime')?.addEventListener('change', e => { state.gbLeaveTimeDraft = normalizeGiaoBanLeaveTimeClient(e.target.value); });
 }
 
 function bindGiaoBanPreviewAutoRefresh(){
@@ -15337,8 +15397,7 @@ function renderGiaoBanModal(){
         <div class="gb-admin-item gb-admin-time">
           <label>T/G giao ban</label>
           <div class="gb-time-row">
-            <input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>
-            ${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}
+            <input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" readonly aria-readonly="true">
           </div>
         </div>
         <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><input class="equal-control" readonly value="${escAttr(g.khoaPhong || '')}"></div>
@@ -15463,7 +15522,7 @@ function renderGiaoBanDotXuatModal(){
     <div class="card gb-regular-card">
       <h3 class="section-title">A. Phần hành chính</h3>
       <div class="grid gb-dot-admin-grid">
-        <div class="gb-dot-admin-item gb-dot-admin-time"><label>Thời gian giao ban</label><div class="gb-time-row"><input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" ${g.trangThai === STATUS_DA || g.daKhoa ? 'disabled' : ''}>${g.trangThai !== STATUS_DA && !g.daKhoa ? `<button class="gb-time-refresh-icon" type="button" onclick="updateGiaoBanTimeNow()" title="Cập nhật thời gian hiện tại" aria-label="Cập nhật thời gian hiện tại"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>` : ''}</div></div>
+        <div class="gb-dot-admin-item gb-dot-admin-time"><label>Thời gian giao ban</label><div class="gb-time-row"><input id="gbTime" class="equal-control datetime-vi-input" type="datetime-local" value="${escAttr(toDatetimeLocal(g.thoiGianGiaoBanHienThi || g.thoiGianGiaoBan || hanoiNowIso()))}" readonly aria-readonly="true"></div></div>
         <div class="gb-admin-item gb-admin-dept"><label>Khoa/phòng</label><select id="gbDotDept" class="equal-control" ${g.daKhoa ? 'disabled' : ''}>${deptOptions(g.khoaPhong || state.user?.khoaPhong || '')}</select></div>
         <div class="gb-admin-item gb-admin-secretary"><label>Thư ký</label><input class="equal-control" readonly value="${escAttr(g.thuKyTen || g.nguoiTaoTen || state.user?.tenNhanVien || '')}"></div>
         <div class="gb-admin-item gb-admin-chair"><label>Chủ trì cuộc họp</label><div class="autocomplete-container" id="gbChuTriContainer"><input id="gbChuTriInput" class="equal-control autocomplete-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" onfocus="showChairSuggestForInput(this)" value="${escAttr(g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '')}" ${g.daKhoa ? 'readonly' : ''} onblur="normalizeChairInput();syncSignModeWithChair()" onchange="normalizeChairInput();syncSignModeWithChair()" oninput="syncSignModeWithChair()"><div id="gbChuTriSuggestBox" class="chair-suggest autocomplete-dropdown hidden"></div></div></div>
@@ -16760,7 +16819,7 @@ async function saveUploadedProfileSignature(btn){
 function syncCurrentGiaoBanDraftFromForm(){
   const g = state.currentGiaoBan;
   if(!g) return null;
-  const time = state.giaoBanDateGuardAcceptedTime || fromDatetimeLocal($('#gbTime')?.value || '') || g.thoiGianGiaoBan || hanoiNowIso();
+  const time = g.thoiGianGiaoBan || g.thoiGianGiaoBanHienThi || state.giaoBanDateGuardAcceptedTime || hanoiNowIso();
   const chair = resolveChairFromInput($('#gbChuTriInput')?.value || g.chuTriTen || g.nguoiChuTriTuDo || g.nguoiTaoTen || state.user?.tenNhanVien || '');
   g.thoiGianGiaoBan = time;
   g.thoiGianGiaoBanHienThi = time;
@@ -16774,6 +16833,8 @@ function syncCurrentGiaoBanDraftFromForm(){
   g.hinhThucKyThuKy = getPendingThuKySignMode() || getSelectedHinhThucKy('thuKy');
   g.hinhThucKyChuTri = getSelectedHinhThucKy('chuTri');
   g.nghi = collectGiaoBanLeaveText();
+  g.nghiChiTiet = getGiaoBanLeaveStructuredData();
+  g.nghiLegacyText = String(state.gbLeaveLegacyText || '');
   g.khoMauKHC = $('#khoKHC')?.value || g.khoMauKHC || '';
   g.khoMauHTT = $('#khoHTT')?.value || g.khoMauHTT || '';
   g.khoMauTua = $('#khoTua')?.value || g.khoMauTua || '';
@@ -16803,8 +16864,10 @@ function collectGiaoBanPayload(){
     ngayGiaoBan: String(state.giaoBanDateGuardAcceptedTime || g.ngayGiaoBan || todayIso()).slice(0,10),
     danhSachPhieuID: sectionSnapshot ? gbAllSnapshotReportIdsClient(sectionSnapshot).join(',') : '',
     loaiGiaoBan: g.loaiGiaoBan || LOAI_GIAO_BAN_THUONG_TRUC,
-    thoiGianGiaoBan: state.giaoBanDateGuardAcceptedTime || g.thoiGianGiaoBan || fromDatetimeLocal($('#gbTime').value),
+    thoiGianGiaoBan: g.thoiGianGiaoBan || g.thoiGianGiaoBanHienThi || state.giaoBanDateGuardAcceptedTime || hanoiNowIso(),
     nghi: collectGiaoBanLeaveText(),
+    nghiChiTiet: getGiaoBanLeaveStructuredData(),
+    nghiLegacyText: String(state.gbLeaveLegacyText || ''),
     khoMauKHC: $('#khoKHC')?.value || g.khoMauKHC || '',
     khoMauHTT: $('#khoHTT')?.value || g.khoMauHTT || '',
     khoMauTua: $('#khoTua')?.value || g.khoMauTua || '',
@@ -17139,7 +17202,7 @@ async function submitChuTriSignature(btn, systemSign){
 
     const requestVersion = Number(payload.expectedRowVersion || 0);
     payload.requestId = getGiaoBanActionRequestId('finishGiaoBan', requestVersion);
-    const res = await api('finishGiaoBan', payload, {timeoutMs:45000});
+    const res = await api('finishGiaoBan', payload, {timeoutMs:120000});
     clearGiaoBanActionRequestId('finishGiaoBan', requestVersion);
     state.currentGiaoBan = res.data.giaoBan;
     const giaoBanID = state.currentGiaoBan?.giaoBanID || payload.giaoBanID || '';
@@ -20745,6 +20808,9 @@ function enhanceViDatePickers(root){
     wrap.appendChild(display);
     wrap.appendChild(input);
 
+    const locked = !!(input.readOnly || input.disabled);
+    if(locked) wrap.classList.add(input.disabled ? 'is-disabled' : 'is-readonly');
+
     const openNativePicker = () => {
       try{
         if(input.showPicker) input.showPicker();
@@ -20754,20 +20820,22 @@ function enhanceViDatePickers(root){
         input.click();
       }
     };
-    display.addEventListener('click', openNativePicker);
-    input.addEventListener('click', () => {
-      if(document.documentElement.classList.contains('desktop-date-ui')){
-        try{ if(input.showPicker) input.showPicker(); }catch(e){}
-      }
-    });
-    display.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        openNativePicker();
-      }
-    });
-    input.addEventListener('input', () => updateViDateDisplay(input));
-    input.addEventListener('change', () => updateViDateDisplay(input));
+    if(!locked){
+      display.addEventListener('click', openNativePicker);
+      input.addEventListener('click', () => {
+        if(document.documentElement.classList.contains('desktop-date-ui')){
+          try{ if(input.showPicker) input.showPicker(); }catch(e){}
+        }
+      });
+      display.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openNativePicker();
+        }
+      });
+      input.addEventListener('input', () => updateViDateDisplay(input));
+      input.addEventListener('change', () => updateViDateDisplay(input));
+    }
     updateViDateDisplay(input);
   });
 }
