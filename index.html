@@ -1,4 +1,4 @@
-<!-- VERSION: 415.267 | index: 415 | Code.gs: 267 | INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME -->
+<!-- VERSION: 416.267 | index: 416 | Code.gs: 267 | INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -2084,6 +2084,21 @@
       opacity:.55!important;
       cursor:not-allowed!important;
     }
+    .gb-sign-action-group{
+      display:flex!important;
+      align-items:center!important;
+      gap:6px!important;
+      flex-wrap:nowrap!important;
+      min-width:0!important;
+      width:auto!important;
+    }
+    .gb-sign-action-group .btn{
+      width:auto!important;
+      min-width:0!important;
+      flex:0 0 auto!important;
+      padding-left:10px!important;
+      padding-right:10px!important;
+    }
     @media (max-width:899px){
       .gb-sign-two-person{
         width:100%!important;
@@ -2267,6 +2282,18 @@
       overflow:hidden!important;
       text-overflow:ellipsis!important;
     }
+    .gb-regular-finish .gb-finish-compact .gb-finish-right .gb-sign-action-group{
+      display:flex!important;
+      align-items:center!important;
+      gap:6px!important;
+      width:auto!important;
+      min-width:132px!important;
+    }
+    .gb-regular-finish .gb-finish-compact .gb-finish-right .gb-sign-action-group .btn{
+      width:auto!important;
+      min-width:0!important;
+      flex:0 0 auto!important;
+    }
 
     @media (max-width:899px){
       .gb-regular-finish .gb-finish-compact .gb-finish-right{
@@ -2288,6 +2315,16 @@
       .gb-regular-finish .gb-finish-compact .gb-finish-right .btn{
         min-width:0!important;
         width:100%!important;
+      }
+      .gb-regular-finish .gb-finish-compact .gb-finish-right .gb-sign-action-group{
+        min-width:0!important;
+        width:100%!important;
+        flex-wrap:wrap!important;
+      }
+      .gb-regular-finish .gb-finish-compact .gb-finish-right .gb-sign-action-group .btn{
+        width:auto!important;
+        min-width:0!important;
+        flex:1 1 auto!important;
       }
     }
 
@@ -6602,7 +6639,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME</p>
+      <p class="login-version">Version: INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6613,7 +6650,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME</div>
+    <div class="login-loading-version">Version: INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6667,7 +6704,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME</div>
+    <div class="app-version">Version: INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6736,7 +6773,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-415.021026-GB-SIGN-LEAVE-FIXED-TIME';
+const APP_VERSION = 'INDEX-416.021026-GB-UI-ACCOUNT-LABEL-OPT';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6795,6 +6832,7 @@ const LOAI_BAO_CAO = 'Báo cáo thường trực';
 const LOAI_BAO_CAO_SO_LIEU_TRUC = 'Báo cáo số liệu trực';
 const LOAI_BAO_CAO_KHO_MAU = 'Báo cáo kho máu';
 const LOAI_BAO_CAO_SO_LIEU_TM = 'Báo cáo số liệu Xét nghiệm - Truyền máu 24h';
+const LOAI_BAO_CAO_SO_LIEU_TM_LABEL = 'Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h';
 const LOAI_BAO_CAO_SO_LIEU_TM_CU_24H = 'Báo cáo số liệu Truyền máu 24h';
 const LOAI_BAO_CAO_SO_LIEU_TM_CU = 'Báo cáo số liệu Truyền máu';
 const LOAI_TM_XU_TRI = 'Khai báo xử trí chuyên môn Truyền máu';
@@ -6827,7 +6865,7 @@ function displayLoaiPhieuLabel(loai){
   const text = String(loai || '');
   if(eqText(text, LOAI_BAN_GIAO)) return 'Bàn giao trực';
   if(eqText(text, LOAI_BAO_CAO)) return 'Báo cáo trực';
-  if(isLoaiSoLieuTm(text)) return LOAI_BAO_CAO_SO_LIEU_TM;
+  if(isLoaiSoLieuTm(text)) return LOAI_BAO_CAO_SO_LIEU_TM_LABEL;
   return text
     .replaceAll(LOAI_BAN_GIAO, 'Bàn giao trực')
     .replaceAll(LOAI_BAO_CAO, 'Báo cáo trực');
@@ -7344,7 +7382,7 @@ function hasSoLieuTm24hFormConfigClient(khoaPhong){
 }
 
 function tm24hMissingConfigHtmlClient(khoaPhong){
-  return `<div class="empty">Chưa có cấu hình phiếu ${esc(LOAI_BAO_CAO_SO_LIEU_TM)} cho khoa/phòng ${esc(khoaPhong || 'chưa xác định')}.</div>`;
+  return `<div class="empty">Chưa có cấu hình phiếu ${esc(LOAI_BAO_CAO_SO_LIEU_TM_LABEL)} cho khoa/phòng ${esc(khoaPhong || 'chưa xác định')}.</div>`;
 }
 // ===== END TM24H_LABO_FORM_CONFIG =====
 
@@ -8279,7 +8317,7 @@ function renderCreateTab(preferredLoai = ''){
   const bloodStockReportOption = canCurrentUserCreateKhoMauReport() ? `
             <option value="${LOAI_BAO_CAO_KHO_MAU}">Báo cáo kho máu</option>` : '';
   const tmDailyStatsOption = allowTm24h ? `
-            <option value="${LOAI_BAO_CAO_SO_LIEU_TM}">${LOAI_BAO_CAO_SO_LIEU_TM}</option>` : '';
+            <option value="${LOAI_BAO_CAO_SO_LIEU_TM}">${LOAI_BAO_CAO_SO_LIEU_TM_LABEL}</option>` : '';
   $('#tab-create').innerHTML = `
     <div class="card create-left-card">
       <div class="create-info-title-row">
@@ -8361,7 +8399,7 @@ function renderCreateTab(preferredLoai = ''){
       </div>
 
       <div id="tmDailyStatsBlock" class="card hidden">
-        <h3 id="tmDailyStatsTitle" class="section-title">II. Báo cáo số liệu Xét nghiệm - Truyền máu 24h</h3>
+        <h3 id="tmDailyStatsTitle" class="section-title">II. Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h</h3>
         <div id="tmDailyStatsFormHost"></div>
         <div class="btn-row">
           <button id="createSoLieuTmBtn" class="btn primary">Tạo phiếu</button>
@@ -9639,13 +9677,13 @@ function renderSoLieuTmGiaoBanDayClient(r, khoaPhong='', preview=false){
 
 function renderSoLieuTmGiaoBanHtml(rows, khoaPhong=''){
   const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
-  if(!list.length) return `<div class="empty">Chưa có phiếu ${esc(soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm - 24h' : LOAI_BAO_CAO_SO_LIEU_TM)} phù hợp.</div>`;
+  if(!list.length) return `<div class="empty">Chưa có phiếu ${esc(soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm - 24h' : LOAI_BAO_CAO_SO_LIEU_TM_LABEL)} phù hợp.</div>`;
   return list.map(r => `<div class="tm-sl-gb-day gb-section-content"><div class="tm-sl-gb-line">${renderSoLieuTmGiaoBanDayClient(r, khoaPhong, false)}</div></div>`).join('');
 }
 
 function renderSoLieuTmGiaoBanPreviewHtml(rows, khoaPhong=''){
   const list = sortReportsByDateAsc((rows || []).filter(r => isLoaiSoLieuTm(r.loaiPhieuGoc || r.loaiPhieu || '')));
-  if(!list.length) return `Chưa có phiếu ${soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm - 24h' : LOAI_BAO_CAO_SO_LIEU_TM} phù hợp.`;
+  if(!list.length) return `Chưa có phiếu ${soLieuTmDeptVariantClient(khoaPhong) === 'XNHH' ? 'Báo cáo số liệu Xét nghiệm - 24h' : LOAI_BAO_CAO_SO_LIEU_TM_LABEL} phù hợp.`;
   return list.map(r => renderSoLieuTmGiaoBanDayClient(r, khoaPhong, true)).join('<br>');
 }
 
@@ -9724,7 +9762,7 @@ async function submitCreatePhieu(){
   if(isLoaiSoLieuTm(loai)){
     const selectedDept = $('#createDept')?.value || '';
     if(!hasSoLieuTm24hFormConfigClient(selectedDept)){
-      return toast(`Chưa có cấu hình phiếu ${LOAI_BAO_CAO_SO_LIEU_TM} cho khoa/phòng ${selectedDept || 'chưa xác định'}.`);
+      return toast(`Chưa có cấu hình phiếu ${LOAI_BAO_CAO_SO_LIEU_TM_LABEL} cho khoa/phòng ${selectedDept || 'chưa xác định'}.`);
     }
     const payload = {
       loaiPhieu: loai,
@@ -13518,7 +13556,7 @@ function renderPhieuList(items, note=''){
     const title = isBloodStockCard
       ? `Báo cáo kho máu - ${formatDeptPlain(p.khoaPhong)} - ${handoverDateTitle}`
       : (isSoLieuTmCard
-        ? `${LOAI_BAO_CAO_SO_LIEU_TM} - ${formatDeptPlain(p.khoaPhong)} - ${handoverDateTitle}`
+        ? `${LOAI_BAO_CAO_SO_LIEU_TM_LABEL} - ${formatDeptPlain(p.khoaPhong)} - ${handoverDateTitle}`
         : (isReportCard
           ? `Báo cáo/ Bàn giao trực - ${formatKhoaTitle(p.khoaPhong)} - ${handoverDateTitle}`
           : `Bàn giao trực - ${formatKhoaTitle(p.khoaPhong)} - ${handoverDateTitle}`));
@@ -14904,7 +14942,7 @@ window.gbRefreshGiaoBanSection = async function(section, btn){
     tmXuTri:'Bệnh nhân cần xử trí chuyên môn',
     tmTdkmm:'Tác dụng không mong muốn liên quan đến truyền máu',
     khoMau:'Kho máu',
-    soLieuTm24h:isXetNghiemHuyetHocDept(state.currentGiaoBan?.khoaPhong || '') ? 'Báo cáo số liệu Xét nghiệm - 24h' : 'Báo cáo số liệu Xét nghiệm - Truyền máu 24h'
+    soLieuTm24h:isXetNghiemHuyetHocDept(state.currentGiaoBan?.khoaPhong || '') ? 'Báo cáo số liệu Xét nghiệm - 24h' : 'Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h'
   };
   if(!labels[section]) return;
 
@@ -15128,7 +15166,7 @@ function renderGiaoBanStructuredPreviewHtml(isDotXuat){
     pvLine('gb-pv-roman','III. Nội dung giao ban khác'),
     pvLine('gb-pv-num','1. Kho máu'),
     pvLine('gb-pv-detail', renderGiaoBanKhoMauHtml(d.khoReports || [], d.khoMauKhac) || 'Chưa có dữ liệu kho máu phù hợp.'),
-    pvLine('gb-pv-num','2. Báo cáo số liệu Xét nghiệm - Truyền máu 24h'),
+    pvLine('gb-pv-num','2. Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h'),
     pvLine('gb-pv-detail', renderSoLieuTmGiaoBanPreviewHtml(d.soLieuReports || [], d.khoaPhong || '')),
     pvLine('gb-pv-num','3. Thông báo'),
     pvLine('gb-pv-detail', pvHtml(d.thongBao)),
@@ -15450,7 +15488,7 @@ function renderGiaoBanModal(){
         <div class="list-card">
           <div id="gbKhoMauSectionContent">${renderGiaoBanKhoMauHtml(sectionData.khoReports || [], sectionData.khoMauKhac || '') || '<div class="empty">Chưa có dữ liệu kho máu phù hợp.</div>'}</div>
         </div>
-        <div class="gb-sub-label gb-refresh-title-row" style="margin-top:12px"><span>2. Báo cáo số liệu Xét nghiệm - Truyền máu 24h</span>${canRefreshSource ? gbSectionRefreshButtonHtml('soLieuTm24h','Báo cáo số liệu Xét nghiệm - Truyền máu 24h') : ''}</div>
+        <div class="gb-sub-label gb-refresh-title-row" style="margin-top:12px"><span>2. Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h</span>${canRefreshSource ? gbSectionRefreshButtonHtml('soLieuTm24h','Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h') : ''}</div>
         <div id="gbSoLieuTm24hSectionContent">${renderSoLieuTmGiaoBanHtml(sectionData.soLieuReports || [], g.khoaPhong || '')}</div>
         <div class="grid" style="margin-top:10px">
           <div class="col-12"><label class="gb-sub-label" for="gbThongBao">3. Thông báo</label><textarea id="gbThongBao" ${g.daKhoa ? 'readonly' : ''}>${esc(g.thongBao || '')}</textarea></div>
@@ -15646,8 +15684,9 @@ function renderGiaoBanFinishBlock(g){
           <div class="gb-sign-person">
             <span class="gb-sign-label">Thư ký</span>
             <div class="sign-mode-compact">${renderSignModeSelect('gbHinhThucKyThuKy', thuKyMode, thuKySigned, true)}</div>
-            <button class="btn ${thuKySigned ? 'secondary' : 'ok'}" ${thuKySigned ? 'disabled' : ''} onclick="handleSignClick('thuKy', this)">${thuKySigned ? 'Đã ký' : 'Ký xác nhận'}</button>
-            ${cancelBtn}
+            ${thuKySigned
+              ? `<div class="gb-sign-action-group"><button class="btn secondary" disabled>Đã ký</button>${cancelBtn}</div>`
+              : `<button class="btn ok" onclick="handleSignClick('thuKy', this)">Ký xác nhận</button>`}
           </div>
 
           <div class="gb-sign-person">
@@ -15852,6 +15891,18 @@ window.syncSignModeWithChair = function(){
   if(twoStep && single){
     twoStep.classList.toggle('hidden', same);
     single.classList.toggle('hidden', !same);
+  }
+
+  // Mặc định theo nghiệp vụ: cùng người -> ký hệ thống; khác người -> ký tay.
+  // Người dùng vẫn có thể đổi thủ công sau khi form đã hiển thị.
+  const chairSelect = document.getElementById(same ? 'gbHinhThucKyChuTriSingle' : 'gbHinhThucKyChuTri');
+  if(chairSelect){
+    const identity = getChairSecretaryIdentity();
+    const identityKey = `${identity.thuKyMa || identity.thuKyTen}|${identity.chuTriMa || identity.chuTriTen}|${same ? 'same' : 'different'}`;
+    if(chairSelect.dataset.identityKey !== identityKey){
+      chairSelect.value = same ? HINH_THUC_KY_HE_THONG : HINH_THUC_KY_TAY;
+      chairSelect.dataset.identityKey = identityKey;
+    }
   }
 
   const singleBtn = document.getElementById('signSingleInlineBtn');
@@ -17181,7 +17232,8 @@ function requestGiaoBanPdfAfterSign(giaoBanID){
   api('exportGiaoBanPdf', {giaoBanID:id}, {timeoutMs:180000, keepalive:true})
     .then(() => {
       clearListCaches();
-      if(state.activeTab === 'meeting' && document.getElementById('giaoBanListBox')) loadGiaoBanList(true);
+      // Sau ký Chủ trì, danh sách Giao ban đã được refresh một lần.
+      // PDF chạy nền không tải lại toàn bộ danh sách lần hai; khi người dùng bấm Xem phiếu, trạng thái PDF được kiểm tra trực tiếp.
       if(state.activeTab === 'pdf' && document.getElementById('pdfListBox')) loadDsPhieuList(false);
     })
     .catch(() => {
@@ -17235,7 +17287,7 @@ function renderPdfTab(){
             <option>${LOAI_TM_XU_TRI}</option>
             <option>${LOAI_TM_TDKMM}</option>
             <option>${LOAI_NOI_KIEM_TM}</option>` : '';
-  const bloodStockPdfOption = `${allowTm ? `<option>${LOAI_BAO_CAO_KHO_MAU}</option>` : ''}${allowTm24h ? `<option>${LOAI_BAO_CAO_SO_LIEU_TM}</option>` : ''}`;
+  const bloodStockPdfOption = `${allowTm ? `<option>${LOAI_BAO_CAO_KHO_MAU}</option>` : ''}${allowTm24h ? `<option value="${LOAI_BAO_CAO_SO_LIEU_TM}">${LOAI_BAO_CAO_SO_LIEU_TM_LABEL}</option>` : ''}`;
   $('#tab-pdf').innerHTML = `
     <div class="card">
       <h2 class="section-title">DS phiếu</h2>
@@ -17625,7 +17677,7 @@ window.openSoLieuTmStatsAdd = function(date, dept){
   const d = normalizeSoLieuTmClient({});
   openModal(`
     <div class="modal-card">
-      <div class="modal-head"><div class="modal-title">Thêm Báo cáo số liệu Xét nghiệm - Truyền máu 24h</div><button class="close-btn" onclick="closeModal()">×</button></div>
+      <div class="modal-head"><div class="modal-title">Thêm Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h</div><button class="close-btn" onclick="closeModal()">×</button></div>
       <div class="card" style="box-shadow:none">
         <h3 class="section-title">I. Thông tin</h3>
         <div class="grid">
@@ -17763,7 +17815,7 @@ function dsLoaiPhieuTitle(loai){
   if(eqText(loai, LOAI_TM_TDKMM)) return 'Tác dụng không mong muốn liên quan TM';
   if(eqText(loai, LOAI_BAN_GIAO) || eqText(loai, LOAI_BAO_CAO)) return displayLoaiPhieuLabel(loai);
   if(eqText(loai, LOAI_BAO_CAO_KHO_MAU)) return 'Báo cáo kho máu';
-  if(isLoaiSoLieuTm(loai)) return LOAI_BAO_CAO_SO_LIEU_TM;
+  if(isLoaiSoLieuTm(loai)) return LOAI_BAO_CAO_SO_LIEU_TM_LABEL;
   return displayLoaiPhieuLabel(loai);
 }
 
@@ -18402,12 +18454,23 @@ async function saveAccountInfo(){
     const res = await api('updateAccountInfo', payload);
     state.accountInfo = res.data.account || state.accountInfo;
     state.user = res.data.user || state.user;
+
+    const currentMa = String(state.user?.maNhanVien || state.accountInfo?.maNhanVien || '').trim();
+    if(currentMa && Array.isArray(state.personnel)){
+      state.personnel = state.personnel.map(person => {
+        if(!sameEmployeeCode(person?.maNhanVien, currentMa)) return person;
+        return Object.assign({}, person, state.accountInfo || {}, state.user || {});
+      });
+    }
+
     if(state.token && state.user) storeSession(state.token, state.user);
-    $('#userName').textContent = state.user?.tenNhanVien || '';
-    $('#brandSub').textContent = 'Khoa/phòng: ' + (state.user?.khoaPhong || '');
-    closeModal();
+    updateUserHeader();
     refreshDatalists();
-    renderAccountTab();
+    closeModal();
+
+    if(state.activeTab === 'settings') renderSettingsTab();
+    else if(state.activeTab === 'account') renderAccountTab();
+
     toast('Đã cập nhật thông tin tài khoản.');
   });
 }
@@ -20400,7 +20463,7 @@ function soLieuTmDeptVariantClient(value){
 function soLieuTmSectionTitleClient(value){
   return soLieuTmDeptVariantClient(value) === 'XNHH'
     ? 'II. Báo cáo số liệu Xét nghiệm 24h'
-    : 'II. Báo cáo số liệu Xét nghiệm - Truyền máu 24h';
+    : 'II. Báo cáo số liệu Xét nghiệm - Truyền máu - Kho máu 24h';
 }
 
 function isTruyenMauDept(value){
