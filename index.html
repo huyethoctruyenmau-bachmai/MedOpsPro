@@ -1,4 +1,4 @@
-<!-- VERSION: 420.268 | index: 420 | Code.gs: 268 | INDEX-420.021026-NB-POSITION-DISPLAY -->
+<!-- VERSION: 421.269 | index: 421 | Code.gs: 269 | INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6639,7 +6639,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</p>
+      <p class="login-version">Version: INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6650,7 +6650,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</div>
+    <div class="login-loading-version">Version: INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6704,7 +6704,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</div>
+    <div class="app-version">Version: INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6773,7 +6773,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-420.021026-NB-POSITION-DISPLAY';
+const APP_VERSION = 'INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -18103,19 +18103,22 @@ function renderDsPhieuCard(x){
   const isGiaoBan = x.source === 'GIAO_BAN';
   const completionStatus = x.completionStatus || x.trangThai || STATUS_CHUA;
   const isCompleted = typeof x.isCompleted === 'boolean' ? x.isCompleted : eqText(completionStatus, STATUS_DA);
-  const canViewInDs = typeof x.canViewInDs === 'boolean' ? x.canViewInDs : isCompleted;
+  const canViewInDs = typeof x.canViewInDs === 'boolean' ? x.canViewInDs : true;
+  const canEditInDs = typeof x.canEditInDs === 'boolean' ? x.canEditInDs : !!x.canEdit;
   const pdfBtn = (canViewInDs && !isGiaoBan && !isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
   let detailBtn = '';
   if(canViewInDs){
     detailBtn = isTdkmm
       ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
       : (isGiaoBan
-          ? `<button class="btn secondary js-gb-view-pdf" type="button" data-gb-id="${escAttr(x.id || '')}" data-pdf-title="${escAttr(title || x.loaiPhieu || 'Giao ban')}">Xem phiếu</button>`
+          ? (isCompleted
+              ? `<button class="btn secondary js-gb-view-pdf" type="button" data-gb-id="${escAttr(x.id || '')}" data-pdf-title="${escAttr(title || x.loaiPhieu || 'Giao ban')}">Xem phiếu</button>`
+              : `<button class="btn secondary" type="button" onclick="openGiaoBan('${escAttr(x.id || '')}', '', this)">Xem phiếu</button>`)
           : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '')));
   }
-  const editBtn = isTm && x.canEdit
+  const editBtn = isTm && canEditInDs
     ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>`
-    : (x.source === 'PHIEU' && x.canEdit ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '');
+    : (x.source === 'PHIEU' && canEditInDs ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '');
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
   const historyBtn = tdkmmPdfHistoryIconHtml(x);
   const bn = dsBnMetaHtml(x);
