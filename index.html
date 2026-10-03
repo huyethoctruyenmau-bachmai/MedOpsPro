@@ -1,4 +1,4 @@
-<!-- VERSION: 425.270 | index: 425 | Code.gs: 270 | INDEX-425.031026-ATTACHMENT-PDF-MERGE -->
+<!-- VERSION: 426.271 | index: 426 | Code.gs: 271 | INDEX-426.041026-HANDOVER-RECIPIENT-ALL-STAFF -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6652,7 +6652,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</p>
+      <p class="login-version">Version: INDEX-426.041026-HANDOVER-RECIPIENT-ALL-STAFF</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6663,7 +6663,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</div>
+    <div class="login-loading-version">Version: INDEX-426.041026-HANDOVER-RECIPIENT-ALL-STAFF</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6717,7 +6717,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</div>
+    <div class="app-version">Version: INDEX-426.041026-HANDOVER-RECIPIENT-ALL-STAFF</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6753,7 +6753,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '425.270',
+    frontendVersion: '426.271',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6786,7 +6786,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-425.031026-ATTACHMENT-PDF-MERGE';
+const APP_VERSION = 'INDEX-426.041026-HANDOVER-RECIPIENT-ALL-STAFF';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -8589,12 +8589,6 @@ function updateCreateFormNumbering(){
   if($('#handoverLabel3')) $('#handoverLabel3').textContent = `${n}.3 Vấn đề khác`;
   if($('#handoverLabel4')) $('#handoverLabel4').textContent = `${n}.4 Người nhận bàn giao`;
   if($('#handoverLabel5')) $('#handoverLabel5').textContent = `${n}.5 Thời gian bàn giao`;
-  if(state.selectedRecipient && createDeptValue && !deptSameClient(state.selectedRecipient.khoaPhong || state.selectedRecipient.phongLamViec || '', createDeptValue)){
-    state.selectedRecipient = null;
-    state.selectedRecipientCandidate = null;
-    const input = $('#recipientSearch'); if(input) input.value = '';
-    renderSelectedRecipient();
-  }
   if(isReport) ensureLoginUserInStaff();
   const hasStructuredShiftStats = isReport && (isTM || isXetNghiemHuyetHocDept(createDeptValue));
   renderSoLieuTrucInput(hasStructuredShiftStats);
@@ -8814,11 +8808,9 @@ window.removeStaff = function(ma){
   refreshStaffList();
 }
 
-function personnelForRecipientDept(dept){
-  const d = String(dept || '').trim();
-  const list = Array.isArray(state.personnel) ? state.personnel : [];
-  if(!d) return list;
-  return list.filter(p => deptSameClient(p.khoaPhong || p.phongLamViec || '', d));
+function personnelForRecipientDept(_dept){
+  // Người nhận bàn giao được chọn từ toàn bộ danh sách nhân sự dùng chung.
+  return Array.isArray(state.personnel) ? state.personnel : [];
 }
 
 function findRecipientFromInput(raw, dept){
@@ -8828,7 +8820,7 @@ function findRecipientFromInput(raw, dept){
   const list = personnelForRecipientDept(dept);
   return list.find(p => norm(employeeCodeForAutocomplete(p)) === q)
     || list.find(p => norm(employeeNameForAutocomplete(p)) === q)
-    || list.find(p => norm([employeeCodeForAutocomplete(p), employeeNameForAutocomplete(p), p.chucDanh, p.chucVu].filter(Boolean).join(' ')).includes(q));
+    || list.find(p => norm([employeeCodeForAutocomplete(p), employeeNameForAutocomplete(p), p.chucDanh, p.chucVu, p.khoaPhong, p.phongLamViec].filter(Boolean).join(' ')).includes(q));
 }
 
 function handleRecipientSearchInput(){
@@ -8839,7 +8831,7 @@ function handleRecipientSearchInput(){
   const q = norm(input.value);
   if(!q){ hideAutocompleteBox(box); box.innerHTML=''; return; }
   const dept = $('#createDept')?.value || '';
-  const matched = personnelForRecipientDept(dept).filter(p => norm([employeeCodeForAutocomplete(p), employeeNameForAutocomplete(p), p.chucDanh, p.chucVu].filter(Boolean).join(' ')).includes(q)).slice(0,8);
+  const matched = personnelForRecipientDept(dept).filter(p => norm([employeeCodeForAutocomplete(p), employeeNameForAutocomplete(p), p.chucDanh, p.chucVu, p.khoaPhong, p.phongLamViec].filter(Boolean).join(' ')).includes(q)).slice(0,8);
   renderEmployeeAutocompleteItems(box, matched, 'chooseRecipientSuggestion');
   showAutocompleteBox(input, box);
 }
@@ -14549,7 +14541,7 @@ function handleEditRecipientSearchInput(){
   const q = norm(input.value);
   if(!q){ hideAutocompleteBox(box); box.innerHTML=''; return; }
   const dept = $('#editDept')?.value || '';
-  const matched = personnelForRecipientDept(dept).filter(p => norm([employeeCodeForAutocomplete(p), employeeNameForAutocomplete(p), p.chucDanh, p.chucVu].filter(Boolean).join(' ')).includes(q)).slice(0,8);
+  const matched = personnelForRecipientDept(dept).filter(p => norm([employeeCodeForAutocomplete(p), employeeNameForAutocomplete(p), p.chucDanh, p.chucVu, p.khoaPhong, p.phongLamViec].filter(Boolean).join(' ')).includes(q)).slice(0,8);
   renderEmployeeAutocompleteItems(box, matched, 'chooseEditRecipientSuggestion');
   showAutocompleteBox(input, box);
 }
