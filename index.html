@@ -1,4 +1,4 @@
-<!-- VERSION: 424.269 | index: 424 | Code.gs: 269 | INDEX-424.031026-TDKMM-ATTACHMENT-INLINE-MERGE -->
+<!-- VERSION: 425.270 | index: 425 | Code.gs: 270 | INDEX-425.031026-ATTACHMENT-PDF-MERGE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -6753,7 +6753,7 @@ window.MedOps = window.MedOps || (() => {
   const modules = Object.create(null);
   const services = Object.create(null);
   const meta = {
-    frontendVersion: '409.264',
+    frontendVersion: '425.270',
     architecturePhase: 'single-file-module-phase-1',
     buildTarget: 'dist/index.html'
   };
@@ -6786,7 +6786,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-424.031026-TDKMM-ATTACHMENT-INLINE-MERGE';
+const APP_VERSION = 'INDEX-425.031026-ATTACHMENT-PDF-MERGE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -11577,9 +11577,15 @@ function tdkmmFullPdfSectionsHtml(sections){
   const switcher = list.length > 1 ? `<div class="tdkmm-file-switch">${list.map((sec, idx) => `<button class="btn secondary ${idx === state.currentTdkmmPdfActiveIndex ? 'active' : ''}" type="button" id="tdkmmPdfSwitch${idx}" onclick="switchTdkmmPreviewPdf(${idx})">${esc(tdkmmSectionButtonText_(sec))}</button>`).join('')}</div>` : '';
   setTimeout(attachTdkmmPdfRightClickBlock, 0);
   const securityText = active.securityDisplayText || tdkmmViewSecurityTextDisplay();
+  const isPl11 = normalizeTdkmmPdfChoice_(active.type) === 'PL11';
+  const attachmentInfo = isPl11 && active.attachmentsLoading
+    ? `<span class="meta" style="margin-left:8px">· Đang tải PDF đính kèm...</span>`
+    : (isPl11 && Number(active.attachmentPageCount || 0) > 0
+      ? `<span class="meta" style="margin-left:8px">· ${Number(active.attachmentPageCount || 0)} trang PDF đính kèm ở cuối</span>`
+      : '');
   return `<div class="tdkmm-direct-pdf-wrap" aria-label="Nội dung phiếu TDKMM" oncontextmenu="return blockTdkmmPdfContextMenu(event)" onmousedown="return blockTdkmmPdfRightMouseDown(event)" onauxclick="return blockTdkmmPdfRightMouseDown(event)">
     <div class="tdkmm-file-opening-line">
-      <div class="tdkmm-file-opening-left">Đang mở file: <strong id="tdkmmCurrentPdfTitle">${esc(active.title || 'Phiếu TDKMM')}</strong><span class="tdkmm-security-view-text">${esc(securityText)}</span></div>
+      <div class="tdkmm-file-opening-left">Đang mở file: <strong id="tdkmmCurrentPdfTitle">${esc(active.title || 'Phiếu TDKMM')}</strong>${attachmentInfo}<span class="tdkmm-security-view-text">${esc(securityText)}</span></div>
       ${switcher}
     </div>
     <div id="tdkmmRasterPagesContainer" class="tdkmm-raster-pages-container">${tdkmmRasterSectionContentHtml_(active)}</div>
@@ -11746,14 +11752,39 @@ async function loadTdkmmPl11AttachmentsInBackground_(phieuTMID, cache, viewTimeT
   if(idx < 0) return;
   const current = cache.sections[idx];
   if(!current || current.attachmentsLoaded) return;
-  const pdfItems = tdkmmPdfAttachmentItemsFromPhieu_(current.phieu || null);
-  if(!pdfItems.length){
-    current.attachmentsLoaded = true;
-    putTdkmmRasterCache_(cache);
-    return;
-  }
+
   cache.loadingPl11Attachments = true;
+  current.attachmentsLoading = true;
+  cache.sections[idx] = current;
+  putTdkmmRasterCache_(cache);
+  if(state.currentTdkmmRasterCacheKey === cache.cacheKey){
+    state.currentTdkmmPdfSections = cache.sections;
+    refreshTdkmmRasterViewer_();
+  }
+
   try{
+    let phieu = current.phieu || null;
+    let pdfItems = tdkmmPdfAttachmentItemsFromPhieu_(phieu);
+    if(!pdfItems.length){
+      phieu = await getTdkmmPhieuForAttachmentExport_(phieuTMID);
+      if(phieu) current.phieu = phieu;
+      pdfItems = tdkmmPdfAttachmentItemsFromPhieu_(phieu);
+    }
+
+    if(!pdfItems.length){
+      current.attachmentsLoaded = true;
+      current.attachmentsLoading = false;
+      current.attachmentPageCount = 0;
+      cache.loadingPl11Attachments = false;
+      cache.sections[idx] = current;
+      putTdkmmRasterCache_(cache);
+      if(state.currentTdkmmRasterCacheKey === cache.cacheKey){
+        state.currentTdkmmPdfSections = cache.sections;
+        refreshTdkmmRasterViewer_();
+      }
+      return;
+    }
+
     const appendPages = [];
     for(let i = 0; i < pdfItems.length; i++){
       const item = pdfItems[i];
@@ -11764,9 +11795,11 @@ async function loadTdkmmPl11AttachmentsInBackground_(phieuTMID, cache, viewTimeT
         appendPages.push(Object.assign({}, p, pageIndex === 0 ? {label:`Tài liệu đính kèm: ${file.name || item.name || 'PDF'}`} : {}));
       });
     }
+
     const fresh = cache.sections[idx] || current;
     fresh.pages = (Array.isArray(fresh.pages) ? fresh.pages : []).concat(appendPages);
     fresh.attachmentsLoaded = true;
+    fresh.attachmentsLoading = false;
     fresh.attachmentPageCount = appendPages.length;
     cache.sections[idx] = fresh;
     cache.loadingPl11Attachments = false;
@@ -11779,11 +11812,14 @@ async function loadTdkmmPl11AttachmentsInBackground_(phieuTMID, cache, viewTimeT
     cache.loadingPl11Attachments = false;
     const fresh = cache.sections[idx] || current;
     fresh.attachmentsLoaded = true;
+    fresh.attachmentsLoading = false;
     fresh.attachmentError = err && err.message ? err.message : 'Không mở được PDF đính kèm.';
     cache.sections[idx] = fresh;
     putTdkmmRasterCache_(cache);
-    if(state.currentTdkmmRasterCacheKey === cache.cacheKey && state.currentTdkmmPdfActiveIndex === idx){
-      toast(fresh.attachmentError);
+    if(state.currentTdkmmRasterCacheKey === cache.cacheKey){
+      state.currentTdkmmPdfSections = cache.sections;
+      refreshTdkmmRasterViewer_();
+      if(state.currentTdkmmPdfActiveIndex === idx) toast(fresh.attachmentError);
     }
   }
 }
@@ -11799,22 +11835,50 @@ async function getTdkmmPhieuForAttachmentExport_(phieuTMID){
   return res.data?.phieu || null;
 }
 
-async function mergeTdkmmPl11WithPdfAttachments_(base64, phieu){
-  const items = tdkmmPdfAttachmentItemsFromPhieu_(phieu);
-  if(!items.length) return base64ToUint8Array(base64 || '');
+function normalizePdfAttachmentMeta_(items=[]){
+  const seen = new Set();
+  return (Array.isArray(items) ? items : []).map(it => ({
+    fileId:String(it?.fileId || it?.id || '').trim(),
+    name:String(it?.name || it?.fileName || 'Tài liệu đính kèm.pdf').trim(),
+    mimeType:String(it?.mimeType || it?.type || '').trim(),
+    size:Number(it?.size || 0) || 0
+  })).filter(it => {
+    const isPdf = /^application\/pdf(?:$|;)/i.test(it.mimeType) || /\.pdf$/i.test(it.name);
+    if(!it.fileId || !isPdf || seen.has(it.fileId)) return false;
+    seen.add(it.fileId);
+    return true;
+  });
+}
+
+async function mergePdfBytesWithAttachments_(baseBytes, items, {strict=true}={}){
+  const attachments = normalizePdfAttachmentMeta_(items);
+  const sourceBytes = baseBytes instanceof Uint8Array ? baseBytes : new Uint8Array(baseBytes || []);
+  if(!attachments.length) return {bytes:sourceBytes, errors:[], mergedCount:0};
   const PDFLib = await ensurePdfLibLoaded();
-  const outPdf = await PDFLib.PDFDocument.load(base64ToUint8Array(base64 || ''));
-  for(const item of items){
-    const file = await getTmAttachmentFileCached(item.fileId);
+  const outPdf = await PDFLib.PDFDocument.load(sourceBytes);
+  const errors = [];
+  let mergedCount = 0;
+  for(const item of attachments){
     try{
+      const file = await getTmAttachmentFileCached(item.fileId);
+      if(!isTmAttachmentPdf({mimeType:file.mimeType || item.mimeType, name:file.name || item.name})) continue;
       const srcPdf = await PDFLib.PDFDocument.load(base64ToUint8Array(file.base64 || ''));
       const copied = await outPdf.copyPages(srcPdf, srcPdf.getPageIndices());
       copied.forEach(page => outPdf.addPage(page));
+      mergedCount++;
     }catch(err){
-      throw new Error(`Không ghép được PDF đính kèm "${file.name || item.name || 'PDF'}". Vui lòng kiểm tra lại file.`);
+      const message = `Không ghép được PDF đính kèm "${item.name || 'PDF'}".`;
+      if(strict) throw new Error(message + ' Vui lòng kiểm tra lại file.');
+      errors.push(message);
     }
   }
-  return await outPdf.save({useObjectStreams:true});
+  return {bytes:await outPdf.save({useObjectStreams:true}), errors, mergedCount};
+}
+
+async function mergeTdkmmPl11WithPdfAttachments_(base64, phieu){
+  const items = tdkmmPdfAttachmentItemsFromPhieu_(phieu);
+  const result = await mergePdfBytesWithAttachments_(base64ToUint8Array(base64 || ''), items, {strict:true});
+  return result.bytes;
 }
 
 async function loadTdkmmRasterPreviewSection_(phieuTMID, pdfType, viewTimeText, onMessage){
@@ -20396,7 +20460,10 @@ window.openSignedGiaoBanPdfById = async function(giaoBanID, title='Phiếu giao 
 
     if(s === 'READY' && status.url){
       closeModal();
-      await openGiaoBanPdf(status.url, title);
+      await openGiaoBanPdf(status.url, title, {
+        giaoBanID:id,
+        pdfAttachments:status.pdfAttachments || []
+      });
       return;
     }
 
@@ -20574,10 +20641,9 @@ function drawRasterWatermark_(ctx, canvas, text){
   ctx.restore();
 }
 
-async function buildWatermarkedPdfBytesFromBase64(base64, onProgress, options){
+async function buildWatermarkedPdfBytesFromBytes_(srcBytes, onProgress, options){
   const PDFLib = await ensurePdfLibLoaded();
   const pdfjsLib = await ensurePdfJsLoaded();
-  const srcBytes = base64ToUint8Array(base64);
   const loadingTask = pdfjsLib.getDocument({data: srcBytes, useSystemFonts: true});
   const srcPdf = await loadingTask.promise;
   const outPdf = await PDFLib.PDFDocument.create();
@@ -20615,6 +20681,10 @@ async function buildWatermarkedPdfBytesFromBase64(base64, onProgress, options){
   return await outPdf.save({useObjectStreams:true});
 }
 
+async function buildWatermarkedPdfBytesFromBase64(base64, onProgress, options){
+  return buildWatermarkedPdfBytesFromBytes_(base64ToUint8Array(base64 || ''), onProgress, options);
+}
+
 function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=false, message='', pageImages=null}){
   setViewportForPdf(true);
   setupScreenProtection();
@@ -20646,15 +20716,24 @@ function renderPdfModal({url='', frameSrc='', title='PDF giao ban', loading=fals
   `, true);
 }
 
-window.openGiaoBanPdf = async function(url, title='PDF giao ban'){
+window.openGiaoBanPdf = async function(url, title='PDF giao ban', options={}){
   if(!url) return toast('Không có link PDF.');
   revokeCurrentPdfObjectUrl();
   renderPdfModal({url, title, loading:true, message:'Đang mở PDF...'});
   try{
     const res = await api('getPdfFileBase64', {url}, {timeoutMs:180000});
     const pdf = res.data || {};
+    let sourceBytes = base64ToUint8Array(pdf.base64 || '');
+    const pdfAttachments = normalizePdfAttachmentMeta_(options?.pdfAttachments || []);
+    if(pdfAttachments.length){
+      setPdfLoadingMessage(`Đang ghép ${pdfAttachments.length} tài liệu PDF đính kèm...`);
+      const merged = await mergePdfBytesWithAttachments_(sourceBytes, pdfAttachments, {strict:false});
+      sourceBytes = merged.bytes;
+      if(merged.errors.length) toast(merged.errors.join(' '));
+    }
+
     const pageImages = [];
-    const watermarkedBytes = await buildWatermarkedPdfBytesFromBase64(pdf.base64 || '', (pageNo, total) => {
+    const watermarkedBytes = await buildWatermarkedPdfBytesFromBytes_(sourceBytes, (pageNo, total) => {
       setPdfLoadingMessage(total > 1 ? `Đang mở PDF... Trang ${pageNo}/${total}` : 'Đang mở PDF...');
     }, {pageImages});
     const objectUrl = blobUrlFromBytes(watermarkedBytes, 'application/pdf');
