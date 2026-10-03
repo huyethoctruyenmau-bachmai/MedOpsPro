@@ -1,4 +1,4 @@
-<!-- VERSION: 421.269 | index: 421 | Code.gs: 269 | INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE -->
+<!-- VERSION: 423.269 | index: 423 | Code.gs: 269 | INDEX-423.031026-ATTACHMENT-LAZY-CACHE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -4829,14 +4829,22 @@
     .tm-attachment-inline{border:1px solid var(--line);border-radius:12px;background:#fffafb;padding:10px;margin:8px 0 4px}
     .tm-attachment-inline .tm-attachment-list{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));margin-top:8px}
     .tm-attachment-inline .tm-attachment-thumb{height:110px}
-    .tm-attachment-thumb.is-image{cursor:pointer}
-    .tm-attachment-thumb.is-image:hover{background:#fff8fb}
+    .tm-attachment-thumb.is-image,.tm-attachment-thumb.is-pdf{cursor:pointer}
+    .tm-attachment-thumb.is-image:hover,.tm-attachment-thumb.is-pdf:hover{background:#fff8fb}
+    .tm-attachment-name.is-viewable{cursor:pointer}
+    .tm-attachment-name.is-viewable:hover{text-decoration:underline}
     .tm-attachment-preview-overlay{position:fixed;inset:0;z-index:101000;background:rgba(0,0,0,.86);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 10px env(safe-area-inset-bottom,0px)}
     .tm-attachment-preview-head{height:48px;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:10px;color:#fff}
-    .tm-attachment-preview-title{font-weight:700;font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tm-attachment-preview-title{font-weight:700;font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+    .tm-attachment-preview-head-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+    .tm-attachment-preview-action{min-height:34px;height:34px;padding:0 12px;border-radius:7px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;font:inherit;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer}
+    .tm-attachment-preview-action:hover{background:rgba(255,255,255,.2)}
     .tm-attachment-preview-close{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:24px;line-height:1;display:grid;place-items:center}
     .tm-attachment-preview-body{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto}
+    .tm-attachment-preview-body.is-pdf{align-items:stretch;justify-content:stretch;overflow:hidden;background:#3c4043}
     .tm-attachment-preview-body img{max-width:100%;max-height:100%;object-fit:contain;background:#fff}
+    .tm-attachment-preview-body iframe{width:100%;height:100%;border:0;background:#fff;display:block}
+    .tm-attachment-preview-loading{color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
     .tm-gb-tdkmm-line{margin:2px 0;line-height:1.45;white-space:normal}
     .tm-gb-tdkmm-section{font-weight:700;color:var(--text);margin:8px 0 4px;line-height:1.45}
     .tm-gb-gap{display:inline-block;width:28px;max-width:7vw}
@@ -6639,7 +6647,7 @@
       <p><strong>MedOps Pro - Medical Operations Professional</strong></p>
       <p>Developed by Nguyễn Văn Chính</p>
       <p>Trung tâm Huyết học và Truyền máu - Bệnh viện Bạch Mai</p>
-      <p class="login-version">Version: INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE</p>
+      <p class="login-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</p>
     </div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_END ===== -->
@@ -6650,7 +6658,7 @@
     <p class="login-loading-text" id="loginLoadingText">Đang tải dữ liệu...</p>
     <div class="login-loading-progress" id="loginLoadingProgress">0%</div>
     <div class="login-loading-sub">Vui lòng chờ trong giây lát</div>
-    <div class="login-loading-version">Version: INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE</div>
+    <div class="login-loading-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</div>
   </div>
   <!-- ===== MODULE: HTML_LOGIN_LOADING_END ===== -->
 
@@ -6704,7 +6712,7 @@
       <!-- ===== END 368: TABBAR HỌP/GIAO BAN ===== -->
       <button class="tab-btn" data-tab="pdf"><span class="ico"><svg class="icon2d" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><span>DS phiếu</span></button>
     </nav>
-    <div class="app-version">Version: INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE</div>
+    <div class="app-version">Version: INDEX-420.021026-NB-POSITION-DISPLAY</div>
   </div>
   <!-- ===== MODULE: HTML_APP_SHELL_END ===== -->
 
@@ -6773,7 +6781,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-421.021026-DS-VIEW-EDIT-TDKMM-PDF-TABLE';
+const APP_VERSION = 'INDEX-423.031026-ATTACHMENT-LAZY-CACHE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -6983,6 +6991,9 @@ const state = {
   isLoggingOut: false,
   loginBusy: false,
   currentPdfObjectUrl: '',
+  currentTmAttachmentPreviewObjectUrl: '',
+  tmAttachmentFileCache: {},
+  tmAttachmentFileCacheBytes: 0,
   currentTdkmmPdfObjectUrls: [],
   currentTdkmmPdfSections: [],
   currentTdkmmPdfActiveIndex: 0,
@@ -7193,6 +7204,7 @@ async function logout(){
   state.isLoggingOut = true;
   state.sessionGuard++;
   clearStoredSession();
+  clearTmAttachmentFileCache();
   state.token = '';
   state.user = null;
   state.initLoaded = false;
@@ -10007,6 +10019,9 @@ function tmAttachmentItems(d={}){
     isImage: !!(x?.isImage || /^image\//i.test(String(x?.mimeType || x?.type || '')))
   })).filter(x => x.fileId || x.name);
 }
+function isTmAttachmentPdf(it={}){
+  return /^application\/pdf(?:$|;)/i.test(String(it?.mimeType || '')) || /\.pdf$/i.test(String(it?.name || ''));
+}
 function tmAttachmentSizeText(size){
   const n = Number(size || 0);
   if(!n) return '';
@@ -10021,14 +10036,28 @@ function renderTmAttachmentListHtml(items=[], editable=false, prefix=''){
     const fileId = escAttr(it.fileId || '');
     const name = esc(it.name || 'Tệp đính kèm');
     const sub = [it.mimeType || '', tmAttachmentSizeText(it.size), it.uploadedByTen ? 'Tải lên: ' + it.uploadedByTen : ''].filter(Boolean).join(' · ');
-    const thumb = it.isImage && it.fileId
-      ? `<div class="tm-attachment-thumb is-image" onclick="previewTmAttachmentImage('${fileId}')" title="Xem ảnh trong app"><img alt="${escAttr(it.name || 'Ảnh đính kèm')}" data-tm-attachment-img="${fileId}" loading="lazy"><span class="tm-attachment-loading">Đang tải ảnh...</span></div>`
-      : `<div class="tm-attachment-thumb"><div><div class="tm-attachment-file-icon">📎</div><div>${esc(it.mimeType || 'Tài liệu')}</div></div></div>`;
-    const openBtn = it.fileId
-      ? (it.isImage ? `<button class="btn secondary tm-attachment-remove" type="button" onclick="previewTmAttachmentImage('${fileId}')">Xem ảnh</button>` : `<button class="btn secondary tm-attachment-remove" type="button" onclick="openTmAttachmentFile('${fileId}')">Mở/tải file</button>`)
-      : '';
+    const isPdf = isTmAttachmentPdf(it);
+    let thumb = `<div class="tm-attachment-thumb"><div><div class="tm-attachment-file-icon">📎</div><div>${esc(it.mimeType || 'Tài liệu')}</div></div></div>`;
+    if(it.isImage && it.fileId){
+      const cached = tmAttachmentCacheGet(it.fileId);
+      if(cached?.base64 && /^image\//i.test(String(cached.mimeType || it.mimeType || ''))){
+        thumb = `<div class="tm-attachment-thumb is-image" onclick="previewTmAttachmentImage('${fileId}')" title="Xem ảnh trong app"><img alt="${escAttr(it.name || 'Ảnh đính kèm')}" src="data:${escAttr(cached.mimeType || it.mimeType || 'image/jpeg')};base64,${cached.base64}"></div>`;
+      }else{
+        thumb = `<div class="tm-attachment-thumb is-image" onclick="previewTmAttachmentImage('${fileId}')" title="Xem ảnh trong app"><div><div class="tm-attachment-file-icon">🖼️</div><div>ẢNH</div><div class="tm-attachment-sub">Nhấn để xem</div></div></div>`;
+      }
+    }else if(isPdf && it.fileId){
+      thumb = `<div class="tm-attachment-thumb is-pdf" onclick="previewTmAttachmentPdf('${fileId}')" title="Xem PDF trong app"><div><div class="tm-attachment-file-icon">📄</div><div>PDF</div></div></div>`;
+    }
+    let openBtn = '';
+    if(it.fileId){
+      if(it.isImage) openBtn = `<button class="btn secondary tm-attachment-remove" type="button" onclick="previewTmAttachmentImage('${fileId}')">Xem ảnh</button>`;
+      else if(isPdf) openBtn = `<button class="btn secondary tm-attachment-remove" type="button" onclick="previewTmAttachmentPdf('${fileId}')">Xem PDF</button>`;
+      else openBtn = `<button class="btn secondary tm-attachment-remove" type="button" onclick="openTmAttachmentFile('${fileId}')">Mở/tải file</button>`;
+    }
+    const nameClass = (it.isImage || isPdf) && it.fileId ? ' tm-attachment-name is-viewable' : ' tm-attachment-name';
+    const nameClick = it.fileId && it.isImage ? ` onclick="previewTmAttachmentImage('${fileId}')"` : (it.fileId && isPdf ? ` onclick="previewTmAttachmentPdf('${fileId}')"` : '');
     const removeBtn = editable ? `<button class="btn danger tm-attachment-remove" type="button" onclick="removeTmAttachment('${escAttr(prefix)}',${idx})">Xóa khỏi phiếu</button>` : '';
-    return `<div class="tm-attachment-item">${thumb}<div class="tm-attachment-meta"><div class="tm-attachment-name">${name}</div><div class="tm-attachment-sub">${esc(sub)}</div>${openBtn}${removeBtn}</div></div>`;
+    return `<div class="tm-attachment-item">${thumb}<div class="tm-attachment-meta"><div class="${nameClass.trim()}"${nameClick}>${name}</div><div class="tm-attachment-sub">${esc(sub)}</div>${openBtn}${removeBtn}</div></div>`;
   }).join('')}</div>`;
 }
 function renderTmAttachmentFieldHtml(d={}, prefix='tmCreate', title='4. Ảnh/tài liệu đính kèm'){
@@ -10152,33 +10181,97 @@ function bindTmAttachmentUploader(prefix, loai){
     });
   });
 }
-async function loadTmAttachmentImages(root=document){
+const TM_ATTACHMENT_CACHE_MAX_ITEMS = 6;
+const TM_ATTACHMENT_CACHE_MAX_BYTES = 24 * 1024 * 1024;
+const tmAttachmentFilePending = new Map();
+
+function tmAttachmentCacheGet(fileId){
+  const id = String(fileId || '');
+  const entry = state.tmAttachmentFileCache?.[id];
+  if(!entry?.base64) return null;
+  entry.lastUsedAt = Date.now();
+  return entry;
+}
+function tmAttachmentCachePut(fileId, data={}){
+  const id = String(fileId || '');
+  const base64 = String(data.base64 || '');
+  if(!id || !base64) return data;
+  if(!state.tmAttachmentFileCache || typeof state.tmAttachmentFileCache !== 'object') state.tmAttachmentFileCache = {};
+  const prev = state.tmAttachmentFileCache[id];
+  if(prev) state.tmAttachmentFileCacheBytes = Math.max(0, Number(state.tmAttachmentFileCacheBytes || 0) - Number(prev.cacheBytes || 0));
+  const cacheBytes = Math.ceil(base64.length * 3 / 4);
+  const entry = {
+    fileId: id,
+    name: String(data.name || 'Tệp đính kèm'),
+    mimeType: String(data.mimeType || 'application/octet-stream'),
+    base64,
+    cacheBytes,
+    lastUsedAt: Date.now()
+  };
+  state.tmAttachmentFileCache[id] = entry;
+  state.tmAttachmentFileCacheBytes = Number(state.tmAttachmentFileCacheBytes || 0) + cacheBytes;
+
+  const ids = () => Object.keys(state.tmAttachmentFileCache || {});
+  while(ids().length > TM_ATTACHMENT_CACHE_MAX_ITEMS || Number(state.tmAttachmentFileCacheBytes || 0) > TM_ATTACHMENT_CACHE_MAX_BYTES){
+    const candidates = ids().filter(x => x !== id).map(x => state.tmAttachmentFileCache[x]).filter(Boolean).sort((a,b) => Number(a.lastUsedAt || 0) - Number(b.lastUsedAt || 0));
+    if(!candidates.length) break;
+    const victim = candidates[0];
+    delete state.tmAttachmentFileCache[victim.fileId];
+    state.tmAttachmentFileCacheBytes = Math.max(0, Number(state.tmAttachmentFileCacheBytes || 0) - Number(victim.cacheBytes || 0));
+  }
+  return entry;
+}
+function clearTmAttachmentFileCache(){
+  state.tmAttachmentFileCache = {};
+  state.tmAttachmentFileCacheBytes = 0;
+  tmAttachmentFilePending.clear();
+  if(state.currentTmAttachmentPreviewObjectUrl){
+    try{ URL.revokeObjectURL(state.currentTmAttachmentPreviewObjectUrl); }catch(e){}
+    state.currentTmAttachmentPreviewObjectUrl = '';
+  }
+}
+async function getTmAttachmentFileCached(fileId){
+  const id = String(fileId || '');
+  if(!id) throw new Error('Thiếu fileId file đính kèm.');
+  const cached = tmAttachmentCacheGet(id);
+  if(cached) return cached;
+  if(tmAttachmentFilePending.has(id)) return await tmAttachmentFilePending.get(id);
+  const pending = (async () => {
+    const res = await api('getTmAttachmentFileBase64', {fileId:id}, {timeoutMs:120000});
+    const d = res.data || {};
+    if(!d.base64) throw new Error('Không có dữ liệu file để hiển thị.');
+    return tmAttachmentCachePut(id, d);
+  })();
+  tmAttachmentFilePending.set(id, pending);
+  try{ return await pending; }
+  finally{ tmAttachmentFilePending.delete(id); }
+}
+
+// 423.269: attachment chỉ tải khi người dùng bấm xem. Hàm này chỉ hydrate từ cache,
+// tuyệt đối không gọi backend khi form/card vừa render.
+function loadTmAttachmentImages(root=document){
   const scope = root && root.querySelectorAll ? root : document;
-  const imgs = Array.from(scope.querySelectorAll('img[data-tm-attachment-img]')).filter(img => img.dataset.loaded !== '1');
+  const imgs = Array.from(scope.querySelectorAll('img[data-tm-attachment-img]'));
   for(const img of imgs){
     const fileId = img.dataset.tmAttachmentImg || '';
-    if(!fileId) continue;
-    img.dataset.loaded = '1';
-    try{
-      const res = await api('getTmAttachmentFileBase64', {fileId}, {timeoutMs: 120000});
-      const data = res.data || {};
-      if(data.base64) img.src = `data:${data.mimeType || 'image/jpeg'};base64,${data.base64}`;
-      const loading = img.parentElement?.querySelector('.tm-attachment-loading');
-      if(loading) loading.remove();
-    }catch(e){
-      const loading = img.parentElement?.querySelector('.tm-attachment-loading');
-      if(loading) loading.textContent = 'Không tải được ảnh';
+    const data = tmAttachmentCacheGet(fileId);
+    if(data?.base64 && /^image\//i.test(String(data.mimeType || ''))){
+      img.src = `data:${data.mimeType};base64,${data.base64}`;
+      img.dataset.loaded = '1';
+      img.parentElement?.querySelector('.tm-attachment-loading')?.remove();
     }
   }
 }
 window.closeTmAttachmentPreview = function(){
   document.getElementById('tmAttachmentPreviewOverlay')?.remove();
+  if(state.currentTmAttachmentPreviewObjectUrl){
+    try{ URL.revokeObjectURL(state.currentTmAttachmentPreviewObjectUrl); }catch(e){}
+    state.currentTmAttachmentPreviewObjectUrl = '';
+  }
 }
 window.previewTmAttachmentImage = async function(fileId){
   try{
-    const res = await api('getTmAttachmentFileBase64', {fileId}, {timeoutMs: 120000});
-    const d = res.data || {};
-    if(!d.base64) throw new Error('Không có dữ liệu ảnh để hiển thị.');
+    const d = await getTmAttachmentFileCached(fileId);
     const mime = d.mimeType || 'image/jpeg';
     if(!/^image\//i.test(mime)) return openTmAttachmentFile(fileId);
     closeTmAttachmentPreview();
@@ -10190,10 +10283,35 @@ window.previewTmAttachmentImage = async function(fileId){
     document.body.appendChild(div);
   }catch(e){ toast(e.message || 'Không mở được ảnh đính kèm'); }
 }
+
+window.previewTmAttachmentPdf = async function(fileId){
+  closeTmAttachmentPreview();
+  const div = document.createElement('div');
+  div.id = 'tmAttachmentPreviewOverlay';
+  div.className = 'tm-attachment-preview-overlay';
+  div.innerHTML = `<div class="tm-attachment-preview-head"><div class="tm-attachment-preview-title">PDF đính kèm</div><div class="tm-attachment-preview-head-actions"><button class="tm-attachment-preview-close" type="button" onclick="closeTmAttachmentPreview()">×</button></div></div><div class="tm-attachment-preview-body"><div class="tm-attachment-preview-loading">Đang tải PDF...</div></div>`;
+  document.body.appendChild(div);
+  try{
+    const d = await getTmAttachmentFileCached(fileId);
+    const mime = String(d.mimeType || 'application/pdf');
+    if(!/^application\/pdf(?:$|;)/i.test(mime)){
+      closeTmAttachmentPreview();
+      return openTmAttachmentFile(fileId);
+    }
+    const objectUrl = base64ToBlobUrl(d.base64, 'application/pdf');
+    state.currentTmAttachmentPreviewObjectUrl = objectUrl;
+    const overlay = document.getElementById('tmAttachmentPreviewOverlay');
+    if(!overlay){ URL.revokeObjectURL(objectUrl); state.currentTmAttachmentPreviewObjectUrl=''; return; }
+    const title = d.name || 'PDF đính kèm';
+    overlay.innerHTML = `<div class="tm-attachment-preview-head"><div class="tm-attachment-preview-title">${esc(title)}</div><div class="tm-attachment-preview-head-actions"><a class="tm-attachment-preview-action" href="${escAttr(objectUrl)}" target="_blank" rel="noopener">Mở tab mới</a><a class="tm-attachment-preview-action" href="${escAttr(objectUrl)}" download="${escAttr(title)}">Tải file</a><button class="tm-attachment-preview-close" type="button" onclick="closeTmAttachmentPreview()">×</button></div></div><div class="tm-attachment-preview-body is-pdf"><iframe title="${escAttr(title)}" src="${escAttr(objectUrl)}#toolbar=1&navpanes=0&view=FitH"></iframe></div>`;
+  }catch(e){
+    closeTmAttachmentPreview();
+    toast(e.message || 'Không mở được PDF đính kèm');
+  }
+}
 window.openTmAttachmentFile = async function(fileId){
   try{
-    const res = await api('getTmAttachmentFileBase64', {fileId}, {timeoutMs: 120000});
-    const d = res.data || {};
+    const d = await getTmAttachmentFileCached(fileId);
     if(d.base64) downloadBase64File(d.name || 'tep_dinh_kem', d.mimeType || 'application/octet-stream', d.base64);
   }catch(e){ toast(e.message || 'Không mở được file đính kèm'); }
 }
@@ -18103,22 +18221,19 @@ function renderDsPhieuCard(x){
   const isGiaoBan = x.source === 'GIAO_BAN';
   const completionStatus = x.completionStatus || x.trangThai || STATUS_CHUA;
   const isCompleted = typeof x.isCompleted === 'boolean' ? x.isCompleted : eqText(completionStatus, STATUS_DA);
-  const canViewInDs = typeof x.canViewInDs === 'boolean' ? x.canViewInDs : true;
-  const canEditInDs = typeof x.canEditInDs === 'boolean' ? x.canEditInDs : !!x.canEdit;
+  const canViewInDs = typeof x.canViewInDs === 'boolean' ? x.canViewInDs : isCompleted;
   const pdfBtn = (canViewInDs && !isGiaoBan && !isTdkmm && x.pdfUrl) ? pdfViewButtonHtml(x.pdfUrl, title || x.loaiPhieu || 'PDF', 'Xem PDF') : '';
   let detailBtn = '';
   if(canViewInDs){
     detailBtn = isTdkmm
       ? `<button class="btn secondary" onclick="viewTdkmmFullPdf('${escAttr(x.id)}', this)">Xem phiếu</button>`
       : (isGiaoBan
-          ? (isCompleted
-              ? `<button class="btn secondary js-gb-view-pdf" type="button" data-gb-id="${escAttr(x.id || '')}" data-pdf-title="${escAttr(title || x.loaiPhieu || 'Giao ban')}">Xem phiếu</button>`
-              : `<button class="btn secondary" type="button" onclick="openGiaoBan('${escAttr(x.id || '')}', '', this)">Xem phiếu</button>`)
+          ? `<button class="btn secondary js-gb-view-pdf" type="button" data-gb-id="${escAttr(x.id || '')}" data-pdf-title="${escAttr(title || x.loaiPhieu || 'Giao ban')}">Xem phiếu</button>`
           : (isTm ? `<button class="btn secondary" onclick="openTmPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : (x.source === 'PHIEU' ? `<button class="btn secondary" onclick="openPhieu('${escAttr(x.id)}', this)">Xem phiếu</button>` : '')));
   }
-  const editBtn = isTm && canEditInDs
+  const editBtn = isTm && x.canEdit
     ? `<button class="app-icon-btn" onclick="editTmPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>`
-    : (x.source === 'PHIEU' && canEditInDs ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '');
+    : (x.source === 'PHIEU' && x.canEdit ? `<button class="app-icon-btn" onclick="editPhieu('${escAttr(x.id)}', this)" title="Sửa phiếu" aria-label="Sửa phiếu">${iconEdit()}</button>` : '');
   const deleteBtn = isTm && x.canDelete ? `<button class="app-icon-btn delete" onclick="deleteTmPhieu('${escAttr(x.id)}', this)" title="Xóa phiếu" aria-label="Xóa phiếu">${iconTrash()}</button>` : '';
   const historyBtn = tdkmmPdfHistoryIconHtml(x);
   const bn = dsBnMetaHtml(x);
