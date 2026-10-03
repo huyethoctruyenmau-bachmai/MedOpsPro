@@ -1,4 +1,4 @@
-<!-- VERSION: 423.269 | index: 423 | Code.gs: 269 | INDEX-423.031026-ATTACHMENT-LAZY-CACHE -->
+<!-- VERSION: 424.269 | index: 424 | Code.gs: 269 | INDEX-424.031026-TDKMM-ATTACHMENT-INLINE-MERGE -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -676,7 +676,12 @@
       display:block;width:100%;max-width:980px;height:auto;background:#fff;
       box-shadow:0 1px 8px rgba(15,23,42,.18);border-radius:2px;
     }
-    /* ===== MODULE: CSS_HOP_GIAO_BAN_END ===== */
+
+    .pdf-page-label{
+      width:min(100%,900px);box-sizing:border-box;margin:8px auto 0;padding:7px 10px;
+      background:#fff;border:1px solid #d9dde3;border-bottom:0;font-size:12.5px;font-weight:700;
+      color:#374151;line-height:1.35;
+    }    /* ===== MODULE: CSS_HOP_GIAO_BAN_END ===== */
 
     /* ===== MODULE: CSS_PDF_VIEWER_WATERMARK_START ===== */
     .protected-view{position:relative;user-select:none;-webkit-user-select:none}
@@ -6781,7 +6786,7 @@ window.MedOps = window.MedOps || (() => {
 /* ===== MODULE: JS_MEDOPS_NAMESPACE_END ===== */
 
 // ===== MODULE: JS_CONFIG_STATE_START =====
-const APP_VERSION = 'INDEX-423.031026-ATTACHMENT-LAZY-CACHE';
+const APP_VERSION = 'INDEX-424.031026-TDKMM-ATTACHMENT-INLINE-MERGE';
 const PWA_WINDOW_TITLE = 'MedOps Pro';
 function applyPwaWindowTitle(){
   try { document.title = PWA_WINDOW_TITLE; } catch(e) {}
@@ -10247,7 +10252,7 @@ async function getTmAttachmentFileCached(fileId){
   finally{ tmAttachmentFilePending.delete(id); }
 }
 
-// 423.269: attachment chỉ tải khi người dùng bấm xem. Hàm này chỉ hydrate từ cache,
+// 424.269: attachment chỉ tải khi người dùng bấm xem. Hàm này chỉ hydrate từ cache,
 // tuyệt đối không gọi backend khi form/card vừa render.
 function loadTmAttachmentImages(root=document){
   const scope = root && root.querySelectorAll ? root : document;
@@ -11518,12 +11523,23 @@ async function exportTdkmmPdf(phieuTMID, btn){
     const res = await api('exportTdkmmPdf', {phieuTMID, pdfType}, {timeoutMs: 180000});
     const files = res.data?.files || [];
     if(!files.length) throw new Error('API chưa trả file PDF.');
-    files.forEach((f, idx) => {
-      setTimeout(() => {
-        if(f.base64) downloadBase64File(f.fileName || f.name || 'TDKMM.pdf', f.mimeType || 'application/pdf', f.base64);
-        else if(f.url) window.open(f.url, '_blank');
-      }, idx * 450);
-    });
+    let phieuForAttachments = null;
+    if(files.some(f => normalizeTdkmmPdfChoice_(f.type || f.pdfType || '') === 'PL11')){
+      phieuForAttachments = await getTdkmmPhieuForAttachmentExport_(phieuTMID);
+    }
+    for(let idx = 0; idx < files.length; idx++){
+      const f = files[idx];
+      const choice = normalizeTdkmmPdfChoice_(f.type || f.pdfType || '');
+      if(choice === 'PL11' && f.base64 && phieuForAttachments){
+        const mergedBytes = await mergeTdkmmPl11WithPdfAttachments_(f.base64, phieuForAttachments);
+        triggerPdfDownload(mergedBytes, f.fileName || f.name || 'TDKMM_PL11.pdf');
+      }else if(f.base64){
+        downloadBase64File(f.fileName || f.name || 'TDKMM.pdf', f.mimeType || 'application/pdf', f.base64);
+      }else if(f.url){
+        window.open(f.url, '_blank');
+      }
+      if(idx < files.length - 1) await new Promise(resolve => setTimeout(resolve, 450));
+    }
     closeTdkmmPdfExportDialog();
     toast(files.length > 1 ? 'Đã xuất và tải 2 file PDF.' : 'Đã xuất và tải file PDF.');
     try{ if(document.getElementById('pdfListBox')) await loadDsPhieuList(); }catch(_e){}
@@ -11718,6 +11734,89 @@ function drawTdkmmRasterUserWatermark_(ctx, canvas, text){
   ctx.restore();
 }
 
+
+function tdkmmPdfAttachmentItemsFromPhieu_(phieu){
+  const d = phieu && phieu.data && typeof phieu.data === 'object' ? phieu.data : {};
+  return tmAttachmentItems(d).filter(it => it.fileId && isTmAttachmentPdf(it));
+}
+
+async function loadTdkmmPl11AttachmentsInBackground_(phieuTMID, cache, viewTimeText){
+  if(!cache || cache.loadingPl11Attachments) return;
+  const idx = (cache.sections || []).findIndex(x => normalizeTdkmmPdfChoice_(x.type) === 'PL11');
+  if(idx < 0) return;
+  const current = cache.sections[idx];
+  if(!current || current.attachmentsLoaded) return;
+  const pdfItems = tdkmmPdfAttachmentItemsFromPhieu_(current.phieu || null);
+  if(!pdfItems.length){
+    current.attachmentsLoaded = true;
+    putTdkmmRasterCache_(cache);
+    return;
+  }
+  cache.loadingPl11Attachments = true;
+  try{
+    const appendPages = [];
+    for(let i = 0; i < pdfItems.length; i++){
+      const item = pdfItems[i];
+      const file = await getTmAttachmentFileCached(item.fileId);
+      if(!isTmAttachmentPdf({mimeType:file.mimeType, name:file.name || item.name})) continue;
+      const pages = await pdfPageImagesFromBase64WithTdkmmWatermark(file.base64 || '', viewTimeText, null);
+      pages.forEach((p, pageIndex) => {
+        appendPages.push(Object.assign({}, p, pageIndex === 0 ? {label:`Tài liệu đính kèm: ${file.name || item.name || 'PDF'}`} : {}));
+      });
+    }
+    const fresh = cache.sections[idx] || current;
+    fresh.pages = (Array.isArray(fresh.pages) ? fresh.pages : []).concat(appendPages);
+    fresh.attachmentsLoaded = true;
+    fresh.attachmentPageCount = appendPages.length;
+    cache.sections[idx] = fresh;
+    cache.loadingPl11Attachments = false;
+    putTdkmmRasterCache_(cache);
+    if(state.currentTdkmmRasterCacheKey === cache.cacheKey){
+      state.currentTdkmmPdfSections = cache.sections;
+      refreshTdkmmRasterViewer_();
+    }
+  }catch(err){
+    cache.loadingPl11Attachments = false;
+    const fresh = cache.sections[idx] || current;
+    fresh.attachmentsLoaded = true;
+    fresh.attachmentError = err && err.message ? err.message : 'Không mở được PDF đính kèm.';
+    cache.sections[idx] = fresh;
+    putTdkmmRasterCache_(cache);
+    if(state.currentTdkmmRasterCacheKey === cache.cacheKey && state.currentTdkmmPdfActiveIndex === idx){
+      toast(fresh.attachmentError);
+    }
+  }
+}
+
+async function getTdkmmPhieuForAttachmentExport_(phieuTMID){
+  const id = String(phieuTMID || '').trim();
+  const cachedView = Object.values(state.tdkmmRasterViewCache || {}).find(c => String(c?.phieuTMID || '').trim() === id);
+  const pl11 = cachedView?.sections?.find(sec => normalizeTdkmmPdfChoice_(sec?.type) === 'PL11');
+  if(pl11?.phieu?.data) return pl11.phieu;
+  const listItem = tdkmmListItemForCache_(id);
+  if(listItem?.data && Array.isArray(listItem.data.attachments)) return listItem;
+  const res = await api('getTmPhieuDetail', {phieuTMID:id}, {timeoutMs:60000});
+  return res.data?.phieu || null;
+}
+
+async function mergeTdkmmPl11WithPdfAttachments_(base64, phieu){
+  const items = tdkmmPdfAttachmentItemsFromPhieu_(phieu);
+  if(!items.length) return base64ToUint8Array(base64 || '');
+  const PDFLib = await ensurePdfLibLoaded();
+  const outPdf = await PDFLib.PDFDocument.load(base64ToUint8Array(base64 || ''));
+  for(const item of items){
+    const file = await getTmAttachmentFileCached(item.fileId);
+    try{
+      const srcPdf = await PDFLib.PDFDocument.load(base64ToUint8Array(file.base64 || ''));
+      const copied = await outPdf.copyPages(srcPdf, srcPdf.getPageIndices());
+      copied.forEach(page => outPdf.addPage(page));
+    }catch(err){
+      throw new Error(`Không ghép được PDF đính kèm "${file.name || item.name || 'PDF'}". Vui lòng kiểm tra lại file.`);
+    }
+  }
+  return await outPdf.save({useObjectStreams:true});
+}
+
 async function loadTdkmmRasterPreviewSection_(phieuTMID, pdfType, viewTimeText, onMessage){
   const choice = normalizeTdkmmPdfChoice_(pdfType) === 'PL12' ? 'PL12' : 'PL11';
   if(typeof onMessage === 'function') onMessage(`Đang tạo ${choice} từ mẫu Word...`);
@@ -11793,6 +11892,7 @@ async function viewTdkmmFullPdf(phieuTMID, btn){
         sections: cached.sections
       });
       loadTdkmmPl12InBackground_(phieuTMID, cached, cached.viewTimeText || tdkmmNowHhmmDdmmyyyy());
+      loadTdkmmPl11AttachmentsInBackground_(phieuTMID, cached, cached.viewTimeText || tdkmmNowHhmmDdmmyyyy());
       return;
     }
 
@@ -11827,6 +11927,7 @@ async function viewTdkmmFullPdf(phieuTMID, btn){
       sections: cache.sections
     });
     loadTdkmmPl12InBackground_(phieuTMID, cache, viewTimeText);
+    loadTdkmmPl11AttachmentsInBackground_(phieuTMID, cache, viewTimeText);
   };
   if(btn) return withButton(btn, 'Đang mở...', task);
   try{ await task(); }catch(err){ revokeCurrentPdfObjectUrl(); toast(err.message); }
@@ -20387,7 +20488,11 @@ function setPdfLoadingMessage(message){
 function pdfPageImagesHtml(pageImages){
   const imgs = Array.isArray(pageImages) ? pageImages : [];
   if(!imgs.length) return '';
-  return `<div class="pdf-pages" aria-label="Nội dung PDF">${imgs.map((p, i) => `<img class="pdf-page-img" src="${escAttr(p.dataUrl || p)}" alt="Trang ${i + 1}" loading="eager" decoding="async">`).join('')}</div>`;
+  return `<div class="pdf-pages" aria-label="Nội dung PDF">${imgs.map((p, i) => {
+    const item = (p && typeof p === 'object') ? p : {dataUrl:p};
+    const label = item.label ? `<div class="pdf-page-label">${esc(item.label)}</div>` : '';
+    return `${label}<img class="pdf-page-img" src="${escAttr(item.dataUrl || '')}" alt="Trang ${i + 1}" loading="eager" decoding="async">`;
+  }).join('')}</div>`;
 }
 
 async function ensurePdfLibLoaded(){
